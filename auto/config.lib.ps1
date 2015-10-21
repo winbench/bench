@@ -32,6 +32,11 @@ Set-ConfigValue SvZDir "7z"
 Set-ConfigValue SvZPath "$(Get-ConfigValue SvZDir)"
 Set-ConfigValue SvZExe "$(Get-ConfigValue SvZPath)\7za.exe"
 
+# Less MSIerables
+Set-ConfigValue LessMsiArchive "lessmsi-*.zip"
+Set-ConfigValue LessMsiDir "lessmsi"
+Set-ConfigValue LessMsiExe "$(Get-ConfigValue LessMsiDir)\lessmsi.exe"
+
 #NodeJS
 Set-ConfigValue NodeDir "NodeJS"
 Set-ConfigValue NodePath "$(Get-ConfigValue NodeDir)"
@@ -43,3 +48,9 @@ Set-ConfigValue GitArchive "PortableGit-*-32-bit.7z.exe"
 Set-ConfigValue GitDir "git"
 Set-ConfigValue GitPath "$(Get-ConfigValue GitDir)\bin"
 Set-ConfigValue GitExe "$(Get-ConfigValue GitPath)\git.exe"
+
+# Pandoc
+Set-ConfigValue PandocArchive "pandoc-*-windows.msi"
+Set-ConfigValue PandocDir "pandoc"
+Set-ConfigValue PandocPath "$(Get-ConfigValue PandocDir)"
+Set-ConfigValue PandocExe "$(Get-ConfigValue PandocPath)\pandoc.exe"

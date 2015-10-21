@@ -2,6 +2,8 @@
 
 * [7zip](http://www.7-zip.de/download.html)
   [Direkt Download v9.20](http://7-zip.org/a/7za920.zip)
+* [Less MSIerables](http://lessmsi.activescott.com/)
+  [Direct Download v1.3](https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip)
 * [NodeJS](https://nodejs.org)
   [Direkt Download v4.2.1](https://nodejs.org/dist/v4.2.1/win-x86/node.exe)
 * [NPM](https://nodejs.org)

@@ -1,4 +1,7 @@
 param (
+    $WithNode = $False,
+    $WithNpm = $False,
+    $WithPandoc = $True,
     $WithGit = $False,
     $debug = $True
 )
@@ -68,11 +71,18 @@ function ShellUnzip-Archive($zipFile, $targetDir)
 
 function Unzip-Archive($archive, $targetDir) {
     Debug "Extracting $archive to $targetDir"
-    $7z = "$Script:libDir\$($Script:cfg.SvZExe)"
+    $7z = "$Script:libDir\$(Get-ConfigValue SvZExe)"
     & $7z "x" "-y" "-o$targetDir" "$archive" | Out-Null
     if (!$?) {
         throw "Extracting $archive failed"
     }
+}
+
+function Extract-Msi($archive, $targetDir) {
+    Debug "Extracting MSI $archive to $targetDir"
+    $targetDir = Safe-Dir $targetDir
+    $lessmsi = "$Script:libDir\$(Get-ConfigValue LessMsiExe)"
+    & $lessmsi x "$archive" "$targetDir\"
 }
 
 #
@@ -84,6 +94,12 @@ function Setup-7Zip() {
     $dir = Safe-LibDir SvZDir
     ShellUnzip-Archive $archive $dir
     Register-Path SvZPath
+}
+
+function Setup-LessMsi() {
+    $archive = Find-Download LessMsiArchive
+    $dir = Safe-LibDir LessMsiDir
+    Unzip-Archive $archive $dir
 }
 
 function Setup-NodeJS() {
@@ -113,10 +129,17 @@ function Setup-Git() {
 
 function Setup-Pandoc() {
     $archive = Find-Download PandocArchive
+    $dir = Safe-LibDir PandocDir
+    Extract-Msi $archive $dir
+    Move-Item $dir\SourceDir\Pandoc\* $dir\
+    Remove-Item -Force -Recurse $dir\SourceDir
+    Register-Path PandocPath
 }
 
 Setup-7Zip
-Setup-NodeJS
-Setup-Npm
+Setup-LessMsi
+if ($WithNode) { Setup-NodeJS }
+if ($WithNpm) { Setup-Npm }
+if ($WithPandoc) { Setup-Pandoc }
 if ($WithGit) { Setup-Git }
 Write-EnvironmentFile

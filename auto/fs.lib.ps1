@@ -12,7 +12,7 @@ function Safe-Dir ($dir) {
 function Empty-Dir ($dir) {
     if ([IO.Directory]::Exists($dir)) {
         Debug "Purge Directory $dir"
-        del -Recurse -Force $dir
+        Remove-Item -Recurse -Force $dir
     }
     return Safe-Dir $dir
 }
