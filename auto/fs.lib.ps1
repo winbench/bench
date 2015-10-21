@@ -1,9 +1,15 @@
 ﻿$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$myDir\common.lib.ps1"
 
+function Reset-ACLs($dir) {
+    Debug "Reseting ACLs for $dir"
+    icacls "$dir" /T /C /RESET
+}
+
 function Purge-Dir ($dir) {
     if ([IO.Directory]::Exists($dir)) {
         Debug "Purge Directory $dir"
+        # Reset-ACLs $dir
         [IO.Directory]::Delete($dir, $True)
     }
 }
