@@ -37,7 +37,7 @@ Set-ConfigValue LessMsiArchive "lessmsi-*.zip"
 Set-ConfigValue LessMsiDir "lessmsi"
 Set-ConfigValue LessMsiExe "$(Get-ConfigValue LessMsiDir)\lessmsi.exe"
 
-#NodeJS
+# NodeJS
 Set-ConfigValue NodeDir "NodeJS"
 Set-ConfigValue NodePath "$(Get-ConfigValue NodeDir)"
 Set-ConfigValue NodeExe "node.exe"
@@ -55,8 +55,19 @@ Set-ConfigValue PandocDir "pandoc"
 Set-ConfigValue PandocPath "$(Get-ConfigValue PandocDir)"
 Set-ConfigValue PandocExe "$(Get-ConfigValue PandocPath)\pandoc.exe"
 
-#GraphViz
+# GraphViz
 Set-ConfigValue GraphVizArchive "graphviz-*.zip"
 Set-ConfigValue GraphVizDir "graphviz"
 Set-ConfigValue GraphVizPath "$(Get-ConfigValue GraphVizDir)\release\bin"
 Set-ConfigValue GraphVizExe "$(Get-ConfigValue GraphVizPath)\dot.exe"
+
+# Inkscape
+Set-ConfigValue InkscapeArchive "Inkscape-*-win32.7z"
+Set-ConfigValue InkscapeDir "inkscape"
+Set-ConfigValue InkscapePath "$(Get-ConfigValue InkscapeDir)"
+Set-ConfigValue InkscapeExe "$(Get-ConfigValue InkscapePath)\inkscape.exe"
+
+# MikTeX
+Set-ConfigValue MikTeXArchive "miktex-portable-*.exe"
+Set-ConfigValue MikTeXDir "miktex"
+Set-ConfigValue MikTeXPath "$(Get-ConfigValue MikTeXDir)\bin"

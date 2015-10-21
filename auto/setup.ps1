@@ -2,10 +2,14 @@ param (
     $WithNode = $False,
     $WithNpm = $False,
     $WithPandoc = $False,
-    $WithGraphViz = $True,
+    $WithGraphViz = $False,
+    $WithInkscape = $False,
+    $WithMikteX = $True,
     $WithGit = $False,
     $debug = $True
 )
+
+$ErrorActionPreference = "Stop"
 
 $autoDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$autoDir\common.lib.ps1"
@@ -20,6 +24,9 @@ $libDir = Empty-Dir "$rootDir\$(Get-ConfigValue LibDir)"
 $homeDir = Safe-Dir "$rootDir\$(Get-ConfigValue HomeDir)"
 $appDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue AppDataDir)"
 $localAppDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue LocalAppDataDir)"
+
+if (!(test-Path $downloadDir)) { return }
+if (!(Test-Path $libDir)) { return }
 
 function Register-Path($cfgName) {
     $Script:pathCfgNames += $cfgName
@@ -144,11 +151,29 @@ function Setup-GraphViz() {
     Register-Path GraphVizPath
 }
 
+function Setup-Inkscape() {
+    $archive = Find-Download InkscapeArchive
+    $dir = Safe-LibDir InkscapeDir
+    Unzip-Archive $archive $dir
+    Move-Item $dir\inkscape\* $dir\
+    Remove-Item -Force $dir\inkscape
+    Register-Path InkscapePath
+}
+
+function Setup-MikTeX() {
+    $archive = Find-Download MikTeXArchive
+    $dir = Safe-LibDir MikTeXDir
+    Unzip-Archive $archive $dir
+    Register-Path MikTeXPath
+}
+
 Setup-7Zip
 Setup-LessMsi
 if ($WithNode) { Setup-NodeJS }
 if ($WithNpm) { Setup-Npm }
 if ($WithPandoc) { Setup-Pandoc }
 if ($WithGraphViz) { Setup-GraphViz }
+if ($WithInkscape) { Setup-Inkscape }
+if ($WithMikteX) { Setup-MikTeX }
 if ($WithGit) { Setup-Git }
 Write-EnvironmentFile
