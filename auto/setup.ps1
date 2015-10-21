@@ -1,7 +1,8 @@
 param (
     $WithNode = $False,
     $WithNpm = $False,
-    $WithPandoc = $True,
+    $WithPandoc = $False,
+    $WithGraphViz = $True,
     $WithGit = $False,
     $debug = $True
 )
@@ -27,7 +28,7 @@ function Register-Path($cfgName) {
 
 function Write-EnvironmentFile() {
     $envFile = "$autoDir\env.cmd"
-    $txt = "REM --- MD Bench Environment Setup ---`n`n"
+    $txt = "REM **** MD Bench Environment Setup ****`n`n"
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
     $homePath = $h.Substring($h.IndexOf("\"))
@@ -136,10 +137,18 @@ function Setup-Pandoc() {
     Register-Path PandocPath
 }
 
+function Setup-GraphViz() {
+    $archive = Find-Download GraphVizArchive
+    $dir = Safe-LibDir GraphVizDir
+    Unzip-Archive $archive $dir
+    Register-Path GraphVizPath
+}
+
 Setup-7Zip
 Setup-LessMsi
 if ($WithNode) { Setup-NodeJS }
 if ($WithNpm) { Setup-Npm }
 if ($WithPandoc) { Setup-Pandoc }
+if ($WithGraphViz) { Setup-GraphViz }
 if ($WithGit) { Setup-Git }
 Write-EnvironmentFile

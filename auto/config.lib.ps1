@@ -54,3 +54,9 @@ Set-ConfigValue PandocArchive "pandoc-*-windows.msi"
 Set-ConfigValue PandocDir "pandoc"
 Set-ConfigValue PandocPath "$(Get-ConfigValue PandocDir)"
 Set-ConfigValue PandocExe "$(Get-ConfigValue PandocPath)\pandoc.exe"
+
+#GraphViz
+Set-ConfigValue GraphVizArchive "graphviz-*.zip"
+Set-ConfigValue GraphVizDir "graphviz"
+Set-ConfigValue GraphVizPath "$(Get-ConfigValue GraphVizDir)\release\bin"
+Set-ConfigValue GraphVizExe "$(Get-ConfigValue GraphVizPath)\dot.exe"
