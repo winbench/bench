@@ -2,15 +2,15 @@
 . "$myDir\common.lib.ps1"
 
 function Safe-Dir ($dir) {
-    if (![IO.Directory]::Exists($dir)) {
+    if (!(Test-Path "$dir\")) {
         Debug "Creating Directory: $dir"
-        $_ = [IO.Directory]::CreateDirectory($dir)
+        $_ = New-Item -ItemType Directory $dir
     }
     return $(Resolve-Path $dir).Path
 }
 
 function Empty-Dir ($dir) {
-    if ([IO.Directory]::Exists($dir)) {
+    if (Test-Path "$dir\") {
         Debug "Purge Directory $dir"
         Remove-Item -Recurse -Force $dir
     }

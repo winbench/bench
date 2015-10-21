@@ -1,11 +1,15 @@
 param (
-    $WithNode = $False,
-    $WithNpm = $False,
-    $WithPandoc = $False,
-    $WithGraphViz = $False,
-    $WithInkscape = $False,
+    $WithNode = $True,
+    $WithNpm = $True,
+    $WithGulp = $True,
+    $WithPython = $True,
+    $WithPandoc = $True,
+    $WithGraphViz = $True,
+    $WithInkscape = $True,
     $WithMikteX = $True,
-    $WithGit = $False,
+    $WithVSCode = $True,
+    $WithGit = $True,
+    $clean = $True,
     $debug = $True
 )
 
@@ -20,7 +24,12 @@ $winShell = New-Object -ComObject Shell.Application
 $pathCfgNames = @()
 $rootDir = Resolve-Path "$autoDir\.."
 $downloadDir = Resolve-Path "$rootDir\$(Get-ConfigValue DownloadDir)"
-$libDir = Empty-Dir "$rootDir\$(Get-ConfigValue LibDir)"
+$libDir = "$rootDir\$(Get-ConfigValue LibDir)"
+if ($clean) {
+    $libDir = Empty-Dir $libDir
+} else {
+    $libDir = Safe-Dir $libDir
+}
 $homeDir = Safe-Dir "$rootDir\$(Get-ConfigValue HomeDir)"
 $appDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue AppDataDir)"
 $localAppDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue LocalAppDataDir)"
@@ -30,23 +39,34 @@ if (!(Test-Path $libDir)) { return }
 
 function Register-Path($cfgName) {
     $Script:pathCfgNames += $cfgName
-    Debug "Registered Path: $cfgName -> $($Script:libDir)\$(Get-ConfigValue $cfgName)"
+    Debug "Registered Path: $cfgName -> ${Script:libDir}\$(Get-ConfigValue $cfgName)"
+}
+
+function Load-Environment() {
+    [string]$h = $Script:homeDir
+    $homeDrive = $h.Substring(0, $h.IndexOf("\"))
+    $homePath = $h.Substring($h.IndexOf("\"))
+    $env:USERPROFILE = $h
+    $env:HOMEDRIVE = $homeDrive
+    $env:HOMEPATH = $homePath
+    $env:APPDATA = $Script:appDataDir
+    $env:LOCALAPPDATA = $Script:localAppDataDir
 }
 
 function Write-EnvironmentFile() {
     $envFile = "$autoDir\env.cmd"
-    $txt = "REM **** MD Bench Environment Setup ****`n`n"
+    $txt = "REM **** MD Bench Environment Setup ****`r`n`r`n"
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
     $homePath = $h.Substring($h.IndexOf("\"))
-    $txt += "SET USERPROFILE=$h`n"
-    $txt += "SET HOMEDRIVE=$homeDrive`n"
-    $txt += "SET HOMEPATH=$homePath`n"
-    $txt += "SET APPDATA=$($Script:appDataDir)`n"
-    $txt += "SET LOCALAPPDATA=$($Script:localAppDataDir)`n"
+    $txt += "SET USERPROFILE=$h`r`n"
+    $txt += "SET HOMEDRIVE=$homeDrive`r`n"
+    $txt += "SET HOMEPATH=$homePath`r`n"
+    $txt += "SET APPDATA=${Script:appDataDir}`r`n"
+    $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}`r`n"
     $txt += "SET PATH=%SystemRoot%;%SystemRoot%\System32"
     foreach ($cfgValue in $Script:pathCfgNames) {
-        $txt += ";$($Script:libDir)\$(Get-ConfigValue $cfgValue)"
+        $txt += ";${Script:libDir}\$(Get-ConfigValue $cfgValue)"
     }
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
@@ -67,6 +87,10 @@ function Find-Download($cfgName) {
     return $path
 }
 
+function Get-Exe($name) {
+    return "${Script:libDir}\$(Get-ConfigValue "${name}Exe")"
+}
+
 function ShellUnzip-Archive($zipFile, $targetDir)
 {
     Debug "Extracting (Shell) $zipFile to $targetDir"
@@ -79,7 +103,7 @@ function ShellUnzip-Archive($zipFile, $targetDir)
 
 function Unzip-Archive($archive, $targetDir) {
     Debug "Extracting $archive to $targetDir"
-    $7z = "$Script:libDir\$(Get-ConfigValue SvZExe)"
+    $7z = Get-Exe SvZ
     & $7z "x" "-y" "-o$targetDir" "$archive" | Out-Null
     if (!$?) {
         throw "Extracting $archive failed"
@@ -89,8 +113,27 @@ function Unzip-Archive($archive, $targetDir) {
 function Extract-Msi($archive, $targetDir) {
     Debug "Extracting MSI $archive to $targetDir"
     $targetDir = Safe-Dir $targetDir
-    $lessmsi = "$Script:libDir\$(Get-ConfigValue LessMsiExe)"
+    $lessmsi = Get-Exe LessMsi
     & $lessmsi x "$archive" "$targetDir\"
+}
+
+function Default-Setup($name, $extractMode = "zip",  $registerPath = $True) {
+    if ($extractMode -eq "copy") {
+        $src = Find-Download "${name}Download"
+    } else {
+        $src = Find-Download "${name}Archive"
+    }
+    $dir = Safe-LibDir "${name}Dir"
+    switch ($extractMode) {
+        "copy" { Copy-item $src $dir }
+        "zip" { Unzip-Archive $src $dir }
+        "shellzip" { ShellUnzip-Archive $src $dir }
+        "msi" { Extract-Msi $src $dir }
+        default { throw "Invalid extraction mode: $extractMode" }
+    }
+    if ($registerPath) {
+        Register-Path "${name}Path"
+    }
 }
 
 #
@@ -98,82 +141,87 @@ function Extract-Msi($archive, $targetDir) {
 #
 
 function Setup-7Zip() {
-    $archive = Find-Download SvZArchive
-    $dir = Safe-LibDir SvZDir
-    ShellUnzip-Archive $archive $dir
-    Register-Path SvZPath
+    Default-Setup SvZ -extractMode shellzip
 }
 
 function Setup-LessMsi() {
-    $archive = Find-Download LessMsiArchive
-    $dir = Safe-LibDir LessMsiDir
-    Unzip-Archive $archive $dir
+    Default-Setup LessMsi -registerPath $False
 }
 
 function Setup-NodeJS() {
-    $nodeExe = Find-Download NodeExe
-    $dir = Safe-LibDir NodeDir
-    Copy-Item $nodeExe $dir
-    Register-Path NodePath
+    Default-Setup Node -extractMode copy
 }
 
 function Setup-Npm() {
-    $archive = Find-Download NpmArchive
-    $dir = Safe-LibDir NodeDir
-    Unzip-Archive $archive $dir
+    Default-Setup Npm -registerPath $False
+
+    $npm = Get-Exe Npm
+    & $npm config set registry "http://registry.npmjs.org/"
+    if (Get-ConfigValue UseProxy) {
+        & $npm config set "proxy" "http://$(Get-ConfigValue HttpProxy)/"
+        & $npm config set "https-proxy" "http://$(Get-ConfigValue HttpsProxy)/"
+    }
+}
+
+function Setup-Gulp() {
+    $npm = Get-Exe Npm
+    & $npm install gulp --global
+}
+
+function Setup-Python() {
+    Default-Setup Python
 }
 
 function Setup-Git() {
-    $archive = Find-Download GitArchive
+    Default-Setup Git
+
     $dir = Safe-LibDir GitDir
-    Unzip-Archive $archive $dir
     Push-Location $dir
         Write-Output "Running post-install for Git..."
         cmd /C post-install.bat
         Write-Output "Finished post-install for Git"
     Pop-Location
-    Register-Path GitPath
 }
 
 function Setup-Pandoc() {
-    $archive = Find-Download PandocArchive
+    Default-Setup pandoc -extractMode "msi"
+
     $dir = Safe-LibDir PandocDir
-    Extract-Msi $archive $dir
     Move-Item $dir\SourceDir\Pandoc\* $dir\
     Remove-Item -Force -Recurse $dir\SourceDir
-    Register-Path PandocPath
 }
 
 function Setup-GraphViz() {
-    $archive = Find-Download GraphVizArchive
-    $dir = Safe-LibDir GraphVizDir
-    Unzip-Archive $archive $dir
-    Register-Path GraphVizPath
+    Default-Setup GraphViz
 }
 
 function Setup-Inkscape() {
-    $archive = Find-Download InkscapeArchive
+    Default-Setup Inkscape
+
     $dir = Safe-LibDir InkscapeDir
-    Unzip-Archive $archive $dir
     Move-Item $dir\inkscape\* $dir\
     Remove-Item -Force $dir\inkscape
-    Register-Path InkscapePath
 }
 
 function Setup-MikTeX() {
-    $archive = Find-Download MikTeXArchive
-    $dir = Safe-LibDir MikTeXDir
-    Unzip-Archive $archive $dir
-    Register-Path MikTeXPath
+    Default-Setup MikTeX
 }
 
+function Setup-VSCode() {
+    Default-Setup VSCode
+}
+
+Load-Environment
 Setup-7Zip
 Setup-LessMsi
 if ($WithNode) { Setup-NodeJS }
 if ($WithNpm) { Setup-Npm }
+if ($WithGulp) { Setup-Gulp }
+if ($WithPython) { Setup-Python }
 if ($WithPandoc) { Setup-Pandoc }
 if ($WithGraphViz) { Setup-GraphViz }
 if ($WithInkscape) { Setup-Inkscape }
 if ($WithMikteX) { Setup-MikTeX }
+if ($WithVSCode) { Setup-VSCode }
 if ($WithGit) { Setup-Git }
 Write-EnvironmentFile

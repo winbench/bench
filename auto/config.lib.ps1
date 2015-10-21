@@ -25,6 +25,9 @@ Set-ConfigValue LibDir "lib"
 Set-ConfigValue HomeDir "home"
 Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData"
 Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\LocalAppData"
+Set-ConfigValue UseProxy $True
+Set-ConfigValue HttpProxy "10.132.192.83:3129"
+Set-ConfigValue HttpsProxy "10.132.192.83:3129"
 
 # 7Zip
 Set-ConfigValue SvZArchive "7za*.zip"
@@ -38,10 +41,20 @@ Set-ConfigValue LessMsiDir "lessmsi"
 Set-ConfigValue LessMsiExe "$(Get-ConfigValue LessMsiDir)\lessmsi.exe"
 
 # NodeJS
+Set-ConfigValue NodeDownload "node.exe"
 Set-ConfigValue NodeDir "NodeJS"
 Set-ConfigValue NodePath "$(Get-ConfigValue NodeDir)"
-Set-ConfigValue NodeExe "node.exe"
+Set-ConfigValue NodeExe "$(Get-ConfigValue NodePath)\node.exe"
 Set-ConfigValue NpmArchive "npm-*.zip"
+Set-ConfigValue NpmDir "$(Get-ConfigValue NodeDir)"
+Set-ConfigValue NpmPath "$(Get-ConfigValue NpmDir)"
+Set-ConfigValue NpmExe "$(Get-ConfigValue NpmPath)\npm.cmd"
+
+# Python
+Set-ConfigValue PythonArchive "python-3.*-embed-win32.zip"
+Set-ConfigValue PythonDir "python35"
+Set-ConfigValue PythonPath "$(Get-ConfigValue PythonDir)"
+Set-ConfigValue PythonExe "$(Get-ConfigValue PythonPath)\python.exe"
 
 # Git
 Set-ConfigValue GitArchive "PortableGit-*-32-bit.7z.exe"
@@ -70,4 +83,10 @@ Set-ConfigValue InkscapeExe "$(Get-ConfigValue InkscapePath)\inkscape.exe"
 # MikTeX
 Set-ConfigValue MikTeXArchive "miktex-portable-*.exe"
 Set-ConfigValue MikTeXDir "miktex"
-Set-ConfigValue MikTeXPath "$(Get-ConfigValue MikTeXDir)\bin"
+Set-ConfigValue MikTeXPath "$(Get-ConfigValue MikTeXDir)\miktex\bin"
+
+# Visual Studio Code
+Set-ConfigValue VSCodeArchive "VSCode-win32.zip"
+Set-ConfigValue VSCodeDir "code"
+Set-ConfigValue VSCodePath "$(Get-ConfigValue VSCodeDir)"
+Set-ConfigValue VSCodeExe "$(Get-ConfigValue VSCodePath)\code.exe"
