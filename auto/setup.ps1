@@ -1,28 +1,23 @@
 param (
-    $WithNode = $True,
-    $WithNpm = $True,
-    $WithGulp = $True,
-    $WithPython = $True,
-    $WithPandoc = $True,
-    $WithGraphViz = $True,
-    $WithInkscape = $True,
-    $WithMikteX = $True,
-    $WithVSCode = $True,
-    $WithGit = $True,
-    $clean = $True,
-    $debug = $True
+    $clean = $true,
+    [switch]$debug
 )
-
-$ErrorActionPreference = "Stop"
 
 $autoDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$autoDir\common.lib.ps1"
 . "$autoDir\config.lib.ps1"
 . "$autoDir\fs.lib.ps1"
 
+Set-Debugging $debug
+$_ = Set-StopOnError $true
+
+$apps = Get-ConfigValue Apps
+
 $winShell = New-Object -ComObject Shell.Application
-$pathCfgNames = @()
+
+$paths = @()
 $rootDir = Resolve-Path "$autoDir\.."
+$tmpDir = Empty-Dir "$rootDir\$(Get-ConfigValue TempDir)"
 $downloadDir = Resolve-Path "$rootDir\$(Get-ConfigValue DownloadDir)"
 $libDir = "$rootDir\$(Get-ConfigValue LibDir)"
 if ($clean) {
@@ -37,9 +32,11 @@ $localAppDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue LocalAppDataDir)"
 if (!(test-Path $downloadDir)) { return }
 if (!(Test-Path $libDir)) { return }
 
-function Register-Path($cfgName) {
-    $Script:pathCfgNames += $cfgName
-    Debug "Registered Path: $cfgName -> ${Script:libDir}\$(Get-ConfigValue $cfgName)"
+function Register-Path($path) {
+    if (!($Script:paths -contains $path)) {
+        $Script:paths += $path
+        Debug "Registered Path: $path"
+    }
 }
 
 function Load-Environment() {
@@ -65,19 +62,39 @@ function Write-EnvironmentFile() {
     $txt += "SET APPDATA=${Script:appDataDir}`r`n"
     $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}`r`n"
     $txt += "SET PATH=%SystemRoot%;%SystemRoot%\System32"
-    foreach ($cfgValue in $Script:pathCfgNames) {
-        $txt += ";${Script:libDir}\$(Get-ConfigValue $cfgValue)"
+    foreach ($path in $Script:paths) {
+        $txt += ";$path"
     }
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
 }
 
-function Safe-LibDir($cfgName) {
-    return Safe-Dir "$Script:libDir\$(Get-ConfigValue $cfgName)"
+function App-Archive($name) { return Get-ConfigValue "${name}Archive" }
+function App-ArchiveSubDir($name) { return Get-ConfigValue "${name}ArchiveSubDir" }
+function App-Download($name) { return Get-ConfigValue "${name}Download" }
+function App-Dir($name) {
+    return [IO.Path]::Combine(
+        $Script:libDir,
+        (Get-ConfigValue "${name}Dir" $name.ToLowerInvariant())) 
 }
+function App-Path($name) { 
+    return [IO.Path]::Combine(
+        (App-Dir $name),
+        (Get-ConfigValue "${name}Path" ""))
+}
+function App-Exe($name, $checkExist = $true) {
+    $path = [IO.Path]::Combine(
+        (App-Path $name),
+        (Get-ConfigValue "${name}Exe" "${name}.exe"))
+    if ($checkExist -and ![IO.file]::Exists($path)) {
+        return $null
+    } else {
+        return $path
+    }
+}
+function App-Register($name) { return Get-ConfigValue "${name}Register" $true }
 
-function Find-Download($cfgName) {
-    $pattern = Get-ConfigValue $cfgName
+function Find-Download($pattern) {
     $path = Find-File $Script:downloadDir $pattern
     if (!$path) {
         throw "Download not found: $pattern"
@@ -87,52 +104,78 @@ function Find-Download($cfgName) {
     return $path
 }
 
-function Get-Exe($name) {
-    return "${Script:libDir}\$(Get-ConfigValue "${name}Exe")"
-}
-
 function ShellUnzip-Archive($zipFile, $targetDir)
 {
     Debug "Extracting (Shell) $zipFile to $targetDir"
-    $zip = $Script:winShell.NameSpace($zipFile)
+    $zip = ${Script:winShell}.NameSpace($zipFile)
+    if (!$zip) {
+        throw "Invalid ZIP file: $zipFile"
+    }
     foreach($item in $zip.items())
     {
         $Script:winShell.Namespace($targetDir).copyhere($item)
     }
 }
 
-function Unzip-Archive($archive, $targetDir) {
-    Debug "Extracting $archive to $targetDir"
-    $7z = Get-Exe SvZ
-    & $7z "x" "-y" "-o$targetDir" "$archive" | Out-Null
-    if (!$?) {
-        throw "Extracting $archive failed"
+function Extract-Archive($archive, $targetDir) {
+    $7z = App-Exe SvZ
+    if ($7z) {
+        Debug "Extracting $archive to $targetDir"
+        & $7z "x" "-y" "-o$targetDir" "$archive" | Out-Null
+        if (!$?) {
+            throw "Extracting $archive failed"
+        }
+    } else {
+        ShellUnzip-Archive $archive $targetDir
     }
 }
 
 function Extract-Msi($archive, $targetDir) {
     Debug "Extracting MSI $archive to $targetDir"
     $targetDir = Safe-Dir $targetDir
-    $lessmsi = Get-Exe LessMsi
-    & $lessmsi x "$archive" "$targetDir\"
+    $lessmsi = App-Exe LessMsi
+    if ($lessmsi) {
+        & $lessmsi x "$archive" "$targetDir\"
+        if (!$?) {
+            throw "Extracting $archive failed"
+        }
+    } else {
+        throw "Missing LessMsi for MSI extraction"
+    }
 }
 
-function Default-Setup($name, $extractMode = "zip",  $registerPath = $True) {
-    if ($extractMode -eq "copy") {
-        $src = Find-Download "${name}Download"
+function Default-Setup([string]$name, [bool]$registerPath = $true) {
+    if (App-Download $name) {
+        $src = Find-Download (App-Download $name)
+        $mode = "copy"
+        $subDir = $null
     } else {
-        $src = Find-Download "${name}Archive"
+        [string]$src = Find-Download (App-Archive $name)
+        if ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
+            $mode = "msi"
+        } else {
+            $mode = "arch"
+        }
+        $subDir = App-ArchiveSubDir $name
     }
-    $dir = Safe-LibDir "${name}Dir"
-    switch ($extractMode) {
-        "copy" { Copy-item $src $dir }
-        "zip" { Unzip-Archive $src $dir }
-        "shellzip" { ShellUnzip-Archive $src $dir }
-        "msi" { Extract-Msi $src $dir }
-        default { throw "Invalid extraction mode: $extractMode" }
+
+    $dir = Safe-Dir (App-Dir $name)
+    if ($subDir) {
+        $target = "$Script:tmpDir\tmp"
+    } else {
+        $target = $dir
     }
-    if ($registerPath) {
-        Register-Path "${name}Path"
+    switch ($mode) {
+        "copy" { Copy-item $src $target }
+        "arch" { Extract-Archive $src $target }
+        "msi" { Extract-Msi $src $target }
+    }
+    if ($subDir) {
+        Move-Item "$target\$subDir\*" "$dir\"
+        Purge-Dir $target
+    }
+    if (App-Register $name) {
+        Register-Path (App-Path $name)
     }
 }
 
@@ -141,30 +184,35 @@ function Default-Setup($name, $extractMode = "zip",  $registerPath = $True) {
 #
 
 function Setup-7Zip() {
-    Default-Setup SvZ -extractMode shellzip
+    Default-Setup SvZ
 }
 
 function Setup-LessMsi() {
-    Default-Setup LessMsi -registerPath $False
+    Default-Setup LessMsi
 }
 
 function Setup-NodeJS() {
-    Default-Setup Node -extractMode copy
+    Default-Setup Node
 }
 
 function Setup-Npm() {
-    Default-Setup Npm -registerPath $False
+    Default-Setup Npm
 
-    $npm = Get-Exe Npm
+    $npm = App-Exe Npm
+    if (!$npm) { throw "Node Package Manager not found" }
     & $npm config set registry "http://registry.npmjs.org/"
     if (Get-ConfigValue UseProxy) {
         & $npm config set "proxy" "http://$(Get-ConfigValue HttpProxy)/"
         & $npm config set "https-proxy" "http://$(Get-ConfigValue HttpsProxy)/"
+    } else {
+        & $npm config delete "proxy"
+        & $npm config delete "https-proxy"
     }
 }
 
 function Setup-Gulp() {
-    $npm = Get-Exe Npm
+    $npm = App-Exe Npm
+    if (!$npm) { throw "Node Package Manager not found" }
     & $npm install gulp --global
 }
 
@@ -175,23 +223,18 @@ function Setup-Python() {
 function Setup-Git() {
     Default-Setup Git
 
-    $dir = Safe-LibDir GitDir
-    Push-Location $dir
-        Write-Output "Running post-install for Git..."
-        $TmpEAP = $ErrorActionPreference
-        $ErrorActionPreference = "SilentlyContinue"
-        cmd /C post-install.bat | Out-Null
-        $ErrorActionPreference = $TmpEAP
-        Write-Output "Finished post-install for Git"
-    Pop-Location
+    #$dir = App-Dir Git
+    #Push-Location $dir
+    #    Write-Output "Running post-install for Git..."
+    #    $old = Set-StopOnError $false
+    #    cmd /C post-install.bat
+    #    Set-StopOnError $old
+    #    Write-Output "Finished post-install for Git"
+    #Pop-Location
 }
 
 function Setup-Pandoc() {
-    Default-Setup pandoc -extractMode "msi"
-
-    $dir = Safe-LibDir PandocDir
-    Move-Item $dir\SourceDir\Pandoc\* $dir\
-    Remove-Item -Force -Recurse $dir\SourceDir
+    Default-Setup pandoc
 }
 
 function Setup-GraphViz() {
@@ -200,10 +243,6 @@ function Setup-GraphViz() {
 
 function Setup-Inkscape() {
     Default-Setup Inkscape
-
-    $dir = Safe-LibDir InkscapeDir
-    Move-Item $dir\inkscape\* $dir\
-    Remove-Item -Force $dir\inkscape
 }
 
 function Setup-MikTeX() {
@@ -217,14 +256,16 @@ function Setup-VSCode() {
 Load-Environment
 Setup-7Zip
 Setup-LessMsi
-if ($WithNode) { Setup-NodeJS }
-if ($WithNpm) { Setup-Npm }
-if ($WithGulp) { Setup-Gulp }
-if ($WithPython) { Setup-Python }
-if ($WithPandoc) { Setup-Pandoc }
-if ($WithGraphViz) { Setup-GraphViz }
-if ($WithInkscape) { Setup-Inkscape }
-if ($WithMikteX) { Setup-MikTeX }
-if ($WithVSCode) { Setup-VSCode }
-if ($WithGit) { Setup-Git }
+if ($apps -contains "Node") { Setup-NodeJS }
+if ($apps -contains "Npm") { Setup-Npm }
+if ($apps -contains "Gulp") { Setup-Gulp }
+if ($apps -contains "Python") { Setup-Python }
+if ($apps -contains "Pandoc") { Setup-Pandoc }
+if ($apps -contains "GraphViz") { Setup-GraphViz }
+if ($apps -contains "Inkscape") { Setup-Inkscape }
+if ($apps -contains "MikteX") { Setup-MikTeX }
+if ($apps -contains "VSCode") { Setup-VSCode }
+if ($apps -contains "Git") { Setup-Git }
 Write-EnvironmentFile
+
+Purge-Dir $tmpDir
