@@ -178,7 +178,10 @@ function Setup-Git() {
     $dir = Safe-LibDir GitDir
     Push-Location $dir
         Write-Output "Running post-install for Git..."
-        cmd /C post-install.bat
+        $TmpEAP = $ErrorActionPreference
+        $ErrorActionPreference = "SilentlyContinue"
+        cmd /C post-install.bat | Out-Null
+        $ErrorActionPreference = $TmpEAP
         Write-Output "Finished post-install for Git"
     Pop-Location
 }
