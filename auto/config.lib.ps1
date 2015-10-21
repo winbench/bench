@@ -42,7 +42,7 @@ Set-ConfigValue Apps @(
     "Pandoc",
     "GraphViz",
     "Inkscape",
-#    "MikTeX",
+    "MikTeX",
     "VSCode"
 )
 
@@ -80,8 +80,11 @@ Set-ConfigValue NpmDir "$(Get-ConfigValue NodeDir)"
 Set-ConfigValue NpmExe "npm.cmd"
 
 # Python
-Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.5.0/python-3.5.0-embed-win32.zip"
-Set-ConfigValue PythonArchive "python-3.*-embed-win32.zip"
+Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.2/python-3.4.2.msi"
+Set-ConfigValue PythonArchive "python-3.*.msi"
+Set-ConfigValue PythonArchiveSubDir "SourceDir"
+#Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.0/python-3.5.0-embed-win32.zip"
+#Set-ConfigValue PythonArchive "python-3.*-embed-win32.zip"
 Set-ConfigValue PythonExe "python.exe"
 
 # Git
@@ -110,8 +113,9 @@ Set-ConfigValue InkscapeExe "inkscape.exe"
 
 # MikTeX
 Set-ConfigValue MikTeXUrl "http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe"
-Set-ConfigValue MikTeXArchive "miktex-portable-*.exe"
+Set-ConfigValue MikTeXArchive "miktex-portable-2.*.exe"
 Set-ConfigValue MikTeXPath "miktex\bin"
+Set-ConfigValue MikTeXExe "latex.exe"
 
 # Visual Studio Code
 Set-ConfigValue VSCodeUrl "http://go.microsoft.com/fwlink/?LinkID=623231"

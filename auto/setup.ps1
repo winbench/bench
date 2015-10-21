@@ -1,7 +1,4 @@
-param (
-    $clean = $true,
-    [switch]$debug
-)
+param ([switch]$debug)
 
 $autoDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$autoDir\common.lib.ps1"
@@ -19,12 +16,7 @@ $paths = @()
 $rootDir = Resolve-Path "$autoDir\.."
 $tmpDir = Empty-Dir "$rootDir\$(Get-ConfigValue TempDir)"
 $downloadDir = Resolve-Path "$rootDir\$(Get-ConfigValue DownloadDir)"
-$libDir = "$rootDir\$(Get-ConfigValue LibDir)"
-if ($clean) {
-    $libDir = Empty-Dir $libDir
-} else {
-    $libDir = Safe-Dir $libDir
-}
+$libDir = Safe-Dir "$rootDir\$(Get-ConfigValue LibDir)"
 $homeDir = Safe-Dir "$rootDir\$(Get-ConfigValue HomeDir)"
 $appDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue AppDataDir)"
 $localAppDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue LocalAppDataDir)"
@@ -61,10 +53,12 @@ function Write-EnvironmentFile() {
     $txt += "SET HOMEPATH=$homePath`r`n"
     $txt += "SET APPDATA=${Script:appDataDir}`r`n"
     $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}`r`n"
-    $txt += "SET PATH=%SystemRoot%;%SystemRoot%\System32"
+    $txt += "SET BENCH_PATH=${Script:autoDir}"
     foreach ($path in $Script:paths) {
         $txt += ";$path"
     }
+    $txt += "`r`n"
+    $txt += "SET PATH=%BENCH_PATH%;%PATH%`r`n"
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
 }
@@ -111,14 +105,19 @@ function ShellUnzip-Archive($zipFile, $targetDir)
     if (!$zip) {
         throw "Invalid ZIP file: $zipFile"
     }
+    $trg = ${Script:winShell}.NameSpace($targetDir)
+    if (!$trg) {
+        throw "Invalid target directory: $targetDir"
+    }
     foreach($item in $zip.items())
     {
-        $Script:winShell.Namespace($targetDir).copyhere($item)
+        $trg.copyhere($item)
     }
 }
 
 function Extract-Archive($archive, $targetDir) {
     $7z = App-Exe SvZ
+    $targetDir = Safe-Dir $targetDir
     if ($7z) {
         Debug "Extracting $archive to $targetDir"
         & $7z "x" "-y" "-o$targetDir" "$archive" | Out-Null
@@ -159,9 +158,18 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
         $subDir = App-ArchiveSubDir $name
     }
 
-    $dir = Safe-Dir (App-Dir $name)
+    if (App-Register $name) {
+        Register-Path (App-Path $name)
+    }
+
+    $dir = App-Dir $name
+    if ([IO.File]::Exists((App-Exe $name))) {
+        Write-Host "Skipping allready installed $name in $dir"
+        return
+    }
+    $dir = Safe-Dir $dir
     if ($subDir) {
-        $target = "$Script:tmpDir\tmp"
+        $target = Safe-Dir "$Script:tmpDir\$name"
     } else {
         $target = $dir
     }
@@ -173,9 +181,6 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     if ($subDir) {
         Move-Item "$target\$subDir\*" "$dir\"
         Purge-Dir $target
-    }
-    if (App-Register $name) {
-        Register-Path (App-Path $name)
     }
 }
 
