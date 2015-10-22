@@ -1,0 +1,22 @@
+#
+# Customize the configuration with Set-ConfigValue
+#
+
+# Uncomment and adapt the following lines to setup a proxy
+
+# Set-ConfigValue UseProxy $true
+# Set-ConfigValue HttpProxy "myproxy:3128"
+# Set-ConfigValue HttpsProxy "myproxy:3128"
+
+# Uncomment and adapt the following lines to change the app selection
+
+# $apps = Get-ConfigValue Apps
+# $apps -= "MikTeX"
+# $apps -= "Inkscape"
+# $apps += "Git"
+# Set-ConfigValue Apps $apps
+
+# Override URL for binary download
+
+# Set-ConfigValue XYZUrl "http://my-server.com/xyz/release-v2.zip"
+# Set-ConfigValue XYZArchive "release-v*.zip"
