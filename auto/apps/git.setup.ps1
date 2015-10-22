@@ -6,7 +6,7 @@ if (Get-ConfigValue UseProxy) {
     & $git config --global "https.proxy" $(Get-ConfigValue HttpsProxy)
     & $git config --global "url.https://.insteadof" "git://"
 } else {
-    & $npm config --global --unset "http.proxy"
-    & $npm config --global --unset "https.proxy"
+    & $git config --global --unset "http.proxy"
+    & $git config --global --unset "https.proxy"
     & $git config --global --unset "url.https://.insteadof"
 }
