@@ -53,12 +53,14 @@ function Write-EnvironmentFile() {
     $txt += "SET HOMEPATH=$homePath`r`n"
     $txt += "SET APPDATA=${Script:appDataDir}`r`n"
     $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}`r`n"
+    $txt += "SET BENCH_HOME=${Script:rootDir}`r`n"
+    $txt += "SET L=${Script:libDir}`r`n"
     $txt += "SET BENCH_PATH=${Script:autoDir}"
     foreach ($path in $Script:paths) {
-        $txt += ";$path"
+        $txt += ";%L%$($path.Substring(${Script:libDir}.Length))"
     }
     $txt += "`r`n"
-    $txt += "SET PATH=%BENCH_PATH%;%PATH%`r`n"
+    $txt += "SET PATH=%BENCH_PATH%;%PATH%"
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
 }
