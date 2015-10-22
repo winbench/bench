@@ -35,16 +35,16 @@ Set-ConfigValue DownloadAttempts 3
 Set-ConfigValue Apps @(
     "SvZ",
     "LessMsi",
+    "Git",
     "Node",
     "Npm",
     "Gulp",
     "Python",
-    "Git",
+    "VSCode",
     "Pandoc",
     "GraphViz",
     "Inkscape",
-    "MikTeX",
-    "VSCode"
+    "MikTeX"
 )
 
 # Template for command line tool
