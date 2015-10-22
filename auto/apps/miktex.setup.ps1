@@ -36,12 +36,12 @@ function Extract-InstalledPackageNames() {
     }
 }
 
-Write-Host "Listing installed LaTeX packages"
+Write-Host "Installing missing LaTeX packages"
+
 $installed = & $mpm --list | Extract-InstalledPackageNames
 
 foreach ($package in $packages) {
     if (!($installed -contains $package)) {
-        Write-Host "Installing LaTeX package $package"
         & $mpm "--install=$package"
         $installed = & $mpm --list | Extract-InstalledPackageNames
     }
