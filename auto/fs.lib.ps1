@@ -15,6 +15,12 @@ function Purge-Dir ($dir) {
 }
 
 function Safe-Dir ($dir) {
+    if (![IO.Path]::IsPathRooted($dir)) {
+        $dir = [IO.Path]::Combine((Get-Location), $dir)
+    }
+    if ([IO.File]::Exists($dir)) {
+        throw "A file exist where a directory supposed to be: $dir"
+    }
     if (![IO.Directory]::Exists($dir)) {
         Debug "Creating Directory: $dir"
         $_ = [IO.Directory]::CreateDirectory($dir)
@@ -50,4 +56,3 @@ function Find-File($dir, $pattern) {
         return $null
     }
 }
-

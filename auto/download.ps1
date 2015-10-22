@@ -13,19 +13,20 @@ $apps = Get-ConfigValue Apps
 $rootDir = Resolve-Path "$autoDir\.."
 $downloadDir = Safe-Dir "$rootDir\$(Get-ConfigValue DownloadDir)"
 
-function Get-FileNameFromUrl($url) {
-    Debug "Resolving URL: $url"
-    $request = [System.Net.WebRequest]::Create($url)
-    $request.AllowAutoRedirect=$false
-    $response = $request.GetResponse()
-
-    if ($response.StatusCode -eq "Found")
-    {
-        $location = $response.GetResponseHeader("Location")
-        Debug "Resolved to location: $location"
-        return [IO.Path]::GetFileName($location)
+function Get-ProxyUrl([uri]$uri) {
+    if ($uri.Scheme -eq "https") {
+        return Get-ConfigValue HttpsProxy
     } else {
-        return [IO.Path]::GetFileName($url)
+        return Get-ConfigValue HttpProxy
+    }
+}
+
+function Get-Proxy($url) {
+    if (Get-ConfigValue UseProxy) {
+        $proxyUrl = Get-ProxyUrl $url
+        return New-Object System.Net.WebProxy $proxyUrl
+    } else {
+        return $null
     }
 }
 
@@ -45,6 +46,7 @@ function Get-FileNameFromUrl($url) {
 
     $request = [System.Net.WebRequest]::Create($url)
     $request.Method = "HEAD"
+    $request.Proxy = Get-Proxy $url
     $request.AllowAutoRedirect = $false
     try {
         $response = $request.GetResponse()
@@ -67,12 +69,17 @@ function Get-FileNameFromUrl($url) {
 }
 
 function Download-File($url, $target) {
-    Debug "Downloading $url ..."
+    Write-Host "Downloading $url ..."
     $attempt = 1
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
         try {
             if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
-            Invoke-WebRequest -Uri $url -OutFile $target
+            if (Get-ConfigValue UseProxy) {
+                $proxyUrl = Get-ProxyUrl $url
+                Invoke-WebRequest -Uri $url -OutFile $target -Proxy $proxyUrl
+            } else {
+                Invoke-WebRequest -Uri $url -OutFile $target
+            }
             return $True
         } catch {
             Debug "Download failed $_"
@@ -83,6 +90,9 @@ function Download-File($url, $target) {
 }
 
 foreach ($name in $apps) {
+    $typ = Get-ConfigValue "${name}Typ"
+    if ($typ -ieq "npm") { continue }
+
     $url = Get-ConfigValue "${name}Url"
     if (!$url) {
         Debug "No URL for app $name"

@@ -37,6 +37,10 @@ function Load-Environment() {
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
     $homePath = $h.Substring($h.IndexOf("\"))
+    if (Get-ConfigValue UseProxy) {
+        $env:HTTP_PROXY = Get-ConfigValue HttpProxy
+        $env:HTTPS_PROXY = Get-ConfigValue HttpsProxy
+    }
     $env:USERPROFILE = $h
     $env:HOMEDRIVE = $homeDrive
     $env:HOMEPATH = $homePath
@@ -47,6 +51,10 @@ function Load-Environment() {
 function Write-EnvironmentFile() {
     $envFile = "$autoDir\env.cmd"
     $txt = "REM **** MD Bench Environment Setup ****`r`n`r`n"
+    if (Get-ConfigValue UseProxy) {
+        $txt += "SET HTTP_PROXY=$(Get-ConfigValue HttpProxy)`r`n"
+        $txt += "SET HTTPS_PROXY=$(Get-ConfigValue HttpsProxy)`r`n"
+    }
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
     $homePath = $h.Substring($h.IndexOf("\"))
@@ -67,20 +75,37 @@ function Write-EnvironmentFile() {
     Debug "Written environment file to $envFile"
 }
 
+function App-Typ($name) { return Get-ConfigValue "${name}Typ" "default" }
 function App-Archive($name) { return Get-ConfigValue "${name}Archive" }
 function App-ArchiveSubDir($name) { return Get-ConfigValue "${name}ArchiveSubDir" }
 function App-Download($name) { return Get-ConfigValue "${name}Download" }
 function App-Dir($name) {
-    return [IO.Path]::Combine(
-        $Script:libDir,
-        (Get-ConfigValue "${name}Dir" $name.ToLowerInvariant())) 
+    switch (App-Typ $name) {
+        "npm" {
+            return App-Dir Npm
+        }
+        default {
+            return [IO.Path]::Combine(
+                $Script:libDir,
+                (Get-ConfigValue "${name}Dir" $name.ToLowerInvariant())) 
+        }
+    }
 }
-function App-Path($name) { 
-    return [IO.Path]::Combine(
-        (App-Dir $name),
-        (Get-ConfigValue "${name}Path" ""))
+function App-Path($name) {
+    switch (App-Typ $name) {
+        "npm" {
+            return App-Path Npm
+        }
+        default {
+            return [IO.Path]::Combine(
+                (App-Dir $name),
+                (Get-ConfigValue "${name}Path" ""))
+        }
+    }
 }
 function App-Exe($name, $checkExist = $true) {
+    $typ = App-Typ $name
+
     $path = [IO.Path]::Combine(
         (App-Path $name),
         (Get-ConfigValue "${name}Exe" "${name}.exe"))
@@ -147,7 +172,19 @@ function Extract-Msi($archive, $targetDir) {
     }
 }
 
+function Execute-Custom-Setup($name) {
+    $customSetupFile = "$autoDir\apps\${name}.setup.ps1"
+    if (Test-Path $customSetupFile) {
+        Debug "Running custom setup for $name ..."
+        $old = Set-StopOnError $false
+        . $customSetupFile
+        $_ = Set-StopOnError $old
+        Debug "Finished custom setup for $name"
+    }
+}
+
 function Default-Setup([string]$name, [bool]$registerPath = $true) {
+    Write-Host "Setting up $name ..."
     if (App-Download $name) {
         $src = Find-Download (App-Download $name)
         $mode = "copy"
@@ -167,114 +204,48 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     }
 
     $dir = App-Dir $name
-    if ([IO.File]::Exists((App-Exe $name))) {
+    if (![IO.File]::Exists((App-Exe $name))) {
+        $dir = Safe-Dir $dir
+        if ($subDir) {
+            $target = Safe-Dir "$Script:tmpDir\$name"
+        } else {
+            $target = $dir
+        }
+        switch ($mode) {
+            "copy" { Copy-item $src $target }
+            "arch" { Extract-Archive $src $target }
+            "msi" { Extract-Msi $src $target }
+        }
+        if ($subDir) {
+            Move-Item "$target\$subDir\*" "$dir\"
+            Purge-Dir $target
+        }
+    } else {
         Write-Host "Skipping allready installed $name in $dir"
-        return
     }
-    $dir = Safe-Dir $dir
-    if ($subDir) {
-        $target = Safe-Dir "$Script:tmpDir\$name"
-    } else {
-        $target = $dir
-    }
-    switch ($mode) {
-        "copy" { Copy-item $src $target }
-        "arch" { Extract-Archive $src $target }
-        "msi" { Extract-Msi $src $target }
-    }
-    if ($subDir) {
-        Move-Item "$target\$subDir\*" "$dir\"
-        Purge-Dir $target
-    }
+    Execute-Custom-Setup $name
 }
 
-#
-# Setup Routines
-#
-
-function Setup-7Zip() {
-    Default-Setup SvZ
-}
-
-function Setup-LessMsi() {
-    Default-Setup LessMsi
-}
-
-function Setup-NodeJS() {
-    Default-Setup Node
-}
-
-function Setup-Npm() {
-    Default-Setup Npm
-
+function Setup-NpmPackage($name) {
+    Write-Host "Setting up npm package $name ..."
     $npm = App-Exe Npm
     if (!$npm) { throw "Node Package Manager not found" }
-    & $npm config set registry "http://registry.npmjs.org/"
-    if (Get-ConfigValue UseProxy) {
-        & $npm config set "proxy" "http://$(Get-ConfigValue HttpProxy)/"
-        & $npm config set "https-proxy" "http://$(Get-ConfigValue HttpsProxy)/"
-    } else {
-        & $npm config delete "proxy"
-        & $npm config delete "https-proxy"
+    $packageName = Get-ConfigValue "${name}NpmPackage" $name.ToLowerInvariant()
+    $packageCmd = App-Exe $name
+    if (!$packageCmd) {
+        & $npm install $packageName --global
     }
-}
-
-function Setup-Gulp() {
-    $npm = App-Exe Npm
-    if (!$npm) { throw "Node Package Manager not found" }
-    & $npm install gulp --global
-}
-
-function Setup-Python() {
-    Default-Setup Python
-}
-
-function Setup-Git() {
-    Default-Setup Git
-
-    #$dir = App-Dir Git
-    #Push-Location $dir
-    #    Write-Output "Running post-install for Git..."
-    #    $old = Set-StopOnError $false
-    #    cmd /C post-install.bat
-    #    Set-StopOnError $old
-    #    Write-Output "Finished post-install for Git"
-    #Pop-Location
-}
-
-function Setup-Pandoc() {
-    Default-Setup pandoc
-}
-
-function Setup-GraphViz() {
-    Default-Setup GraphViz
-}
-
-function Setup-Inkscape() {
-    Default-Setup Inkscape
-}
-
-function Setup-MikTeX() {
-    Default-Setup MikTeX
-}
-
-function Setup-VSCode() {
-    Default-Setup VSCode
+    Execute-Custom-Setup $name
 }
 
 Load-Environment
-Setup-7Zip
-Setup-LessMsi
-if ($apps -contains "Node") { Setup-NodeJS }
-if ($apps -contains "Npm") { Setup-Npm }
-if ($apps -contains "Gulp") { Setup-Gulp }
-if ($apps -contains "Python") { Setup-Python }
-if ($apps -contains "Pandoc") { Setup-Pandoc }
-if ($apps -contains "GraphViz") { Setup-GraphViz }
-if ($apps -contains "Inkscape") { Setup-Inkscape }
-if ($apps -contains "MikteX") { Setup-MikTeX }
-if ($apps -contains "VSCode") { Setup-VSCode }
-if ($apps -contains "Git") { Setup-Git }
+foreach ($name in $apps) {
+    $typ = App-Typ $name
+    switch ($typ) {
+        "npm" { Setup-NpmPackage $name }
+        default { Default-Setup $name }
+    }
+}
 Write-EnvironmentFile
 
 Purge-Dir $tmpDir

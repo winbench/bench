@@ -1,10 +1,10 @@
 ﻿$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$rootDir = Resolve-Path "$myDir\.."
 . "$myDir\common.lib.ps1"
 
 $config = @{}
 
 function Set-ConfigValue($name, $value) {
-    # Add-Member -InputObject $Script:cfg -MemberType NoteProperty -Name $name -Value $value
     if ($Script:debug) {
         Debug "Config: $name = $value"
     }
@@ -37,6 +37,7 @@ Set-ConfigValue Apps @(
     "LessMsi",
     "Node",
     "Npm",
+    "Gulp",
     "Python",
     "Git",
     "Pandoc",
@@ -46,7 +47,8 @@ Set-ConfigValue Apps @(
     "VSCode"
 )
 
-# Template
+# Template for command line tool
+# Set-ConfigValue XYZTyp "default"
 # Set-ConfigValue XYZUrl "http://xyz.org/latest"
 # Set-ConfigValue XYZArchive "xyz-*.zip"
 # Set-ConfigValue XYZArchiveSubDir "abc"
@@ -54,6 +56,11 @@ Set-ConfigValue Apps @(
 # Set-ConfigValue XYZPath "bin"
 # Set-ConfigValue XYZExe "xyzabc.cmd"
 # Set-ConfigValue XYZRegister $true
+
+# Template for npm package
+# Set-ConfigValue XYZTyp "npm"
+# Set-ConfigValue XYZNpmPackage "js-abc"
+# Set-ConfigValue XYZNpmExe "abc.cmd"
 
 # 7Zip
 Set-ConfigValue SvZUrl "http://7-zip.org/a/7za920.zip"
@@ -79,12 +86,14 @@ Set-ConfigValue NpmArchive "npm-*.zip"
 Set-ConfigValue NpmDir "$(Get-ConfigValue NodeDir)"
 Set-ConfigValue NpmExe "npm.cmd"
 
+# Gulp
+Set-ConfigValue GulpTyp "npm"
+Set-ConfigValue GulpExe "gulp.cmd"
+
 # Python
 Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.2/python-3.4.2.msi"
 Set-ConfigValue PythonArchive "python-3.*.msi"
 Set-ConfigValue PythonArchiveSubDir "SourceDir"
-#Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.0/python-3.5.0-embed-win32.zip"
-#Set-ConfigValue PythonArchive "python-3.*-embed-win32.zip"
 Set-ConfigValue PythonExe "python.exe"
 
 # Git
@@ -122,3 +131,13 @@ Set-ConfigValue VSCodeUrl "http://go.microsoft.com/fwlink/?LinkID=623231"
 Set-ConfigValue VSCodeArchive "VSCode-win32.zip"
 Set-ConfigValue VSCodeDir "code"
 Set-ConfigValue VSCodeExe "code.exe"
+
+
+#
+# Load custom configuration
+#
+
+$customConfigFile = "$rootDir\config.ps1"
+if (Test-Path $customConfigFile) {
+    . $customConfigFile
+}
