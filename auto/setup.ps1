@@ -20,6 +20,8 @@ $libDir = Safe-Dir "$rootDir\$(Get-ConfigValue LibDir)"
 $homeDir = Safe-Dir "$rootDir\$(Get-ConfigValue HomeDir)"
 $appDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue AppDataDir)"
 $localAppDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue LocalAppDataDir)"
+$desktopDir = Safe-Dir "$homeDir\Desktop"
+$documentsDir = Safe-Dir "$homeDir\Documents"
 
 if (!(test-Path $downloadDir)) { return }
 if (!(Test-Path $libDir)) { return }
