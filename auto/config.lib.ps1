@@ -40,6 +40,7 @@ Set-ConfigValue Apps @(
     "NpmBootstrap",
     "Npm",
     "Gulp",
+    "Yeoman",
     "Python",
     "VSCode",
     "Pandoc",
@@ -94,6 +95,11 @@ Set-ConfigValue NpmExe "npm.cmd"
 # Gulp
 Set-ConfigValue GulpTyp "npm"
 Set-ConfigValue GulpExe "gulp.cmd"
+
+# Yeoman
+Set-ConfigValue YeomanTyp "npm"
+Set-ConfigValue YeomanNpmPackage "yo"
+Set-ConfigValue YeomanExe "yo"
 
 # Python
 Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.2/python-3.4.2.msi"
