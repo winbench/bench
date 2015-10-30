@@ -37,6 +37,7 @@ Set-ConfigValue Apps @(
     "LessMsi",
     "Git",
     "Node",
+    "NpmBootstrap",
     "Npm",
     "Gulp",
     "Python",
@@ -80,10 +81,14 @@ Set-ConfigValue NodeDownload "node.exe"
 Set-ConfigValue NodeDir "node"
 Set-ConfigValue NodeExe "node.exe"
 
-# Npm
-Set-ConfigValue NpmUrl "https://nodejs.org/dist/npm/npm-1.4.12.zip"
-Set-ConfigValue NpmArchive "npm-*.zip"
-Set-ConfigValue NpmDir "$(Get-ConfigValue NodeDir)"
+# Npm Bootstrap
+Set-ConfigValue NpmBootstrapUrl "https://nodejs.org/dist/npm/npm-1.4.12.zip"
+Set-ConfigValue NpmBootstrapArchive "npm-*.zip"
+Set-ConfigValue NpmBootstrapDir "$(Get-ConfigValue NodeDir)"
+Set-ConfigValue NpmBootstrapExe "npm.cmd"
+
+# Npm Update
+Set-ConfigValue NpmTyp "npm"
 Set-ConfigValue NpmExe "npm.cmd"
 
 # Gulp

@@ -79,6 +79,7 @@ function App-Typ($name) { return Get-ConfigValue "${name}Typ" "default" }
 function App-Archive($name) { return Get-ConfigValue "${name}Archive" }
 function App-ArchiveSubDir($name) { return Get-ConfigValue "${name}ArchiveSubDir" }
 function App-Download($name) { return Get-ConfigValue "${name}Download" }
+function App-NpmPackage($name) { return Get-ConfigValue "${name}NpmPackage" $name.ToLowerInvariant() }
 function App-Dir($name) {
     switch (App-Typ $name) {
         "npm" {
@@ -94,7 +95,7 @@ function App-Dir($name) {
 function App-Path($name) {
     switch (App-Typ $name) {
         "npm" {
-            return App-Path Npm
+            return App-Path NpmBootstrap
         }
         default {
             return [IO.Path]::Combine(
@@ -227,14 +228,11 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
 }
 
 function Setup-NpmPackage($name) {
-    Write-Host "Setting up npm package $name ..."
+    $packageName = App-NpmPackage $name
+    Write-Host "Setting up npm package $packageName ..."
     $npm = App-Exe Npm
     if (!$npm) { throw "Node Package Manager not found" }
-    $packageName = Get-ConfigValue "${name}NpmPackage" $name.ToLowerInvariant()
-    $packageCmd = App-Exe $name
-    if (!$packageCmd) {
-        & $npm install $packageName --global
-    }
+    & $npm install $packageName --global
     Execute-Custom-Setup $name
 }
 
