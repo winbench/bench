@@ -2,7 +2,7 @@
 $rootDir = Resolve-Path "$myDir\.."
 . "$myDir\common.lib.ps1"
 
-$config = @{}
+$Script:config = @{}
 
 function Set-ConfigValue($name, $value) {
     if ($Script:debug) {
