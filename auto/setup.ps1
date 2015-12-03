@@ -50,7 +50,8 @@ function Load-Environment() {
 
 function Write-EnvironmentFile() {
     $envFile = "$autoDir\env.cmd"
-    $txt = "REM **** MD Bench Environment Setup ****`r`n`r`n"
+    $txt = "@ECHO OFF`r`n"
+    $txt += "REM **** MD Bench Environment Setup ****`r`n`r`n"
     if (Get-ConfigValue UseProxy) {
         $txt += "SET HTTP_PROXY=$(Get-ConfigValue HttpProxy)`r`n"
         $txt += "SET HTTPS_PROXY=$(Get-ConfigValue HttpsProxy)`r`n"
