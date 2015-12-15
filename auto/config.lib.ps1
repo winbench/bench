@@ -41,6 +41,7 @@ Set-ConfigValue Apps @(
     "Npm",
     "Gulp",
     "Yeoman",
+    "MdProcGen",
     "JSHint",
     "Python",
     "VSCode",
@@ -109,6 +110,10 @@ Set-ConfigValue GulpExe "gulp.cmd"
 Set-ConfigValue YeomanTyp "npm"
 Set-ConfigValue YeomanNpmPackage "yo"
 Set-ConfigValue YeomanExe "yo"
+
+# MdProc Yeoman Generator
+Set-ConfigValue MdProcGenTyp "npm"
+Set-ConfigValue MdProcGenNpmPackage "generator-mdproc"
 
 # JsHint
 Set-ConfigValue JSHintTyp "npm"
