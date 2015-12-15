@@ -15,8 +15,8 @@
 ## NodeJS
 
 * Website: <https://nodejs.org>
-* Default Version: v4.2.1
-* Direct Download: <https://nodejs.org/dist/v4.2.1/win-x86/node.exe>
+* Default Version: v4.2.3
+* Direct Download: <https://nodejs.org/dist/v4.2.3/win-x86/node.exe>
 
 ## NPM Bootstrap
 
@@ -26,15 +26,15 @@
 
 ## Python
 
-* Website: <https://www.python.org/downloads/release/python-350/>
-* Default Version: v3.5.0
-* Direct Download: <https://www.python.org/ftp/python/3.5.0/python-3.5.0-embed-win32.zip>
+* Website: <https://www.python.org/ftp/python/>
+* Default Version: v3.4.3
+* Direct Download: <https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi>
 
 ## Git
 
 * Website: <https://git-scm.com/download/win) (32-bit Portable Edition>
-* Default Version: v2.6.2
-* Direct Download: <https://github.com/git-for-windows/git/releases/download/v2.6.2.windows.1/PortableGit-2.6.2-32-bit.7z.exe>
+* Default Version: v2.6.4
+* Direct Download: <https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe>
 
 ## Pandoc
 
@@ -63,5 +63,5 @@
 ## Visual Studio Code
 
 * Website: <https://code.visualstudio.com/Docs/?dv=win>
-* Default Version: v.0.9.1
+* Default Version: latest
 * Direct Download: <http://go.microsoft.com/fwlink/?LinkID=623231>
