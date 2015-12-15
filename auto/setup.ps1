@@ -94,7 +94,7 @@ function App-Dir($name) {
         }
     }
 }
-function App-Path($name) {
+function App-Path([string]$name) {
     switch (App-Typ $name) {
         "npm" {
             return App-Path NpmBootstrap
@@ -106,7 +106,7 @@ function App-Path($name) {
         }
     }
 }
-function App-Exe($name, $checkExist = $true) {
+function App-Exe([string]$name, [bool]$checkExist = $true) {
     $typ = App-Typ $name
 
     $path = [IO.Path]::Combine(
@@ -118,9 +118,9 @@ function App-Exe($name, $checkExist = $true) {
         return $path
     }
 }
-function App-Register($name) { return Get-ConfigValue "${name}Register" $true }
+function App-Register([string]$name) { return Get-ConfigValue "${name}Register" $true }
 
-function Find-Download($pattern) {
+function Find-Download([string]$pattern) {
     $path = Find-File $Script:downloadDir $pattern
     if (!$path) {
         throw "Download not found: $pattern"
@@ -130,7 +130,7 @@ function Find-Download($pattern) {
     return $path
 }
 
-function ShellUnzip-Archive($zipFile, $targetDir)
+function ShellUnzip-Archive([string]$zipFile, [string]$targetDir)
 {
     Debug "Extracting (Shell) $zipFile to $targetDir"
     $zip = ${Script:winShell}.NameSpace($zipFile)
@@ -147,7 +147,7 @@ function ShellUnzip-Archive($zipFile, $targetDir)
     }
 }
 
-function Extract-Archive($archive, $targetDir) {
+function Extract-Archive([string]$archive, [string]$targetDir) {
     $7z = App-Exe SvZ
     $targetDir = Safe-Dir $targetDir
     if ($7z) {
@@ -161,7 +161,7 @@ function Extract-Archive($archive, $targetDir) {
     }
 }
 
-function Extract-Msi($archive, $targetDir) {
+function Extract-Msi([string]$archive, [string]$targetDir) {
     Debug "Extracting MSI $archive to $targetDir"
     $targetDir = Safe-Dir $targetDir
     $lessmsi = App-Exe LessMsi
@@ -175,7 +175,7 @@ function Extract-Msi($archive, $targetDir) {
     }
 }
 
-function Execute-Custom-Setup($name) {
+function Execute-Custom-Setup([string]$name) {
     $customSetupFile = "$autoDir\apps\${name}.setup.ps1"
     if (Test-Path $customSetupFile) {
         Debug "Running custom setup for $name ..."
