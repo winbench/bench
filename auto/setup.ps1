@@ -196,27 +196,27 @@ function Execute-Custom-Setup([string]$name) {
 }
 
 function Default-Setup([string]$name, [bool]$registerPath = $true) {
-    Write-Host "Setting up $name ..."
-    if (App-Download $name) {
-        $src = Find-Download (App-Download $name)
-        $mode = "copy"
-        $subDir = $null
-    } else {
-        [string]$src = Find-Download (App-Archive $name)
-        if ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
-            $mode = "msi"
-        } else {
-            $mode = "arch"
-        }
-        $subDir = App-ArchiveSubDir $name
-    }
-
-    if (App-Register $name) {
-        Register-Path (App-Path $name)
-    }
-
     $dir = App-Dir $name
     if (![IO.File]::Exists((App-Exe $name))) {
+
+        Write-Host "Setting up $name ..."
+
+        $download = App-Download $name
+        if ($download) {
+            $src = Find-Download $download
+            $mode = "copy"
+            $subDir = $null
+        } else {
+            $archive = App-Archive $name
+            [string]$src = Find-Download $archive
+            if ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
+                $mode = "msi"
+            } else {
+                $mode = "arch"
+            }
+            $subDir = App-ArchiveSubDir $name
+        }
+
         $dir = Safe-Dir $dir
         if ($subDir) {
             $target = Safe-Dir "$Script:tmpDir\$name"
@@ -232,9 +232,15 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
             Move-Item "$target\$subDir\*" "$dir\"
             Purge-Dir $target
         }
+
     } else {
         Write-Host "Skipping allready installed $name in $dir"
     }
+
+    if (App-Register $name) {
+        Register-Path (App-Path $name)
+    }
+
     Execute-Custom-Setup $name
 }
 
