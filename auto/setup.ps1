@@ -48,29 +48,38 @@ function Load-Environment() {
     $env:LOCALAPPDATA = $Script:localAppDataDir
 }
 
+function Update-EnvironmentPath() {
+    $env:PATH = "$env:SystemRoot;$env:SystemRoot\System32;$env:SystemRoot\System32\WindowsPowerShell\v1.0"
+    foreach ($path in $Script:paths) {
+        $env:PATH = "$path;$env:PATH"
+    }
+}
+
 function Write-EnvironmentFile() {
     $envFile = "$autoDir\env.cmd"
-    $txt = "@ECHO OFF`r`n"
-    $txt += "REM **** MD Bench Environment Setup ****`r`n`r`n"
+    $nl = [Environment]::NewLine
+    $txt = "@ECHO OFF$nl"
+    $txt += "REM **** MD Bench Environment Setup ****$nl$nl"
     if (Get-ConfigValue UseProxy) {
-        $txt += "SET HTTP_PROXY=$(Get-ConfigValue HttpProxy)`r`n"
-        $txt += "SET HTTPS_PROXY=$(Get-ConfigValue HttpsProxy)`r`n"
+        $txt += "SET HTTP_PROXY=$(Get-ConfigValue HttpProxy)$nl"
+        $txt += "SET HTTPS_PROXY=$(Get-ConfigValue HttpsProxy)$nl"
     }
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
     $homePath = $h.Substring($h.IndexOf("\"))
-    $txt += "SET USERPROFILE=$h`r`n"
-    $txt += "SET HOMEDRIVE=$homeDrive`r`n"
-    $txt += "SET HOMEPATH=$homePath`r`n"
-    $txt += "SET APPDATA=${Script:appDataDir}`r`n"
-    $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}`r`n"
-    $txt += "SET BENCH_HOME=${Script:rootDir}`r`n"
-    $txt += "SET L=${Script:libDir}`r`n"
+    $txt += "SET USERPROFILE=$h$nl"
+    $txt += "SET HOMEDRIVE=$homeDrive$nl"
+    $txt += "SET HOMEPATH=$homePath$nl"
+    $txt += "SET APPDATA=${Script:appDataDir}$nl"
+    $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
+    $txt += "SET BENCH_HOME=${Script:rootDir}$nl"
+    $txt += "SET L=${Script:libDir}$nl"
     $txt += "SET BENCH_PATH=${Script:autoDir}"
     foreach ($path in $Script:paths) {
         $txt += ";%L%$($path.Substring(${Script:libDir}.Length))"
     }
-    $txt += "`r`n"
+    $txt += $nl
+    $txt += "SET PATH=%SystemRoot%;%SystemRoot%\System32;%SystemRoot%\System32\WindowsPowerShell\v1.0$nl"
     $txt += "SET PATH=%BENCH_PATH%;%PATH%"
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
@@ -255,12 +264,14 @@ function Setup-NpmPackage([string]$name) {
 }
 
 Load-Environment
+Update-EnvironmentPath
 foreach ($name in $apps) {
     $typ = App-Typ $name
     switch ($typ) {
         "npm" { Setup-NpmPackage $name }
         default { Default-Setup $name }
     }
+    Update-EnvironmentPath
 }
 Write-EnvironmentFile
 
