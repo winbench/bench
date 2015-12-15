@@ -1,2 +1,3 @@
-@CALL "%~dp0\auto\env.cmd"
-@CMD /E:ON /F:ON /V /K "CLS && @ECHO MD Bench Console"
+@ECHo OFF
+CALL "%~dp0\auto\env.cmd"
+powershell -NoLogo -NoProfile -NoExit -ExecutionPolicy Unrestricted -Command "& { Write-Host 'Bench PowerShell' }"
