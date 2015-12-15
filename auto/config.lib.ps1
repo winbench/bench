@@ -77,8 +77,14 @@ Set-ConfigValue LessMsiArchive "lessmsi-*.zip"
 Set-ConfigValue LessMsiExe "lessmsi.exe"
 Set-ConfigValue LessMsiRegister $false
 
+# Git
+Set-ConfigValue GitUrl "https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe"
+Set-ConfigValue GitArchive "PortableGit-*-32-bit.7z.exe"
+Set-ConfigValue GitPath "bin"
+Set-ConfigValue GitExe "git.exe"
+
 # NodeJS
-Set-ConfigValue NodeUrl "https://nodejs.org/dist/v4.2.1/win-x86/node.exe"
+Set-ConfigValue NodeUrl "https://nodejs.org/dist/v4.2.3/win-x86/node.exe"
 Set-ConfigValue NodeDownload "node.exe"
 Set-ConfigValue NodeDir "node"
 Set-ConfigValue NodeExe "node.exe"
@@ -107,16 +113,10 @@ Set-ConfigValue JSHintTyp "npm"
 Set-ConfigValue JSHintExe "jshint"
 
 # Python
-Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.2/python-3.4.2.msi"
+Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi"
 Set-ConfigValue PythonArchive "python-3.*.msi"
 Set-ConfigValue PythonArchiveSubDir "SourceDir"
 Set-ConfigValue PythonExe "python.exe"
-
-# Git
-Set-ConfigValue GitUrl "https://github.com/git-for-windows/git/releases/download/v2.6.2.windows.1/PortableGit-2.6.2-32-bit.7z.exe"
-Set-ConfigValue GitArchive "PortableGit-*-32-bit.7z.exe"
-Set-ConfigValue GitPath "bin"
-Set-ConfigValue GitExe "git.exe"
 
 # Pandoc
 Set-ConfigValue PandocUrl "https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi"
