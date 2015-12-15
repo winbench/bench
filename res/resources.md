@@ -65,3 +65,9 @@
 * Website: <https://code.visualstudio.com/Docs/?dv=win>
 * Default Version: latest
 * Direct Download: <http://go.microsoft.com/fwlink/?LinkID=623231>
+
+## SublimeText 3
+
+* Website: <http://www.sublimetext.com/3>
+* Default Version: Build 3083
+* Direct Download: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>

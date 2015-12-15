@@ -45,6 +45,7 @@ Set-ConfigValue Apps @(
     "JSHint",
     "Python",
     "VSCode",
+    "Sublime",
     "Pandoc",
     "GraphViz",
     "Inkscape",
@@ -155,6 +156,10 @@ Set-ConfigValue VSCodeArchive "VSCode-win32.zip"
 Set-ConfigValue VSCodeDir "code"
 Set-ConfigValue VSCodeExe "code.exe"
 
+# SublimeText 3
+Set-ConfigValue SublimeUrl "http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip"
+Set-ConfigValue SublimeArchive "Sublime*Text*Build*.zip"
+Set-ConfigValue SublimeExe "sublime_text.exe"
 
 #
 # Load custom configuration
