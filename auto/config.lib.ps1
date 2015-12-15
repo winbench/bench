@@ -64,6 +64,7 @@ Set-ConfigValue Apps @(
 # Set-ConfigValue XYZTyp "npm"
 # Set-ConfigValue XYZNpmPackage "js-abc"
 # Set-ConfigValue XYZNpmExe "abc.cmd"
+# Set-ConfigValue XYZNpmForceInstall $false
 
 # 7Zip
 Set-ConfigValue SvZUrl "http://7-zip.org/a/7za920.zip"
@@ -98,6 +99,7 @@ Set-ConfigValue NpmBootstrapExe "npm.cmd"
 # Npm Update
 Set-ConfigValue NpmTyp "npm"
 Set-ConfigValue NpmExe "npm.cmd"
+Set-ConfigValue NpmNpmForceInstall $true
 
 # Gulp
 Set-ConfigValue GulpTyp "npm"

@@ -81,6 +81,7 @@ function App-Archive($name) { return Get-ConfigValue "${name}Archive" }
 function App-ArchiveSubDir($name) { return Get-ConfigValue "${name}ArchiveSubDir" }
 function App-Download($name) { return Get-ConfigValue "${name}Download" }
 function App-NpmPackage($name) { return Get-ConfigValue "${name}NpmPackage" $name.ToLowerInvariant() }
+function App-NpmForce($name) { return Get-ConfigValue "${name}NpmForceInstall" $false }
 function App-Dir($name) {
     switch (App-Typ $name) {
         "npm" {
@@ -228,12 +229,28 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     Execute-Custom-Setup $name
 }
 
-function Setup-NpmPackage($name) {
-    $packageName = App-NpmPackage $name
-    Write-Host "Setting up npm package $packageName ..."
+function Check-NpmPackage([string]$name) {
     $npm = App-Exe Npm
     if (!$npm) { throw "Node Package Manager not found" }
-    & $npm install $packageName --global
+    $p = [regex]"^\S+ ([^@\s]*)@[^@\s]+`$"
+    $list = & $npm list --global --depth 0 | ? { $p.IsMatch($_) } | % { $p.Replace($_, "`$1") }
+    $packageName = App-NpmPackage $name
+    return $packageName -in $list
+}
+
+function Setup-NpmPackage([string]$name) {
+    $packageName = App-NpmPackage $name
+    $npm = App-Exe Npm
+    if (!$npm) { throw "Node Package Manager not found" }
+    if ((App-NpmForce $name) -or !(Check-NpmPackage $name)) {
+
+        Write-Host "Setting up npm package $packageName ..."
+
+        & $npm install $packageName --global
+
+    } else {
+        Write-Host "Skipping allready installed NPM package $packageName"
+    }
     Execute-Custom-Setup $name
 }
 
