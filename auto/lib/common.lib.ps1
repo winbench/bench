@@ -1,4 +1,7 @@
-﻿function Set-Debugging ($enabled) {
+﻿$scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$Script:rootDir = Resolve-Path "$scriptsLib\..\.."
+
+function Set-Debugging ($enabled) {
     if ($enabled) {
         $Script:DebugPreference = "Continue"
     } else {
@@ -18,4 +21,12 @@ function Set-StopOnError ($enabled) {
 
 function Debug($msg) {
     Write-Debug $msg
+}
+
+function Run-Script($name) {
+    & "$scriptsLib\$name.ps1" @args
+}
+
+function Run-Detached($app) {
+    Start-Process -FilePath $app -ArgumentList $args
 }

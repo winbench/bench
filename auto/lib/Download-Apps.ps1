@@ -1,17 +1,16 @@
 param ([switch]$debug)
 
-$autoDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$autoDir\common.lib.ps1"
-. "$autoDir\config.lib.ps1"
-. "$autoDir\fs.lib.ps1"
+$scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$scriptsLib\common.lib.ps1"
+. "$scriptsLib\config.lib.ps1"
+. "$scriptsLib\fs.lib.ps1"
 
 Set-Debugging $debug
 $_ = Set-StopOnError $True
 
 $apps = Get-ConfigValue Apps
 
-$rootDir = Resolve-Path "$autoDir\.."
-$downloadDir = Safe-Dir "$rootDir\$(Get-ConfigValue DownloadDir)"
+$downloadDir = Safe-Dir $(Get-ConfigDir DownloadDir)
 
 function Get-ProxyUrl([uri]$uri) {
     if ($uri.Scheme -eq "https") {

@@ -1,3 +1,4 @@
-@ECHo OFF
+@ECHO OFF
 CALL "%~dp0\auto\env.cmd"
-powershell -NoLogo -NoProfile -NoExit -ExecutionPolicy Unrestricted -Command "& { Write-Host 'Bench PowerShell' }"
+CALL "%~dp0\auto\lib\init.cmd"
+runps Shell "BENCH ROOT"

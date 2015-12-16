@@ -1,5 +1,4 @@
 ﻿$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-$rootDir = Resolve-Path "$myDir\.."
 . "$myDir\common.lib.ps1"
 
 $Script:config = @{}
@@ -19,7 +18,12 @@ function Get-ConfigValue($name, $def = $null) {
     }
 }
 
+function Get-ConfigDir($name) {
+    return "$Script:rootDir\$(Get-ConfigValue $name)"
+}
+
 # Common
+Set-ConfigValue Version "0.1.0"
 Set-ConfigValue DownloadDir "res\download"
 Set-ConfigValue ResFile "res\resources.md"
 Set-ConfigValue TempDir "tmp"
@@ -27,6 +31,7 @@ Set-ConfigValue LibDir "lib"
 Set-ConfigValue HomeDir "home"
 Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData"
 Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\LocalAppData"
+Set-ConfigValue ProjectRootDir "projects"
 Set-ConfigValue UseProxy $false
 Set-ConfigValue HttpProxy $null
 Set-ConfigValue HttpsProxy $null

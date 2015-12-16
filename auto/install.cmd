@@ -1,6 +1,7 @@
-@echo off
-pushd %~dp0
-call powershell -NoProfile -ExecutionPolicy RemoteSigned -Command "./download.ps1"
-call powershell -NoProfile -ExecutionPolicy RemoteSigned -Command "./setup.ps1"
-popd
-pause
+@ECHO OFF
+CALL "%~dp0\lib\init.cmd"
+CALL runps Download-Apps
+CALL runps Setup-Apps
+CALL "%~dp0\env.cmd"
+CALL "%~dp0\lib\init.cmd"
+runps Shell

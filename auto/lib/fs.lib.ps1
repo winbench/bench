@@ -6,11 +6,14 @@ function Reset-ACLs($dir) {
     icacls "$dir" /T /C /RESET
 }
 
-function Purge-Dir ($dir) {
+function Purge-Dir ($dir, $msg = $null) {
     if ([IO.Directory]::Exists($dir)) {
-        Debug "Purge Directory $dir"
-        # Reset-ACLs $dir
-        [IO.Directory]::Delete($dir, $True)
+        if ($msg) {
+            Write-Host $msg
+        }
+        Debug "Deleting directory recursively: $dir"
+        Get-ChildItem $dir -Recurse | Remove-Item -Force
+        Remove-Item $dir
     }
 }
 
@@ -28,8 +31,14 @@ function Safe-Dir ($dir) {
     return $(Resolve-Path $dir).Path
 }
 
-function Empty-Dir ($dir) {
-    Purge-Dir $dir
+function Empty-Dir ($dir, $msg = $null) {
+    if ([IO.Directory]::Exists($dir)) {
+        if ($msg) {
+            Write-Host $msg
+        }
+        Debug "Deleting all content of directory: $dir"
+        Get-ChildItem $dir -Recurse | Remove-Item -Force
+    }
     return Safe-Dir $dir
 }
 

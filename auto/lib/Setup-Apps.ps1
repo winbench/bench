@@ -13,17 +13,16 @@ $apps = Get-ConfigValue Apps
 $winShell = New-Object -ComObject Shell.Application
 
 $paths = @()
-$rootDir = Resolve-Path "$autoDir\.."
-$tmpDir = Empty-Dir "$rootDir\$(Get-ConfigValue TempDir)"
-$downloadDir = Resolve-Path "$rootDir\$(Get-ConfigValue DownloadDir)"
-$libDir = Safe-Dir "$rootDir\$(Get-ConfigValue LibDir)"
-$homeDir = Safe-Dir "$rootDir\$(Get-ConfigValue HomeDir)"
-$appDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue AppDataDir)"
-$localAppDataDir = Safe-Dir "$rootDir\$(Get-ConfigValue LocalAppDataDir)"
+$tempDir = Empty-Dir $(Get-ConfigDir TempDir)
+$downloadDir = Safe-Dir $(Get-ConfigDir DownloadDir)
+$libDir = Safe-Dir $(Get-ConfigDir LibDir)
+$homeDir = Safe-Dir $(Get-ConfigDir HomeDir)
+$appDataDir = Safe-Dir $(Get-ConfigDir AppDataDir)
+$localAppDataDir = Safe-Dir $(Get-ConfigDir LocalAppDataDir)
 $desktopDir = Safe-Dir "$homeDir\Desktop"
 $documentsDir = Safe-Dir "$homeDir\Documents"
 
-if (!(test-Path $downloadDir)) { return }
+if (!(Test-Path $downloadDir)) { return }
 if (!(Test-Path $libDir)) { return }
 
 function Register-Path($path) {
@@ -281,4 +280,4 @@ foreach ($name in $apps) {
 }
 Write-EnvironmentFile
 
-Purge-Dir $tmpDir
+Purge-Dir $tempDir
