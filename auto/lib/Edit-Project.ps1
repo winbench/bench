@@ -23,4 +23,44 @@ if ([IO.Path]::IsPathRooted($projectName)) {
 }
 
 cd $projectPath
-Run-Detached code $projectPath "$projectPath\src\index.md"
+
+function Get-MainFiles($projectPath) {
+
+    function Replace-Dates ($path) {
+        $p = [regex]"\`$DATE\:([^\`$]+)\`$"
+        $now = [DateTime]::Now
+        $me = [System.Text.RegularExpressions.MatchEvaluator] { 
+            param($m) 
+            return $now.ToString($m.Groups[1]) 
+        }
+        $result = $p.Replace($path, $me)
+        return $result
+    }
+
+    $mainFileList = "$projectPath\config\mainfiles"
+    if (Test-Path $mainFileList) {
+        return Get-Content $mainFileList -Encoding UTF8 `
+            | % { Replace-Dates $_ }
+    } else {
+        return @()
+    }
+}
+
+$searchFiles = Get-MainFiles $projectPath
+
+$searchFiles += "index.js"
+$searchFiles += "src/index.js"
+$searchFiles += "src/app.js"
+$searchFiles += "src/main.js"
+$searchFiles += "README.md"
+
+$foundFiles = @()
+foreach ($s in $searchFiles) {
+    $path = [IO.Path]::Combine($projectpath, $s)
+    if (Test-Path $path -PathType Leaf) {
+        $foundFiles += $path
+        break
+    }
+}
+
+Run-Detached code $projectPath @foundFiles
