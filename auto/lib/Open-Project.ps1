@@ -21,4 +21,4 @@ if ([IO.Path]::IsPathRooted($projectName)) {
     $projectPath = Resolve-Path "$projectRoot\$projectName"
 }
 
-code $projectPath "$projectPath\src\index.md"
+Run-Detached code $projectPath "$projectPath\src\index.md"

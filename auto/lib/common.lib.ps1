@@ -26,3 +26,18 @@ function Debug($msg) {
 function Run-Script($name) {
     & "$scriptsLib\$name.ps1" @args
 }
+
+function Safe-Argument([string]$txt) {
+    $arg = $txt.Trim("`"", "'")
+    if ($arg -match "\s") {
+        return "`"$arg`""
+    } else {
+        return $arg
+    }
+}
+
+function Run-Detached($path) {
+    $path = Safe-Argument $path
+    $argText = [string]::Join(" ", ($args | % { Safe-Argument $_ }))
+    CMD /C "START $path $argText"
+}
