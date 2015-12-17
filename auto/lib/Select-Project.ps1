@@ -16,6 +16,7 @@ $projectRoot = Safe-Dir $(Get-ConfigDir ProjectRootDir)
 
 if ($projectNames.Count -eq 0) {
     Write-Host "No projects found."
+    Pause
     return $null
 }
 

@@ -23,6 +23,12 @@ function Debug($msg) {
     Write-Debug $msg
 }
 
+function Pause($msg = "Press any key to exit ...") {
+    [Console]::WriteLine()
+    [Console]::Write($msg)
+    [Console]::ReadKey($true) | Out-Null
+}
+
 function Run-Script($name) {
     & "$scriptsLib\$name.ps1" @args
 }
@@ -40,4 +46,11 @@ function Run-Detached($path) {
     $path = Safe-Argument $path
     $argText = [string]::Join(" ", ($args | % { Safe-Argument $_ }))
     CMD /C "START $path $argText"
+}
+
+function Exit-OnError($exitCode = $LastExitCode) {
+    if ($exitCode -ne 0) {
+        Pause
+        exit $exitCode
+    }
 }

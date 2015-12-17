@@ -19,16 +19,25 @@ $projectPath = "$projectRoot\$projectName"
 
 if (Test-Path $projectPath) {
     Write-Error "Project with name '$projectName' allready exists."
-    return
+    exit 1
 }
-Empty-Dir $projectPath
+Empty-Dir $projectPath | Out-Null
+Write-Output ""
 
 pushd $projectPath
-yo mdproc
+
+yo
+Exit-OnError
+
 git init
+Exit-OnError
+
 git add -A :/
+Exit-OnError
+
 git commit -m "Project initialized."
-gulp autobuild
+Exit-OnError
+
 popd
 
 Run-Script Open-Project -projectName $projectName
