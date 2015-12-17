@@ -26,7 +26,3 @@ function Debug($msg) {
 function Run-Script($name) {
     & "$scriptsLib\$name.ps1" @args
 }
-
-function Run-Detached($app) {
-    Start-Process -FilePath $app -ArgumentList $args
-}
