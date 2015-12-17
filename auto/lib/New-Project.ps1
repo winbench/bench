@@ -38,6 +38,23 @@ Exit-OnError
 git commit -m "Project initialized."
 Exit-OnError
 
+if ((Test-Path "package.json" -PathType Leaf) -and -not (Test-Path "node_modules" -PathType Container)) {
+    npm install
+    Exit-OnError
+}
+if ((Test-Path "bower.json" -PathType Leaf) -and -not (Test-Path "bower_components" -PathType Container)) {
+    bower install
+    Exit-OnError
+}
+if (Test-Path "gulpfile.js" -PathType Leaf) {
+    gulp
+    Exit-OnError
+}
+if ((Test-Path "Gruntfile.js" -PathType Leaf) -or (Test-Path "Gruntfile.coffee" -PathType Leaf)) {
+    grunt
+    Exit-OnError
+}
+
 popd
 
 Run-Script Open-Project -projectName $projectName
