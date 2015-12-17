@@ -13,14 +13,14 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 Set-Debugging $debug
 $_ = Set-StopOnError $True
 
-$projectRoot = Safe-Dir $(Get-ConfigDir ProjectRootDir)
-
 if ([IO.Path]::IsPathRooted($projectName)) {
     $projectPath = $projectName
     $projectName = [IO.Path]::GetFileName($projectPath)
 } else {
+    Debug "Resolving project dir for: $projectName"
+    $projectRoot = Safe-Dir $(Get-ConfigDir ProjectRootDir)
     $projectPath = Resolve-Path "$projectRoot\$projectName"
 }
 
 cd $projectPath
-Run-Script Shell "PROJECT $projectName"
+Run-Detached code $projectPath "$projectPath\src\index.md"
