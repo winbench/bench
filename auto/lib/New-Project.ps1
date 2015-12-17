@@ -3,6 +3,8 @@ param (
     [switch]$debug
 )
 
+if (!$projectName) { return }
+
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\common.lib.ps1"
 . "$scriptsLib\config.lib.ps1"

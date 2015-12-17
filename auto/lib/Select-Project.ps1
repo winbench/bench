@@ -14,6 +14,11 @@ $projectRoot = Safe-Dir $(Get-ConfigDir ProjectRootDir)
     | % { [IO.Path]::GetFileName($_) } `
     | sort
 
+if ($projectNames.Count -eq 0) {
+    Write-Host "No projects found."
+    return $null
+}
+
 for ($i = 0; $i -lt $projectNames.Count; $i++) {
     
     Write-Host ([string]::Format("{0,3}) {1}", $i+1, $projectNames[$i]))
