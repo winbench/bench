@@ -57,5 +57,5 @@ if ((Test-Path "Gruntfile.js" -PathType Leaf) -or (Test-Path "Gruntfile.coffee" 
 
 popd
 
-Run-Script Open-Project -projectName $projectName
-Run-Script Open-ProjectShell -projectName $projectName
+Run-Script Edit-project -projectName $projectName
+Run-Script Shell-Project -projectName $projectName
