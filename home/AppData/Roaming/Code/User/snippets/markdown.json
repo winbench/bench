@@ -1,0 +1,18 @@
+{
+	"log-entry": {
+		"prefix": "log entry",
+		"body": [
+			"### ${1:Entry Title}",
+			"",
+			"${2:00}:${3:00}h",
+			"",
+			"* $0"
+		],
+		"description": "An entry for the daily log"
+	},
+	"log-link": {
+		"prefix": "log link",
+		"body": "[${year}-${month}-${day}](#log_${year}-${month}-${day})$0",
+		"description": "A link to another day in a daily log."
+	}
+}
