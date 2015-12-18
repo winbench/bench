@@ -16,6 +16,11 @@
 # Set-ConfigValue ProjectRootDir "D:\bench_projects"
 # Set-ConfigValue ProjectArchiveDir "backups"
 
+# Uncomment and adapt the following line to change the project archive format
+# Possible values are all archive formats supported by 7zip (e.g. zip, 7z)
+
+# Set-ConfigValue ProjectArchiveFormat "zip"
+
 # Uncomment and adapt the following lines to change the app selection
 
 # $apps = Get-ConfigValue Apps

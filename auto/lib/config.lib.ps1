@@ -55,6 +55,8 @@ Set-ConfigValue HomeDir "home"
 Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData"
 Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\LocalAppData"
 Set-ConfigValue ProjectRootDir "projects"
+Set-ConfigValue ProjectArchiveDir "archive"
+Set-ConfigValue ProjectArchiveFormat "zip"
 Set-ConfigValue UseProxy $false
 Set-ConfigValue HttpProxy $null
 Set-ConfigValue HttpsProxy $null
