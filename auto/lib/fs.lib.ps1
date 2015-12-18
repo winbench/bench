@@ -12,8 +12,16 @@ function Purge-Dir ($dir, $msg = $null) {
             Write-Host $msg
         }
         Debug "Deleting directory recursively: $dir"
-        Get-ChildItem $dir -Recurse | Remove-Item -Force
-        Remove-Item $dir
+        try {
+            Remove-Item $dir -Recurse -Force
+        } catch {
+            Debug "Switching to brute force with ROBOCOPY /purge"
+            $emptySibling = [IO.Path]::Combine([Io.Path]::GetDirectoryName($dir), "____empty____")
+            $_ = mkdir $emptySibling
+            robocopy $emptySibling $dir /purge | Out-Null
+            Remove-Item $emptySibling
+            Remove-Item $dir
+        }
     }
 }
 
