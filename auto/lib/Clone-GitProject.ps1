@@ -4,8 +4,8 @@ param (
     [switch]$debug
 )
 
-if (!$projectName) {
-    $projectName = ([regex]"^.*[/\\]([^/\\]+).git$").Replace($gitURL, "`$1")
+if ($projectName -eq "") {
+    $projectName = ([regex]"^.*[/\\]([^/\\]+).git`$").Replace($gitURL, "`$1")
 }
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
@@ -50,5 +50,5 @@ if ((Test-Path "Gruntfile.js" -PathType Leaf) -or (Test-Path "Gruntfile.coffee" 
 
 popd
 
-Run-Script Open-Project -projectName $projectName
-Run-Script Open-ProjectShell -projectName $projectName
+Run-Script Edit-Project -projectName $projectName
+Run-Script Shell-Project -projectName $projectName
