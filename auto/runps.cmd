@@ -1,6 +1,6 @@
 @ECHO OFF
 SETLOCAL
-SET SCRIPT=%~dp0\%1.ps1
+SET SCRIPT=%~dp0\lib\%1.ps1
 
 SHIFT
 SET "args="

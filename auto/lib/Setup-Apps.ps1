@@ -1,7 +1,7 @@
 param ([switch]$debug)
 
-$autoDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$autoDir\bench.lib.ps1"
+$scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$scriptsLib\bench.lib.ps1"
 
 Set-Debugging $debug
 
@@ -52,7 +52,7 @@ function Update-EnvironmentPath() {
 }
 
 function Write-EnvironmentFile() {
-    $envFile = "$autoDir\env.cmd"
+    $envFile = "$Script:rootDir\auto\env.cmd"
     $nl = [Environment]::NewLine
     $txt = "@ECHO OFF$nl"
     $txt += "REM **** MD Bench Environment Setup ****$nl$nl"
@@ -70,7 +70,7 @@ function Write-EnvironmentFile() {
     $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
     $txt += "SET BENCH_HOME=${Script:rootDir}$nl"
     $txt += "SET L=${Script:libDir}$nl"
-    $txt += "SET BENCH_PATH=${Script:autoDir}"
+    $txt += "SET BENCH_PATH=${Script:rootDir}\auto"
     foreach ($path in $Script:paths) {
         $txt += ";%L%$($path.Substring(${Script:libDir}.Length))"
     }
@@ -181,7 +181,7 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
 }
 
 function Execute-Custom-Setup([string]$name) {
-    $customSetupFile = "$autoDir\apps\${name}.setup.ps1"
+    $customSetupFile = "$scriptsLib\..\apps\${name}.setup.ps1"
     if (Test-Path $customSetupFile) {
         Debug "Running custom setup for $name ..."
         $old = Set-StopOnError $false
@@ -199,7 +199,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
 
         $download = App-Download $name
         if ($download) {
-            $src = Find-Download $download
+            [string]$src = Find-Download $download
             $mode = "copy"
             $subDir = $null
         } else {

@@ -1,3 +1,3 @@
 @ECHo OFF
 SET PATH=%~dp0;%PATH%
-CD "%~dp0\..\.."
+CD "%~dp0\.."
