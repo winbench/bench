@@ -124,7 +124,7 @@ Set-AppConfigValue Node Exe "node.exe"
 # Npm Bootstrap
 Set-AppConfigValue NpmBootstrap Url "https://nodejs.org/dist/npm/npm-1.4.12.zip"
 Set-AppConfigValue NpmBootstrap Archive "npm-*.zip"
-Set-AppConfigValue NpmBootstrap Dir "$(Get-ConfigValue NodeDir)"
+Set-AppConfigValue NpmBootstrap Dir "$(Get-AppConfigValue Node Dir)"
 Set-AppConfigValue NpmBootstrap Exe "npm.cmd"
 
 # Npm Update
