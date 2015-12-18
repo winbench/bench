@@ -26,7 +26,8 @@
 # $apps = Get-ConfigValue Apps
 # $apps -= "MikTeX"
 # $apps -= "Inkscape"
-# $apps += "Git"
+# $apps += "Python"
+# $apps += "SublimeText"
 # Set-ConfigValue Apps $apps
 
 # Override URL for binary download
