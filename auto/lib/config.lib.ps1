@@ -104,10 +104,10 @@ Set-AppConfigValue SvZ Dir "7z"
 Set-AppConfigValue SvZ Exe "7za.exe"
 
 # Less MSIerables
-Set-AppConfigValue Less MsiUrl "https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip"
-Set-AppConfigValue Less MsiArchive "lessmsi-*.zip"
-Set-AppConfigValue Less MsiExe "lessmsi.exe"
-Set-AppConfigValue Less MsiRegister $false
+Set-AppConfigValue LessMsi Url "https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip"
+Set-AppConfigValue LessMsi Archive "lessmsi-*.zip"
+Set-AppConfigValue LessMsi Exe "lessmsi.exe"
+Set-AppConfigValue LessMsi Register $false
 
 # Git
 Set-AppConfigValue Git Url "https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe"
