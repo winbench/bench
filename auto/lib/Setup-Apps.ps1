@@ -1,24 +1,21 @@
 param ([switch]$debug)
 
 $autoDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$autoDir\common.lib.ps1"
-. "$autoDir\config.lib.ps1"
-. "$autoDir\fs.lib.ps1"
+. "$autoDir\bench.lib.ps1"
 
 Set-Debugging $debug
-$_ = Set-StopOnError $true
 
 $apps = Get-ConfigValue Apps
 
 $winShell = New-Object -ComObject Shell.Application
 
 $paths = @()
-$tempDir = Empty-Dir $(Get-ConfigDir TempDir)
-$downloadDir = Safe-Dir $(Get-ConfigDir DownloadDir)
-$libDir = Safe-Dir $(Get-ConfigDir LibDir)
-$homeDir = Safe-Dir $(Get-ConfigDir HomeDir)
-$appDataDir = Safe-Dir $(Get-ConfigDir AppDataDir)
-$localAppDataDir = Safe-Dir $(Get-ConfigDir LocalAppDataDir)
+$tempDir = Empty-Dir (Get-ConfigDir TempDir)
+$downloadDir = Safe-Dir (Get-ConfigDir DownloadDir)
+$libDir = Safe-Dir (Get-ConfigDir LibDir)
+$homeDir = Safe-Dir (Get-ConfigDir HomeDir)
+$appDataDir = Safe-Dir (Get-ConfigDir AppDataDir)
+$localAppDataDir = Safe-Dir (Get-ConfigDir LocalAppDataDir)
 $desktopDir = Safe-Dir "$homeDir\Desktop"
 $documentsDir = Safe-Dir "$homeDir\Documents"
 
@@ -84,13 +81,13 @@ function Write-EnvironmentFile() {
     Debug "Written environment file to $envFile"
 }
 
-function App-Typ($name) { return Get-ConfigValue "${name}Typ" "default" }
-function App-Archive($name) { return Get-ConfigValue "${name}Archive" }
-function App-ArchiveSubDir($name) { return Get-ConfigValue "${name}ArchiveSubDir" }
-function App-Download($name) { return Get-ConfigValue "${name}Download" }
-function App-NpmPackage($name) { return Get-ConfigValue "${name}NpmPackage" $name.ToLowerInvariant() }
-function App-NpmForce($name) { return Get-ConfigValue "${name}NpmForceInstall" $false }
-function App-Dir($name) {
+function App-Typ([string]$name) { return Get-AppConfigValue $name Typ "default" }
+function App-Archive([string]$name) { return Get-AppConfigValue $name Archive }
+function App-ArchiveSubDir([string]$name) { return Get-AppConfigValue $name ArchiveSubDir }
+function App-Download([string]$name) { return Get-AppConfigValue $name Download }
+function App-NpmPackage([string]$name) { return Get-AppConfigValue $name NpmPackage $name.ToLowerInvariant() }
+function App-NpmForce([string]$name) { return Get-AppConfigValue $name NpmForceInstall $false }
+function App-Dir([string]$name) {
     switch (App-Typ $name) {
         "npm" {
             return App-Dir Npm
@@ -98,7 +95,7 @@ function App-Dir($name) {
         default {
             return [IO.Path]::Combine(
                 $Script:libDir,
-                (Get-ConfigValue "${name}Dir" $name.ToLowerInvariant())) 
+                (Get-AppConfigValue $name Dir $name.ToLowerInvariant())) 
         }
     }
 }
@@ -110,7 +107,7 @@ function App-Path([string]$name) {
         default {
             return [IO.Path]::Combine(
                 (App-Dir $name),
-                (Get-ConfigValue "${name}Path" ""))
+                (Get-AppConfigValue $name Path ""))
         }
     }
 }
@@ -119,14 +116,14 @@ function App-Exe([string]$name, [bool]$checkExist = $true) {
 
     $path = [IO.Path]::Combine(
         (App-Path $name),
-        (Get-ConfigValue "${name}Exe" "${name}.exe"))
+        (Get-AppConfigValue $name Exe "${name}.exe"))
     if ($checkExist -and ![IO.file]::Exists($path)) {
         return $null
     } else {
         return $path
     }
 }
-function App-Register([string]$name) { return Get-ConfigValue "${name}Register" $true }
+function App-Register([string]$name) { return Get-AppConfigValue $name Register $true }
 
 function Find-Download([string]$pattern) {
     $path = Find-File $Script:downloadDir $pattern

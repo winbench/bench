@@ -1,16 +1,20 @@
 ﻿$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$myDir\common.lib.ps1"
 
+$Script:rootDir = Resolve-Path ([IO.Path]::Combine($myDir, "..", ".."))
+
+$_ = Set-StopOnError $True
+
 $Script:config = @{}
 
-function Set-ConfigValue($name, $value) {
+function Set-ConfigValue([string]$name, $value) {
     if ($Script:debug) {
         Debug "Config: $name = $value"
     }
     $Script:config[$name] = $value
 }
 
-function Get-ConfigValue($name, $def = $null) {
+function Get-ConfigValue([string]$name, $def = $null) {
     if ($Script:config.ContainsKey($name)) {
         return $Script:config[$name]
     } else {
@@ -18,8 +22,27 @@ function Get-ConfigValue($name, $def = $null) {
     }
 }
 
-function Get-ConfigDir($name) {
-    return "$Script:rootDir\$(Get-ConfigValue $name)"
+function Get-AppConfigPropertyName([string]$app, [string]$name) {
+    return "App.$app.$name"
+}
+
+function Set-AppConfigValue([string]$app, [string]$name, $value) {
+    $prop = Get-AppConfigPropertyName $app $name
+    Set-ConfigValue $prop $value
+}
+
+function Get-AppConfigValue([string]$app, [string]$name, $def = $null) {
+    $prop = Get-AppConfigPropertyName $app $name
+    return Get-ConfigValue $prop $def
+}
+
+function Get-ConfigDir([string]$name) {
+    $path = Get-ConfigValue $name
+    if ([IO.Path]::IsPathRooted($path)) {
+        return $path
+    } else {
+        return [IO.Path]::Combine($Script:rootDir, $path)
+    }
 }
 
 # Common
@@ -58,113 +81,114 @@ Set-ConfigValue Apps @(
 )
 
 # Template for command line tool
-# Set-ConfigValue XYZTyp "default"
-# Set-ConfigValue XYZUrl "http://xyz.org/latest"
-# Set-ConfigValue XYZArchive "xyz-*.zip"
-# Set-ConfigValue XYZArchiveSubDir "abc"
-# Set-ConfigValue XYZDir "abc"
-# Set-ConfigValue XYZPath "bin"
-# Set-ConfigValue XYZExe "xyzabc.cmd"
-# Set-ConfigValue XYZRegister $true
+# Set-AppConfigValue XYZ Typ "default" # (optional)
+# Set-AppConfigValue XYZ Url "http://xyz.org/latest"
+# Set-AppConfigValue XYZ Download "xyz.exe" # only for executable downloads
+# Set-AppConfigValue XYZ Archive "xyz-*.zip" # for archive downloads (zip, msi, ...)
+# Set-AppConfigValue XYZ ArchiveSubDir "abc" # (optional)
+# Set-AppConfigValue XYZ Dir "abc" # (optional)
+# Set-AppConfigValue XYZ Exe "xyzabc.cmd" # (optional)
+# Set-AppConfigValue XYZ Register $true # (optional)
+# Set-AppConfigValue XYZ Path "bin" # (optional)
 
 # Template for npm package
-# Set-ConfigValue XYZTyp "npm"
-# Set-ConfigValue XYZNpmPackage "js-abc"
-# Set-ConfigValue XYZNpmExe "abc.cmd"
-# Set-ConfigValue XYZNpmForceInstall $false
+# Set-AppConfigValue XYZ Typ "npm"
+# Set-AppConfigValue XYZ NpmPackage "js-abc"
+# Set-AppConfigValue XYZ NpmExe "abc.cmd" # (optional)
+# Set-AppConfigValue XYZ NpmForceInstall $false # (optional)
 
 # 7Zip
-Set-ConfigValue SvZUrl "http://7-zip.org/a/7za920.zip"
-Set-ConfigValue SvZArchive "7za*.zip"
-Set-ConfigValue SvZDir "7z"
-Set-ConfigValue SvZExe "7za.exe"
+Set-AppConfigValue SvZ Url "http://7-zip.org/a/7za920.zip"
+Set-AppConfigValue SvZ Archive "7za*.zip"
+Set-AppConfigValue SvZ Dir "7z"
+Set-AppConfigValue SvZ Exe "7za.exe"
 
 # Less MSIerables
-Set-ConfigValue LessMsiUrl "https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip"
-Set-ConfigValue LessMsiArchive "lessmsi-*.zip"
-Set-ConfigValue LessMsiExe "lessmsi.exe"
-Set-ConfigValue LessMsiRegister $false
+Set-AppConfigValue Less MsiUrl "https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip"
+Set-AppConfigValue Less MsiArchive "lessmsi-*.zip"
+Set-AppConfigValue Less MsiExe "lessmsi.exe"
+Set-AppConfigValue Less MsiRegister $false
 
 # Git
-Set-ConfigValue GitUrl "https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe"
-Set-ConfigValue GitArchive "PortableGit-*-32-bit.7z.exe"
-Set-ConfigValue GitPath "bin"
-Set-ConfigValue GitExe "git.exe"
+Set-AppConfigValue Git Url "https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe"
+Set-AppConfigValue Git Archive "PortableGit-*-32-bit.7z.exe"
+Set-AppConfigValue Git Path "bin"
+Set-AppConfigValue Git Exe "git.exe"
 
 # NodeJS
-Set-ConfigValue NodeUrl "https://nodejs.org/dist/v4.2.3/win-x86/node.exe"
-Set-ConfigValue NodeDownload "node.exe"
-Set-ConfigValue NodeDir "node"
-Set-ConfigValue NodeExe "node.exe"
+Set-AppConfigValue Node Url "https://nodejs.org/dist/v4.2.3/win-x86/node.exe"
+Set-AppConfigValue Node Download "node.exe"
+Set-AppConfigValue Node Dir "node"
+Set-AppConfigValue Node Exe "node.exe"
 
 # Npm Bootstrap
-Set-ConfigValue NpmBootstrapUrl "https://nodejs.org/dist/npm/npm-1.4.12.zip"
-Set-ConfigValue NpmBootstrapArchive "npm-*.zip"
-Set-ConfigValue NpmBootstrapDir "$(Get-ConfigValue NodeDir)"
-Set-ConfigValue NpmBootstrapExe "npm.cmd"
+Set-AppConfigValue NpmBootstrap Url "https://nodejs.org/dist/npm/npm-1.4.12.zip"
+Set-AppConfigValue NpmBootstrap Archive "npm-*.zip"
+Set-AppConfigValue NpmBootstrap Dir "$(Get-ConfigValue NodeDir)"
+Set-AppConfigValue NpmBootstrap Exe "npm.cmd"
 
 # Npm Update
-Set-ConfigValue NpmTyp "npm"
-Set-ConfigValue NpmExe "npm.cmd"
-Set-ConfigValue NpmNpmForceInstall $true
+Set-AppConfigValue Npm Typ "npm"
+Set-AppConfigValue Npm Exe "npm.cmd"
+Set-AppConfigValue Npm NpmForceInstall $true
 
 # Gulp
-Set-ConfigValue GulpTyp "npm"
-Set-ConfigValue GulpExe "gulp.cmd"
+Set-AppConfigValue Gulp Typ "npm"
+Set-AppConfigValue Gulp Exe "gulp.cmd"
 
 # Yeoman
-Set-ConfigValue YeomanTyp "npm"
-Set-ConfigValue YeomanNpmPackage "yo"
-Set-ConfigValue YeomanExe "yo"
+Set-AppConfigValue Yeoman Typ "npm"
+Set-AppConfigValue Yeoman NpmPackage "yo"
+Set-AppConfigValue Yeoman Exe "yo"
 
 # MdProc Yeoman Generator
-Set-ConfigValue MdProcGenTyp "npm"
-Set-ConfigValue MdProcGenNpmPackage "generator-mdproc"
+Set-AppConfigValue MdProcGen Typ "npm"
+Set-AppConfigValue MdProcGen NpmPackage "generator-mdproc"
 
 # JsHint
-Set-ConfigValue JSHintTyp "npm"
-Set-ConfigValue JSHintExe "jshint"
+Set-AppConfigValue JSHint Typ "npm"
+Set-AppConfigValue JSHint Exe "jshint"
 
 # Python
-Set-ConfigValue PythonUrl "https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi"
-Set-ConfigValue PythonArchive "python-3.*.msi"
-Set-ConfigValue PythonArchiveSubDir "SourceDir"
-Set-ConfigValue PythonExe "python.exe"
+Set-AppConfigValue Python Url "https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi"
+Set-AppConfigValue Python Archive "python-3.*.msi"
+Set-AppConfigValue Python ArchiveSubDir "SourceDir"
+Set-AppConfigValue Python Exe "python.exe"
 
 # Pandoc
-Set-ConfigValue PandocUrl "https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi"
-Set-ConfigValue PandocArchive "pandoc-*-windows.msi"
-Set-ConfigValue PandocArchiveSubDir "SourceDir\Pandoc"
-Set-ConfigValue PandocExe "pandoc.exe"
+Set-AppConfigValue Pandoc Url "https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi"
+Set-AppConfigValue Pandoc Archive "pandoc-*-windows.msi"
+Set-AppConfigValue Pandoc ArchiveSubDir "SourceDir\Pandoc"
+Set-AppConfigValue Pandoc Exe "pandoc.exe"
 
 # GraphViz
-Set-ConfigValue GraphVizUrl "http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip"
-Set-ConfigValue GraphVizArchive "graphviz-*.zip"
-Set-ConfigValue GraphVizPath "release\bin"
-Set-ConfigValue GraphVizExe "dot.exe"
+Set-AppConfigValue GraphViz Url "http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip"
+Set-AppConfigValue GraphViz Archive "graphviz-*.zip"
+Set-AppConfigValue GraphViz Path "release\bin"
+Set-AppConfigValue GraphViz Exe "dot.exe"
 
 # Inkscape
-Set-ConfigValue InkscapeUrl "https://inkscape.org/en/gallery/item/3932/download/"
-Set-ConfigValue InkscapeArchive "Inkscape-*-win32.7z"
-Set-ConfigValue InkscapeArchiveSubDir "inkscape"
-Set-ConfigValue InkscapeExe "inkscape.exe"
+Set-AppConfigValue Inkscape Url "https://inkscape.org/en/gallery/item/3932/download/"
+Set-AppConfigValue Inkscape Archive "Inkscape-*-win32.7z"
+Set-AppConfigValue Inkscape ArchiveSubDir "inkscape"
+Set-AppConfigValue Inkscape Exe "inkscape.exe"
 
 # MikTeX
-Set-ConfigValue MikTeXUrl "http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe"
-Set-ConfigValue MikTeXArchive "miktex-portable-2.*.exe"
-Set-ConfigValue MikTeXPath "miktex\bin"
-Set-ConfigValue MikTeXExe "latex.exe"
+Set-AppConfigValue MikTeX Url "http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe"
+Set-AppConfigValue MikTeX Archive "miktex-portable-2.*.exe"
+Set-AppConfigValue MikTeX Path "miktex\bin"
+Set-AppConfigValue MikTeX Exe "latex.exe"
 
 # Visual Studio Code
-Set-ConfigValue VSCodeUrl "http://go.microsoft.com/fwlink/?LinkID=623231"
-Set-ConfigValue VSCodeArchive "VSCode-win32.zip"
-Set-ConfigValue VSCodeDir "code"
-Set-ConfigValue VSCodeExe "code.exe"
+Set-AppConfigValue VSCode Url "http://go.microsoft.com/fwlink/?LinkID=623231"
+Set-AppConfigValue VSCode Archive "VSCode-win32.zip"
+Set-AppConfigValue VSCode Dir "code"
+Set-AppConfigValue VSCode Exe "code.exe"
 
 # SublimeText 3
-Set-ConfigValue SublimeUrl "http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip"
-Set-ConfigValue SublimeArchive "Sublime*Text*Build*.zip"
-Set-ConfigValue SublimeExe "sublime_text.exe"
+Set-AppConfigValue SublimeText Url "http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip"
+Set-AppConfigValue SublimeText Archive "Sublime*Text*Build*.zip"
+Set-AppConfigValue SublimeText Exe "sublime_text.exe"
 
 #
 # Load custom configuration

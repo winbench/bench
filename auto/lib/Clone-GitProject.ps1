@@ -5,18 +5,15 @@ param (
 )
 
 if (!$projectName) {
-    $projectname = ([regex]"^.*[/\\]([^/\\]+).git$").Replace($gitURL, "`$1")
+    $projectName = ([regex]"^.*[/\\]([^/\\]+).git$").Replace($gitURL, "`$1")
 }
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$scriptsLib\common.lib.ps1"
-. "$scriptsLib\config.lib.ps1"
-. "$scriptsLib\fs.lib.ps1"
+. "$scriptsLib\bench.lib.ps1"
 
 Set-Debugging $debug
-$_ = Set-StopOnError $True
 
-$projectRoot = Safe-Dir $(Get-ConfigDir ProjectRootDir)
+$projectRoot = Safe-Dir (Get-ConfigDir ProjectRootDir)
 
 $projectPath = "$projectRoot\$projectName"
 

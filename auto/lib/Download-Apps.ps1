@@ -1,12 +1,9 @@
 param ([switch]$debug)
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$scriptsLib\common.lib.ps1"
-. "$scriptsLib\config.lib.ps1"
-. "$scriptsLib\fs.lib.ps1"
+. "$scriptsLib\bench.lib.ps1"
 
 Set-Debugging $debug
-$_ = Set-StopOnError $True
 
 $apps = Get-ConfigValue Apps
 
@@ -89,10 +86,10 @@ function Download-File($url, $target) {
 }
 
 foreach ($name in $apps) {
-    $typ = Get-ConfigValue "${name}Typ"
+    $typ = Get-AppConfigValue $name Typ
     if ($typ -ieq "npm") { continue }
 
-    $url = Get-ConfigValue "${name}Url"
+    $url = Get-AppConfigValue $name Url
     if (!$url) {
         Debug "No URL for app $name"
         continue

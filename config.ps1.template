@@ -1,5 +1,5 @@
 #
-# Customize the configuration with Set-ConfigValue
+# Customize the configuration with Set-ConfigValue and Set-AppConfigValue
 #
 
 # Uncomment and adapt the following lines to setup a proxy
@@ -7,6 +7,14 @@
 # Set-ConfigValue UseProxy $true
 # Set-ConfigValue HttpProxy "myproxy:3128"
 # Set-ConfigValue HttpsProxy "myproxy:3128"
+
+# Uncomment and adapt the following lines to change the location of directories
+# (paths can be relative or absolute)
+
+# Set-ConfigValue TempDir "C:\Temp"
+# Set-ConfigValue HomeDir "D:\bench_profile"
+# Set-ConfigValue ProjectRootDir "D:\bench_projects"
+# Set-ConfigValue ProjectArchiveDir "backups"
 
 # Uncomment and adapt the following lines to change the app selection
 
@@ -18,5 +26,5 @@
 
 # Override URL for binary download
 
-# Set-ConfigValue XYZUrl "http://my-server.com/xyz/release-v2.zip"
-# Set-ConfigValue XYZArchive "release-v*.zip"
+# Set-AppConfigValue XYZ Url "http://my-server.com/xyz/release-v2.zip"
+# Set-AppConfigValue XYZ Archive "release-v*.zip"

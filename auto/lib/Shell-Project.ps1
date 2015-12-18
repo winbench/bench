@@ -6,21 +6,12 @@
 if (!$projectName) { return }
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$scriptsLib\common.lib.ps1"
-. "$scriptsLib\config.lib.ps1"
-. "$scriptsLib\fs.lib.ps1"
+. "$scriptsLib\bench.lib.ps1"
 
 Set-Debugging $debug
-$_ = Set-StopOnError $True
 
-if ([IO.Path]::IsPathRooted($projectName)) {
-    $projectPath = $projectName
-    $projectName = [IO.Path]::GetFileName($projectPath)
-} else {
-    Debug "Resolving project dir for: $projectName"
-    $projectRoot = Safe-Dir $(Get-ConfigDir ProjectRootDir)
-    $projectPath = Resolve-Path "$projectRoot\$projectName"
-}
+$projectPath = Get-ProjectPath $projectName
+$projectName = Get-ProjectName $projectName
 
 cd $projectPath
 Run-Script Shell "PROJECT $projectName"
