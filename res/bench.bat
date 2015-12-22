@@ -1,4 +1,4 @@
-@ECHO ON
+@ECHO OFF
 SET ROOT=%~dp0
 SET ZIPURL=https://github.com/mastersign/bench/archive/master.zip
 SET ZIPFILE=%ROOT%bench.zip
