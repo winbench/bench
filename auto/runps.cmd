@@ -19,4 +19,4 @@ IF DEFINED args SET "args=%args:~1%"
 REM ECHO.%SCRIPT%
 REM ECHO.%args%
 
-powershell -NoLogo -NoProfile -ExecutionPolicy Unrestricted "%SCRIPT%" %args%
+powershell -NoLogo -NoProfile -ExecutionPolicy Unrestricted "& ('%SCRIPT%')" %args%
