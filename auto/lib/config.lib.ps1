@@ -149,11 +149,19 @@ Set-AppConfigValue MdProcGen NpmPackage "generator-mdproc"
 Set-AppConfigValue JSHint Typ "npm"
 Set-AppConfigValue JSHint Exe "jshint"
 
-# Python
-Set-AppConfigValue Python Url "https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi"
-Set-AppConfigValue Python Archive "python-3.*.msi"
-Set-AppConfigValue Python ArchiveSubDir "SourceDir"
-Set-AppConfigValue Python Exe "python.exe"
+# Python2
+Set-AppConfigValue Python2 Url "https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi"
+Set-AppConfigValue Python2 Archive "python-2.*.msi"
+Set-AppConfigValue Python2 ArchiveSubDir "SourceDir"
+Set-AppConfigValue Python2 Path @(".", "Scripts")
+Set-AppConfigValue Python2 Exe "python.exe"
+
+# Python3
+Set-AppConfigValue Python3 Url "https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi"
+Set-AppConfigValue Python3 Archive "python-3.*.msi"
+Set-AppConfigValue Python3 ArchiveSubDir "SourceDir"
+Set-AppConfigValue Python3 Path @(".", "Scripts")
+Set-AppConfigValue Python3 Exe "python.exe"
 
 # Pandoc
 Set-AppConfigValue Pandoc Url "https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi"

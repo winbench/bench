@@ -26,7 +26,8 @@
 # $apps = Get-ConfigValue Apps
 # $apps -= "MikTeX"
 # $apps -= "Inkscape"
-# $apps += "Python"
+# $apps += "Python2"
+# $apps += "Python3"
 # $apps += "SublimeText"
 # Set-ConfigValue Apps $apps
 

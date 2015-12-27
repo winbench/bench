@@ -24,7 +24,13 @@
 * Default Version: v1.4.12
 * Direct Download: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
 
-## Python
+## Python 2
+
+* Website: <https://www.python.org/ftp/python/>
+* Default Version: v2.7.11
+* Direct Download: <https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi>
+
+## Python 3
 
 * Website: <https://www.python.org/ftp/python/>
 * Default Version: v3.4.3
