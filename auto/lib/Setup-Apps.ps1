@@ -105,9 +105,33 @@ function App-Path([string]$name) {
             return App-Path NpmBootstrap
         }
         default {
-            return [IO.Path]::Combine(
-                (App-Dir $name),
-                (Get-AppConfigValue $name Path ""))
+            $appDir = App-Dir $name
+            $cfgPath = Get-AppConfigValue $name Path ""
+            if ($cfgPath -is [string]) {
+                return [IO.Path]::Combine($appDir, $cfgPath)
+            } elseif ($cfgPath -is [array]) {
+                return [IO.Path]::Combine($appDir, $cfgPath[0])
+            }
+        }
+    }
+}
+function App-Paths([string]$name) {
+    switch (App-Typ $name) {
+        "npm" {
+            return App-Paths NpmBootstrap
+        }
+        default {
+            $paths = @()
+            $appDir = App-Dir $name
+            $cfgPath = Get-AppConfigValue $name Path ""
+            if ($cfgPath -is [string]) {
+                $paths += [IO.Path]::Combine($appDir, $cfgPath)
+            } elseif ($cfgPath -is [array]) {
+                foreach ($p in $cfgPath) {
+                    $paths += [IO.Path]::Combine($appDir, $p)
+                }
+            }
+            return $paths
         }
     }
 }
@@ -234,7 +258,10 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     }
 
     if (App-Register $name) {
-        Register-Path (App-Path $name)
+        $paths = App-Paths $name
+        foreach ($p in $paths) {
+            Register-Path $p
+        }
     }
 
     Execute-Custom-Setup $name
