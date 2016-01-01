@@ -8,14 +8,25 @@ $email = & $git config --global user.email
 if (!$pushDefault) {
     & $git config --global "push.default" "simple"
 }
+
 if (!$user -or !$email) {
-    Write-Host "Configure your GIT identity"
+    Write-Host "Configuring your GIT identity ..."
     if (!$user) {
-        $user = Read-Host "User Name"
+        $user = Get-ConfigValue UserName
+        if (!$user) {
+            $user = Read-Host "User Name"
+        } else {
+            Write-Host "User Name: $user"
+        }
         & $git config --global "user.name" $user
     }
     if (!$email) {
-        $email = Read-Host "Email"
+        $email = Get-ConfigValue UserEmail
+        if (!$email) {
+            $email = Read-Host "Email"
+        } else {
+            Write-Host "Email: $email"
+        }
         & $git config --global "user.email" $email
     }
 }
