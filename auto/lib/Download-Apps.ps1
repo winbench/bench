@@ -24,8 +24,73 @@ function Get-Proxy($url) {
     }
 }
 
+function Download-String($url) {
+    Write-Host "Downloading page: $url ..."
+    $attempt = 1
+    while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
+        try {
+            if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
+            if (Get-ConfigValue UseProxy) {
+                $proxyUrl = Get-ProxyUrl $url
+                $data = Invoke-WebRequest -Uri $url -Proxy $proxyUrl
+            } else {
+                $data = Invoke-WebRequest -Uri $url
+            }
+            return $data
+        } catch {
+            Debug "Download failed $_"
+            $attempt++
+        }
+    }
+    return $null
+}
+
+function Download-File($url, $target) {
+    Write-Host "Downloading file: $url ..."
+    $attempt = 1
+    while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
+        try {
+            if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
+            if (Get-ConfigValue UseProxy) {
+                $proxyUrl = Get-ProxyUrl $url
+                Invoke-WebRequest -Uri $url -OutFile $target -Proxy $proxyUrl
+            } else {
+                Invoke-WebRequest -Uri $url -OutFile $target
+            }
+            return $True
+        } catch {
+            Debug "Download failed $_"
+            $attempt++
+        }
+    }
+    return $False
+}
+
+function Is-RedirectPage($url) {
+    return $url -match "^https?://downloads\.sourceforge\.net/"
+}
+
+function Get-RefreshUrl($url) {
+    $http = Download-String $url
+    if (!$http) {
+        Write-Warning "Download failed: $url"
+        return $null
+    }
+    Debug "Extracting refresh URL from download page ..."
+    $p1 = [regex]"\<noscript\>[^\<]*\<meta\s[^\>]*?http-equiv=`"refresh`"[^\>]*?\scontent=`"\d+;\s+url=(?<url>.*?)`""
+    $p2 = [regex]"\<noscript\>[^\<]*\<meta\s[^\>]*?content=`"\d+;\s+url=(?<url>.*?)`"[^\>]*?\shttp-equiv=`"refresh`""
+    $m = $p1.Match($http)
+    if (!$m.Success) { $m = $p2.Match($http) }
+    if ($m.Success) {
+        return $m.Groups["url"].Value.Replace("&amp;", "&")
+    } else {
+        Write-Warning "Extracting direct URL from download page failed"
+        return $null
+    }
+}
+
 function Extract-FileName($url) {
-    [regex]$ex = "[^=/]+\.[a-zA-Z0-9]{2,3}$"
+    [regex]$ex = "[^=/]+\.[a-zA-Z0-9]{2,3}(?:\?.*)?$"
     $m = $ex.Match($url)
     if ($m.Success) {
         return $m.Value
@@ -62,25 +127,21 @@ function Get-FileNameFromUrl($url) {
     }
 }
 
-function Download-File($url, $target) {
-    Write-Host "Downloading $url ..."
-    $attempt = 1
-    while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
-        try {
-            if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
-            if (Get-ConfigValue UseProxy) {
-                $proxyUrl = Get-ProxyUrl $url
-                Invoke-WebRequest -Uri $url -OutFile $target -Proxy $proxyUrl
-            } else {
-                Invoke-WebRequest -Uri $url -OutFile $target
+function Download($url) {
+    $fileName = Get-FileNameFromUrl $url
+    $file = [IO.Path]::Combine($Script:downloadDir, $fileName)
+    if ($fileName -and ![IO.File]::Exists($file)) {
+        if (Is-RedirectPage $url) {
+            $url = Get-RefreshUrl $url
+            if ($url) {
+                if (!(Download-File $url $file)) {
+                    Write-Warning "Download failed: $url"
+                }
             }
-            return $True
-        } catch {
-            Debug "Download failed $_"
-            $attempt++
+        } elseif (!(Download-File $url $file)) {
+            Write-Warning "Download failed: $url"
         }
     }
-    return $False
 }
 
 foreach ($name in $Script:apps) {
@@ -92,11 +153,5 @@ foreach ($name in $Script:apps) {
         Debug "No URL for app $name"
         continue
     }
-    $fileName = Get-FileNameFromUrl $url
-    $file = [IO.Path]::Combine($Script:downloadDir, $fileName)
-    if ($fileName -and ![IO.File]::Exists($file)) {
-        if (!(Download-File $url $file)) {
-            Write-Warning "Download failed: $url"
-        }
-    }
+    Download $url
 }
