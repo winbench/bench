@@ -48,3 +48,13 @@ if (!(Test-Path "$env:USERPROFILE\.ssh")) {
     & $keygen -t rsa -b 4096 -f "$env:USERPROFILE\.ssh\id_rsa" -C "$user <$email>"
     notepad "$env:USERPROFILE\.ssh\id_rsa.pub"
 }
+
+if (!(Test-Path "$Script:rootDir\.git")) {
+    $repo = Get-ConfigValue BenchRepository
+    cd $Script:rootDir
+    & $git init
+    & $git remote add origin $repo
+    & $git fetch
+    & $git reset --mixed origin/master
+    & $git branch --set-upstream-to=origin/master master
+}

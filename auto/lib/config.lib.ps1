@@ -175,6 +175,7 @@ function Initialize() {
     Set-ConfigValue HttpProxy $null
     Set-ConfigValue HttpsProxy $null
     Set-ConfigValue DownloadAttempts 3
+    Set-ConfigValue BenchRepository "https://github.com/mastersign/bench.git"
 
     $appIndex = Get-ConfigPathValue AppIndex
     Get-Content $appIndex | Process-AppRegistry -parseGroups $true
