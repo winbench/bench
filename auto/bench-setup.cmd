@@ -6,4 +6,4 @@ CALL runps Setup-Apps
 CALL "%~dp0\env.cmd"
 CD "%~dp0\.."
 PAUSE
-REM runps Shell
+runps Shell
