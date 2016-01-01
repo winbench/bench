@@ -4,4 +4,5 @@ CALL runps Download-Apps
 CALL runps Setup-Apps
 CALL "%~dp0\env.cmd"
 CD "%~dp0\.."
-runps Shell
+PAUSE
+REM runps Shell
