@@ -1,35 +1,35 @@
-#
-# Customize the configuration with Set-ConfigValue and Set-AppConfigValue.
-#
+##
+## Customize the configuration with Set-ConfigValue and Set-AppConfigValue.
+##
 
-# Uncomment and adapt the following lines to setup a proxy:
+## Uncomment and adapt the following lines to setup a proxy:
 
 # Set-ConfigValue UseProxy $true
 # Set-ConfigValue HttpProxy "myproxy:3128"
 # Set-ConfigValue HttpsProxy "myproxy:3128"
 
-# Uncomment and adapt the following lines to change the location of directories:
-# (paths can be relative or absolute)
+## Uncomment and adapt the following lines to change the location of directories:
+## (paths can be relative or absolute)
 
 # Set-ConfigValue TempDir "C:\Temp"
 # Set-ConfigValue HomeDir "D:\bench_profile"
 # Set-ConfigValue ProjectRootDir "D:\bench_projects"
 # Set-ConfigValue ProjectArchiveDir "backups"
 
-# Uncomment and adapt the following line to change the project archive format:
-# Possible values are all archive formats supported by 7zip (e.g. zip, 7z)
+## Uncomment and adapt the following line to change the project archive format:
+## Possible values are all archive formats supported by 7zip (e.g. zip, 7z)
 
 # Set-ConfigValue ProjectArchiveFormat "zip"
 
-# Uncomment and adapt the following lines to change the app selection:
-# Custom apps from apps.md need to be activated here.
+## Uncomment and adapt the following lines to change the app selection:
+## Custom apps from apps.md need to be activated here.
 
 # Deactivate-App Gulp
 # Deactivate-App Bower
 # Deactivate-App Yeoman
+# Deactivate-App MdProc
 # Deactivate-App JSHint
 # Deactivate-App VSCode
-# Deactivate-App Chromium
 # Deactivate-App Pandoc
 # Deactivate-App Graphviz
 # Deactivate-App Inkscape
@@ -38,10 +38,19 @@
 # Activate-App Python2
 # Activate-App Python3
 # Activate-App SublimeText3
+# Activate-App Iron
 
-# Override URL for binary download
+## Deactivate forced update for NPM:
+
+# Set-AppConfigValue Npm ForceInstall $false
+
+## Override URL for binary download:
 
 # Set-AppConfigValue XYZ Url "http://my-server.com/xyz/release-v2.zip"
 # Set-AppConfigValue XYZ Archive "release-v*.zip"
 
-# Set developer identity
+## Override Version for NodeJS packages:
+
+# Set-AppConfigValue XYZ Version "^3.5.0"
+
+## Setup developer identity:
