@@ -188,14 +188,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Dir: `code`
 * Exe: `code.exe`
 
-### Chromium
-
-* ID: `Chromium`
-* Website: <http://www.chromium.org/Home>
-* Version: 49.0.2593.0
-* Url: <https://downloads.sourceforge.net/crportable/ChromiumPortable_49.0.2593.0.paf.exe>
-* Archive: `ChromiumPortable_*.paf.exe`
-
 ### Pandoc
 
 * ID: `Pandoc`
