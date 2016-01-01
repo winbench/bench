@@ -5,8 +5,8 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
 Set-Debugging $debug
 
-$libDir = Get-ConfigDir LibDir
-$tempDir = Get-ConfigDir TempDir
+$libDir = Get-ConfigPathValue LibDir
+$tempDir = Get-ConfigPathValue TempDir
 
 Purge-Dir $libDir "Removing installed files ..."
 Purge-Dir $tempDir "Removing temporary files ..."
