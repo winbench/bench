@@ -5,8 +5,6 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
 Set-Debugging $debug
 
-$apps = Get-ConfigValue Apps
-
 $winShell = New-Object -ComObject Shell.Application
 
 $paths = @()
@@ -88,14 +86,15 @@ function Write-EnvironmentFile() {
 }
 
 function App-Typ([string]$name) { return Get-AppConfigValue $name Typ "default" }
+function App-Version([string]$name) { return Get-AppConfigValue $name Version }
 function App-Archive([string]$name) { return Get-AppConfigValue $name Archive }
 function App-ArchiveSubDir([string]$name) { return Get-AppConfigValue $name ArchiveSubDir }
 function App-Download([string]$name) { return Get-AppConfigValue $name Download }
+function App-Force([string]$name) { return Get-AppConfigValue $name ForceInstall $false }
 function App-NpmPackage([string]$name) { return Get-AppConfigValue $name NpmPackage $name.ToLowerInvariant() }
-function App-NpmForce([string]$name) { return Get-AppConfigValue $name NpmForceInstall $false }
 function App-Dir([string]$name) {
     switch (App-Typ $name) {
-        "npm" {
+        "node-package" {
             return App-Dir Npm
         }
         default {
@@ -107,7 +106,7 @@ function App-Dir([string]$name) {
 }
 function App-Path([string]$name) {
     switch (App-Typ $name) {
-        "npm" {
+        "node-package" {
             return App-Path NpmBootstrap
         }
         default {
@@ -123,7 +122,7 @@ function App-Path([string]$name) {
 }
 function App-Paths([string]$name) {
     switch (App-Typ $name) {
-        "npm" {
+        "node-package" {
             return App-Paths NpmBootstrap
         }
         default {
@@ -285,25 +284,32 @@ function Check-NpmPackage([string]$name) {
 function Setup-NpmPackage([string]$name) {
     $packageName = App-NpmPackage $name
     $npm = App-Exe Npm
+    $version = App-Version $name
     if (!$npm) { throw "Node Package Manager not found" }
-    if ((App-NpmForce $name) -or !(Check-NpmPackage $name)) {
-
-        Write-Host "Setting up npm package $packageName ..."
-
-        & $npm install $packageName --global
-
+    if ((App-Force $name) -or !(Check-NpmPackage $name)) {
+        if ($version) {
+            Write-Host "Setting up npm package $packageName@$version ..."
+            & $npm install "$packageName@$version" --global
+        } else {
+            Write-Host "Setting up npm package $packageName ..."
+            & $npm install $packageName --global
+        }
     } else {
-        Write-Host "Skipping allready installed NPM package $packageName"
+        if ($version) {
+            Write-Host "Skipping allready installed NPM package $packageName@$version"
+        } else {
+            Write-Host "Skipping allready installed NPM package $packageName"
+        }
     }
     Execute-Custom-Setup $name
 }
 
 Load-Environment
 Update-EnvironmentPath
-foreach ($name in $apps) {
+foreach ($name in $Script:apps) {
     $typ = App-Typ $name
     switch ($typ) {
-        "npm" { Setup-NpmPackage $name }
+        "node-package" { Setup-NpmPackage $name }
         default { Default-Setup $name }
     }
     Update-EnvironmentPath

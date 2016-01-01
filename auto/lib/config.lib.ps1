@@ -6,6 +6,7 @@ $Script:rootDir = Resolve-Path ([IO.Path]::Combine($myDir, "..", ".."))
 $_ = Set-StopOnError $True
 
 $Script:config = @{}
+$Script:apps = New-Object 'System.Collections.Generic.List`1[System.String]'
 
 function Set-ConfigValue([string]$name, $value) {
     if ($Script:debug) {
@@ -36,6 +37,18 @@ function Get-AppConfigValue([string]$app, [string]$name, $def = $null) {
     return Get-ConfigValue $prop $def
 }
 
+function Activate-App([string]$app) {
+    if (!($app -in $Script:apps)) {
+        $Script:apps.Add($app)
+    }
+}
+
+function Deactivate-App([string]$app) {
+    if ($app -in $Script:apps) {
+        $_ = $Script:apps.Remove($app)
+    }
+}
+
 function Get-ConfigPathValue([string]$name) {
     $path = Get-ConfigValue $name
     if ([IO.Path]::IsPathRooted($path)) {
@@ -45,164 +58,140 @@ function Get-ConfigPathValue([string]$name) {
     }
 }
 
-# Common
-Set-ConfigValue Version "0.1.0"
-Set-ConfigValue DownloadDir "res\download"
-Set-ConfigValue ResFile "res\resources.md"
-Set-ConfigValue TempDir "tmp"
-Set-ConfigValue LibDir "lib"
-Set-ConfigValue HomeDir "home"
-Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData"
-Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\LocalAppData"
-Set-ConfigValue ProjectRootDir "projects"
-Set-ConfigValue ProjectArchiveDir "archive"
-Set-ConfigValue ProjectArchiveFormat "zip"
-Set-ConfigValue UseProxy $false
-Set-ConfigValue HttpProxy $null
-Set-ConfigValue HttpsProxy $null
-Set-ConfigValue DownloadAttempts 3
-
-Set-ConfigValue Apps @(
-    "SvZ",
-    "LessMsi",
-    "Git",
-    "Node",
-    "NpmBootstrap",
-    "Npm",
-    "Gulp",
-    "Yeoman",
-    "MdProcGen",
-    "JSHint",
-    "VSCode",
-    "Pandoc",
-    "GraphViz",
-    "Inkscape",
-    "MikTeX"
-)
-
-# Template for command line tool
-# Set-AppConfigValue XYZ Typ "default" # (optional)
-# Set-AppConfigValue XYZ Url "http://xyz.org/latest"
-# Set-AppConfigValue XYZ Download "xyz.exe" # only for executable downloads
-# Set-AppConfigValue XYZ Archive "xyz-*.zip" # for archive downloads (zip, msi, ...)
-# Set-AppConfigValue XYZ ArchiveSubDir "abc" # (optional)
-# Set-AppConfigValue XYZ Dir "abc" # (optional)
-# Set-AppConfigValue XYZ Exe "xyzabc.cmd" # (optional)
-# Set-AppConfigValue XYZ Register $true # (optional)
-# Set-AppConfigValue XYZ Path "bin" # (optional)
-
-# Template for npm package
-# Set-AppConfigValue XYZ Typ "npm"
-# Set-AppConfigValue XYZ NpmPackage "js-abc"
-# Set-AppConfigValue XYZ NpmExe "abc.cmd" # (optional)
-# Set-AppConfigValue XYZ NpmForceInstall $false # (optional)
-
-# 7Zip
-Set-AppConfigValue SvZ Url "http://7-zip.org/a/7za920.zip"
-Set-AppConfigValue SvZ Archive "7za*.zip"
-Set-AppConfigValue SvZ Dir "7z"
-Set-AppConfigValue SvZ Exe "7za.exe"
-
-# Less MSIerables
-Set-AppConfigValue LessMsi Url "https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip"
-Set-AppConfigValue LessMsi Archive "lessmsi-*.zip"
-Set-AppConfigValue LessMsi Exe "lessmsi.exe"
-Set-AppConfigValue LessMsi Register $false
-
-# Git
-Set-AppConfigValue Git Url "https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe"
-Set-AppConfigValue Git Archive "PortableGit-*-32-bit.7z.exe"
-Set-AppConfigValue Git Path "bin"
-Set-AppConfigValue Git Exe "git.exe"
-
-# NodeJS
-Set-AppConfigValue Node Url "https://nodejs.org/dist/v4.2.3/win-x86/node.exe"
-Set-AppConfigValue Node Download "node.exe"
-Set-AppConfigValue Node Dir "node"
-Set-AppConfigValue Node Exe "node.exe"
-
-# Npm Bootstrap
-Set-AppConfigValue NpmBootstrap Url "https://nodejs.org/dist/npm/npm-1.4.12.zip"
-Set-AppConfigValue NpmBootstrap Archive "npm-*.zip"
-Set-AppConfigValue NpmBootstrap Dir "$(Get-AppConfigValue Node Dir)"
-Set-AppConfigValue NpmBootstrap Exe "npm.cmd"
-
-# Npm Update
-Set-AppConfigValue Npm Typ "npm"
-Set-AppConfigValue Npm Exe "npm.cmd"
-Set-AppConfigValue Npm NpmForceInstall $true
-
-# Gulp
-Set-AppConfigValue Gulp Typ "npm"
-Set-AppConfigValue Gulp Exe "gulp.cmd"
-
-# Yeoman
-Set-AppConfigValue Yeoman Typ "npm"
-Set-AppConfigValue Yeoman NpmPackage "yo"
-Set-AppConfigValue Yeoman Exe "yo"
-
-# MdProc Yeoman Generator
-Set-AppConfigValue MdProcGen Typ "npm"
-Set-AppConfigValue MdProcGen NpmPackage "generator-mdproc"
-
-# JsHint
-Set-AppConfigValue JSHint Typ "npm"
-Set-AppConfigValue JSHint Exe "jshint"
-
-# Python2
-Set-AppConfigValue Python2 Url "https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi"
-Set-AppConfigValue Python2 Archive "python-2.*.msi"
-Set-AppConfigValue Python2 ArchiveSubDir "SourceDir"
-Set-AppConfigValue Python2 Path @(".", "Scripts")
-Set-AppConfigValue Python2 Exe "python.exe"
-
-# Python3
-Set-AppConfigValue Python3 Url "https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi"
-Set-AppConfigValue Python3 Archive "python-3.*.msi"
-Set-AppConfigValue Python3 ArchiveSubDir "SourceDir"
-Set-AppConfigValue Python3 Path @(".", "Scripts")
-Set-AppConfigValue Python3 Exe "python.exe"
-
-# Pandoc
-Set-AppConfigValue Pandoc Url "https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi"
-Set-AppConfigValue Pandoc Archive "pandoc-*-windows.msi"
-Set-AppConfigValue Pandoc ArchiveSubDir "SourceDir\Pandoc"
-Set-AppConfigValue Pandoc Exe "pandoc.exe"
-
-# GraphViz
-Set-AppConfigValue GraphViz Url "http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip"
-Set-AppConfigValue GraphViz Archive "graphviz-*.zip"
-Set-AppConfigValue GraphViz Path "release\bin"
-Set-AppConfigValue GraphViz Exe "dot.exe"
-
-# Inkscape
-Set-AppConfigValue Inkscape Url "https://inkscape.org/en/gallery/item/3932/download/"
-Set-AppConfigValue Inkscape Archive "Inkscape-*-win32.7z"
-Set-AppConfigValue Inkscape ArchiveSubDir "inkscape"
-Set-AppConfigValue Inkscape Exe "inkscape.exe"
-
-# MikTeX
-Set-AppConfigValue MikTeX Url "http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe"
-Set-AppConfigValue MikTeX Archive "miktex-portable-2.*.exe"
-Set-AppConfigValue MikTeX Path "miktex\bin"
-Set-AppConfigValue MikTeX Exe "latex.exe"
-
-# Visual Studio Code
-Set-AppConfigValue VSCode Url "http://go.microsoft.com/fwlink/?LinkID=623231"
-Set-AppConfigValue VSCode Archive "VSCode-win32.zip"
-Set-AppConfigValue VSCode Dir "code"
-Set-AppConfigValue VSCode Exe "code.exe"
-
-# SublimeText 3
-Set-AppConfigValue SublimeText Url "http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip"
-Set-AppConfigValue SublimeText Archive "Sublime*Text*Build*.zip"
-Set-AppConfigValue SublimeText Exe "sublime_text.exe"
-
-#
-# Load custom configuration
-#
-
-$customConfigFile = "$rootDir\config.ps1"
-if (Test-Path $customConfigFile) {
-    . $customConfigFile
+function Process-AppRegistry($parseGroups = $false) {
+    begin {
+        $appGroupRequired = "## Required"
+        $appGroupDefault = "## Default"
+        $appGroupOptional = "## Optional"
+        $kvpP = [regex]'^\s*\*\s+(?<key>\S+)\s*:\s*(?<value>.*?)\s*$'
+        $varP = [regex]'\$(?<key>[^:\$]+)\$'
+        $appVarP = [regex]'\$(?<app>[^:]+):(?<key>[^\$]+)\$'
+        $group = $null
+        $id = $null
+        $requiredIds = @()
+        $defaultIds = @()
+        
+        function Is-CodeValue([string]$value) {
+            return $value.StartsWith("``") -and $value.EndsWith("``")
+        }
+        function Is-UrlValue([string]$value) {
+            return $value.StartsWith("<") -and $value.EndsWith(">")
+        }
+        function Clean-Value([string]$value) {
+            if ((Is-CodeValue $value) -or (Is-UrlValue $value)) {
+                $value = $value.Substring(1, $value.Length - 2)
+            }
+            return $value
+        }
+        function Transform-Value([string]$value) {
+            $value = Clean-Value $value
+            $value = $varP.Replace($value, [Text.RegularExpressions.MatchEvaluator]{
+                param ($m)
+                return Get-ConfigValue $m.Groups["key"].Value
+            })
+            $value = $appVarP.Replace($value, [Text.RegularExpressions.MatchEvaluator]{
+                param ($m)
+                return Get-AppConfigValue $m.Groups["app"].Value $m.Groups["key"].Value
+            })
+            if ($value -ieq "true") {
+                $value = $true
+            }
+            if ($value -ieq "false") {
+                $value = $false
+            }
+            return $value
+        }
+        function Parse-Value([string]$value) {
+            [array]$elements = $value.Split(",") | % { $_.Trim() } | ? { Is-CodeValue $_ }
+            if ($elements.Length -gt 1) {
+                return [array]($elements | % { Transform-Value $_ })
+            } else {
+                return Transform-Value $value
+            }
+        }
+    }
+    process {
+        if ($parseGroups) {
+            if ($_ -eq $appGroupRequired) {
+                $group = "required"
+            } elseif ($_ -eq $appGroupDefault) {
+                $group = "default"
+            } elseif ($_ -eq $appGroupOptional) {
+                $group = "optional"
+            }
+        } else {
+            $group = "optional"
+        }
+        if ($group) {
+            $m = $kvpP.Match($_)
+            if ($m.Success) {
+                $k = $m.Groups["key"].Value
+                $v = $m.Groups["value"].Value
+                $v = Parse-Value $v
+                if ($k -eq "ID") {
+                    $id = $v
+                    if ($group -eq "required") {
+                        $requiredIds += $id
+                    }
+                    if ($group -eq "default") {
+                        $defaultIds += $id
+                    }
+                } elseif ($id) {
+                    Set-AppConfigValue $id $k $v
+                }
+            }
+        }
+    }
+    end {
+        foreach ($app in $requiredIds) { Activate-App $app }
+        foreach ($app in $defaultIds) { Activate-App $app }
+    }
 }
+
+function Initialize() {
+
+    $Script:config.Clear()
+    $Script:apps.Clear()
+    
+    # Common
+    Set-ConfigValue Version "0.1.0"
+    Set-ConfigValue UserName $null
+    Set-ConfigValue UserEmail $null
+    Set-ConfigValue CustomConfigFile "config.ps1"
+    Set-ConfigValue CustomConfigTemplate "res\config.template.ps1"
+    Set-ConfigValue AppIndex "res\apps.md"
+    Set-ConfigValue CustomAppIndex "apps.md"
+    Set-ConfigValue CustomAppIndexTemplate "res\apps.template.md"
+    Set-ConfigValue DownloadDir "res\download"
+    Set-ConfigValue TempDir "tmp"
+    Set-ConfigValue LibDir "lib"
+    Set-ConfigValue HomeDir "home"
+    Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData"
+    Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\LocalAppData"
+    Set-ConfigValue ProjectRootDir "projects"
+    Set-ConfigValue ProjectArchiveDir "archive"
+    Set-ConfigValue ProjectArchiveFormat "zip"
+    Set-ConfigValue UseProxy $false
+    Set-ConfigValue HttpProxy $null
+    Set-ConfigValue HttpsProxy $null
+    Set-ConfigValue DownloadAttempts 3
+
+    $appIndex = Get-ConfigPathValue AppIndex
+    Get-Content $appIndex | Process-AppRegistry -parseGroups $true
+
+    #
+    # Load custom configuration
+    #
+
+    $customAppIndex = Get-ConfigPathValue CustomAppIndex
+    if (Test-Path $customAppIndex) {
+        Get-Content $customAppIndex | Process-AppRegistry -parseGroups $false
+    }
+
+    $customConfigFile = Get-ConfigPathValue CustomConfigFile
+    if (Test-Path $customConfigFile) {
+        . $customConfigFile
+    }
+}
+
+Initialize

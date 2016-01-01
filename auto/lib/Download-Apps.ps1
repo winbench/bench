@@ -5,8 +5,6 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
 Set-Debugging $debug
 
-$apps = Get-ConfigValue Apps
-
 $downloadDir = Safe-Dir $(Get-ConfigPathValue DownloadDir)
 
 function Get-ProxyUrl([uri]$uri) {
@@ -85,7 +83,7 @@ function Download-File($url, $target) {
     return $False
 }
 
-foreach ($name in $apps) {
+foreach ($name in $Script:apps) {
     $typ = Get-AppConfigValue $name Typ
     if ($typ -ieq "npm") { continue }
 
