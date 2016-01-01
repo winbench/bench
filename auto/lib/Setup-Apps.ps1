@@ -60,6 +60,12 @@ function Write-EnvironmentFile() {
         $txt += "SET HTTP_PROXY=$(Get-ConfigValue HttpProxy)$nl"
         $txt += "SET HTTPS_PROXY=$(Get-ConfigValue HttpsProxy)$nl"
     }
+    if (Get-ConfigValue UserName) {
+        $txt += "SET USERNAME=$(Get-ConfigValue UserName)$nl"
+    }
+    if (Get-ConfigValue UserEmail) {
+        $txt += "SET USEREMAIL=$(Get-ConfigValue UserEmail)$nl"
+    }
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
     $homePath = $h.Substring($h.IndexOf("\"))
