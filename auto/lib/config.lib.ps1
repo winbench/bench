@@ -36,7 +36,7 @@ function Get-AppConfigValue([string]$app, [string]$name, $def = $null) {
     return Get-ConfigValue $prop $def
 }
 
-function Get-ConfigDir([string]$name) {
+function Get-ConfigPathValue([string]$name) {
     $path = Get-ConfigValue $name
     if ([IO.Path]::IsPathRooted($path)) {
         return $path

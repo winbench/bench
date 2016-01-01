@@ -10,12 +10,12 @@ $apps = Get-ConfigValue Apps
 $winShell = New-Object -ComObject Shell.Application
 
 $paths = @()
-$tempDir = Empty-Dir (Get-ConfigDir TempDir)
-$downloadDir = Safe-Dir (Get-ConfigDir DownloadDir)
-$libDir = Safe-Dir (Get-ConfigDir LibDir)
-$homeDir = Safe-Dir (Get-ConfigDir HomeDir)
-$appDataDir = Safe-Dir (Get-ConfigDir AppDataDir)
-$localAppDataDir = Safe-Dir (Get-ConfigDir LocalAppDataDir)
+$tempDir = Empty-Dir (Get-ConfigPathValue TempDir)
+$downloadDir = Safe-Dir (Get-ConfigPathValue DownloadDir)
+$libDir = Safe-Dir (Get-ConfigPathValue LibDir)
+$homeDir = Safe-Dir (Get-ConfigPathValue HomeDir)
+$appDataDir = Safe-Dir (Get-ConfigPathValue AppDataDir)
+$localAppDataDir = Safe-Dir (Get-ConfigPathValue LocalAppDataDir)
 $desktopDir = Safe-Dir "$homeDir\Desktop"
 $documentsDir = Safe-Dir "$homeDir\Documents"
 

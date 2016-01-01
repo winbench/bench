@@ -7,7 +7,7 @@ Set-Debugging $debug
 
 $apps = Get-ConfigValue Apps
 
-$downloadDir = Safe-Dir $(Get-ConfigDir DownloadDir)
+$downloadDir = Safe-Dir $(Get-ConfigPathValue DownloadDir)
 
 function Get-ProxyUrl([uri]$uri) {
     if ($uri.Scheme -eq "https") {
