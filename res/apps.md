@@ -269,3 +269,15 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
 * Archive: `Sublime*Text*Build*.zip`
 * Exe: `sublime_text.exe`
+
+### SRWare Iron
+
+A free portable derivative of Chromium, optimized for privacy.
+
+* ID: `Iron`
+* Website: <http://www.chromium.org/Home>
+* Version: latest
+* Url: <http://www.srware.net/downloads/IronPortable.zip>
+* ArchiveSubDir: `IronPortable\Iron`
+* Archive: `IronPortable.zip`
+* Exe: `chrome.exe`
