@@ -85,7 +85,7 @@ function Download-File($url, $target) {
 
 foreach ($name in $Script:apps) {
     $typ = Get-AppConfigValue $name Typ
-    if ($typ -ieq "npm") { continue }
+    if ($typ -ieq "node-package") { continue }
 
     $url = Get-AppConfigValue $name Url
     if (!$url) {
