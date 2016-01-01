@@ -169,6 +169,15 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * NpmPackage: `yo`
 * Exe: `yo.cmd`
 
+### Yeoman Generator for Markdown Projects
+
+* ID: `MdProc`
+* Typ: `node-package`
+* NpmPackage: `generator-mdproc`
+* Website: <https://www.npmjs.com/package/generator-mdproc>
+* Dependencies: `Npm`
+* Version: `^0.1.6`
+
 ### JSHint
 
 * ID: `JSHint`
