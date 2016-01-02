@@ -33,7 +33,7 @@ function App-Dir([string]$name) {
         }
         default {
             return [IO.Path]::Combine(
-                $Script:libDir,
+                (Get-ConfigPathValue LibDir),
                 (Get-AppConfigValue $name Dir $name.ToLowerInvariant())) 
         }
     }
