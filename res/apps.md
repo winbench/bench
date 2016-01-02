@@ -124,7 +124,7 @@ _NPM Bootstrap_ is the last version of _NPM_ which was released seperately.
 Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstrap_.
 
 * ID: `NpmBootstrap`
-* Requires: `Node`
+* Dependencies: `Node`
 * Website: <https://nodejs.org>
 * Version: v1.4.12
 * Url: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
@@ -136,7 +136,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Npm`
 * Typ: `node-package`
-* Requires: `NpmBootstrap`
+* Dependencies: `NpmBootstrap`
 * Website: <https://npmjs.org>
 * Exe: `npm.cmd`
 * ForceInstall: `true`
@@ -145,7 +145,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Gulp`
 * Typ: `node-package`
-* Requires: `Npm`
+* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/npm>
 * Version: `^3.9.0`
 * Exe: `gulp.cmd`
@@ -154,7 +154,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Bower`
 * Typ: `node-package`
-* Requires: `Npm`
+* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/bower>
 * Version: `^1.7.0`
 * Exe: `bower.cmd`
@@ -163,7 +163,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Yeoman`
 * Typ: `node-package`
-* Requires: `Npm`
+* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/yeoman>
 * Version: `^1.5.0`
 * NpmPackage: `yo`
@@ -182,7 +182,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `JSHint`
 * Typ: `node-package`
-* Requires: `Npm`
+* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/jshint>
 * Version: `^2.8.0`
 
@@ -243,7 +243,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Grunt`
 * Typ: `node-package`
-* Requires: `Npm`
+* Dependencies: `Npm`
 * Website: <http://gruntjs.com>
 * Version: `^0.4.5`
 * Exe: `grunt.cmd`
