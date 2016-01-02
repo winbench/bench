@@ -26,7 +26,6 @@
 
 # Deactivate-App Gulp
 # Deactivate-App Bower
-# Deactivate-App Yeoman
 # Deactivate-App MdProc
 # Deactivate-App JSHint
 # Deactivate-App VSCode
