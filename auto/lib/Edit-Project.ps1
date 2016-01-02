@@ -16,6 +16,8 @@ $projectName = Get-ProjectName $projectName
 $editor = App-Exe (Get-ConfigValue EditorApp)
 if (!$editor) {
     throw "Editor not found"
+} else {
+    $editor = [IO.Path]::GetFileName($editor)
 }
 
 cd $projectPath

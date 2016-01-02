@@ -9,6 +9,8 @@ Set-Debugging $debug
 $editor = App-Exe (Get-ConfigValue EditorApp)
 if (!$editor) {
     throw "Edtor not found"
+} else {
+    $editor = [IO.Path]::GetFileName($editor)
 }
 
 cd $Script:rootDir
