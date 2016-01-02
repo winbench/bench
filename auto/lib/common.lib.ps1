@@ -45,11 +45,13 @@ function Safe-Argument([string]$txt) {
 function Run-Detached($path) {
     $path = Safe-Argument $path
     if ($args) {
-      $argText = " " + [string]::Join(" ", ($args | % { Safe-Argument $_ }))
+        $argText = [string]::Join(" ", ($args | % { Safe-Argument $_ }))
+        Debug "Running $path $argText"
+        CMD /C "START $path $argText"
     } else {
-      $argText = ""
+        Debug "Running $path"
+        CMD /C "START $path"
     }
-    CMD /C "START $path$argText"
 }
 
 function Exit-OnError($exitCode = $LastExitCode) {
