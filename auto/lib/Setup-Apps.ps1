@@ -132,10 +132,12 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
     $targetDir = Safe-Dir $targetDir
     $lessmsi = App-Exe LessMsi
     if ($lessmsi) {
-        & $lessmsi x "$archive" "$targetDir\"
+        pushd $targetDir
+        & $lessmsi "x" $archive ".\"
         if (!$?) {
             throw "Extracting $archive failed"
         }
+        popd
     } else {
         throw "Missing LessMsi for MSI extraction"
     }
