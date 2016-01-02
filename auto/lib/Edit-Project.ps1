@@ -7,11 +7,16 @@ if (!$projectName) { return }
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
+. "$scriptsLib\appconfig.lib.ps1"
 
 Set-Debugging $debug
 
 $projectPath = Get-ProjectPath $projectName
 $projectName = Get-ProjectName $projectName
+$editor = App-Exe (Get-ConfigValue EditorApp)
+if (!$editor) {
+    throw "Edtor not found"
+}
 
 cd $projectPath
 
@@ -54,4 +59,4 @@ foreach ($s in $searchFiles) {
     }
 }
 
-Run-Detached code $projectPath @foundFiles
+Run-Detached $editor $projectPath @foundFiles

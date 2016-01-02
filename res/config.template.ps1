@@ -53,4 +53,8 @@
 
 # Set-AppConfigValue XYZ Version "^3.5.0"
 
+## Choose a Default Editor App
+
+# Set-ConfigValue EditorApp VSCode
+
 ## Setup developer identity:

@@ -167,7 +167,7 @@ function Initialize() {
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
     Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData"
-    Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\LocalAppData"
+    Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\AppData\Local"
     Set-ConfigValue ProjectRootDir "projects"
     Set-ConfigValue ProjectArchiveDir "archive"
     Set-ConfigValue ProjectArchiveFormat "zip"
@@ -176,6 +176,7 @@ function Initialize() {
     Set-ConfigValue HttpsProxy $null
     Set-ConfigValue DownloadAttempts 3
     Set-ConfigValue BenchRepository "https://github.com/mastersign/bench.git"
+    Set-ConfigValue EditorApp "VSCode"
 
     $appIndex = Get-ConfigPathValue AppIndex
     Get-Content $appIndex | Process-AppRegistry -parseGroups $true
