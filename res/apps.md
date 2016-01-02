@@ -189,7 +189,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 ### Visual Studio Code
 
 * ID: `VSCode`
-* Typ: `node-package`
 * Website: <https://code.visualstudio.com/Docs/?dv=win>
 * Version: latest
 * Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
