@@ -254,7 +254,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Website: <https://www.python.org/ftp/python/>
 * Version: v2.7.11
 * Url: <https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi>
-* Archive: `python-3.*.msi`
+* Archive: `python-2.*.msi`
 * ArchiveSubDir: `SourceDir`
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
@@ -265,7 +265,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Website: <https://www.python.org/ftp/python/>
 * Version: v3.4.3
 * Url: <https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi>
-* Archive: `python-2.*.msi`
+* Archive: `python-3.*.msi`
 * ArchiveSubDir: `SourceDir`
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
