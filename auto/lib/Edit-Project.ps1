@@ -44,21 +44,26 @@ function Get-MainFiles($projectPath) {
     }
 }
 
-$searchFiles = Get-MainFiles $projectPath
-
-$searchFiles += "index.js"
-$searchFiles += "src/index.js"
-$searchFiles += "src/app.js"
-$searchFiles += "src/main.js"
-$searchFiles += "README.md"
+$defaultMainFiles = @(
+    "README.md",
+    "src/main.js",
+    "src/app.js",
+    "src/index.js",
+    "index.js"
+)
+$searchFiles = $defaultMainFiles + (Get-MainFiles $projectPath)
+[Array]::Reverse($searchFiles)
 
 $foundFiles = @()
 foreach ($s in $searchFiles) {
-    $path = [IO.Path]::Combine($projectpath, $s)
+    $path = [IO.Path]::Combine($projectPath, $s)
+    Debug "Test for main file: $path"
     if (Test-Path $path -PathType Leaf) {
         $foundFiles += $path
         break
     }
 }
+
+Debug "Found main file(s): $foundFiles"
 
 Run-Detached $editor $projectPath @foundFiles
