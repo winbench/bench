@@ -7,6 +7,7 @@ $_ = Set-StopOnError $True
 
 $Script:config = @{}
 $Script:apps = New-Object 'System.Collections.Generic.List`1[System.String]'
+$Script:definedApps = New-Object 'System.Collections.Generic.List`1[System.String]'
 
 function Set-ConfigValue([string]$name, $value) {
     if ($Script:debug) {
@@ -35,6 +36,12 @@ function Set-AppConfigValue([string]$app, [string]$name, $value) {
 function Get-AppConfigValue([string]$app, [string]$name, $def = $null) {
     $prop = Get-AppConfigPropertyName $app $name
     return Get-ConfigValue $prop $def
+}
+
+function Register-App([string]$app) {
+    if (!($app -in $Script:definedApps)) {
+        $Script:definedApps.Add($app)
+    }
 }
 
 function Activate-App([string]$app) {
@@ -130,6 +137,7 @@ function Process-AppRegistry($parseGroups = $false) {
                 $v = Parse-Value $v
                 if ($k -eq "ID") {
                     $id = $v
+                    Register-App $id
                     if ($group -eq "required") {
                         $requiredIds += $id
                     }
@@ -152,6 +160,7 @@ function Initialize() {
 
     $Script:config.Clear()
     $Script:apps.Clear()
+    $Script:definedApps.Clear()
     
     # Common
     Set-ConfigValue Version "0.1.0"

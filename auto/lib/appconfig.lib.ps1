@@ -29,7 +29,7 @@ function App-NpmPackage([string]$name) {
 function App-Dir([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
-            return App-Dir Npm
+            return App-Dir NpmBootstrap
         }
         default {
             return [IO.Path]::Combine(
@@ -90,3 +90,32 @@ function App-Exe([string]$name, [bool]$checkExist = $true) {
 }
 
 function App-Register([string]$name) { return Get-AppConfigValue $name Register $true }
+
+function Check-DefaultApp([string]$name) {
+    Debug "Checking app ${name}"
+    $exe = App-Exe $name
+    return $exe -ne $null
+}
+
+function Check-NpmPackage([string]$name) {
+    # $npm = App-Exe Npm
+    # if (!$npm) { throw "Node Package Manager not found" }
+    # $p = [regex]"^\S+ ([^@\s]*)@[^@\s]+`$"
+    # $list = & $npm list --global --depth 0 | ? { $p.IsMatch($_) } | % { $p.Replace($_, "`$1") }
+    # $packageName = App-NpmPackage $name
+    # return $packageName -in $list
+    $packageDir = [IO.Path]::Combine((App-Dir Npm), "node_modules", (App-NpmPackage $name))
+    Debug "Checking NPM package ${name}: $packageDir"
+    return Test-Path $packageDir -PathType Container
+}
+
+function Check-App([string]$name) {
+    switch (Get-AppConfigValue $name Typ "default") {
+        "node-package" {
+            return (Check-DefaultApp $name) -or (Check-NpmPackage $name)
+        }
+        default {
+            return Check-DefaultApp $name
+        }
+    }
+}

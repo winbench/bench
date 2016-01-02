@@ -3,88 +3,14 @@ param ([switch]$debug)
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
 . "$scriptsLib\appconfig.lib.ps1"
+. "$scriptsLib\env.lib.ps1"
 
 Set-Debugging $debug
 
 $winShell = New-Object -ComObject Shell.Application
 
-$paths = @()
-$tempDir = Empty-Dir (Get-ConfigPathValue TempDir)
-$downloadDir = Safe-Dir (Get-ConfigPathValue DownloadDir)
-$libDir = Safe-Dir (Get-ConfigPathValue LibDir)
-$homeDir = Safe-Dir (Get-ConfigPathValue HomeDir)
-$appDataDir = Safe-Dir (Get-ConfigPathValue AppDataDir)
-$localAppDataDir = Safe-Dir (Get-ConfigPathValue LocalAppDataDir)
-$desktopDir = Safe-Dir "$homeDir\Desktop"
-$documentsDir = Safe-Dir "$homeDir\Documents"
-
 if (!(Test-Path $downloadDir)) { return }
 if (!(Test-Path $libDir)) { return }
-
-function Register-Path($path) {
-    if (!($Script:paths -contains $path)) {
-        $Script:paths += $path
-        Debug "Registered Path: $path"
-    }
-}
-
-function Load-Environment() {
-    [string]$h = $Script:homeDir
-    $homeDrive = $h.Substring(0, $h.IndexOf("\"))
-    $homePath = $h.Substring($h.IndexOf("\"))
-    if (Get-ConfigValue UseProxy) {
-        $env:HTTP_PROXY = Get-ConfigValue HttpProxy
-        $env:HTTPS_PROXY = Get-ConfigValue HttpsProxy
-    }
-    $env:USERPROFILE = $h
-    $env:HOMEDRIVE = $homeDrive
-    $env:HOMEPATH = $homePath
-    $env:APPDATA = $Script:appDataDir
-    $env:LOCALAPPDATA = $Script:localAppDataDir
-}
-
-function Update-EnvironmentPath() {
-    $env:PATH = "$env:SystemRoot;$env:SystemRoot\System32;$env:SystemRoot\System32\WindowsPowerShell\v1.0"
-    foreach ($path in $Script:paths) {
-        $env:PATH = "$path;$env:PATH"
-    }
-}
-
-function Write-EnvironmentFile() {
-    $envFile = "$Script:rootDir\auto\env.cmd"
-    $nl = [Environment]::NewLine
-    $txt = "@ECHO OFF$nl"
-    $txt += "REM **** MD Bench Environment Setup ****$nl$nl"
-    if (Get-ConfigValue UseProxy) {
-        $txt += "SET HTTP_PROXY=$(Get-ConfigValue HttpProxy)$nl"
-        $txt += "SET HTTPS_PROXY=$(Get-ConfigValue HttpsProxy)$nl"
-    }
-    if (Get-ConfigValue UserName) {
-        $txt += "SET USERNAME=$(Get-ConfigValue UserName)$nl"
-    }
-    if (Get-ConfigValue UserEmail) {
-        $txt += "SET USEREMAIL=$(Get-ConfigValue UserEmail)$nl"
-    }
-    [string]$h = $Script:homeDir
-    $homeDrive = $h.Substring(0, $h.IndexOf("\"))
-    $homePath = $h.Substring($h.IndexOf("\"))
-    $txt += "SET USERPROFILE=$h$nl"
-    $txt += "SET HOMEDRIVE=$homeDrive$nl"
-    $txt += "SET HOMEPATH=$homePath$nl"
-    $txt += "SET APPDATA=${Script:appDataDir}$nl"
-    $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
-    $txt += "SET BENCH_HOME=${Script:rootDir}$nl"
-    $txt += "SET L=${Script:libDir}$nl"
-    $txt += "SET BENCH_PATH=${Script:rootDir}\auto"
-    foreach ($path in $Script:paths) {
-        $txt += ";%L%$($path.Substring(${Script:libDir}.Length))"
-    }
-    $txt += $nl
-    $txt += "SET PATH=%SystemRoot%;%SystemRoot%\System32;%SystemRoot%\System32\WindowsPowerShell\v1.0$nl"
-    $txt += "SET PATH=%BENCH_PATH%;%PATH%"
-    $txt | Out-File -Encoding oem -FilePath $envFile
-    Debug "Written environment file to $envFile"
-}
 
 function Find-Download([string]$pattern) {
     $path = Find-File $Script:downloadDir $pattern
@@ -156,10 +82,9 @@ function Execute-Custom-Setup([string]$name) {
 
 function Default-Setup([string]$name, [bool]$registerPath = $true) {
     $dir = App-Dir $name
-    if (![IO.File]::Exists((App-Exe $name))) {
-
+    if ((App-Force $name) -or !(Check-DefaultApp $name)) {
         Write-Host "Setting up $name ..."
-
+        
         $download = App-Download $name
         if ($download) {
             [string]$src = Find-Download $download
@@ -175,7 +100,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
             }
             $subDir = App-ArchiveSubDir $name
         }
-
+        
         $dir = Safe-Dir $dir
         if ($subDir) {
             $target = Safe-Dir "$Script:tempDir\$name"
@@ -196,23 +121,8 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
         Write-Host "Skipping allready installed $name in $dir"
     }
 
-    if (App-Register $name) {
-        $paths = App-Paths $name
-        foreach ($p in $paths) {
-            Register-Path $p
-        }
-    }
-
+    Register-AppPaths $name
     Execute-Custom-Setup $name
-}
-
-function Check-NpmPackage([string]$name) {
-    $npm = App-Exe Npm
-    if (!$npm) { throw "Node Package Manager not found" }
-    $p = [regex]"^\S+ ([^@\s]*)@[^@\s]+`$"
-    $list = & $npm list --global --depth 0 | ? { $p.IsMatch($_) } | % { $p.Replace($_, "`$1") }
-    $packageName = App-NpmPackage $name
-    return $packageName -in $list
 }
 
 function Setup-NpmPackage([string]$name) {
@@ -240,14 +150,41 @@ function Setup-NpmPackage([string]$name) {
 
 Load-Environment
 Update-EnvironmentPath
+$failedApps = @()
+$installedApps = @()
 foreach ($name in $Script:apps) {
     $typ = App-Typ $name
     switch ($typ) {
-        "node-package" { Setup-NpmPackage $name }
-        default { Default-Setup $name }
+        "node-package" {
+            try {
+                Setup-NpmPackage $name
+                $installedApps += $name
+            } catch {
+                Write-Warning "Installing NPM Package $name failed: $($_.Exception.Message)"
+                $failedApps += $name
+            }
+        }
+        default { 
+            try {
+                Default-Setup $name
+                $installedApps += $name
+            } catch {
+                Write-Warning "Setting up $name failed: $($_.Exception.Message)"
+                $failedApps += $name
+            }
+        }
     }
     Update-EnvironmentPath
 }
 Write-EnvironmentFile
 
 Purge-Dir $tempDir
+
+Write-Host "$($installedApps.Count) of $($apps.Count) apps successfully installed."
+if ($failedApps.Count -gt 0) {
+    Write-Warning "Setting up the following $($failedApps.Count) apps failed:"
+    foreach ($name in $failedApps) {
+        Write-Warning " - $name"
+    }
+    Write-Warning "Run 'auto/bench-setup.cmd' to try again."
+}
