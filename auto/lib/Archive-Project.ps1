@@ -12,7 +12,7 @@ Set-Debugging $debug
 
 $projectPath = Get-ProjectPath $projectName
 $projectName = Get-ProjectName $projectName
-$archiveDir = Safe-Dir (Get-ConfigDir ProjectArchiveDir)
+$archiveDir = Safe-Dir (Get-ConfigPathValue ProjectArchiveDir)
 $archiveFormat = Get-ConfigValue ProjectArchiveFormat "zip"
 
 $timestamp = [DateTime]::Now.ToString("yyyyMMdd_HHmm")

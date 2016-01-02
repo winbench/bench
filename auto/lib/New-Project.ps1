@@ -10,7 +10,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
 Set-Debugging $debug
 
-$projectRoot = Safe-Dir (Get-ConfigDir ProjectRootDir)
+$projectRoot = Safe-Dir (Get-ConfigPathValue ProjectRootDir)
 
 $projectPath = "$projectRoot\$projectName"
 
