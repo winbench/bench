@@ -78,12 +78,11 @@ function App-Paths([string]$name) {
 }
 
 function App-Exe([string]$name, [bool]$checkExist = $true) {
-    $typ = App-Typ $name
-
     $path = [IO.Path]::Combine(
         (App-Path $name),
         (Get-AppConfigValue $name Exe "${name}.exe"))
-    if ($checkExist -and ![IO.file]::Exists($path)) {
+    if ($checkExist -and ![IO.File]::Exists($path)) {
+        Debug "Executable for $name not found: $path"
         return $null
     } else {
         return $path
