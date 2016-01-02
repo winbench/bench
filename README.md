@@ -34,7 +34,15 @@
     + Enter your name and email address for your [Git] identity.
     + Configure the HTTP proxy server in the `config.ps1` if you are behind a proxy firewall.
     + Maybe activate or deactivate some apps in the `config.ps1`.
-    + Wait for _Bench_ to  download tools and finish setup
+    + Wait for _Bench_ to  download resources.  
+      (Depending on the number and size of the activated apps, this can take a while.)
+    + If [Git] is setup and you do not have an SSH key-pair, one is generated
+      and you are prompted to enter a password for the private key.
+    + Wait for _Bench_ to setup the apps.  
+      (Depending on the number and size of the activated apps, this can take a while.
+      Usally a package manager like NPM or PIP is used to install a couple of apps,
+      therefore, the internet connection is required in this phase two.)
+
 * Run the `new-project.cmd` action to scaffold a project with [Yeoman]:
   Choose the _MdProc_ generator to build a [Markdown] documentation project.
 * Run the `clonte-git-project.cmd` action to work on an existing project.
@@ -117,6 +125,65 @@ Saves a compressed copy of a specific project in the folder, specified by the co
 which is `%BENCH_ROOT%\archive` by default.
 The archive format can be specified with the config value `ProjectArchiveFormat` and can be every
 filename extension supported by [7zip].
+
+## Management and Upgrade
+
+There are some management scripts in the `auto` folder to help you with changes, updates or an incomplete setup.
+
+### `update-env`
+
+If you have moved the _Bench_ directory, or you are using _Bench_ on a USB drive and it has a new drive letter,
+you must update environment file `auto/env.cmd`.
+
+The `update-env.cmd` script does exactly that.
+
+### `bench-setup`
+
+This script performs the following steps:
+
+* Initializing the custom configuration if there is none
+* Downloading missing app resources
+* Installing the apps in the _Bench_ environment
+* Updating the _Bench_ environment file `auto/env.cmd`
+* Removing the bootstrap file `bench.bat`, if it is found
+
+You need an internet connection for this script.
+
+This script usally can be run repeatedly without any riscs.
+
+### `bench-refresh`
+
+If your installed apps are corrupted, or you want to update NPM or PIP packages,
+you can run this script.
+It performs the following steps:
+
+* Removing all installed app files
+* Downloading missing app resources
+* Installing the apps in the _Bench_ environment
+* Updating the _Bench_ environment file `auto/env.cmd`
+
+You need an internet connection for this script.
+
+### `bench-upgrade`
+
+If you want to upgrade the whole _Bench_ environment, you can run this script.
+It performs the following steps:
+
+* If _Bench_ is a working copy of the _Bench_ GitHub repository, the system is updated with a _pull_ from master.
+  Possibly changed files of the _Bench_ system itself are resetted.
+* Deleting all downloaded app resources
+* Removing all installed app files
+* Downloading all required app resources
+* Installing the apps in the _Bench_ environment
+* Updating the _Bench_ environment file `auto/env.cmd`
+
+If the internet connection is not stable, or some of the app resources are not available,
+this script leaves you with a possible unusable environment.
+But you can allways run `bench-setup.cmd` or `bench-refresh.cmd` in an attempt to repair the missing apps.
+
+This script does not touch any user data in the _Bench_ home directory,
+and it does not touch the custom configuration (`config.ps1` and `apps.md`) in the _Bench_ root folder either.
+But upgrading a _Bench_ environment is not well tested yet, and is not advised without a backup.
 
 [Yeoman]: http://yeoman.io "The web's scaffolding tool for modern web apps"
 [Markdown]: https://daringfireball.net/projects/markdown/
