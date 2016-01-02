@@ -133,7 +133,7 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
     $lessmsi = App-Exe LessMsi
     if ($lessmsi) {
         pushd $targetDir
-        & $lessmsi "x" $archive ".\"
+        & $lessmsi "x" $archive ".\" | Out-Null
         if (!$?) {
             throw "Extracting $archive failed"
         }
