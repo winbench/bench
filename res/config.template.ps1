@@ -39,6 +39,7 @@
 # Activate-App SublimeText3
 # Activate-App Iron
 # Activate-App MySQL
+# Activate-App MySQLWB
 
 ## Deactivate forced update for NPM:
 

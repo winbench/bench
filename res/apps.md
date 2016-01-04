@@ -306,3 +306,13 @@ The initial password for _root_ is `bench`.
 * ArchiveSubDir: `mysql-5.7.10-win32`
 * Path: `bin`
 * Exe: `mysqld.exe`
+
+### MySQL Workbench
+
+* ID: `MySQLWB`
+* Version: 6.3.6
+* Website: <http://dev.mysql.com/downloads/workbench/>
+* Url: <http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-6.3.6-win32-noinstall.zip>
+* Archive: `mysql-workbench-community-*-win32-noinstall.zip`
+* ArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
+* Exe: `MySQLWorkbench.exe`
