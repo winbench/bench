@@ -289,3 +289,20 @@ A free portable derivative of Chromium, optimized for privacy.
 * ArchiveSubDir: `IronPortable\Iron`
 * Archive: `IronPortable.zip`
 * Exe: `chrome.exe`
+
+### MySQL
+
+The MySQL data is stored in `%HOMEDRIVE%%HOMEPATH%\mysql_data`.
+You can start the MySQL server by running `mysql_start` in the _Bench_ shell.
+You can stop the MySQL server by typing `Ctrl+C` in the console window of MySQL,
+or by running `mysql_stop` in the _Bench_ shell.
+The initial password for _root_ is `bench`.
+
+* ID: `MySQL`
+* Website: <http://www.mysql.com/>
+* Version: 5.7.10
+* Url: <http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.10-win32.zip>
+* Archive: `mysql-5.7.10-win32.zip`
+* ArchiveSubDir: `mysql-5.7.10-win32`
+* Path: `bin`
+* Exe: `mysqld.exe`

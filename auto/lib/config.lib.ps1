@@ -172,6 +172,7 @@ function Initialize() {
     Set-ConfigValue CustomAppIndex "apps.md"
     Set-ConfigValue CustomAppIndexTemplate "res\apps.template.md"
     Set-ConfigValue DownloadDir "res\download"
+    Set-ConfigValue AppResourceBaseDir "res\apps"
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"

@@ -1,0 +1,5 @@
+@ECHO OFF
+SET mysql_root=%~dp0\..
+SET data_dir=%HOMEDRIVE%%HOMEPATH%\mysql_data
+CD "%mysql_root%"
+START mysqld --log_syslog=0 "--basedir=%mysql_root%" "--datadir=%data_dir%"

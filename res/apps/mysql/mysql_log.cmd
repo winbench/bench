@@ -1,0 +1,2 @@
+@ECHO OFF
+START notepad "%HOMEDRIVE%%HOMEPATH%\mysql_data\%COMPUTERNAME%.err"
