@@ -15,7 +15,7 @@ function Get-ProxyUrl([uri]$uri) {
     }
 }
 
-function Get-Proxy($url) {
+function Get-Proxy([uri]$url) {
     if (Get-ConfigValue UseProxy) {
         $proxyUrl = Get-ProxyUrl $url
         return New-Object System.Net.WebProxy $proxyUrl
@@ -24,7 +24,7 @@ function Get-Proxy($url) {
     }
 }
 
-function Download-String($url) {
+function Download-String([string]$url) {
     Write-Host "Downloading page: $url ..."
     $attempt = 1
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
@@ -45,7 +45,7 @@ function Download-String($url) {
     return $null
 }
 
-function Download-File($url, $target) {
+function Download-File([string]$url, [string]$target) {
     Write-Host "Downloading file: $url ..."
     $attempt = 1
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
