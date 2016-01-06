@@ -60,6 +60,11 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
     }
 }
 
+function Extract-Custom([string]$name, [string]$archive, [string]$targetDir) {
+    Debug "Extracing custom archive $archive to $targetDir"
+    . "$scriptsLib\..\apps\${name}.extract.ps1" $archive $targetDir
+}
+
 function Execute-Custom-Setup([string]$name) {
     $customSetupFile = "$scriptsLib\..\apps\${name}.setup.ps1"
     if (Test-Path $customSetupFile) {
@@ -95,9 +100,11 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
             $mode = "copy"
             $subDir = $null
         } else {
-            if ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
             $archive = App-ResourceArchive $name
             $src = Find-DownloadedFile $archive
+            if (Test-Path "$scriptsLib\..\apps\${name}.extract.ps1") {
+                $mode = "custom"
+            } elseif ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
                 $mode = "msi"
             } else {
                 $mode = "arch"
@@ -115,6 +122,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
             "copy" { Copy-item $src $target }
             "arch" { Extract-Archive $src $target }
             "msi" { Extract-Msi $src $target }
+            "custom" { Extract-Custom $name $src $target }
         }
         if ($subDir) {
             Move-Item "$target\$subDir\*" "$dir\"
