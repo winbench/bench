@@ -12,15 +12,6 @@ $winShell = New-Object -ComObject Shell.Application
 if (!(Test-Path $downloadDir)) { return }
 if (!(Test-Path $libDir)) { return }
 
-function Find-Download([string]$pattern) {
-    $path = Find-File $Script:downloadDir $pattern
-    if (!$path) {
-        throw "Download not found: $pattern"
-    } else {
-        Debug "Found download: $path"
-    }
-    return $path
-}
 
 function ShellUnzip-Archive([string]$zipFile, [string]$targetDir)
 {
@@ -80,6 +71,19 @@ function Execute-Custom-Setup([string]$name) {
     }
 }
 
+function Find-DownloadedFile([string]$pattern) {
+    if (!$pattern) {
+        return $null
+    }
+    $path = Find-File (Get-ConfigPathValue DownloadDir) $pattern
+    if (!$path) {
+        throw "Download not found: $pattern"
+    } else {
+        Debug "Found download: $path"
+    }
+    return [string]$path
+}
+
 function Default-Setup([string]$name, [bool]$registerPath = $true) {
     $dir = App-Dir $name
     if ((App-Force $name) -or !(Check-DefaultApp $name)) {
@@ -87,13 +91,13 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
         
         $download = App-ResourceFile $name
         if ($download) {
-            [string]$src = Find-Download $download
+            $src = Find-DownloadedFile $download
             $mode = "copy"
             $subDir = $null
         } else {
-            [string]$src = Find-Download $archive
             if ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
             $archive = App-ResourceArchive $name
+            $src = Find-DownloadedFile $archive
                 $mode = "msi"
             } else {
                 $mode = "arch"
