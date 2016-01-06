@@ -151,6 +151,15 @@ You need an internet connection for this script.
 
 This script usally can be run repeatedly without any riscs.
 
+### `bench-download`
+
+If you want to download the application ressources without installing
+any application in the _Bench_ environment, use this script.
+It performs the following steps:
+
+* Initializing the custom configuration, if there is none
+* Download missing app resources
+
 ### `bench-refresh`
 
 If your installed apps are corrupted, or you want to update NPM or PIP packages,
