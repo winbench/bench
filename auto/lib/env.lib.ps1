@@ -80,6 +80,7 @@ function Write-EnvironmentFile() {
     $homePath = $h.Substring($h.IndexOf("\") + 1)
     $txt += "SET BENCH_AUTO=%~dp0$nl"
     $txt += "SET BENCH_HOME=%BENCH_AUTO%..$nl"
+    $txt += "SET BENCH_APPS=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
     if ($h.StartsWith($Script:rootDir, [StringComparison]::InvariantCultureIgnoreCase)) {
         $relPath = $h.Substring($Script:rootDir.Length + 1).Trim('\')
         $txt += "SET HOMEDRIVE=%~d0$nl"

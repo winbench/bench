@@ -62,6 +62,7 @@ This CMD script initializes the execution environment for programs to run inside
 The following environment variables are set by `auto/env.cmd`.
 
 * `BENCH_HOME` is set to the root path of _Bench_
+* `BENCH_APPS` is set to the root path of the _Bench_ apps, which is `%BENCH_HOME%\lib` per default
 * `BENCH_PATH` is the list with the paths to the registered apps in _Bench_
 * `USERNAME` is set to the config value `UserName` from `config.ps1`
 * `USEREMAIL` is set to the config value `UserEmail`from `config.ps1`
