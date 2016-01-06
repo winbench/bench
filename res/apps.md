@@ -280,6 +280,17 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Version: `^0.4.5`
 * Exe: `grunt.cmd`
 
+### OpenSSL
+
+* ID: `OpenSSL`
+* Website: <https://www.openssl.org/>
+* Version: 1.0.2d
+* Url: <http://sourceforge.net/projects/openssl/files/openssl-1.0.2d-fips-2.0.10/openssl-1.0.2d-fips-2.0.10.zip>
+* AppArchive: `openssl-1.0.2d-fips-2.0.10.zip`
+* AppArchiveSubDir: `openssl-1.0.2d-fips-2.0.10`
+* Path: `bin`
+* Exe: `openssl.exe`
+
 ### cURL
 
 * ID: `cURL`
