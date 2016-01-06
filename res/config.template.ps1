@@ -40,6 +40,8 @@
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
+# Activate-App JDK7
+# Activate-App JDK8
 
 ## Deactivate forced update for NPM:
 

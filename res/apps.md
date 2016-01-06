@@ -331,3 +331,27 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-workbench-community-*-win32-noinstall.zip`
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
+
+### Java Development Kit 7
+
+* ID: `JDK7`
+* Version: 7u80
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-windows-i586.exe>
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-7u*-windows-i586.exe`
+* Path: `bin`
+* Exe: `javac.exe`
+* Environment: `JAVA_HOME=$JDK7:Dir$`
+
+### Java Development Kit 8
+
+* ID: `JDK8`
+* Version: 8u66
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/8u66-b18/jdk-8u66-windows-i586.exe>
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-8u*-windows-i586.exe`
+* Path: `bin`
+* Exe: `javac.exe`
+* Environment: `JAVA_HOME=$JDK8:Dir$`
