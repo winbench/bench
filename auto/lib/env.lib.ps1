@@ -1,4 +1,5 @@
 $paths = @()
+$additionalEnvVars = @{}
 $tempDir = Empty-Dir (Get-ConfigPathValue TempDir)
 $downloadDir = Safe-Dir (Get-ConfigPathValue DownloadDir)
 $libDir = Safe-Dir (Get-ConfigPathValue LibDir)
@@ -24,6 +25,14 @@ function Register-AppPaths([string]$name) {
     }
 }
 
+function Register-AppEnvironment([string]$name) {
+    $dict = App-Environment $name
+    foreach ($k in $dict.Keys) {
+        Debug "Registered Environment Variable: $k = $($dict[$k])"
+        $Script:additionalEnvVars[$k] = $dict[$k]
+    }
+}
+
 function Load-Environment() {
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
@@ -37,6 +46,9 @@ function Load-Environment() {
     $env:HOMEPATH = $homePath
     $env:APPDATA = $Script:appDataDir
     $env:LOCALAPPDATA = $Script:localAppDataDir
+    foreach ($k in $Script:additionalEnvVars.Keys) {
+        Set-Item "env:$k" $Script:additionalEnvVars[$k]
+    }
 }
 
 function Update-EnvironmentPath() {
@@ -80,6 +92,19 @@ function Write-EnvironmentFile() {
     $benchPath = $benchPath.TrimEnd(';')
     $txt += "SET BENCH_PATH=%BENCH_AUTO%;$benchPath$nl"
     $txt += "SET PATH=%BENCH_PATH%;%SystemRoot%;%SystemRoot%\System32;%SystemRoot%\System32\WindowsPowerShell\v1.0$nl"
+    
+    foreach ($k in $Script:additionalEnvVars.Keys) {
+        $v = $Script:additionalEnvVars[$k]
+        if ($v.StartsWith($Script:libDir, [StringComparison]::InvariantCultureIgnoreCase)) {
+            $v = "%BENCH_APPS%" + $v.Substring($Script:libDir.Length)
+        }
+        if ($v.StartsWith($Script:homeDir, [StringComparison]::InvariantCultureIgnoreCase)) {
+            $v = "%USERPROFILE%" + $v.Substring($Script:homeDir.Length)
+        }
+        if ($v.StartsWith($Script:rootDir, [StringComparison]::InvariantCultureIgnoreCase)) {
+            $v = "%BENCH_HOME%" + $v.Substring($Script:rootDir.Length)
+        }
+        $txt += "SET $k=$v$nl"
     }
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"

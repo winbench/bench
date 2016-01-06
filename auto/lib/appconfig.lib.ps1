@@ -124,6 +124,18 @@ function App-Register([string]$name) {
     return Get-AppConfigValue $name Register $true
 }
 
+function App-Environment([string]$name) {
+    $l = Get-AppConfigListValue $name Environment
+    $dict = @{}
+    foreach ($e in $l) {
+        $kvp = $e.Split("=", 2)
+        $name = $kvp[0].Trim()
+        $value = $kvp[1].Trim()
+        $dict[$name] = $value
+    }
+    return $dict
+}
+
 function Check-DefaultApp([string]$name) {
     Debug "Checking app ${name}"
     $exe = App-Exe $name

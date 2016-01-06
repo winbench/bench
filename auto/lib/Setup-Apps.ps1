@@ -126,6 +126,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     }
 
     Register-AppPaths $name
+    Register-AppEnvironment $name
     Execute-Custom-Setup $name
 }
 
@@ -149,6 +150,7 @@ function Setup-NpmPackage([string]$name) {
             Write-Host "Skipping allready installed NPM package $packageName"
         }
     }
+    Register-AppEnvironment $name
     Execute-Custom-Setup $name
 }
 

@@ -37,6 +37,9 @@ There are currently two types of apps: Windows executables and NodeJS packages.
 * **Exe**:
   The name of the app executable (optional, default is empty).
   The existance of an app executable is used to determine, if an app is allready installed.
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (option, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
 Some restrictions for the properties:
 
@@ -59,6 +62,9 @@ Some restrictions for the properties:
   even if it is allready installed (optional, default is `false`).
 * **Exe**:
   The name of an NPM CLI wrapper from this package (optional, default is empty).
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (option, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
 To determine, if a NodeJS package is allready installed, `npm list -g` is called.
 
