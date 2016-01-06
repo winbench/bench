@@ -68,13 +68,13 @@ function App-Paths([string]$name) {
         default {
             $paths = @()
             $appDir = App-Dir $name
-            $cfgPath = Get-AppConfigValue $name Path ""
-            if ($cfgPath -is [string]) {
-                $paths += [IO.Path]::Combine($appDir, $cfgPath)
-            } elseif ($cfgPath -is [array]) {
-                foreach ($p in $cfgPath) {
+            $cfgPaths = Get-AppConfigListValue $name Path
+            if ($cfgPaths.Count -gt 0) {
+                foreach ($p in $cfgPaths) {
                     $paths += [IO.Path]::Combine($appDir, $p)
                 }
+            } else {
+                $paths += $appDir
             }
             return $paths
         }
