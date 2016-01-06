@@ -1,5 +1,5 @@
 ﻿$scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-$Script:rootDir = Resolve-Path "$scriptsLib\..\.."
+[string]$Script:rootDir = Resolve-Path "$scriptsLib\..\.."
 
 function Set-Debugging ($enabled) {
     if ($enabled) {
