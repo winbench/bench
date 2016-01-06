@@ -8,6 +8,11 @@ A value can be surrounded by angle brackets `<` and `>` if it is a URL.
 Any value can be surrounded by backticks.
 If a value is a list, its items must be surrounded by backticks and separated by commas `, `.
 
+You can use placeholders in variable values.
+Placeholders can be application specific configuration values
+like `$Git:Dir$` and `$Npm:Path$` or global configuration values
+like `$BenchRoot$` and `$ProjectArchiveDir$`.
+
 All apps are identified by an ID, which must only contain alphanumeric characters
 and must not start with a numeric character.
 The ID must be the first entry in a list, defining an app.
@@ -66,7 +71,7 @@ Some restrictions for the properties:
   A list of key-value-pairs, describing additional environment variables (option, default is empty).
   E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
-To determine, if a NodeJS package is allready installed, `npm list -g` is called.
+To determine, if a NodeJS package is allready installed, the existence of its package folder in `node_modules` in the NodeJS directory is checked.
 
 ## Custom Apps
 
