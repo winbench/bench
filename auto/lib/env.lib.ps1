@@ -41,9 +41,11 @@ function Load-Environment() {
 
 function Update-EnvironmentPath() {
     $env:PATH = "$env:SystemRoot;$env:SystemRoot\System32;$env:SystemRoot\System32\WindowsPowerShell\v1.0"
+    $benchPath = ""
     foreach ($path in $Script:paths) {
-        $env:PATH = "$path;$env:PATH"
+        $benchPath = "$path;$benchPath"
     }
+    $env:Path = "$benchPath;$env:Path"
 }
 
 function Write-EnvironmentFile() {
@@ -71,13 +73,14 @@ function Write-EnvironmentFile() {
     $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
     $txt += "SET BENCH_HOME=${Script:rootDir}$nl"
     $txt += "SET L=${Script:libDir}$nl"
-    $txt += "SET BENCH_PATH=${Script:rootDir}\auto"
+    $benchPath = ""
     foreach ($path in $Script:paths) {
-        $txt += ";%L%$($path.Substring(${Script:libDir}.Length))"
+        $benchPath = "%L%$($path.Substring(${Script:libDir}.Length));$benchPath"
     }
-    $txt += $nl
-    $txt += "SET PATH=%SystemRoot%;%SystemRoot%\System32;%SystemRoot%\System32\WindowsPowerShell\v1.0$nl"
-    $txt += "SET PATH=%BENCH_PATH%;%PATH%"
+    $benchPath = $benchPath.TrimEnd(';')
+    $txt += "SET BENCH_PATH=%BENCH_AUTO%;$benchPath$nl"
+    $txt += "SET PATH=%BENCH_PATH%;%SystemRoot%;%SystemRoot%\System32;%SystemRoot%\System32\WindowsPowerShell\v1.0$nl"
+    }
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
 }
