@@ -291,6 +291,18 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `bin`
 * Exe: `curl.exe`
 
+### Graphics Magick
+
+* ID: `GraphicsMagick`
+* Website: <http://www.graphicsmagick.org/>
+* Version: 1.3.23
+* Url: <http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/1.3.23/GraphicsMagick-1.3.23-Q16-win32-dll.exe>
+* AppArchive: `GraphicsMagick-1.*-Q16-win32-dll.exe`
+* AppArchiveTyp: `inno`
+* AppArchiveSubDir: `{app}`
+* Dir: `gm`
+* Exe: `gm.exe`
+
 ### Python 2
 
 * ID: `Python2`
