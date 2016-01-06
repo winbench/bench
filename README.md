@@ -67,8 +67,9 @@ The following environment variables are set by `auto/env.cmd`.
 * `USEREMAIL` is set to the config value `UserEmail`from `config.ps1`
 * `HOMEDRIVE` is set to the drive letter of the config value `HomeDir`, which is `%BENCH_HOME%\home` per default
 * `HOMEPATH` is set to the path of the config value `HomeDir`, which is `%BENCH_HOME%\home` per default
-* `APPDATA` is set to `%HOMEDRIVE%%HOMEPATH%\AppData`
-* `LOCALAPPDATA` is set to `%APPDATA%\Local`
+* `USERPROFILE` is set to `%HOMEDRIVE%%HOMEPATH%`
+* `APPDATA` is set to `%USERPROFILE%\AppData\Roaming`
+* `LOCALAPPDATA` is set to `%USERPROFILE%\AppData\Local`
 * `PATH` is set to `%BENCH_PATH%;%SystemRoot%;%SystemRoot%\System32;%SystemRoot%\System32\WindowsPowerShell\v1.0`
 
 ## Actions
@@ -141,7 +142,7 @@ The `update-env.cmd` script does exactly that.
 
 This script performs the following steps:
 
-* Initializing the custom configuration if there is none
+* Initializing the custom configuration, if there is none
 * Downloading missing app resources
 * Installing the apps in the _Bench_ environment
 * Updating the _Bench_ environment file `auto/env.cmd`
@@ -162,8 +163,8 @@ It performs the following steps:
 
 ### `bench-refresh`
 
-If your installed apps are corrupted, or you want to update NPM or PIP packages,
-you can run this script.
+If your installed apps are corrupted, or you want to update
+NPM or PIP packages, you can run this script.
 It performs the following steps:
 
 * Removing all installed app files
