@@ -10,6 +10,33 @@ function App-Url([string]$name) {
     return Get-AppConfigValue $name Url
 }
 
+function App-DownloadHeaders([string]$name) {
+    $list = Get-AppConfigListValue $name DownloadHeaders
+    $dict = @{}
+    foreach ($e in $list) {
+        $kvp = $e.Split(":", 2)
+        $dict[$kvp[0].Trim()] = $kvp[1].Trim()
+    }
+    return $dict
+}
+
+function App-DownloadCookies([string]$name) {
+    $cookies = Get-AppConfigListValue $name DownloadCookies
+    $result = @()
+    foreach ($v in $cookies) {
+        $c = New-Object System.Net.Cookie
+        $v = $v.Split(":", 2)
+        $domain = $v[0].Trim()
+        $kvp = $v[1].Trim()
+        $c.Domain = $domain
+        $v = $kvp.Split("=", 2)
+        $c.Name = $v[0].Trim()
+        $c.Value = $v[1].Trim()
+        $result += $c
+    }
+    return $result
+}
+
 function App-ResourceFile([string]$name) {
     return Get-AppConfigValue $name AppFile
 }

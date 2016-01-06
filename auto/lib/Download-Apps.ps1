@@ -2,6 +2,7 @@ param ([switch]$debug)
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
+. "$scriptsLib\appconfig.lib.ps1"
 
 Set-Debugging $debug
 
@@ -45,17 +46,33 @@ function Download-String([string]$url) {
     return $null
 }
 
-function Download-File([string]$url, [string]$target) {
+function Get-WebSession([string]$name, [string]$url) {
+    $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+    $headers = App-DownloadHeaders $name
+    foreach ($k in $headers.Keys) {
+        Debug "Adding Header: $k = $($headers[$k])"
+        $session.Headers.Add($k, $headers[$k])
+    }
+    $cookies = App-DownloadCookies $name $url
+    foreach($c in $cookies) {
+        Debug "Adding Cookie: $($c.Name) = $($c.Value)"
+        $session.Cookies.Add($c)
+    }
+    return $session
+}
+
+function Download-File([string]$name, [string]$url, [string]$target) {
     Write-Host "Downloading file: $url ..."
+    $session = Get-WebSession $name $url
     $attempt = 1
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
         try {
             if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
             if (Get-ConfigValue UseProxy) {
                 $proxyUrl = Get-ProxyUrl $url
-                Invoke-WebRequest -Uri $url -OutFile $target -Proxy $proxyUrl
+                Invoke-WebRequest -Uri $url -OutFile $target -WebSession $session -Proxy $proxyUrl
             } else {
-                Invoke-WebRequest -Uri $url -OutFile $target
+                Invoke-WebRequest -Uri $url -OutFile $target -WebSession $session
             }
             return $True
         } catch {
@@ -66,11 +83,7 @@ function Download-File([string]$url, [string]$target) {
     return $False
 }
 
-function Is-RedirectPage($url) {
-    return $url -match "^https?://downloads\.sourceforge\.net/"
-}
-
-function Get-RefreshUrl($url) {
+function Get-MetaRefreshUrl([string]$url) {
     $http = Download-String $url
     if (!$http) {
         Write-Warning "Download failed: $url"
@@ -87,6 +100,83 @@ function Get-RefreshUrl($url) {
         Write-Warning "Extracting direct URL from download page failed"
         return $null
     }
+}
+
+function Get-FirstSurroundedLinkUrl([string]$url, [regex]$pattern) {
+    $http = Download-String $url
+    if (!$http) {
+        Write-Warning "Download failed: $url"
+        return $null
+    }
+    Debug "Extracting surrounded link URL from download page ..."
+    $m = $pattern.Match($http)
+    $linkUrl = $null
+    if ($m.Success) {
+        $linkP = [regex]"\<a\s[^\>]*?href=`"(?<url>[^`"]+)`""
+        $m = $linkP.Match($m.Groups[1].Value)
+        if ($m.Success) {
+            $linkUrl = $m.Groups["url"].Value
+        }
+    }
+    if ($linkUrl) {
+        $linkUri = New-Object System.Uri([uri]$url, $linkUrl)
+        return [string]$linkUri
+    } else {
+        Write-Warning "Extracting link URL from download page failed"
+        return $null
+    }
+}
+
+function Get-FirstMatchingLinkUrl([string]$url, [regex]$pattern) {
+    $http = Download-String $url
+    if (!$http) {
+        Write-Warning "Download failed: $url"
+        return $null
+    }
+    Debug "Extracting link URL from download page ..."
+    $linkP = [regex]"\<a\s[^\>]*?href=`"(?<url>[^`"]+)`""
+    $matchUrl = $null
+    $ms = $linkP.Matches($http)
+    Debug "  Found $($ms.Count) links"
+    for ($i = 0; $i -lt $ms.Count; $i++) {
+        $linkUrl = $ms[$i].Groups["url"].Value
+        if ($linkUrl -match $pattern) {
+            Debug "  First matching URL: $linkUrl"
+            $matchUrl = $linkUrl
+            break
+        }
+    }
+    if ($matchUrl) {
+        $matchUri = New-Object System.Uri([uri]$url, $matchUrl)
+        $resolvedUrl = [string]$matchUri
+        Debug "  Resolved URL: $resolvedUrl"
+        return $resolvedUrl
+    } else {
+        Write-Warning "Extracting link URL from download page failed"
+        return $null
+    }
+}
+
+function Resolve-Url([string]$url) {
+    if ($url -match "^https?://download\.sourceforge\.net/") {
+        Debug "URL matches Sourceforge download page"
+        $url = Get-MetaRefreshUrl $url
+        return Resolve-Url $url
+    }
+
+    if ($url -match "^https?://www\.eclipse\.org/downloads/download\.php\?file=(.*)&mirror_id=\d+`$") {
+        Debug "URL matches Eclipse mirror download page"
+        $url = Get-FirstSurroundedLinkUrl $url "\<span\s[^\>]*class=`"direct-link`"[^\>]*\>(.*?)\</span\>"
+        return Resolve-Url $url
+    }
+
+    if ($url -match "^https?://www\.eclipse\.org/downloads/download\.php\?file=") {
+        Debug "URL matches Eclipse download page"
+        $url = Get-FirstMatchingLinkUrl $url "^download\.php\?file=(.*)&mirror_id=\d+`$"
+        return Resolve-Url $url
+    }
+
+    return $url
 }
 
 function Extract-FileName($url) {
@@ -127,31 +217,47 @@ function Get-FileNameFromUrl($url) {
     }
 }
 
-function Download($url) {
+function Check-AppResourceExists([string]$name) {
+    $downloadDir = Get-ConfigPathValue DownloadDir
+    $searchPattern = App-ResourceFile $name
+    if (!$searchPattern) {
+        $searchPattern = App-ResourceArchive $name
+    }
+    $path = Find-File $downloadDir $searchPattern
+    if ($path) { return $true } else { return $false }
+}
+
+function Download([string]$name) {
+    if (Check-AppResourceExists $name) {
+        Debug "Resource for app $name allready exists."
+        return
+    }
+    $url = App-Url $name
+    Debug "Downloading from URL $url"
+    $url2 = Resolve-Url $url
+    if ($url2 -ne $url) {
+        Debug "Downloading from resolved URL $url2"
+        $url = $url2
+    }
     $fileName = Get-FileNameFromUrl $url
-    $file = [IO.Path]::Combine($Script:downloadDir, $fileName)
-    if ($fileName -and ![IO.File]::Exists($file)) {
-        if (Is-RedirectPage $url) {
-            $url = Get-RefreshUrl $url
-            if ($url) {
-                if (!(Download-File $url $file)) {
-                    Write-Warning "Download failed: $url"
-                }
-            }
-        } elseif (!(Download-File $url $file)) {
+    Debug "Downloading to file $fileName"
+    $file = [IO.Path]::Combine((Get-ConfigPathValue DownloadDir), $fileName)
+    if ($url -and $fileName) {
+        if (!(Download-File $name $url $file)) {
             Write-Warning "Download failed: $url"
         }
     }
 }
 
 foreach ($name in $Script:apps) {
-    $typ = Get-AppConfigValue $name Typ
-    if ($typ -ieq "node-package") { continue }
+    if ((App-Typ $name) -eq "node-package") {
+        Debug "Skipping download for node package $name."
+        continue
+    }
 
-    $url = Get-AppConfigValue $name Url
-    if (!$url) {
+    if (!(App-Url $name)) {
         Debug "No URL for app $name"
         continue
     }
-    Download $url
+    Download $name
 }
