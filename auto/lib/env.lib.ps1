@@ -77,14 +77,32 @@ function Write-EnvironmentFile() {
     }
     [string]$h = $Script:homeDir
     $homeDrive = $h.Substring(0, $h.IndexOf("\"))
-    $homePath = $h.Substring($h.IndexOf("\"))
-    $txt += "SET USERPROFILE=$h$nl"
-    $txt += "SET HOMEDRIVE=$homeDrive$nl"
-    $txt += "SET HOMEPATH=$homePath$nl"
-    $txt += "SET APPDATA=${Script:appDataDir}$nl"
-    $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
-    $txt += "SET BENCH_HOME=${Script:rootDir}$nl"
-    $txt += "SET L=${Script:libDir}$nl"
+    $homePath = $h.Substring($h.IndexOf("\") + 1)
+    $txt += "SET BENCH_AUTO=%~dp0$nl"
+    $txt += "SET BENCH_HOME=%BENCH_AUTO%..$nl"
+    if ($h.StartsWith($Script:rootDir, [StringComparison]::InvariantCultureIgnoreCase)) {
+        $relPath = $h.Substring($Script:rootDir.Length + 1).Trim('\')
+        $txt += "SET HOMEDRIVE=%~d0$nl"
+        $txt += "SET HOMEPATH=%~p0..\$relPath$nl"
+        $txt += "SET USERPROFILE=%~dp0..\$relPath$nl"
+    } else {
+        $txt += "SET HOMEDRIVE=$homeDrive$nl"
+        $txt += "SET HOMEPATH=$homePath$nl"
+        $txt += "SET USERPROFILE=$h$nl"
+    }
+    if ($Script:appDataDir.StartsWith($h, [StringComparison]::InvariantCultureIgnoreCase)) {
+        $relPath = $Script:appDataDir.Substring($h.Length + 1).Trim('\')
+        $txt += "SET APPDATA=%USERPROFILE%\$relPath$nl"
+    } else {
+        $txt += "SET APPDATA=${Script:appDataDir}$nl"
+    }
+    if ($Script:localAppDataDir.StartsWith($h, [StringComparison]::InvariantCultureIgnoreCase)) {
+        $relPath = $Script:localAppDataDir.Substring($h.Length + 1).Trim('\')
+        $txt += "SET LOCALAPPDATA=%USERPROFILE%\$relPath$nl"
+    } else {
+        $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
+    }
+    $txt += "SET L=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
     $benchPath = ""
     foreach ($path in $Script:paths) {
         $benchPath = "%L%$($path.Substring(${Script:libDir}.Length));$benchPath"
