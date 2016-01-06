@@ -18,7 +18,7 @@
 
 ## Prerequisites
 
-* Microsoft Windows 7 or higher (with at least PowerShell 2)
+* Microsoft Windows 7 or higher (with at least PowerShell 3)
 * Internet access for HTTP/HTTPS (possibly via proxy, but without credentials)
 * The Windows user account does _not_ need admin priviledges
 * A harddrive or a removable drive with at least 2 GB free memory
