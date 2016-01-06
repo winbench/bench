@@ -158,7 +158,7 @@ function Get-FirstMatchingLinkUrl([string]$url, [regex]$pattern) {
 }
 
 function Resolve-Url([string]$url) {
-    if ($url -match "^https?://download\.sourceforge\.net/") {
+    if ($url -match "^https?://sourceforge\.net/projects/[^/]+/files/") {
         Debug "URL matches Sourceforge download page"
         $url = Get-MetaRefreshUrl $url
         return Resolve-Url $url
