@@ -43,6 +43,14 @@ There are currently two types of apps: Windows executables and NodeJS packages.
   The name of the downloaded file (only for directly executable downloads like `*.exe` or `*.cmd`).
 * **AppArchive**:
   The name of the downloaded archive with wildcards `?` and `*` (for archives which need to be extracted).
+* **AppArchiveTyp**:
+  The archive typ, which yields to the extractor selection (optional, default is `auto`).
+  Possible values are:
+    + `auto` Try to determine the extractor by the filename extension or use the custom extractor script if it exists
+    + `generic` Use 7-Zip to extract
+    + `msi` Use LessMSI to extract
+    + `inno` Use Inno Setup Unpacker to extract
+    + `custom` Use the custom script `auto\apps\<app ID>.extract.ps1`
 * **AppArchiveSubDir**:
   A sub folder in the archive to extract (optional, default is the archive root).
 * **Dir**:
@@ -107,6 +115,16 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * AppArchiveSubDir: `SourceDir\Files\7-Zip`
 * Dir: `7z`
 * Exe: `7z.exe`
+
+### Inno Setup Unpacker
+
+* ID: `InnoUnp`
+* Website: <http://innounp.sourceforge.net/>
+* Version: 0.45
+* Url: <http://sourceforge.net/projects/innounp/files/innounp/innounp 0.45/innounp045.rar>
+* AppArchive: `innounp*.rar`
+* Exe: `innounp.exe`
+* Register: `false`
 
 ### Git
 
@@ -261,6 +279,48 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Website: <http://gruntjs.com>
 * Version: `^0.4.5`
 * Exe: `grunt.cmd`
+
+### OpenSSL
+
+* ID: `OpenSSL`
+* Website: <https://www.openssl.org/>
+* Version: 1.0.2d
+* Url: <http://sourceforge.net/projects/openssl/files/openssl-1.0.2d-fips-2.0.10/openssl-1.0.2d-fips-2.0.10.zip>
+* AppArchive: `openssl-1.0.2d-fips-2.0.10.zip`
+* AppArchiveSubDir: `openssl-1.0.2d-fips-2.0.10`
+* Path: `bin`
+* Exe: `openssl.exe`
+
+### cURL
+
+* ID: `cURL`
+* Website: <http://curl.haxx.se/>
+* Version: 7.45 SSH2 SSL
+* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.46.0-win32-mingw.7z>
+* AppArchive: `curl-7.46.0-win32-mingw.7z`
+* AppArchiveSubDir: `curl-7.46.0-win32-mingw`
+* Path: `bin`
+* Exe: `curl.exe`
+
+### Sift
+
+* ID: `Sift`
+* Website: <https://sift-tool.org/>
+* Version: `0.7.1`
+* Url: <https://sift-tool.org/downloads/sift/sift_0.7.1_windows_386.zip>
+* AppArchive: `sift_0.7.1_windows_386.zip`
+
+### Graphics Magick
+
+* ID: `GraphicsMagick`
+* Website: <http://www.graphicsmagick.org/>
+* Version: 1.3.23
+* Url: <http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/1.3.23/GraphicsMagick-1.3.23-Q16-win32-dll.exe>
+* AppArchive: `GraphicsMagick-1.*-Q16-win32-dll.exe`
+* AppArchiveTyp: `inno`
+* AppArchiveSubDir: `{app}`
+* Dir: `gm`
+* Exe: `gm.exe`
 
 ### Python 2
 

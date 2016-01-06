@@ -34,6 +34,10 @@
 # Deactivate-App Inkscape
 # Deactivate-App MikTeX
 # Activate-App Grunt
+# Activate-App OpenSSL
+# Activate-App Sift
+# Activate-App cURL
+# Activate-App GraphicsMagick
 # Activate-App Python2
 # Activate-App Python3
 # Activate-App SublimeText3
