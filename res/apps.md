@@ -87,16 +87,6 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 ## Required
 
-### 7zip
-
-* ID: `SvZ`
-* Website: <http://www.7-zip.de/download.html>
-* Version: v9.20
-* Url: <http://7-zip.org/a/7za920.zip>
-* Archive: `7za*.zip`
-* Dir: `7z`
-* Exe: `7za.exe`
-
 ### Less MSIerables
 
 * ID: `LessMsi`
@@ -106,6 +96,17 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * AppArchive: `lessmsi-*.zip`
 * Exe: `lessmsi.exe`
 * Register: `false`
+
+### 7zip
+
+* ID: `SvZ`
+* Website: <http://www.7-zip.de/download.html>
+* Version: 15.14
+* Url: <http://7-zip.org/a/7z1514.msi>
+* AppArchive: `7z*.msi`
+* AppArchiveSubDir: `SourceDir\Files\7-Zip`
+* Dir: `7z`
+* Exe: `7z.exe`
 
 ### Git
 
