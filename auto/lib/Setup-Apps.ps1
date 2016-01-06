@@ -85,20 +85,20 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     if ((App-Force $name) -or !(Check-DefaultApp $name)) {
         Write-Host "Setting up $name ..."
         
-        $download = App-Download $name
+        $download = App-ResourceFile $name
         if ($download) {
             [string]$src = Find-Download $download
             $mode = "copy"
             $subDir = $null
         } else {
-            $archive = App-Archive $name
             [string]$src = Find-Download $archive
             if ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
+            $archive = App-ResourceArchive $name
                 $mode = "msi"
             } else {
                 $mode = "arch"
             }
-            $subDir = App-ArchiveSubDir $name
+            $subDir = App-ResourceArchiveSubDir $name
         }
         
         $dir = Safe-Dir $dir

@@ -6,16 +6,20 @@ function App-Version([string]$name) {
     return Get-AppConfigValue $name Version
 }
 
-function App-Archive([string]$name) {
-    return Get-AppConfigValue $name Archive
+function App-Url([string]$name) {
+    return Get-AppConfigValue $name Url
 }
 
-function App-ArchiveSubDir([string]$name) {
-    return Get-AppConfigValue $name ArchiveSubDir
+function App-ResourceFile([string]$name) {
+    return Get-AppConfigValue $name AppFile
 }
 
-function App-Download([string]$name) {
-    return Get-AppConfigValue $name Download
+function App-ResourceArchive([string]$name) {
+    return Get-AppConfigValue $name AppArchive
+}
+
+function App-ResourceArchiveSubDir([string]$name) {
+    return Get-AppConfigValue $name AppArchiveSubDir
 }
 
 function App-Force([string]$name) {

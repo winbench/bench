@@ -22,11 +22,11 @@ There are currently two types of apps: Windows executables and NodeJS packages.
   The application typ (optional, default is `default`)
 * **Url**:
   The URL to the file, containing the app binaries
-* **File**:
+* **AppFile**:
   The name of the downloaded file (only for executable downloads like `*.exe` or `*.cmd`).
-* **Archive**:
+* **AppArchive**:
   The name of the downloaded archive with wildcards `?` and `*` (for archives which need to be extracted).
-* **ArchiveSubDir**:
+* **AppArchiveSubDir**:
   A sub folder in the archive to extract (optional, default is the archive root).
 * **Dir**:
   The name of the target directory for the app (optional, default is the app ID in lowercase).
@@ -40,9 +40,9 @@ There are currently two types of apps: Windows executables and NodeJS packages.
 
 Some restrictions for the properties:
 
-* The properties _File_ and _Archive_ are mutually exclusive.
-* The property _ArchiveSubDir_ is only recognized, if _Archive_ is used.
-* The property _Path_ is only recognized, if _Register_ is `true`. 
+* The properties _AppFile_ and _AppArchive_ are mutually exclusive.
+* The property _AppArchiveSubDir_ is only recognized, if _AppArchive_ is used.
+* The property _Path_ is only recognized, if _Register_ is `true`.
 
 ## NodeJS Packages
 
