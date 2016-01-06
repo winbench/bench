@@ -103,7 +103,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
         
         $dir = Safe-Dir $dir
         if ($subDir) {
-            $target = Safe-Dir "$Script:tempDir\$name"
+            $target = Safe-Dir "$(Get-ConfigPathValue TempDir)\$name"
         } else {
             $target = $dir
         }
