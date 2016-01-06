@@ -6,16 +6,47 @@ function App-Version([string]$name) {
     return Get-AppConfigValue $name Version
 }
 
-function App-Archive([string]$name) {
-    return Get-AppConfigValue $name Archive
+function App-Url([string]$name) {
+    return Get-AppConfigValue $name Url
 }
 
-function App-ArchiveSubDir([string]$name) {
-    return Get-AppConfigValue $name ArchiveSubDir
+function App-DownloadHeaders([string]$name) {
+    $list = Get-AppConfigListValue $name DownloadHeaders
+    $dict = @{}
+    foreach ($e in $list) {
+        $kvp = $e.Split(":", 2)
+        $dict[$kvp[0].Trim()] = $kvp[1].Trim()
+    }
+    return $dict
 }
 
-function App-Download([string]$name) {
-    return Get-AppConfigValue $name Download
+function App-DownloadCookies([string]$name) {
+    $cookies = Get-AppConfigListValue $name DownloadCookies
+    $result = @()
+    foreach ($v in $cookies) {
+        $c = New-Object System.Net.Cookie
+        $v = $v.Split(":", 2)
+        $domain = $v[0].Trim()
+        $kvp = $v[1].Trim()
+        $c.Domain = $domain
+        $v = $kvp.Split("=", 2)
+        $c.Name = $v[0].Trim()
+        $c.Value = $v[1].Trim()
+        $result += $c
+    }
+    return $result
+}
+
+function App-ResourceFile([string]$name) {
+    return Get-AppConfigValue $name AppFile
+}
+
+function App-ResourceArchive([string]$name) {
+    return Get-AppConfigValue $name AppArchive
+}
+
+function App-ResourceArchiveSubDir([string]$name) {
+    return Get-AppConfigValue $name AppArchiveSubDir
 }
 
 function App-Force([string]$name) {
@@ -64,13 +95,13 @@ function App-Paths([string]$name) {
         default {
             $paths = @()
             $appDir = App-Dir $name
-            $cfgPath = Get-AppConfigValue $name Path ""
-            if ($cfgPath -is [string]) {
-                $paths += [IO.Path]::Combine($appDir, $cfgPath)
-            } elseif ($cfgPath -is [array]) {
-                foreach ($p in $cfgPath) {
+            $cfgPaths = Get-AppConfigListValue $name Path
+            if ($cfgPaths.Count -gt 0) {
+                foreach ($p in $cfgPaths) {
                     $paths += [IO.Path]::Combine($appDir, $p)
                 }
+            } else {
+                $paths += $appDir
             }
             return $paths
         }
@@ -89,7 +120,21 @@ function App-Exe([string]$name, [bool]$checkExist = $true) {
     }
 }
 
-function App-Register([string]$name) { return Get-AppConfigValue $name Register $true }
+function App-Register([string]$name) {
+    return Get-AppConfigValue $name Register $true
+}
+
+function App-Environment([string]$name) {
+    $l = Get-AppConfigListValue $name Environment
+    $dict = @{}
+    foreach ($e in $l) {
+        $kvp = $e.Split("=", 2)
+        $name = $kvp[0].Trim()
+        $value = $kvp[1].Trim()
+        $dict[$name] = $value
+    }
+    return $dict
+}
 
 function Check-DefaultApp([string]$name) {
     Debug "Checking app ${name}"

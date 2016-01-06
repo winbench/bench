@@ -18,7 +18,7 @@
 
 ## Prerequisites
 
-* Microsoft Windows 7 or higher (with at least PowerShell 2)
+* Microsoft Windows 7 or higher (with at least PowerShell 3)
 * Internet access for HTTP/HTTPS (possibly via proxy, but without credentials)
 * The Windows user account does _not_ need admin priviledges
 * A harddrive or a removable drive with at least 2 GB free memory
@@ -62,13 +62,15 @@ This CMD script initializes the execution environment for programs to run inside
 The following environment variables are set by `auto/env.cmd`.
 
 * `BENCH_HOME` is set to the root path of _Bench_
+* `BENCH_APPS` is set to the root path of the _Bench_ apps, which is `%BENCH_HOME%\lib` per default
 * `BENCH_PATH` is the list with the paths to the registered apps in _Bench_
 * `USERNAME` is set to the config value `UserName` from `config.ps1`
 * `USEREMAIL` is set to the config value `UserEmail`from `config.ps1`
 * `HOMEDRIVE` is set to the drive letter of the config value `HomeDir`, which is `%BENCH_HOME%\home` per default
 * `HOMEPATH` is set to the path of the config value `HomeDir`, which is `%BENCH_HOME%\home` per default
-* `APPDATA` is set to `%HOMEDRIVE%%HOMEPATH%\AppData`
-* `LOCALAPPDATA` is set to `%APPDATA%\Local`
+* `USERPROFILE` is set to `%HOMEDRIVE%%HOMEPATH%`
+* `APPDATA` is set to `%USERPROFILE%\AppData\Roaming`
+* `LOCALAPPDATA` is set to `%USERPROFILE%\AppData\Local`
 * `PATH` is set to `%BENCH_PATH%;%SystemRoot%;%SystemRoot%\System32;%SystemRoot%\System32\WindowsPowerShell\v1.0`
 
 ## Actions
@@ -141,7 +143,7 @@ The `update-env.cmd` script does exactly that.
 
 This script performs the following steps:
 
-* Initializing the custom configuration if there is none
+* Initializing the custom configuration, if there is none
 * Downloading missing app resources
 * Installing the apps in the _Bench_ environment
 * Updating the _Bench_ environment file `auto/env.cmd`
@@ -151,10 +153,19 @@ You need an internet connection for this script.
 
 This script usally can be run repeatedly without any riscs.
 
+### `bench-download`
+
+If you want to download the application ressources without installing
+any application in the _Bench_ environment, use this script.
+It performs the following steps:
+
+* Initializing the custom configuration, if there is none
+* Download missing app resources
+
 ### `bench-refresh`
 
-If your installed apps are corrupted, or you want to update NPM or PIP packages,
-you can run this script.
+If your installed apps are corrupted, or you want to update
+NPM or PIP packages, you can run this script.
 It performs the following steps:
 
 * Removing all installed app files

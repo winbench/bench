@@ -12,15 +12,6 @@ $winShell = New-Object -ComObject Shell.Application
 if (!(Test-Path $downloadDir)) { return }
 if (!(Test-Path $libDir)) { return }
 
-function Find-Download([string]$pattern) {
-    $path = Find-File $Script:downloadDir $pattern
-    if (!$path) {
-        throw "Download not found: $pattern"
-    } else {
-        Debug "Found download: $path"
-    }
-    return $path
-}
 
 function ShellUnzip-Archive([string]$zipFile, [string]$targetDir)
 {
@@ -69,6 +60,11 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
     }
 }
 
+function Extract-Custom([string]$name, [string]$archive, [string]$targetDir) {
+    Debug "Extracing custom archive $archive to $targetDir"
+    . "$scriptsLib\..\apps\${name}.extract.ps1" $archive $targetDir
+}
+
 function Execute-Custom-Setup([string]$name) {
     $customSetupFile = "$scriptsLib\..\apps\${name}.setup.ps1"
     if (Test-Path $customSetupFile) {
@@ -80,30 +76,45 @@ function Execute-Custom-Setup([string]$name) {
     }
 }
 
+function Find-DownloadedFile([string]$pattern) {
+    if (!$pattern) {
+        return $null
+    }
+    $path = Find-File (Get-ConfigPathValue DownloadDir) $pattern
+    if (!$path) {
+        throw "Download not found: $pattern"
+    } else {
+        Debug "Found download: $path"
+    }
+    return [string]$path
+}
+
 function Default-Setup([string]$name, [bool]$registerPath = $true) {
     $dir = App-Dir $name
     if ((App-Force $name) -or !(Check-DefaultApp $name)) {
         Write-Host "Setting up $name ..."
         
-        $download = App-Download $name
+        $download = App-ResourceFile $name
         if ($download) {
-            [string]$src = Find-Download $download
+            $src = Find-DownloadedFile $download
             $mode = "copy"
             $subDir = $null
         } else {
-            $archive = App-Archive $name
-            [string]$src = Find-Download $archive
-            if ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
+            $archive = App-ResourceArchive $name
+            $src = Find-DownloadedFile $archive
+            if (Test-Path "$scriptsLib\..\apps\${name}.extract.ps1") {
+                $mode = "custom"
+            } elseif ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
                 $mode = "msi"
             } else {
                 $mode = "arch"
             }
-            $subDir = App-ArchiveSubDir $name
+            $subDir = App-ResourceArchiveSubDir $name
         }
         
         $dir = Safe-Dir $dir
         if ($subDir) {
-            $target = Safe-Dir "$Script:tempDir\$name"
+            $target = Safe-Dir "$(Get-ConfigPathValue TempDir)\$name"
         } else {
             $target = $dir
         }
@@ -111,6 +122,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
             "copy" { Copy-item $src $target }
             "arch" { Extract-Archive $src $target }
             "msi" { Extract-Msi $src $target }
+            "custom" { Extract-Custom $name $src $target }
         }
         if ($subDir) {
             Move-Item "$target\$subDir\*" "$dir\"
@@ -122,6 +134,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     }
 
     Register-AppPaths $name
+    Register-AppEnvironment $name
     Execute-Custom-Setup $name
 }
 
@@ -145,6 +158,7 @@ function Setup-NpmPackage([string]$name) {
             Write-Host "Skipping allready installed NPM package $packageName"
         }
     }
+    Register-AppEnvironment $name
     Execute-Custom-Setup $name
 }
 

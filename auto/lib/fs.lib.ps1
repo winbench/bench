@@ -20,7 +20,7 @@ function Purge-Dir ($dir, $msg = $null) {
             $_ = mkdir $emptySibling
             robocopy $emptySibling $dir /purge | Out-Null
             Remove-Item $emptySibling
-            Remove-Item $dir
+            Remove-Item $dir -Recurse -Force
         }
     }
 }

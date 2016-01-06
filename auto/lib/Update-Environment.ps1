@@ -14,7 +14,10 @@ if (!(Test-Path $libDir)) { return }
 Load-Environment
 foreach ($name in $Script:apps) {
     if (Check-App $name) {
-        Register-AppPaths $name
+        if ((App-Typ $name) -ne "node-package") {
+            Register-AppPaths $name
+        }
+        Register-AppEnvironment $name
     } else {
         Write-Warning "App $name is activated but was not found."
     }

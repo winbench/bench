@@ -8,6 +8,11 @@ A value can be surrounded by angle brackets `<` and `>` if it is a URL.
 Any value can be surrounded by backticks.
 If a value is a list, its items must be surrounded by backticks and separated by commas `, `.
 
+You can use placeholders in variable values.
+Placeholders can be application specific configuration values
+like `$Git:Dir$` and `$Npm:Path$` or global configuration values
+like `$BenchRoot$` and `$ProjectArchiveDir$`.
+
 All apps are identified by an ID, which must only contain alphanumeric characters
 and must not start with a numeric character.
 The ID must be the first entry in a list, defining an app.
@@ -22,11 +27,11 @@ There are currently two types of apps: Windows executables and NodeJS packages.
   The application typ (optional, default is `default`)
 * **Url**:
   The URL to the file, containing the app binaries
-* **File**:
+* **AppFile**:
   The name of the downloaded file (only for executable downloads like `*.exe` or `*.cmd`).
-* **Archive**:
+* **AppArchive**:
   The name of the downloaded archive with wildcards `?` and `*` (for archives which need to be extracted).
-* **ArchiveSubDir**:
+* **AppArchiveSubDir**:
   A sub folder in the archive to extract (optional, default is the archive root).
 * **Dir**:
   The name of the target directory for the app (optional, default is the app ID in lowercase).
@@ -37,12 +42,15 @@ There are currently two types of apps: Windows executables and NodeJS packages.
 * **Exe**:
   The name of the app executable (optional, default is empty).
   The existance of an app executable is used to determine, if an app is allready installed.
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (option, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
 Some restrictions for the properties:
 
-* The properties _File_ and _Archive_ are mutually exclusive.
-* The property _ArchiveSubDir_ is only recognized, if _Archive_ is used.
-* The property _Path_ is only recognized, if _Register_ is `true`. 
+* The properties _AppFile_ and _AppArchive_ are mutually exclusive.
+* The property _AppArchiveSubDir_ is only recognized, if _AppArchive_ is used.
+* The property _Path_ is only recognized, if _Register_ is `true`.
 
 ## NodeJS Packages
 
@@ -59,8 +67,11 @@ Some restrictions for the properties:
   even if it is allready installed (optional, default is `false`).
 * **Exe**:
   The name of an NPM CLI wrapper from this package (optional, default is empty).
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (option, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
-To determine, if a NodeJS package is allready installed, `npm list -g` is called.
+To determine, if a NodeJS package is allready installed, the existence of its package folder in `node_modules` in the NodeJS directory is checked.
 
 ## Custom Apps
 

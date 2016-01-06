@@ -5,8 +5,8 @@
 ## Uncomment and adapt the following lines to setup a proxy:
 
 # Set-ConfigValue UseProxy $true
-# Set-ConfigValue HttpProxy "myproxy:3128"
-# Set-ConfigValue HttpsProxy "myproxy:3128"
+# Set-ConfigValue HttpProxy "http://myproxy:3128/"
+# Set-ConfigValue HttpsProxy "http://myproxy:3128/"
 
 ## Uncomment and adapt the following lines to change the location of directories:
 ## (paths can be relative or absolute)
@@ -40,6 +40,9 @@
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
+# Activate-App JDK7
+# Activate-App JDK8
+# Activate-App EclipseJava
 
 ## Deactivate forced update for NPM:
 
