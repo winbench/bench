@@ -45,6 +45,10 @@ function App-ResourceArchive([string]$name) {
     return Get-AppConfigValue $name AppArchive
 }
 
+function App-ResourceArchiveTyp([string]$name) {
+    return Get-AppConfigValue $name AppArchiveTyp "auto"
+}
+
 function App-ResourceArchiveSubDir([string]$name) {
     return Get-AppConfigValue $name AppArchiveSubDir
 }
