@@ -180,10 +180,11 @@ function Resolve-Url([string]$url) {
 }
 
 function Extract-FileName($url) {
-    [regex]$ex = "[^=/]+\.[a-zA-Z0-9]{2,3}(?:\?.*)?$"
+    [regex]$ex = '(?<name>[^/]+\.[a-zA-Z0-9]{2,3})(?:\?.*)?$'
     $m = $ex.Match($url)
     if ($m.Success) {
-        return $m.Value
+        Debug "Extracted filename: $($m.Groups['name'])"
+        return $m.Groups['name'].Value
     } else {
         return $null
     }
