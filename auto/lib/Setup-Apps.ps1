@@ -60,6 +60,22 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
     }
 }
 
+function Extract-InnoSetup([string]$archive, [string]$targetDir) {
+    Debug "Extracting Inno Setup $archive to $targetDir"
+    $targetDir = Safe-Dir $targetDir
+    $innounp = App-Exe InnoUnp
+    if ($innounp) {
+        pushd $targetDir
+        & $innounp -q -x $archive | Out-Null
+        if (!$?) {
+            throw "Extracting Inno Setup $archive failed"
+        }
+        popd
+    } else {
+        throw "Missing Inno Setup Unpacker"
+    }
+}
+
 function Extract-Custom([string]$name, [string]$archive, [string]$targetDir) {
     Debug "Extracing custom archive $archive to $targetDir"
     . "$scriptsLib\..\apps\${name}.extract.ps1" $archive $targetDir
@@ -108,6 +124,8 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
                     $mode = "custom"
                 } elseif ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
                     $mode = "msi"
+                } elseif ($src.EndsWith(".0")) {
+                    $mode = "inno"
                 } else {
                     $mode = "generic"
                 }
@@ -125,6 +143,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
             "copy" { Copy-item $src $target }
             "generic" { Extract-Archive $src $target }
             "msi" { Extract-Msi $src $target }
+            "inno" { Extract-InnoSetup $src $target }
             "custom" { Extract-Custom $name $src $target }
         }
         if ($subDir) {

@@ -37,6 +37,7 @@ There are currently two types of apps: Windows executables and NodeJS packages.
     + `auto` Try to determine the extractor by the filename extension or use the custom extractor script if it exists
     + `generic` Use 7-Zip to extract
     + `msi` Use LessMSI to extract
+    + `inno` Use Inno Setup Unpacker to extract
     + `custom` Use the custom script `auto\apps\<app ID>.extract.ps1`
 * **AppArchiveSubDir**:
   A sub folder in the archive to extract (optional, default is the archive root).
