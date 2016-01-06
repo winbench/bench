@@ -52,7 +52,7 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
         pushd $targetDir
         & $lessmsi "x" $archive ".\" | Out-Null
         if (!$?) {
-            throw "Extracting $archive failed"
+            throw "Extracting MSI $archive failed"
         }
         popd
     } else {
@@ -102,12 +102,15 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
         } else {
             $archive = App-ResourceArchive $name
             $src = Find-DownloadedFile $archive
-            if (Test-Path "$scriptsLib\..\apps\${name}.extract.ps1") {
-                $mode = "custom"
-            } elseif ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
-                $mode = "msi"
-            } else {
-                $mode = "arch"
+            $mode = App-ResourceArchiveTyp $name
+            if ($mode.ToLower() -eq "auto") {
+                if (Test-Path "$scriptsLib\..\apps\${name}.extract.ps1") {
+                    $mode = "custom"
+                } elseif ($src.EndsWith(".msi", [StringComparison]::InvariantCultureIgnoreCase)) {
+                    $mode = "msi"
+                } else {
+                    $mode = "generic"
+                }
             }
             $subDir = App-ResourceArchiveSubDir $name
         }
@@ -118,9 +121,9 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
         } else {
             $target = $dir
         }
-        switch ($mode) {
+        switch ($mode.ToLower()) {
             "copy" { Copy-item $src $target }
-            "arch" { Extract-Archive $src $target }
+            "generic" { Extract-Archive $src $target }
             "msi" { Extract-Msi $src $target }
             "custom" { Extract-Custom $name $src $target }
         }

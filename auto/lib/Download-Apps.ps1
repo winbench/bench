@@ -158,7 +158,7 @@ function Get-FirstMatchingLinkUrl([string]$url, [regex]$pattern) {
 }
 
 function Resolve-Url([string]$url) {
-    if ($url -match "^https?://download\.sourceforge\.net/") {
+    if ($url -match "^https?://sourceforge\.net/projects/[^/]+/files/") {
         Debug "URL matches Sourceforge download page"
         $url = Get-MetaRefreshUrl $url
         return Resolve-Url $url
@@ -180,10 +180,11 @@ function Resolve-Url([string]$url) {
 }
 
 function Extract-FileName($url) {
-    [regex]$ex = "[^=/]+\.[a-zA-Z0-9]{2,3}(?:\?.*)?$"
+    [regex]$ex = '(?<name>[^/]+\.[a-zA-Z0-9]{2,3})(?:\?.*)?$'
     $m = $ex.Match($url)
     if ($m.Success) {
-        return $m.Value
+        Debug "Extracted filename: $($m.Groups['name'])"
+        return $m.Groups['name'].Value
     } else {
         return $null
     }
