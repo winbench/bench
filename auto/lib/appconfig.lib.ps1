@@ -89,7 +89,9 @@ function App-Exe([string]$name, [bool]$checkExist = $true) {
     }
 }
 
-function App-Register([string]$name) { return Get-AppConfigValue $name Register $true }
+function App-Register([string]$name) {
+    return Get-AppConfigValue $name Register $true
+}
 
 function Check-DefaultApp([string]$name) {
     Debug "Checking app ${name}"
