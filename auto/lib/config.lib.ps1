@@ -8,6 +8,7 @@ $_ = Set-StopOnError $True
 $Script:config = @{}
 $Script:apps = New-Object 'System.Collections.Generic.List`1[System.String]'
 $Script:definedApps = New-Object 'System.Collections.Generic.List`1[System.String]'
+$Script:valueExpandPattern = [regex]'\$(?<var>[^\$]+)\$'
 
 function Set-ConfigValue([string]$name, $value) {
     if ($Script:debug) {
@@ -18,10 +19,64 @@ function Set-ConfigValue([string]$name, $value) {
 
 function Get-ConfigValue([string]$name, $def = $null) {
     if ($Script:config.ContainsKey($name)) {
-        return $Script:config[$name]
+        $value = $Script:config[$name]
+        if ($value -is [array]) {
+            $value = [array]($value | % { Expand-Value $_ })
+        } else {
+            $value = Expand-Value $value
+        }
+        return $value
     } else {
         return $def
     }
+}
+
+function Expand-Placeholder([string]$placeholder) {
+    $kvp = $placeholder.Split(":", 2)
+    if ($kvp.Count -eq 1) {
+        return Get-ConfigValue $placeholder
+    } else {
+        $app = $kvp[0].Trim()
+        $var = $kvp[1].Trim()
+        switch ($var) {
+            "Dir" {
+                return App-Dir $app
+            }
+            "Path" {
+                return App-Path $app
+            }
+            "Exe" {
+                return App-Exe $app
+            }
+            default {
+                return Get-AppConfigValue $app $var
+            }
+        }
+    }
+}
+
+function Expand-Value($value) {
+    if ($value -is [string]) {
+        $value = $valueExpandPattern.Replace($value, [Text.RegularExpressions.MatchEvaluator]{
+            param ($m)
+            return Expand-Placeholder $m.Groups["var"].Value
+        })
+        if ($value -ieq "true") {
+            $value = $true
+        }
+        if ($value -ieq "false") {
+            $value = $false
+        }
+    }
+    return $value
+}
+
+function Get-ConfigListValue([string]$name, $def = @()) {
+    $l = Get-ConfigValue $name $def
+    if ($l -is [string]) {
+        $l = @($l)
+    }
+    return [array]$l
 }
 
 function Get-AppConfigPropertyName([string]$app, [string]$name) {
@@ -36,6 +91,11 @@ function Set-AppConfigValue([string]$app, [string]$name, $value) {
 function Get-AppConfigValue([string]$app, [string]$name, $def = $null) {
     $prop = Get-AppConfigPropertyName $app $name
     return Get-ConfigValue $prop $def
+}
+
+function Get-AppConfigListValue([string]$app, [string]$name, $def = @()) {
+    $prop = Get-AppConfigPropertyName $app $name
+    return Get-ConfigListValue $prop $def
 }
 
 function Register-App([string]$app) {
@@ -71,8 +131,6 @@ function Process-AppRegistry($parseGroups = $false) {
         $appGroupDefault = "## Default"
         $appGroupOptional = "## Optional"
         $kvpP = [regex]'^\s*\*\s+(?<key>\S+)\s*:\s*(?<value>.*?)\s*$'
-        $varP = [regex]'\$(?<key>[^:\$]+)\$'
-        $appVarP = [regex]'\$(?<app>[^:]+):(?<key>[^\$]+)\$'
         $group = $null
         $id = $null
         $requiredIds = @()
@@ -90,30 +148,12 @@ function Process-AppRegistry($parseGroups = $false) {
             }
             return $value
         }
-        function Transform-Value([string]$value) {
-            $value = Clean-Value $value
-            $value = $varP.Replace($value, [Text.RegularExpressions.MatchEvaluator]{
-                param ($m)
-                return Get-ConfigValue $m.Groups["key"].Value
-            })
-            $value = $appVarP.Replace($value, [Text.RegularExpressions.MatchEvaluator]{
-                param ($m)
-                return Get-AppConfigValue $m.Groups["app"].Value $m.Groups["key"].Value
-            })
-            if ($value -ieq "true") {
-                $value = $true
-            }
-            if ($value -ieq "false") {
-                $value = $false
-            }
-            return $value
-        }
         function Parse-Value([string]$value) {
             [array]$elements = $value.Split(",") | % { $_.Trim() } | ? { Is-CodeValue $_ }
             if ($elements.Length -gt 1) {
-                return [array]($elements | % { Transform-Value $_ })
+                return [array]($elements | % { Clean-Value $_ })
             } else {
-                return Transform-Value $value
+                return Clean-Value $value
             }
         }
     }
