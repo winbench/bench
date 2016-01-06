@@ -8,14 +8,14 @@ $localAppDataDir = Safe-Dir (Get-ConfigPathValue LocalAppDataDir)
 $desktopDir = Safe-Dir "$homeDir\Desktop"
 $documentsDir = Safe-Dir "$homeDir\Documents"
 
-function Register-Path($path) {
+function Register-Path([string]$path) {
     if (!($Script:paths -contains $path)) {
         $Script:paths += $path
         Debug "Registered Path: $path"
     }
 }
 
-function Register-AppPaths($name) {
+function Register-AppPaths([string]$name) {
     if (App-Register $name) {
         $paths = App-Paths $name
         foreach ($p in $paths) {
