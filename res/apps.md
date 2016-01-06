@@ -355,3 +355,14 @@ The initial password for _root_ is `bench`.
 * Path: `bin`
 * Exe: `javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
+
+### Eclipse
+
+* ID: `EclipseJava`
+* Version: Luna SR2 4.4.2
+* Website: <http://www.eclipse.org/>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip>
+* AppArchive: `eclipse-java-*-win32.zip`
+* AppArchiveSubDir: `eclipse`
+* Dir: `eclipse_java`
+* Exe: `eclipse.exe`

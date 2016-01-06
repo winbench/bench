@@ -42,6 +42,7 @@
 # Activate-App MySQLWB
 # Activate-App JDK7
 # Activate-App JDK8
+# Activate-App EclipseJava
 
 ## Deactivate forced update for NPM:
 
