@@ -115,6 +115,16 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Dir: `7z`
 * Exe: `7z.exe`
 
+### Inno Setup Unpacker
+
+* ID: `InnoUnp`
+* Website: <http://innounp.sourceforge.net/>
+* Version: 0.45
+* Url: <http://sourceforge.net/projects/innounp/files/innounp/innounp 0.45/innounp045.rar>
+* AppArchive: `innounp*.rar`
+* Exe: `innounp.exe`
+* Register: `false`
+
 ### Git
 
 * ID: `Git`
