@@ -216,7 +216,7 @@ function Initialize() {
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
-    Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData"
+    Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData\Roaming"
     Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\AppData\Local"
     Set-ConfigValue ProjectRootDir "projects"
     Set-ConfigValue ProjectArchiveDir "archive"
