@@ -35,6 +35,7 @@
 # Deactivate-App MikTeX
 # Activate-App Grunt
 # Activate-App OpenSSL
+# Activate-App Sift
 # Activate-App cURL
 # Activate-App GraphicsMagick
 # Activate-App Python2

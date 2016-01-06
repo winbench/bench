@@ -302,6 +302,14 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `bin`
 * Exe: `curl.exe`
 
+### Sift
+
+* ID: `Sift`
+* Website: <https://sift-tool.org/>
+* Version: `0.7.1`
+* Url: <https://sift-tool.org/downloads/sift/sift_0.7.1_windows_386.zip>
+* AppArchive: `sift_0.7.1_windows_386.zip`
+
 ### Graphics Magick
 
 * ID: `GraphicsMagick`
