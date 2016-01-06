@@ -52,7 +52,7 @@ function Extract-Msi([string]$archive, [string]$targetDir) {
         pushd $targetDir
         & $lessmsi "x" $archive ".\" | Out-Null
         if (!$?) {
-            throw "Extracting $archive failed"
+            throw "Extracting MSI $archive failed"
         }
         popd
     } else {
