@@ -77,8 +77,8 @@ function Get-RefreshUrl($url) {
         return $null
     }
     Debug "Extracting refresh URL from download page ..."
-    $p1 = [regex]"\<noscript\>[^\<]*\<meta\s[^\>]*?http-equiv=`"refresh`"[^\>]*?\scontent=`"\d+;\s+url=(?<url>.*?)`""
-    $p2 = [regex]"\<noscript\>[^\<]*\<meta\s[^\>]*?content=`"\d+;\s+url=(?<url>.*?)`"[^\>]*?\shttp-equiv=`"refresh`""
+    $p1 = [regex]"<meta\s[^\>]*?http-equiv=`"refresh`"[^\>]*?\scontent=`"\d+;\s+url=(?<url>.*?)`""
+    $p2 = [regex]"<meta\s[^\>]*?content=`"\d+;\s+url=(?<url>.*?)`"[^\>]*?\shttp-equiv=`"refresh`""
     $m = $p1.Match($http)
     if (!$m.Success) { $m = $p2.Match($http) }
     if ($m.Success) {
