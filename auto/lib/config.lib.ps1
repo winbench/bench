@@ -244,6 +244,8 @@ function Initialize() {
     if (Test-Path $customConfigFile) {
         . $customConfigFile
     }
+
+    Set-ConfigValue BenchRoot $Script:rootDir
 }
 
 Initialize
