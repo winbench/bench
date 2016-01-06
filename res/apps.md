@@ -280,6 +280,17 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Version: `^0.4.5`
 * Exe: `grunt.cmd`
 
+### cURL
+
+* ID: `cURL`
+* Website: <http://curl.haxx.se/>
+* Version: 7.45 SSH2 SSL
+* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.46.0-win32-mingw.7z>
+* AppArchive: `curl-7.46.0-win32-mingw.7z`
+* AppArchiveSubDir: `curl-7.46.0-win32-mingw`
+* Path: `bin`
+* Exe: `curl.exe`
+
 ### Python 2
 
 * ID: `Python2`
