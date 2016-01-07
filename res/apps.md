@@ -99,7 +99,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `LessMsi`
 * Website: <http://lessmsi.activescott.com/>
-* Version: v1.3
+* Version: 1.3
 * Url: <https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip>
 * AppArchive: `lessmsi-*.zip`
 * Exe: `lessmsi.exe`
@@ -130,7 +130,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
-* Version: v2.6.4
+* Version: 2.6.4
 * Url: <https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe>
 * AppArchive: `PortableGit-*-32-bit.7z.exe`
 * Path: `cmd`
@@ -142,7 +142,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: v4.2.3
+* Version: 4.2.3
 * Url: <https://nodejs.org/dist/v4.2.3/win-x86/node.exe>
 * AppFile: `node.exe`
 * Dir: `node`
@@ -158,7 +158,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * ID: `NpmBootstrap`
 * Dependencies: `Node`
 * Website: <https://nodejs.org>
-* Version: v1.4.12
+* Version: 1.4.12
 * Url: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
 * AppArchive: `npm-*.zip`
 * Dir: `$Node:Dir$`
@@ -233,7 +233,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: v1.15.1.1
+* Version: 1.15.1.1
 * Url: <https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi>
 * AppArchive: `pandoc-*-windows.msi`
 * AppArchiveSubDir: `SourceDir\Pandoc`
@@ -243,7 +243,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Graphviz`
 * Website: <http://www.graphviz.org/Download_windows.php>
-* Version: v2.38
+* Version: 2.38
 * Url: <http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip>
 * AppArchive: `graphviz-*.zip`
 * Path: `release\bin`
@@ -253,7 +253,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Inkscape`
 * Website: <https://inkscape.org/de/herunterladen/>
-* Version: v0.91
+* Version: 0.91
 * Url: <https://inkscape.org/en/gallery/item/3932/download/>
 * AppArchive: `Inkscape-*-win32.7z`
 * AppArchiveSubDir: `inkscape`
@@ -263,7 +263,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
-* Version: v2.9.5719
+* Version: 2.9.5719
 * Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe>
 * AppArchive: `miktex-portable-2.*.exe`
 * Path: `miktex\bin`
@@ -336,7 +336,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Python2`
 * Website: <https://www.python.org/ftp/python/>
-* Version: v2.7.11
+* Version: 2.7.11
 * Url: <https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi>
 * AppArchive: `python-2.*.msi`
 * AppArchiveSubDir: `SourceDir`
@@ -347,7 +347,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Python3`
 * Website: <https://www.python.org/ftp/python/>
-* Version: v3.4.3
+* Version: 3.4.3
 * Url: <https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi>
 * AppArchive: `python-3.*.msi`
 * AppArchiveSubDir: `SourceDir`
