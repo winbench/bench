@@ -38,6 +38,7 @@
 # Activate-App Sift
 # Activate-App cURL
 # Activate-App GraphicsMagick
+# Activate-App FFmpeg
 # Activate-App Python2
 # Activate-App Python3
 # Activate-App SublimeText3

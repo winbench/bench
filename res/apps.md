@@ -322,6 +322,16 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Dir: `gm`
 * Exe: `gm.exe`
 
+### FFmpeg
+
+* ID: `FFmpeg`
+* Website: <https://www.ffmpeg.org/>
+* Version: 20160105 git-fc703f5
+* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160105-git-fc703f5-win32-shared.7z>
+* AppArchive: `ffmpeg-20160105-git-fc703f5-win32-shared.7z`
+* AppArchiveSubDir: `ffmpeg-20160105-git-fc703f5-win32-shared`
+* Path: `bin`
+
 ### Python 2
 
 * ID: `Python2`
