@@ -18,6 +18,7 @@ foreach ($name in $Script:apps) {
             Register-AppPaths $name
         }
         Register-AppEnvironment $name
+        Run-AppEnvironmentSetup $name
     } else {
         Write-Warning "App $name is activated but was not found."
     }

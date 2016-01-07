@@ -68,6 +68,14 @@ function Update-EnvironmentPath() {
     $env:Path = "$benchPath;$env:Path"
 }
 
+function Run-AppEnvironmentSetup([string]$name) {
+    $scriptFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).env.ps1"
+    if (Test-Path $scriptFile) {
+        Debug "Running custom environment script for $name"
+        . $scriptFile
+    }
+}
+
 function Write-EnvironmentFile() {
     $envFile = "$Script:rootDir\auto\env.cmd"
     $nl = [Environment]::NewLine
