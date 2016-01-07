@@ -34,7 +34,11 @@ function Get-ConfigValue([string]$name, $def = $null) {
 function Expand-Placeholder([string]$placeholder) {
     $kvp = $placeholder.Split(":", 2)
     if ($kvp.Count -eq 1) {
-        return Get-ConfigValue $placeholder
+        if ($placeholder -in $Script:pathConfigValues) {
+            return Get-ConfigPathValue $placeholder
+        } else {
+            return Get-ConfigValue $placeholder
+        }
     } else {
         $app = $kvp[0].Trim()
         $var = $kvp[1].Trim()
@@ -219,6 +223,23 @@ function Initialize() {
     Set-ConfigValue DownloadAttempts 3
     Set-ConfigValue BenchRepository "https://github.com/mastersign/bench.git"
     Set-ConfigValue EditorApp "VSCode"
+
+    $Script:pathConfigValues = @(
+        "CustomConfigFile",
+        "CustomConfigTemplate",
+        "AppIndex",
+        "CustomAppIndex",
+        "CustomAppIndexTemplate"
+        "DownloadDir",
+        "AppResourceBaseDir",
+        "TempDir",
+        "LibDir",
+        "HomeDir",
+        "AppDataDir",
+        "LocalAppDataDir",
+        "ProjectRootDir",
+        "ProjectArchiveDir"
+    )
 
     $appIndex = Get-ConfigPathValue AppIndex
     Get-Content $appIndex | Process-AppRegistry -parseGroups $true
