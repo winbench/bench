@@ -51,6 +51,14 @@ function Load-Environment() {
     }
 }
 
+function Load-AppEnvironment([string]$name) {
+    $dict = App-Environment $name
+    foreach ($k in $dict.Keys) {
+        Debug "Load Environment Variable: $k = $($dict[$k])"
+        Set-Item "env:$k" $dict[$k]
+    }
+}
+
 function Update-EnvironmentPath() {
     $env:PATH = "$env:SystemRoot;$env:SystemRoot\System32;$env:SystemRoot\System32\WindowsPowerShell\v1.0"
     $benchPath = ""
@@ -58,6 +66,14 @@ function Update-EnvironmentPath() {
         $benchPath = "$path;$benchPath"
     }
     $env:Path = "$benchPath;$env:Path"
+}
+
+function Run-AppEnvironmentSetup([string]$name) {
+    $scriptFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).env.ps1"
+    if (Test-Path $scriptFile) {
+        Debug "Running custom environment script for $name"
+        . $scriptFile
+    }
 }
 
 function Write-EnvironmentFile() {

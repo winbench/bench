@@ -157,7 +157,9 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
 
     Register-AppPaths $name
     Register-AppEnvironment $name
+    Load-AppEnvironment $name
     Execute-Custom-Setup $name
+    Run-AppEnvironmentSetup $name
 }
 
 function Setup-NpmPackage([string]$name) {
@@ -181,7 +183,9 @@ function Setup-NpmPackage([string]$name) {
         }
     }
     Register-AppEnvironment $name
+    Load-AppEnvironment $name
     Execute-Custom-Setup $name
+    Run-AppEnvironmentSetup $name
 }
 
 Load-Environment
@@ -214,8 +218,9 @@ foreach ($name in $Script:apps) {
 }
 Write-EnvironmentFile
 
-Purge-Dir $tempDir
+Empty-Dir $tempDir | Out-Null
 
+Write-Host ""
 Write-Host "$($installedApps.Count) of $($apps.Count) apps successfully installed."
 if ($failedApps.Count -gt 0) {
     Write-Warning "Setting up the following $($failedApps.Count) apps failed:"

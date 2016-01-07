@@ -34,23 +34,19 @@ function Get-ConfigValue([string]$name, $def = $null) {
 function Expand-Placeholder([string]$placeholder) {
     $kvp = $placeholder.Split(":", 2)
     if ($kvp.Count -eq 1) {
-        return Get-ConfigValue $placeholder
+        if ($placeholder -in $Script:pathConfigValues) {
+            return Get-ConfigPathValue $placeholder
+        } else {
+            return Get-ConfigValue $placeholder
+        }
     } else {
         $app = $kvp[0].Trim()
         $var = $kvp[1].Trim()
         switch ($var) {
-            "Dir" {
-                return App-Dir $app
-            }
-            "Path" {
-                return App-Path $app
-            }
-            "Exe" {
-                return App-Exe $app
-            }
-            default {
-                return Get-AppConfigValue $app $var
-            }
+            "Dir" { return App-Dir $app }
+            "Path" { return App-Path $app }
+            "Exe" { return App-Exe $app }
+            default { return Get-AppConfigValue $app $var }
         }
     }
 }
@@ -203,7 +199,7 @@ function Initialize() {
     $Script:definedApps.Clear()
     
     # Common
-    Set-ConfigValue Version "0.2.1"
+    Set-ConfigValue Version "0.2.2"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
@@ -227,6 +223,23 @@ function Initialize() {
     Set-ConfigValue DownloadAttempts 3
     Set-ConfigValue BenchRepository "https://github.com/mastersign/bench.git"
     Set-ConfigValue EditorApp "VSCode"
+
+    $Script:pathConfigValues = @(
+        "CustomConfigFile",
+        "CustomConfigTemplate",
+        "AppIndex",
+        "CustomAppIndex",
+        "CustomAppIndexTemplate"
+        "DownloadDir",
+        "AppResourceBaseDir",
+        "TempDir",
+        "LibDir",
+        "HomeDir",
+        "AppDataDir",
+        "LocalAppDataDir",
+        "ProjectRootDir",
+        "ProjectArchiveDir"
+    )
 
     $appIndex = Get-ConfigPathValue AppIndex
     Get-Content $appIndex | Process-AppRegistry -parseGroups $true
