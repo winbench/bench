@@ -377,6 +377,17 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 * AppArchive: `php-5.*-Win32-VC11-x86.zip`
 * Exe: `php.exe`
 
+### PHP 7
+
+This application needs the x86 version of the [Visual C++ 14 Redistributable][MS VC14] installed.
+
+* ID: `PHP7`
+* Website: <http://www.php.net>
+* Version: 7.0.2
+* Url: <http://windows.php.net/downloads/releases/php-7.0.2-Win32-VC14-x86.zip>
+* AppArchive: `php-7.*-Win32-VC14-x86.zip`
+* Exe: `php.exe`
+
 ### Java Development Kit 7
 
 * ID: `JDK7`
@@ -473,3 +484,4 @@ The initial password for _root_ is `bench`.
 
 
 [MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
+[MS VC14]: https://www.microsoft.com/download/details.aspx?id=48145 "Microsoft Visual C++ Redistributable for Visual Studio 2015"
