@@ -48,6 +48,10 @@
 # Activate-App JDK8
 # Activate-App EclipseJava
 
+## Activate GNU tools from Git's MinGW distribution
+
+# Set-AppConfigValue Git Path @("mingw32\bin", "usr\bin", "cmd")
+
 ## Deactivate forced update for NPM:
 
 # Set-AppConfigValue Npm ForceInstall $false
