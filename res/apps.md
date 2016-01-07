@@ -436,3 +436,14 @@ The initial password for _root_ is `bench`.
 * AppArchiveSubDir: `eclipse`
 * Dir: `eclipse_java`
 * Exe: `eclipse.exe`
+
+### Leiningen
+
+* ID: `Leiningen`
+* Version: latest
+* Website: <http://leiningen.org>
+* Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
+* AppFile: `lein.bat`
+* Dir: `lein`
+* Exe: `lein.bat`
+* Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`

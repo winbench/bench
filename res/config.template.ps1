@@ -48,6 +48,7 @@
 # Activate-App JDK7
 # Activate-App JDK8
 # Activate-App EclipseJava
+# Activate-App Leiningen
 
 ## Activate GNU tools from Git's MinGW distribution
 ## http://www.mingw.org/
