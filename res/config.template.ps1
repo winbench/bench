@@ -42,6 +42,7 @@
 # Activate-App Python2
 # Activate-App Python3
 # Activate-App Ruby
+# Activate-App PHP5
 # Activate-App JDK7
 # Activate-App JDK8
 # Activate-App Leiningen

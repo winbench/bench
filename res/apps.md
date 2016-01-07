@@ -366,6 +366,17 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `bin`
 * Exe: `ruby.exe`
 
+### PHP 5
+
+This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.
+
+* ID: `PHP5`
+* Website: <http://www.php.net>
+* Version: 5.6.17
+* Url: <http://windows.php.net/downloads/releases/php-5.6.17-Win32-VC11-x86.zip>
+* AppArchive: `php-5.*-Win32-VC11-x86.zip`
+* Exe: `php.exe`
+
 ### Java Development Kit 7
 
 * ID: `JDK7`
@@ -461,3 +472,4 @@ The initial password for _root_ is `bench`.
 * Exe: `MySQLWorkbench.exe`
 
 
+[MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
