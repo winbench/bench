@@ -39,18 +39,10 @@ function Expand-Placeholder([string]$placeholder) {
         $app = $kvp[0].Trim()
         $var = $kvp[1].Trim()
         switch ($var) {
-            "Dir" {
-                return App-Dir $app
-            }
-            "Path" {
-                return App-Path $app
-            }
-            "Exe" {
-                return App-Exe $app
-            }
-            default {
-                return Get-AppConfigValue $app $var
-            }
+            "Dir" { return App-Dir $app }
+            "Path" { return App-Path $app }
+            "Exe" { return App-Exe $app }
+            default { return Get-AppConfigValue $app $var }
         }
     }
 }
