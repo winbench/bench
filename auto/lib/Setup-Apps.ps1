@@ -159,6 +159,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     Register-AppEnvironment $name
     Load-AppEnvironment $name
     Execute-Custom-Setup $name
+    Run-AppEnvironmentSetup $name
 }
 
 function Setup-NpmPackage([string]$name) {
@@ -184,6 +185,7 @@ function Setup-NpmPackage([string]$name) {
     Register-AppEnvironment $name
     Load-AppEnvironment $name
     Execute-Custom-Setup $name
+    Run-AppEnvironmentSetup $name
 }
 
 Load-Environment
