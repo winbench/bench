@@ -366,6 +366,41 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `bin`
 * Exe: `ruby.exe`
 
+### Java Development Kit 7
+
+* ID: `JDK7`
+* Version: 7u80
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-windows-i586.exe>
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-7u*-windows-i586.exe`
+* Path: `bin`
+* Exe: `javac.exe`
+* Environment: `JAVA_HOME=$JDK7:Dir$`
+
+### Java Development Kit 8
+
+* ID: `JDK8`
+* Version: 8u66
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/8u66-b18/jdk-8u66-windows-i586.exe>
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-8u*-windows-i586.exe`
+* Path: `bin`
+* Exe: `javac.exe`
+* Environment: `JAVA_HOME=$JDK8:Dir$`
+
+### Leiningen
+
+* ID: `Leiningen`
+* Version: latest
+* Website: <http://leiningen.org>
+* Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
+* AppFile: `lein.bat`
+* Dir: `lein`
+* Exe: `lein.bat`
+* Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
+
 ### Sublime Text 3
 
 * ID: `SublimeText3`
@@ -374,6 +409,17 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
 * AppArchive: `Sublime*Text*Build*.zip`
 * Exe: `sublime_text.exe`
+
+### Eclipse
+
+* ID: `EclipseJava`
+* Version: Luna SR2 4.4.2
+* Website: <http://www.eclipse.org/>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip>
+* AppArchive: `eclipse-java-*-win32.zip`
+* AppArchiveSubDir: `eclipse`
+* Dir: `eclipse_java`
+* Exe: `eclipse.exe`
 
 ### SRWare Iron
 
@@ -414,48 +460,4 @@ The initial password for _root_ is `bench`.
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 
-### Java Development Kit 7
 
-* ID: `JDK7`
-* Version: 7u80
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-windows-i586.exe>
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-7u*-windows-i586.exe`
-* Path: `bin`
-* Exe: `javac.exe`
-* Environment: `JAVA_HOME=$JDK7:Dir$`
-
-### Java Development Kit 8
-
-* ID: `JDK8`
-* Version: 8u66
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/8u66-b18/jdk-8u66-windows-i586.exe>
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-8u*-windows-i586.exe`
-* Path: `bin`
-* Exe: `javac.exe`
-* Environment: `JAVA_HOME=$JDK8:Dir$`
-
-### Eclipse
-
-* ID: `EclipseJava`
-* Version: Luna SR2 4.4.2
-* Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip>
-* AppArchive: `eclipse-java-*-win32.zip`
-* AppArchiveSubDir: `eclipse`
-* Dir: `eclipse_java`
-* Exe: `eclipse.exe`
-
-### Leiningen
-
-* ID: `Leiningen`
-* Version: latest
-* Website: <http://leiningen.org>
-* Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
-* AppFile: `lein.bat`
-* Dir: `lein`
-* Exe: `lein.bat`
-* Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
