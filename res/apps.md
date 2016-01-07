@@ -482,6 +482,19 @@ The initial password for _root_ is `bench`.
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 
+### Apache
+
+* ID: `Apache`
+* Version: 2.4.18
+* Website: <https://httpd.apache.org/>
+* Url: <http://www.apachelounge.com/download/VC11/binaries/httpd-2.4.18-win32-VC11.zip>
+* AppArchive: `httpd-2.4.*-win32-VC11.zip`
+* AppArchiveSubDir: `Apache24`
+* Path: `bin`
+* Exe: `httpd.exe`
+* HttpdDocumentRoot: `$HomeDir$\www`
+* HttpdListen: `127.0.0.1:80`
+
 
 [MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
 [MS VC14]: https://www.microsoft.com/download/details.aspx?id=48145 "Microsoft Visual C++ Redistributable for Visual Studio 2015"

@@ -52,6 +52,7 @@
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
+# Activate-App Apache
 
 ## Activate GNU tools from Git's MinGW distribution
 ## http://www.mingw.org/
