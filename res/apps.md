@@ -354,6 +354,18 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
+### Ruby
+
+* ID: `Ruby`
+* Website: <https://www.ruby-lang.org/>
+* Version: 2.2.3
+* Url: <http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.3.exe>
+* AppArchive: `rubyinstaller-*.exe`
+* AppArchiveTyp: `inno`
+* AppArchiveSubDir: `{app}`
+* Path: `bin`
+* Exe: `ruby.exe`
+
 ### Sublime Text 3
 
 * ID: `SublimeText3`
