@@ -220,6 +220,7 @@ Write-EnvironmentFile
 
 Empty-Dir $tempDir | Out-Null
 
+Write-Host ""
 Write-Host "$($installedApps.Count) of $($apps.Count) apps successfully installed."
 if ($failedApps.Count -gt 0) {
     Write-Warning "Setting up the following $($failedApps.Count) apps failed:"
