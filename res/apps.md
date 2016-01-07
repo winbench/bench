@@ -133,7 +133,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Version: v2.6.4
 * Url: <https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe>
 * AppArchive: `PortableGit-*-32-bit.7z.exe`
-* Path: `bin`
+* Path: `cmd`
 * Exe: `git.exe`
 
 ## Default
