@@ -50,6 +50,7 @@
 # Activate-App EclipseJava
 
 ## Activate GNU tools from Git's MinGW distribution
+## http://www.mingw.org/
 
 # Set-AppConfigValue Git Path @("mingw32\bin", "usr\bin", "cmd")
 
