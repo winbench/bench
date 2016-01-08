@@ -67,7 +67,7 @@ function Expand-Value($value) {
     return $value
 }
 
-function Get-ConfigListValue([string]$name, $def = @()) {
+function Get-ConfigListValue([string]$name, $def = $null) {
     $l = Get-ConfigValue $name $def
     if ($l -is [string]) {
         $l = @($l)
