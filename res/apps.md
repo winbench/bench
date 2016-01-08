@@ -99,7 +99,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `LessMsi`
 * Website: <http://lessmsi.activescott.com/>
-* Version: v1.3
+* Version: 1.3
 * Url: <https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip>
 * AppArchive: `lessmsi-*.zip`
 * Exe: `lessmsi.exe`
@@ -130,7 +130,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
-* Version: v2.6.4
+* Version: 2.6.4
 * Url: <https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe>
 * AppArchive: `PortableGit-*-32-bit.7z.exe`
 * Path: `cmd`
@@ -142,7 +142,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: v4.2.3
+* Version: 4.2.3
 * Url: <https://nodejs.org/dist/v4.2.3/win-x86/node.exe>
 * AppFile: `node.exe`
 * Dir: `node`
@@ -158,7 +158,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * ID: `NpmBootstrap`
 * Dependencies: `Node`
 * Website: <https://nodejs.org>
-* Version: v1.4.12
+* Version: 1.4.12
 * Url: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
 * AppArchive: `npm-*.zip`
 * Dir: `$Node:Dir$`
@@ -233,7 +233,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: v1.15.1.1
+* Version: 1.15.1.1
 * Url: <https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi>
 * AppArchive: `pandoc-*-windows.msi`
 * AppArchiveSubDir: `SourceDir\Pandoc`
@@ -243,7 +243,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Graphviz`
 * Website: <http://www.graphviz.org/Download_windows.php>
-* Version: v2.38
+* Version: 2.38
 * Url: <http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip>
 * AppArchive: `graphviz-*.zip`
 * Path: `release\bin`
@@ -253,7 +253,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Inkscape`
 * Website: <https://inkscape.org/de/herunterladen/>
-* Version: v0.91
+* Version: 0.91
 * Url: <https://inkscape.org/en/gallery/item/3932/download/>
 * AppArchive: `Inkscape-*-win32.7z`
 * AppArchiveSubDir: `inkscape`
@@ -263,7 +263,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
-* Version: v2.9.5719
+* Version: 2.9.5719
 * Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe>
 * AppArchive: `miktex-portable-2.*.exe`
 * Path: `miktex\bin`
@@ -336,7 +336,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Python2`
 * Website: <https://www.python.org/ftp/python/>
-* Version: v2.7.11
+* Version: 2.7.11
 * Url: <https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi>
 * AppArchive: `python-2.*.msi`
 * AppArchiveSubDir: `SourceDir`
@@ -347,7 +347,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Python3`
 * Website: <https://www.python.org/ftp/python/>
-* Version: v3.4.3
+* Version: 3.4.3
 * Url: <https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi>
 * AppArchive: `python-3.*.msi`
 * AppArchiveSubDir: `SourceDir`
@@ -366,6 +366,63 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `bin`
 * Exe: `ruby.exe`
 
+### PHP 5
+
+This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.
+
+* ID: `PHP5`
+* Website: <http://www.php.net>
+* Version: 5.6.17
+* Url: <http://windows.php.net/downloads/releases/php-5.6.17-Win32-VC11-x86.zip>
+* AppArchive: `php-5.*-Win32-VC11-x86.zip`
+* Exe: `php.exe`
+
+### PHP 7
+
+This application needs the x86 version of the [Visual C++ 14 Redistributable][MS VC14] installed.
+
+* ID: `PHP7`
+* Website: <http://www.php.net>
+* Version: 7.0.2
+* Url: <http://windows.php.net/downloads/releases/php-7.0.2-Win32-VC14-x86.zip>
+* AppArchive: `php-7.*-Win32-VC14-x86.zip`
+* Exe: `php.exe`
+
+### Java Development Kit 7
+
+* ID: `JDK7`
+* Version: 7u80
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-windows-i586.exe>
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-7u*-windows-i586.exe`
+* Path: `bin`
+* Exe: `javac.exe`
+* Environment: `JAVA_HOME=$JDK7:Dir$`
+
+### Java Development Kit 8
+
+* ID: `JDK8`
+* Version: 8u66
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/8u66-b18/jdk-8u66-windows-i586.exe>
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-8u*-windows-i586.exe`
+* Path: `bin`
+* Exe: `javac.exe`
+* Environment: `JAVA_HOME=$JDK8:Dir$`
+
+### Leiningen
+
+* ID: `Leiningen`
+* Version: latest
+* Website: <http://leiningen.org>
+* Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
+* AppFile: `lein.bat`
+* Dir: `lein`
+* Exe: `lein.bat`
+* Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
+
 ### Sublime Text 3
 
 * ID: `SublimeText3`
@@ -374,6 +431,17 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
 * AppArchive: `Sublime*Text*Build*.zip`
 * Exe: `sublime_text.exe`
+
+### Eclipse
+
+* ID: `EclipseJava`
+* Version: Mars 1 4.5
+* Website: <http://www.eclipse.org/>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/mars/1/eclipse-java-mars-1-win32.zip>
+* AppArchive: `eclipse-java-*-win32.zip`
+* AppArchiveSubDir: `eclipse`
+* Dir: `eclipse_java`
+* Exe: `eclipse.exe`
 
 ### SRWare Iron
 
@@ -414,48 +482,19 @@ The initial password for _root_ is `bench`.
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 
-### Java Development Kit 7
+### Apache
 
-* ID: `JDK7`
-* Version: 7u80
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-windows-i586.exe>
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-7u*-windows-i586.exe`
+* ID: `Apache`
+* Version: 2.4.18
+* Website: <https://httpd.apache.org/>
+* Url: <http://www.apachelounge.com/download/VC11/binaries/httpd-2.4.18-win32-VC11.zip>
+* AppArchive: `httpd-2.4.*-win32-VC11.zip`
+* AppArchiveSubDir: `Apache24`
 * Path: `bin`
-* Exe: `javac.exe`
-* Environment: `JAVA_HOME=$JDK7:Dir$`
+* Exe: `httpd.exe`
+* HttpdDocumentRoot: `$HomeDir$\www`
+* HttpdListen: `127.0.0.1:80`
 
-### Java Development Kit 8
 
-* ID: `JDK8`
-* Version: 8u66
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/8u66-b18/jdk-8u66-windows-i586.exe>
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-8u*-windows-i586.exe`
-* Path: `bin`
-* Exe: `javac.exe`
-* Environment: `JAVA_HOME=$JDK8:Dir$`
-
-### Eclipse
-
-* ID: `EclipseJava`
-* Version: Luna SR2 4.4.2
-* Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip>
-* AppArchive: `eclipse-java-*-win32.zip`
-* AppArchiveSubDir: `eclipse`
-* Dir: `eclipse_java`
-* Exe: `eclipse.exe`
-
-### Leiningen
-
-* ID: `Leiningen`
-* Version: latest
-* Website: <http://leiningen.org>
-* Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
-* AppFile: `lein.bat`
-* Dir: `lein`
-* Exe: `lein.bat`
-* Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
+[MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
+[MS VC14]: https://www.microsoft.com/download/details.aspx?id=48145 "Microsoft Visual C++ Redistributable for Visual Studio 2015"

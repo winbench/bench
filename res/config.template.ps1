@@ -42,14 +42,17 @@
 # Activate-App Python2
 # Activate-App Python3
 # Activate-App Ruby
+# Activate-App PHP5
+# Activate-App PHP7
+# Activate-App JDK7
+# Activate-App JDK8
+# Activate-App Leiningen
 # Activate-App SublimeText3
+# Activate-App EclipseJava
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
-# Activate-App JDK7
-# Activate-App JDK8
-# Activate-App EclipseJava
-# Activate-App Leiningen
+# Activate-App Apache
 
 ## Activate GNU tools from Git's MinGW distribution
 ## http://www.mingw.org/
