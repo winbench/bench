@@ -158,6 +158,18 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Typ: `meta`
 * Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`
 
+### Group: Java Development
+
+* ID: `DevJava`
+* Typ: `meta`
+* Dependencies: `JDK8`, `EclipseJava`
+
+### Group: Clojure Development
+
+* ID: `DevClojure`
+* Typ: `meta`
+* Dependencies: `Leiningen`
+
 ## Optional
 
 ### OpenSSL

@@ -29,6 +29,8 @@
 # Activate-App Markdown # MdProc, VSCode
 # Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache
 # Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache
+# Activate-App DevJava # EclipseJava, JDK8
+# Activate-App DevClojure # Leiningen, JDK8
 
 ## Single applications
 
