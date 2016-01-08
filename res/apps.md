@@ -136,7 +136,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * ID: `InnoUnp`
 * Website: <http://innounp.sourceforge.net/>
 * Version: 0.45
-* Url: <http://sourceforge.net/projects/innounp/files/innounp/innounp 0.45/innounp045.rar>
+* Url: <http://sourceforge.net/projects/innounp/files/innounp/innounp%200.45/innounp045.rar>
 * AppArchive: `innounp*.rar`
 * Exe: `innounp.exe`
 * Register: `false`
@@ -515,7 +515,7 @@ A free portable derivative of Chromium, optimized for privacy.
 
 ### MySQL
 
-The MySQL data is stored in `%HOMEDRIVE%%HOMEPATH%\mysql_data`.
+The MySQL data is stored in `%USERPROFILE%\mysql_data`.
 You can start the MySQL server by running `mysql_start` in the _Bench_ shell.
 You can stop the MySQL server by typing `Ctrl+C` in the console window of MySQL,
 or by running `mysql_stop` in the _Bench_ shell.
