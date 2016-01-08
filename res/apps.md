@@ -140,6 +140,12 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 ## Groups
 
+### Group: Markdown
+
+* ID: `Markdown`
+* Typ: `meta`
+* Dependencies: `MdProc`, `VSCode`
+
 ## Optional
 
 ### OpenSSL
