@@ -6,8 +6,10 @@ $Script:rootDir = Resolve-Path ([IO.Path]::Combine($myDir, "..", ".."))
 $_ = Set-StopOnError $True
 
 $Script:config = @{}
-$Script:apps = New-Object 'System.Collections.Generic.List`1[System.String]'
 $Script:definedApps = New-Object 'System.Collections.Generic.List`1[System.String]'
+$Script:activatedApps = New-Object 'System.Collections.Generic.List`1[System.String]'
+$Script:deactivatedApps = New-Object 'System.Collections.Generic.List`1[System.String]'
+$Script:apps = New-Object 'System.Collections.Generic.List`1[System.String]'
 $Script:valueExpandPattern = [regex]'\$(?<var>[^\$]+)\$'
 
 function Set-ConfigValue([string]$name, $value) {
@@ -67,7 +69,7 @@ function Expand-Value($value) {
     return $value
 }
 
-function Get-ConfigListValue([string]$name, $def = @()) {
+function Get-ConfigListValue([string]$name, $def = $null) {
     $l = Get-ConfigValue $name $def
     if ($l -is [string]) {
         $l = @($l)
@@ -94,22 +96,30 @@ function Get-AppConfigListValue([string]$app, [string]$name, $def = @()) {
     return Get-ConfigListValue $prop $def
 }
 
-function Register-App([string]$app) {
-    if (!($app -in $Script:definedApps)) {
-        $Script:definedApps.Add($app)
+function Add-ToSetList($list, $element) {
+    if (!($element -in $list)) {
+        $list.Add($element)
     }
+}
+
+function Remove-FromSetList($list, $element) {
+    if ($element -in $list) {
+        $list.Remove($element)
+    }
+}
+
+function Register-App([string]$app) {
+    Add-ToSetList $Script:definedApps $app
 }
 
 function Activate-App([string]$app) {
-    if (!($app -in $Script:apps)) {
-        $Script:apps.Add($app)
-    }
+    Add-ToSetList $Script:activatedApps $app
+    Remove-FromSetList $Script:deactivatedApps $app
 }
 
 function Deactivate-App([string]$app) {
-    if ($app -in $Script:apps) {
-        $_ = $Script:apps.Remove($app)
-    }
+    Remove-FromSetList $Script:activatedApps $apps
+    Add-ToSetList $Script:deactivatedApps $app
 }
 
 function Get-ConfigPathValue([string]$name) {
@@ -121,16 +131,14 @@ function Get-ConfigPathValue([string]$name) {
     }
 }
 
-function Process-AppRegistry($parseGroups = $false) {
+function Process-AppRegistry($parseActivation = $false) {
     begin {
-        $appGroupRequired = "## Required"
-        $appGroupDefault = "## Default"
-        $appGroupOptional = "## Optional"
+        $appActivationRequired = [regex]"^## Required"
+        $appActivationDefault = [regex]"^## (Default|Groups)"
         $kvpP = [regex]'^\s*\*\s+(?<key>\S+)\s*:\s*(?<value>.*?)\s*$'
-        $group = $null
+        $activation = $null
         $id = $null
         $requiredIds = @()
-        $defaultIds = @()
         
         function Is-CodeValue([string]$value) {
             return $value.StartsWith("``") -and $value.EndsWith("``")
@@ -154,18 +162,16 @@ function Process-AppRegistry($parseGroups = $false) {
         }
     }
     process {
-        if ($parseGroups) {
-            if ($_ -eq $appGroupRequired) {
-                $group = "required"
-            } elseif ($_ -eq $appGroupDefault) {
-                $group = "default"
-            } elseif ($_ -eq $appGroupOptional) {
-                $group = "optional"
+        if ($parseActivation) {
+            if ($_ -match $appActivationRequired) {
+                $activation = "required"
+            } elseif ($_ -match $appActivationDefault) {
+                $activation = "default"
             }
         } else {
-            $group = "optional"
+            $activation = "default"
         }
-        if ($group) {
+        if ($activation) {
             $m = $kvpP.Match($_)
             if ($m.Success) {
                 $k = $m.Groups["key"].Value
@@ -174,11 +180,8 @@ function Process-AppRegistry($parseGroups = $false) {
                 if ($k -eq "ID") {
                     $id = $v
                     Register-App $id
-                    if ($group -eq "required") {
+                    if ($activation -eq "required") {
                         $requiredIds += $id
-                    }
-                    if ($group -eq "default") {
-                        $defaultIds += $id
                     }
                 } elseif ($id) {
                     Set-AppConfigValue $id $k $v
@@ -188,7 +191,6 @@ function Process-AppRegistry($parseGroups = $false) {
     }
     end {
         foreach ($app in $requiredIds) { Activate-App $app }
-        foreach ($app in $defaultIds) { Activate-App $app }
     }
 }
 
@@ -199,7 +201,7 @@ function Initialize() {
     $Script:definedApps.Clear()
     
     # Common
-    Set-ConfigValue Version "0.2.2"
+    Set-ConfigValue Version "0.3.0"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
@@ -242,7 +244,7 @@ function Initialize() {
     )
 
     $appIndex = Get-ConfigPathValue AppIndex
-    Get-Content $appIndex | Process-AppRegistry -parseGroups $true
+    Get-Content $appIndex | Process-AppRegistry -parseActivation $true
 
     #
     # Load custom configuration
@@ -250,13 +252,42 @@ function Initialize() {
 
     $customAppIndex = Get-ConfigPathValue CustomAppIndex
     if (Test-Path $customAppIndex) {
-        Get-Content $customAppIndex | Process-AppRegistry -parseGroups $false
+        Get-Content $customAppIndex | Process-AppRegistry -parseActivation $false
     }
 
     $customConfigFile = Get-ConfigPathValue CustomConfigFile
     if (Test-Path $customConfigFile) {
         . $customConfigFile
     }
+
+    #
+    # Resolve Dependencies
+    #
+
+    $toActivate = $Script:activatedApps.ToArray()
+    function Select-App($app) {
+        if ($app -in $Script:deactivatedApps) {
+            return
+        }
+        Activate-App $app
+        $dependencies = Get-AppConfigListValue $app Dependencies
+        foreach ($dep in $dependencies) {
+            Select-App $dep
+        }
+    }
+    foreach ($app in $toActivate) {
+        Select-App $app
+    }
+    foreach ($app in $Script:definedApps) {
+        if ($app -in $Script:activatedApps) {
+            Add-ToSetList $Script:apps $app
+        }
+    }
+
+    Debug "Defined Apps: $([string]::Join(", ", $Script:definedApps))"
+    Debug "Activated Apps: $([string]::Join(", ", $Script:activatedApps))"
+    Debug "Deactivated Apps: $([string]::Join(", ", $Script:deactivatedApps))"
+    Debug "Resolved Apps: $([string]::Join(", ", $Script:apps))"
 
     Set-ConfigValue BenchRoot $Script:rootDir
 }

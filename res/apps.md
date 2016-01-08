@@ -6,9 +6,8 @@ There are three groups of apps:
 
 1. **Required**  
    These apps are required by _Bench_ itself.
-2. **Default**  
-   These apps are activated by default, but they can be deactivated,
-   under consideration of thier dependencies.
+2. **Groups**  
+   These apps are defined only by dependencies to optional apps.
 3. **Optional**  
    These apps can be activated optionally.
 
@@ -35,6 +34,9 @@ There are currently two types of apps: Windows executables and NodeJS packages.
   The ID of the app.
 * **Typ**:
   The application typ (optional, default is `default`)
+    + `default` Downloadable executables
+    + `meta` Application groups, defined by dependencies only
+    + `node-package` NodeJS NPM packages
 * **Url**:
   The URL to the file, containing the app binaries
 * **DownloadCookies**:
@@ -136,7 +138,143 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Path: `cmd`
 * Exe: `git.exe`
 
-## Default
+## Groups
+
+### Group: Markdown
+
+* ID: `Markdown`
+* Typ: `meta`
+* Dependencies: `MdProc`, `VSCode`
+
+### Group: Web Development with PHP7 and MySQL
+
+* ID: `WebDevPHP7`
+* Typ: `meta`
+* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`
+
+### Group: Web Development with PHP5 and MySQL
+
+* ID: `WebDevPHP5`
+* Typ: `meta`
+* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`
+
+### Group: Java Development
+
+* ID: `DevJava`
+* Typ: `meta`
+* Dependencies: `JDK8`, `EclipseJava`
+
+### Group: Clojure Development
+
+* ID: `DevClojure`
+* Typ: `meta`
+* Dependencies: `Leiningen`
+
+### Group: Python 2
+
+* ID: `DevPython2`
+* Typ: `meta`
+* Dependencies: `Python2`, `SublimeText3`
+
+### Group: Python 3
+
+* ID: `DevPython3`
+* Typ: `meta`
+* Dependencies: `Python3`, `SublimeText3`
+
+## Optional
+
+### OpenSSL
+
+* ID: `OpenSSL`
+* Website: <https://www.openssl.org/>
+* Version: 1.0.2d
+* Url: <http://sourceforge.net/projects/openssl/files/openssl-1.0.2d-fips-2.0.10/openssl-1.0.2d-fips-2.0.10.zip>
+* AppArchive: `openssl-1.0.2d-fips-2.0.10.zip`
+* AppArchiveSubDir: `openssl-1.0.2d-fips-2.0.10`
+* Path: `bin`
+* Exe: `openssl.exe`
+
+### cURL
+
+* ID: `cURL`
+* Website: <http://curl.haxx.se/>
+* Version: 7.45 SSH2 SSL
+* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.46.0-win32-mingw.7z>
+* AppArchive: `curl-7.46.0-win32-mingw.7z`
+* AppArchiveSubDir: `curl-7.46.0-win32-mingw`
+* Path: `bin`
+* Exe: `curl.exe`
+
+### Sift
+
+* ID: `Sift`
+* Website: <https://sift-tool.org/>
+* Version: `0.7.1`
+* Url: <https://sift-tool.org/downloads/sift/sift_0.7.1_windows_386.zip>
+* AppArchive: `sift_0.7.1_windows_386.zip`
+
+### Pandoc
+
+* ID: `Pandoc`
+* Website: <https://github.com/jgm/pandoc/releases/latest>
+* Version: 1.15.1.1
+* Url: <https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi>
+* AppArchive: `pandoc-*-windows.msi`
+* AppArchiveSubDir: `SourceDir\Pandoc`
+* Exe: `pandoc.exe`
+
+### MikTeX
+
+* ID: `MikTeX`
+* Website: <http://miktex.org/portable>
+* Version: 2.9.5719
+* Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe>
+* AppArchive: `miktex-portable-2.*.exe`
+* Path: `miktex\bin`
+* Exe: `latex.exe`
+
+### Graphics Magick
+
+* ID: `GraphicsMagick`
+* Website: <http://www.graphicsmagick.org/>
+* Version: 1.3.23
+* Url: <http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/1.3.23/GraphicsMagick-1.3.23-Q16-win32-dll.exe>
+* AppArchive: `GraphicsMagick-1.*-Q16-win32-dll.exe`
+* AppArchiveTyp: `inno`
+* AppArchiveSubDir: `{app}`
+* Dir: `gm`
+* Exe: `gm.exe`
+
+### FFmpeg
+
+* ID: `FFmpeg`
+* Website: <https://www.ffmpeg.org/>
+* Version: 20160105 git-fc703f5
+* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160105-git-fc703f5-win32-shared.7z>
+* AppArchive: `ffmpeg-20160105-git-fc703f5-win32-shared.7z`
+* AppArchiveSubDir: `ffmpeg-20160105-git-fc703f5-win32-shared`
+* Path: `bin`
+
+### Graphviz
+
+* ID: `Graphviz`
+* Website: <http://www.graphviz.org/Download_windows.php>
+* Version: 2.38
+* Url: <http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip>
+* AppArchive: `graphviz-*.zip`
+* Path: `release\bin`
+* Exe: `dot.exe`
+
+### Inkscape
+
+* ID: `Inkscape`
+* Website: <https://inkscape.org/de/herunterladen/>
+* Version: 0.91
+* Url: <https://inkscape.org/en/gallery/item/3932/download/>
+* AppArchive: `Inkscape-*-win32.7z`
+* AppArchiveSubDir: `inkscape`
+* Exe: `inkscape.exe`
 
 ### NodeJS
 
@@ -177,28 +315,37 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Gulp`
 * Typ: `node-package`
+* Version: `^3.9.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/npm>
-* Version: `^3.9.0`
 * Exe: `gulp.cmd`
+
+### Grunt
+
+* ID: `Grunt`
+* Typ: `node-package`
+* Version: `^0.4.5`
+* Dependencies: `Npm`
+* Website: <http://gruntjs.com>
+* Exe: `grunt.cmd`
 
 ### Bower
 
 * ID: `Bower`
 * Typ: `node-package`
+* Version: `^1.7.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/bower>
-* Version: `^1.7.0`
 * Exe: `bower.cmd`
 
 ### Yeoman
 
 * ID: `Yeoman`
 * Typ: `node-package`
+* NpmPackage: `yo`
+* Version: `^1.5.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/yeoman>
-* Version: `^1.5.0`
-* NpmPackage: `yo`
 * Exe: `yo.cmd`
 
 ### Yeoman Generator for Markdown Projects
@@ -206,131 +353,18 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * ID: `MdProc`
 * Typ: `node-package`
 * NpmPackage: `generator-mdproc`
-* Website: <https://www.npmjs.com/package/generator-mdproc>
-* Dependencies: `Npm`
 * Version: `^0.1.6`
+* Website: <https://www.npmjs.com/package/generator-mdproc>
+* Dependencies: `Npm`, `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
 
 ### JSHint
 
 * ID: `JSHint`
 * Typ: `node-package`
+* Version: `^2.8.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/jshint>
-* Version: `^2.8.0`
 * Exe: `jshint.cmd`
-
-### Visual Studio Code
-
-* ID: `VSCode`
-* Website: <https://code.visualstudio.com/Docs/?dv=win>
-* Version: latest
-* Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
-* AppArchive: `VSCode-win32.zip`
-* Dir: `code`
-* Exe: `code.exe`
-
-### Pandoc
-
-* ID: `Pandoc`
-* Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.15.1.1
-* Url: <https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi>
-* AppArchive: `pandoc-*-windows.msi`
-* AppArchiveSubDir: `SourceDir\Pandoc`
-* Exe: `pandoc.exe`
-
-### Graphviz
-
-* ID: `Graphviz`
-* Website: <http://www.graphviz.org/Download_windows.php>
-* Version: 2.38
-* Url: <http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip>
-* AppArchive: `graphviz-*.zip`
-* Path: `release\bin`
-* Exe: `dot.exe`
-
-### Inkscape
-
-* ID: `Inkscape`
-* Website: <https://inkscape.org/de/herunterladen/>
-* Version: 0.91
-* Url: <https://inkscape.org/en/gallery/item/3932/download/>
-* AppArchive: `Inkscape-*-win32.7z`
-* AppArchiveSubDir: `inkscape`
-* Exe: `inkscape.exe`
-
-### MikTeX
-
-* ID: `MikTeX`
-* Website: <http://miktex.org/portable>
-* Version: 2.9.5719
-* Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe>
-* AppArchive: `miktex-portable-2.*.exe`
-* Path: `miktex\bin`
-* Exe: `latex.exe`
-
-## Optional
-
-### Grunt
-
-* ID: `Grunt`
-* Typ: `node-package`
-* Dependencies: `Npm`
-* Website: <http://gruntjs.com>
-* Version: `^0.4.5`
-* Exe: `grunt.cmd`
-
-### OpenSSL
-
-* ID: `OpenSSL`
-* Website: <https://www.openssl.org/>
-* Version: 1.0.2d
-* Url: <http://sourceforge.net/projects/openssl/files/openssl-1.0.2d-fips-2.0.10/openssl-1.0.2d-fips-2.0.10.zip>
-* AppArchive: `openssl-1.0.2d-fips-2.0.10.zip`
-* AppArchiveSubDir: `openssl-1.0.2d-fips-2.0.10`
-* Path: `bin`
-* Exe: `openssl.exe`
-
-### cURL
-
-* ID: `cURL`
-* Website: <http://curl.haxx.se/>
-* Version: 7.45 SSH2 SSL
-* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.46.0-win32-mingw.7z>
-* AppArchive: `curl-7.46.0-win32-mingw.7z`
-* AppArchiveSubDir: `curl-7.46.0-win32-mingw`
-* Path: `bin`
-* Exe: `curl.exe`
-
-### Sift
-
-* ID: `Sift`
-* Website: <https://sift-tool.org/>
-* Version: `0.7.1`
-* Url: <https://sift-tool.org/downloads/sift/sift_0.7.1_windows_386.zip>
-* AppArchive: `sift_0.7.1_windows_386.zip`
-
-### Graphics Magick
-
-* ID: `GraphicsMagick`
-* Website: <http://www.graphicsmagick.org/>
-* Version: 1.3.23
-* Url: <http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/1.3.23/GraphicsMagick-1.3.23-Q16-win32-dll.exe>
-* AppArchive: `GraphicsMagick-1.*-Q16-win32-dll.exe`
-* AppArchiveTyp: `inno`
-* AppArchiveSubDir: `{app}`
-* Dir: `gm`
-* Exe: `gm.exe`
-
-### FFmpeg
-
-* ID: `FFmpeg`
-* Website: <https://www.ffmpeg.org/>
-* Version: 20160105 git-fc703f5
-* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160105-git-fc703f5-win32-shared.7z>
-* AppArchive: `ffmpeg-20160105-git-fc703f5-win32-shared.7z`
-* AppArchiveSubDir: `ffmpeg-20160105-git-fc703f5-win32-shared`
-* Path: `bin`
 
 ### Python 2
 
@@ -415,6 +449,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Leiningen
 
 * ID: `Leiningen`
+* Dependencies: `JDK8`
 * Version: latest
 * Website: <http://leiningen.org>
 * Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
@@ -422,6 +457,16 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dir: `lein`
 * Exe: `lein.bat`
 * Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
+
+### Visual Studio Code
+
+* ID: `VSCode`
+* Website: <https://code.visualstudio.com/Docs/?dv=win>
+* Version: latest
+* Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
+* AppArchive: `VSCode-win32.zip`
+* Dir: `code`
+* Exe: `code.exe`
 
 ### Sublime Text 3
 
@@ -435,9 +480,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Eclipse
 
 * ID: `EclipseJava`
-* Version: Luna SR2 4.4.2
+* Version: Mars 1 4.5
 * Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/mars/1/eclipse-java-mars-1-win32.zip>
 * AppArchive: `eclipse-java-*-win32.zip`
 * AppArchiveSubDir: `eclipse`
 * Dir: `eclipse_java`
