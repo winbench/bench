@@ -146,6 +146,18 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Typ: `meta`
 * Dependencies: `MdProc`, `VSCode`
 
+### Group: Web Development with PHP7 and MySQL
+
+* ID: `WebDevPHP7`
+* Typ: `meta`
+* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`
+
+### Group: Web Development with PHP5 and MySQL
+
+* ID: `WebDevPHP5`
+* Typ: `meta`
+* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`
+
 ## Optional
 
 ### OpenSSL
