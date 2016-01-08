@@ -170,6 +170,18 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Typ: `meta`
 * Dependencies: `Leiningen`
 
+### Group: Python 2
+
+* ID: `DevPython2`
+* Typ: `meta`
+* Dependencies: `Python2`, `SublimeText3`
+
+### Group: Python 3
+
+* ID: `DevPython3`
+* Typ: `meta`
+* Dependencies: `Python3`, `SublimeText3`
+
 ## Optional
 
 ### OpenSSL
