@@ -21,24 +21,30 @@
 
 # Set-ConfigValue ProjectArchiveFormat "zip"
 
-## Uncomment and adapt the following lines to change the app selection:
-## Custom apps from apps.md need to be activated here.
+## Uncomment the following lines to activate app groups or single apps:
+## Custom apps from apps.md need to be added and activated here too.
 
-# Deactivate-App Gulp
-# Deactivate-App Bower
-# Deactivate-App MdProc
-# Deactivate-App JSHint
-# Deactivate-App VSCode
-# Deactivate-App Pandoc
-# Deactivate-App Graphviz
-# Deactivate-App Inkscape
-# Deactivate-App MikTeX
-# Activate-App Grunt
+## Application Groups
+
+## Single applications
+
 # Activate-App OpenSSL
 # Activate-App Sift
 # Activate-App cURL
+# Activate-App Pandoc
+# Activate-App MikTeX
 # Activate-App GraphicsMagick
 # Activate-App FFmpeg
+# Activate-App Graphviz
+# Activate-App Inkscape
+# Activate-App Node
+# Activate-App Npm
+# Activate-App Gulp
+# Activate-App Grunt
+# Activate-App Bower
+# Activate-App Yeoman
+# Activate-App JSHint
+# Activate-App MdProc
 # Activate-App Python2
 # Activate-App Python3
 # Activate-App Ruby
@@ -47,6 +53,7 @@
 # Activate-App JDK7
 # Activate-App JDK8
 # Activate-App Leiningen
+# Activate-App VSCode
 # Activate-App SublimeText3
 # Activate-App EclipseJava
 # Activate-App Iron

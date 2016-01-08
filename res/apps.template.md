@@ -25,6 +25,8 @@ There are currently two types of apps: Windows executables and NodeJS packages.
   The ID of the app.
 * **Typ**:
   The application typ (optional, default is `default`)
+    + `default` Downloadable executables
+    + `node-package` NodeJS NPM packages
 * **Url**:
   The URL to the file, containing the app binaries
 * **AppFile**:
