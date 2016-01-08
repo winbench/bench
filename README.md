@@ -33,7 +33,7 @@
 * Follow the instructions ...
     + Enter your name and email address for your [Git] identity.
     + Configure the HTTP proxy server in the `config.ps1` if you are behind a proxy firewall.
-    + Maybe activate or deactivate some apps in the `config.ps1`.
+    + Maybe activate or deactivate some app groups or single apps in the `config.ps1`.  
     + Wait for _Bench_ to  download resources.  
       (Depending on the number and size of the activated apps, this can take a while.)
     + If [Git] is setup and you do not have an SSH key-pair, one is generated
@@ -41,11 +41,9 @@
     + Wait for _Bench_ to setup the apps.  
       (Depending on the number and size of the activated apps, this can take a while.
       Usally a package manager like NPM or PIP is used to install a couple of apps,
-      therefore, the internet connection is required in this phase two.)
+      therefore, the internet connection is required in this phase too.)
+* Maybe, run the `clone-git-project.cmd` action to work on an existing project.
 
-* Run the `new-project.cmd` action to scaffold a project with [Yeoman]:
-  Choose the _MdProc_ generator to build a [Markdown] documentation project.
-* Run the `clonte-git-project.cmd` action to work on an existing project.
 
 ## Apps
 

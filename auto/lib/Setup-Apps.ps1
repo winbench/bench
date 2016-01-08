@@ -105,7 +105,14 @@ function Find-DownloadedFile([string]$pattern) {
     return [string]$path
 }
 
-function Default-Setup([string]$name, [bool]$registerPath = $true) {
+function Setup-Common([string]$name) {
+    Register-AppEnvironment $name
+    Load-AppEnvironment $name
+    Execute-Custom-Setup $name
+    Run-AppEnvironmentSetup $name
+}
+
+function Setup-DefaultApp([string]$name, [bool]$registerPath = $true) {
     $dir = App-Dir $name
     if ((App-Force $name) -or !(Check-DefaultApp $name)) {
         Write-Host "Setting up $name ..."
@@ -156,10 +163,7 @@ function Default-Setup([string]$name, [bool]$registerPath = $true) {
     }
 
     Register-AppPaths $name
-    Register-AppEnvironment $name
-    Load-AppEnvironment $name
-    Execute-Custom-Setup $name
-    Run-AppEnvironmentSetup $name
+    Setup-Common $name
 }
 
 function Setup-NpmPackage([string]$name) {
@@ -182,10 +186,7 @@ function Setup-NpmPackage([string]$name) {
             Write-Host "Skipping allready installed NPM package $packageName"
         }
     }
-    Register-AppEnvironment $name
-    Load-AppEnvironment $name
-    Execute-Custom-Setup $name
-    Run-AppEnvironmentSetup $name
+    Setup-Common $name
 }
 
 Load-Environment
@@ -195,6 +196,15 @@ $installedApps = @()
 foreach ($name in $Script:apps) {
     $typ = App-Typ $name
     switch ($typ) {
+        "meta" {
+            try {
+                Setup-Common $name
+                $installedApps += $name
+            } catch {
+                Write-Warning "Installing App Group $name failed: $($_.Exception.Message)"
+                $failedApps += $name
+            }
+        }
         "node-package" {
             try {
                 Setup-NpmPackage $name
@@ -206,7 +216,7 @@ foreach ($name in $Script:apps) {
         }
         default { 
             try {
-                Default-Setup $name
+                Setup-DefaultApp $name
                 $installedApps += $name
             } catch {
                 Write-Warning "Setting up $name failed: $($_.Exception.Message)"
