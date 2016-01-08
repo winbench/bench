@@ -6,6 +6,10 @@ function App-Version([string]$name) {
     return Get-AppConfigValue $name Version
 }
 
+function App-Dependencies([string]$name) {
+    return Get-AppConfigListValue $name Dependencies
+}
+
 function App-Url([string]$name) {
     return Get-AppConfigValue $name Url
 }
