@@ -196,6 +196,15 @@ $installedApps = @()
 foreach ($name in $Script:apps) {
     $typ = App-Typ $name
     switch ($typ) {
+        "meta" {
+            try {
+                Setup-Common $name
+                $installedApps += $name
+            } catch {
+                Write-Warning "Installing App Group $name failed: $($_.Exception.Message)"
+                $failedApps += $name
+            }
+        }
         "node-package" {
             try {
                 Setup-NpmPackage $name
