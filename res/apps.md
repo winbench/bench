@@ -435,9 +435,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Eclipse
 
 * ID: `EclipseJava`
-* Version: Luna SR2 4.4.2
+* Version: Mars 1 4.5
 * Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/mars/1/eclipse-java-mars-1-win32.zip>
 * AppArchive: `eclipse-java-*-win32.zip`
 * AppArchiveSubDir: `eclipse`
 * Dir: `eclipse_java`
