@@ -2,6 +2,7 @@
 . "$myDir\common.lib.ps1"
 
 $Script:rootDir = Resolve-Path ([IO.Path]::Combine($myDir, "..", ".."))
+$Script:pathBackup = $env:PATH
 
 $_ = Set-StopOnError $True
 
@@ -215,6 +216,9 @@ function Initialize() {
     Set-ConfigValue HomeDir "home"
     Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData\Roaming"
     Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\AppData\Local"
+    Set-ConfigValue OverrideHome $true
+    Set-ConfigValue OverrideTemp $true
+    Set-ConfigValue IgnoreSystemPath $true
     Set-ConfigValue ProjectRootDir "projects"
     Set-ConfigValue ProjectArchiveDir "archive"
     Set-ConfigValue ProjectArchiveFormat "zip"

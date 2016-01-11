@@ -16,6 +16,17 @@
 # Set-ConfigValue ProjectRootDir "D:\bench_projects"
 # Set-ConfigValue ProjectArchiveDir "backups"
 
+## Uncomment and adapt the following lines to change the isolation behavior of Bench:
+
+## Do not use the Bench temporary folder, but the default system temp directories
+# Set-ConfigValue OverrideTemp $false
+
+## Do not use the Bench home directory, but the logged in user profile instead
+# Set-ConfigValue OverrideHome $false
+
+## Do not cleanup the PATH before adding the Bench apps
+# Set-ConfigValue IgnoreSystemPath $false
+
 ## Uncomment and adapt the following line to change the project archive format:
 ## Possible values are all archive formats supported by 7zip (e.g. zip, 7z)
 
