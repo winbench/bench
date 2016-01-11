@@ -2,6 +2,7 @@
 . "$myDir\common.lib.ps1"
 
 $Script:rootDir = Resolve-Path ([IO.Path]::Combine($myDir, "..", ".."))
+$Script:pathBackup = $env:PATH
 
 $_ = Set-StopOnError $True
 
@@ -60,10 +61,9 @@ function Expand-Value($value) {
             return Expand-Placeholder $m.Groups["var"].Value
         })
         if ($value -ieq "true") {
-            $value = $true
-        }
-        if ($value -ieq "false") {
-            $value = $false
+            return $true
+        } elseif ($value -ieq "false") {
+            return $false
         }
     }
     return $value
@@ -201,7 +201,7 @@ function Initialize() {
     $Script:definedApps.Clear()
     
     # Common
-    Set-ConfigValue Version "0.3.1"
+    Set-ConfigValue Version "0.3.2"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
@@ -216,6 +216,9 @@ function Initialize() {
     Set-ConfigValue HomeDir "home"
     Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData\Roaming"
     Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\AppData\Local"
+    Set-ConfigValue OverrideHome $true
+    Set-ConfigValue OverrideTemp $true
+    Set-ConfigValue IgnoreSystemPath $true
     Set-ConfigValue ProjectRootDir "projects"
     Set-ConfigValue ProjectArchiveDir "archive"
     Set-ConfigValue ProjectArchiveFormat "zip"

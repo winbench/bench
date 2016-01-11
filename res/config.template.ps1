@@ -16,6 +16,17 @@
 # Set-ConfigValue ProjectRootDir "D:\bench_projects"
 # Set-ConfigValue ProjectArchiveDir "backups"
 
+## Uncomment and adapt the following lines to change the isolation behavior of Bench:
+
+## Do not use the Bench temporary folder, but the default system temp directories
+# Set-ConfigValue OverrideTemp $false
+
+## Do not use the Bench home directory, but the logged in user profile instead
+# Set-ConfigValue OverrideHome $false
+
+## Do not cleanup the PATH before adding the Bench apps
+# Set-ConfigValue IgnoreSystemPath $false
+
 ## Uncomment and adapt the following line to change the project archive format:
 ## Possible values are all archive formats supported by 7zip (e.g. zip, 7z)
 
@@ -29,8 +40,8 @@
 # Activate-App Markdown # MdProc, VSCode
 # Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache
 # Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache
-# Activate-App DevJava # EclipseJava, JDK8
-# Activate-App DevClojure # Leiningen, JDK8
+# Activate-App DevJava # JDK8, EclipseJava
+# Activate-App DevClojure # JDK8, Leiningen, LightTable
 # Activate-App DevPython2 # Python2, SublimeText3
 # Activate-App DevPython3 # Python3, SublimeText3
 
@@ -63,6 +74,7 @@
 # Activate-App Leiningen
 # Activate-App VSCode
 # Activate-App SublimeText3
+# Activate-App LightTable
 # Activate-App EclipseJava
 # Activate-App Iron
 # Activate-App MySQL
