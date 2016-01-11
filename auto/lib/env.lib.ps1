@@ -17,6 +17,7 @@ function Register-Path([string]$path) {
 }
 
 function Register-AppPaths([string]$name) {
+    Debug "Registering Paths for $name ..."
     if (App-Register $name) {
         $paths = App-Paths $name
         foreach ($p in $paths) {
@@ -26,6 +27,7 @@ function Register-AppPaths([string]$name) {
 }
 
 function Register-AppEnvironment([string]$name) {
+    Debug "Registering Environment Variables for $name ..."
     $dict = App-Environment $name
     foreach ($k in $dict.Keys) {
         Debug "Registered Environment Variable: $k = $($dict[$k])"
@@ -70,6 +72,7 @@ function Update-EnvironmentPath() {
 
 function Execute-AppEnvironmentSetup([string]$name) {
     $scriptFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).env.ps1"
+    Debug "Searching for environment script apps\$($name.ToLowerInvariant()).env.ps1"
     if (Test-Path $scriptFile) {
         Debug "Running custom environment script for $name"
         . $scriptFile

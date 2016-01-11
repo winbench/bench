@@ -83,6 +83,7 @@ function Extract-Custom([string]$name, [string]$archive, [string]$targetDir) {
 
 function Execute-AppCustom-Setup([string]$name) {
     $customSetupFile = "$scriptsLib\..\apps\$($name.ToLowerInvariant()).setup.ps1"
+    Debug "Searching for custom setup script 'apps\$($name.ToLowerInvariant()).setup.ps1'"
     if (Test-Path $customSetupFile) {
         Debug "Running custom setup for $name ..."
         $old = Set-StopOnError $false
