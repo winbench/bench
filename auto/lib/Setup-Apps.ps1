@@ -81,8 +81,8 @@ function Extract-Custom([string]$name, [string]$archive, [string]$targetDir) {
     . "$scriptsLib\..\apps\${name}.extract.ps1" $archive $targetDir
 }
 
-function Execute-Custom-Setup([string]$name) {
-    $customSetupFile = "$scriptsLib\..\apps\${name}.setup.ps1"
+function Execute-AppCustom-Setup([string]$name) {
+    $customSetupFile = "$scriptsLib\..\apps\$($name.ToLowerInvariant()).setup.ps1"
     if (Test-Path $customSetupFile) {
         Debug "Running custom setup for $name ..."
         $old = Set-StopOnError $false
@@ -108,8 +108,8 @@ function Find-DownloadedFile([string]$pattern) {
 function Setup-Common([string]$name) {
     Register-AppEnvironment $name
     Load-AppEnvironment $name
-    Execute-Custom-Setup $name
-    Run-AppEnvironmentSetup $name
+    Execute-AppCustom-Setup $name
+    Execute-AppEnvironmentSetup $name
 }
 
 function Setup-DefaultApp([string]$name, [bool]$registerPath = $true) {
