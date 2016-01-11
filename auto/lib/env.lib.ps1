@@ -44,6 +44,7 @@ function Load-Environment() {
         $env:HTTPS_PROXY = Get-ConfigValue HttpsProxy
     }
     $env:USERPROFILE = $h
+    $env:HOME = $h
     $env:HOMEDRIVE = $homeDrive
     $env:HOMEPATH = $homePath
     $env:APPDATA = $Script:appDataDir
@@ -105,10 +106,12 @@ function Write-EnvironmentFile() {
         $txt += "SET HOMEDRIVE=%~d0$nl"
         $txt += "SET HOMEPATH=%~p0..\$relPath$nl"
         $txt += "SET USERPROFILE=%~dp0..\$relPath$nl"
+        $txt += "SET HOME=%~dp0..\$relPath$nl"
     } else {
         $txt += "SET HOMEDRIVE=$homeDrive$nl"
         $txt += "SET HOMEPATH=$homePath$nl"
         $txt += "SET USERPROFILE=$h$nl"
+        $txt += "SET HOME=$h$nl"
     }
     if ($Script:appDataDir.StartsWith($h, [StringComparison]::InvariantCultureIgnoreCase)) {
         $relPath = $Script:appDataDir.Substring($h.Length + 1).Trim('\')
