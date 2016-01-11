@@ -151,12 +151,6 @@ function Check-DefaultApp([string]$name) {
 }
 
 function Check-NpmPackage([string]$name) {
-    # $npm = App-Exe Npm
-    # if (!$npm) { throw "Node Package Manager not found" }
-    # $p = [regex]"^\S+ ([^@\s]*)@[^@\s]+`$"
-    # $list = & $npm list --global --depth 0 | ? { $p.IsMatch($_) } | % { $p.Replace($_, "`$1") }
-    # $packageName = App-NpmPackage $name
-    # return $packageName -in $list
     $packageDir = [IO.Path]::Combine((App-Dir Npm), "node_modules", (App-NpmPackage $name))
     Debug "Checking NPM package ${name}: $packageDir"
     return Test-Path $packageDir -PathType Container
