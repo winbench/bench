@@ -1,9 +1,14 @@
 $git = App-Exe Git
 if (!$git) { throw "Git not found" }
 
+$autocrlf = & $git config --global core.autocrlf
 $pushDefault = & $git config --global push.default
 $user = & $git config --global user.name
 $email = & $git config --global user.email
+
+if (!$autocrlf) {
+    & $git config --global "core.autocrlf" "true"
+}
 
 if (!$pushDefault) {
     & $git config --global "push.default" "simple"

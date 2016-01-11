@@ -34,6 +34,8 @@
     + Enter your name and email address for your [Git] identity.
     + Configure the HTTP proxy server in the `config.ps1` if you are behind a proxy firewall.
     + Maybe activate or deactivate some app groups or single apps in the `config.ps1`.  
+      (To work with _MdProc_ on [Markdown] projects, activate the `Markdown` app group,
+      by removing the leading `#` from the line with `Activate-App Markdown`.)
     + Wait for _Bench_ to  download resources.  
       (Depending on the number and size of the activated apps, this can take a while.)
     + If [Git] is setup and you do not have an SSH key-pair, one is generated
@@ -44,6 +46,14 @@
       therefore, the internet connection is required in this phase too.)
 * Maybe, run the `clone-git-project.cmd` action to work on an existing project.
 
+## Quickstart with a new Markdown project
+
+If you activated the `Markdown` app group, you can go ahead with these steps: 
+
+* Run the `new-project.cmd` action to scaffold a project with [Yeoman]
+* Choose the _MdProc_ generator to build a [Markdown] documentation project
+* Choose one of the different [Markdown] project templates (`Demo`, `Minimal`, `Personal Log`, ...)
+* Follow further instructions
 
 ## Apps
 

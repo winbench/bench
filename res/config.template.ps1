@@ -26,6 +26,14 @@
 
 ## Application Groups
 
+# Activate-App Markdown # MdProc, VSCode
+# Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache
+# Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache
+# Activate-App DevJava # JDK8, EclipseJava
+# Activate-App DevClojure # JDK8, Leiningen, LightTable
+# Activate-App DevPython2 # Python2, SublimeText3
+# Activate-App DevPython3 # Python3, SublimeText3
+
 ## Single applications
 
 # Activate-App OpenSSL
@@ -55,6 +63,7 @@
 # Activate-App Leiningen
 # Activate-App VSCode
 # Activate-App SublimeText3
+# Activate-App LightTable
 # Activate-App EclipseJava
 # Activate-App Iron
 # Activate-App MySQL

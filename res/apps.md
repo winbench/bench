@@ -26,7 +26,19 @@ All apps are identified by an ID, which must only contain alphanumeric character
 and must not start with a numeric character.
 The ID must be the first entry in a list, defining an app.
 
-There are currently two types of apps: Windows executables and NodeJS packages.
+There are currently three types of apps: app groups (Typ: `meta`), Windows executables (Typ: `default`), and NodeJS packages (Typ: `node-package`).
+
+## App Group
+
+* **ID**:
+  The ID of the app.
+* **Typ**:
+  The application typ (required to be `meta`)
+* **Dependencies**:
+  A list with the IDs of all apps in this app group.
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
 ## Windows Executables
 
@@ -34,9 +46,8 @@ There are currently two types of apps: Windows executables and NodeJS packages.
   The ID of the app.
 * **Typ**:
   The application typ (optional, default is `default`)
-    + `default` Downloadable executables
-    + `meta` Application groups, defined by dependencies only
-    + `node-package` NodeJS NPM packages
+* **Dependencies**:
+  A list with the IDs of apps, which must be activated too, for this app to work (optional, default is empty).
 * **Url**:
   The URL to the file, containing the app binaries
 * **DownloadCookies**:
@@ -65,7 +76,7 @@ There are currently two types of apps: Windows executables and NodeJS packages.
   The name of the app executable (optional, default is empty).
   The existance of an app executable is used to determine, if an app is allready installed.
 * **Environment**:
-  A list of key-value-pairs, describing additional environment variables (option, default is empty).
+  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
   E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
 Some restrictions for the properties:
@@ -84,13 +95,15 @@ Some restrictions for the properties:
   The name of the NPM package to install via NPM (optional, default is the app ID in lowercase).
 * **Version**:
   The package version to install (e.g. `^2.5.0`), if empty install latest (optional, default empty).
+* **Dependencies**:
+  A list with the IDs of apps, which must be activated too, for this app to work (optional, default is empty).
 * **Force**:
   A boolean, indicating if the package should allways be installed,
   even if it is allready installed (optional, default is `false`).
 * **Exe**:
   The name of an NPM CLI wrapper from this package (optional, default is empty).
 * **Environment**:
-  A list of key-value-pairs, describing additional environment variables (option, default is empty).
+  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
   E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
 To determine, if a NodeJS package is allready installed, the existence of its package folder in `node_modules` in the NodeJS directory is checked.
@@ -123,7 +136,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * ID: `InnoUnp`
 * Website: <http://innounp.sourceforge.net/>
 * Version: 0.45
-* Url: <http://sourceforge.net/projects/innounp/files/innounp/innounp 0.45/innounp045.rar>
+* Url: <http://sourceforge.net/projects/innounp/files/innounp/innounp%200.45/innounp045.rar>
 * AppArchive: `innounp*.rar`
 * Exe: `innounp.exe`
 * Register: `false`
@@ -139,6 +152,48 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Exe: `git.exe`
 
 ## Groups
+
+### Group: Markdown
+
+* ID: `Markdown`
+* Typ: `meta`
+* Dependencies: `MdProc`, `VSCode`
+
+### Group: Web Development with PHP7 and MySQL
+
+* ID: `WebDevPHP7`
+* Typ: `meta`
+* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`
+
+### Group: Web Development with PHP5 and MySQL
+
+* ID: `WebDevPHP5`
+* Typ: `meta`
+* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`
+
+### Group: Java Development
+
+* ID: `DevJava`
+* Typ: `meta`
+* Dependencies: `JDK8`, `EclipseJava`
+
+### Group: Clojure Development
+
+* ID: `DevClojure`
+* Typ: `meta`
+* Dependencies: `Leiningen`, `Lighttable`
+
+### Group: Python 2
+
+* ID: `DevPython2`
+* Typ: `meta`
+* Dependencies: `Python2`, `SublimeText3`
+
+### Group: Python 3
+
+* ID: `DevPython3`
+* Typ: `meta`
+* Dependencies: `Python3`, `SublimeText3`
 
 ## Optional
 
@@ -426,6 +481,17 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dir: `code`
 * Exe: `code.exe`
 
+### LightTable
+
+* ID: `LightTable`
+* Website: <http://lighttable.com>
+* Version: 0.8.0
+* Url: <https://github.com/LightTable/LightTable/releases/download/0.8.0/lighttable-0.8.0-windows.zip>
+* AppArchive: `lighttable-0.8.0-windows.zip`
+* AppArchiveSubDir: `lighttable-0.8.0-windows`
+* Dir: `lt`
+* Exe: `LightTable.exe`
+
 ### Sublime Text 3
 
 * ID: `SublimeText3`
@@ -460,7 +526,7 @@ A free portable derivative of Chromium, optimized for privacy.
 
 ### MySQL
 
-The MySQL data is stored in `%HOMEDRIVE%%HOMEPATH%\mysql_data`.
+The MySQL data is stored in `%USERPROFILE%\mysql_data`.
 You can start the MySQL server by running `mysql_start` in the _Bench_ shell.
 You can stop the MySQL server by typing `Ctrl+C` in the console window of MySQL,
 or by running `mysql_stop` in the _Bench_ shell.
