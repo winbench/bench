@@ -49,6 +49,8 @@ function Load-Environment() {
     $env:HOMEPATH = $homePath
     $env:APPDATA = $Script:appDataDir
     $env:LOCALAPPDATA = $Script:localAppDataDir
+    $env:TEMP = $Script:tempDir
+    $env:TMP = $Script:tempDir
     foreach ($k in $Script:additionalEnvVars.Keys) {
         Set-Item "env:$k" $Script:additionalEnvVars[$k]
     }
@@ -124,6 +126,15 @@ function Write-EnvironmentFile() {
         $txt += "SET LOCALAPPDATA=%USERPROFILE%\$relPath$nl"
     } else {
         $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
+    }
+    [string]$tmp = $Script:tempDir
+    if ($tmp.StartsWith($Script:rootDir, [System.StringComparison]::InvariantCultureIgnoreCase)) {
+        $relPath = $tmp.Substring($Script:rootDir.Length + 1).Trim('\')
+        $txt += "SET TEMP=%~dp0..\$relPath$nl"
+        $txt += "SET TMP=%~dp0..\$relPath$nl"
+    } else {
+        $txt += "SET TEMP=${Script:tempDir}$nl"
+        $txt += "SET TMP=${Script:tmpDir}$nl"
     }
     $txt += "SET L=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
     $benchPath = ""
