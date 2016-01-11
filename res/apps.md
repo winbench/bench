@@ -181,7 +181,7 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `DevClojure`
 * Typ: `meta`
-* Dependencies: `Leiningen`
+* Dependencies: `Leiningen`, `Lighttable`
 
 ### Group: Python 2
 
@@ -480,6 +480,17 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `VSCode-win32.zip`
 * Dir: `code`
 * Exe: `code.exe`
+
+### LightTable
+
+* ID: `LightTable`
+* Website: <http://lighttable.com>
+* Version: 0.8.0
+* Url: <https://github.com/LightTable/LightTable/releases/download/0.8.0/lighttable-0.8.0-windows.zip>
+* AppArchive: `lighttable-0.8.0-windows.zip`
+* AppArchiveSubDir: `lighttable-0.8.0-windows`
+* Dir: `lt`
+* Exe: `LightTable.exe`
 
 ### Sublime Text 3
 
