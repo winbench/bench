@@ -60,10 +60,9 @@ function Expand-Value($value) {
             return Expand-Placeholder $m.Groups["var"].Value
         })
         if ($value -ieq "true") {
-            $value = $true
-        }
-        if ($value -ieq "false") {
-            $value = $false
+            return $true
+        } elseif ($value -ieq "false") {
+            return $false
         }
     }
     return $value

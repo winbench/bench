@@ -58,7 +58,7 @@ function App-ResourceArchiveSubDir([string]$name) {
 }
 
 function App-Force([string]$name) {
-    return Get-AppConfigValue $name ForceInstall $false
+    return [bool](Get-AppConfigValue $name ForceInstall $false)
 }
 
 function App-NpmPackage([string]$name) {
@@ -104,7 +104,7 @@ function App-Paths([string]$name) {
             $paths = @()
             $appDir = App-Dir $name
             $cfgPaths = Get-AppConfigListValue $name Path
-            if ($cfgPaths.Count -gt 0) {
+            if ($cfgPaths -and $cfgPaths.Count -gt 0) {
                 foreach ($p in $cfgPaths) {
                     $paths += [IO.Path]::Combine($appDir, $p)
                 }
