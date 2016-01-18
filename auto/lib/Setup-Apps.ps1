@@ -171,18 +171,19 @@ function Setup-NpmPackage([string]$name) {
     $packageName = App-NpmPackage $name
     $npm = App-Exe Npm
     $version = App-Version $name
+    $packageNameWithVersion = "${packageName}@${version}"
     if (!$npm) { throw "Node Package Manager not found" }
     if ((App-Force $name) -or !(Check-NpmPackage $name)) {
         if ($version) {
-            Write-Host "Setting up npm package $packageName@$version ..."
-            & $npm install "$packageName@$version" --global
+            Write-Host "Setting up npm package $packageNameWithVersion ..."
+            & $npm install "`"$packageNameWithVersion`"" --global
         } else {
             Write-Host "Setting up npm package $packageName ..."
             & $npm install $packageName --global
         }
     } else {
         if ($version) {
-            Write-Host "Skipping allready installed NPM package $packageName@$version"
+            Write-Host "Skipping allready installed NPM package $packageNameWithVersion"
         } else {
             Write-Host "Skipping allready installed NPM package $packageName"
         }
