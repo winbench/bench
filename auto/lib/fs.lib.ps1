@@ -45,7 +45,7 @@ function Empty-Dir ($dir, $msg = $null) {
             Write-Host $msg
         }
         Debug "Deleting all content of directory: $dir"
-        Get-ChildItem $dir -Recurse | Remove-Item -Force
+        Get-ChildItem $dir -Recurse | Remove-Item -Recurse -Force
     }
     return Safe-Dir $dir
 }

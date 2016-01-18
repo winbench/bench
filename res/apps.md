@@ -328,7 +328,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Gulp`
 * Typ: `node-package`
-* Version: `^3.9.0`
+* Version: `>=3.9.0 <4.0.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/npm>
 * Exe: `gulp.cmd`
@@ -337,7 +337,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Grunt`
 * Typ: `node-package`
-* Version: `^0.4.5`
+* Version: `>=0.4.5 <0.5.0`
 * Dependencies: `Npm`
 * Website: <http://gruntjs.com>
 * Exe: `grunt.cmd`
@@ -346,7 +346,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Bower`
 * Typ: `node-package`
-* Version: `^1.7.0`
+* Version: `>=1.7.0 <2.0.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/bower>
 * Exe: `bower.cmd`
@@ -356,7 +356,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * ID: `Yeoman`
 * Typ: `node-package`
 * NpmPackage: `yo`
-* Version: `^1.5.0`
+* Version: `>=1.5.0 <2.0.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/yeoman>
 * Exe: `yo.cmd`
@@ -366,7 +366,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * ID: `MdProc`
 * Typ: `node-package`
 * NpmPackage: `generator-mdproc`
-* Version: `^0.1.6`
+* Version: `>=0.1.6 <0.2.0`
 * Website: <https://www.npmjs.com/package/generator-mdproc>
 * Dependencies: `Npm`, `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
 
@@ -374,7 +374,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `JSHint`
 * Typ: `node-package`
-* Version: `^2.8.0`
+* Version: `>=2.8.0 <3.0.0`
 * Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/jshint>
 * Exe: `jshint.cmd`
