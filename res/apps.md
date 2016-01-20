@@ -26,9 +26,16 @@ All apps are identified by an ID, which must only contain alphanumeric character
 and must not start with a numeric character.
 The ID must be the first entry in a list, defining an app.
 
-There are currently three types of apps: app groups (Typ: `meta`), Windows executables (Typ: `default`), and NodeJS packages (Typ: `node-package`).
+## App Types
 
-## App Group
+There are currently four kinds of apps:
+
+* Typ `meta`: app groups or apps with a fully customized setup process
+* Typ `default`: Windows executables from a downloades file, archive, or setup
+* Typ `node-package`: NodeJS packages, installable with NPM
+* Typ `python-package`: Python packages from PyPI, installable with PIP
+
+### App Group and Custom Setup
 
 * **ID**:
   The ID of the app.
@@ -40,7 +47,7 @@ There are currently three types of apps: app groups (Typ: `meta`), Windows execu
   A list of key-value-pairs, describing additional environment variables (optional, default is empty).
   E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
-## Windows Executables
+### Windows Executables
 
 * **ID**:
   The ID of the app.
@@ -85,7 +92,7 @@ Some restrictions for the properties:
 * The property _AppArchiveSubDir_ is only recognized, if _AppArchive_ is used.
 * The property _Path_ is only recognized, if _Register_ is `true`.
 
-## NodeJS Packages
+### NodeJS Packages
 
 * **ID**:
   The ID of the app.
@@ -94,7 +101,8 @@ Some restrictions for the properties:
 * **NpmPackage**:
   The name of the NPM package to install via NPM (optional, default is the app ID in lowercase).
 * **Version**:
-  The package version to install (e.g. `^2.5.0`), if empty install latest (optional, default empty).
+  The package version or version range to install (e.g. `2.5.0` or `>=1.2.0 <3.0.0`),
+  if empty install latest (optional, default empty).
 * **Dependencies**:
   A list with the IDs of apps, which must be activated too, for this app to work (optional, default is empty).
 * **Force**:
@@ -106,7 +114,36 @@ Some restrictions for the properties:
   A list of key-value-pairs, describing additional environment variables (optional, default is empty).
   E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
-To determine, if a NodeJS package is allready installed, the existence of its package folder in `node_modules` in the NodeJS directory is checked.
+To determine, if a NodeJS package is allready installed, the existence of its package folder in
+`node_modules` in the NodeJS directory is checked.
+
+### Python Package
+
+* **ID**:
+  The ID of the app.
+* **Typ**:
+  The application typ (required to be `python-package`)
+* **PyPiPackage**:
+  The name of the PyPI package to install via PIP (optional, default is the app ID in lowercase).
+* **Version**:
+  The package version or version range to install (e.g. `2.5.0` or `>=1.2.0,<3.0.0`),
+  if empty install latest (optional, default empty).
+* **PythonVersions**:
+  A list with all Python version to install this package in (e.g. `2`, `3`),
+  if empty install in all Python versions (optional, default empty).
+* **Dependencies**:
+  A list with the IDs of app, which must be activated too, for this app to work (optional, default empty).
+* **Force**:
+  A boolean, indicating if the package should be installed,
+  even if it is allready installed (optional, default is `false`).
+* **Exe**:
+  The name of an PIP CLI wrapper from this package (optional, default is empty).
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+
+To determine, if a Python package is allready installed, the existence of its package folder in
+`lib\site-packages` in the Python directory is checked.
 
 ## Required
 
@@ -187,13 +224,13 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 
 * ID: `DevPython2`
 * Typ: `meta`
-* Dependencies: `Python2`, `SublimeText3`
+* Dependencies: `Python2`, `SublimeText3`, `IPython`
 
 ### Group: Python 3
 
 * ID: `DevPython3`
 * Typ: `meta`
-* Dependencies: `Python3`, `SublimeText3`
+* Dependencies: `Python3`, `SublimeText3`, `IPython`
 
 ## Optional
 

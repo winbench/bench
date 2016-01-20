@@ -251,14 +251,7 @@ function Download([string]$name) {
 }
 
 foreach ($name in $Script:apps) {
-    if ((App-Typ $name) -eq "node-package") {
-        Debug "Skipping download for node package $name."
-        continue
+    if ((App-Typ $name) -eq "default") {
+        Download $name
     }
-
-    if (!(App-Url $name)) {
-        Debug "No URL for app $name"
-        continue
-    }
-    Download $name
 }
