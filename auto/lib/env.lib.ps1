@@ -108,7 +108,7 @@ function Write-EnvironmentFile() {
         }
     }
     $txt += "SET BENCH_AUTO=%~dp0$nl"
-    $txt += "SET BENCH_HOME=%BENCH_AUTO%..$nl"
+    $txt += "CALL :SET_BENCH_HOME `"%BENCH_AUTO%..`"$nl"
     $txt += "SET BENCH_APPS=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
     if (Get-ConfigValue OverrideHome) {
         [string]$h = $Script:homeDir
@@ -176,6 +176,9 @@ function Write-EnvironmentFile() {
         }
         $txt += "SET $k=$v$nl"
     }
+    $txt += "GOTO:EOF$nl$nl"
+    $txt += ":SET_BENCH_HOME${nl}SET BENCH_HOME=%~dpfn1${nl}GOTO:EOF$nl"
+
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
 }
