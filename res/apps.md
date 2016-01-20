@@ -208,6 +208,16 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Path: `bin`
 * Exe: `openssl.exe`
 
+### GNU TLS
+
+* ID: `GnuTLS`
+* Version: 3.3.11
+* Url: <http://sourceforge.net/projects/ezwinports/files/gnutls-3.3.11-w32-bin.zip>
+* AppArchive: `gnutls-*-w32-bin.zip`
+* Dir: `gnu`
+* Path: `bin`
+* Exe: `gnutls-cli.exe`
+
 ### cURL
 
 * ID: `cURL`
