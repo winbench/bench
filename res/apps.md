@@ -208,6 +208,16 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * Path: `bin`
 * Exe: `openssl.exe`
 
+### GNU TLS
+
+* ID: `GnuTLS`
+* Version: 3.3.11
+* Url: <http://sourceforge.net/projects/ezwinports/files/gnutls-3.3.11-w32-bin.zip>
+* AppArchive: `gnutls-*-w32-bin.zip`
+* Dir: `gnu`
+* Path: `bin`
+* Exe: `gnutls-cli.exe`
+
 ### cURL
 
 * ID: `cURL`
@@ -500,6 +510,24 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
 * AppArchive: `Sublime*Text*Build*.zip`
 * Exe: `sublime_text.exe`
+
+### Emacs
+
+* ID: `Emacs`
+* Dependencies: `GnuTLS`
+* Website: <https://www.gnu.org/software/emacs/>
+* Version: 24.5
+* Url: <http://ftp.gnu.org/gnu/emacs/windows/emacs-24.5-bin-i686-mingw32.zip>
+* AppArchive: `emacs-*.zip`
+* Dir: `gnu`
+* Path: `bin`
+
+### Spacemacs
+
+* ID: `Spacemacs`
+* Typ: `meta`
+* Dependencies: `Git`, `Emacs`
+* Website: <http://spacemacs.org/>
 
 ### Eclipse
 
