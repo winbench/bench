@@ -452,7 +452,16 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `IPython`
 * Typ: `python-package`
+* Dependencies: `PyReadline`
 * Website: <https://pypi.python.org/pypi/ipython>
+
+### PyReadline
+
+Required for colors in IPython.
+
+* ID: `PyReadline`
+* Typ: `python-package`
+* Website: <https://pypi.python.org/pypi/pyreadline>
 
 ### Ruby
 
