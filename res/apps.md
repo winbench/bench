@@ -522,6 +522,13 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dir: `gnu`
 * Path: `bin`
 
+### Spacemacs
+
+* ID: `Spacemacs`
+* Typ: `meta`
+* Dependencies: `Git`, `Emacs`
+* Website: <http://spacemacs.org/>
+
 ### Eclipse
 
 * ID: `EclipseJava`

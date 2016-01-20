@@ -76,6 +76,7 @@
 # Activate-App SublimeText3
 # Activate-App LightTable
 # Activate-App Emacs
+# Activate-App Spacemacs
 # Activate-App EclipseJava
 # Activate-App Iron
 # Activate-App MySQL
