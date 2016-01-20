@@ -65,10 +65,22 @@ function App-NpmPackage([string]$name) {
     return Get-AppConfigValue $name NpmPackage $name.ToLowerInvariant()
 }
 
+function App-PyPiPackage([string]$name) {
+    return Get-AppConfigValue $name PyPiPackage $name.ToLowerInvariant()
+}
+
+function App-PythonVersions([string]$name) {
+    return Get-AppConfigListValue $name PythonVersions @("2", "3")
+}
+
 function App-Dir([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
             return App-Dir NpmBootstrap
+        }
+        "python-package" {
+            # return null because of the ambiguity between Python versions
+            return $null
         }
         default {
             return [IO.Path]::Combine(
@@ -156,10 +168,33 @@ function Check-NpmPackage([string]$name) {
     return Test-Path $packageDir -PathType Container
 }
 
+function Check-PyPiPackageForPythonVersion ([string]$name, [string]$pythonVersion) {
+    $python = "Python" + $pythonVersion
+    $packageDir = [IO.Path]::Combine((App-Dir $python), "lib", "site-packages", (App-PyPiPackage $name))
+    Debug "Checking PyPI package $name for Python ${pythonVersion}: $packageDir"
+    return Test-Path $packageDir -PathType Container 
+}
+
+function Check-PyPiPackage([string]$name, [string]$pythonVersion = $null) {
+    if ($pythonVersion) {
+        return Check-PyPiPackageForPythonVersion $name $pythonVersion
+    } else {
+        foreach ($version in (App-PythonVersions $name)) {
+            if (!(Check-PyPiPackageForPythonVersion $name $version)) {
+                return $false
+            }
+        }
+        return $true
+    }
+}
+
 function Check-App([string]$name) {
     switch (Get-AppConfigValue $name Typ "default") {
         "node-package" {
             return (Check-DefaultApp $name) -or (Check-NpmPackage $name)
+        }
+        "python-package" {
+            return (Check-DefaultApp $name) -or (Check-PyPiPackage $name)
         }
         default {
             return Check-DefaultApp $name

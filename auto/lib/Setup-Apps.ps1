@@ -190,6 +190,44 @@ function Setup-NpmPackage([string]$name) {
     Setup-Common $name
 }
 
+function Setup-PyPiPackage([string]$name) {
+    $packageName = App-PyPiPackage $name
+    $version = App-Version $name
+    $pythonVersions = App-PythonVersions $name
+    foreach ($pv in $pythonVersions) {
+        if ((App-Force $name) -or !(Check-PyPiPackageForPythonVersion $name $pv)) {
+            $python = "Python$pv"
+            if ($python -in $Script:apps) {
+                $pip = "pip$pv"
+                if ($version) {
+                    Write-Host "Setting up PyPI package $packageName $version for Python $pv"
+                    if (App-Force $name) {
+                        & $pip install --upgrade $packageName "`"$version`""
+                    } else {
+                        & $pip install $packageName "`"$version`""
+                    }
+                } else {
+                    Write-Host "Setting up PyPI package $packageName for Python $pv"
+                    if (App-Force $name) {
+                        & $pip install --upgrade $packageName
+                    } else {
+                        & $pip install $packageName
+                    }
+                }
+            } else {
+                Write-Host "Skipping PyPI package $packageName for inactive Python $pv"
+            }
+        } else {
+            if ($version) {
+                Write-Host "Skipping allready installed PyPI package $packageName $version"
+            } else {
+                Write-Host "Skipping allready installed PyPI package $packageName"
+            }
+        }
+    }
+    Setup-Common $name
+}
+
 Load-Environment
 Update-EnvironmentPath
 $failedApps = @()
@@ -212,6 +250,15 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing NPM Package $name failed: $($_.Exception.Message)"
+                $failedApps += $name
+            }
+        }
+        "python-package" {
+            try {
+                Setup-PyPiPackage $name
+                $installedApps += $name
+            } catch {
+                Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
                 $failedApps += $name
             }
         }
