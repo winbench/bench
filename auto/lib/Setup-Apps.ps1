@@ -13,8 +13,7 @@ if (!(Test-Path $downloadDir)) { return }
 if (!(Test-Path $libDir)) { return }
 
 
-function ShellUnzip-Archive([string]$zipFile, [string]$targetDir)
-{
+function ShellUnzip-Archive([string]$zipFile, [string]$targetDir) {
     Debug "Extracting (Shell) $zipFile to $targetDir"
     $zip = ${Script:winShell}.NameSpace($zipFile)
     if (!$zip) {
