@@ -139,7 +139,7 @@ function Process-AppRegistry($parseActivation = $false) {
         $activation = $null
         $id = $null
         $requiredIds = @()
-        
+
         function Is-CodeValue([string]$value) {
             return $value.StartsWith("``") -and $value.EndsWith("``")
         }
@@ -199,9 +199,9 @@ function Initialize() {
     $Script:config.Clear()
     $Script:apps.Clear()
     $Script:definedApps.Clear()
-    
+
     # Common
-    Set-ConfigValue Version "0.3.4"
+    Set-ConfigValue Version "0.4.0"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
