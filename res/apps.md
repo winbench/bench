@@ -448,6 +448,12 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
+### IPython
+
+* ID: `IPython`
+* Typ: `python-package`
+* Website: <https://pypi.python.org/pypi/ipython>
+
 ### Ruby
 
 * ID: `Ruby`
