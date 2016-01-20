@@ -511,6 +511,17 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `Sublime*Text*Build*.zip`
 * Exe: `sublime_text.exe`
 
+### Emacs
+
+* ID: `Emacs`
+* Dependencies: `GnuTLS`
+* Website: <https://www.gnu.org/software/emacs/>
+* Version: 24.5
+* Url: <http://ftp.gnu.org/gnu/emacs/windows/emacs-24.5-bin-i686-mingw32.zip>
+* AppArchive: `emacs-*.zip`
+* Dir: `gnu`
+* Path: `bin`
+
 ### Eclipse
 
 * ID: `EclipseJava`
