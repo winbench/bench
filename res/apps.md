@@ -218,13 +218,13 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `DevPython2`
 * Typ: `meta`
-* Dependencies: `Python2`, `SublimeText3`, `IPython`
+* Dependencies: `Python2`, `SublimeText3`, `IPython2`
 
 ### Group: Python 3
 
 * ID: `DevPython3`
 * Typ: `meta`
-* Dependencies: `Python3`, `SublimeText3`, `IPython`
+* Dependencies: `Python3`, `SublimeText3`, `IPython3`
 
 ## Optional
 
@@ -442,12 +442,25 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
-### IPython
+### IPython 2
 
-* ID: `IPython`
+* ID: `IPython2`
 * Typ: `python-package`
-* Dependencies: `PyReadline`
+* PyPiPackage: `ipython`
+* PythonVersions: `2`
+* Dependencies: `Python2`, `PyReadline`
 * Website: <https://pypi.python.org/pypi/ipython>
+* Exe: `$Python2:Dir$\Scripts\ipython2.exe`
+
+### IPython 3
+
+* ID: `IPython3`
+* Typ: `python-package`
+* PyPiPackage: `ipython`
+* PythonVersions: `3`
+* Dependencies: `Python3`, `PyReadline`
+* Website: <http://pypi.python.org/pypi/ipython>
+* Exe: `$Python3:Dir$\Scripts\ipython3.exe`
 
 ### PyReadline
 
