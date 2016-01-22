@@ -223,6 +223,7 @@ function Initialize() {
     Set-ConfigValue ProjectRootDir "projects"
     Set-ConfigValue ProjectArchiveDir "archive"
     Set-ConfigValue ProjectArchiveFormat "zip"
+    Set-ConfigValue LauncherDir "launcher"
     Set-ConfigValue UseProxy $false
     Set-ConfigValue HttpProxy $null
     Set-ConfigValue HttpsProxy $null

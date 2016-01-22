@@ -4,6 +4,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
 . "$scriptsLib\appconfig.lib.ps1"
 . "$scriptsLib\env.lib.ps1"
+. "$scriptsLib\launcher.lib.ps1"
 
 Set-Debugging $debug
 
@@ -17,12 +18,14 @@ foreach ($name in $Script:apps) {
         Register-AppPaths $name
         Register-AppEnvironment $name
         Execute-AppEnvironmentSetup $name
+        Create-Launcher $name
     } elseif (Check-App $name) {
         if (((App-Typ $name) -ne "node-package") -and ((App-Typ $name) -ne "python-package")) {
             Register-AppPaths $name
         }
         Register-AppEnvironment $name
         Execute-AppEnvironmentSetup $name
+        Create-Launcher $name
     } else {
         Write-Warning "App $name is activated but was not found."
     }

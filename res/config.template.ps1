@@ -15,6 +15,7 @@
 # Set-ConfigValue HomeDir "$BenchDrive$\bench_profile"
 # Set-ConfigValue ProjectRootDir "$BenchDrive$\bench_projects"
 # Set-ConfigValue ProjectArchiveDir "backups"
+# Set-ConfigValue LauncherDir "D:\bench_apps"
 
 ## Uncomment and adapt the following lines to change the isolation behavior of Bench:
 

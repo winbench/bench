@@ -162,6 +162,22 @@ function App-Environment([string]$name) {
     return $dict
 }
 
+function App-Launcher([string]$name) {
+    return Get-AppConfigValue $name Launcher $null
+}
+
+function App-LauncherExecutable([string]$name) {
+    return Get-AppConfigValue $name LauncherExecutable (App-Exe $name)
+}
+
+function App-LauncherArguments([string]$name) {
+    return Get-AppConfigListValue $name LauncherArguments @('%*')
+}
+
+function App-LauncherIcon([string]$name) {
+    return Get-AppConfigValue $name LauncherIcon (App-LauncherExecutable $name)
+}
+
 function Check-DefaultApp([string]$name) {
     Debug "Checking app ${name}"
     $exe = App-Exe $name
