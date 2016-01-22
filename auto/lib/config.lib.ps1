@@ -1,6 +1,7 @@
 ﻿$Script:myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$Script:myDir\common.lib.ps1"
 
+[string]$Script:autoDir = Resolve-Path ([IO.Path]::Combine($myDir, ".."))
 [string]$Script:rootDir = Resolve-Path ([IO.Path]::Combine($autoDir, ".."))
 $Script:pathBackup = $env:PATH
 
@@ -292,7 +293,10 @@ function Initialize() {
     Debug "Deactivated Apps: $([string]::Join(", ", $Script:deactivatedApps))"
     Debug "Resolved Apps: $([string]::Join(", ", $Script:apps))"
 
+    Set-ConfigValue BenchDrive ([IO.Path]::GetPathRoot($Script:rootDir).Substring(0, 2))
     Set-ConfigValue BenchRoot $Script:rootDir
+    Set-ConfigValue BenchAuto $Script:autoDir
+    Set-ConfigValue BenchScripts $Script:myDir
 }
 
 Initialize

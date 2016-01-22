@@ -12,8 +12,8 @@
 ## (paths can be relative or absolute)
 
 # Set-ConfigValue TempDir "C:\Temp"
-# Set-ConfigValue HomeDir "D:\bench_profile"
-# Set-ConfigValue ProjectRootDir "D:\bench_projects"
+# Set-ConfigValue HomeDir "$BenchDrive$\bench_profile"
+# Set-ConfigValue ProjectRootDir "$BenchDrive$\bench_projects"
 # Set-ConfigValue ProjectArchiveDir "backups"
 
 ## Uncomment and adapt the following lines to change the isolation behavior of Bench:
