@@ -95,6 +95,9 @@ function App-Path([string]$name) {
         "node-package" {
             return App-Path NpmBootstrap
         }
+        "python-package" {
+            return $null
+        }
         default {
             $appDir = App-Dir $name
             $cfgPath = Get-AppConfigValue $name Path ""
@@ -110,7 +113,10 @@ function App-Path([string]$name) {
 function App-Paths([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
-            return App-Paths NpmBootstrap
+            return @(App-Path NpmBootstrap)
+        }
+        "python-package" {
+            return $null
         }
         default {
             $paths = @()
@@ -156,6 +162,22 @@ function App-Environment([string]$name) {
     return $dict
 }
 
+function App-Launcher([string]$name) {
+    return Get-AppConfigValue $name Launcher $null
+}
+
+function App-LauncherExecutable([string]$name) {
+    return Get-AppConfigValue $name LauncherExecutable (App-Exe $name)
+}
+
+function App-LauncherArguments([string]$name) {
+    return Get-AppConfigListValue $name LauncherArguments @('%*')
+}
+
+function App-LauncherIcon([string]$name) {
+    return Get-AppConfigValue $name LauncherIcon (App-LauncherExecutable $name)
+}
+
 function Check-DefaultApp([string]$name) {
     Debug "Checking app ${name}"
     $exe = App-Exe $name
@@ -172,7 +194,7 @@ function Check-PyPiPackageForPythonVersion ([string]$name, [string]$pythonVersio
     $python = "Python" + $pythonVersion
     $packageDir = [IO.Path]::Combine((App-Dir $python), "lib", "site-packages", (App-PyPiPackage $name))
     Debug "Checking PyPI package $name for Python ${pythonVersion}: $packageDir"
-    return Test-Path $packageDir -PathType Container 
+    return Test-Path $packageDir -PathType Container
 }
 
 function Check-PyPiPackage([string]$name, [string]$pythonVersion = $null) {
@@ -180,11 +202,11 @@ function Check-PyPiPackage([string]$name, [string]$pythonVersion = $null) {
         return Check-PyPiPackageForPythonVersion $name $pythonVersion
     } else {
         foreach ($version in (App-PythonVersions $name)) {
-            if (!(Check-PyPiPackageForPythonVersion $name $version)) {
-                return $false
+            if (Check-PyPiPackageForPythonVersion $name $version) {
+                return $true
             }
         }
-        return $true
+        return $false
     }
 }
 
