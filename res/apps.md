@@ -329,6 +329,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `Inkscape-*-win32.7z`
 * AppArchiveSubDir: `inkscape`
 * Exe: `inkscape.exe`
+* Launcher: `Inkscape`
 
 ### NodeJS
 
@@ -451,6 +452,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Dependencies: `Python2`, `PyReadline`
 * Website: <https://pypi.python.org/pypi/ipython>
 * Exe: `$Python2:Dir$\Scripts\ipython2.exe`
+* Launcher: `IPython 2`
 
 ### IPython 3
 
@@ -461,6 +463,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Dependencies: `Python3`, `PyReadline`
 * Website: <http://pypi.python.org/pypi/ipython>
 * Exe: `$Python3:Dir$\Scripts\ipython3.exe`
+* Launcher: `IPython 3`
 
 ### PyReadline
 
@@ -549,6 +552,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `VSCode-win32.zip`
 * Dir: `code`
 * Exe: `code.exe`
+* Launcher: `Visual Studio Code`
 
 ### LightTable
 
@@ -560,6 +564,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `lighttable-0.8.0-windows`
 * Dir: `lt`
 * Exe: `LightTable.exe`
+* Launcher: `LightTable`
 
 ### Sublime Text 3
 
@@ -569,6 +574,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
 * AppArchive: `Sublime*Text*Build*.zip`
 * Exe: `sublime_text.exe`
+* Launcher: `Sublime Text 3`
 
 ### Emacs
 
@@ -580,6 +586,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `emacs-*.zip`
 * Dir: `gnu`
 * Path: `bin`
+* Launcher: `Emacs`
 
 ### Spacemacs
 
@@ -598,6 +605,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `eclipse`
 * Dir: `eclipse_java`
 * Exe: `eclipse.exe`
+* Launcher: `Eclipse Java`
 
 ### SRWare Iron
 
@@ -610,6 +618,7 @@ A free portable derivative of Chromium, optimized for privacy.
 * AppArchiveSubDir: `IronPortable\Iron`
 * AppArchive: `IronPortable.zip`
 * Exe: `chrome.exe`
+* Launcher: `SRWare Iron`
 
 ### MySQL
 
@@ -637,6 +646,7 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-workbench-community-*-win32-noinstall.zip`
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
+* Launcher: `MySQL Workbench`
 
 ### Apache
 
