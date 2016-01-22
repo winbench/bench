@@ -1,7 +1,7 @@
-﻿$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$myDir\common.lib.ps1"
+﻿$Script:myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$Script:myDir\common.lib.ps1"
 
-$Script:rootDir = Resolve-Path ([IO.Path]::Combine($myDir, "..", ".."))
+[string]$Script:rootDir = Resolve-Path ([IO.Path]::Combine($autoDir, ".."))
 $Script:pathBackup = $env:PATH
 
 $_ = Set-StopOnError $True

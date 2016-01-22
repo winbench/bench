@@ -14,10 +14,11 @@ if (!(Test-Path $libDir)) { return }
 Load-Environment
 foreach ($name in $Script:apps) {
     if ((App-Typ $name) -eq "meta") {
+        Register-AppPaths $name
         Register-AppEnvironment $name
         Execute-AppEnvironmentSetup $name
     } elseif (Check-App $name) {
-        if ((App-Typ $name) -ne "node-package") {
+        if (((App-Typ $name) -ne "node-package") -and ((App-Typ $name) -ne "python-package")) {
             Register-AppPaths $name
         }
         Register-AppEnvironment $name
