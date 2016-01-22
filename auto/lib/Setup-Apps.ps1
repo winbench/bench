@@ -80,7 +80,6 @@ function Extract-Custom([string]$name, [string]$archive, [string]$targetDir) {
     . "$scriptsLib\..\apps\${name}.extract.ps1" $archive $targetDir
 }
 
-function Execute-AppCustom-Setup([string]$name) {
     $customSetupFile = "$scriptsLib\..\apps\$($name.ToLowerInvariant()).setup.ps1"
     Debug "Searching for custom setup script 'apps\$($name.ToLowerInvariant()).setup.ps1'"
     if (Test-Path $customSetupFile) {
@@ -108,15 +107,20 @@ function Find-DownloadedFile([string]$pattern) {
 function Setup-Common([string]$name) {
     Register-AppEnvironment $name
     Load-AppEnvironment $name
-    Execute-AppCustom-Setup $name
+    Execute-AppCustomSetup $name
     Execute-AppEnvironmentSetup $name
 }
 
-function Setup-DefaultApp([string]$name, [bool]$registerPath = $true) {
+function Setup-MetaApp([string]$name) {
+    Write-Host "Setting up meta app $name ..."
+    Setup-Common $name
+}
+
+function Setup-DefaultApp([string]$name) {
     $dir = App-Dir $name
     if ((App-Force $name) -or !(Check-DefaultApp $name)) {
         Write-Host "Setting up $name ..."
-        
+
         $download = App-ResourceFile $name
         if ($download) {
             $src = Find-DownloadedFile $download
@@ -139,7 +143,7 @@ function Setup-DefaultApp([string]$name, [bool]$registerPath = $true) {
             }
             $subDir = App-ResourceArchiveSubDir $name
         }
-        
+
         $dir = Safe-Dir $dir
         if ($subDir) {
             $target = Safe-Dir "$(Get-ConfigPathValue TempDir)\$name"
@@ -237,7 +241,7 @@ foreach ($name in $Script:apps) {
     switch ($typ) {
         "meta" {
             try {
-                Setup-Common $name
+                Setup-MetaApp $name
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing App Group $name failed: $($_.Exception.Message)"
@@ -262,7 +266,7 @@ foreach ($name in $Script:apps) {
                 $failedApps += $name
             }
         }
-        default { 
+        default {
             try {
                 Setup-DefaultApp $name
                 $installedApps += $name
