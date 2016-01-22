@@ -11,7 +11,7 @@ There are three groups of apps:
 3. **Optional**  
    These apps can be activated optionally.
 
-An app is defined by a number of name-value-pairs.
+An app is defined by a number of properties (name-value-pairs).
 The pairs are written as an unordered list, with a colon separating the name and the value.
 A value can be surrounded by angle brackets `<` and `>` if it is a URL.
 Any value can be surrounded by backticks.
@@ -26,6 +26,38 @@ All apps are identified by an ID, which must only contain alphanumeric character
 and must not start with a numeric character.
 The ID must be the first entry in a list, defining an app.
 
+## Common Properties
+
+* **ID**:
+  The ID of the app.
+* **Typ**:
+  The application typ (optional, default is `default`).
+* **Dependencies**:
+  A list with the IDs of all apps in this app group.
+* **Force**:
+  A boolean, indicating if the package should allways be installed,
+  even if it is already installed (optional, default is `false`).
+* **Dir**:
+  The name of the target directory for the app (optional, default is the app ID in lowercase).
+* **Path**:
+  A list of relative paths inside the app directory to register in the environment `PATH`. (optional, default is `.`).
+  This property is only recognized, if `Register` is `true`.
+* **Register**:
+  A boolean to indicate if the path(s) of the application should be added to the environment `PATH` (optional, default is `true`).
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+* **Launcher**:
+  A label for the app launcher (optional, default is empty).
+  A launcher for the app is created only if this property is set to a non empty string.
+* **LauncherExecutable**:
+  The absolute path to the executable targeted by the app launcher
+  (optional, default is the `Exe` property).
+* **LauncherArguments**:
+  A list with arguments to the app executable (optional, default is `%*`).
+* **LauncherIcon**:
+  The absolute path to the icon of the launcher (optional, default is the executable).
+
 ## App Types
 
 There are currently four kinds of apps:
@@ -37,24 +69,13 @@ There are currently four kinds of apps:
 
 ### App Group and Custom Setup
 
-* **ID**:
-  The ID of the app.
 * **Typ**:
   The application typ (required to be `meta`)
-* **Dependencies**:
-  A list with the IDs of all apps in this app group.
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
-### Windows Executables
+### Windows Apps
 
-* **ID**:
-  The ID of the app.
-* **Typ**:
-  The application typ (optional, default is `default`)
-* **Dependencies**:
-  A list with the IDs of apps, which must be activated too, for this app to work (optional, default is empty).
+A Windows app is some kind of executable for the Windows OS.
+
 * **Url**:
   The URL to the file, containing the app binaries
 * **DownloadCookies**:
@@ -73,29 +94,16 @@ There are currently four kinds of apps:
     + `custom` Use the custom script `auto\apps\<app ID>.extract.ps1`
 * **AppArchiveSubDir**:
   A sub folder in the archive to extract (optional, default is the archive root).
-* **Dir**:
-  The name of the target directory for the app (optional, default is the app ID in lowercase).
-* **Path**:
-  A list of relative paths inside the app directory to register in the environment `PATH`. (optional, default is `.`).
-* **Register**:
-  A boolean to indicate if the path(s) of the application should be added to the environment `PATH` (optional, default is `true`).
-* **Exe**:
-  The name of the app executable (optional, default is empty).
-  The existance of an app executable is used to determine, if an app is allready installed.
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+
+To determine, if a Windows app is already installed, the existance of its executable is checked.
 
 Some restrictions for the properties:
 
 * The properties _AppFile_ and _AppArchive_ are mutually exclusive.
 * The property _AppArchiveSubDir_ is only recognized, if _AppArchive_ is used.
-* The property _Path_ is only recognized, if _Register_ is `true`.
 
 ### NodeJS Packages
 
-* **ID**:
-  The ID of the app.
 * **Typ**:
   The application typ (required to be `node-package`).
 * **NpmPackage**:
@@ -103,24 +111,16 @@ Some restrictions for the properties:
 * **Version**:
   The package version or version range to install (e.g. `2.5.0` or `>=1.2.0 <3.0.0`),
   if empty install latest (optional, default empty).
-* **Dependencies**:
-  A list with the IDs of apps, which must be activated too, for this app to work (optional, default is empty).
-* **Force**:
-  A boolean, indicating if the package should allways be installed,
-  even if it is allready installed (optional, default is `false`).
 * **Exe**:
   The name of an NPM CLI wrapper from this package (optional, default is empty).
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+* **Path**:
+  This property is ignored for NodeJS packages.
 
-To determine, if a NodeJS package is allready installed, the existence of its package folder in
+To determine, if a NodeJS package is already installed, the existence of its package folder in
 `node_modules` in the NodeJS directory is checked.
 
 ### Python Package
 
-* **ID**:
-  The ID of the app.
 * **Typ**:
   The application typ (required to be `python-package`)
 * **PyPiPackage**:
@@ -131,18 +131,12 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * **PythonVersions**:
   A list with all Python version to install this package in (e.g. `2`, `3`),
   if empty install in all Python versions (optional, default empty).
-* **Dependencies**:
-  A list with the IDs of app, which must be activated too, for this app to work (optional, default empty).
-* **Force**:
-  A boolean, indicating if the package should be installed,
-  even if it is allready installed (optional, default is `false`).
 * **Exe**:
   The name of an PIP CLI wrapper from this package (optional, default is empty).
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+* **Path**:
+  This property is ignored for Python packages.
 
-To determine, if a Python package is allready installed, the existence of its package folder in
+To determine, if a Python package is already installed, the existence of its package folder in
 `lib\site-packages` in the Python directory is checked.
 
 ## Required
@@ -224,13 +218,13 @@ To determine, if a Python package is allready installed, the existence of its pa
 
 * ID: `DevPython2`
 * Typ: `meta`
-* Dependencies: `Python2`, `SublimeText3`, `IPython`
+* Dependencies: `Python2`, `SublimeText3`, `IPython2`
 
 ### Group: Python 3
 
 * ID: `DevPython3`
 * Typ: `meta`
-* Dependencies: `Python3`, `SublimeText3`, `IPython`
+* Dependencies: `Python3`, `SublimeText3`, `IPython3`
 
 ## Optional
 
@@ -335,6 +329,7 @@ To determine, if a Python package is allready installed, the existence of its pa
 * AppArchive: `Inkscape-*-win32.7z`
 * AppArchiveSubDir: `inkscape`
 * Exe: `inkscape.exe`
+* Launcher: `Inkscape`
 
 ### NodeJS
 
@@ -448,12 +443,27 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
-### IPython
+### IPython 2
 
-* ID: `IPython`
+* ID: `IPython2`
 * Typ: `python-package`
-* Dependencies: `PyReadline`
+* PyPiPackage: `ipython`
+* PythonVersions: `2`
+* Dependencies: `Python2`, `PyReadline`
 * Website: <https://pypi.python.org/pypi/ipython>
+* Exe: `$Python2:Dir$\Scripts\ipython2.exe`
+* Launcher: `IPython 2`
+
+### IPython 3
+
+* ID: `IPython3`
+* Typ: `python-package`
+* PyPiPackage: `ipython`
+* PythonVersions: `3`
+* Dependencies: `Python3`, `PyReadline`
+* Website: <http://pypi.python.org/pypi/ipython>
+* Exe: `$Python3:Dir$\Scripts\ipython3.exe`
+* Launcher: `IPython 3`
 
 ### PyReadline
 
@@ -542,6 +552,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `VSCode-win32.zip`
 * Dir: `code`
 * Exe: `code.exe`
+* Launcher: `Visual Studio Code`
 
 ### LightTable
 
@@ -553,6 +564,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `lighttable-0.8.0-windows`
 * Dir: `lt`
 * Exe: `LightTable.exe`
+* Launcher: `LightTable`
 
 ### Sublime Text 3
 
@@ -562,6 +574,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
 * AppArchive: `Sublime*Text*Build*.zip`
 * Exe: `sublime_text.exe`
+* Launcher: `Sublime Text 3`
 
 ### Emacs
 
@@ -573,6 +586,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `emacs-*.zip`
 * Dir: `gnu`
 * Path: `bin`
+* Launcher: `Emacs`
 
 ### Spacemacs
 
@@ -591,6 +605,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `eclipse`
 * Dir: `eclipse_java`
 * Exe: `eclipse.exe`
+* Launcher: `Eclipse Java`
 
 ### SRWare Iron
 
@@ -603,6 +618,7 @@ A free portable derivative of Chromium, optimized for privacy.
 * AppArchiveSubDir: `IronPortable\Iron`
 * AppArchive: `IronPortable.zip`
 * Exe: `chrome.exe`
+* Launcher: `SRWare Iron`
 
 ### MySQL
 
@@ -630,6 +646,7 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-workbench-community-*-win32-noinstall.zip`
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
+* Launcher: `MySQL Workbench`
 
 ### Apache
 

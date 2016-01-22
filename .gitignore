@@ -1,8 +1,10 @@
 /tmp
 /lib
 /home
+/launcher
 /res/download
 /auto/env.cmd
+/auto/launcher
 /projects/*
 
 /*.log
