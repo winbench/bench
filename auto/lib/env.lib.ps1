@@ -1,6 +1,6 @@
 $paths = @()
 $additionalEnvVars = @{}
-$tempDir = Empty-Dir (Get-ConfigPathValue TempDir)
+$tempDir = Safe-Dir (Get-ConfigPathValue TempDir)
 $downloadDir = Safe-Dir (Get-ConfigPathValue DownloadDir)
 $libDir = Safe-Dir (Get-ConfigPathValue LibDir)
 $homeDir = Safe-Dir (Get-ConfigPathValue HomeDir)
