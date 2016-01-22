@@ -163,7 +163,7 @@ function Setup-DefaultApp([string]$name) {
         }
 
     } else {
-        Write-Host "Skipping allready installed $name in $dir"
+        Debug "Skipping allready installed $name in $dir"
     }
 
     Register-AppPaths $name
@@ -185,11 +185,7 @@ function Setup-NpmPackage([string]$name) {
             & $npm install $packageName --global
         }
     } else {
-        if ($version) {
-            Write-Host "Skipping allready installed NPM package $packageNameWithVersion"
-        } else {
-            Write-Host "Skipping allready installed NPM package $packageName"
-        }
+        Debug "Skipping allready installed NPM package $packageNameWithVersion"
     }
     Setup-Common $name
 }
@@ -219,14 +215,10 @@ function Setup-PyPiPackage([string]$name) {
                     }
                 }
             } else {
-                Write-Host "Skipping PyPI package $packageName for inactive Python $pv"
+                Debug "Skipping PyPI package $packageName for inactive Python $pv"
             }
         } else {
-            if ($version) {
-                Write-Host "Skipping allready installed PyPI package $packageName $version"
-            } else {
-                Write-Host "Skipping allready installed PyPI package $packageName"
-            }
+            Debug "Skipping allready installed PyPI package $packageName $version"
         }
     }
     Setup-Common $name
