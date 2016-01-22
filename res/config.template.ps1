@@ -42,8 +42,8 @@
 # Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache
 # Activate-App DevJava # JDK8, EclipseJava
 # Activate-App DevClojure # JDK8, Leiningen, LightTable
-# Activate-App DevPython2 # Python2, SublimeText3
-# Activate-App DevPython3 # Python3, SublimeText3
+# Activate-App DevPython2 # Python2, SublimeText3, IPython
+# Activate-App DevPython3 # Python3, SublimeText3, IPython
 
 ## Single applications
 
@@ -66,6 +66,7 @@
 # Activate-App MdProc
 # Activate-App Python2
 # Activate-App Python3
+# Activate-App IPython
 # Activate-App Ruby
 # Activate-App PHP5
 # Activate-App PHP7
