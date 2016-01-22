@@ -47,6 +47,16 @@ The ID must be the first entry in a list, defining an app.
 * **Environment**:
   A list of key-value-pairs, describing additional environment variables (optional, default is empty).
   E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+* **Launcher**:
+  A label for the app launcher (optional, default is empty).
+  A launcher for the app is created only if this property is set to a non empty string.
+* **LauncherExecutable**:
+  The absolute path to the executable targeted by the app launcher
+  (optional, default is the `Exe` property).
+* **LauncherArguments**:
+  A list with arguments to the app executable (optional, default is `%*`).
+* **LauncherIcon**:
+  The absolute path to the icon of the launcher (optional, default is the executable).
 
 ## App Types
 
