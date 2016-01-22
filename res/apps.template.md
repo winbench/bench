@@ -17,6 +17,28 @@ All apps are identified by an ID, which must only contain alphanumeric character
 and must not start with a numeric character.
 The ID must be the first entry in a list, defining an app.
 
+## Common Properties
+
+* **ID**:
+  The ID of the app.
+* **Typ**:
+  The application typ (optional, default is `default`).
+* **Dependencies**:
+  A list with the IDs of all apps in this app group.
+* **Force**:
+  A boolean, indicating if the package should allways be installed,
+  even if it is already installed (optional, default is `false`).
+* **Dir**:
+  The name of the target directory for the app (optional, default is the app ID in lowercase).
+* **Path**:
+  A list of relative paths inside the app directory to register in the environment `PATH`. (optional, default is `.`).
+  This property is only recognized, if `Register` is `true`.
+* **Register**:
+  A boolean to indicate if the path(s) of the application should be added to the environment `PATH` (optional, default is `true`).
+* **Environment**:
+  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
+  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+
 ## App Types
 
 There are currently four kinds of apps:
@@ -28,24 +50,13 @@ There are currently four kinds of apps:
 
 ### App Group and Custom Setup
 
-* **ID**:
-  The ID of the app.
 * **Typ**:
   The application typ (required to be `meta`)
-* **Dependencies**:
-  A list with the IDs of all apps in this app group.
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
 
-### Windows Executables
+### Windows Apps
 
-* **ID**:
-  The ID of the app.
-* **Typ**:
-  The application typ (optional, default is `default`)
-* **Dependencies**:
-  A list with the IDs of apps, which must be activated too, for this app to work (optional, default is empty).
+A Windows app is some kind of executable for the Windows OS.
+
 * **Url**:
   The URL to the file, containing the app binaries
 * **DownloadCookies**:
@@ -64,29 +75,16 @@ There are currently four kinds of apps:
     + `custom` Use the custom script `auto\apps\<app ID>.extract.ps1`
 * **AppArchiveSubDir**:
   A sub folder in the archive to extract (optional, default is the archive root).
-* **Dir**:
-  The name of the target directory for the app (optional, default is the app ID in lowercase).
-* **Path**:
-  A list of relative paths inside the app directory to register in the environment `PATH`. (optional, default is `.`).
-* **Register**:
-  A boolean to indicate if the path(s) of the application should be added to the environment `PATH` (optional, default is `true`).
-* **Exe**:
-  The name of the app executable (optional, default is empty).
-  The existance of an app executable is used to determine, if an app is allready installed.
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+
+To determine, if a Windows app is already installed, the existance of its executable is checked.
 
 Some restrictions for the properties:
 
 * The properties _AppFile_ and _AppArchive_ are mutually exclusive.
 * The property _AppArchiveSubDir_ is only recognized, if _AppArchive_ is used.
-* The property _Path_ is only recognized, if _Register_ is `true`.
 
 ### NodeJS Packages
 
-* **ID**:
-  The ID of the app.
 * **Typ**:
   The application typ (required to be `node-package`).
 * **NpmPackage**:
@@ -94,24 +92,16 @@ Some restrictions for the properties:
 * **Version**:
   The package version or version range to install (e.g. `2.5.0` or `>=1.2.0 <3.0.0`),
   if empty install latest (optional, default empty).
-* **Dependencies**:
-  A list with the IDs of apps, which must be activated too, for this app to work (optional, default is empty).
-* **Force**:
-  A boolean, indicating if the package should allways be installed,
-  even if it is allready installed (optional, default is `false`).
 * **Exe**:
   The name of an NPM CLI wrapper from this package (optional, default is empty).
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+* **Path**:
+  This property is ignored for NodeJS packages.
 
-To determine, if a NodeJS package is allready installed, the existence of its package folder in
+To determine, if a NodeJS package is already installed, the existence of its package folder in
 `node_modules` in the NodeJS directory is checked.
 
 ### Python Package
 
-* **ID**:
-  The ID of the app.
 * **Typ**:
   The application typ (required to be `python-package`)
 * **PyPiPackage**:
@@ -122,18 +112,12 @@ To determine, if a NodeJS package is allready installed, the existence of its pa
 * **PythonVersions**:
   A list with all Python version to install this package in (e.g. `2`, `3`),
   if empty install in all Python versions (optional, default empty).
-* **Dependencies**:
-  A list with the IDs of app, which must be activated too, for this app to work (optional, default empty).
-* **Force**:
-  A boolean, indicating if the package should be installed,
-  even if it is allready installed (optional, default is `false`).
 * **Exe**:
   The name of an PIP CLI wrapper from this package (optional, default is empty).
-* **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+* **Path**:
+  This property is ignored for Python packages.
 
-To determine, if a Python package is allready installed, the existence of its package folder in
+To determine, if a Python package is already installed, the existence of its package folder in
 `lib\site-packages` in the Python directory is checked.
 
 ## Custom Apps
