@@ -436,8 +436,8 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Python3`
 * Website: <https://www.python.org/ftp/python/>
-* Version: 3.4.3
-* Url: <https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi>
+* Version: 3.4.4
+* Url: <https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi>
 * AppArchive: `python-3.*.msi`
 * AppArchiveSubDir: `SourceDir`
 * Path: `.`, `Scripts`
