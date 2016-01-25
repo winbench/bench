@@ -272,8 +272,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.15.1.1
-* Url: <https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi>
+* Version: 1.16.0.2
+* Url: <https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-windows.msi>
 * AppArchive: `pandoc-*-windows.msi`
 * AppArchiveSubDir: `SourceDir\Pandoc`
 * Exe: `pandoc.exe`
