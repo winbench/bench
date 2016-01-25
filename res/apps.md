@@ -587,6 +587,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dir: `gnu`
 * Path: `bin`
 * Launcher: `Emacs`
+* LauncherExecutable: `$Emacs:Dir$\bin\runemacs.exe`
 
 ### Spacemacs
 
