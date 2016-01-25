@@ -304,10 +304,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160105 git-fc703f5
-* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160105-git-fc703f5-win32-shared.7z>
-* AppArchive: `ffmpeg-20160105-git-fc703f5-win32-shared.7z`
-* AppArchiveSubDir: `ffmpeg-20160105-git-fc703f5-win32-shared`
+* Version: 20160124 git-1d8f9b7
+* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160124-git-1d8f9b7-win32-shared.7z>
+* AppArchive: `ffmpeg-20160124-git-1d8f9b7-win32-shared.7z`
+* AppArchiveSubDir: `ffmpeg-20160124-git-1d8f9b7-win32-shared`
 * Path: `bin`
 
 ### Graphviz
