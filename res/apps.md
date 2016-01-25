@@ -282,8 +282,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
-* Version: 2.9.5719
-* Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe>
+* Version: 2.9.5857
+* Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5857.exe>
 * AppArchive: `miktex-portable-2.*.exe`
 * Path: `miktex\bin`
 * Exe: `latex.exe`
