@@ -176,9 +176,9 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.6.4
-* Url: <https://github.com/git-for-windows/git/releases/download/v2.6.4.windows.1/PortableGit-2.6.4-32-bit.7z.exe>
-* AppArchive: `PortableGit-*-32-bit.7z.exe`
+* Version: 2.7.0
+* Url: <https://github.com/git-for-windows/git/releases/download/v2.7.0.windows.1/PortableGit-2.7.0-32-bit.7z.exe>
+* AppArchive: `PortableGit-2.7.0-32-bit.7z.exe`
 * Path: `cmd`
 * Exe: `git.exe`
 
@@ -253,7 +253,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
-* Version: 7.45 SSH2 SSL
+* Version: 7.46 SSH2 SSL
 * Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.46.0-win32-mingw.7z>
 * AppArchive: `curl-7.46.0-win32-mingw.7z`
 * AppArchiveSubDir: `curl-7.46.0-win32-mingw`
@@ -272,8 +272,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.15.1.1
-* Url: <https://github.com/jgm/pandoc/releases/download/1.15.1.1/pandoc-1.15.1.1-windows.msi>
+* Version: 1.16.0.2
+* Url: <https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-windows.msi>
 * AppArchive: `pandoc-*-windows.msi`
 * AppArchiveSubDir: `SourceDir\Pandoc`
 * Exe: `pandoc.exe`
@@ -282,8 +282,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
-* Version: 2.9.5719
-* Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5719.exe>
+* Version: 2.9.5857
+* Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5857.exe>
 * AppArchive: `miktex-portable-2.*.exe`
 * Path: `miktex\bin`
 * Exe: `latex.exe`
@@ -304,10 +304,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160105 git-fc703f5
-* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160105-git-fc703f5-win32-shared.7z>
-* AppArchive: `ffmpeg-20160105-git-fc703f5-win32-shared.7z`
-* AppArchiveSubDir: `ffmpeg-20160105-git-fc703f5-win32-shared`
+* Version: 20160124 git-1d8f9b7
+* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160124-git-1d8f9b7-win32-shared.7z>
+* AppArchive: `ffmpeg-20160124-git-1d8f9b7-win32-shared.7z`
+* AppArchiveSubDir: `ffmpeg-20160124-git-1d8f9b7-win32-shared`
 * Path: `bin`
 
 ### Graphviz
@@ -335,8 +335,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: 4.2.3
-* Url: <https://nodejs.org/dist/v4.2.3/win-x86/node.exe>
+* Version: 4.2.6
+* Url: <https://nodejs.org/dist/v4.2.6/win-x86/node.exe>
 * AppFile: `node.exe`
 * Dir: `node`
 * Exe: `node.exe`
@@ -436,8 +436,8 @@ Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstra
 
 * ID: `Python3`
 * Website: <https://www.python.org/ftp/python/>
-* Version: 3.4.3
-* Url: <https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi>
+* Version: 3.4.4
+* Url: <https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi>
 * AppArchive: `python-3.*.msi`
 * AppArchiveSubDir: `SourceDir`
 * Path: `.`, `Scripts`
@@ -522,11 +522,11 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Development Kit 8
 
 * ID: `JDK8`
-* Version: 8u66
+* Version: 8u72
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/8u66-b18/jdk-8u66-windows-i586.exe>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/8u72-b15/jdk-8u72-windows-i586.exe>
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-8u*-windows-i586.exe`
+* AppArchive: `jdk-8u72-windows-i586.exe`
 * Path: `bin`
 * Exe: `javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
@@ -558,10 +558,10 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `LightTable`
 * Website: <http://lighttable.com>
-* Version: 0.8.0
-* Url: <https://github.com/LightTable/LightTable/releases/download/0.8.0/lighttable-0.8.0-windows.zip>
-* AppArchive: `lighttable-0.8.0-windows.zip`
-* AppArchiveSubDir: `lighttable-0.8.0-windows`
+* Version: 0.8.1
+* Url: <https://github.com/LightTable/LightTable/releases/download/0.8.1/lighttable-0.8.1-windows.zip>
+* AppArchive: `lighttable-0.8.1-windows.zip`
+* AppArchiveSubDir: `lighttable-0.8.1-windows`
 * Dir: `lt`
 * Exe: `LightTable.exe`
 * Launcher: `LightTable`
@@ -587,6 +587,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dir: `gnu`
 * Path: `bin`
 * Launcher: `Emacs`
+* LauncherExecutable: `$Emacs:Dir$\bin\runemacs.exe`
 
 ### Spacemacs
 
