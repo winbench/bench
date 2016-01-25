@@ -558,10 +558,10 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `LightTable`
 * Website: <http://lighttable.com>
-* Version: 0.8.0
-* Url: <https://github.com/LightTable/LightTable/releases/download/0.8.0/lighttable-0.8.0-windows.zip>
-* AppArchive: `lighttable-0.8.0-windows.zip`
-* AppArchiveSubDir: `lighttable-0.8.0-windows`
+* Version: 0.8.1
+* Url: <https://github.com/LightTable/LightTable/releases/download/0.8.1/lighttable-0.8.1-windows.zip>
+* AppArchive: `lighttable-0.8.1-windows.zip`
+* AppArchiveSubDir: `lighttable-0.8.1-windows`
 * Dir: `lt`
 * Exe: `LightTable.exe`
 * Launcher: `LightTable`
