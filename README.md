@@ -88,9 +88,23 @@ Actions are CMD scripts in the root folder of _Bench_ to quickly start working i
 
 Every action runs `auto/env.cmd` first to initialize the isolated _Bench_ environment.
 
-### `shell`
+### `bench-cmd`
 
-Open a _PowerShell_ prompt.
+Start the Windows _CMD_ prompt.
+
+Command line arguments given to `bench-cmd.cmd` are passed to _CMD_.
+
+### `bench-ps`
+
+Start _PowerShell_ with the _Bench_ environment.
+
+Command line arguments given to `bench-ps.cmd` are passed to _PowerShell_.
+
+### `bench-bash`
+
+Start the _Bash_ of the _Git_ distribution with the _Bench_ environment.
+
+Command line arguments given to `bench-bash.cmd` are passed to _Bash_.
 
 ### `open-editor`
 
