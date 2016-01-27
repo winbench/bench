@@ -1,1 +1,0 @@
-This directory must exist, for PowerShell to have a place to put its command analysis cache.
