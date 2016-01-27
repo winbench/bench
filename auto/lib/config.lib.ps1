@@ -202,7 +202,7 @@ function Initialize() {
     $Script:definedApps.Clear()
 
     # Common
-    Set-ConfigValue Version "0.5.2"
+    Set-ConfigValue Version "0.5.3"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
@@ -215,8 +215,8 @@ function Initialize() {
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
-    Set-ConfigValue AppDataDir "$(Get-ConfigValue HomeDir)\AppData\Roaming"
-    Set-ConfigValue LocalAppDataDir "$(Get-ConfigValue HomeDir)\AppData\Local"
+    Set-ConfigValue AppDataDir '$HomeDir$\AppData\Roaming'
+    Set-ConfigValue LocalAppDataDir '$HomeDir$\AppData\Local'
     Set-ConfigValue OverrideHome $true
     Set-ConfigValue OverrideTemp $true
     Set-ConfigValue IgnoreSystemPath $true
