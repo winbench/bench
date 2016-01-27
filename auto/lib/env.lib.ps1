@@ -91,6 +91,56 @@ function Execute-AppEnvironmentSetup([string]$name) {
 }
 
 function Write-EnvironmentFile() {
+
+    function pivotDir([string]$path) {
+        if (!$path.EndsWith('\')) {
+            $path += '\'
+        }
+        return $path
+    }
+    function pivotDrive([string]$path) {
+        return pivotDir $path.Substring(0, $path.IndexOf('\'))
+    }
+    function isRelativeTo([string]$path, [string]$base) {
+        return $path.StartsWith($base, [StringComparison]::InvariantCultureIgnoreCase)
+    }
+    function relPath([string]$path, [switch]$noHome)
+    {
+        $bases = @()
+        $bases += @{
+            Dir = $Script:libDir
+            PathVar = "BENCH_APPS"
+        }
+        if (!$noHome) {
+            $bases += @{
+                Dir = $Script:homeDir
+                PathVar = "HOME"
+                DriveVar = "HOMEDRIVE"
+            }
+        }
+        $bases += @{
+            Dir = $Script:rootDir
+            PathVar = "BENCH_HOME"
+            DriveVar = "BENCH_DRIVE"
+        }
+        foreach ($b in $bases) {
+            $d = pivotDir $b.Dir
+            if (isRelativeTo $path $d) {
+                $relPath = $path.Substring($d.Length).Trim('\')
+                return "%$($b.PathVar)%\$relPath"
+            }
+        }
+        foreach ($b in $bases) {
+            if (!$b.DriveVar) { continue }
+            $d = pivotDrive $b.Dir
+            if (isRelativeTo $path $d) {
+                $relPath = $path.Substring($d.Length).Trim('\')
+                return "%$($b.DriveVar)%\$relPath"
+            }
+        }
+        return $path
+    }
+
     $envFile = "$Script:rootDir\auto\env.cmd"
     $nl = [Environment]::NewLine
     $txt = "@ECHO OFF$nl"
@@ -109,48 +159,22 @@ function Write-EnvironmentFile() {
     }
     $txt += "SET BENCH_AUTO=%~dp0$nl"
     $txt += "CALL :SET_BENCH_HOME `"%BENCH_AUTO%..`"$nl"
+    $txt += "CALL :SET_BENCH_DRIVE `"%BENCH_AUTO%`"$nl"
     $txt += "SET BENCH_APPS=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
     if (Get-ConfigValue OverrideHome) {
-        [string]$h = $Script:homeDir
-        $homeDrive = $h.Substring(0, $h.IndexOf("\"))
-        $homePath = $h.Substring($h.IndexOf("\") + 1)
-        if ($h.StartsWith($Script:rootDir, [StringComparison]::InvariantCultureIgnoreCase)) {
-            $relPath = $h.Substring($Script:rootDir.Length + 1).Trim('\')
-            $txt += "SET HOMEDRIVE=%~d0$nl"
-            $txt += "SET HOMEPATH=%BENCH_HOME%\$relPath$nl"
-            $txt += "SET USERPROFILE=%BENCH_HOME%\$relPath$nl"
-            $txt += "SET HOME=%BENCH_HOME%\$relPath$nl"
-        } else {
-            $txt += "SET HOMEDRIVE=$homeDrive$nl"
-            $txt += "SET HOMEPATH=$homePath$nl"
-            $txt += "SET USERPROFILE=$h$nl"
-            $txt += "SET HOME=$h$nl"
-        }
-        if ($Script:appDataDir.StartsWith($h, [StringComparison]::InvariantCultureIgnoreCase)) {
-            $relPath = $Script:appDataDir.Substring($h.Length + 1).Trim('\')
-            $txt += "SET APPDATA=%USERPROFILE%\$relPath$nl"
-        } else {
-            $txt += "SET APPDATA=${Script:appDataDir}$nl"
-        }
-        if ($Script:localAppDataDir.StartsWith($h, [StringComparison]::InvariantCultureIgnoreCase)) {
-            $relPath = $Script:localAppDataDir.Substring($h.Length + 1).Trim('\')
-            $txt += "SET LOCALAPPDATA=%USERPROFILE%\$relPath$nl"
-        } else {
-            $txt += "SET LOCALAPPDATA=${Script:localAppDataDir}$nl"
-        }
+        $txt += "SET HOME=$(relPath $Script:homeDir -NoHome)$nl"
+        $txt += "CALL :SET_HOME_PATH `"%HOME%`"$nl"
+        $txt += "CALL :SET_HOME_DRIVE `"%HOME%`"$nl"
+        $txt += "SET USERPROFILE=%HOME%$nl"
+        $txt += "SET APPDATA=$(relPath $Script:appDataDir)$nl"
+        $txt += "SET LOCALAPPDATA=$(relPath $Script:localAppDataDir)$nl"
     }
     if (Get-ConfigValue OverrideTemp) {
         [string]$tmp = $Script:tempDir
-        if ($tmp.StartsWith($Script:rootDir, [System.StringComparison]::InvariantCultureIgnoreCase)) {
-            $relPath = $tmp.Substring($Script:rootDir.Length + 1).Trim('\')
-            $txt += "SET TEMP=%BENCH_HOME%\$relPath$nl"
-            $txt += "SET TMP=%BENCH_HOME%\$relPath$nl"
-        } else {
-            $txt += "SET TEMP=${Script:tempDir}$nl"
-            $txt += "SET TMP=${Script:tmpDir}$nl"
-        }
+        $txt += "SET TEMP=$(relPath $Script:tempDir)$nl"
+        $txt += "SET TMP=%TEMP%$nl"
     }
-    $txt += "SET L=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
+    $txt += "SET L=%BENCH_APPS%$nl"
     $benchPath = ""
     foreach ($path in $Script:paths) {
         $benchPath = "%L%$($path.Substring(${Script:libDir}.Length));$benchPath"
@@ -162,22 +186,16 @@ function Write-EnvironmentFile() {
     } else {
         $txt += "SET PATH=%BENCH_PATH%;%PATH%$nl"
     }
-    
+
     foreach ($k in $Script:additionalEnvVars.Keys) {
-        $v = $Script:additionalEnvVars[$k]
-        if ($v.StartsWith($Script:libDir, [StringComparison]::InvariantCultureIgnoreCase)) {
-            $v = "%BENCH_APPS%" + $v.Substring($Script:libDir.Length)
-        }
-        if ($v.StartsWith($Script:homeDir, [StringComparison]::InvariantCultureIgnoreCase)) {
-            $v = "%USERPROFILE%" + $v.Substring($Script:homeDir.Length)
-        }
-        if ($v.StartsWith($Script:rootDir, [StringComparison]::InvariantCultureIgnoreCase)) {
-            $v = "%BENCH_HOME%" + $v.Substring($Script:rootDir.Length)
-        }
-        $txt += "SET $k=$v$nl"
+        $txt += "SET $k=$(relPath $Script:additionalEnvVars[$k])$nl"
     }
+
     $txt += "GOTO:EOF$nl$nl"
-    $txt += ":SET_BENCH_HOME${nl}SET BENCH_HOME=%~dpfn1${nl}GOTO:EOF$nl"
+    $txt += ":SET_BENCH_HOME${nl}SET BENCH_HOME=%~dpfn1${nl}GOTO:EOF$nl$nl"
+    $txt += ":SET_BENCH_DRIVE${nl}SET BENCH_DRIVE=%~d1${nl}GOTO:EOF$nl$nl"
+    $txt += ":SET_HOME_PATH${nl}SET HOMEPATH=%pfn1${nl}GOTO:EOF$nl$nl"
+    $txt += ":SET_HOME_DRIVE${nl}SET HOMEDRIVE=%d1${nl}GOTO:EOF"
 
     $txt | Out-File -Encoding oem -FilePath $envFile
     Debug "Written environment file to $envFile"
