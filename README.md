@@ -91,21 +91,21 @@ Every action runs `auto/env.cmd` first to initialize the isolated _Bench_ enviro
 
 ### `bench-cmd`
 
-Start the Windows _CMD_ prompt.
+Start the Windows _CMD_.
 
 Command line arguments given to `bench-cmd.cmd` are passed to _CMD_.
 
 ### `bench-ps`
 
-Start _PowerShell_ with the _Bench_ environment.
+Start the _PowerShell_.
 
 Command line arguments given to `bench-ps.cmd` are passed to _PowerShell_.
 
 ### `bench-bash`
 
-Start the _Bash_ of the _Git_ distribution with the _Bench_ environment.
+Start the _BASH_ of the _Git_ distribution.
 
-Command line arguments given to `bench-bash.cmd` are passed to _Bash_.
+Command line arguments given to `bench-bash.cmd` are passed to _BASH_.
 
 ### `open-editor`
 
