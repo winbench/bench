@@ -11,11 +11,11 @@
 ## Uncomment and adapt the following lines to change the location of directories:
 ## (paths can be relative or absolute)
 
-# Set-ConfigValue TempDir "C:\Temp"
-# Set-ConfigValue HomeDir "$BenchDrive$\bench_profile"
-# Set-ConfigValue ProjectRootDir "$BenchDrive$\bench_projects"
-# Set-ConfigValue ProjectArchiveDir "backups"
-# Set-ConfigValue LauncherDir "D:\bench_apps"
+# Set-ConfigValue TempDir 'C:\Temp'
+# Set-ConfigValue HomeDir '$BenchDrive$\bench_profile'
+# Set-ConfigValue ProjectRootDir '$BenchDrive$\bench_projects'
+# Set-ConfigValue ProjectArchiveDir 'backups'
+# Set-ConfigValue LauncherDir 'D:\bench_apps'
 
 ## Uncomment and adapt the following lines to change the isolation behavior of Bench:
 
