@@ -202,7 +202,7 @@ function Initialize() {
     $Script:definedApps.Clear()
 
     # Common
-    Set-ConfigValue Version "0.5.4"
+    Set-ConfigValue Version "0.6.0"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
