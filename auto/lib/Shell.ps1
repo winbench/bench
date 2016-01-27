@@ -4,6 +4,11 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\common.lib.ps1"
 . "$scriptsLib\config.lib.ps1"
 
+if ($args) {
+    powershell -NoLogo -NoProfile @args
+    return
+}
+
 Clear-Host
 Get-Content "$scriptsLib\banner.txt" -Encoding UTF8 `
     | % { $_.Replace("`$VERSION`$", [string]::Format("{0,9}", $(Get-ConfigValue Version "0.0.0"))) } `
