@@ -57,15 +57,15 @@ function Expand-Placeholder([string]$placeholder) {
 
 function Expand-Value($value) {
     if ($value -is [string]) {
-        $value = $valueExpandPattern.Replace($value, [Text.RegularExpressions.MatchEvaluator]{
-            param ($m)
-            return Expand-Placeholder $m.Groups["var"].Value
-        })
         if ($value -ieq "true") {
             return $true
         } elseif ($value -ieq "false") {
             return $false
         }
+		$value = $Script:valueExpandPattern.Replace($value, [Text.RegularExpressions.MatchEvaluator]{
+            param ($m)
+            return Expand-Placeholder $m.Groups["var"].Value
+        })
     }
     return $value
 }
@@ -202,7 +202,7 @@ function Initialize() {
     $Script:definedApps.Clear()
 
     # Common
-    Set-ConfigValue Version "0.5.1"
+    Set-ConfigValue Version "0.5.2"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
