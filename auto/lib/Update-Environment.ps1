@@ -32,3 +32,4 @@ foreach ($name in $Script:apps) {
 }
 Update-EnvironmentPath
 Write-EnvironmentFile
+Create-ActionLaunchers

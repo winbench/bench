@@ -274,6 +274,7 @@ foreach ($name in $Script:apps) {
     Update-EnvironmentPath
 }
 Write-EnvironmentFile
+Create-ActionLaunchers
 
 Empty-Dir $tempDir | Out-Null
 
