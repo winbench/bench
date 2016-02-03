@@ -67,7 +67,7 @@ function Create-ActionLauncher($label, $action, $icon) {
 }
 
 function Create-ActionLaunchers() {
-    Create-ActionLauncher 'Command Line' 'bench-cmd' '%SystemRoot%\System32\imageres.dll,256'
+    Create-ActionLauncher 'Command Line' 'bench-cmd' '%SystemRoot%\System32\cmd.exe'
     Create-ActionLauncher 'PowerShell' 'bench-ps' '%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe'
     Create-ActionLauncher 'Bourne Again Shell' 'bench-bash' '%SystemRoot%\System32\imageres.dll,89'
 }
