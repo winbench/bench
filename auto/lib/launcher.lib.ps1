@@ -55,3 +55,19 @@ function Create-Launcher([string]$name) {
     $shortcut.IconLocation = App-LauncherIcon $name
     $shortcut.Save()
 }
+
+function Create-ActionLauncher($label, $action, $icon) {
+    $launcherFile = [IO.Path]::Combine($launcherDir, $label + '.lnk')
+    Debug "Creating launcher for '$label' ..."
+    $shortcut = $wshShell.CreateShortcut($launcherFile)
+    $shortcut.TargetPath = [IO.Path]::Combine((Get-ConfigPathValue BenchRoot), "$action.cmd")
+    $shortcut.WorkingDirectory = Get-ConfigPathValue BenchRoot
+    $shortcut.IconLocation = $icon
+    $shortcut.Save()
+}
+
+function Create-ActionLaunchers() {
+    Create-ActionLauncher 'Command Line' 'bench-cmd' '%SystemRoot%\System32\cmd.exe'
+    Create-ActionLauncher 'PowerShell' 'bench-ps' '%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe'
+    Create-ActionLauncher 'Bourne Again Shell' 'bench-bash' '%SystemRoot%\System32\imageres.dll,89'
+}
