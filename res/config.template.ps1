@@ -90,10 +90,6 @@
 
 # Set-AppConfigValue Git Path @("mingw32\bin", "usr\bin", "cmd")
 
-## Deactivate forced update for NPM:
-
-# Set-AppConfigValue Npm ForceInstall $false
-
 ## Override URL for binary download:
 
 # Set-AppConfigValue XYZ Url "http://my-server.com/xyz/release-v2.zip"

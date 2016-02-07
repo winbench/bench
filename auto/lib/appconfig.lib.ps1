@@ -76,7 +76,7 @@ function App-PythonVersions([string]$name) {
 function App-Dir([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
-            return App-Dir NpmBootstrap
+            return App-Dir Npm
         }
         "python-package" {
             # return null because of the ambiguity between Python versions
@@ -93,7 +93,7 @@ function App-Dir([string]$name) {
 function App-Path([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
-            return App-Path NpmBootstrap
+            return App-Path Npm
         }
         "python-package" {
             return $null
@@ -113,7 +113,7 @@ function App-Path([string]$name) {
 function App-Paths([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
-            return @(App-Path NpmBootstrap)
+            return @(App-Path Npm)
         }
         "python-package" {
             return $null
