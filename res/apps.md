@@ -341,30 +341,21 @@ To determine, if a Python package is already installed, the existence of its pac
 * Dir: `node`
 * Exe: `node.exe`
 
-### NPM Bootstrap
+### NPM
 
 Because _NodeJS_ is downloaded as bare executable, _NPM_ must be installed seperately.
 But NPM, in its latest versions, is only distributed as part of the _NodeJS_ setup.
-_NPM Bootstrap_ is the last version of _NPM_ which was released seperately.
-Therefore, the latest version of _NPM_ is installed afterwards via _NPM Bootstrap_.
-
-* ID: `NpmBootstrap`
-* Dependencies: `Node`
-* Website: <https://nodejs.org>
-* Version: 1.4.12
-* Url: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
-* AppArchive: `npm-*.zip`
-* Dir: `$Node:Dir$`
-* Exe: `npm.cmd`
-
-### NPM
+_NPM_ 1.4.12 is the last version of _NPM_ which was released seperately.
+Therefore, the latest version of _NPM_ is installed afterwards via the setup script `auto\apps\npm.setup.ps1`.
 
 * ID: `Npm`
-* Typ: `node-package`
-* Dependencies: `NpmBootstrap`
-* Website: <https://npmjs.org>
+* Dependencies: `Node`
+* Website: <https://www.npmjs.com/package/npm>
+* Version: `>=3.7.0 <4.0.0`
+* Url: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
+* AppArchive: `npm-1.4.12.zip`
+* Dir: `$Node:Dir$`
 * Exe: `npm.cmd`
-* ForceInstall: `true`
 
 ### Gulp
 
