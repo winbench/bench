@@ -13,4 +13,8 @@ $pipPackageDir = [IO.Path]::Combine($pythonDir, "lib", "site-packages", "pip")
 if (!(Test-Path $pipPackageDir -PathType Container)) {
     Write-Host "Setting up PIP ..."
     & $python -m ensurepip
+    pushd $pythonDir
+    & $python -m pip install --upgrade setuptools
+    & $python -m pip install --upgrade pip
+    popd
 }
