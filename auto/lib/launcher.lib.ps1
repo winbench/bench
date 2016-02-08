@@ -38,6 +38,23 @@ function Create-LauncherScript([string]$name)
     [IO.File]::WriteAllText($launcherScriptFile, $code, [Text.Encoding]::Default)
 }
 
+function Create-Shortcut([string]$file, [string]$targetPath, [string]$arguments="",
+                         [string]$workingDir=$null, [string]$iconPath=$targetPath,
+                         [int]$windowStyle=1) {
+
+    $shortcut = $wshShell.CreateShortcut($file)
+    $shortcut.TargetPath = $targetPath
+    if ($arguments) {
+        $shortcut.Arguments = $arguments
+    }
+    if ($workingDir) {
+        $shortcut.WorkingDirectory = $workingDir
+    }
+    $shortcut.WindowStyle = $windowStyle # 1 Default, 3 Maximized, 7 Minimized
+    $shortcut.IconLocation = $iconPath
+    $shortcut.Save()
+}
+
 function Create-Launcher([string]$name) {
     $launcherLabel = App-Launcher $name
     if (!$launcherLabel) {
@@ -48,22 +65,18 @@ function Create-Launcher([string]$name) {
     $launcherFile = Get-LauncherFile $name
     Debug "Path of launcher: $launcherFile"
 
-    $shortcut = $wshShell.CreateShortcut($launcherFile)
-    $shortcut.TargetPath = Get-LauncherScriptFile $name
-    $shortcut.WindowStyle = 7 # Minimized
-    $shortcut.WorkingDirectory = Get-ConfigPathValue BenchRoot
-    $shortcut.IconLocation = App-LauncherIcon $name
-    $shortcut.Save()
+    Create-Shortcut $launcherFile (Get-LauncherScriptFile $name) `
+      -workingDir (Get-ConfigPathValue BenchRoot) `
+      -iconPath (App-LauncherIcon $name) -windowStyle 7
 }
 
 function Create-ActionLauncher($label, $action, $icon) {
     $launcherFile = [IO.Path]::Combine($launcherDir, $label + '.lnk')
+    $targetPath = [IO.Path]::Combine((Get-ConfigPathValue BenchRoot), "$action.cmd")
     Debug "Creating launcher for '$label' ..."
-    $shortcut = $wshShell.CreateShortcut($launcherFile)
-    $shortcut.TargetPath = [IO.Path]::Combine((Get-ConfigPathValue BenchRoot), "$action.cmd")
-    $shortcut.WorkingDirectory = Get-ConfigPathValue BenchRoot
-    $shortcut.IconLocation = $icon
-    $shortcut.Save()
+    Create-Shortcut $launcherFile $targetPath `
+      -workingDir (Get-ConfigPathValue BenchRoot) `
+      -iconPath $icon
 }
 
 function Create-ActionLaunchers() {
