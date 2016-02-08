@@ -38,7 +38,7 @@
       by removing the leading `#` from the line with `Activate-App Markdown`.)
     + Wait for _Bench_ to  download resources.  
       (Depending on the number and size of the activated apps, this can take a while.)
-    + If [Git] is setup and you do not have an SSH key-pair, one is generated
+    + If [Git] is set up and you do not have an SSH key-pair, one is generated
       and you are prompted to enter a password for the private key.
     + Wait for _Bench_ to setup the apps.  
       (Depending on the number and size of the activated apps, this can take a while.
@@ -54,13 +54,16 @@ If you activated the `Markdown` app group, you can go ahead with these steps:
 * Choose the _MdProc_ generator to build a [Markdown] documentation project
 * Choose one of the different [Markdown] project templates (`Demo`, `Minimal`, `Personal Log`, ...)
 * Follow further instructions
+* Take a look at the README file in the scaffolded project
 
 ## Apps
 
-_Bench_ downloads a selection of commandline tools and provides an isolated
-path environment with all tools available.
+_Bench_ downloads a selection of commandline tools and applications,
+and provides an isolated path environment with all tools available.
 
-Take a look at the [app registry](res/apps.md).
+Take a look at the [app registry](res/apps.md) to check out the prepared apps.
+You can add your own apps to the _Bench_ environment by editing the `apps.md`
+in the root folder of _Bench_.
 
 ## Isolated Environment
 
@@ -89,31 +92,35 @@ Actions are CMD scripts in the root folder of _Bench_ to quickly start working i
 
 Every action runs `auto/env.cmd` first to initialize the isolated _Bench_ environment.
 
-### `bench-cmd`
+### Command Lines
+
+#### `bench-cmd`
 
 Start the Windows _CMD_.
 
 Command line arguments given to `bench-cmd.cmd` are passed to _CMD_.
 
-### `bench-ps`
+#### `bench-ps`
 
 Start the _PowerShell_.
 
 Command line arguments given to `bench-ps.cmd` are passed to _PowerShell_.
 
-### `bench-bash`
+#### `bench-bash`
 
 Start the _BASH_ of the _Git_ distribution.
 
 Command line arguments given to `bench-bash.cmd` are passed to _BASH_.
 
-### `open-editor`
+### Without Project Context
 
-Open the app defined by the config value `EditorApp`, which is _Visual Studio Code_ by default.
+#### `open-editor`
+
+Open the app, defined by the config value `EditorApp`, which is _Visual Studio Code_ by default.
 
 Command line arguments given for `open-editor.cmd` are passed to the editor.
 
-### `new-project`
+#### `new-project`
 
 Create a new project with _Yeoman_:
 
@@ -122,18 +129,20 @@ Create a new project with _Yeoman_:
 * put the new project folder under [Git] version control
 * commit the initial project files
 
-### `clone-git-project`
+#### `clone-git-project`
 
 Clones a [Git] repository as a new project.
 
-### `project-shell`
+### With Project Context
+
+#### `project-shell`
 
 Open a _PowerShell_ prompt for a specific project.
 
 The path to the project can be specified as a first command line argument to `project-shell.cmd`.
 If no project path is specified, the project can be selected interactively.
 
-### `project-editor`
+#### `project-editor`
 
 Open the app defined by the config value `EditorApp`, which is _Visual Studio Code_ by default,
 and pass the path of a specific project.
@@ -141,11 +150,11 @@ and pass the path of a specific project.
 The path to the project can be specified as a first command line argument to `project-editor.cmd`.
 If no project path is specified, the project can be selected interactively.
 
-### `project-watch`
+#### `project-watch`
 
 Runs the `watch` task for a specific project, if the project is automated with [Gulp] or [Grunt]. 
 
-### `project-backup`
+#### `project-backup`
 
 Saves a compressed copy of a specific project in the folder, specified by the config value `ProjectArchiveDir`,
 which is `%BENCH_ROOT%\archive` by default.
