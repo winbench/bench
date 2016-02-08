@@ -22,8 +22,8 @@ Add a link to the GitHub diff like
 -->
 
 ## [Unreleased]
-[Development Changes](https://github.com/mastersign/bench/compare/v0.6.1...dev)
-[App Changed](https://github.com/mastersign/bench/compare/v0.6.1...apps)
+[Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
+[App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ### Added
 - `CHANGELOG.md`
