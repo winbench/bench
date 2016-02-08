@@ -640,6 +640,23 @@ The initial password for _root_ is `bench`.
 * Exe: `MySQLWorkbench.exe`
 * Launcher: `MySQL Workbench`
 
+### PostgreSQL
+
+Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
+
+**Warning:** _pgAdmin_ stores its configuration in the registry and is not portable.
+
+* ID: `PostgreSql`
+* Website: <http://www.postgresql.org>
+* Version: 9.5.0
+* Url: <http://get.enterprisedb.com/postgresql/postgresql-9.5.0-1-windows-binaries.zip>
+* AppArchive: `postgresql-9.5.0-1-windows-binaries.zip`
+* AppArchiveSubDir: `pgsql`
+* Dir: `postgres`
+* Path: `bin`
+* Exe: `pgAdmin3.exe`
+* Launcher: `PostgreSQL Admin 3`
+
 ### Apache
 
 * ID: `Apache`

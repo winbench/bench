@@ -83,6 +83,7 @@
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
+# Activate-App PostgreSql
 # Activate-App Apache
 
 ## Activate GNU tools from Git's MinGW distribution
