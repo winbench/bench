@@ -97,7 +97,7 @@
 
 ## Override Version for NodeJS packages:
 
-# Set-AppConfigValue XYZ Version "^3.5.0"
+# Set-AppConfigValue XYZ Version ">=3.5.0 <4.0.0"
 
 ## Choose a Default Editor App
 
