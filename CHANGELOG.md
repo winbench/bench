@@ -42,11 +42,13 @@ Add a link to the GitHub diff like
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.6.0...v0.6.1)
 
 ### Added
-- Automatic update of PIP to most recent version after installing Python 2 and Python 3 (#16)
+- Automatic update of PIP to most recent version after installing Python 2 and Python 3
+  ([#16](https://github.com/mastersign/bench/issues/16))
 
 ### Fixed
 - Launcher icon for `bench-cmd.cmd`
-- Silently failing NPM update after installing `NpmBootstrap` (#15)
+- Silently failing NPM update after installing `NpmBootstrap`
+  ([#15](https://github.com/mastersign/bench/issues/15))
 
 ## [0.6.0] - 2016-01-27
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.5.4...v0.6.0)
@@ -100,7 +102,8 @@ Add a link to the GitHub diff like
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.4.0...v0.5.0)
 
 ### Added
-- Support for launcher shortcuts (#8)
+- Support for launcher shortcuts
+  ([#8](https://github.com/mastersign/bench/issues/8))
 - Config Value: `BenchDrive`
 - Config Value: `BenchAuto`
 - Config Value: `BenchScripts`
@@ -119,8 +122,10 @@ Add a link to the GitHub diff like
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.3.4...v0.4.0)
 
 ### Added
-- App: IPython (in app group `DevPython2` and `DevPython3`) (#3)
-- Support for app type `python-package` (#10)
+- App: IPython (in app group `DevPython2` and `DevPython3`)
+  ([#3](https://github.com/mastersign/bench/issues/3))
+- Support for app type `python-package`
+  ([#10](https://github.com/mastersign/bench/issues/10))
 - Wrapper `python2.cmd` for `python.exe` version 2
 
 ### Changed
@@ -132,7 +137,8 @@ Add a link to the GitHub diff like
 ### Added
 - App: GnuTLS
 - App: Emacs
-- App: Spacemacs (#4)
+- App: Spacemacs
+  ([#4](https://github.com/mastersign/bench/issues/4))
 
 ### Fixed
 - Custom environment variables and setup scripts for meta apps
@@ -155,19 +161,22 @@ Add a link to the GitHub diff like
 
 ### Added
 - Override `HOME` in addition to `USERPROFILE`
-- Config value `OverrideHome` to make overriding environment variables optional (#5)
+- Config value `OverrideHome` to make overriding environment variables optional
+  ([#5](https://github.com/mastersign/bench/issues/5))
     + `HOME`
     + `HOMEDRIVE`
     + `HOMEPATH`
     + `USERPROFILE`
     + `APPDATA`
     + `LOCALAPPDATA`
-- Config value `OverrideTemp` to make overriding environment variables optional (#1)
+- Config value `OverrideTemp` to make overriding environment variables optional
+  ([#1](https://github.com/mastersign/bench/issues/1))
     + `TEMP`
     + `TMP`
 - Config value `IgnoreSystemPath` to make clean-up of `PATH` optional
 - More debug messages
-- App: LightTable (#2)
+- App: LightTable
+  ([#2](https://github.com/mastersign/bench/issues/2))
 
 ### Fixed
 - Interpretation of boolean app properties
