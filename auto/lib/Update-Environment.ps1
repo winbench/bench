@@ -15,6 +15,7 @@ if (!(Test-Path $libDir)) { return }
 
 Load-Environment
 foreach ($name in $Script:apps) {
+    Debug "Processing $name ($(App-Typ $name)) ..."
     if ((App-Typ $name) -eq "meta") {
         Register-AppPaths $name
         Register-AppEnvironment $name
@@ -32,6 +33,7 @@ foreach ($name in $Script:apps) {
         Write-Warning "App $name is activated but was not found."
     }
 }
+Debug "Processing apps finished."
 Update-EnvironmentPath
 Write-EnvironmentFile
 Create-ActionLaunchers
