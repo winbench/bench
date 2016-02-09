@@ -42,17 +42,28 @@ function Create-Shortcut([string]$file, [string]$targetPath, [string]$arguments=
                          [string]$workingDir=$null, [string]$iconPath=$targetPath,
                          [int]$windowStyle=1) {
 
-    $shortcut = $wshShell.CreateShortcut($file)
-    $shortcut.TargetPath = $targetPath
-    if ($arguments) {
-        $shortcut.Arguments = $arguments
+    try {
+        $shortcut = $wshShell.CreateShortcut($file)
+        $shortcut.TargetPath = $targetPath
+        if ($arguments) {
+            $shortcut.Arguments = $arguments
+        }
+        if ($workingDir) {
+            $shortcut.WorkingDirectory = $workingDir
+        }
+        if ($iconPath) {
+            $shortcut.IconLocation = $iconPath
+        }
+        $shortcut.WindowStyle = $windowStyle # 1 Default, 3 Maximized, 7 Minimized
+        $shortcut.Save()
+        Debug "Create shortcut $file"
+    } catch {
+        Debug "Arguments: $([string]::Join(', ', '`"' + $arguments + '`"'))"
+        Debug "Working Dir: '$workingDir'"
+        Debug "Icon Path: '$iconPath'"
+        Debug "Window Style: $windowStyle"
+        Write-Warning $_.Exception.Message
     }
-    if ($workingDir) {
-        $shortcut.WorkingDirectory = $workingDir
-    }
-    $shortcut.WindowStyle = $windowStyle # 1 Default, 3 Maximized, 7 Minimized
-    $shortcut.IconLocation = $iconPath
-    $shortcut.Save()
 }
 
 function Create-Launcher([string]$name) {
