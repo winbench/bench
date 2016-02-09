@@ -92,6 +92,9 @@ function App-Dir([string]$name) {
 
 function App-Path([string]$name) {
     switch (App-Typ $name) {
+        "meta" {
+            return $null
+        }
         "node-package" {
             return App-Path Npm
         }
@@ -112,6 +115,9 @@ function App-Path([string]$name) {
 
 function App-Paths([string]$name) {
     switch (App-Typ $name) {
+        "meta" {
+            return $null
+        }
         "node-package" {
             return @(App-Path Npm)
         }
