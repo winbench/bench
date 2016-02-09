@@ -162,6 +162,10 @@ function App-Environment([string]$name) {
     return $dict
 }
 
+function App-AdornedExecutables([string]$name) {
+    return Get-AppConfigListValue $name AdornedExecutables
+}
+
 function App-Launcher([string]$name) {
     return Get-AppConfigValue $name Launcher $null
 }

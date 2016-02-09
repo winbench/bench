@@ -109,7 +109,7 @@ function Write-EnvironmentFile() {
         $bases = @()
         $bases += @{
             Dir = $Script:libDir
-            PathVar = "BENCH_APPS"
+            PathVar = "L"
         }
         if (!$noHome) {
             $bases += @{
@@ -161,6 +161,7 @@ function Write-EnvironmentFile() {
     $txt += "CALL :SET_BENCH_HOME `"%BENCH_AUTO%..`"$nl"
     $txt += "CALL :SET_BENCH_DRIVE `"%BENCH_AUTO%`"$nl"
     $txt += "SET BENCH_APPS=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
+    $txt += "SET L=%BENCH_APPS%$nl"
     if (Get-ConfigValue OverrideHome) {
         $txt += "SET HOME=$(relPath $Script:homeDir -NoHome)$nl"
         $txt += "CALL :SET_HOME_PATH `"%HOME%`"$nl"
@@ -174,10 +175,9 @@ function Write-EnvironmentFile() {
         $txt += "SET TEMP=$(relPath $Script:tempDir)$nl"
         $txt += "SET TMP=%TEMP%$nl"
     }
-    $txt += "SET L=%BENCH_APPS%$nl"
     $benchPath = ""
     foreach ($path in $Script:paths) {
-        $benchPath = "%L%$($path.Substring(${Script:libDir}.Length));$benchPath"
+        $benchPath = "$(relPath $path);$benchPath"
     }
     $benchPath = $benchPath.TrimEnd(';')
     $txt += "SET BENCH_PATH=%BENCH_AUTO%;$benchPath$nl"

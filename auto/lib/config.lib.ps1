@@ -195,6 +195,26 @@ function Process-AppRegistry($parseActivation = $false) {
     }
 }
 
+function Initialize-AdornmentPaths() {
+    foreach ($name in $Script:definedApps) {
+        $adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
+        if ($adornedExecutables) {
+            $appPaths = Get-AppConfigListValue $name Paths
+            $proxyPath = [IO.Path]::Combine(
+                (Get-ConfigPathValue AppAdornmentbaseDir),
+                $name.ToLowerInvariant())
+            if ($appPaths -is [string]) {
+                $appPaths = @($appPaths, $proxyPath)
+            } elseif ($appPaths -is [array]) {
+                $appPaths += $proxyPath
+            } else {
+                $appPaths = @('.', $proxyPath)
+            }
+            Set-AppConfigValue $name Path $appPaths
+        }
+    }
+}
+
 function Initialize() {
 
     $Script:config.Clear()
@@ -212,6 +232,7 @@ function Initialize() {
     Set-ConfigValue CustomAppIndexTemplate "res\apps.template.md"
     Set-ConfigValue DownloadDir "res\download"
     Set-ConfigValue AppResourceBaseDir "res\apps"
+    Set-ConfigValue AppAdornmentBaseDir "auto\proxies"
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
@@ -293,6 +314,12 @@ function Initialize() {
     Debug "Activated Apps: $([string]::Join(", ", $Script:activatedApps))"
     Debug "Deactivated Apps: $([string]::Join(", ", $Script:deactivatedApps))"
     Debug "Resolved Apps: $([string]::Join(", ", $Script:apps))"
+
+    #
+    # Auto Configurations
+    #
+
+    Initialize-AdornmentPaths
 
     Set-ConfigValue BenchDrive ([IO.Path]::GetPathRoot($Script:rootDir).Substring(0, 2))
     Set-ConfigValue BenchRoot $Script:rootDir

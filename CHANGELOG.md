@@ -29,6 +29,8 @@ Add a link to the GitHub diff like
 - `CHANGELOG.md`
 - Action script `bench-ctl.cmd` for management of the _Bench_ installation
 - Launcher shortcut for `bench-ctl.cmd`
+- Support for execution adornment
+  ([#17](https://github.com/mastersign/bench/issues/17))
 - App: PostgreSQL and pgAdminIII
 
 ### Removed

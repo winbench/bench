@@ -4,6 +4,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
 . "$scriptsLib\appconfig.lib.ps1"
 . "$scriptsLib\env.lib.ps1"
+. "$scriptsLib\adornment.lib.ps1"
 . "$scriptsLib\launcher.lib.ps1"
 
 Set-Debugging $debug
@@ -25,6 +26,7 @@ foreach ($name in $Script:apps) {
         }
         Register-AppEnvironment $name
         Execute-AppEnvironmentSetup $name
+        Setup-ExecutionProxies $name
         Create-Launcher $name
     } else {
         Write-Warning "App $name is activated but was not found."
