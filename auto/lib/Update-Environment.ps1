@@ -22,7 +22,9 @@ foreach ($name in $Script:apps) {
         Execute-AppEnvironmentSetup $name
         Create-Launcher $name
     } elseif (Check-App $name) {
-        if (((App-Typ $name) -ne "node-package") -and ((App-Typ $name) -ne "python-package")) {
+        if (((App-Typ $name) -ne "node-package") -and `
+            ((App-Typ $name) -ne "python-package")) {
+
             Register-AppPaths $name
         }
         Register-AppEnvironment $name
