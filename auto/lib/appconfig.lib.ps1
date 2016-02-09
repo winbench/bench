@@ -141,15 +141,17 @@ function App-Paths([string]$name) {
 }
 
 function App-Exe([string]$name, [bool]$checkExist = $true) {
-    $path = [IO.Path]::Combine(
-        (App-Path $name),
-        (Get-AppConfigValue $name Exe "${name}.exe"))
-    if ($checkExist -and ![IO.File]::Exists($path)) {
-        Debug "Executable for $name not found: $path"
-        return $null
-    } else {
-        return $path
+    $fileName = Get-AppConfigValue $name Exe "${name}.exe"
+    if ([IO.Path]::IsPathRooted($fileName)) {
+        return $fileName
     }
+    foreach ($path in (App-Paths $name)) {
+        $file = [IO.Path]::Combine($path, $fileName)
+        if ([IO.File]::Exists($file)) {
+            return $file
+        }
+    }
+    return $null
 }
 
 function App-Register([string]$name) {
