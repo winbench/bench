@@ -241,12 +241,18 @@ function Download([string]$name) {
         $url = $url2
     }
     $fileName = Get-FileNameFromUrl $url
+    if (!$fileName) {
+        $fileName = (App-ResourceArchive $name).Replace('?', '_').Replace('*', '')
+        Debug "Building filename from archive pattern..."
+    }
     Debug "Downloading to file $fileName"
     $file = [IO.Path]::Combine((Get-ConfigPathValue DownloadDir), $fileName)
     if ($url -and $fileName) {
         if (!(Download-File $name $url $file)) {
             Write-Warning "Download failed: $url"
         }
+    } else {
+        Write-Warning "Could not resolve URL or filename."
     }
 }
 
