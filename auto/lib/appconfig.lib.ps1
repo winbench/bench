@@ -1,4 +1,4 @@
-function App-Typ([string]$name) { 
+function App-Typ([string]$name) {
     return Get-AppConfigValue $name Typ "default"
 }
 
@@ -85,7 +85,7 @@ function App-Dir([string]$name) {
         default {
             return [IO.Path]::Combine(
                 (Get-ConfigPathValue LibDir),
-                (Get-AppConfigValue $name Dir $name.ToLowerInvariant())) 
+                (Get-AppConfigValue $name Dir $name.ToLowerInvariant()))
         }
     }
 }
