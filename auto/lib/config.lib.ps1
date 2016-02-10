@@ -14,27 +14,6 @@ $Script:deactivatedApps = New-Object 'System.Collections.Generic.List`1[System.S
 $Script:apps = New-Object 'System.Collections.Generic.List`1[System.String]'
 $Script:valueExpandPattern = [regex]'\$(?<var>[^\$]+)\$'
 
-function Set-ConfigValue([string]$name, $value) {
-    if ($Script:debug) {
-        Debug "Config: $name = $value"
-    }
-    $Script:config[$name] = $value
-}
-
-function Get-ConfigValue([string]$name, $def = $null) {
-    if ($Script:config.ContainsKey($name)) {
-        $value = $Script:config[$name]
-        if ($value -is [array]) {
-            $value = [array]($value | % { Expand-Value $_ })
-        } else {
-            $value = Expand-Value $value
-        }
-        return $value
-    } else {
-        return $def
-    }
-}
-
 function Expand-Placeholder([string]$placeholder) {
     $kvp = $placeholder.Split(":", 2)
     if ($kvp.Count -eq 1) {
@@ -70,12 +49,42 @@ function Expand-Value($value) {
     return $value
 }
 
+function Set-ConfigValue([string]$name, $value) {
+    if ($Script:debug) {
+        Debug "Config: $name = $value"
+    }
+    $Script:config[$name] = $value
+}
+
+function Get-ConfigValue([string]$name, $def = $null) {
+    if ($Script:config.ContainsKey($name)) {
+        $value = $Script:config[$name]
+        if ($value -is [array]) {
+            $value = [array]($value | % { Expand-Value $_ })
+        } else {
+            $value = Expand-Value $value
+        }
+        return $value
+    } else {
+        return $def
+    }
+}
+
 function Get-ConfigListValue([string]$name, $def = $null) {
     $l = Get-ConfigValue $name $def
     if ($l -is [string]) {
         $l = @($l)
     }
     return [array]$l
+}
+
+function Get-ConfigPathValue([string]$name, [string]$def = $null) {
+    $path = Get-ConfigValue $name $def
+    if ($path -eq $null -or [IO.Path]::IsPathRooted($path)) {
+        return $path
+    } else {
+        return [IO.Path]::Combine($Script:rootDir, $path)
+    }
 }
 
 function Get-AppConfigPropertyName([string]$app, [string]$name) {
@@ -92,9 +101,14 @@ function Get-AppConfigValue([string]$app, [string]$name, $def = $null) {
     return Get-ConfigValue $prop $def
 }
 
-function Get-AppConfigListValue([string]$app, [string]$name, $def = @()) {
+function Get-AppConfigListValue([string]$app, [string]$name, $def = $null) {
     $prop = Get-AppConfigPropertyName $app $name
     return Get-ConfigListValue $prop $def
+}
+
+function Get-AppConfigPathValue([string]$app, [string]$name, [string]$def = $null) {
+    $prop = Get-AppConfigPropertyName $app $name
+    return Get-ConfigPathValue $prop $def
 }
 
 function Add-ToSetList($list, $element) {
@@ -121,15 +135,6 @@ function Activate-App([string]$app) {
 function Deactivate-App([string]$app) {
     Remove-FromSetList $Script:activatedApps $apps
     Add-ToSetList $Script:deactivatedApps $app
-}
-
-function Get-ConfigPathValue([string]$name) {
-    $path = Get-ConfigValue $name
-    if ([IO.Path]::IsPathRooted($path)) {
-        return $path
-    } else {
-        return [IO.Path]::Combine($Script:rootDir, $path)
-    }
 }
 
 function Process-AppRegistry($parseActivation = $false) {
