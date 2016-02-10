@@ -7,6 +7,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\adornment.lib.ps1"
 . "$scriptsLib\launcher.lib.ps1"
 
+trap { Write-TrapError $_ }
 Set-Debugging $debug
 
 $libDir = Safe-Dir (Get-ConfigPathValue LibDir)

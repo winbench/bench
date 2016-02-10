@@ -3,6 +3,7 @@
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
 
+trap { Write-TrapError $_ }
 Set-Debugging $debug
 
 $projectRoot = Safe-Dir (Get-ConfigPathValue ProjectRootDir)

@@ -19,6 +19,13 @@ function Set-StopOnError ($enabled) {
     return $old
 }
 
+function Write-TrapError($err) {
+    Write-Warning "An error occured during execution: $($err.Exception.Message)"
+    $exception = "Exception: [$($err.Exception.GetType())]`n"
+    $exception += "    " + $err.ScriptStackTrace.ToString().Replace("`n", "`n    ")
+    Write-Debug $exception
+}
+
 function Debug($msg) {
     Write-Debug $msg
 }
