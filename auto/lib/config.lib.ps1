@@ -227,7 +227,7 @@ function Initialize() {
     $Script:definedApps.Clear()
 
     # Common
-    Set-ConfigValue Version "0.6.1"
+    Set-ConfigValue VersionFile "res\version.txt"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
@@ -330,6 +330,7 @@ function Initialize() {
     Set-ConfigValue BenchRoot $Script:rootDir
     Set-ConfigValue BenchAuto $Script:autoDir
     Set-ConfigValue BenchScripts $Script:myDir
+    Set-ConfigValue Version (Get-Content (Get-ConfigPathValue VersionFile) -Encoding ASCII)
 }
 
 Initialize

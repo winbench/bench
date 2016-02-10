@@ -159,6 +159,7 @@ function Write-EnvironmentFile() {
     }
     $txt += "SET BENCH_AUTO=%~dp0$nl"
     $txt += "CALL :SET_BENCH_HOME `"%BENCH_AUTO%..`"$nl"
+    $txt += "SET /P BENCH_VERSION=<%BENCH_HOME%\res\version.txt$nl"
     $txt += "CALL :SET_BENCH_DRIVE `"%BENCH_AUTO%`"$nl"
     $txt += "SET BENCH_APPS=%BENCH_HOME%\$(Get-ConfigValue LibDir)$nl"
     $txt += "SET L=%BENCH_APPS%$nl"
