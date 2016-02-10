@@ -229,6 +229,8 @@ function Setup-PyPiPackage([string]$name) {
     Setup-Common $name
 }
 
+Clean-ExecutionProxies
+Clean-Launchers
 Load-Environment
 Update-EnvironmentPath
 $failedApps = @()

@@ -1,7 +1,14 @@
-﻿$launcherDir = Empty-Dir (Get-ConfigPathValue LauncherDir)
+﻿$launcherDir = Safe-Dir (Get-ConfigPathValue LauncherDir)
 $launcherScriptDir = Safe-Dir ([IO.Path]::Combine((Get-ConfigPathValue BenchAuto), "launcher"))
 
 $wshShell = New-Object -ComObject WScript.Shell
+
+function Clean-Launchers() {
+    Debug "Cleaning launcher shortcuts: $launcherDir\*"
+    $_ = Empty-Dir $launcherDir
+    Debug "Cleaning launcher scripts: $launcherScriptDir\*"
+    $_ = Empty-Dir $launcherScriptDir
+}
 
 function Get-LauncherScriptFile([string]$name) {
     return [IO.Path]::Combine($launcherScriptDir, ($name.ToLowerInvariant() + '.cmd'))
@@ -11,6 +18,21 @@ function Get-LauncherFile([string]$name) {
     return [IO.Path]::Combine($launcherDir, (App-Launcher $name) + '.lnk')
 }
 
+function Get-LauncherTarget([string]$name) {
+    $path = App-LauncherExecutable $name
+    $adornedExecutables = App-AdornedExecutables $name
+    if ($adornedExecutables) {
+        $p1 = Resolve-Path $path
+        foreach ($exe in $adornedExecutables) {
+            $p2 = Resolve-Path $exe
+            if ([string]::Equals($p1, $p2, [StringComparison]::OrdinalIgnoreCase)) {
+                return Get-ExecutableProxy $name $path
+            }
+        }
+    }
+    return $path
+}
+
 function Create-LauncherScript([string]$name)
 {
     $launcherLabel = App-Launcher $name
@@ -18,7 +40,8 @@ function Create-LauncherScript([string]$name)
         return
     }
     Debug "Writing launcher script for '$launcherLabel' ..."
-    $executable = App-LauncherExecutable $name
+    $executable = Get-LauncherTarget $name
+    Debug "Path of launcher target: $executable"
     $arguments = App-LauncherArguments $name | % {
         $arg = $_.Replace('"', '^"')
         if ($_ -match "\s") {
@@ -34,7 +57,11 @@ function Create-LauncherScript([string]$name)
     $code = "@ECHO OFF$nl"
     $code += "ECHO.Launching $launcherLabel in Bench Context ...$nl"
     $code += "CALL `"%~dp0..\env.cmd`"$nl"
-    $code += "START `"$launcherLabel`" `"$executable`" $argumentsString$nl"
+    if ($executable.EndsWith(".cmd", [StringComparison]::OrdinalIgnoreCase)) {
+        $code += "START `"$launcherLabel`" CMD /C `"$executable`" $argumentsString$nl"
+    } else {
+        $code += "START `"$launcherLabel`" `"$executable`" $argumentsString$nl"
+    }
     [IO.File]::WriteAllText($launcherScriptFile, $code, [Text.Encoding]::Default)
 }
 

@@ -171,7 +171,15 @@ function App-Environment([string]$name) {
 }
 
 function App-AdornedExecutables([string]$name) {
-    return Get-AppConfigListValue $name AdornedExecutables
+    $appDir = App-Dir $name
+    $exePaths = Get-AppConfigListValue $name AdornedExecutables
+    if ($exePaths -is [string]) {
+        return @([IO.Path]::Combine($appDir, $exePaths))
+    } elseif ($exePaths -is [array]) {
+        return $exePaths | % { [IO.Path]::Combine($appDir, $_) }
+    } else {
+        return @()
+    }
 }
 
 function App-Launcher([string]$name) {
@@ -179,7 +187,7 @@ function App-Launcher([string]$name) {
 }
 
 function App-LauncherExecutable([string]$name) {
-    return Get-AppConfigValue $name LauncherExecutable (App-Exe $name)
+    return Get-AppConfigPathValue $name LauncherExecutable (App-Exe $name)
 }
 
 function App-LauncherArguments([string]$name) {

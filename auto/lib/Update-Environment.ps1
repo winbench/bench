@@ -13,6 +13,8 @@ $libDir = Safe-Dir (Get-ConfigPathValue LibDir)
 
 if (!(Test-Path $libDir)) { return }
 
+Clean-ExecutionProxies
+Clean-Launchers
 Load-Environment
 foreach ($name in $Script:apps) {
     Debug "Processing $name ($(App-Typ $name)) ..."
