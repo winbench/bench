@@ -2,7 +2,6 @@ param ([switch]$debug)
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
-. "$scriptsLib\appconfig.lib.ps1"
 . "$scriptsLib\env.lib.ps1"
 . "$scriptsLib\adornment.lib.ps1"
 . "$scriptsLib\launcher.lib.ps1"

@@ -123,6 +123,8 @@ function Remove-FromSetList($list, $element) {
     }
 }
 
+. "$Script:myDir\appconfig.lib.ps1"
+
 function Register-App([string]$app) {
     Add-ToSetList $Script:definedApps $app
 }
