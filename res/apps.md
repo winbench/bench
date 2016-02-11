@@ -51,6 +51,11 @@ The ID must be the first entry in a list, defining an app.
   A list of executable paths, relative to the target directory of the app.
   Every listed executable will be adorned with pre- and post-execution scripts.
   (optional, default is empty)
+* **RegistryKeys**:
+  A list of relative key paths in the Windows registry hive `HKEY_CURRENT_USER`,
+  which are used by this app and must be backed up and restored,
+  during execution of this app.
+  (optional, default is empty)
 * **Launcher**:
   A label for the app launcher (optional, default is empty).
   A launcher for the app is created only if this property is set to a non empty string.
