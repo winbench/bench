@@ -82,32 +82,43 @@ function App-Dir([string]$name) {
             # return null because of the ambiguity between Python versions
             return $null
         }
+        "meta" {
+            # no default app directory for meta apps
+            $path = Get-AppConfigValue $name Dir
+            if ($path -and ![IO.Path]::IsPathRooted($path)) {
+                return [IO.Path]::Combine((Get-ConfigPathValue LibDir), $path)
+            } else {
+                return $path
+            }
+        }
         default {
-            return [IO.Path]::Combine(
-                (Get-ConfigPathValue LibDir),
-                (Get-AppConfigValue $name Dir $name.ToLowerInvariant()))
+            $path = Get-AppConfigValue $name Dir $name.ToLowerInvariant()
+            if ($path -and ![IO.Path]::IsPathRooted($path)) {
+                return [IO.Path]::Combine((Get-ConfigPathValue LibDir), $path)
+            } else {
+                return $path
+            }
         }
     }
 }
 
 function App-Path([string]$name) {
     switch (App-Typ $name) {
-        "meta" {
-            return $null
-        }
         "node-package" {
             return App-Path Npm
         }
         "python-package" {
             return $null
         }
+        # treat meta apps like default apps, but (App-Dir $name) can be $null
         default {
             $appDir = App-Dir $name
-            $cfgPath = Get-AppConfigValue $name Path ""
-            if ($cfgPath -is [string]) {
-                return [IO.Path]::Combine($appDir, $cfgPath)
-            } elseif ($cfgPath -is [array]) {
-                return [IO.Path]::Combine($appDir, $cfgPath[0])
+            $path = Get-AppConfigValue $name Path $appDir
+            if ($path -is [array]) { $path = $path[0] }
+            if ($path -and ![IO.Path]::IsPathRooted($path)) {
+                return [IO.Path]::Combine($appDir, $path)
+            } else {
+                return $path
             }
         }
     }
@@ -115,22 +126,24 @@ function App-Path([string]$name) {
 
 function App-Paths([string]$name) {
     switch (App-Typ $name) {
-        "meta" {
-            return $null
-        }
         "node-package" {
             return @(App-Path Npm)
         }
         "python-package" {
             return $null
         }
+        # treat meta apps like default apps, but (App-Dir $name) can be $null
         default {
             $paths = @()
             $appDir = App-Dir $name
-            $cfgPaths = Get-AppConfigListValue $name Path
+            [array]$cfgPaths = Get-AppConfigListValue $name Path
             if ($cfgPaths -and $cfgPaths.Count -gt 0) {
                 foreach ($p in $cfgPaths) {
-                    $paths += [IO.Path]::Combine($appDir, $p)
+                    if (![IO.Path]::IsPathRooted($p)) {
+                        $paths += [IO.Path]::Combine($appDir, $p)
+                    } else {
+                        $paths += $p
+                    }
                 }
             } else {
                 $paths += $appDir

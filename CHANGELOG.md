@@ -35,6 +35,9 @@ Add a link to the GitHub diff like
   ([#18](https://github.com/mastersign/bench/issues/18))
 - App: PostgreSQL and pgAdminIII
 
+### Changes
+- changed behavior for `App-Dir`, `App-Path`, and `App-Paths` for `meta` apps
+
 ### Removed
 - Management scripts (replaced by `bench-ctl.cmd`)
     + `auto\update-env.cmd`
