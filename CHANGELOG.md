@@ -29,7 +29,21 @@ Add a link to the GitHub diff like
 - `CHANGELOG.md`
 - Action script `bench-ctl.cmd` for management of the _Bench_ installation
 - Launcher shortcut for `bench-ctl.cmd`
+- Support for execution adornment
+  ([#17](https://github.com/mastersign/bench/issues/17))
+- Support for registry isolation
+  ([#18](https://github.com/mastersign/bench/issues/18))
+- Support for automatic dependencies
+  ([#20](https://github.com/mastersign/bench/issues/20))
+    + `node-package` apps automatically depend on `Npm`
+    + `python2-package` apps automatically depend on `Python2`
+    + `python3-package` apps automatically depend on `Python3`
 - App: PostgreSQL and pgAdminIII
+
+### Changes
+- changed behavior for `App-Dir`, `App-Path`, and `App-Paths` for `meta` apps
+- migrated app type `python-package` to `python2-package` and `python3-package`
+  ([#19](https://github.com/mastersign/bench/issues/19))
 
 ### Removed
 - Management scripts (replaced by `bench-ctl.cmd`)

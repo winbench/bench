@@ -1,4 +1,4 @@
-function App-Typ([string]$name) { 
+function App-Typ([string]$name) {
     return Get-AppConfigValue $name Typ "default"
 }
 
@@ -69,23 +69,33 @@ function App-PyPiPackage([string]$name) {
     return Get-AppConfigValue $name PyPiPackage $name.ToLowerInvariant()
 }
 
-function App-PythonVersions([string]$name) {
-    return Get-AppConfigListValue $name PythonVersions @("2", "3")
-}
-
 function App-Dir([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
             return App-Dir Npm
         }
-        "python-package" {
-            # return null because of the ambiguity between Python versions
-            return $null
+        "python2-package" {
+            return App-Dir Python2
+        }
+        "python3-package" {
+            return App-Dir Python3
+        }
+        "meta" {
+            # no default app directory for meta apps
+            $path = Get-AppConfigValue $name Dir
+            if ($path -and ![IO.Path]::IsPathRooted($path)) {
+                return [IO.Path]::Combine((Get-ConfigPathValue LibDir), $path)
+            } else {
+                return $path
+            }
         }
         default {
-            return [IO.Path]::Combine(
-                (Get-ConfigPathValue LibDir),
-                (Get-AppConfigValue $name Dir $name.ToLowerInvariant())) 
+            $path = Get-AppConfigValue $name Dir $name.ToLowerInvariant()
+            if ($path -and ![IO.Path]::IsPathRooted($path)) {
+                return [IO.Path]::Combine((Get-ConfigPathValue LibDir), $path)
+            } else {
+                return $path
+            }
         }
     }
 }
@@ -95,16 +105,21 @@ function App-Path([string]$name) {
         "node-package" {
             return App-Path Npm
         }
-        "python-package" {
-            return $null
+        "python2-package" {
+            return [IO.Path]::Combine((App-Dir Python2), "Scripts")
         }
+        "python3-package" {
+            return [IO.Path]::Combine((App-Dir Python3), "Scripts")
+        }
+        # treat meta apps like default apps, but (App-Dir $name) can be $null
         default {
             $appDir = App-Dir $name
-            $cfgPath = Get-AppConfigValue $name Path ""
-            if ($cfgPath -is [string]) {
-                return [IO.Path]::Combine($appDir, $cfgPath)
-            } elseif ($cfgPath -is [array]) {
-                return [IO.Path]::Combine($appDir, $cfgPath[0])
+            $path = Get-AppConfigValue $name Path $appDir
+            if ($path -is [array]) { $path = $path[0] }
+            if ($path -and ![IO.Path]::IsPathRooted($path)) {
+                return [IO.Path]::Combine($appDir, $path)
+            } else {
+                return $path
             }
         }
     }
@@ -115,16 +130,24 @@ function App-Paths([string]$name) {
         "node-package" {
             return @(App-Path Npm)
         }
-        "python-package" {
-            return $null
+        "python2-package" {
+            return @([IO.Path]::Combine((App-Dir Python2), "Scripts"))
         }
+        "python3-package" {
+            return @([IO.Path]::Combine((App-Dir Python3), "Scripts"))
+        }
+        # treat meta apps like default apps, but (App-Dir $name) can be $null
         default {
             $paths = @()
             $appDir = App-Dir $name
-            $cfgPaths = Get-AppConfigListValue $name Path
+            [array]$cfgPaths = Get-AppConfigListValue $name Path
             if ($cfgPaths -and $cfgPaths.Count -gt 0) {
                 foreach ($p in $cfgPaths) {
-                    $paths += [IO.Path]::Combine($appDir, $p)
+                    if (![IO.Path]::IsPathRooted($p)) {
+                        $paths += [IO.Path]::Combine($appDir, $p)
+                    } else {
+                        $paths += $p
+                    }
                 }
             } else {
                 $paths += $appDir
@@ -135,15 +158,17 @@ function App-Paths([string]$name) {
 }
 
 function App-Exe([string]$name, [bool]$checkExist = $true) {
-    $path = [IO.Path]::Combine(
-        (App-Path $name),
-        (Get-AppConfigValue $name Exe "${name}.exe"))
-    if ($checkExist -and ![IO.File]::Exists($path)) {
-        Debug "Executable for $name not found: $path"
-        return $null
-    } else {
-        return $path
+    $fileName = Get-AppConfigValue $name Exe "${name}.exe"
+    if ([IO.Path]::IsPathRooted($fileName)) {
+        return $fileName
     }
+    foreach ($path in (App-Paths $name)) {
+        $file = [IO.Path]::Combine($path, $fileName)
+        if ([IO.File]::Exists($file)) {
+            return $file
+        }
+    }
+    return $null
 }
 
 function App-Register([string]$name) {
@@ -162,12 +187,24 @@ function App-Environment([string]$name) {
     return $dict
 }
 
+function App-AdornedExecutables([string]$name) {
+    $appDir = App-Dir $name
+    [array]$exePaths = Get-AppConfigListValue $name AdornedExecutables
+    if ($exePaths) {
+        return [array]($exePaths | % { [IO.Path]::Combine($appDir, $_) })
+    }
+}
+
+function App-RegistryKeys([string]$name) {
+    return Get-AppConfigListValue $name RegistryKeys
+}
+
 function App-Launcher([string]$name) {
     return Get-AppConfigValue $name Launcher $null
 }
 
 function App-LauncherExecutable([string]$name) {
-    return Get-AppConfigValue $name LauncherExecutable (App-Exe $name)
+    return Get-AppConfigPathValue $name LauncherExecutable (App-Exe $name)
 }
 
 function App-LauncherArguments([string]$name) {
@@ -190,24 +227,11 @@ function Check-NpmPackage([string]$name) {
     return Test-Path $packageDir -PathType Container
 }
 
-function Check-PyPiPackageForPythonVersion ([string]$name, [string]$pythonVersion) {
+function Check-PyPiPackage ([string]$pythonVersion, [string]$name) {
     $python = "Python" + $pythonVersion
     $packageDir = [IO.Path]::Combine((App-Dir $python), "lib", "site-packages", (App-PyPiPackage $name))
     Debug "Checking PyPI package $name for Python ${pythonVersion}: $packageDir"
     return Test-Path $packageDir -PathType Container
-}
-
-function Check-PyPiPackage([string]$name, [string]$pythonVersion = $null) {
-    if ($pythonVersion) {
-        return Check-PyPiPackageForPythonVersion $name $pythonVersion
-    } else {
-        foreach ($version in (App-PythonVersions $name)) {
-            if (Check-PyPiPackageForPythonVersion $name $version) {
-                return $true
-            }
-        }
-        return $false
-    }
 }
 
 function Check-App([string]$name) {
@@ -215,8 +239,11 @@ function Check-App([string]$name) {
         "node-package" {
             return (Check-DefaultApp $name) -or (Check-NpmPackage $name)
         }
-        "python-package" {
-            return (Check-DefaultApp $name) -or (Check-PyPiPackage $name)
+        "python2-package" {
+            return (Check-DefaultApp $name) -or (Check-PyPiPackage 2 $name)
+        }
+        "python3-package" {
+            return (Check-DefaultApp $name) -or (Check-PyPiPackage 3 $name)
         }
         default {
             return Check-DefaultApp $name

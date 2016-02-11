@@ -7,8 +7,8 @@ if (!$projectName) { return }
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
-. "$scriptsLib\appconfig.lib.ps1"
 
+trap { Write-TrapError $_ }
 Set-Debugging $debug
 
 $projectPath = Get-ProjectPath $projectName

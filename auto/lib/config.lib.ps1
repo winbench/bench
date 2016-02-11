@@ -14,27 +14,6 @@ $Script:deactivatedApps = New-Object 'System.Collections.Generic.List`1[System.S
 $Script:apps = New-Object 'System.Collections.Generic.List`1[System.String]'
 $Script:valueExpandPattern = [regex]'\$(?<var>[^\$]+)\$'
 
-function Set-ConfigValue([string]$name, $value) {
-    if ($Script:debug) {
-        Debug "Config: $name = $value"
-    }
-    $Script:config[$name] = $value
-}
-
-function Get-ConfigValue([string]$name, $def = $null) {
-    if ($Script:config.ContainsKey($name)) {
-        $value = $Script:config[$name]
-        if ($value -is [array]) {
-            $value = [array]($value | % { Expand-Value $_ })
-        } else {
-            $value = Expand-Value $value
-        }
-        return $value
-    } else {
-        return $def
-    }
-}
-
 function Expand-Placeholder([string]$placeholder) {
     $kvp = $placeholder.Split(":", 2)
     if ($kvp.Count -eq 1) {
@@ -70,12 +49,42 @@ function Expand-Value($value) {
     return $value
 }
 
+function Set-ConfigValue([string]$name, $value) {
+    if ($Script:debug) {
+        Debug "Config: $name = $value"
+    }
+    $Script:config[$name] = $value
+}
+
+function Get-ConfigValue([string]$name, $def = $null) {
+    if ($Script:config.ContainsKey($name)) {
+        $value = $Script:config[$name]
+        if ($value -is [array]) {
+            $value = [array]($value | % { Expand-Value $_ })
+        } else {
+            $value = Expand-Value $value
+        }
+        return $value
+    } else {
+        return $def
+    }
+}
+
 function Get-ConfigListValue([string]$name, $def = $null) {
     $l = Get-ConfigValue $name $def
     if ($l -is [string]) {
         $l = @($l)
     }
     return [array]$l
+}
+
+function Get-ConfigPathValue([string]$name, [string]$def = $null) {
+    $path = Get-ConfigValue $name $def
+    if ($path -eq $null -or [IO.Path]::IsPathRooted($path)) {
+        return $path
+    } else {
+        return [IO.Path]::Combine($Script:rootDir, $path)
+    }
 }
 
 function Get-AppConfigPropertyName([string]$app, [string]$name) {
@@ -92,9 +101,14 @@ function Get-AppConfigValue([string]$app, [string]$name, $def = $null) {
     return Get-ConfigValue $prop $def
 }
 
-function Get-AppConfigListValue([string]$app, [string]$name, $def = @()) {
+function Get-AppConfigListValue([string]$app, [string]$name, $def = $null) {
     $prop = Get-AppConfigPropertyName $app $name
     return Get-ConfigListValue $prop $def
+}
+
+function Get-AppConfigPathValue([string]$app, [string]$name, [string]$def = $null) {
+    $prop = Get-AppConfigPropertyName $app $name
+    return Get-ConfigPathValue $prop $def
 }
 
 function Add-ToSetList($list, $element) {
@@ -109,6 +123,8 @@ function Remove-FromSetList($list, $element) {
     }
 }
 
+. "$Script:myDir\appconfig.lib.ps1"
+
 function Register-App([string]$app) {
     Add-ToSetList $Script:definedApps $app
 }
@@ -121,15 +137,6 @@ function Activate-App([string]$app) {
 function Deactivate-App([string]$app) {
     Remove-FromSetList $Script:activatedApps $apps
     Add-ToSetList $Script:deactivatedApps $app
-}
-
-function Get-ConfigPathValue([string]$name) {
-    $path = Get-ConfigValue $name
-    if ([IO.Path]::IsPathRooted($path)) {
-        return $path
-    } else {
-        return [IO.Path]::Combine($Script:rootDir, $path)
-    }
 }
 
 function Process-AppRegistry($parseActivation = $false) {
@@ -195,6 +202,74 @@ function Process-AppRegistry($parseActivation = $false) {
     }
 }
 
+function Add-Dependency([string]$name, [string]$dep) {
+    [array]$deps = App-Dependencies $name
+    if ($deps) {
+        if (!($dep -in $deps)) {
+            $deps += $dep
+            Set-AppConfigValue $name Dependencies $deps
+        }
+    } else {
+        Set-AppConfigValue $name Dependencies @($dep)
+    }
+}
+
+function Initialize-AutoDependencies() {
+    foreach ($name in $Script:definedApps) {
+        $appTyp = App-Typ $name
+        switch ($appTyp) {
+            "node-package" {
+                Add-Dependency $name Npm
+            }
+            "python2-package" {
+                Add-Dependency $name Python2
+            }
+            "python3-package" {
+                Add-Dependency $name Python3
+            }
+        }
+    }
+}
+
+function Initialize-AdornmentForRegistryIsolation() {
+    foreach ($name in $Script:definedApps) {
+        $regKeys = App-RegistryKeys $name
+        if ($regKeys.Count -gt 0) {
+            $appExe = App-Exe $name
+            Debug "Automatically adding to adorned executables of ${name}: $appExe"
+            [array]$adornedExecutables = App-AdornedExecutables $name
+            if ($adornedExecutables) {
+                if (!($appExe -in $adornedExecutables)) {
+                    $adornedExecutables += $appExe
+                }
+                Set-AppConfigValue $name AdornedExecutables $adornedExecutables
+            } else {
+                Set-AppConfigValue $name AdornedExecutables @($appExe)
+            }
+        }
+    }
+}
+
+function Initialize-AdornmentPaths() {
+    foreach ($name in $Script:definedApps) {
+        [array]$adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
+        if ($adornedExecutables) {
+            $appPaths = Get-AppConfigListValue $name Paths
+            $proxyPath = [IO.Path]::Combine(
+                (Get-ConfigPathValue AppAdornmentbaseDir),
+                $name.ToLowerInvariant())
+            if ($appPaths -is [string]) {
+                $appPaths = @($appPaths, $proxyPath)
+            } elseif ($appPaths -is [array]) {
+                $appPaths += $proxyPath
+            } else {
+                $appPaths = @('.', $proxyPath)
+            }
+            Set-AppConfigValue $name Path $appPaths
+        }
+    }
+}
+
 function Initialize() {
 
     $Script:config.Clear()
@@ -202,7 +277,7 @@ function Initialize() {
     $Script:definedApps.Clear()
 
     # Common
-    Set-ConfigValue Version "0.6.1"
+    Set-ConfigValue VersionFile "res\version.txt"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
     Set-ConfigValue CustomConfigFile "config.ps1"
@@ -212,6 +287,8 @@ function Initialize() {
     Set-ConfigValue CustomAppIndexTemplate "res\apps.template.md"
     Set-ConfigValue DownloadDir "res\download"
     Set-ConfigValue AppResourceBaseDir "res\apps"
+    Set-ConfigValue AppAdornmentBaseDir "auto\proxies"
+    Set-ConfigValue AppRegistryBaseDir '$HomeDir$\registry_isolation'
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
@@ -252,7 +329,7 @@ function Initialize() {
     Get-Content $appIndex | Process-AppRegistry -parseActivation $true
 
     #
-    # Load custom configuration
+    # Load Custom Configuration
     #
 
     $customAppIndex = Get-ConfigPathValue CustomAppIndex
@@ -264,6 +341,14 @@ function Initialize() {
     if (Test-Path $customConfigFile) {
         . $customConfigFile
     }
+
+    #
+    # Auto Configurations
+    #
+
+    Initialize-AdornmentForRegistryIsolation
+    Initialize-AdornmentPaths
+    Initialize-AutoDependencies
 
     #
     # Resolve Dependencies
@@ -294,10 +379,15 @@ function Initialize() {
     Debug "Deactivated Apps: $([string]::Join(", ", $Script:deactivatedApps))"
     Debug "Resolved Apps: $([string]::Join(", ", $Script:apps))"
 
+    #
+    # Uncostumizable Configurations
+    #
+
     Set-ConfigValue BenchDrive ([IO.Path]::GetPathRoot($Script:rootDir).Substring(0, 2))
     Set-ConfigValue BenchRoot $Script:rootDir
     Set-ConfigValue BenchAuto $Script:autoDir
     Set-ConfigValue BenchScripts $Script:myDir
+    Set-ConfigValue Version (Get-Content (Get-ConfigPathValue VersionFile) -Encoding ASCII)
 }
 
 Initialize
