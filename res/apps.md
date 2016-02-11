@@ -187,7 +187,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Url: <https://github.com/git-for-windows/git/releases/download/v2.7.0.windows.1/PortableGit-2.7.0-32-bit.7z.exe>
 * AppArchive: `PortableGit-2.7.0-32-bit.7z.exe`
 * Path: `cmd`
-* Exe: `git.exe`
+* Exe: `cmd\git.exe`
 
 ## Groups
 
@@ -244,7 +244,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `openssl-1.0.2d-fips-2.0.10.zip`
 * AppArchiveSubDir: `openssl-1.0.2d-fips-2.0.10`
 * Path: `bin`
-* Exe: `openssl.exe`
+* Exe: `bin\openssl.exe`
 
 ### Putty
 
@@ -264,7 +264,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `gnutls-*-w32-bin.zip`
 * Dir: `gnu`
 * Path: `bin`
-* Exe: `gnutls-cli.exe`
+* Exe: `bin\gnutls-cli.exe`
 
 ### cURL
 
@@ -275,7 +275,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `curl-7.46.0-win32-mingw.7z`
 * AppArchiveSubDir: `curl-7.46.0-win32-mingw`
 * Path: `bin`
-* Exe: `curl.exe`
+* Exe: `bin\curl.exe`
 
 ### Sift
 
@@ -303,7 +303,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5857.exe>
 * AppArchive: `miktex-portable-2.*.exe`
 * Path: `miktex\bin`
-* Exe: `latex.exe`
+* Exe: `miktex\bin\latex.exe`
 
 ### Graphics Magick
 
@@ -335,7 +335,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Url: <http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip>
 * AppArchive: `graphviz-*.zip`
 * Path: `release\bin`
-* Exe: `dot.exe`
+* Exe: `release\bin\dot.exe`
 
 ### Inkscape
 
@@ -473,7 +473,7 @@ for Python 2:
 * PyPiPackage: `ipython`
 * Dependencies: `PyReadline2`
 * Website: <https://pypi.python.org/pypi/ipython>
-* Exe: `ipython2.exe`
+* Exe: `Scripts\ipython2.exe`
 * Launcher: `IPython 2`
 
 for Python 3:
@@ -484,7 +484,7 @@ for Python 3:
 * PythonVersions: `3`
 * Dependencies: `PyReadline3`
 * Website: <http://pypi.python.org/pypi/ipython>
-* Exe: `ipython3.exe`
+* Exe: `Scripts\ipython3.exe`
 * Launcher: `IPython 3`
 
 ### Ruby
@@ -497,7 +497,7 @@ for Python 3:
 * AppArchiveTyp: `inno`
 * AppArchiveSubDir: `{app}`
 * Path: `bin`
-* Exe: `ruby.exe`
+* Exe: `bin\ruby.exe`
 
 ### PHP 5
 
@@ -530,7 +530,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
 * AppArchive: `jdk-7u*-windows-i586.exe`
 * Path: `bin`
-* Exe: `javac.exe`
+* Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK7:Dir$`
 
 ### Java Development Kit 8
@@ -542,7 +542,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
 * AppArchive: `jdk-8u72-windows-i586.exe`
 * Path: `bin`
-* Exe: `javac.exe`
+* Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
 
 ### Leiningen
@@ -600,6 +600,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `emacs-*.zip`
 * Dir: `gnu`
 * Path: `bin`
+* Exe: `bin\emacs.exe`
 * Launcher: `Emacs`
 * LauncherExecutable: `$Emacs:Dir$\bin\runemacs.exe`
 
@@ -650,7 +651,7 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-5.7.10-win32.zip`
 * AppArchiveSubDir: `mysql-5.7.10-win32`
 * Path: `bin`
-* Exe: `mysqld.exe`
+* Exe: `bin\mysqld.exe`
 
 ### MySQL Workbench
 
@@ -678,7 +679,7 @@ Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 * AppArchiveSubDir: `pgsql`
 * Dir: `postgres`
 * Path: `bin`
-* Exe: `pgAdmin3.exe`
+* Exe: `bin\pgAdmin3.exe`
 * Launcher: `PostgreSQL Admin 3`
 
 ### Apache
@@ -690,7 +691,7 @@ Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 * AppArchive: `httpd-2.4.*-win32-VC11.zip`
 * AppArchiveSubDir: `Apache24`
 * Path: `bin`
-* Exe: `httpd.exe`
+* Exe: `bin\httpd.exe`
 * HttpdDocumentRoot: `$HomeDir$\www`
 * HttpdListen: `127.0.0.1:80`
 
