@@ -8,6 +8,7 @@ $Host.UI.RawUI.WindowTitle = "Bench - $([IO.Path]::GetFileNameWithoutExtension($
 
 $Script:scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$Script:scriptsLib\bench.lib.ps1"
+. "$Script:scriptsLib\reg.lib.ps1"
 
 trap {
     Write-TrapError $_
@@ -19,6 +20,8 @@ Set-Debugging $debug
 #
 # Pre-Execution Phase
 #
+
+Suspend-RegistryKeys $name
 
 $customPreFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).pre-run.ps1"
 if (Test-Path $customPreFile) {
@@ -49,6 +52,8 @@ try {
 #
 # Post-Execution Phase
 #
+
+Restore-RegistryKeys $name
 
 $customPostFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).post-run.ps1"
 if (Test-Path $customPostFile) {

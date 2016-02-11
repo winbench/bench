@@ -31,6 +31,8 @@ Add a link to the GitHub diff like
 - Launcher shortcut for `bench-ctl.cmd`
 - Support for execution adornment
   ([#17](https://github.com/mastersign/bench/issues/17))
+- Support for registry isolation
+  ([#18](https://github.com/mastersign/bench/issues/18))
 - App: PostgreSQL and pgAdminIII
 
 ### Removed

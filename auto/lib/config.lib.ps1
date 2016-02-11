@@ -202,9 +202,28 @@ function Process-AppRegistry($parseActivation = $false) {
     }
 }
 
+function Initialize-AdornmentForRegistryIsolation() {
+    foreach ($name in $Script:definedApps) {
+        $regKeys = App-RegistryKeys $name
+        if ($regKeys.Count -gt 0) {
+            $appExe = App-Exe $name
+            Debug "Automatically adding to adorned executables of ${name}: $appExe"
+            [array]$adornedExecutables = App-AdornedExecutables $name
+            if ($adornedExecutables) {
+                if (!($appExe -in $adornedExecutables)) {
+                    $adornedExecutables += $appExe
+                }
+                Set-AppConfigValue $name AdornedExecutables $adornedExecutables
+            } else {
+                Set-AppConfigValue $name AdornedExecutables @($appExe)
+            }
+        }
+    }
+}
+
 function Initialize-AdornmentPaths() {
     foreach ($name in $Script:definedApps) {
-        $adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
+        [array]$adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
         if ($adornedExecutables) {
             $appPaths = Get-AppConfigListValue $name Paths
             $proxyPath = [IO.Path]::Combine(
@@ -240,6 +259,7 @@ function Initialize() {
     Set-ConfigValue DownloadDir "res\download"
     Set-ConfigValue AppResourceBaseDir "res\apps"
     Set-ConfigValue AppAdornmentBaseDir "auto\proxies"
+    Set-ConfigValue AppRegistryBaseDir '$HomeDir$\registry_isolation'
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
@@ -326,6 +346,7 @@ function Initialize() {
     # Auto Configurations
     #
 
+    Initialize-AdornmentForRegistryIsolation
     Initialize-AdornmentPaths
 
     Set-ConfigValue BenchDrive ([IO.Path]::GetPathRoot($Script:rootDir).Substring(0, 2))

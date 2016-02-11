@@ -172,14 +172,14 @@ function App-Environment([string]$name) {
 
 function App-AdornedExecutables([string]$name) {
     $appDir = App-Dir $name
-    $exePaths = Get-AppConfigListValue $name AdornedExecutables
-    if ($exePaths -is [string]) {
-        return @([IO.Path]::Combine($appDir, $exePaths))
-    } elseif ($exePaths -is [array]) {
-        return $exePaths | % { [IO.Path]::Combine($appDir, $_) }
-    } else {
-        return @()
+    [array]$exePaths = Get-AppConfigListValue $name AdornedExecutables
+    if ($exePaths) {
+        return [array]($exePaths | % { [IO.Path]::Combine($appDir, $_) })
     }
+}
+
+function App-RegistryKeys([string]$name) {
+    return Get-AppConfigListValue $name RegistryKeys
 }
 
 function App-Launcher([string]$name) {
