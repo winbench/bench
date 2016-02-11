@@ -246,6 +246,16 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `bin`
 * Exe: `openssl.exe`
 
+### Putty
+
+* ID: `Putty`
+* Website: <http://www.putty.org>
+* Version: latest
+* Url: <http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip>
+* AppArchive: `putty.zip`
+* RegistryKeys: `Software\SimonTatham`
+* Launcher: `Putty`
+
 ### GNU TLS
 
 * ID: `GnuTLS`
@@ -651,6 +661,7 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-workbench-community-*-win32-noinstall.zip`
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
+* Register: `false`
 * Launcher: `MySQL Workbench`
 
 ### PostgreSQL
