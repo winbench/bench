@@ -69,12 +69,13 @@ The ID must be the first entry in a list, defining an app.
 
 ## App Types
 
-There are currently four kinds of apps:
+There are currently the following types of apps:
 
 * Typ `meta`: app groups or apps with a fully customized setup process
 * Typ `default`: Windows executables from a downloades file, archive, or setup
 * Typ `node-package`: NodeJS packages, installable with NPM
-* Typ `python-package`: Python packages from PyPI, installable with PIP
+* Typ `python2-package`: Python packages for Python 2 from PyPI, installable with PIP
+* Typ `python3-package`: Python packages for Python 3 from PyPI, installable with PIP
 
 ### App Group and Custom Setup
 
@@ -131,15 +132,12 @@ To determine, if a NodeJS package is already installed, the existence of its pac
 ### Python Package
 
 * **Typ**:
-  The application typ (required to be `python-package`)
+  The application typ (required to be `python2-package` or `python3-package`)
 * **PyPiPackage**:
   The name of the PyPI package to install via PIP (optional, default is the app ID in lowercase).
 * **Version**:
   The package version or version range to install (e.g. `2.5.0` or `>=1.2.0,<3.0.0`),
   if empty install latest (optional, default empty).
-* **PythonVersions**:
-  A list with all Python version to install this package in (e.g. `2`, `3`),
-  if empty install in all Python versions (optional, default empty).
 * **Exe**:
   The name of an PIP CLI wrapper from this package (optional, default is empty).
 * **Path**:
@@ -443,34 +441,45 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
-### IPython 2
+### IPython
+
+for Python 2:
 
 * ID: `IPython2`
-* Typ: `python-package`
+* Typ: `python2-package`
 * PyPiPackage: `ipython`
-* PythonVersions: `2`
-* Dependencies: `Python2`, `PyReadline`
+* Dependencies: `Python2`, `PyReadline2`
 * Website: <https://pypi.python.org/pypi/ipython>
-* Exe: `$Python2:Dir$\Scripts\ipython2.exe`
+* Exe: `ipython2.exe`
 * Launcher: `IPython 2`
 
-### IPython 3
+for Python 3:
 
 * ID: `IPython3`
-* Typ: `python-package`
+* Typ: `python3-package`
 * PyPiPackage: `ipython`
 * PythonVersions: `3`
-* Dependencies: `Python3`, `PyReadline`
+* Dependencies: `Python3`, `PyReadline3`
 * Website: <http://pypi.python.org/pypi/ipython>
-* Exe: `$Python3:Dir$\Scripts\ipython3.exe`
+* Exe: `ipython3.exe`
 * Launcher: `IPython 3`
 
 ### PyReadline
 
 Required for colors in IPython.
 
-* ID: `PyReadline`
-* Typ: `python-package`
+for Python 2:
+
+* ID: `PyReadline2`
+* PyPiPackage: `pyreadline`
+* Typ: `python2-package`
+* Website: <https://pypi.python.org/pypi/pyreadline>
+
+for Python 3:
+
+* ID: `PyReadline3`
+* PyPiPackage: `pyreadline`
+* Typ: `python3-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
 
 ### Ruby

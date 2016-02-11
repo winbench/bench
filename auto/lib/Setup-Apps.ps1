@@ -195,36 +195,33 @@ function Setup-NpmPackage([string]$name) {
     Setup-Common $name
 }
 
-function Setup-PyPiPackage([string]$name) {
+function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
     $packageName = App-PyPiPackage $name
     $version = App-Version $name
-    $pythonVersions = App-PythonVersions $name
-    foreach ($pv in $pythonVersions) {
-        if ((App-Force $name) -or !(Check-PyPiPackageForPythonVersion $name $pv)) {
-            $python = "Python$pv"
-            if ($python -in $Script:apps) {
-                $pip = "pip$pv"
-                if ($version) {
-                    Write-Host "Setting up PyPI package $packageName $version for Python $pv"
-                    if (App-Force $name) {
-                        & $pip install --upgrade $packageName "`"$version`""
-                    } else {
-                        & $pip install $packageName "`"$version`""
-                    }
+    if ((App-Force $name) -or !(Check-PyPiPackage $pythonVersion $name)) {
+        $python = "Python$pythonVersion"
+        if ($python -in $Script:apps) {
+            $pip = "pip$pythonVersion"
+            if ($version) {
+                Write-Host "Setting up PyPI package $packageName $version for Python $pythonVersion"
+                if (App-Force $name) {
+                    & $pip install --upgrade $packageName "`"$version`""
                 } else {
-                    Write-Host "Setting up PyPI package $packageName for Python $pv"
-                    if (App-Force $name) {
-                        & $pip install --upgrade $packageName
-                    } else {
-                        & $pip install $packageName
-                    }
+                    & $pip install $packageName "`"$version`""
                 }
             } else {
-                Debug "Skipping PyPI package $packageName for inactive Python $pv"
+                Write-Host "Setting up PyPI package $packageName for Python $pythonVersion"
+                if (App-Force $name) {
+                    & $pip install --upgrade $packageName
+                } else {
+                    & $pip install $packageName
+                }
             }
         } else {
-            Debug "Skipping allready installed PyPI package $packageName $version"
+            Debug "Skipping PyPI package $packageName for inactive Python $pythonVersion"
         }
+    } else {
+        Debug "Skipping allready installed PyPI package $packageName $version"
     }
     Setup-Common $name
 }
@@ -256,9 +253,18 @@ foreach ($name in $Script:apps) {
                 $failedApps += $name
             }
         }
-        "python-package" {
+        "python2-package" {
             try {
-                Setup-PyPiPackage $name
+                Setup-PyPiPackage 2 $name
+                $installedApps += $name
+            } catch {
+                Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                $failedApps += $name
+            }
+        }
+        "python3-package" {
+            try {
+                Setup-PyPiPackage 3 $name
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"

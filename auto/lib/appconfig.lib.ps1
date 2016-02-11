@@ -69,18 +69,16 @@ function App-PyPiPackage([string]$name) {
     return Get-AppConfigValue $name PyPiPackage $name.ToLowerInvariant()
 }
 
-function App-PythonVersions([string]$name) {
-    return Get-AppConfigListValue $name PythonVersions @("2", "3")
-}
-
 function App-Dir([string]$name) {
     switch (App-Typ $name) {
         "node-package" {
             return App-Dir Npm
         }
-        "python-package" {
-            # return null because of the ambiguity between Python versions
-            return $null
+        "python2-package" {
+            return App-Dir Python2
+        }
+        "python3-package" {
+            return App-Dir Python3
         }
         "meta" {
             # no default app directory for meta apps
@@ -107,8 +105,11 @@ function App-Path([string]$name) {
         "node-package" {
             return App-Path Npm
         }
-        "python-package" {
-            return $null
+        "python2-package" {
+            return [IO.Path]::Combine((App-Dir Python2), "Scripts")
+        }
+        "python3-package" {
+            return [IO.Path]::Combine((App-Dir Python3), "Scripts")
         }
         # treat meta apps like default apps, but (App-Dir $name) can be $null
         default {
@@ -129,8 +130,11 @@ function App-Paths([string]$name) {
         "node-package" {
             return @(App-Path Npm)
         }
-        "python-package" {
-            return $null
+        "python2-package" {
+            return @([IO.Path]::Combine((App-Dir Python2), "Scripts"))
+        }
+        "python3-package" {
+            return @([IO.Path]::Combine((App-Dir Python3), "Scripts"))
         }
         # treat meta apps like default apps, but (App-Dir $name) can be $null
         default {
@@ -223,24 +227,11 @@ function Check-NpmPackage([string]$name) {
     return Test-Path $packageDir -PathType Container
 }
 
-function Check-PyPiPackageForPythonVersion ([string]$name, [string]$pythonVersion) {
+function Check-PyPiPackage ([string]$pythonVersion, [string]$name) {
     $python = "Python" + $pythonVersion
     $packageDir = [IO.Path]::Combine((App-Dir $python), "lib", "site-packages", (App-PyPiPackage $name))
     Debug "Checking PyPI package $name for Python ${pythonVersion}: $packageDir"
     return Test-Path $packageDir -PathType Container
-}
-
-function Check-PyPiPackage([string]$name, [string]$pythonVersion = $null) {
-    if ($pythonVersion) {
-        return Check-PyPiPackageForPythonVersion $name $pythonVersion
-    } else {
-        foreach ($version in (App-PythonVersions $name)) {
-            if (Check-PyPiPackageForPythonVersion $name $version) {
-                return $true
-            }
-        }
-        return $false
-    }
 }
 
 function Check-App([string]$name) {
@@ -248,8 +239,11 @@ function Check-App([string]$name) {
         "node-package" {
             return (Check-DefaultApp $name) -or (Check-NpmPackage $name)
         }
-        "python-package" {
-            return (Check-DefaultApp $name) -or (Check-PyPiPackage $name)
+        "python2-package" {
+            return (Check-DefaultApp $name) -or (Check-PyPiPackage 2 $name)
+        }
+        "python3-package" {
+            return (Check-DefaultApp $name) -or (Check-PyPiPackage 3 $name)
         }
         default {
             return Check-DefaultApp $name
