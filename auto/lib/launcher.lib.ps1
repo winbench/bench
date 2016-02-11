@@ -18,19 +18,18 @@ function Get-LauncherFile([string]$name) {
     return [IO.Path]::Combine($launcherDir, (App-Launcher $name) + '.lnk')
 }
 
-function Get-LauncherTarget([string]$name) {
-    $path = App-LauncherExecutable $name
+function Check-IsAdornedExecutable([string]$name, [string]$path) {
     $adornedExecutables = App-AdornedExecutables $name
     if ($adornedExecutables) {
         $p1 = Resolve-Path $path
         foreach ($exe in $adornedExecutables) {
             $p2 = Resolve-Path $exe
             if ([string]::Equals($p1, $p2, [StringComparison]::OrdinalIgnoreCase)) {
-                return Get-ExecutableProxy $name $path
+                return $true
             }
         }
     }
-    return $path
+    return $false
 }
 
 function Create-LauncherScript([string]$name)
@@ -40,7 +39,8 @@ function Create-LauncherScript([string]$name)
         return
     }
     Debug "Writing launcher script for '$launcherLabel' ..."
-    $executable = Get-LauncherTarget $name
+    $executable = App-LauncherExecutable $name
+    $isAdorned = Check-IsAdornedExecutable $name $executable
     Debug "Path of launcher target: $executable"
     $arguments = App-LauncherArguments $name | % {
         $arg = $_.Replace('"', '^"')
@@ -57,8 +57,8 @@ function Create-LauncherScript([string]$name)
     $code = "@ECHO OFF$nl"
     $code += "ECHO.Launching $launcherLabel in Bench Context ...$nl"
     $code += "CALL `"%~dp0..\env.cmd`"$nl"
-    if ($executable.EndsWith(".cmd", [StringComparison]::OrdinalIgnoreCase)) {
-        $code += "START `"$launcherLabel`" CMD /C `"$executable`" $argumentsString$nl"
+    if ($isAdorned) {
+        $code += "runps Run-Adorned $name `"$executable`" $argumentsString$nl"
     } else {
         $code += "START `"$launcherLabel`" `"$executable`" $argumentsString$nl"
     }

@@ -27,12 +27,7 @@ function Setup-ExecutionProxies([string]$name) {
                 $proxyTarget = $exePath
             }
             $proxyCode = "@ECHO OFF$nl"
-            $proxyCode += "SET AUTO_DIR=%~dp0..\..$nl"
-            $proxyCode += "CALL runps Run-PreAdornment $name `"$exePath`"$nl"
-            $proxyCode += "IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%$nl"
-            $proxyCode += "CALL `"$proxyTarget`" %*$nl"
-            $proxyCode += "CALL runps Run-PostAdornment $name `"$exePath`"$nl"
-            $proxyCode += "IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%$nl"
+            $proxyCode += "runps Run-Adorned $name `"$exePath`" %*$nl"
             [IO.File]::WriteAllText($proxyPath, $proxyCode, [Text.Encoding]::Default)
         }
     }
