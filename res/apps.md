@@ -651,6 +651,7 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-workbench-community-*-win32-noinstall.zip`
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
+* Register: `false`
 * Launcher: `MySQL Workbench`
 
 ### PostgreSQL
