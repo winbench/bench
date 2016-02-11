@@ -49,6 +49,7 @@
 ## Single applications
 
 # Activate-App OpenSSL
+# Activate-App Putty
 # Activate-App Sift
 # Activate-App cURL
 # Activate-App Pandoc

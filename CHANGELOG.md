@@ -38,6 +38,7 @@ Add a link to the GitHub diff like
     + `node-package` apps automatically depend on `Npm`
     + `python2-package` apps automatically depend on `Python2`
     + `python3-package` apps automatically depend on `Python3`
+- App: Putty
 - App: PostgreSQL and pgAdminIII
 
 ### Changes

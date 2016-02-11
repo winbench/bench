@@ -246,6 +246,16 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `bin`
 * Exe: `openssl.exe`
 
+### Putty
+
+* ID: `Putty`
+* Website: <http://www.putty.org>
+* Version: latest
+* Url: <http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip>
+* AppArchive: `putty.zip`
+* RegistryKeys: `Software\SimonTatham`
+* Launcher: `Putty`
+
 ### GNU TLS
 
 * ID: `GnuTLS`
