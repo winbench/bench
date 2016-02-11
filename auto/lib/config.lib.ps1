@@ -254,7 +254,7 @@ function Initialize-AdornmentPaths() {
     foreach ($name in $Script:definedApps) {
         [array]$adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
         if ($adornedExecutables) {
-            $appPaths = Get-AppConfigListValue $name Paths
+            $appPaths = Get-AppConfigListValue $name Path
             $proxyPath = [IO.Path]::Combine(
                 (Get-ConfigPathValue AppAdornmentbaseDir),
                 $name.ToLowerInvariant())
