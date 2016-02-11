@@ -33,6 +33,11 @@ Add a link to the GitHub diff like
   ([#17](https://github.com/mastersign/bench/issues/17))
 - Support for registry isolation
   ([#18](https://github.com/mastersign/bench/issues/18))
+- Support for automatic dependencies
+  ([#20](https://github.com/mastersign/bench/issues/20))
+    + `node-package` apps automatically depend on `Npm`
+    + `python2-package` apps automatically depend on `Python2`
+    + `python3-package` apps automatically depend on `Python3`
 - App: PostgreSQL and pgAdminIII
 
 ### Changes

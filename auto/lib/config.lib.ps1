@@ -202,6 +202,35 @@ function Process-AppRegistry($parseActivation = $false) {
     }
 }
 
+function Add-Dependency([string]$name, [string]$dep) {
+    [array]$deps = App-Dependencies $name
+    if ($deps) {
+        if (!($dep -in $deps)) {
+            $deps += $dep
+            Set-AppConfigValue $name Dependencies $deps
+        }
+    } else {
+        Set-AppConfigValue $name Dependencies @($dep)
+    }
+}
+
+function Initialize-AutoDependencies() {
+    foreach ($name in $Script:definedApps) {
+        $appTyp = App-Typ $name
+        switch ($appTyp) {
+            "node-package" {
+                Add-Dependency $name Npm
+            }
+            "python2-package" {
+                Add-Dependency $name Python2
+            }
+            "python3-package" {
+                Add-Dependency $name Python3
+            }
+        }
+    }
+}
+
 function Initialize-AdornmentForRegistryIsolation() {
     foreach ($name in $Script:definedApps) {
         $regKeys = App-RegistryKeys $name
@@ -319,6 +348,7 @@ function Initialize() {
 
     Initialize-AdornmentForRegistryIsolation
     Initialize-AdornmentPaths
+    Initialize-AutoDependencies
 
     #
     # Resolve Dependencies

@@ -369,7 +369,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Gulp`
 * Typ: `node-package`
 * Version: `>=3.9.0 <4.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/npm>
 * Exe: `gulp.cmd`
 
@@ -378,7 +377,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Grunt`
 * Typ: `node-package`
 * Version: `>=0.4.5 <0.5.0`
-* Dependencies: `Npm`
 * Website: <http://gruntjs.com>
 * Exe: `grunt.cmd`
 
@@ -387,7 +385,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Bower`
 * Typ: `node-package`
 * Version: `>=1.7.0 <2.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/bower>
 * Exe: `bower.cmd`
 
@@ -397,7 +394,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Typ: `node-package`
 * NpmPackage: `yo`
 * Version: `>=1.5.0 <2.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/yeoman>
 * Exe: `yo.cmd`
 
@@ -408,14 +404,13 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * NpmPackage: `generator-mdproc`
 * Version: `>=0.1.6 <0.2.0`
 * Website: <https://www.npmjs.com/package/generator-mdproc>
-* Dependencies: `Npm`, `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
+* Dependencies: `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
 
 ### JSHint
 
 * ID: `JSHint`
 * Typ: `node-package`
 * Version: `>=2.8.0 <3.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/jshint>
 * Exe: `jshint.cmd`
 
@@ -441,29 +436,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
-### IPython
-
-for Python 2:
-
-* ID: `IPython2`
-* Typ: `python2-package`
-* PyPiPackage: `ipython`
-* Dependencies: `Python2`, `PyReadline2`
-* Website: <https://pypi.python.org/pypi/ipython>
-* Exe: `ipython2.exe`
-* Launcher: `IPython 2`
-
-for Python 3:
-
-* ID: `IPython3`
-* Typ: `python3-package`
-* PyPiPackage: `ipython`
-* PythonVersions: `3`
-* Dependencies: `Python3`, `PyReadline3`
-* Website: <http://pypi.python.org/pypi/ipython>
-* Exe: `ipython3.exe`
-* Launcher: `IPython 3`
-
 ### PyReadline
 
 Required for colors in IPython.
@@ -481,6 +453,29 @@ for Python 3:
 * PyPiPackage: `pyreadline`
 * Typ: `python3-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
+
+### IPython
+
+for Python 2:
+
+* ID: `IPython2`
+* Typ: `python2-package`
+* PyPiPackage: `ipython`
+* Dependencies: `PyReadline2`
+* Website: <https://pypi.python.org/pypi/ipython>
+* Exe: `ipython2.exe`
+* Launcher: `IPython 2`
+
+for Python 3:
+
+* ID: `IPython3`
+* Typ: `python3-package`
+* PyPiPackage: `ipython`
+* PythonVersions: `3`
+* Dependencies: `PyReadline3`
+* Website: <http://pypi.python.org/pypi/ipython>
+* Exe: `ipython3.exe`
+* Launcher: `IPython 3`
 
 ### Ruby
 
