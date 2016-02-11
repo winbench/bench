@@ -108,6 +108,8 @@ function Find-DownloadedFile([string]$pattern) {
 }
 
 function Setup-Common([string]$name) {
+    Register-AppPaths $name
+    Update-EnvironmentPath
     Register-AppEnvironment $name
     Load-AppEnvironment $name
     Execute-AppCustomSetup $name
@@ -171,7 +173,6 @@ function Setup-DefaultApp([string]$name) {
         Debug "Skipping allready installed $name in $dir"
     }
 
-    Register-AppPaths $name
     Setup-Common $name
 }
 
@@ -281,7 +282,6 @@ foreach ($name in $Script:apps) {
             }
         }
     }
-    Update-EnvironmentPath
 }
 Write-EnvironmentFile
 Create-ActionLaunchers
