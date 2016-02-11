@@ -80,10 +80,10 @@ function Get-ConfigListValue([string]$name, $def = $null) {
 
 function Get-ConfigPathValue([string]$name, [string]$def = $null) {
     $path = Get-ConfigValue $name $def
-    if ($path -eq $null -or [IO.Path]::IsPathRooted($path)) {
-        return $path
-    } else {
+    if ($path -and ![IO.Path]::IsPathRooted($path)) {
         return [IO.Path]::Combine($Script:rootDir, $path)
+    } else {
+        return $path
     }
 }
 
@@ -108,7 +108,17 @@ function Get-AppConfigListValue([string]$app, [string]$name, $def = $null) {
 
 function Get-AppConfigPathValue([string]$app, [string]$name, [string]$def = $null) {
     $prop = Get-AppConfigPropertyName $app $name
-    return Get-ConfigPathValue $prop $def
+    $path = Get-ConfigValue $prop $def
+    if ($path -and ![IO.Path]::IsPathRooted($path)) {
+        $appDir = App-Dir $app
+        if ($appDir) {
+            return [IO.Path]::Combine($appDir, $path)
+        } else {
+            return [IO.Path]::Combine($Script:rootDir, $path)
+        }
+    } else {
+        return $path
+    }
 }
 
 function Add-ToSetList($list, $element) {
@@ -254,7 +264,7 @@ function Initialize-AdornmentPaths() {
     foreach ($name in $Script:definedApps) {
         [array]$adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
         if ($adornedExecutables) {
-            $appPaths = Get-AppConfigListValue $name Paths
+            $appPaths = Get-AppConfigListValue $name Path
             $proxyPath = [IO.Path]::Combine(
                 (Get-ConfigPathValue AppAdornmentbaseDir),
                 $name.ToLowerInvariant())

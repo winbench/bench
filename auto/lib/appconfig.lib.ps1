@@ -158,17 +158,12 @@ function App-Paths([string]$name) {
 }
 
 function App-Exe([string]$name, [bool]$checkExist = $true) {
-    $fileName = Get-AppConfigValue $name Exe "${name}.exe"
-    if ([IO.Path]::IsPathRooted($fileName)) {
-        return $fileName
+    $path = Get-AppConfigPathValue $name Exe "${name}.exe"
+    if (Test-Path $path) {
+        return $path
+    } else {
+        return $null
     }
-    foreach ($path in (App-Paths $name)) {
-        $file = [IO.Path]::Combine($path, $fileName)
-        if ([IO.File]::Exists($file)) {
-            return $file
-        }
-    }
-    return $null
 }
 
 function App-Register([string]$name) {
@@ -191,7 +186,15 @@ function App-AdornedExecutables([string]$name) {
     $appDir = App-Dir $name
     [array]$exePaths = Get-AppConfigListValue $name AdornedExecutables
     if ($exePaths) {
-        return [array]($exePaths | % { [IO.Path]::Combine($appDir, $_) })
+        return [array]($exePaths | % {
+            if (![IO.Path]::IsPathRooted($_)) {
+                if ($appDir) {
+                    [IO.Path]::Combine($appDir, $_)
+                }
+            } else {
+                $_
+            }
+        })
     }
 }
 
