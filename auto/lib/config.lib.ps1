@@ -300,7 +300,7 @@ function Initialize() {
     Get-Content $appIndex | Process-AppRegistry -parseActivation $true
 
     #
-    # Load custom configuration
+    # Load Custom Configuration
     #
 
     $customAppIndex = Get-ConfigPathValue CustomAppIndex
@@ -312,6 +312,13 @@ function Initialize() {
     if (Test-Path $customConfigFile) {
         . $customConfigFile
     }
+
+    #
+    # Auto Configurations
+    #
+
+    Initialize-AdornmentForRegistryIsolation
+    Initialize-AdornmentPaths
 
     #
     # Resolve Dependencies
@@ -343,11 +350,8 @@ function Initialize() {
     Debug "Resolved Apps: $([string]::Join(", ", $Script:apps))"
 
     #
-    # Auto Configurations
+    # Uncostumizable Configurations
     #
-
-    Initialize-AdornmentForRegistryIsolation
-    Initialize-AdornmentPaths
 
     Set-ConfigValue BenchDrive ([IO.Path]::GetPathRoot($Script:rootDir).Substring(0, 2))
     Set-ConfigValue BenchRoot $Script:rootDir
