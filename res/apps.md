@@ -652,6 +652,8 @@ The initial password for _root_ is `bench`.
 * AppArchiveSubDir: `mysql-5.7.10-win32`
 * Path: `bin`
 * Exe: `bin\mysqld.exe`
+* MySqlDataDir: `$HomeDir$\mysql_data`
+* Environment: `MYSQL_DATA=$MySQL:MySqlDataDir$`
 
 ### MySQL Workbench
 
