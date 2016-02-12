@@ -30,6 +30,8 @@ Add a link to the GitHub diff like
   dropping executables on the launcher, to run them in the _Bench_ environment
 
 ### Changed
+- Update: PHP 5 from 5.6.17 to 5.6.18
+- Update: PHP 7 from 7.0.2 to 7.0.3
 - Update: Visual Studio Code Archive Pattern
 
 ## [0.7.1] - 2016-02-12
