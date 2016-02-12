@@ -564,7 +564,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Website: <https://code.visualstudio.com/Docs/?dv=win>
 * Version: latest
 * Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
-* AppArchive: `VSCode-win32.zip`
+* AppArchive: `VSCode-win32*.zip`
 * Dir: `code`
 * Exe: `code.exe`
 * Launcher: `Visual Studio Code`

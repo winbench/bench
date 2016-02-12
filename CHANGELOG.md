@@ -29,6 +29,9 @@ Add a link to the GitHub diff like
 - Passing arguments to _Command Line_ launcher with `/C`, to allow
   dropping executables on the launcher, to run them in the _Bench_ environment
 
+### Changed
+- Update: Visual Studio Code Archive Pattern
+
 ## [0.7.1] - 2016-02-12
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.7.0...v0.7.1)
 
