@@ -49,6 +49,7 @@
 ## Single applications
 
 # Activate-App OpenSSL
+# Activate-App Putty
 # Activate-App Sift
 # Activate-App cURL
 # Activate-App Pandoc
@@ -83,6 +84,7 @@
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
+# Activate-App PostgreSql
 # Activate-App Apache
 
 ## Activate GNU tools from Git's MinGW distribution
@@ -97,7 +99,7 @@
 
 ## Override Version for NodeJS packages:
 
-# Set-AppConfigValue XYZ Version "^3.5.0"
+# Set-AppConfigValue XYZ Version ">=3.5.0 <4.0.0"
 
 ## Choose a Default Editor App
 

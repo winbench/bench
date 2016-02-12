@@ -5,6 +5,7 @@
 /res/download
 /auto/env.cmd
 /auto/launcher
+/auto/proxies
 /projects/*
 
 /*.log

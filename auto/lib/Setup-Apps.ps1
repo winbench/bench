@@ -2,10 +2,12 @@ param ([switch]$debug)
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
-. "$scriptsLib\appconfig.lib.ps1"
 . "$scriptsLib\env.lib.ps1"
+. "$scriptsLib\adornment.lib.ps1"
+. "$scriptsLib\reg.lib.ps1"
 . "$scriptsLib\launcher.lib.ps1"
 
+trap { Write-TrapError $_ }
 Set-Debugging $debug
 
 $winShell = New-Object -ComObject Shell.Application
@@ -107,10 +109,13 @@ function Find-DownloadedFile([string]$pattern) {
 }
 
 function Setup-Common([string]$name) {
+    Register-AppPaths $name
+    Update-EnvironmentPath
     Register-AppEnvironment $name
     Load-AppEnvironment $name
     Execute-AppCustomSetup $name
     Execute-AppEnvironmentSetup $name
+    Setup-ExecutionProxies $name
     Create-Launcher $name
 }
 
@@ -169,7 +174,6 @@ function Setup-DefaultApp([string]$name) {
         Debug "Skipping allready installed $name in $dir"
     }
 
-    Register-AppPaths $name
     Setup-Common $name
 }
 
@@ -193,40 +197,39 @@ function Setup-NpmPackage([string]$name) {
     Setup-Common $name
 }
 
-function Setup-PyPiPackage([string]$name) {
+function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
     $packageName = App-PyPiPackage $name
     $version = App-Version $name
-    $pythonVersions = App-PythonVersions $name
-    foreach ($pv in $pythonVersions) {
-        if ((App-Force $name) -or !(Check-PyPiPackageForPythonVersion $name $pv)) {
-            $python = "Python$pv"
-            if ($python -in $Script:apps) {
-                $pip = "pip$pv"
-                if ($version) {
-                    Write-Host "Setting up PyPI package $packageName $version for Python $pv"
-                    if (App-Force $name) {
-                        & $pip install --upgrade $packageName "`"$version`""
-                    } else {
-                        & $pip install $packageName "`"$version`""
-                    }
+    if ((App-Force $name) -or !(Check-PyPiPackage $pythonVersion $name)) {
+        $python = "Python$pythonVersion"
+        if ($python -in $Script:apps) {
+            $pip = "pip$pythonVersion"
+            if ($version) {
+                Write-Host "Setting up PyPI package $packageName $version for Python $pythonVersion"
+                if (App-Force $name) {
+                    & $pip install --upgrade $packageName "`"$version`""
                 } else {
-                    Write-Host "Setting up PyPI package $packageName for Python $pv"
-                    if (App-Force $name) {
-                        & $pip install --upgrade $packageName
-                    } else {
-                        & $pip install $packageName
-                    }
+                    & $pip install $packageName "`"$version`""
                 }
             } else {
-                Debug "Skipping PyPI package $packageName for inactive Python $pv"
+                Write-Host "Setting up PyPI package $packageName for Python $pythonVersion"
+                if (App-Force $name) {
+                    & $pip install --upgrade $packageName
+                } else {
+                    & $pip install $packageName
+                }
             }
         } else {
-            Debug "Skipping allready installed PyPI package $packageName $version"
+            Debug "Skipping PyPI package $packageName for inactive Python $pythonVersion"
         }
+    } else {
+        Debug "Skipping allready installed PyPI package $packageName $version"
     }
     Setup-Common $name
 }
 
+Clean-ExecutionProxies
+Clean-Launchers
 Load-Environment
 Update-EnvironmentPath
 $failedApps = @()
@@ -252,9 +255,18 @@ foreach ($name in $Script:apps) {
                 $failedApps += $name
             }
         }
-        "python-package" {
+        "python2-package" {
             try {
-                Setup-PyPiPackage $name
+                Setup-PyPiPackage 2 $name
+                $installedApps += $name
+            } catch {
+                Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                $failedApps += $name
+            }
+        }
+        "python3-package" {
+            try {
+                Setup-PyPiPackage 3 $name
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
@@ -271,7 +283,6 @@ foreach ($name in $Script:apps) {
             }
         }
     }
-    Update-EnvironmentPath
 }
 Write-EnvironmentFile
 Create-ActionLaunchers

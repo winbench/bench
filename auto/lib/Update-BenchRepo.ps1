@@ -2,8 +2,8 @@ param ([switch]$debug)
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
-. "$scriptsLib\appconfig.lib.ps1"
 
+trap { Write-TrapError $_ }
 Set-Debugging $debug
 
 cd $Script:rootDir

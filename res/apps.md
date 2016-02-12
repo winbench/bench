@@ -47,6 +47,15 @@ The ID must be the first entry in a list, defining an app.
 * **Environment**:
   A list of key-value-pairs, describing additional environment variables (optional, default is empty).
   E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+* **AdornedExecutables**:
+  A list of executable paths, relative to the target directory of the app.
+  Every listed executable will be adorned with pre- and post-execution scripts.
+  (optional, default is empty)
+* **RegistryKeys**:
+  A list of relative key paths in the Windows registry hive `HKEY_CURRENT_USER`,
+  which are used by this app and must be backed up and restored,
+  during execution of this app.
+  (optional, default is empty)
 * **Launcher**:
   A label for the app launcher (optional, default is empty).
   A launcher for the app is created only if this property is set to a non empty string.
@@ -60,12 +69,13 @@ The ID must be the first entry in a list, defining an app.
 
 ## App Types
 
-There are currently four kinds of apps:
+There are currently the following types of apps:
 
 * Typ `meta`: app groups or apps with a fully customized setup process
 * Typ `default`: Windows executables from a downloades file, archive, or setup
 * Typ `node-package`: NodeJS packages, installable with NPM
-* Typ `python-package`: Python packages from PyPI, installable with PIP
+* Typ `python2-package`: Python packages for Python 2 from PyPI, installable with PIP
+* Typ `python3-package`: Python packages for Python 3 from PyPI, installable with PIP
 
 ### App Group and Custom Setup
 
@@ -122,15 +132,12 @@ To determine, if a NodeJS package is already installed, the existence of its pac
 ### Python Package
 
 * **Typ**:
-  The application typ (required to be `python-package`)
+  The application typ (required to be `python2-package` or `python3-package`)
 * **PyPiPackage**:
   The name of the PyPI package to install via PIP (optional, default is the app ID in lowercase).
 * **Version**:
   The package version or version range to install (e.g. `2.5.0` or `>=1.2.0,<3.0.0`),
   if empty install latest (optional, default empty).
-* **PythonVersions**:
-  A list with all Python version to install this package in (e.g. `2`, `3`),
-  if empty install in all Python versions (optional, default empty).
 * **Exe**:
   The name of an PIP CLI wrapper from this package (optional, default is empty).
 * **Path**:
@@ -180,7 +187,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Url: <https://github.com/git-for-windows/git/releases/download/v2.7.0.windows.1/PortableGit-2.7.0-32-bit.7z.exe>
 * AppArchive: `PortableGit-2.7.0-32-bit.7z.exe`
 * Path: `cmd`
-* Exe: `git.exe`
+* Exe: `cmd\git.exe`
 
 ## Groups
 
@@ -237,7 +244,17 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `openssl-1.0.2d-fips-2.0.10.zip`
 * AppArchiveSubDir: `openssl-1.0.2d-fips-2.0.10`
 * Path: `bin`
-* Exe: `openssl.exe`
+* Exe: `bin\openssl.exe`
+
+### Putty
+
+* ID: `Putty`
+* Website: <http://www.putty.org>
+* Version: latest
+* Url: <http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip>
+* AppArchive: `putty.zip`
+* RegistryKeys: `Software\SimonTatham`
+* Launcher: `Putty`
 
 ### GNU TLS
 
@@ -247,7 +264,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `gnutls-*-w32-bin.zip`
 * Dir: `gnu`
 * Path: `bin`
-* Exe: `gnutls-cli.exe`
+* Exe: `bin\gnutls-cli.exe`
 
 ### cURL
 
@@ -258,7 +275,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `curl-7.46.0-win32-mingw.7z`
 * AppArchiveSubDir: `curl-7.46.0-win32-mingw`
 * Path: `bin`
-* Exe: `curl.exe`
+* Exe: `bin\curl.exe`
 
 ### Sift
 
@@ -286,7 +303,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5857.exe>
 * AppArchive: `miktex-portable-2.*.exe`
 * Path: `miktex\bin`
-* Exe: `latex.exe`
+* Exe: `miktex\bin\latex.exe`
 
 ### Graphics Magick
 
@@ -318,7 +335,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Url: <http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip>
 * AppArchive: `graphviz-*.zip`
 * Path: `release\bin`
-* Exe: `dot.exe`
+* Exe: `release\bin\dot.exe`
 
 ### Inkscape
 
@@ -362,7 +379,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Gulp`
 * Typ: `node-package`
 * Version: `>=3.9.0 <4.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/npm>
 * Exe: `gulp.cmd`
 
@@ -371,7 +387,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Grunt`
 * Typ: `node-package`
 * Version: `>=0.4.5 <0.5.0`
-* Dependencies: `Npm`
 * Website: <http://gruntjs.com>
 * Exe: `grunt.cmd`
 
@@ -380,7 +395,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Bower`
 * Typ: `node-package`
 * Version: `>=1.7.0 <2.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/bower>
 * Exe: `bower.cmd`
 
@@ -390,7 +404,6 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Typ: `node-package`
 * NpmPackage: `yo`
 * Version: `>=1.5.0 <2.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/yeoman>
 * Exe: `yo.cmd`
 
@@ -401,14 +414,13 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * NpmPackage: `generator-mdproc`
 * Version: `>=0.1.6 <0.2.0`
 * Website: <https://www.npmjs.com/package/generator-mdproc>
-* Dependencies: `Npm`, `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
+* Dependencies: `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
 
 ### JSHint
 
 * ID: `JSHint`
 * Typ: `node-package`
 * Version: `>=2.8.0 <3.0.0`
-* Dependencies: `Npm`
 * Website: <https://www.npmjs.com/package/jshint>
 * Exe: `jshint.cmd`
 
@@ -434,35 +446,46 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
-### IPython 2
-
-* ID: `IPython2`
-* Typ: `python-package`
-* PyPiPackage: `ipython`
-* PythonVersions: `2`
-* Dependencies: `Python2`, `PyReadline`
-* Website: <https://pypi.python.org/pypi/ipython>
-* Exe: `$Python2:Dir$\Scripts\ipython2.exe`
-* Launcher: `IPython 2`
-
-### IPython 3
-
-* ID: `IPython3`
-* Typ: `python-package`
-* PyPiPackage: `ipython`
-* PythonVersions: `3`
-* Dependencies: `Python3`, `PyReadline`
-* Website: <http://pypi.python.org/pypi/ipython>
-* Exe: `$Python3:Dir$\Scripts\ipython3.exe`
-* Launcher: `IPython 3`
-
 ### PyReadline
 
 Required for colors in IPython.
 
-* ID: `PyReadline`
-* Typ: `python-package`
+for Python 2:
+
+* ID: `PyReadline2`
+* PyPiPackage: `pyreadline`
+* Typ: `python2-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
+
+for Python 3:
+
+* ID: `PyReadline3`
+* PyPiPackage: `pyreadline`
+* Typ: `python3-package`
+* Website: <https://pypi.python.org/pypi/pyreadline>
+
+### IPython
+
+for Python 2:
+
+* ID: `IPython2`
+* Typ: `python2-package`
+* PyPiPackage: `ipython`
+* Dependencies: `PyReadline2`
+* Website: <https://pypi.python.org/pypi/ipython>
+* Exe: `Scripts\ipython2.exe`
+* Launcher: `IPython 2`
+
+for Python 3:
+
+* ID: `IPython3`
+* Typ: `python3-package`
+* PyPiPackage: `ipython`
+* PythonVersions: `3`
+* Dependencies: `PyReadline3`
+* Website: <http://pypi.python.org/pypi/ipython>
+* Exe: `Scripts\ipython3.exe`
+* Launcher: `IPython 3`
 
 ### Ruby
 
@@ -474,7 +497,7 @@ Required for colors in IPython.
 * AppArchiveTyp: `inno`
 * AppArchiveSubDir: `{app}`
 * Path: `bin`
-* Exe: `ruby.exe`
+* Exe: `bin\ruby.exe`
 
 ### PHP 5
 
@@ -507,7 +530,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
 * AppArchive: `jdk-7u*-windows-i586.exe`
 * Path: `bin`
-* Exe: `javac.exe`
+* Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK7:Dir$`
 
 ### Java Development Kit 8
@@ -519,7 +542,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
 * AppArchive: `jdk-8u72-windows-i586.exe`
 * Path: `bin`
-* Exe: `javac.exe`
+* Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
 
 ### Leiningen
@@ -561,9 +584,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `SublimeText3`
 * Website: <http://www.sublimetext.com/3>
-* Version: Build 3083
-* Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
-* AppArchive: `Sublime*Text*Build*.zip`
+* Version: Build 3103
+* Url: <https://download.sublimetext.com/Sublime%20Text%20Build%203103.zip>
+* AppArchive: `Sublime*Text*Build*3103.zip`
 * Exe: `sublime_text.exe`
 * Launcher: `Sublime Text 3`
 
@@ -577,6 +600,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `emacs-*.zip`
 * Dir: `gnu`
 * Path: `bin`
+* Exe: `bin\emacs.exe`
 * Launcher: `Emacs`
 * LauncherExecutable: `$Emacs:Dir$\bin\runemacs.exe`
 
@@ -627,7 +651,9 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-5.7.10-win32.zip`
 * AppArchiveSubDir: `mysql-5.7.10-win32`
 * Path: `bin`
-* Exe: `mysqld.exe`
+* Exe: `bin\mysqld.exe`
+* MySqlDataDir: `$HomeDir$\mysql_data`
+* Environment: `MYSQL_DATA=$MySQL:MySqlDataDir$`
 
 ### MySQL Workbench
 
@@ -638,7 +664,31 @@ The initial password for _root_ is `bench`.
 * AppArchive: `mysql-workbench-community-*-win32-noinstall.zip`
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
+* Register: `false`
 * Launcher: `MySQL Workbench`
+
+### PostgreSQL
+
+Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
+
+**Warning:** _pgAdmin_ stores its configuration in the registry and is not portable.
+
+* ID: `PostgreSQL`
+* Website: <http://www.postgresql.org>
+* Version: 9.5.0
+* Url: <http://get.enterprisedb.com/postgresql/postgresql-9.5.0-1-windows-binaries.zip>
+* AppArchive: `postgresql-9.5.0-1-windows-binaries.zip`
+* AppArchiveSubDir: `pgsql`
+* Dir: `postgres`
+* Path: `bin`
+* Exe: `bin\postgres.exe`
+* RegistryKeys: `Software\pgAdmin III`
+* Launcher: `PostgreSQL Admin 3`
+* LauncherExecutable: `bin\pgAdmin3.exe`
+* AdornedExecutables: `bin\pgAdmin3.exe`
+* PostgreSqlDataDir: `$HomeDir$\pg_data`
+* PostgreSqlLogFile: `$HomeDir$\pg.log`
+* Environment: `PGDATA=$PostgreSQL:PostgreSqlDataDir$`, `PG_LOG=$PostgreSQL:PostgreSqlLogFile$`
 
 ### Apache
 
@@ -649,7 +699,7 @@ The initial password for _root_ is `bench`.
 * AppArchive: `httpd-2.4.*-win32-VC11.zip`
 * AppArchiveSubDir: `Apache24`
 * Path: `bin`
-* Exe: `httpd.exe`
+* Exe: `bin\httpd.exe`
 * HttpdDocumentRoot: `$HomeDir$\www`
 * HttpdListen: `127.0.0.1:80`
 
