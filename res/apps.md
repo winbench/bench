@@ -584,9 +584,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `SublimeText3`
 * Website: <http://www.sublimetext.com/3>
-* Version: Build 3083
-* Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
-* AppArchive: `Sublime*Text*Build*.zip`
+* Version: Build 3103
+* Url: <https://download.sublimetext.com/Sublime%20Text%20Build%203103.zip>
+* AppArchive: `Sublime*Text*Build*3103.zip`
 * Exe: `sublime_text.exe`
 * Launcher: `Sublime Text 3`
 
