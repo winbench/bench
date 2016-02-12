@@ -25,6 +25,18 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.7.2] - 2016-02-12
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.7.1...v0.7.2)
+
+### Added
+- Passing arguments to _Command Line_ launcher with `/C`, to allow
+  dropping executables on the launcher, to run them in the _Bench_ environment
+
+### Changed
+- Update: PHP 5 from 5.6.17 to 5.6.18
+- Update: PHP 7 from 7.0.2 to 7.0.3
+- Update: Visual Studio Code Archive Pattern
+
 ## [0.7.1] - 2016-02-12
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.7.0...v0.7.1)
 
