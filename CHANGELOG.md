@@ -25,6 +25,15 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.7.1] - 2016-02-12
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.7.0...v0.7.1)
+
+### Fixed
+- FFmpeg exe path
+
+## [0.7.0] - 2016-02-12
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.6.1...v0.7.0)
+
 ### Added
 - `CHANGELOG.md`
 - Action script `bench-ctl.cmd` for management of the _Bench_ installation
@@ -45,6 +54,7 @@ Add a link to the GitHub diff like
 - changed behavior for `App-Dir`, `App-Path`, and `App-Paths` for `meta` apps
 - migrated app type `python-package` to `python2-package` and `python3-package`
   ([#19](https://github.com/mastersign/bench/issues/19))
+- Update: Sublime Text 3 from rev. 3083 to rev. 3103
 
 ### Removed
 - Management scripts (replaced by `bench-ctl.cmd`)

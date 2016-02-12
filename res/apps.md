@@ -326,6 +326,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `ffmpeg-20160124-git-1d8f9b7-win32-shared.7z`
 * AppArchiveSubDir: `ffmpeg-20160124-git-1d8f9b7-win32-shared`
 * Path: `bin`
+* Exe: `bin\ffmpeg.exe`
 
 ### Graphviz
 
@@ -584,9 +585,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `SublimeText3`
 * Website: <http://www.sublimetext.com/3>
-* Version: Build 3083
-* Url: <http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203083.zip>
-* AppArchive: `Sublime*Text*Build*.zip`
+* Version: Build 3103
+* Url: <https://download.sublimetext.com/Sublime%20Text%20Build%203103.zip>
+* AppArchive: `Sublime*Text*Build*3103.zip`
 * Exe: `sublime_text.exe`
 * Launcher: `Sublime Text 3`
 
@@ -673,7 +674,7 @@ Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 
 **Warning:** _pgAdmin_ stores its configuration in the registry and is not portable.
 
-* ID: `PostgreSql`
+* ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
 * Version: 9.5.0
 * Url: <http://get.enterprisedb.com/postgresql/postgresql-9.5.0-1-windows-binaries.zip>
@@ -681,8 +682,14 @@ Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 * AppArchiveSubDir: `pgsql`
 * Dir: `postgres`
 * Path: `bin`
-* Exe: `bin\pgAdmin3.exe`
+* Exe: `bin\postgres.exe`
+* RegistryKeys: `Software\pgAdmin III`
 * Launcher: `PostgreSQL Admin 3`
+* LauncherExecutable: `bin\pgAdmin3.exe`
+* AdornedExecutables: `bin\pgAdmin3.exe`
+* PostgreSqlDataDir: `$HomeDir$\pg_data`
+* PostgreSqlLogFile: `$HomeDir$\pg.log`
+* Environment: `PGDATA=$PostgreSQL:PostgreSqlDataDir$`, `PG_LOG=$PostgreSQL:PostgreSqlLogFile$`
 
 ### Apache
 

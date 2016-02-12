@@ -4,6 +4,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
 . "$scriptsLib\env.lib.ps1"
 . "$scriptsLib\adornment.lib.ps1"
+. "$scriptsLib\reg.lib.ps1"
 . "$scriptsLib\launcher.lib.ps1"
 
 trap { Write-TrapError $_ }
