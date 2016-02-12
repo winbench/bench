@@ -673,7 +673,7 @@ Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 
 **Warning:** _pgAdmin_ stores its configuration in the registry and is not portable.
 
-* ID: `PostgreSql`
+* ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
 * Version: 9.5.0
 * Url: <http://get.enterprisedb.com/postgresql/postgresql-9.5.0-1-windows-binaries.zip>
@@ -681,8 +681,14 @@ Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 * AppArchiveSubDir: `pgsql`
 * Dir: `postgres`
 * Path: `bin`
-* Exe: `bin\pgAdmin3.exe`
+* Exe: `bin\postgres.exe`
+* RegistryKeys: `Software\pgAdmin III`
 * Launcher: `PostgreSQL Admin 3`
+* LauncherExecutable: `bin\pgAdmin3.exe`
+* AdornedExecutables: `bin\pgAdmin3.exe`
+* PostgreSqlDataDir: `$HomeDir$\pg_data`
+* PostgreSqlLogFile: `$HomeDir$\pg.log`
+* Environment: `PGDATA=$PostgreSQL:PostgreSqlDataDir$`, `PG_LOG=$PostgreSQL:PostgreSqlLogFile$`
 
 ### Apache
 
