@@ -326,6 +326,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchive: `ffmpeg-20160124-git-1d8f9b7-win32-shared.7z`
 * AppArchiveSubDir: `ffmpeg-20160124-git-1d8f9b7-win32-shared`
 * Path: `bin`
+* Exe: `bin\ffmpeg.exe`
 
 ### Graphviz
 

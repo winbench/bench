@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Fixed
+- FFmpeg exe path
+
 ### [0.7.0] - 2016-02-12
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.6.1...v0.7.0)
 
