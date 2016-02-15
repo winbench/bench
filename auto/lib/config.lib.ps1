@@ -290,15 +290,17 @@ function Initialize() {
     Set-ConfigValue VersionFile "res\version.txt"
     Set-ConfigValue UserName $null
     Set-ConfigValue UserEmail $null
-    Set-ConfigValue CustomConfigFile "config.ps1"
+    Set-ConfigValue CustomConfigDir "config"
+    Set-ConfigValue CustomConfigFile '$CustomConfigDir$\config.ps1'
     Set-ConfigValue CustomConfigTemplate "res\config.template.ps1"
     Set-ConfigValue AppIndex "res\apps.md"
-    Set-ConfigValue CustomAppIndex "apps.md"
+    Set-ConfigValue CustomAppIndex '$CustomConfigDir$\apps.md'
     Set-ConfigValue CustomAppIndexTemplate "res\apps.template.md"
     Set-ConfigValue DownloadDir "res\download"
     Set-ConfigValue AppResourceBaseDir "res\apps"
     Set-ConfigValue AppAdornmentBaseDir "auto\proxies"
     Set-ConfigValue AppRegistryBaseDir '$HomeDir$\registry_isolation'
+    Set-ConfigValue ActionDir "actions"
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
@@ -319,6 +321,7 @@ function Initialize() {
     Set-ConfigValue EditorApp "VSCode"
 
     $Script:pathConfigValues = @(
+        "CustomConfigDir",
         "CustomConfigFile",
         "CustomConfigTemplate",
         "AppIndex",
@@ -326,6 +329,9 @@ function Initialize() {
         "CustomAppIndexTemplate"
         "DownloadDir",
         "AppResourceBaseDir",
+        "AppAdornmentBaseDir",
+        "AppRegistryBaseDir"
+        "ActionDir",
         "TempDir",
         "LibDir",
         "HomeDir",
