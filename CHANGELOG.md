@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Changed
+- moved action scripts from root directory to folder `actions`
+- renamed action `project-shell.cmd` into `project-ps.cmd`
+
 ### Fixed
 - action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`
 - expansion of config values `AppAdornmentBaseDir` and `AppRegistryBaseDir`

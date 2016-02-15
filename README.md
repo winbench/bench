@@ -88,7 +88,7 @@ The following environment variables are set by `auto/env.cmd`.
 
 ## Actions
 
-Actions are CMD scripts in the root folder of _Bench_ to quickly start working inside of the _Bench_ environment.
+Actions are CMD scripts in the `actions` folder of _Bench_ to quickly start working inside of the _Bench_ environment.
 
 Every action runs `auto/env.cmd` first to initialize the isolated _Bench_ environment.
 
@@ -135,11 +135,11 @@ Clones a [Git] repository as a new project.
 
 ### With Project Context
 
-#### `project-shell`
+#### `project-ps`
 
 Open a _PowerShell_ prompt for a specific project.
 
-The path to the project can be specified as a first command line argument to `project-shell.cmd`.
+The path to the project can be specified as a first command line argument to `project-ps.cmd`.
 If no project path is specified, the project can be selected interactively.
 
 #### `project-editor`
@@ -163,7 +163,7 @@ filename extension supported by [7zip].
 
 ## Management and Upgrade
 
-The _Bench_ system can be managed and upgraded with the `bench-ctl.cmd` script in the root folder of _Bench_.
+The _Bench_ system can be managed and upgraded with the `bench-ctl.cmd` script in the `actions` folder of _Bench_.
 
 ### Execution Modes
 

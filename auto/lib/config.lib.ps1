@@ -299,6 +299,7 @@ function Initialize() {
     Set-ConfigValue AppResourceBaseDir "res\apps"
     Set-ConfigValue AppAdornmentBaseDir "auto\proxies"
     Set-ConfigValue AppRegistryBaseDir '$HomeDir$\registry_isolation'
+    Set-ConfigValue ActionDir "actions"
     Set-ConfigValue TempDir "tmp"
     Set-ConfigValue LibDir "lib"
     Set-ConfigValue HomeDir "home"
@@ -328,6 +329,7 @@ function Initialize() {
         "AppResourceBaseDir",
         "AppAdornmentBaseDir",
         "AppRegistryBaseDir"
+        "ActionDir",
         "TempDir",
         "LibDir",
         "HomeDir",

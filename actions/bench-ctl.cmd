@@ -1,10 +1,12 @@
 @ECHO OFF
 SETLOCAL EnableDelayedExpansion
 
-SET ROOT_DIR=%~dp0
+SET ROOT_DIR=%~dp0\..
 SET AUTO_DIR=%ROOT_DIR%\auto
 SET RUN_SHELL=0
 SET VERBOSE=0
+
+CD /D "%ROOT_DIR%"
 
 IF "_%1_" == "__" GOTO:interactive
 IF "_%1_" == "_/?_" GOTO:help
