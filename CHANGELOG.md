@@ -32,6 +32,7 @@ Add a link to the GitHub diff like
 - Switched from PHP release URLs to archive URLs for longer lifespan
     + Downgrade: PHP 5 from 5.6.18 to 5.6.17 (archive link)
     + Downgrade: PHP 7 from 7.0.3 to 7.0.2 (archive link)
+- Update: Git from 2.7.0 to 2.7.1
 
 ### Fixed
 - action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`
