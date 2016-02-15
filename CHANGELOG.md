@@ -28,6 +28,7 @@ Add a link to the GitHub diff like
 ### Changed
 - moved action scripts from root directory to folder `actions`
 - renamed action `project-shell.cmd` into `project-ps.cmd`
+- moved custom app index `apps.md` and custom configuration `config.ps1` to `config` folder
 
 ### Fixed
 - action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`

@@ -1,6 +1,7 @@
 /tmp
 /lib
 /home
+/config
 /launcher
 /res/download
 /auto/env.cmd
@@ -9,5 +10,3 @@
 /projects/*
 
 /*.log
-/config.ps1
-/apps.md
