@@ -326,6 +326,8 @@ function Initialize() {
         "CustomAppIndexTemplate"
         "DownloadDir",
         "AppResourceBaseDir",
+        "AppAdornmentBaseDir",
+        "AppRegistryBaseDir"
         "TempDir",
         "LibDir",
         "HomeDir",
