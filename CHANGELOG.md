@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Fixed
+- action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`
+
 ## [0.7.2] - 2016-02-12
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.7.1...v0.7.2)
 
