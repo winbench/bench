@@ -506,9 +506,9 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 
 * ID: `PHP5`
 * Website: <http://www.php.net>
-* Version: 5.6.18
-* Url: <http://windows.php.net/downloads/releases/php-5.6.18-Win32-VC11-x86.zip>
-* AppArchive: `php-5.*-Win32-VC11-x86.zip`
+* Version: 5.6.17
+* Url: <http://windows.php.net/downloads/releases/archives/php-5.6.17-Win32-VC11-x86.zip>
+* AppArchive: `php-5.6.17-Win32-VC11-x86.zip`
 * Exe: `php.exe`
 
 ### PHP 7
@@ -517,9 +517,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `PHP7`
 * Website: <http://www.php.net>
-* Version: 7.0.3
-* Url: <http://windows.php.net/downloads/releases/php-7.0.3-Win32-VC14-x86.zip>
-* AppArchive: `php-7.*-Win32-VC14-x86.zip`
+* Version: 7.0.2
+* Url: <http://windows.php.net/downloads/releases/archives/php-7.0.2-Win32-VC14-x86.zip>
+* AppArchive: `php-7.0.2-Win32-VC14-x86.zip`
 * Exe: `php.exe`
 
 ### Java Development Kit 7

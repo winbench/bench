@@ -29,6 +29,9 @@ Add a link to the GitHub diff like
 - moved action scripts from root directory to folder `actions`
 - renamed action `project-shell.cmd` into `project-ps.cmd`
 - moved custom app index `apps.md` and custom configuration `config.ps1` to `config` folder
+- Switched from PHP release URLs to archive URLs for longer lifespan
+    + Downgrade: PHP 5 from 5.6.18 to 5.6.17 (archive link)
+    + Downgrade: PHP 7 from 7.0.3 to 7.0.2 (archive link)
 
 ### Fixed
 - action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`
