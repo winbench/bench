@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.8.0] - 2016-02-15
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0)
+
 ### Added
 - `auto\lib\profile.ps1` for customization of the PowerShell environment
 
