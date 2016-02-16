@@ -38,6 +38,7 @@ Add a link to the GitHub diff like
     + Downgrade: PHP 7 from 7.0.3 to 7.0.2 (archive link)
 - Update: Git from 2.7.0 to 2.7.1
 - Update: cURL from 7.46.0 to 7.47.1
+- Update: Sift from 0.7.1 to 0.8.0
 
 ### Fixed
 - action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`

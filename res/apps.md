@@ -281,9 +281,9 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Sift`
 * Website: <https://sift-tool.org/>
-* Version: `0.7.1`
-* Url: <https://sift-tool.org/downloads/sift/sift_0.7.1_windows_386.zip>
-* AppArchive: `sift_0.7.1_windows_386.zip`
+* Version: `0.8.0`
+* Url: <https://sift-tool.org/downloads/sift/sift_0.8.0_windows_386.zip>
+* AppArchive: `sift_0.8.0_windows_386.zip`
 
 ### Pandoc
 
