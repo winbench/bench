@@ -110,7 +110,7 @@ function Create-Launcher([string]$name) {
 
 function Create-ActionLauncher($label, $action, $icon) {
     $launcherFile = [IO.Path]::Combine($launcherDir, $label + '.lnk')
-    $targetPath = [IO.Path]::Combine((Get-ConfigPathValue BenchRoot), "$action.cmd")
+    $targetPath = [IO.Path]::Combine((Get-ConfigPathValue ActionDir), "$action.cmd")
     Debug "Creating launcher for '$label' ..."
     Create-Shortcut $launcherFile $targetPath `
       -workingDir (Get-ConfigPathValue BenchRoot) `

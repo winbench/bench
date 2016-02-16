@@ -183,9 +183,9 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.7.0
-* Url: <https://github.com/git-for-windows/git/releases/download/v2.7.0.windows.1/PortableGit-2.7.0-32-bit.7z.exe>
-* AppArchive: `PortableGit-2.7.0-32-bit.7z.exe`
+* Version: 2.7.1
+* Url: <https://github.com/git-for-windows/git/releases/download/v2.7.1.windows.2/PortableGit-2.7.1.2-32-bit.7z.exe>
+* AppArchive: `PortableGit-2.7.1.2-32-bit.7z.exe`
 * Path: `cmd`
 * Exe: `cmd\git.exe`
 
@@ -270,10 +270,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
-* Version: 7.46 SSH2 SSL
-* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.46.0-win32-mingw.7z>
-* AppArchive: `curl-7.46.0-win32-mingw.7z`
-* AppArchiveSubDir: `curl-7.46.0-win32-mingw`
+* Version: 7.47.1 SSH2 SSL
+* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.47.1-win32-mingw.7z>
+* AppArchive: `curl-7.47.1-win32-mingw.7z`
+* AppArchiveSubDir: `curl-7.47.1-win32-mingw`
 * Path: `bin`
 * Exe: `bin\curl.exe`
 
@@ -281,9 +281,9 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Sift`
 * Website: <https://sift-tool.org/>
-* Version: `0.7.1`
-* Url: <https://sift-tool.org/downloads/sift/sift_0.7.1_windows_386.zip>
-* AppArchive: `sift_0.7.1_windows_386.zip`
+* Version: `0.8.0`
+* Url: <https://sift-tool.org/downloads/sift/sift_0.8.0_windows_386.zip>
+* AppArchive: `sift_0.8.0_windows_386.zip`
 
 ### Pandoc
 
@@ -321,10 +321,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160124 git-1d8f9b7
-* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160124-git-1d8f9b7-win32-shared.7z>
-* AppArchive: `ffmpeg-20160124-git-1d8f9b7-win32-shared.7z`
-* AppArchiveSubDir: `ffmpeg-20160124-git-1d8f9b7-win32-shared`
+* Version: 20160213 git-588e2e3
+* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160213-git-588e2e3-win32-shared.7z>
+* AppArchive: `ffmpeg-20160213-git-588e2e3-win32-shared.7z`
+* AppArchiveSubDir: `ffmpeg-20160213-git-588e2e3-win32-shared`
 * Path: `bin`
 * Exe: `bin\ffmpeg.exe`
 
@@ -353,8 +353,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: 4.2.6
-* Url: <https://nodejs.org/dist/v4.2.6/win-x86/node.exe>
+* Version: 4.3.0
+* Url: <https://nodejs.org/dist/v4.3.0/win-x86/node.exe>
 * AppFile: `node.exe`
 * Dir: `node`
 * Exe: `node.exe`
@@ -380,7 +380,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Gulp`
 * Typ: `node-package`
 * Version: `>=3.9.0 <4.0.0`
-* Website: <https://www.npmjs.com/package/npm>
+* Website: <https://www.npmjs.com/package/gulp>
 * Exe: `gulp.cmd`
 
 ### Grunt
@@ -405,7 +405,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Typ: `node-package`
 * NpmPackage: `yo`
 * Version: `>=1.5.0 <2.0.0`
-* Website: <https://www.npmjs.com/package/yeoman>
+* Website: <https://www.npmjs.com/package/yo>
 * Exe: `yo.cmd`
 
 ### Yeoman Generator for Markdown Projects
@@ -492,9 +492,9 @@ for Python 3:
 
 * ID: `Ruby`
 * Website: <https://www.ruby-lang.org/>
-* Version: 2.2.3
-* Url: <http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.3.exe>
-* AppArchive: `rubyinstaller-*.exe`
+* Version: 2.2.4
+* Url: <http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.4.exe>
+* AppArchive: `rubyinstaller-2.2.4.exe`
 * AppArchiveTyp: `inno`
 * AppArchiveSubDir: `{app}`
 * Path: `bin`
@@ -506,9 +506,9 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 
 * ID: `PHP5`
 * Website: <http://www.php.net>
-* Version: 5.6.18
-* Url: <http://windows.php.net/downloads/releases/php-5.6.18-Win32-VC11-x86.zip>
-* AppArchive: `php-5.*-Win32-VC11-x86.zip`
+* Version: 5.6.17
+* Url: <http://windows.php.net/downloads/releases/archives/php-5.6.17-Win32-VC11-x86.zip>
+* AppArchive: `php-5.6.17-Win32-VC11-x86.zip`
 * Exe: `php.exe`
 
 ### PHP 7
@@ -517,9 +517,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `PHP7`
 * Website: <http://www.php.net>
-* Version: 7.0.3
-* Url: <http://windows.php.net/downloads/releases/php-7.0.3-Win32-VC14-x86.zip>
-* AppArchive: `php-7.*-Win32-VC14-x86.zip`
+* Version: 7.0.2
+* Url: <http://windows.php.net/downloads/releases/archives/php-7.0.2-Win32-VC14-x86.zip>
+* AppArchive: `php-7.0.2-Win32-VC14-x86.zip`
 * Exe: `php.exe`
 
 ### Java Development Kit 7
@@ -537,11 +537,11 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Development Kit 8
 
 * ID: `JDK8`
-* Version: 8u72
+* Version: 8u74
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/8u72-b15/jdk-8u72-windows-i586.exe>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-windows-i586.exe>
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-8u72-windows-i586.exe`
+* AppArchive: `jdk-8u74-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
@@ -647,10 +647,10 @@ The initial password for _root_ is `bench`.
 
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
-* Version: 5.7.10
-* Url: <http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.10-win32.zip>
-* AppArchive: `mysql-5.7.10-win32.zip`
-* AppArchiveSubDir: `mysql-5.7.10-win32`
+* Version: 5.7.11
+* Url: <http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.11-win32.zip>
+* AppArchive: `mysql-5.7.11-win32.zip`
+* AppArchiveSubDir: `mysql-5.7.11-win32`
 * Path: `bin`
 * Exe: `bin\mysqld.exe`
 * MySqlDataDir: `$HomeDir$\mysql_data`
