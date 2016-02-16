@@ -1,4 +1,5 @@
 ﻿$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$myDir\profile.ps1"
 . "$myDir\common.lib.ps1"
 . "$myDir\config.lib.ps1"
 . "$myDir\fs.lib.ps1"
