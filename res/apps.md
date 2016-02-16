@@ -492,9 +492,9 @@ for Python 3:
 
 * ID: `Ruby`
 * Website: <https://www.ruby-lang.org/>
-* Version: 2.2.3
-* Url: <http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.3.exe>
-* AppArchive: `rubyinstaller-*.exe`
+* Version: 2.2.4
+* Url: <http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.4.exe>
+* AppArchive: `rubyinstaller-2.2.4.exe`
 * AppArchiveTyp: `inno`
 * AppArchiveSubDir: `{app}`
 * Path: `bin`
