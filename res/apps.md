@@ -380,7 +380,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Gulp`
 * Typ: `node-package`
 * Version: `>=3.9.0 <4.0.0`
-* Website: <https://www.npmjs.com/package/npm>
+* Website: <https://www.npmjs.com/package/gulp>
 * Exe: `gulp.cmd`
 
 ### Grunt
@@ -405,7 +405,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Typ: `node-package`
 * NpmPackage: `yo`
 * Version: `>=1.5.0 <2.0.0`
-* Website: <https://www.npmjs.com/package/yeoman>
+* Website: <https://www.npmjs.com/package/yo>
 * Exe: `yo.cmd`
 
 ### Yeoman Generator for Markdown Projects
