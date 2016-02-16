@@ -42,6 +42,7 @@ Add a link to the GitHub diff like
 - Update: FFmpeg from 20160124 to 20160213
 - Update: NodeJS from 4.2.6 to 4.3.0
 - Update: Ruby from 2.2.3 to 2.2.4
+- Update: JDK 8 from rev. 72 to rev. 74
 - Update: MySQL Server from 5.7.10 to 5.7.11
 
 ### Fixed

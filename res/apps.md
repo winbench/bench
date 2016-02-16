@@ -537,11 +537,11 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Development Kit 8
 
 * ID: `JDK8`
-* Version: 8u72
+* Version: 8u74
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/8u72-b15/jdk-8u72-windows-i586.exe>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-windows-i586.exe>
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-8u72-windows-i586.exe`
+* AppArchive: `jdk-8u74-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
