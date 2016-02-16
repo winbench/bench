@@ -270,10 +270,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
-* Version: 7.46 SSH2 SSL
-* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.46.0-win32-mingw.7z>
-* AppArchive: `curl-7.46.0-win32-mingw.7z`
-* AppArchiveSubDir: `curl-7.46.0-win32-mingw`
+* Version: 7.47.1 SSH2 SSL
+* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.47.1-win32-mingw.7z>
+* AppArchive: `curl-7.47.1-win32-mingw.7z`
+* AppArchiveSubDir: `curl-7.47.1-win32-mingw`
 * Path: `bin`
 * Exe: `bin\curl.exe`
 
