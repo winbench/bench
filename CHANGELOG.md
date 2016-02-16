@@ -41,6 +41,7 @@ Add a link to the GitHub diff like
 - Update: Sift from 0.7.1 to 0.8.0
 - Update: FFmpeg from 20160124 to 20160213
 - Update: Ruby from 2.2.3 to 2.2.4
+- Update: MySQL Server from 5.7.10 to 5.7.11
 
 ### Fixed
 - action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`
