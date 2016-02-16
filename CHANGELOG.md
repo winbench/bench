@@ -40,6 +40,7 @@ Add a link to the GitHub diff like
 - Update: cURL from 7.46.0 to 7.47.1
 - Update: Sift from 0.7.1 to 0.8.0
 - Update: FFmpeg from 20160124 to 20160213
+- Update: NodeJS from 4.2.6 to 4.3.0
 - Update: Ruby from 2.2.3 to 2.2.4
 - Update: MySQL Server from 5.7.10 to 5.7.11
 

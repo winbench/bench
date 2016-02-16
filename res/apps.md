@@ -353,8 +353,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: 4.2.6
-* Url: <https://nodejs.org/dist/v4.2.6/win-x86/node.exe>
+* Version: 4.3.0
+* Url: <https://nodejs.org/dist/v4.3.0/win-x86/node.exe>
 * AppFile: `node.exe`
 * Dir: `node`
 * Exe: `node.exe`
