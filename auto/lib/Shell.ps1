@@ -1,6 +1,7 @@
 param ($message = $null)
 
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$scriptsLib\profile.ps1"
 . "$scriptsLib\common.lib.ps1"
 . "$scriptsLib\config.lib.ps1"
 
@@ -65,4 +66,4 @@ if ($props.Count -gt 0) {
     Write-Output ""
 }
 
-powershell -NoLogo -NoProfile -NoExit
+powershell -NoLogo -NoProfile -NoExit -File "$scriptsLib\profile.ps1"
