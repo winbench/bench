@@ -2,4 +2,6 @@ $lein = App-Exe Leiningen
 
 Debug "LEIN_JAR: $env:LEIN_JAR"
 
-& $lein self-install
+if (!(Test-Path $env:LEIN_JAR)) {
+    & $lein self-install
+}
