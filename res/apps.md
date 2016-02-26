@@ -577,6 +577,18 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `lein.bat`
 * Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
 
+### Go
+
+* ID: `Go`
+* Version: 1.6
+* Website: <https://golang.org>
+* Url: `https://storage.googleapis.com/golang/$Go:AppArchive$`
+* AppArchive: `go$Go:Version$.windows-386.zip`
+* AppArchiveSubDir: `go`
+* Path: `bin`
+* Exe: `bin\go.exe`
+* Environment: `GOROOT=$Go:Dir$`
+
 ### Visual Studio Code
 
 * ID: `VSCode`

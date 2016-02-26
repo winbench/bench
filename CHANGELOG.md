@@ -31,6 +31,7 @@ Add a link to the GitHub diff like
   which is used to determine if an app is installed or not
 - App: Dia
 - App: Eclipse PHP
+- App: Go
 
 ### Changed
 - decode filename from URLs during download
