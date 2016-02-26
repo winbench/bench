@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.8.0] - 2016-02-15
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0)
+
 ### Added
 - `auto\lib\profile.ps1` for customization of the PowerShell environment
 
@@ -33,6 +36,18 @@ Add a link to the GitHub diff like
 - renamed action `project-shell.cmd` into `project-ps.cmd`
 - moved custom app index `apps.md` and custom configuration `config.ps1` to `config` folder
 - set color of debug messages to `DarkCyan`
+- Install Leiningen only if the `leiningen.jar` was not found
+- Switched from PHP release URLs to archive URLs for longer lifespan
+    + Downgrade: PHP 5 from 5.6.18 to 5.6.17 (archive link)
+    + Downgrade: PHP 7 from 7.0.3 to 7.0.2 (archive link)
+- Update: Git from 2.7.0 to 2.7.1
+- Update: cURL from 7.46.0 to 7.47.1
+- Update: Sift from 0.7.1 to 0.8.0
+- Update: FFmpeg from 20160124 to 20160213
+- Update: NodeJS from 4.2.6 to 4.3.0
+- Update: Ruby from 2.2.3 to 2.2.4
+- Update: JDK 8 from rev. 72 to rev. 74
+- Update: MySQL Server from 5.7.10 to 5.7.11
 
 ### Fixed
 - action `Archive-Project` did not work after switching from `7za.exe` to `7z.exe`
