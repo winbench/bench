@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- support for unpacking `*.tar.*` archives with two steps
+
 ### Changed
 - decode filename from URLs during download
 
