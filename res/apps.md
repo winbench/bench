@@ -678,8 +678,7 @@ The initial password for _root_ is `bench`.
 ### PostgreSQL
 
 Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
-
-**Warning:** _pgAdmin_ stores its configuration in the registry and is not portable.
+The initial password for _postgres_ is `bench`.
 
 * ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
