@@ -184,7 +184,7 @@ function Extract-FileName($url) {
     $m = $ex.Match($url)
     if ($m.Success) {
         Debug "Extracted filename: $($m.Groups['name'])"
-        return $m.Groups['name'].Value
+        return [Uri]::UnescapeDataString($m.Groups['name'].Value)
     } else {
         return $null
     }
@@ -233,6 +233,7 @@ function Download([string]$name) {
         Debug "Resource for app $name allready exists."
         return
     }
+    Debug "Downloading app resources for $name ..."
     $url = App-Url $name
     Debug "Downloading from URL $url"
     $url2 = Resolve-Url $url

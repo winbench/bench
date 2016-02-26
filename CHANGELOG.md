@@ -25,6 +25,14 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- support for unpacking `*.tar.*` archives with two steps
+- app property `SetupTestFile` to explicitly specify the file
+  which is used to determine if an app is installed or not
+
+### Changed
+- decode filename from URLs during download
+
 ## [0.8.0] - 2016-02-15
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0)
 
