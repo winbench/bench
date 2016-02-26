@@ -184,7 +184,7 @@ function Extract-FileName($url) {
     $m = $ex.Match($url)
     if ($m.Success) {
         Debug "Extracted filename: $($m.Groups['name'])"
-        return $m.Groups['name'].Value
+        return [Uri]::UnescapeDataString($m.Groups['name'].Value)
     } else {
         return $null
     }
