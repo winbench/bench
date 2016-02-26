@@ -233,6 +233,7 @@ function Download([string]$name) {
         Debug "Resource for app $name allready exists."
         return
     }
+    Debug "Downloading app resources for $name ..."
     $url = App-Url $name
     Debug "Downloading from URL $url"
     $url2 = Resolve-Url $url
