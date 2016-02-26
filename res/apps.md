@@ -649,8 +649,7 @@ A free portable derivative of Chromium, optimized for privacy.
 
 The MySQL data is stored in `%USERPROFILE%\mysql_data`.
 You can start the MySQL server by running `mysql_start` in the _Bench_ shell.
-You can stop the MySQL server by typing `Ctrl+C` in the console window of MySQL,
-or by running `mysql_stop` in the _Bench_ shell.
+You can stop the MySQL server by running `mysql_stop` in the _Bench_ shell.
 The initial password for _root_ is `bench`.
 
 * ID: `MySQL`
