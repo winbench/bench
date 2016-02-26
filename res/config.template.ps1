@@ -57,6 +57,7 @@
 # Activate-App GraphicsMagick
 # Activate-App FFmpeg
 # Activate-App Graphviz
+# Activate-App Dia
 # Activate-App Inkscape
 # Activate-App Node
 # Activate-App Npm

@@ -342,6 +342,20 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `release\bin`
 * Exe: `release\bin\dot.exe`
 
+### Dia
+
+* ID: `Dia`
+* Version: 0.97.2
+* Release: 0.97.2-2
+* Website: <https://wiki.gnome.org/action/show/Apps/Dia>
+* Url: <http://sourceforge.net/projects/dia-installer/files/dia-win32-installer/$Dia:Version$/dia-setup-$Dia:Release$-unsigned.exe>
+* AppArchive: `dia-setup-$Dia:Release$-unsigned.exe`
+* Path: `bin`
+* Exe: `bin\dia.exe`
+* Launcher: `Dia`
+* LauncherExecutable: `bin\diaw.exe`
+* LauncherArguments: `--integrated`, `%*`
+
 ### Inkscape
 
 * ID: `Inkscape`
