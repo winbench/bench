@@ -30,6 +30,7 @@ Add a link to the GitHub diff like
 - app property `SetupTestFile` to explicitly specify the file
   which is used to determine if an app is installed or not
 - App: Dia
+- App: Eclipse PHP
 
 ### Changed
 - decode filename from URLs during download

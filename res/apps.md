@@ -205,13 +205,13 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `WebDevPHP7`
 * Typ: `meta`
-* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`
+* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ### Group: Web Development with PHP5 and MySQL
 
 * ID: `WebDevPHP5`
 * Typ: `meta`
-* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`
+* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ### Group: Java Development
 
@@ -645,6 +645,19 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `eclipse.exe`
 * Register: `false`
 * Launcher: `Eclipse Java`
+
+* ID: `EclipsePHP`
+* Version: 4.5
+* CodeName: mars
+* Release: 1
+* Website: <http://www.eclipse.org/>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipsePHP:CodeName$/$EclipsePHP:Release$/$EclipsePHP:AppArchive$>
+* AppArchive: `eclipse-php-$EclipsePHP:CodeName$-$EclipsePHP:Release$-win32.zip`
+* AppArchiveSubDir: `eclipse`
+* Dir: `eclipse_php`
+* Exe: `eclipse.exe`
+* Register: `false`
+* Launcher: `Eclipse PHP`
 
 ### SRWare Iron
 

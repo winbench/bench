@@ -39,8 +39,8 @@
 ## Application Groups
 
 # Activate-App Markdown # MdProc, VSCode
-# Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache
-# Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache
+# Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache, EclipsePHP
+# Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache, EclipsePHP
 # Activate-App DevJava # JDK8, EclipseJava
 # Activate-App DevClojure # JDK8, Leiningen, LightTable
 # Activate-App DevPython2 # Python2, SublimeText3, IPython
@@ -82,6 +82,7 @@
 # Activate-App Emacs
 # Activate-App Spacemacs
 # Activate-App EclipseJava
+# Activate-App EclipsePHP
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
