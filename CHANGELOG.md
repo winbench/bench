@@ -32,6 +32,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - decode filename from URLs during download
+- Update: NodeJS from 4.3.0 to 4.3.1
 
 ## [0.8.0] - 2016-02-15
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0)
