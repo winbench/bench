@@ -104,8 +104,9 @@ A Windows app is some kind of executable for the Windows OS.
     + `custom` Use the custom script `auto\apps\<app ID>.extract.ps1`
 * **AppArchiveSubDir**:
   A sub folder in the archive to extract (optional, default is the archive root).
-
-To determine, if a Windows app is already installed, the existance of its executable is checked.
+* **SetupTestFile**:
+  The existence of this file is used, to determine if the app is already installed
+  (optional, default is the value of the property `App-Exe`).
 
 Some restrictions for the properties:
 

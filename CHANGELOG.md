@@ -27,6 +27,8 @@ Add a link to the GitHub diff like
 
 ### Added
 - support for unpacking `*.tar.*` archives with two steps
+- app property `SetupTestFile` to explicitly specify the file
+  which is used to determine if an app is installed or not
 
 ### Changed
 - decode filename from URLs during download
