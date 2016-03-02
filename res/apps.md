@@ -708,6 +708,28 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 * Path: `bin`
 * Exe: `bin\cmake.exe`
 
+### LLVM Clang
+
+The Clang compiler can act as drop-in replacement for the GCC compilers.
+
+This app sets the environment variables `CC` and `CXX` to inform _CMake_
+about the C/C++ compiler path. Therefore, if you build your C/C++ projects
+with _CMake_, it is sufficient to just activate the _Clang_ app and _CMake_
+will use _Clang_ instead of the GCC compiler from _MinGW_.
+
+If you want to use the Clang compiler with Eclipse, you must manually
+install the LLVM-Plugin for Eclipse CDT.
+
+* ID: `Clang`
+* Version: 3.7.1
+* Website: <http://clang.llvm.org/>
+* Url: `http://llvm.org/releases/$Clang:Version$/$Clang:AppArchive$`
+* AppArchive: `LLVM-$Clang:Version$-win32.exe`
+* Dir: `llvm`
+* Path: `bin`
+* Exe: `bin\clang.exe`
+* Environment: `CC=$Clang:Dir$\bin\clang.exe`, `CXX=$Clang:Dir$\bin\clang++.exe`
+
 ### Go
 
 * ID: `Go`

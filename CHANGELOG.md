@@ -36,6 +36,7 @@ Add a link to the GitHub diff like
 - App: Wget
 - App: MinGW
 - App: CMake
+- App: LLVM Clang
 - App: Go
 - App: Eclipse PHP
 - App: Eclipse C/C++

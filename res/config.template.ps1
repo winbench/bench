@@ -83,6 +83,7 @@
 # Activate-App Leiningen
 # Activate-App MinGW
 # Activate-App CMake
+# Activate-App Clang
 # Activate-App Go
 # Activate-App VSCode
 # Activate-App SublimeText3
