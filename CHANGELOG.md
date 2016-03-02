@@ -34,6 +34,7 @@ Add a link to the GitHub diff like
 - App: Go
 
 ### Changed
+- do not add default executable to explicitly specified list of adorned executables
 - decode filename from URLs during download
 - Update: NodeJS from 4.3.0 to 4.3.1
 
