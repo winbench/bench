@@ -152,10 +152,10 @@ To determine, if a Python package is already installed, the existence of its pac
 ### Less MSIerables
 
 * ID: `LessMsi`
-* Website: <http://lessmsi.activescott.com/>
 * Version: 1.3
-* Url: <https://github.com/activescott/lessmsi/releases/download/v1.3/lessmsi-v1.3.zip>
-* AppArchive: `lessmsi-*.zip`
+* Website: <http://lessmsi.activescott.com/>
+* Url: `https://github.com/activescott/lessmsi/releases/download/v$LessMsi:Version$/$LessMsi:AppArchive$`
+* AppArchive: `lessmsi-v$LessMsi:Version$.zip`
 * Exe: `lessmsi.exe`
 * Register: `false`
 
@@ -164,8 +164,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `SvZ`
 * Website: <http://www.7-zip.de/download.html>
 * Version: 15.14
-* Url: <http://7-zip.org/a/7z1514.msi>
-* AppArchive: `7z*.msi`
+* Release: 1514
+* Url: `http://7-zip.org/a/$SvZ:AppArchive$`
+* AppArchive: `7z$SvZ:Release$.msi`
 * AppArchiveSubDir: `SourceDir\Files\7-Zip`
 * Dir: `7z`
 * Exe: `7z.exe`
@@ -175,8 +176,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `InnoUnp`
 * Website: <http://innounp.sourceforge.net/>
 * Version: 0.45
-* Url: <http://sourceforge.net/projects/innounp/files/innounp/innounp%200.45/innounp045.rar>
-* AppArchive: `innounp*.rar`
+* Release: 045
+* Url: `http://sourceforge.net/projects/innounp/files/innounp/innounp%20$InnoUnp:Version$/$InnoUnp:AppArchive$`
+* AppArchive: `innounp$InnoUnp:Release$.rar`
 * Exe: `innounp.exe`
 * Register: `false`
 
@@ -184,9 +186,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.7.1
-* Url: <https://github.com/git-for-windows/git/releases/download/v2.7.1.windows.2/PortableGit-2.7.1.2-32-bit.7z.exe>
-* AppArchive: `PortableGit-2.7.1.2-32-bit.7z.exe`
+* Version: 2.7.1.2
+* Release: 2.7.1.windows.2
+* Url: `https://github.com/git-for-windows/git/releases/download/v$Git:Release$/$Git:AppArchive$`
+* AppArchive: `PortableGit-$Git:Version$-32-bit.7z.exe`
 * Path: `cmd`
 * Exe: `cmd\git.exe`
 
@@ -202,13 +205,13 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `WebDevPHP7`
 * Typ: `meta`
-* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`
+* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ### Group: Web Development with PHP5 and MySQL
 
 * ID: `WebDevPHP5`
 * Typ: `meta`
-* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`
+* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ### Group: Java Development
 
@@ -240,10 +243,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `OpenSSL`
 * Website: <https://www.openssl.org/>
-* Version: 1.0.2d
-* Url: <http://sourceforge.net/projects/openssl/files/openssl-1.0.2d-fips-2.0.10/openssl-1.0.2d-fips-2.0.10.zip>
-* AppArchive: `openssl-1.0.2d-fips-2.0.10.zip`
-* AppArchiveSubDir: `openssl-1.0.2d-fips-2.0.10`
+* Version: 1.0.2d-fips-2.0.10
+* Url: `http://sourceforge.net/projects/openssl/files/openssl-$OpenSSL:Version$/$OpenSSL:AppArchive$`
+* AppArchive: `openssl-$OpenSSL:Version$.zip`
+* AppArchiveSubDir: `openssl-$OpenSSL:Version$`
 * Path: `bin`
 * Exe: `bin\openssl.exe`
 
@@ -261,8 +264,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `GnuTLS`
 * Version: 3.3.11
-* Url: <http://sourceforge.net/projects/ezwinports/files/gnutls-3.3.11-w32-bin.zip>
-* AppArchive: `gnutls-*-w32-bin.zip`
+* Url: `http://sourceforge.net/projects/ezwinports/files/$GnuTLS:AppArchive$`
+* AppArchive: `gnutls-$GnuTLS:Version$-w32-bin.zip`
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\gnutls-cli.exe`
@@ -271,10 +274,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
-* Version: 7.47.1 SSH2 SSL
-* Url: <https://bintray.com/artifact/download/vszakats/generic/curl-7.47.1-win32-mingw.7z>
-* AppArchive: `curl-7.47.1-win32-mingw.7z`
-* AppArchiveSubDir: `curl-7.47.1-win32-mingw`
+* Version: 7.47.1
+* Url: `https://bintray.com/artifact/download/vszakats/generic/$cURL:AppArchive$`
+* AppArchive: `curl-$cURL:Version$-win32-mingw.7z`
+* AppArchiveSubDir: `curl-$cURL:Version$-win32-mingw`
 * Path: `bin`
 * Exe: `bin\curl.exe`
 
@@ -282,17 +285,17 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Sift`
 * Website: <https://sift-tool.org/>
-* Version: `0.8.0`
-* Url: <https://sift-tool.org/downloads/sift/sift_0.8.0_windows_386.zip>
-* AppArchive: `sift_0.8.0_windows_386.zip`
+* Version: 0.8.0
+* Url: `https://sift-tool.org/downloads/sift/$Sift:AppArchive$`
+* AppArchive: `sift_$Sift:Version$_windows_386.zip`
 
 ### Pandoc
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
 * Version: 1.16.0.2
-* Url: <https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-windows.msi>
-* AppArchive: `pandoc-*-windows.msi`
+* Url: `https://github.com/jgm/pandoc/releases/download/$Pandoc:Version$/$Pandoc:AppArchive$`
+* AppArchive: `pandoc-$Pandoc:Version$-windows.msi`
 * AppArchiveSubDir: `SourceDir\Pandoc`
 * Exe: `pandoc.exe`
 
@@ -301,8 +304,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
 * Version: 2.9.5857
-* Url: <http://mirrors.ctan.org/systems/win32/miktex/setup/miktex-portable-2.9.5857.exe>
-* AppArchive: `miktex-portable-2.*.exe`
+* Url: `http://mirrors.ctan.org/systems/win32/miktex/setup/$MikTeX:AppArchive$`
+* AppArchive: `miktex-portable-$MikTeX:Version$.exe`
 * Path: `miktex\bin`
 * Exe: `miktex\bin\latex.exe`
 
@@ -311,8 +314,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `GraphicsMagick`
 * Website: <http://www.graphicsmagick.org/>
 * Version: 1.3.23
-* Url: <http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/1.3.23/GraphicsMagick-1.3.23-Q16-win32-dll.exe>
-* AppArchive: `GraphicsMagick-1.*-Q16-win32-dll.exe`
+* Url: `http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/$GraphicsMagick:Version$/$GraphicsMagick:AppArchive$`
+* AppArchive: `GraphicsMagick-$GraphicsMagick:Version$-Q16-win32-dll.exe`
 * AppArchiveTyp: `inno`
 * AppArchiveSubDir: `{app}`
 * Dir: `gm`
@@ -322,10 +325,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160213 git-588e2e3
-* Url: <http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20160213-git-588e2e3-win32-shared.7z>
-* AppArchive: `ffmpeg-20160213-git-588e2e3-win32-shared.7z`
-* AppArchiveSubDir: `ffmpeg-20160213-git-588e2e3-win32-shared`
+* Version: 20160213-git-588e2e3
+* Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$FFmpeg:AppArchive$`
+* AppArchive: `ffmpeg-$FFmpeg:Version$-win32-shared.7z`
+* AppArchiveSubDir: `ffmpeg-$FFmpeg:Version$-win32-shared`
 * Path: `bin`
 * Exe: `bin\ffmpeg.exe`
 
@@ -334,18 +337,32 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `Graphviz`
 * Website: <http://www.graphviz.org/Download_windows.php>
 * Version: 2.38
-* Url: <http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip>
-* AppArchive: `graphviz-*.zip`
+* Url: `http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-$Graphviz:Version$.zip`
+* AppArchive: `graphviz-$Graphviz:Version$.zip`
 * Path: `release\bin`
 * Exe: `release\bin\dot.exe`
+
+### Dia
+
+* ID: `Dia`
+* Version: 0.97.2
+* Release: 0.97.2-2
+* Website: <https://wiki.gnome.org/action/show/Apps/Dia>
+* Url: <http://sourceforge.net/projects/dia-installer/files/dia-win32-installer/$Dia:Version$/dia-setup-$Dia:Release$-unsigned.exe>
+* AppArchive: `dia-setup-$Dia:Release$-unsigned.exe`
+* Path: `bin`
+* Exe: `bin\dia.exe`
+* Launcher: `Dia`
+* LauncherExecutable: `bin\diaw.exe`
+* LauncherArguments: `--integrated`, `%*`
 
 ### Inkscape
 
 * ID: `Inkscape`
 * Website: <https://inkscape.org/de/herunterladen/>
-* Version: 0.91
+* Version: 0.91-1
 * Url: <https://inkscape.org/en/gallery/item/3932/download/>
-* AppArchive: `Inkscape-*-win32.7z`
+* AppArchive: `Inkscape-$Inkscape:Version$-win32.7z`
 * AppArchiveSubDir: `inkscape`
 * Exe: `inkscape.exe`
 * Launcher: `Inkscape`
@@ -354,8 +371,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: 4.3.0
-* Url: <https://nodejs.org/dist/v4.3.0/win-x86/node.exe>
+* Version: 4.3.1
+* Url: `https://nodejs.org/dist/v$Node:Version$/win-x86/node.exe`
 * AppFile: `node.exe`
 * Dir: `node`
 * Exe: `node.exe`
@@ -431,8 +448,8 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Python2`
 * Website: <https://www.python.org/ftp/python/>
 * Version: 2.7.11
-* Url: <https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi>
-* AppArchive: `python-2.*.msi`
+* Url: `https://www.python.org/ftp/python/$Python2:Version$/python-$Python2:Version$.msi`
+* AppArchive: `python-$Python2:Version$.msi`
 * AppArchiveSubDir: `SourceDir`
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
@@ -442,8 +459,8 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Python3`
 * Website: <https://www.python.org/ftp/python/>
 * Version: 3.4.4
-* Url: <https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi>
-* AppArchive: `python-3.*.msi`
+* Url: `https://www.python.org/ftp/python/$Python3:Version$/python-$Python3:Version$.msi`
+* AppArchive: `python-$Python3:Version$.msi`
 * AppArchiveSubDir: `SourceDir`
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
@@ -494,8 +511,8 @@ for Python 3:
 * ID: `Ruby`
 * Website: <https://www.ruby-lang.org/>
 * Version: 2.2.4
-* Url: <http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.4.exe>
-* AppArchive: `rubyinstaller-2.2.4.exe`
+* Url: `http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-$Ruby:Version$.exe`
+* AppArchive: `rubyinstaller-$Ruby:Version$.exe`
 * AppArchiveTyp: `inno`
 * AppArchiveSubDir: `{app}`
 * Path: `bin`
@@ -508,8 +525,8 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 * ID: `PHP5`
 * Website: <http://www.php.net>
 * Version: 5.6.17
-* Url: <http://windows.php.net/downloads/releases/archives/php-5.6.17-Win32-VC11-x86.zip>
-* AppArchive: `php-5.6.17-Win32-VC11-x86.zip`
+* Url: `http://windows.php.net/downloads/releases/archives/php-$PHP5:Version$-Win32-VC11-x86.zip`
+* AppArchive: `php-$PHP5:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
 
 ### PHP 7
@@ -519,8 +536,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ID: `PHP7`
 * Website: <http://www.php.net>
 * Version: 7.0.2
-* Url: <http://windows.php.net/downloads/releases/archives/php-7.0.2-Win32-VC14-x86.zip>
-* AppArchive: `php-7.0.2-Win32-VC14-x86.zip`
+* Url: `http://windows.php.net/downloads/releases/archives/php-$PHP7:Version$-Win32-VC14-x86.zip`
+* AppArchive: `php-$PHP7:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
 
 ### Java Development Kit 7
@@ -528,9 +545,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ID: `JDK7`
 * Version: 7u80
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-windows-i586.exe>
+* Url: <http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-windows-i586.exe>
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-7u*-windows-i586.exe`
+* AppArchive: `jdk-7u80-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK7:Dir$`
@@ -539,10 +556,11 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `JDK8`
 * Version: 8u74
+* Release: b02
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-windows-i586.exe>
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$JDK8:Version$-$JDK8:Release$/$JDK8:AppArchive$`
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-8u74-windows-i586.exe`
+* AppArchive: `jdk-$JDK8:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
@@ -558,6 +576,18 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dir: `lein`
 * Exe: `lein.bat`
 * Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
+
+### Go
+
+* ID: `Go`
+* Version: 1.6
+* Website: <https://golang.org>
+* Url: `https://storage.googleapis.com/golang/$Go:AppArchive$`
+* AppArchive: `go$Go:Version$.windows-386.zip`
+* AppArchiveSubDir: `go`
+* Path: `bin`
+* Exe: `bin\go.exe`
+* Environment: `GOROOT=$Go:Dir$`
 
 ### Visual Studio Code
 
@@ -575,9 +605,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ID: `LightTable`
 * Website: <http://lighttable.com>
 * Version: 0.8.1
-* Url: <https://github.com/LightTable/LightTable/releases/download/0.8.1/lighttable-0.8.1-windows.zip>
-* AppArchive: `lighttable-0.8.1-windows.zip`
-* AppArchiveSubDir: `lighttable-0.8.1-windows`
+* Url: `https://github.com/LightTable/LightTable/releases/download/$LightTable:Version$/$LightTable:AppArchive$`
+* AppArchive: `lighttable-$LightTable:Version$-windows.zip`
+* AppArchiveSubDir: `lighttable-$LightTable:Version$-windows`
 * Dir: `lt`
 * Exe: `LightTable.exe`
 * Launcher: `LightTable`
@@ -587,8 +617,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ID: `SublimeText3`
 * Website: <http://www.sublimetext.com/3>
 * Version: Build 3103
-* Url: <https://download.sublimetext.com/Sublime%20Text%20Build%203103.zip>
-* AppArchive: `Sublime*Text*Build*3103.zip`
+* Url: `https://download.sublimetext.com/$SublimeText3:AppArchive$`
+* AppArchive: `Sublime Text $SublimeText3:Version$.zip`
 * Exe: `sublime_text.exe`
 * Launcher: `Sublime Text 3`
 
@@ -598,8 +628,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dependencies: `GnuTLS`
 * Website: <https://www.gnu.org/software/emacs/>
 * Version: 24.5
-* Url: <http://ftp.gnu.org/gnu/emacs/windows/emacs-24.5-bin-i686-mingw32.zip>
-* AppArchive: `emacs-*.zip`
+* Url: <http://ftp.gnu.org/gnu/emacs/windows/$Emacs:AppArchive$>
+* AppArchive: `emacs-$Emacs:Version$-bin-i686-mingw32.zip`
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\emacs.exe`
@@ -616,14 +646,30 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Eclipse
 
 * ID: `EclipseJava`
-* Version: Mars 1 4.5
+* Version: 4.5
+* CodeName: mars
+* Release: 1
 * Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/mars/1/eclipse-java-mars-1-win32.zip>
-* AppArchive: `eclipse-java-*-win32.zip`
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseJava:CodeName$/$EclipseJava:Release$/$EclipseJava:AppArchive$>
+* AppArchive: `eclipse-java-$EclipseJava:CodeName$-$EclipseJava:Release$-win32.zip`
 * AppArchiveSubDir: `eclipse`
 * Dir: `eclipse_java`
 * Exe: `eclipse.exe`
+* Register: `false`
 * Launcher: `Eclipse Java`
+
+* ID: `EclipsePHP`
+* Version: 4.5
+* CodeName: mars
+* Release: 1
+* Website: <http://www.eclipse.org/>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipsePHP:CodeName$/$EclipsePHP:Release$/$EclipsePHP:AppArchive$>
+* AppArchive: `eclipse-php-$EclipsePHP:CodeName$-$EclipsePHP:Release$-win32.zip`
+* AppArchiveSubDir: `eclipse`
+* Dir: `eclipse_php`
+* Exe: `eclipse.exe`
+* Register: `false`
+* Launcher: `Eclipse PHP`
 
 ### SRWare Iron
 
@@ -642,16 +688,15 @@ A free portable derivative of Chromium, optimized for privacy.
 
 The MySQL data is stored in `%USERPROFILE%\mysql_data`.
 You can start the MySQL server by running `mysql_start` in the _Bench_ shell.
-You can stop the MySQL server by typing `Ctrl+C` in the console window of MySQL,
-or by running `mysql_stop` in the _Bench_ shell.
+You can stop the MySQL server by running `mysql_stop` in the _Bench_ shell.
 The initial password for _root_ is `bench`.
 
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
 * Version: 5.7.11
-* Url: <http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.11-win32.zip>
-* AppArchive: `mysql-5.7.11-win32.zip`
-* AppArchiveSubDir: `mysql-5.7.11-win32`
+* Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$MySQL:AppArchive$`
+* AppArchive: `mysql-$MySQL:Version$-win32.zip`
+* AppArchiveSubDir: `mysql-$MySQL:Version$-win32`
 * Path: `bin`
 * Exe: `bin\mysqld.exe`
 * MySqlDataDir: `$HomeDir$\mysql_data`
@@ -662,8 +707,8 @@ The initial password for _root_ is `bench`.
 * ID: `MySQLWB`
 * Version: 6.3.6
 * Website: <http://dev.mysql.com/downloads/workbench/>
-* Url: <http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-6.3.6-win32-noinstall.zip>
-* AppArchive: `mysql-workbench-community-*-win32-noinstall.zip`
+* Url: `http://dev.mysql.com/get/Downloads/MySQLGUITools/$MySQLWB:AppArchive$`
+* AppArchive: `mysql-workbench-community-$MySQLWB:Version$-win32-noinstall.zip`
 * AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 * Register: `false`
@@ -672,14 +717,13 @@ The initial password for _root_ is `bench`.
 ### PostgreSQL
 
 Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
-
-**Warning:** _pgAdmin_ stores its configuration in the registry and is not portable.
+The initial password for _postgres_ is `bench`.
 
 * ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
-* Version: 9.5.0
-* Url: <http://get.enterprisedb.com/postgresql/postgresql-9.5.0-1-windows-binaries.zip>
-* AppArchive: `postgresql-9.5.0-1-windows-binaries.zip`
+* Version: 9.5.0-1
+* Url: `http://get.enterprisedb.com/postgresql/$PostgreSQL:AppArchive$`
+* AppArchive: `postgresql-$PostgreSQL:Version$-windows-binaries.zip`
 * AppArchiveSubDir: `pgsql`
 * Dir: `postgres`
 * Path: `bin`
@@ -697,8 +741,8 @@ Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 * ID: `Apache`
 * Version: 2.4.18
 * Website: <https://httpd.apache.org/>
-* Url: <http://www.apachelounge.com/download/VC11/binaries/httpd-2.4.18-win32-VC11.zip>
-* AppArchive: `httpd-2.4.*-win32-VC11.zip`
+* Url: `http://www.apachelounge.com/download/VC11/binaries/$Apache:AppArchive$`
+* AppArchive: `httpd-$Apache:Version$-win32-VC11.zip`
 * AppArchiveSubDir: `Apache24`
 * Path: `bin`
 * Exe: `bin\httpd.exe`

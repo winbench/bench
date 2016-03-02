@@ -29,9 +29,13 @@ Add a link to the GitHub diff like
 - support for unpacking `*.tar.*` archives with two steps
 - app property `SetupTestFile` to explicitly specify the file
   which is used to determine if an app is installed or not
+- App: Dia
+- App: Eclipse PHP
+- App: Go
 
 ### Changed
 - decode filename from URLs during download
+- Update: NodeJS from 4.3.0 to 4.3.1
 
 ## [0.8.0] - 2016-02-15
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0)
