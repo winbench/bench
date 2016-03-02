@@ -52,6 +52,7 @@
 # Activate-App Putty
 # Activate-App Sift
 # Activate-App cURL
+# Activate-App FileZilla
 # Activate-App Pandoc
 # Activate-App MikTeX
 # Activate-App GraphicsMagick

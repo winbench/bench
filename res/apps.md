@@ -281,6 +281,18 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `bin`
 * Exe: `bin\curl.exe`
 
+### FileZilla
+
+* ID: `FileZilla`
+* Version: 3.15.0.2
+* Website: <https://filezilla-project.org/>
+* Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$FileZilla:AppArchive$`
+* AppArchive: `FileZillaPortable_$FileZilla:Version$.paf.exe`
+* AppArchiveSubDir: `App/filezilla`
+* Exe: `filezilla.exe`
+* Register: `false`
+* Launcher: `FileZilla`
+
 ### Sift
 
 * ID: `Sift`

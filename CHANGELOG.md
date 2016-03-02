@@ -33,6 +33,7 @@ Add a link to the GitHub diff like
 - App: Eclipse PHP
 - App: Go
 - App: Gimp
+- App: FileZilla
 
 ### Changed
 - do not add default executable to explicitly specified list of adorned executables
