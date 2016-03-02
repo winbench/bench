@@ -27,22 +27,26 @@ function Get-Proxy([uri]$url) {
 
 function Download-String([string]$url) {
     Write-Host "Downloading page: $url ..."
+    $oldProgressPref = $ProgressPreference
     $attempt = 1
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
         try {
             if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
+            $ProgressPreference = 'SilentlyContinue'
             if (Get-ConfigValue UseProxy) {
                 $proxyUrl = Get-ProxyUrl $url
                 $data = Invoke-WebRequest -Uri $url -Proxy $proxyUrl
             } else {
                 $data = Invoke-WebRequest -Uri $url
             }
+            $ProgressPreference = $oldProgressPref
             return $data
         } catch {
             Debug "Download failed $_"
             $attempt++
         }
     }
+    $ProgressPreference = $oldProgressPref
     return $null
 }
 
@@ -63,23 +67,31 @@ function Get-WebSession([string]$name, [string]$url) {
 
 function Download-File([string]$name, [string]$url, [string]$target) {
     Write-Host "Downloading file: $url ..."
+    $oldProgressPref = $ProgressPreference
     $session = Get-WebSession $name $url
     $attempt = 1
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
         try {
             if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
+            if (Get-ConfigValue DownloadProgress) {
+                $ProgressPreference = 'Continue'
+            } else {
+                $ProgressPreference = 'SilentlyContinue'
+            }
             if (Get-ConfigValue UseProxy) {
                 $proxyUrl = Get-ProxyUrl $url
                 Invoke-WebRequest -Uri $url -OutFile $target -WebSession $session -Proxy $proxyUrl
             } else {
                 Invoke-WebRequest -Uri $url -OutFile $target -WebSession $session
             }
+            $ProgressPreference = $oldProgressPref
             return $True
         } catch {
             Debug "Download failed $_"
             $attempt++
         }
     }
+    $ProgressPreference = $oldProgressPref
     return $False
 }
 
@@ -184,7 +196,7 @@ function Extract-FileName($url) {
     $m = $ex.Match($url)
     if ($m.Success) {
         Debug "Extracted filename: $($m.Groups['name'])"
-        return $m.Groups['name'].Value
+        return [Uri]::UnescapeDataString($m.Groups['name'].Value)
     } else {
         return $null
     }
@@ -233,6 +245,7 @@ function Download([string]$name) {
         Debug "Resource for app $name allready exists."
         return
     }
+    Debug "Downloading app resources for $name ..."
     $url = App-Url $name
     Debug "Downloading from URL $url"
     $url2 = Resolve-Url $url
@@ -258,6 +271,10 @@ function Download([string]$name) {
 
 foreach ($name in $Script:apps) {
     if ((App-Typ $name) -eq "default") {
-        Download $name
+        try {
+            Download $name
+        } catch {
+            Write-Warning "Failed to download app resources for ${name}: $($_.Exception.Message)"
+        }
     }
 }

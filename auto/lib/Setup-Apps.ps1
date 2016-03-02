@@ -37,9 +37,23 @@ function Extract-Archive([string]$archive, [string]$targetDir) {
     $targetDir = Safe-Dir $targetDir
     if ($7z) {
         Debug "Extracting $archive to $targetDir"
-        & $7z "x" "-y" "-o$targetDir" "$archive" | Out-Null
-        if (!$?) {
-            throw "Extracting $archive failed"
+        if ($archive -match "\.tar\.\w+$") {
+            $tmpDir = "$(Get-ConfigPathValue TempDir)\${name}_tar"
+            Empty-Dir $tmpDir | Out-Null
+            & $7z "x" "-y" "-o$tmpDir" "$archive" | Out-Null
+            $tarFile = Get-ChildItem "$tmpDir\*.tar"
+            & $7z "x" "-y" "-o$targetDir" "$tarFile" | Out-Null
+            if (!$?) {
+                throw "Extracting $archive failed"
+            }
+            if ($tarFile) {
+                Remove-Item $tarFile
+            }
+        } else {
+            & $7z "x" "-y" "-o$targetDir" "$archive" | Out-Null
+            if (!$?) {
+                throw "Extracting $archive failed"
+            }
         }
     } else {
         ShellUnzip-Archive $archive $targetDir
@@ -230,6 +244,7 @@ function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
 
 Clean-ExecutionProxies
 Clean-Launchers
+Create-ActionLaunchers
 Load-Environment
 Update-EnvironmentPath
 $failedApps = @()
@@ -285,7 +300,6 @@ foreach ($name in $Script:apps) {
     }
 }
 Write-EnvironmentFile
-Create-ActionLaunchers
 
 Empty-Dir $tempDir | Out-Null
 

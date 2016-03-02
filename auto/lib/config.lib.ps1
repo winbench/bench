@@ -249,9 +249,6 @@ function Initialize-AdornmentForRegistryIsolation() {
             Debug "Automatically adding to adorned executables of ${name}: $appExe"
             [array]$adornedExecutables = App-AdornedExecutables $name
             if ($adornedExecutables) {
-                if (!($appExe -in $adornedExecutables)) {
-                    $adornedExecutables += $appExe
-                }
                 Set-AppConfigValue $name AdornedExecutables $adornedExecutables
             } else {
                 Set-AppConfigValue $name AdornedExecutables @($appExe)
@@ -306,6 +303,7 @@ function Initialize() {
     Set-ConfigValue HomeDir "home"
     Set-ConfigValue AppDataDir '$HomeDir$\AppData\Roaming'
     Set-ConfigValue LocalAppDataDir '$HomeDir$\AppData\Local'
+    Set-ConfigValue DownloadProgress $true
     Set-ConfigValue OverrideHome $true
     Set-ConfigValue OverrideTemp $true
     Set-ConfigValue IgnoreSystemPath $true

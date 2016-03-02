@@ -218,10 +218,14 @@ function App-LauncherIcon([string]$name) {
     return Get-AppConfigValue $name LauncherIcon (App-LauncherExecutable $name)
 }
 
+function App-SetupTestFile([string]$name) {
+    return Get-AppConfigPathValue $name SetupTestFile (App-Exe $name)
+}
+
 function Check-DefaultApp([string]$name) {
     Debug "Checking app ${name}"
-    $exe = App-Exe $name
-    return $exe -ne $null
+    $file = App-SetupTestFile $name
+    return $file -and (Test-Path $file)
 }
 
 function Check-NpmPackage([string]$name) {

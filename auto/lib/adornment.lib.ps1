@@ -19,13 +19,6 @@ function Setup-ExecutionProxies([string]$name) {
         foreach ($exePath in $adornedExePaths) {
             Debug "Creating adornment proxy for '$exePath' of $name"
             $proxyPath = Get-ExecutableProxy $name $exePath
-            if ($exePath.StartsWith($libDir, [StringComparison]::InvariantCultureIgnoreCase)) {
-                $exePath = $exePath.Substring($libDir.Length).Trim('\')
-                $proxyTarget = "%AUTO_DIR%\..\" + [IO.Path]::Combine(
-                    (Get-ConfigValue LibDir), $exePath)
-            } else {
-                $proxyTarget = $exePath
-            }
             $proxyCode = "@ECHO OFF$nl"
             $proxyCode += "runps Run-Adorned $name `"$exePath`" %*$nl"
             [IO.File]::WriteAllText($proxyPath, $proxyCode, [Text.Encoding]::Default)

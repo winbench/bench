@@ -1,5 +1,11 @@
+$gitDir = App-Dir Git
 $git = App-Exe Git
 if (!$git) { throw "Git not found" }
+
+if (Test-Path "$gitDir\post-install.bat") {
+    Debug "Renaming post-install script ..."
+    mv "$gitDir\post-install.bat" "$gitDir\git-post-install.bat"
+}
 
 $autocrlf = & $git config --global core.autocrlf
 $pushDefault = & $git config --global push.default
