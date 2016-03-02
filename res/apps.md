@@ -653,7 +653,7 @@ The MinGW package manager MinGW Get:
 * Version: 0.6.2
 * Release: beta-20131004-1
 * Dependencies: `Wget`
-* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGetBin:AppArchive$`
+* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGet:AppArchive$`
 * AppArchive: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-bin.tar.xz`
 * Dir: `mingw`
 * Path: `bin`
