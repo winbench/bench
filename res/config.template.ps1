@@ -80,6 +80,7 @@
 # Activate-App JDK7
 # Activate-App JDK8
 # Activate-App Leiningen
+# Activate-App MinGW
 # Activate-App Go
 # Activate-App VSCode
 # Activate-App SublimeText3

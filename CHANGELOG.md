@@ -34,6 +34,7 @@ Add a link to the GitHub diff like
 - App: FileZilla
 - App: WinMerge
 - App: Wget
+- App: MinGW
 - App: Go
 - App: Eclipse PHP
 - App Group: `Multimedia`

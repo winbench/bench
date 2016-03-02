@@ -637,6 +637,55 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `lein.bat`
 * Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
 
+### MinGW
+
+[MinGW](http://www.mingw.org/) provides a GNU development environment for Windows, including compilers for C/C++, Objective-C, Fortran, Ada, ...
+
+The MinGW package manager MinGW Get:
+
+* ID: `MinGwGet`
+* Version: 0.6.2
+* Release: beta-20131004-1
+* Dependencies: `Wget`
+* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGetBin:AppArchive$`
+* AppArchive: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-bin.tar.xz`
+* Dir: `mingw`
+* Path: `bin`
+* Exe: `bin\mingw-get.exe`
+
+Graphical user interface for MinGW Get:
+
+* ID: `MinGwGetGui`
+* Dependencies: `MinGwGet`
+* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGetGui:AppArchive$`
+* AppArchive: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-gui.tar.xz`
+* Dir: `mingw`
+* Exe: `libexec\mingw-get\guimain.exe`
+* Register: `false`
+* Launcher: `MinGW Package Manager`
+
+Meta app MinGW with package manager and graphical user interface:
+
+* ID: `MinGW`
+* Typ: `meta`
+* Dependencies: `MinGwGet`, `MinGwGetGui`
+* Website: <http://www.mingw.org/>
+* Packages: `mingw32-base`, `mingw32-gcc-g++`
+
+You can adapt the preselected MinGW packages by putting something like this in your `config\config.ps1`:
+
+```PowerShell
+Set-AppConfigValue MinGW Packages @(
+    "mingw32-base",
+    "mingw32-gcc-g++",
+    "mingw32-autotools",
+    "msys-bash"
+)
+```
+
+After the automatic setup by _Bench_, you can use the launcher shortcut `MinGW Package Manager`
+to start the GUI for _MinGW Get_ and install more MinGW packages.
+
 ### Go
 
 * ID: `Go`
