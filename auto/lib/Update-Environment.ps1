@@ -15,6 +15,7 @@ if (!(Test-Path $libDir)) { return }
 
 Clean-ExecutionProxies
 Clean-Launchers
+Create-ActionLaunchers
 Load-Environment
 foreach ($name in $Script:apps) {
     Debug "Processing $name ($(App-Typ $name)) ..."
@@ -40,4 +41,3 @@ foreach ($name in $Script:apps) {
 Debug "Processing apps finished."
 Update-EnvironmentPath
 Write-EnvironmentFile
-Create-ActionLaunchers
