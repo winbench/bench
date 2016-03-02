@@ -243,6 +243,12 @@ To determine, if a Python package is already installed, the existence of its pac
 * Typ: `meta`
 * Dependencies: `Python3`, `SublimeText3`, `IPython3`
 
+### Group: C++
+
+* ID: `DevCpp`
+* Typ: `meta`
+* Dependencies: `MinGW`, `EclipseCpp`
+
 ## Optional
 
 ### OpenSSL

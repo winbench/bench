@@ -45,6 +45,7 @@
 # Activate-App DevClojure # JDK8, Leiningen, LightTable
 # Activate-App DevPython2 # Python2, SublimeText3, IPython
 # Activate-App DevPython3 # Python3, SublimeText3, IPython
+# Activate-App DevCpp # MinGW, EclipseCpp
 
 ## Single applications
 

@@ -39,6 +39,7 @@ Add a link to the GitHub diff like
 - App: Eclipse PHP
 - App: Eclipse C/C++
 - App Group: `Multimedia`
+- App Group: `DevCpp`
 
 ### Changed
 - do not add default executable to explicitly specified list of adorned executables
