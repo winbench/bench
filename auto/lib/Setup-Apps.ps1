@@ -244,6 +244,7 @@ function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
 
 Clean-ExecutionProxies
 Clean-Launchers
+Create-ActionLaunchers
 Load-Environment
 Update-EnvironmentPath
 $failedApps = @()
@@ -299,7 +300,6 @@ foreach ($name in $Script:apps) {
     }
 }
 Write-EnvironmentFile
-Create-ActionLaunchers
 
 Empty-Dir $tempDir | Out-Null
 

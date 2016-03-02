@@ -249,9 +249,6 @@ function Initialize-AdornmentForRegistryIsolation() {
             Debug "Automatically adding to adorned executables of ${name}: $appExe"
             [array]$adornedExecutables = App-AdornedExecutables $name
             if ($adornedExecutables) {
-                if (!($appExe -in $adornedExecutables)) {
-                    $adornedExecutables += $appExe
-                }
                 Set-AppConfigValue $name AdornedExecutables $adornedExecutables
             } else {
                 Set-AppConfigValue $name AdornedExecutables @($appExe)
