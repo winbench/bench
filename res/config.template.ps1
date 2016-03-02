@@ -53,6 +53,7 @@
 # Activate-App Sift
 # Activate-App cURL
 # Activate-App FileZilla
+# Activate-App WinMerge
 # Activate-App Pandoc
 # Activate-App MikTeX
 # Activate-App GraphicsMagick

@@ -34,6 +34,7 @@ Add a link to the GitHub diff like
 - App: Go
 - App: Gimp
 - App: FileZilla
+- App: WinMerge
 
 ### Changed
 - do not add default executable to explicitly specified list of adorned executables

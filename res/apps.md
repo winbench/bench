@@ -301,6 +301,19 @@ To determine, if a Python package is already installed, the existence of its pac
 * Url: `https://sift-tool.org/downloads/sift/$Sift:AppArchive$`
 * AppArchive: `sift_$Sift:Version$_windows_386.zip`
 
+### WinMerge
+
+* ID: `WinMerge`
+* Version: 2.14.0
+* Website: <http://winmerge.org/>
+* Url: `https://sourceforge.net/projects/portableapps/files/WinMerge%20Portable/$WinMerge:AppArchive$`
+* AppArchive: `WinMergePortable_$WinMerge:Version$.paf.exe`
+* AppArchiveSubDir: `App/winmerge`
+* Exe: `WinMergeU.exe`
+* RegistryKeys: `Software\Thingamahoochie`
+* Register: `false`
+* Launcher: `WinMerge`
+
 ### Pandoc
 
 * ID: `Pandoc`
