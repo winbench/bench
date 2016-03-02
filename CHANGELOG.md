@@ -37,6 +37,7 @@ Add a link to the GitHub diff like
 - App: MinGW
 - App: Go
 - App: Eclipse PHP
+- App: Eclipse C/C++
 - App Group: `Multimedia`
 
 ### Changed

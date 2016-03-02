@@ -754,6 +754,8 @@ to start the GUI for _MinGW Get_ and install more MinGW packages.
 
 ### Eclipse
 
+Eclipse for Java development:
+
 * ID: `EclipseJava`
 * Version: 4.5
 * CodeName: mars
@@ -767,6 +769,8 @@ to start the GUI for _MinGW Get_ and install more MinGW packages.
 * Register: `false`
 * Launcher: `Eclipse Java`
 
+Eclipse for PHP development:
+
 * ID: `EclipsePHP`
 * Version: 4.5
 * CodeName: mars
@@ -779,6 +783,21 @@ to start the GUI for _MinGW Get_ and install more MinGW packages.
 * Exe: `eclipse.exe`
 * Register: `false`
 * Launcher: `Eclipse PHP`
+
+Eclipse for C/C++ development:
+
+* ID: `EclipseCpp`
+* Version: 4.5
+* CodeName: mars
+* Release: 1
+* Website: <http://www.eclipse.org/>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseCpp:CodeName$/$EclipseCpp:Release$/$EclipseCpp:AppArchive$>
+* AppArchive: `eclipse-cpp-$EclipseCpp:CodeName$-$EclipseCpp:Release$-win32.zip`
+* AppArchiveSubDir: `eclipse`
+* Dir: `eclipse_cpp`
+* Exe: `eclipse.exe`
+* Register: `false`
+* Launcher: `Eclipse C++`
 
 ### SRWare Iron
 

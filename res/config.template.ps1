@@ -89,6 +89,7 @@
 # Activate-App Spacemacs
 # Activate-App EclipseJava
 # Activate-App EclipsePHP
+# Activate-App EclipseCpp
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
