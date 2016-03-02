@@ -45,13 +45,17 @@
 # Activate-App DevClojure # JDK8, Leiningen, LightTable
 # Activate-App DevPython2 # Python2, SublimeText3, IPython
 # Activate-App DevPython3 # Python3, SublimeText3, IPython
+# Activate-App DevCpp # MinGW, EclipseCpp
 
 ## Single applications
 
 # Activate-App OpenSSL
 # Activate-App Putty
 # Activate-App Sift
+# Activate-App Wget
 # Activate-App cURL
+# Activate-App FileZilla
+# Activate-App WinMerge
 # Activate-App Pandoc
 # Activate-App MikTeX
 # Activate-App GraphicsMagick
@@ -59,6 +63,7 @@
 # Activate-App Graphviz
 # Activate-App Dia
 # Activate-App Inkscape
+# Activate-App Gimp
 # Activate-App Node
 # Activate-App Npm
 # Activate-App Gulp
@@ -76,6 +81,9 @@
 # Activate-App JDK7
 # Activate-App JDK8
 # Activate-App Leiningen
+# Activate-App MinGW
+# Activate-App CMake
+# Activate-App Clang
 # Activate-App Go
 # Activate-App VSCode
 # Activate-App SublimeText3
@@ -84,16 +92,13 @@
 # Activate-App Spacemacs
 # Activate-App EclipseJava
 # Activate-App EclipsePHP
+# Activate-App EclipseCpp
 # Activate-App Iron
 # Activate-App MySQL
 # Activate-App MySQLWB
 # Activate-App PostgreSql
 # Activate-App Apache
-
-## Activate GNU tools from Git's MinGW distribution
-## http://www.mingw.org/
-
-# Set-AppConfigValue Git Path @("mingw32\bin", "usr\bin", "cmd")
+# Activate-App SysInternals
 
 ## Override URL for binary download:
 

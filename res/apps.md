@@ -201,6 +201,12 @@ To determine, if a Python package is already installed, the existence of its pac
 * Typ: `meta`
 * Dependencies: `MdProc`, `VSCode`
 
+### Group: Multimedia
+
+* ID: `Multimedia`
+* Typ: `meta`
+* Dependencies: `Inkscape`, `Dia`, `Gimp`, `Pandoc`, `MikTeX`, `GraphicsMagick`, `Graphviz`, `FFmpeg`
+
 ### Group: Web Development with PHP7 and MySQL
 
 * ID: `WebDevPHP7`
@@ -237,6 +243,12 @@ To determine, if a Python package is already installed, the existence of its pac
 * Typ: `meta`
 * Dependencies: `Python3`, `SublimeText3`, `IPython3`
 
+### Group: C++
+
+* ID: `DevCpp`
+* Typ: `meta`
+* Dependencies: `MinGW`, `EclipseCpp`
+
 ## Optional
 
 ### OpenSSL
@@ -270,6 +282,23 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `bin`
 * Exe: `bin\gnutls-cli.exe`
 
+### Wget
+
+* ID: `Wget`
+* Version: 1.11.4-1
+* Dependencies: `WgetDeps`
+* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$Wget:AppArchive$`
+* AppArchive: `wget-$Wget:Version$-bin.zip`
+* Dir: `gnu`
+* Path: `bin`
+* Exe: `bin\wget.exe`
+
+* ID: `WgetDeps`
+* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$WgetDeps:AppArchive$`
+* AppArchive: `wget-$Wget:Version$-dep.zip`
+* Dir: `gnu`
+* SetupTestFile: `bin\libssl32.dll`
+
 ### cURL
 
 * ID: `cURL`
@@ -281,6 +310,18 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `bin`
 * Exe: `bin\curl.exe`
 
+### FileZilla
+
+* ID: `FileZilla`
+* Version: 3.15.0.2
+* Website: <https://filezilla-project.org/>
+* Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$FileZilla:AppArchive$`
+* AppArchive: `FileZillaPortable_$FileZilla:Version$.paf.exe`
+* AppArchiveSubDir: `App/filezilla`
+* Exe: `filezilla.exe`
+* Register: `false`
+* Launcher: `FileZilla`
+
 ### Sift
 
 * ID: `Sift`
@@ -288,6 +329,19 @@ To determine, if a Python package is already installed, the existence of its pac
 * Version: 0.8.0
 * Url: `https://sift-tool.org/downloads/sift/$Sift:AppArchive$`
 * AppArchive: `sift_$Sift:Version$_windows_386.zip`
+
+### WinMerge
+
+* ID: `WinMerge`
+* Version: 2.14.0
+* Website: <http://winmerge.org/>
+* Url: `https://sourceforge.net/projects/portableapps/files/WinMerge%20Portable/$WinMerge:AppArchive$`
+* AppArchive: `WinMergePortable_$WinMerge:Version$.paf.exe`
+* AppArchiveSubDir: `App/winmerge`
+* Exe: `WinMergeU.exe`
+* RegistryKeys: `Software\Thingamahoochie`
+* Register: `false`
+* Launcher: `WinMerge`
 
 ### Pandoc
 
@@ -366,6 +420,18 @@ To determine, if a Python package is already installed, the existence of its pac
 * AppArchiveSubDir: `inkscape`
 * Exe: `inkscape.exe`
 * Launcher: `Inkscape`
+
+### GIMP
+
+* ID: `Gimp`
+* Version: 2.8.16
+* Website: <http://www.gimp.org/>
+* Url: `https://sourceforge.net/projects/portableapps/files/GIMP Portable/$Gimp:AppArchive$`
+* AppArchive: `GIMPPortable_$Gimp:Version$.paf.exe`
+* AppArchiveSubDir: `App/gimp`
+* Exe: `bin\gimp-2.8.exe`
+* Register: `false`
+* Launcher: `GIMP`
 
 ### NodeJS
 
@@ -577,6 +643,93 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `lein.bat`
 * Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
 
+### MinGW
+
+[MinGW](http://www.mingw.org/) provides a GNU development environment for Windows, including compilers for C/C++, Objective-C, Fortran, Ada, ...
+
+The MinGW package manager MinGW Get:
+
+* ID: `MinGwGet`
+* Version: 0.6.2
+* Release: beta-20131004-1
+* Dependencies: `Wget`
+* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGetBin:AppArchive$`
+* AppArchive: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-bin.tar.xz`
+* Dir: `mingw`
+* Path: `bin`
+* Exe: `bin\mingw-get.exe`
+
+Graphical user interface for MinGW Get:
+
+* ID: `MinGwGetGui`
+* Dependencies: `MinGwGet`
+* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGetGui:AppArchive$`
+* AppArchive: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-gui.tar.xz`
+* Dir: `mingw`
+* Exe: `libexec\mingw-get\guimain.exe`
+* Register: `false`
+* Launcher: `MinGW Package Manager`
+
+Meta app MinGW with package manager and graphical user interface:
+
+* ID: `MinGW`
+* Typ: `meta`
+* Dependencies: `MinGwGet`, `MinGwGetGui`
+* Website: <http://www.mingw.org/>
+* Packages: `mingw32-base`, `mingw32-gcc-g++`
+
+You can adapt the preselected MinGW packages by putting something like this in your `config\config.ps1`:
+
+```PowerShell
+Set-AppConfigValue MinGW Packages @(
+    "mingw32-base",
+    "mingw32-gcc-g++",
+    "mingw32-autotools",
+    "msys-bash"
+)
+```
+
+After the automatic setup by _Bench_, you can use the launcher shortcut `MinGW Package Manager`
+to start the GUI for _MinGW Get_ and install more MinGW packages.
+
+### CMake
+
+Usually you want to use this app with _MinGW_.
+
+To setup a C/C++ project with CMake and MinGW (`mingw32-make`), you have to activate the _MinGW_ app with the `mingw32-make` package.
+Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefiles" <project folder>` to generate the `Makefile`. Run `cmake --build <project folder>` to compile the project.
+
+* ID: `CMake`
+* Version: 3.4.3
+* Website: <https://cmake.org/>
+* Url: `https://cmake.org/files/v3.4/$CMake:AppArchive$`
+* AppArchive: `cmake-$CMake:Version$-win32-x86.zip`
+* AppArchiveSubDir: `cmake-$Cmake:Version$-win32-x86`
+* Path: `bin`
+* Exe: `bin\cmake.exe`
+
+### LLVM Clang
+
+The Clang compiler can act as drop-in replacement for the GCC compilers.
+
+This app sets the environment variables `CC` and `CXX` to inform _CMake_
+about the C/C++ compiler path. Therefore, if you build your C/C++ projects
+with _CMake_, it is sufficient to just activate the _Clang_ app and _CMake_
+will use _Clang_ instead of the GCC compiler from _MinGW_.
+
+If you want to use the Clang compiler with Eclipse, you must manually
+install the LLVM-Plugin for Eclipse CDT.
+
+* ID: `Clang`
+* Version: 3.7.1
+* Website: <http://clang.llvm.org/>
+* Url: `http://llvm.org/releases/$Clang:Version$/$Clang:AppArchive$`
+* AppArchive: `LLVM-$Clang:Version$-win32.exe`
+* Dir: `llvm`
+* Path: `bin`
+* Exe: `bin\clang.exe`
+* Environment: `CC=$Clang:Dir$\bin\clang.exe`, `CXX=$Clang:Dir$\bin\clang++.exe`
+
 ### Go
 
 * ID: `Go`
@@ -645,6 +798,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 ### Eclipse
 
+Eclipse for Java development:
+
 * ID: `EclipseJava`
 * Version: 4.5
 * CodeName: mars
@@ -658,6 +813,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Register: `false`
 * Launcher: `Eclipse Java`
 
+Eclipse for PHP development:
+
 * ID: `EclipsePHP`
 * Version: 4.5
 * CodeName: mars
@@ -670,6 +827,21 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `eclipse.exe`
 * Register: `false`
 * Launcher: `Eclipse PHP`
+
+Eclipse for C/C++ development:
+
+* ID: `EclipseCpp`
+* Version: 4.5
+* CodeName: mars
+* Release: 1
+* Website: <http://www.eclipse.org/>
+* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseCpp:CodeName$/$EclipseCpp:Release$/$EclipseCpp:AppArchive$>
+* AppArchive: `eclipse-cpp-$EclipseCpp:CodeName$-$EclipseCpp:Release$-win32.zip`
+* AppArchiveSubDir: `eclipse`
+* Dir: `eclipse_cpp`
+* Exe: `eclipse.exe`
+* Register: `false`
+* Launcher: `Eclipse C++`
 
 ### SRWare Iron
 
@@ -748,6 +920,16 @@ The initial password for _postgres_ is `bench`.
 * Exe: `bin\httpd.exe`
 * HttpdDocumentRoot: `$HomeDir$\www`
 * HttpdListen: `127.0.0.1:80`
+
+### Windows Sysinternals Suite
+
+* ID: `SysInternals`
+* Version: latest
+* Website: <https://technet.microsoft.com/de-de/sysinternals/bb842062>
+* Url: <https://download.sysinternals.com/files/SysinternalsSuite.zip>
+* AppArchive: `SysinternalsSuite.zip`
+* Exe: `procexp.exe`
+* Launcher: `Process Explorer`
 
 
 [MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"

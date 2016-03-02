@@ -25,13 +25,27 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.9.0] - 2016-03-02
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.8.0...v0.9.0)
+
 ### Added
 - support for unpacking `*.tar.*` archives with two steps
 - app property `SetupTestFile` to explicitly specify the file
   which is used to determine if an app is installed or not
 - App: Dia
-- App: Eclipse PHP
+- App: Gimp
+- App: FileZilla
+- App: WinMerge
+- App: Wget
+- App: MinGW
+- App: CMake
+- App: LLVM Clang
 - App: Go
+- App: Eclipse PHP
+- App: Eclipse C/C++
+- App: SysInternals Suite
+- App Group: `Multimedia`
+- App Group: `DevCpp`
 
 ### Changed
 - do not add default executable to explicitly specified list of adorned executables
@@ -40,6 +54,7 @@ Add a link to the GitHub diff like
 
 ### Fixed
 - adornment proxies are generated with incorrect relative path
+- execution of Git post-install script
 
 ## [0.8.0] - 2016-02-15
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0)
