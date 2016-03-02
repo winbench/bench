@@ -271,6 +271,10 @@ function Download([string]$name) {
 
 foreach ($name in $Script:apps) {
     if ((App-Typ $name) -eq "default") {
-        Download $name
+        try {
+            Download $name
+        } catch {
+            Write-Warning "Failed to download app resources for ${name}: $($_.Exception.Message)"
+        }
     }
 }
