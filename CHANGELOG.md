@@ -35,6 +35,7 @@ Add a link to the GitHub diff like
 - App: WinMerge
 - App: Wget
 - App: MinGW
+- App: CMake
 - App: Go
 - App: Eclipse PHP
 - App: Eclipse C/C++

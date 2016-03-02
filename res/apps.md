@@ -692,6 +692,22 @@ Set-AppConfigValue MinGW Packages @(
 After the automatic setup by _Bench_, you can use the launcher shortcut `MinGW Package Manager`
 to start the GUI for _MinGW Get_ and install more MinGW packages.
 
+### CMake
+
+Usually you want to use this app with _MinGW_.
+
+To setup a C/C++ project with CMake and MinGW (`mingw32-make`), you have to activate the _MinGW_ app with the `mingw32-make` package.
+Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefiles" <project folder>` to generate the `Makefile`. Run `cmake --build <project folder>` to compile the project.
+
+* ID: `CMake`
+* Version: 3.4.3
+* Website: <https://cmake.org/>
+* Url: `https://cmake.org/files/v3.4/$CMake:AppArchive$`
+* AppArchive: `cmake-$CMake:Version$-win32-x86.zip`
+* AppArchiveSubDir: `cmake-$Cmake:Version$-win32-x86`
+* Path: `bin`
+* Exe: `bin\cmake.exe`
+
 ### Go
 
 * ID: `Go`

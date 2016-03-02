@@ -82,6 +82,7 @@
 # Activate-App JDK8
 # Activate-App Leiningen
 # Activate-App MinGW
+# Activate-App CMake
 # Activate-App Go
 # Activate-App VSCode
 # Activate-App SublimeText3
