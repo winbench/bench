@@ -51,6 +51,7 @@
 # Activate-App OpenSSL
 # Activate-App Putty
 # Activate-App Sift
+# Activate-App Wget
 # Activate-App cURL
 # Activate-App FileZilla
 # Activate-App WinMerge

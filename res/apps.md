@@ -276,6 +276,23 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `bin`
 * Exe: `bin\gnutls-cli.exe`
 
+### Wget
+
+* ID: `Wget`
+* Version: 1.11.4-1
+* Dependencies: `WgetDeps`
+* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$Wget:AppArchive$`
+* AppArchive: `wget-$Wget:Version$-bin.zip`
+* Dir: `gnu`
+* Path: `bin`
+* Exe: `bin\wget.exe`
+
+* ID: `WgetDeps`
+* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$WgetDeps:AppArchive$`
+* AppArchive: `wget-$Wget:Version$-dep.zip`
+* Dir: `gnu`
+* SetupTestFile: `bin\libssl32.dll`
+
 ### cURL
 
 * ID: `cURL`

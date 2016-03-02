@@ -35,6 +35,7 @@ Add a link to the GitHub diff like
 - App: Gimp
 - App: FileZilla
 - App: WinMerge
+- App: Wget
 - App Group: `Multimedia`
 
 ### Changed
