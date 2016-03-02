@@ -921,6 +921,16 @@ The initial password for _postgres_ is `bench`.
 * HttpdDocumentRoot: `$HomeDir$\www`
 * HttpdListen: `127.0.0.1:80`
 
+### Windows Sysinternals Suite
+
+* ID: `SysInternals`
+* Version: latest
+* Website: <https://technet.microsoft.com/de-de/sysinternals/bb842062>
+* Url: <https://download.sysinternals.com/files/SysinternalsSuite.zip>
+* AppArchive: `SysinternalsSuite.zip`
+* Exe: `procexp.exe`
+* Launcher: `Process Explorer`
+
 
 [MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
 [MS VC14]: https://www.microsoft.com/download/details.aspx?id=48145 "Microsoft Visual C++ Redistributable for Visual Studio 2015"

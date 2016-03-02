@@ -43,6 +43,7 @@ Add a link to the GitHub diff like
 - App: Go
 - App: Eclipse PHP
 - App: Eclipse C/C++
+- App: SysInternals Suite
 - App Group: `Multimedia`
 - App Group: `DevCpp`
 

@@ -98,6 +98,7 @@
 # Activate-App MySQLWB
 # Activate-App PostgreSql
 # Activate-App Apache
+# Activate-App SysInternals
 
 ## Override URL for binary download:
 
