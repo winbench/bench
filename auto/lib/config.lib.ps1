@@ -303,6 +303,7 @@ function Initialize() {
     Set-ConfigValue HomeDir "home"
     Set-ConfigValue AppDataDir '$HomeDir$\AppData\Roaming'
     Set-ConfigValue LocalAppDataDir '$HomeDir$\AppData\Local'
+    Set-ConfigValue DownloadProgress $true
     Set-ConfigValue OverrideHome $true
     Set-ConfigValue OverrideTemp $true
     Set-ConfigValue IgnoreSystemPath $true
