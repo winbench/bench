@@ -32,6 +32,7 @@ Add a link to the GitHub diff like
 - App: Dia
 - App: Eclipse PHP
 - App: Go
+- App: Gimp
 
 ### Changed
 - do not add default executable to explicitly specified list of adorned executables

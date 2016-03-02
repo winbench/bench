@@ -367,6 +367,18 @@ To determine, if a Python package is already installed, the existence of its pac
 * Exe: `inkscape.exe`
 * Launcher: `Inkscape`
 
+### GIMP
+
+* ID: `Gimp`
+* Version: 2.8.16
+* Website: <http://www.gimp.org/>
+* Url: `https://sourceforge.net/projects/portableapps/files/GIMP Portable/$Gimp:AppArchive$`
+* AppArchive: `GIMPPortable_$Gimp:Version$.paf.exe`
+* AppArchiveSubDir: `App/gimp`
+* Exe: `bin\gimp-2.8.exe`
+* Register: `false`
+* Launcher: `GIMP`
+
 ### NodeJS
 
 * ID: `Node`

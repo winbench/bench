@@ -59,6 +59,7 @@
 # Activate-App Graphviz
 # Activate-App Dia
 # Activate-App Inkscape
+# Activate-App Gimp
 # Activate-App Node
 # Activate-App Npm
 # Activate-App Gulp
