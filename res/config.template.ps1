@@ -93,11 +93,6 @@
 # Activate-App PostgreSql
 # Activate-App Apache
 
-## Activate GNU tools from Git's MinGW distribution
-## http://www.mingw.org/
-
-# Set-AppConfigValue Git Path @("mingw32\bin", "usr\bin", "cmd")
-
 ## Override URL for binary download:
 
 # Set-AppConfigValue XYZ Url "http://my-server.com/xyz/release-v2.zip"
