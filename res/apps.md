@@ -201,6 +201,12 @@ To determine, if a Python package is already installed, the existence of its pac
 * Typ: `meta`
 * Dependencies: `MdProc`, `VSCode`
 
+### Group: Multimedia
+
+* ID: `Multimedia`
+* Typ: `meta`
+* Dependencies: `Inkscape`, `Dia`, `Gimp`, `Pandoc`, `MikTeX`, `GraphicsMagick`, `Graphviz`, `FFmpeg`
+
 ### Group: Web Development with PHP7 and MySQL
 
 * ID: `WebDevPHP7`

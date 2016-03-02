@@ -35,6 +35,7 @@ Add a link to the GitHub diff like
 - App: Gimp
 - App: FileZilla
 - App: WinMerge
+- App Group: `Multimedia`
 
 ### Changed
 - do not add default executable to explicitly specified list of adorned executables
