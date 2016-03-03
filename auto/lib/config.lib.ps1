@@ -17,7 +17,7 @@ $Script:valueExpandPattern = [regex]'\$(?<var>[^\$]+)\$'
 function Expand-Placeholder([string]$placeholder) {
     $kvp = $placeholder.Split(":", 2)
     if ($kvp.Count -eq 1) {
-        if ($placeholder -in $Script:pathConfigValues) {
+        if ($Script:pathConfigValues -contains $placeholder) {
             return Get-ConfigPathValue $placeholder
         } else {
             return Get-ConfigValue $placeholder
@@ -122,13 +122,13 @@ function Get-AppConfigPathValue([string]$app, [string]$name, [string]$def = $nul
 }
 
 function Add-ToSetList($list, $element) {
-    if (!($element -in $list)) {
+    if (!($list -contains $element)) {
         $list.Add($element)
     }
 }
 
 function Remove-FromSetList($list, $element) {
-    if ($element -in $list) {
+    if ($list -contains $element) {
         $list.Remove($element)
     }
 }
@@ -215,7 +215,7 @@ function Process-AppRegistry($parseActivation = $false) {
 function Add-Dependency([string]$name, [string]$dep) {
     [array]$deps = App-Dependencies $name
     if ($deps) {
-        if (!($dep -in $deps)) {
+        if (!($deps -contains $dep)) {
             $deps += $dep
             Set-AppConfigValue $name Dependencies $deps
         }
@@ -370,7 +370,7 @@ function Initialize() {
 
     $toActivate = $Script:activatedApps.ToArray()
     function Select-App($app) {
-        if ($app -in $Script:deactivatedApps) {
+        if ($Script:deactivatedApps -contains $app) {
             return
         }
         Activate-App $app
@@ -383,7 +383,7 @@ function Initialize() {
         Select-App $app
     }
     foreach ($app in $Script:definedApps) {
-        if ($app -in $Script:activatedApps) {
+        if ($Script:activatedApps -contains $app) {
             Add-ToSetList $Script:apps $app
         }
     }
