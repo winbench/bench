@@ -370,6 +370,10 @@ function Initialize() {
 
     $toActivate = $Script:activatedApps.ToArray()
     function Select-App($app) {
+        if (!$app) {
+            Write-Warning "Empty app name detected."
+            return
+        }
         if ($Script:deactivatedApps -contains $app) {
             return
         }
