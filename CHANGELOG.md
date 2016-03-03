@@ -25,9 +25,17 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- support for Windows 7 with PowerShell 2
+
 ### Changed
 - deal with cyclic dependencies between apps
 - renamed bootstrap file `bench.bat` into `bench-install.bat`
+
+### Removed
+- progress during downloads, replaced download  with `Invoke-WebRequest`
+  by silent download via `System.Net.WebClient` because of compatibility with PowerShell 2
+- config property `DownloadProgress`
 
 ### Fixed
 - broken bootstrap file `bench.bat`
