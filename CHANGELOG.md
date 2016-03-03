@@ -27,6 +27,10 @@ Add a link to the GitHub diff like
 
 ### Changed
 - deal with cyclic dependencies between apps
+- renamed bootstrap file `bench.bat` into `bench-install.bat`
+
+### Fixed
+- broken bootstrap file `bench.bat`
 
 ## [0.9.0] - 2016-03-02
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.8.0...v0.9.0)
