@@ -27,4 +27,4 @@ DEL "%ZIPFILE%"
 
 ECHO.Running setup script ...
 CD %ROOT%
-.\auto\bench-setup.cmd
+.\actions\bench-ctl.cmd setup

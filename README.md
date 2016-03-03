@@ -18,7 +18,7 @@
 
 ## Prerequisites
 
-* Microsoft Windows 7 or higher (with at least PowerShell 3)
+* Microsoft Windows 7 or higher (with at least [PowerShell 3])
 * Internet access for HTTP/HTTPS (possibly via proxy, but without credentials)
 * The Windows user account does _not_ need admin priviledges
 * A harddrive or a removable drive with at least 2 GB free memory
@@ -26,7 +26,7 @@
 ## Install
 
 * Create a folder on a drive with at least 2 GB space, maybe call it `bench`.
-* Save the bootstrap file [bench.bat](https://github.com/mastersign/bench/raw/master/res/bench.bat)
+* Save the bootstrap file [bench-install.bat](https://github.com/mastersign/bench/raw/master/res/bench-install.bat)
   inside this folder.
 * Run the bootstrap file.
   (You probably have to open the properties dialog for the downloaded file, and allow the execution first.)
@@ -281,3 +281,4 @@ But upgrading a _Bench_ environment is not well tested yet, and is not advised w
 [Gulp]: http://gulpjs.com
 [Grunt]: http://gruntjs.com
 [7zip]: http://7-zip.org
+[PowerShell 3]: https://www.microsoft.com/en-us/download/details.aspx?id=34595

@@ -25,73 +25,60 @@ function Get-Proxy([uri]$url) {
     }
 }
 
+function Get-WebClient([string]$url, [string]$appName = $null) {
+    $wc = New-Object System.Net.WebClient
+    $proxy = Get-Proxy $url
+    if ($proxy) {
+        $wc.Proxy = $proxy
+    }
+    if ($appName) {
+        $headers = App-DownloadHeaders $appName
+        if ($headers) {
+            foreach($k in $headers.Keys) {
+                Debug "Adding Header: $k = $($headers[$k])"
+                $wc.Headers.Add($k, $headers[$k])
+            }
+        }
+        $cookies = App-DownloadCookies $appName
+        if ($cookies) {
+            $val = [string]::Join("; ", [array]($cookies | % { "$($_.Name)=$($_.Value)" }))
+            Debug "Adding Cookies: $val"
+            $wc.Headers.Add([System.Net.HttpRequestHeader]::Cookie, $val)
+        }
+    }
+    return $wc
+}
+
 function Download-String([string]$url) {
     Write-Host "Downloading page: $url ..."
-    $oldProgressPref = $ProgressPreference
     $attempt = 1
+    $wc = Get-WebClient $url
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
         try {
             if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
-            $ProgressPreference = 'SilentlyContinue'
-            if (Get-ConfigValue UseProxy) {
-                $proxyUrl = Get-ProxyUrl $url
-                $data = Invoke-WebRequest -Uri $url -Proxy $proxyUrl
-            } else {
-                $data = Invoke-WebRequest -Uri $url
-            }
-            $ProgressPreference = $oldProgressPref
-            return $data
+            return $wc.DownloadString($url)
         } catch {
             Debug "Download failed $_"
             $attempt++
         }
     }
-    $ProgressPreference = $oldProgressPref
     return $null
-}
-
-function Get-WebSession([string]$name, [string]$url) {
-    $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
-    $headers = App-DownloadHeaders $name
-    foreach ($k in $headers.Keys) {
-        Debug "Adding Header: $k = $($headers[$k])"
-        $session.Headers.Add($k, $headers[$k])
-    }
-    $cookies = App-DownloadCookies $name $url
-    foreach($c in $cookies) {
-        Debug "Adding Cookie: $($c.Name) = $($c.Value)"
-        $session.Cookies.Add($c)
-    }
-    return $session
 }
 
 function Download-File([string]$name, [string]$url, [string]$target) {
     Write-Host "Downloading file: $url ..."
-    $oldProgressPref = $ProgressPreference
-    $session = Get-WebSession $name $url
     $attempt = 1
+    $wc = Get-WebClient $url $name
     while ($attempt -le (Get-ConfigValue DownloadAttempts)) {
         try {
             if ($attempt -gt 1) { Debug "Download attempt $attempt ..." }
-            if (Get-ConfigValue DownloadProgress) {
-                $ProgressPreference = 'Continue'
-            } else {
-                $ProgressPreference = 'SilentlyContinue'
-            }
-            if (Get-ConfigValue UseProxy) {
-                $proxyUrl = Get-ProxyUrl $url
-                Invoke-WebRequest -Uri $url -OutFile $target -WebSession $session -Proxy $proxyUrl
-            } else {
-                Invoke-WebRequest -Uri $url -OutFile $target -WebSession $session
-            }
-            $ProgressPreference = $oldProgressPref
+            $wc.DownloadFile($url, $target)
             return $True
         } catch {
             Debug "Download failed $_"
             $attempt++
         }
     }
-    $ProgressPreference = $oldProgressPref
     return $False
 }
 
@@ -170,12 +157,6 @@ function Get-FirstMatchingLinkUrl([string]$url, [regex]$pattern) {
 }
 
 function Resolve-Url([string]$url) {
-    if ($url -match "^https?://sourceforge\.net/projects/[^/]+/files/") {
-        Debug "URL matches Sourceforge download page"
-        $url = Get-MetaRefreshUrl $url
-        return Resolve-Url $url
-    }
-
     if ($url -match "^https?://www\.eclipse\.org/downloads/download\.php\?file=(.*)&mirror_id=\d+`$") {
         Debug "URL matches Eclipse mirror download page"
         $url = Get-FirstSurroundedLinkUrl $url "\<span\s[^\>]*class=`"direct-link`"[^\>]*\>(.*?)\</span\>"
