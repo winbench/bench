@@ -26,7 +26,7 @@
 ## Install
 
 * Create a folder on a drive with at least 2 GB space, maybe call it `bench`.
-* Save the bootstrap file [bench.bat](https://github.com/mastersign/bench/raw/master/res/bench.bat)
+* Save the bootstrap file [bench-install.bat](https://github.com/mastersign/bench/raw/master/res/bench-install.bat)
   inside this folder.
 * Run the bootstrap file.
   (You probably have to open the properties dialog for the downloaded file, and allow the execution first.)
