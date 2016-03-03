@@ -18,7 +18,7 @@
 
 ## Prerequisites
 
-* Microsoft Windows 7 or higher (with at least PowerShell 3)
+* Microsoft Windows 7 or higher (with at least [PowerShell 3])
 * Internet access for HTTP/HTTPS (possibly via proxy, but without credentials)
 * The Windows user account does _not_ need admin priviledges
 * A harddrive or a removable drive with at least 2 GB free memory
@@ -281,3 +281,4 @@ But upgrading a _Bench_ environment is not well tested yet, and is not advised w
 [Gulp]: http://gulpjs.com
 [Grunt]: http://gruntjs.com
 [7zip]: http://7-zip.org
+[PowerShell 3]: https://www.microsoft.com/en-us/download/details.aspx?id=34595
