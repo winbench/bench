@@ -376,7 +376,9 @@ function Initialize() {
         Activate-App $app
         $dependencies = Get-AppConfigListValue $app Dependencies
         foreach ($dep in $dependencies) {
-            Select-App $dep
+            if ($dep -and !($Script:activatedApps -contains $dep)) {
+                Select-App $dep
+            }
         }
     }
     foreach ($app in $toActivate) {
