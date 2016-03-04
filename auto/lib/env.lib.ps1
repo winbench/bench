@@ -21,6 +21,7 @@ function Register-AppPaths([string]$name) {
     if (App-Register $name) {
         $paths = App-Paths $name
         foreach ($p in $paths) {
+            if (!$p) { continue }
             Register-Path $p
         }
     }
@@ -30,6 +31,7 @@ function Register-AppEnvironment([string]$name) {
     Debug "Registering Environment Variables for $name ..."
     $dict = App-Environment $name
     foreach ($k in $dict.Keys) {
+        if (!$k) { continue }
         Debug "Registered Environment Variable: $k = $($dict[$k])"
         $Script:additionalEnvVars[$k] = $dict[$k]
     }
@@ -56,6 +58,7 @@ function Load-Environment() {
         $env:TMP = $Script:tempDir
     }
     foreach ($k in $Script:additionalEnvVars.Keys) {
+        if (!$k) { continue }
         Set-Item "env:$k" $Script:additionalEnvVars[$k]
     }
 }
@@ -63,6 +66,7 @@ function Load-Environment() {
 function Load-AppEnvironment([string]$name) {
     $dict = App-Environment $name
     foreach ($k in $dict.Keys) {
+        if (!$k) { continue }
         Debug "Load Environment Variable: $k = $($dict[$k])"
         Set-Item "env:$k" $dict[$k]
     }
@@ -76,6 +80,7 @@ function Update-EnvironmentPath() {
     }
     $benchPath = ""
     foreach ($path in $Script:paths) {
+        if (!$path) { continue }
         $benchPath = "$path;$benchPath"
     }
     $env:PATH = "$benchPath;$env:PATH"
@@ -178,6 +183,7 @@ function Write-EnvironmentFile() {
     }
     $benchPath = ""
     foreach ($path in $Script:paths) {
+        if (!$path) { continue }
         $benchPath = "$(relPath $path);$benchPath"
     }
     $benchPath = $benchPath.TrimEnd(';')
@@ -189,6 +195,7 @@ function Write-EnvironmentFile() {
     }
 
     foreach ($k in $Script:additionalEnvVars.Keys) {
+        if (!$k) { continue }
         $txt += "SET $k=$(relPath $Script:additionalEnvVars[$k])$nl"
     }
 

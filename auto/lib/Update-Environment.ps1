@@ -18,6 +18,7 @@ Clean-Launchers
 Create-ActionLaunchers
 Load-Environment
 foreach ($name in $Script:apps) {
+    if (!$name) { continue }
     Debug "Processing $name ($(App-Typ $name)) ..."
     if ((App-Typ $name) -eq "meta") {
         Register-AppPaths $name

@@ -61,6 +61,7 @@ if ((Test-Path "Gruntfile.js" -PathType Leaf) -or (Test-Path "Gruntfile.coffee" 
 if ($props.Count -gt 0) {
     Write-Output "The Project is"
     foreach ($p in $props) {
+        if (!$p) { continue }
         Write-Output "- $p"
     }
     Write-Output ""

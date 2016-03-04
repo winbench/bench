@@ -26,8 +26,8 @@ function ShellUnzip-Archive([string]$zipFile, [string]$targetDir) {
     if (!$trg) {
         throw "Invalid target directory: $targetDir"
     }
-    foreach($item in $zip.items())
-    {
+    foreach($item in $zip.items()) {
+        if (!$item) { continue }
         $trg.copyhere($item)
     }
 }
@@ -250,6 +250,7 @@ Update-EnvironmentPath
 $failedApps = @()
 $installedApps = @()
 foreach ($name in $Script:apps) {
+    if (!$name) { continue }
     $typ = App-Typ $name
     switch ($typ) {
         "meta" {

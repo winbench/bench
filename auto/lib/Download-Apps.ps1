@@ -251,6 +251,7 @@ function Download([string]$name) {
 }
 
 foreach ($name in $Script:apps) {
+    if (!$name) { continue }
     if ((App-Typ $name) -eq "default") {
         try {
             Download $name

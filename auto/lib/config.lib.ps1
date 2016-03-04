@@ -208,7 +208,10 @@ function Process-AppRegistry($parseActivation = $false) {
         }
     }
     end {
-        foreach ($app in $requiredIds) { Activate-App $app }
+        foreach ($app in $requiredIds) { 
+            if (!$app) { continue }
+            Activate-App $app
+        }
     }
 }
 
@@ -226,6 +229,7 @@ function Add-Dependency([string]$name, [string]$dep) {
 
 function Initialize-AutoDependencies() {
     foreach ($name in $Script:definedApps) {
+        if (!$name) { continue }
         $appTyp = App-Typ $name
         switch ($appTyp) {
             "node-package" {
@@ -243,6 +247,7 @@ function Initialize-AutoDependencies() {
 
 function Initialize-AdornmentForRegistryIsolation() {
     foreach ($name in $Script:definedApps) {
+        if (!$name) { continue }
         $regKeys = App-RegistryKeys $name
         if ($regKeys.Count -gt 0) {
             $appExe = App-Exe $name
@@ -259,6 +264,7 @@ function Initialize-AdornmentForRegistryIsolation() {
 
 function Initialize-AdornmentPaths() {
     foreach ($name in $Script:definedApps) {
+        if (!$name) { continue }
         [array]$adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
         if ($adornedExecutables) {
             $appPaths = Get-AppConfigListValue $name Path
@@ -385,9 +391,11 @@ function Initialize() {
         }
     }
     foreach ($app in $toActivate) {
+        if (!$app) { continue }
         Select-App $app
     }
     foreach ($app in $Script:definedApps) {
+        if (!$app) { continue }
         if ($Script:activatedApps -contains $app) {
             Add-ToSetList $Script:apps $app
         }
