@@ -41,3 +41,5 @@ foreach ($name in $Script:apps) {
 Debug "Processing apps finished."
 Update-EnvironmentPath
 Write-EnvironmentFile
+
+Debug "Finished updating environment."

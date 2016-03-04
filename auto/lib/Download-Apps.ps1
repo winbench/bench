@@ -256,6 +256,9 @@ foreach ($name in $Script:apps) {
             Download $name
         } catch {
             Write-Warning "Failed to download app resources for ${name}: $($_.Exception.Message)"
+            Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
         }
     }
 }
+
+Debug "Finished downloading app resources."

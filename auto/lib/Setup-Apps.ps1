@@ -312,3 +312,5 @@ if ($failedApps.Count -gt 0) {
     }
     Write-Warning "Run 'auto/bench-setup.cmd' to try again."
 }
+
+Debug "Finished installing apps."
