@@ -30,6 +30,7 @@ Add a link to the GitHub diff like
 
 ### Added
 - support for Windows 7 with PowerShell 2
+- App: JRE 8
 
 ### Changed
 - deal with cyclic dependencies between apps

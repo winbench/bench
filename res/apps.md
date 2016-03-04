@@ -631,6 +631,19 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
 
+### Java Runtime Environment 8
+
+* ID: `JRE8`
+* Version: $JDK8:Version$
+* Release: $JDK8:Release$
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$JRE8:Version$-$JRE8:Release$/$JRE8:AppArchive$`
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jre-$JRE8:Version$-windows-i586.tar.gz`
+* AppArchiveSubDir: `jre1.8.0_74`
+* Path: `bin`
+* Exe: `bin\java.exe`
+
 ### Leiningen
 
 * ID: `Leiningen`
