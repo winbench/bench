@@ -216,7 +216,7 @@ function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
     $version = App-Version $name
     if ((App-Force $name) -or !(Check-PyPiPackage $pythonVersion $name)) {
         $python = "Python$pythonVersion"
-        if ($python -in $Script:apps) {
+        if ($Script:apps -contains $python) {
             $pip = "pip$pythonVersion"
             if ($version) {
                 Write-Host "Setting up PyPI package $packageName $version for Python $pythonVersion"
