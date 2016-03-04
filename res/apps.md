@@ -817,6 +817,7 @@ Eclipse for Java development:
 * Version: 4.5
 * CodeName: mars
 * Release: 1
+* Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseJava:CodeName$/$EclipseJava:Release$/$EclipseJava:AppArchive$>
 * AppArchive: `eclipse-java-$EclipseJava:CodeName$-$EclipseJava:Release$-win32.zip`
@@ -832,6 +833,7 @@ Eclipse for PHP development:
 * Version: 4.5
 * CodeName: mars
 * Release: 1
+* Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipsePHP:CodeName$/$EclipsePHP:Release$/$EclipsePHP:AppArchive$>
 * AppArchive: `eclipse-php-$EclipsePHP:CodeName$-$EclipsePHP:Release$-win32.zip`
@@ -847,6 +849,7 @@ Eclipse for C/C++ development:
 * Version: 4.5
 * CodeName: mars
 * Release: 1
+* Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseCpp:CodeName$/$EclipseCpp:Release$/$EclipseCpp:AppArchive$>
 * AppArchive: `eclipse-cpp-$EclipseCpp:CodeName$-$EclipseCpp:Release$-win32.zip`

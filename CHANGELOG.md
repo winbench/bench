@@ -35,6 +35,7 @@ Add a link to the GitHub diff like
 ### Changed
 - deal with cyclic dependencies between apps
 - renamed bootstrap file `bench.bat` into `bench-install.bat`
+- allways run Eclipse with JRE 8
 
 ### Removed
 - progress during downloads, replaced download  with `Invoke-WebRequest`
