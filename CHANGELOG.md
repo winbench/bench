@@ -30,20 +30,25 @@ Add a link to the GitHub diff like
 
 ### Added
 - support for Windows 7 with PowerShell 2
+  ([#29](https://github.com/mastersign/bench/issues/29))
 - App: JRE 8
+  ([#30](https://github.com/mastersign/bench/issues/30))
 
 ### Changed
 - deal with cyclic dependencies between apps
 - renamed bootstrap file `bench.bat` into `bench-install.bat`
 - allways run Eclipse with JRE 8
+  ([#30](https://github.com/mastersign/bench/issues/30))
 
 ### Removed
 - progress during downloads, replaced download  with `Invoke-WebRequest`
   by silent download via `System.Net.WebClient` because of compatibility with PowerShell 2
+  ([#29](https://github.com/mastersign/bench/issues/29))
 - config property `DownloadProgress`
 
 ### Fixed
 - broken bootstrap file `bench.bat`
+  ([#31](https://github.com/mastersign/bench/issues/31))
 
 ## [0.9.0] - 2016-03-02
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.8.0...v0.9.0)
@@ -55,16 +60,21 @@ Add a link to the GitHub diff like
   which is used to determine if an app is installed or not
 - App: Dia
 - App: Gimp
+  ([#26](https://github.com/mastersign/bench/issues/26))
 - App: FileZilla
+  ([#27](https://github.com/mastersign/bench/issues/28))
 - App: WinMerge
 - App: Wget
 - App: MinGW
+  ([#28](https://github.com/mastersign/bench/issues/28))
 - App: CMake
 - App: LLVM Clang
 - App: Go
 - App: Eclipse PHP
 - App: Eclipse C/C++
+  ([#28](https://github.com/mastersign/bench/issues/28))
 - App: SysInternals Suite
+  ([#25](https://github.com/mastersign/bench/issues/25))
 - App Group: `Multimedia`
 - App Group: `DevCpp`
 
@@ -141,10 +151,12 @@ Add a link to the GitHub diff like
     + `python2-package` apps automatically depend on `Python2`
     + `python3-package` apps automatically depend on `Python3`
 - App: Putty
+  ([#21](https://github.com/mastersign/bench/issues/21))
 - App: PostgreSQL and pgAdminIII
 
 ### Changes
 - changed behavior for `App-Dir`, `App-Path`, and `App-Paths` for `meta` apps
+  ([#22](https://github.com/mastersign/bench/issues/22))
 - migrated app type `python-package` to `python2-package` and `python3-package`
   ([#19](https://github.com/mastersign/bench/issues/19))
 - Update: Sublime Text 3 from rev. 3083 to rev. 3103
