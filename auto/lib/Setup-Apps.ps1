@@ -259,6 +259,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing App Group $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -268,6 +269,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing NPM Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -277,6 +279,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -286,6 +289,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -295,6 +299,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Setting up $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
