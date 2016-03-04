@@ -26,8 +26,8 @@ function ShellUnzip-Archive([string]$zipFile, [string]$targetDir) {
     if (!$trg) {
         throw "Invalid target directory: $targetDir"
     }
-    foreach($item in $zip.items())
-    {
+    foreach($item in $zip.items()) {
+        if (!$item) { continue }
         $trg.copyhere($item)
     }
 }
@@ -216,7 +216,7 @@ function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
     $version = App-Version $name
     if ((App-Force $name) -or !(Check-PyPiPackage $pythonVersion $name)) {
         $python = "Python$pythonVersion"
-        if ($python -in $Script:apps) {
+        if ($Script:apps -contains $python) {
             $pip = "pip$pythonVersion"
             if ($version) {
                 Write-Host "Setting up PyPI package $packageName $version for Python $pythonVersion"
@@ -250,6 +250,7 @@ Update-EnvironmentPath
 $failedApps = @()
 $installedApps = @()
 foreach ($name in $Script:apps) {
+    if (!$name) { continue }
     $typ = App-Typ $name
     switch ($typ) {
         "meta" {
@@ -258,6 +259,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing App Group $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -267,6 +269,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing NPM Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -276,6 +279,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -285,6 +289,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -294,6 +299,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Setting up $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -301,7 +307,7 @@ foreach ($name in $Script:apps) {
 }
 Write-EnvironmentFile
 
-Empty-Dir $tempDir | Out-Null
+Empty-Dir (Get-ConfigPathValue TempDir) | Out-Null
 
 Write-Host ""
 Write-Host "$($installedApps.Count) of $($apps.Count) apps successfully installed."
@@ -310,5 +316,7 @@ if ($failedApps.Count -gt 0) {
     foreach ($name in $failedApps) {
         Write-Warning " - $name"
     }
-    Write-Warning "Run 'auto/bench-setup.cmd' to try again."
+    Write-Warning "Run 'actions/bench-ctl.cmd setup' to try again."
 }
+
+Debug "Finished installing apps."

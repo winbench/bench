@@ -292,6 +292,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\wget.exe`
+* Environment: `HTTP_CLIENT=wget --no-check-certificate -O`
 
 * ID: `WgetDeps`
 * Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$WgetDeps:AppArchive$`
@@ -631,11 +632,25 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
 
+### Java Runtime Environment 8
+
+* ID: `JRE8`
+* Version: $JDK8:Version$
+* Release: $JDK8:Release$
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$JRE8:Version$-$JRE8:Release$/$JRE8:AppArchive$`
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jre-$JRE8:Version$-windows-i586.tar.gz`
+* AppArchiveSubDir: `jre1.8.0_74`
+* Path: `bin`
+* Exe: `bin\java.exe`
+
 ### Leiningen
 
 * ID: `Leiningen`
 * Dependencies: `JDK8`
 * Version: latest
+* Dependencies: `Wget`
 * Website: <http://leiningen.org>
 * Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
 * AppFile: `lein.bat`
@@ -804,6 +819,7 @@ Eclipse for Java development:
 * Version: 4.5
 * CodeName: mars
 * Release: 1
+* Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseJava:CodeName$/$EclipseJava:Release$/$EclipseJava:AppArchive$>
 * AppArchive: `eclipse-java-$EclipseJava:CodeName$-$EclipseJava:Release$-win32.zip`
@@ -819,6 +835,7 @@ Eclipse for PHP development:
 * Version: 4.5
 * CodeName: mars
 * Release: 1
+* Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipsePHP:CodeName$/$EclipsePHP:Release$/$EclipsePHP:AppArchive$>
 * AppArchive: `eclipse-php-$EclipsePHP:CodeName$-$EclipsePHP:Release$-win32.zip`
@@ -834,6 +851,7 @@ Eclipse for C/C++ development:
 * Version: 4.5
 * CodeName: mars
 * Release: 1
+* Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseCpp:CodeName$/$EclipseCpp:Release$/$EclipseCpp:AppArchive$>
 * AppArchive: `eclipse-cpp-$EclipseCpp:CodeName$-$EclipseCpp:Release$-win32.zip`

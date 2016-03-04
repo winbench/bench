@@ -17,7 +17,7 @@ $Script:valueExpandPattern = [regex]'\$(?<var>[^\$]+)\$'
 function Expand-Placeholder([string]$placeholder) {
     $kvp = $placeholder.Split(":", 2)
     if ($kvp.Count -eq 1) {
-        if ($placeholder -in $Script:pathConfigValues) {
+        if ($Script:pathConfigValues -contains $placeholder) {
             return Get-ConfigPathValue $placeholder
         } else {
             return Get-ConfigValue $placeholder
@@ -122,13 +122,13 @@ function Get-AppConfigPathValue([string]$app, [string]$name, [string]$def = $nul
 }
 
 function Add-ToSetList($list, $element) {
-    if (!($element -in $list)) {
+    if (!($list -contains $element)) {
         $list.Add($element)
     }
 }
 
 function Remove-FromSetList($list, $element) {
-    if ($element -in $list) {
+    if ($list -contains $element) {
         $list.Remove($element)
     }
 }
@@ -208,14 +208,17 @@ function Process-AppRegistry($parseActivation = $false) {
         }
     }
     end {
-        foreach ($app in $requiredIds) { Activate-App $app }
+        foreach ($app in $requiredIds) { 
+            if (!$app) { continue }
+            Activate-App $app
+        }
     }
 }
 
 function Add-Dependency([string]$name, [string]$dep) {
     [array]$deps = App-Dependencies $name
     if ($deps) {
-        if (!($dep -in $deps)) {
+        if (!($deps -contains $dep)) {
             $deps += $dep
             Set-AppConfigValue $name Dependencies $deps
         }
@@ -226,6 +229,7 @@ function Add-Dependency([string]$name, [string]$dep) {
 
 function Initialize-AutoDependencies() {
     foreach ($name in $Script:definedApps) {
+        if (!$name) { continue }
         $appTyp = App-Typ $name
         switch ($appTyp) {
             "node-package" {
@@ -243,6 +247,7 @@ function Initialize-AutoDependencies() {
 
 function Initialize-AdornmentForRegistryIsolation() {
     foreach ($name in $Script:definedApps) {
+        if (!$name) { continue }
         $regKeys = App-RegistryKeys $name
         if ($regKeys.Count -gt 0) {
             $appExe = App-Exe $name
@@ -259,6 +264,7 @@ function Initialize-AdornmentForRegistryIsolation() {
 
 function Initialize-AdornmentPaths() {
     foreach ($name in $Script:definedApps) {
+        if (!$name) { continue }
         [array]$adornedExecutables = Get-AppConfigListValue $name AdornedExecutables
         if ($adornedExecutables) {
             $appPaths = Get-AppConfigListValue $name Path
@@ -303,7 +309,6 @@ function Initialize() {
     Set-ConfigValue HomeDir "home"
     Set-ConfigValue AppDataDir '$HomeDir$\AppData\Roaming'
     Set-ConfigValue LocalAppDataDir '$HomeDir$\AppData\Local'
-    Set-ConfigValue DownloadProgress $true
     Set-ConfigValue OverrideHome $true
     Set-ConfigValue OverrideTemp $true
     Set-ConfigValue IgnoreSystemPath $true
@@ -370,20 +375,28 @@ function Initialize() {
 
     $toActivate = $Script:activatedApps.ToArray()
     function Select-App($app) {
-        if ($app -in $Script:deactivatedApps) {
+        if (!$app) {
+            Write-Warning "Empty app name detected."
+            return
+        }
+        if ($Script:deactivatedApps -contains $app) {
             return
         }
         Activate-App $app
         $dependencies = Get-AppConfigListValue $app Dependencies
         foreach ($dep in $dependencies) {
-            Select-App $dep
+            if ($dep -and !($Script:activatedApps -contains $dep)) {
+                Select-App $dep
+            }
         }
     }
     foreach ($app in $toActivate) {
+        if (!$app) { continue }
         Select-App $app
     }
     foreach ($app in $Script:definedApps) {
-        if ($app -in $Script:activatedApps) {
+        if (!$app) { continue }
+        if ($Script:activatedApps -contains $app) {
             Add-ToSetList $Script:apps $app
         }
     }

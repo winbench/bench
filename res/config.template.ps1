@@ -39,6 +39,7 @@
 ## Application Groups
 
 # Activate-App Markdown # MdProc, VSCode
+# Activate-App Multimedia # Inkscape, Gimp, Dia, FFmpeg, ...
 # Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache, EclipsePHP
 # Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache, EclipsePHP
 # Activate-App DevJava # JDK8, EclipseJava
@@ -80,6 +81,7 @@
 # Activate-App PHP7
 # Activate-App JDK7
 # Activate-App JDK8
+# Activate-App JRE8
 # Activate-App Leiningen
 # Activate-App MinGW
 # Activate-App CMake

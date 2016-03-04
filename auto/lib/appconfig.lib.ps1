@@ -18,6 +18,7 @@ function App-DownloadHeaders([string]$name) {
     $list = Get-AppConfigListValue $name DownloadHeaders
     $dict = @{}
     foreach ($e in $list) {
+        if (!$e) { continue }
         $kvp = $e.Split(":", 2)
         $dict[$kvp[0].Trim()] = $kvp[1].Trim()
     }
@@ -28,6 +29,7 @@ function App-DownloadCookies([string]$name) {
     $cookies = Get-AppConfigListValue $name DownloadCookies
     $result = @()
     foreach ($v in $cookies) {
+        if (!$v) { continue }
         $c = New-Object System.Net.Cookie
         $v = $v.Split(":", 2)
         $domain = $v[0].Trim()
@@ -143,6 +145,7 @@ function App-Paths([string]$name) {
             [array]$cfgPaths = Get-AppConfigListValue $name Path
             if ($cfgPaths -and $cfgPaths.Count -gt 0) {
                 foreach ($p in $cfgPaths) {
+                    if (!$p) { continue }
                     if (![IO.Path]::IsPathRooted($p)) {
                         $paths += [IO.Path]::Combine($appDir, $p)
                     } else {
@@ -174,6 +177,7 @@ function App-Environment([string]$name) {
     $l = Get-AppConfigListValue $name Environment
     $dict = @{}
     foreach ($e in $l) {
+        if (!$e) { continue }
         $kvp = $e.Split("=", 2)
         $name = $kvp[0].Trim()
         $value = $kvp[1].Trim()
@@ -229,14 +233,14 @@ function Check-DefaultApp([string]$name) {
 }
 
 function Check-NpmPackage([string]$name) {
-    $packageDir = [IO.Path]::Combine((App-Dir Npm), "node_modules", (App-NpmPackage $name))
+    $packageDir = [IO.Path]::Combine((App-Dir Npm), "node_modules\$(App-NpmPackage $name)")
     Debug "Checking NPM package ${name}: $packageDir"
     return Test-Path $packageDir -PathType Container
 }
 
 function Check-PyPiPackage ([string]$pythonVersion, [string]$name) {
     $python = "Python" + $pythonVersion
-    $packageDir = [IO.Path]::Combine((App-Dir $python), "lib", "site-packages", (App-PyPiPackage $name))
+    $packageDir = [IO.Path]::Combine((App-Dir $python), "lib\site-packages\$(App-PyPiPackage $name)")
     Debug "Checking PyPI package $name for Python ${pythonVersion}: $packageDir"
     return Test-Path $packageDir -PathType Container
 }
