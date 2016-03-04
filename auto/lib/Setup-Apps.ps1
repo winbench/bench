@@ -311,7 +311,7 @@ if ($failedApps.Count -gt 0) {
     foreach ($name in $failedApps) {
         Write-Warning " - $name"
     }
-    Write-Warning "Run 'auto/bench-setup.cmd' to try again."
+    Write-Warning "Run 'actions/bench-ctl.cmd setup' to try again."
 }
 
 Debug "Finished installing apps."
