@@ -292,6 +292,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\wget.exe`
+* Environment: `HTTP_CLIENT=wget --no-check-certificate -O`
 
 * ID: `WgetDeps`
 * Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$WgetDeps:AppArchive$`
@@ -649,6 +650,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ID: `Leiningen`
 * Dependencies: `JDK8`
 * Version: latest
+* Dependencies: `Wget`
 * Website: <http://leiningen.org>
 * Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
 * AppFile: `lein.bat`
