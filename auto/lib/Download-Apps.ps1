@@ -251,11 +251,15 @@ function Download([string]$name) {
 }
 
 foreach ($name in $Script:apps) {
+    if (!$name) { continue }
     if ((App-Typ $name) -eq "default") {
         try {
             Download $name
         } catch {
             Write-Warning "Failed to download app resources for ${name}: $($_.Exception.Message)"
+            Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
         }
     }
 }
+
+Debug "Finished downloading app resources."

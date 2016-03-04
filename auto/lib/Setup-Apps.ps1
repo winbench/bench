@@ -26,8 +26,8 @@ function ShellUnzip-Archive([string]$zipFile, [string]$targetDir) {
     if (!$trg) {
         throw "Invalid target directory: $targetDir"
     }
-    foreach($item in $zip.items())
-    {
+    foreach($item in $zip.items()) {
+        if (!$item) { continue }
         $trg.copyhere($item)
     }
 }
@@ -216,7 +216,7 @@ function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
     $version = App-Version $name
     if ((App-Force $name) -or !(Check-PyPiPackage $pythonVersion $name)) {
         $python = "Python$pythonVersion"
-        if ($python -in $Script:apps) {
+        if ($Script:apps -contains $python) {
             $pip = "pip$pythonVersion"
             if ($version) {
                 Write-Host "Setting up PyPI package $packageName $version for Python $pythonVersion"
@@ -250,6 +250,7 @@ Update-EnvironmentPath
 $failedApps = @()
 $installedApps = @()
 foreach ($name in $Script:apps) {
+    if (!$name) { continue }
     $typ = App-Typ $name
     switch ($typ) {
         "meta" {
@@ -312,3 +313,5 @@ if ($failedApps.Count -gt 0) {
     }
     Write-Warning "Run 'auto/bench-setup.cmd' to try again."
 }
+
+Debug "Finished installing apps."

@@ -18,6 +18,7 @@ Clean-Launchers
 Create-ActionLaunchers
 Load-Environment
 foreach ($name in $Script:apps) {
+    if (!$name) { continue }
     Debug "Processing $name ($(App-Typ $name)) ..."
     if ((App-Typ $name) -eq "meta") {
         Register-AppPaths $name
@@ -41,3 +42,5 @@ foreach ($name in $Script:apps) {
 Debug "Processing apps finished."
 Update-EnvironmentPath
 Write-EnvironmentFile
+
+Debug "Finished updating environment."
