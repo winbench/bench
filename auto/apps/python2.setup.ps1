@@ -9,7 +9,7 @@ if (!(Test-Path $pythonWrapper)) {
     "@CALL `"%~dp0\python.exe`" %*" | Out-File $pythonWrapper -Encoding default
 }
 
-$pipPackageDir = [IO.Path]::Combine($pythonDir, "lib", "site-packages", "pip")
+$pipPackageDir = [IO.Path]::Combine($pythonDir, "lib\site-packages\pip")
 if (!(Test-Path $pipPackageDir -PathType Container)) {
     Write-Host "Setting up PIP ..."
     & $python -m ensurepip
