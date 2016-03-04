@@ -307,7 +307,7 @@ foreach ($name in $Script:apps) {
 }
 Write-EnvironmentFile
 
-Empty-Dir $tempDir | Out-Null
+Empty-Dir (Get-ConfigPathValue TempDir) | Out-Null
 
 Write-Host ""
 Write-Host "$($installedApps.Count) of $($apps.Count) apps successfully installed."
