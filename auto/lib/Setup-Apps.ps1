@@ -259,6 +259,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing App Group $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -268,6 +269,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing NPM Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -277,6 +279,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -286,6 +289,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Installing PyPI Package $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -295,6 +299,7 @@ foreach ($name in $Script:apps) {
                 $installedApps += $name
             } catch {
                 Write-Warning "Setting up $name failed: $($_.Exception.Message)"
+                Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
                 $failedApps += $name
             }
         }
@@ -302,7 +307,7 @@ foreach ($name in $Script:apps) {
 }
 Write-EnvironmentFile
 
-Empty-Dir $tempDir | Out-Null
+Empty-Dir (Get-ConfigPathValue TempDir) | Out-Null
 
 Write-Host ""
 Write-Host "$($installedApps.Count) of $($apps.Count) apps successfully installed."
@@ -311,7 +316,7 @@ if ($failedApps.Count -gt 0) {
     foreach ($name in $failedApps) {
         Write-Warning " - $name"
     }
-    Write-Warning "Run 'auto/bench-setup.cmd' to try again."
+    Write-Warning "Run 'actions/bench-ctl.cmd setup' to try again."
 }
 
 Debug "Finished installing apps."

@@ -233,14 +233,14 @@ function Check-DefaultApp([string]$name) {
 }
 
 function Check-NpmPackage([string]$name) {
-    $packageDir = [IO.Path]::Combine((App-Dir Npm), "node_modules", (App-NpmPackage $name))
+    $packageDir = [IO.Path]::Combine((App-Dir Npm), "node_modules\$(App-NpmPackage $name)")
     Debug "Checking NPM package ${name}: $packageDir"
     return Test-Path $packageDir -PathType Container
 }
 
 function Check-PyPiPackage ([string]$pythonVersion, [string]$name) {
     $python = "Python" + $pythonVersion
-    $packageDir = [IO.Path]::Combine((App-Dir $python), "lib", "site-packages", (App-PyPiPackage $name))
+    $packageDir = [IO.Path]::Combine((App-Dir $python), "lib\site-packages\$(App-PyPiPackage $name)")
     Debug "Checking PyPI package $name for Python ${pythonVersion}: $packageDir"
     return Test-Path $packageDir -PathType Container
 }
