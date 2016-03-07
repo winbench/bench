@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- App: JRE 7
+
 ### Changed
 - give JDKs a higher priority in the PATH as JRE8
 

@@ -607,6 +607,19 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `php-$PHP7:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
 
+### Java Runtime Environment 7
+
+* ID: `JRE7`
+* Version: 7u80
+* Release: b15
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$JRE7:Version$-$JRE7:Release$/$JRE7:AppArchive$`
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jre-$JRE7:Version$-windows-i586.tar.gz`
+* AppArchiveSubDir: `jre1.7.0_80`
+* Path: `bin`
+* Exe: `bin\java.exe`
+
 ### Java Runtime Environment 8
 
 * ID: `JRE8`

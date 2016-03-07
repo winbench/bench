@@ -79,6 +79,7 @@
 # Activate-App Ruby
 # Activate-App PHP5
 # Activate-App PHP7
+# Activate-App JRE7
 # Activate-App JRE8
 # Activate-App JDK7
 # Activate-App JDK8
