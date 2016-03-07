@@ -607,36 +607,11 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `php-$PHP7:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
 
-### Java Development Kit 7
-
-* ID: `JDK7`
-* Version: 7u80
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
-* Url: <http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-windows-i586.exe>
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-7u80-windows-i586.exe`
-* Path: `bin`
-* Exe: `bin\javac.exe`
-* Environment: `JAVA_HOME=$JDK7:Dir$`
-
-### Java Development Kit 8
-
-* ID: `JDK8`
-* Version: 8u74
-* Release: b02
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$JDK8:Version$-$JDK8:Release$/$JDK8:AppArchive$`
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-$JDK8:Version$-windows-i586.exe`
-* Path: `bin`
-* Exe: `bin\javac.exe`
-* Environment: `JAVA_HOME=$JDK8:Dir$`
-
 ### Java Runtime Environment 8
 
 * ID: `JRE8`
-* Version: $JDK8:Version$
-* Release: $JDK8:Release$
+* Version: 8u74
+* Release: b02
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$JRE8:Version$-$JRE8:Release$/$JRE8:AppArchive$`
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
@@ -644,6 +619,32 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `jre1.8.0_74`
 * Path: `bin`
 * Exe: `bin\java.exe`
+
+### Java Development Kit 7
+
+* ID: `JDK7`
+* Version: $JRE7:Version$
+* Release: $JRE7:Release$
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$JDK7:Version$-$JDK7:Release$/$JDK7:AppArchive$`
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-$JDK7:Version$-windows-i586.exe`
+* Path: `bin`
+* Exe: `bin\javac.exe`
+* Environment: `JAVA_HOME=$JDK7:Dir$`
+
+### Java Development Kit 8
+
+* ID: `JDK8`
+* Version: $JRE8:Version$
+* Release: $JRE8:Release$
+* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$JDK8:Version$-$JDK8:Release$/$JDK8:AppArchive$`
+* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* AppArchive: `jdk-$JDK8:Version$-windows-i586.exe`
+* Path: `bin`
+* Exe: `bin\javac.exe`
+* Environment: `JAVA_HOME=$JDK8:Dir$`
 
 ### Leiningen
 

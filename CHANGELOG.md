@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Changed
+- give JDKs a higher priority in the PATH as JRE8
+
 ### [0.9.1] - 2016-03-03
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.0...v0.9.1)
 
