@@ -79,9 +79,10 @@
 # Activate-App Ruby
 # Activate-App PHP5
 # Activate-App PHP7
+# Activate-App JRE7
+# Activate-App JRE8
 # Activate-App JDK7
 # Activate-App JDK8
-# Activate-App JRE8
 # Activate-App Leiningen
 # Activate-App MinGW
 # Activate-App CMake
