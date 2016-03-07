@@ -3,6 +3,7 @@ SETLOCAL EnableDelayedExpansion
 
 SET ROOT_DIR=%~dp0\..
 SET AUTO_DIR=%ROOT_DIR%\auto
+SET /P BENCH_VERSION=<"%ROOT_DIR%\res\version.txt"
 SET RUN_SHELL=0
 SET VERBOSE=0
 
@@ -61,8 +62,8 @@ GOTO:EOF
 :interactive
   SET SILENT=0
   CLS
-  ECHO.Bench Control
-  ECHO.-------------
+  ECHO.Bench Control v%BENCH_VERSION%
+  ECHO.---------------------
   IF %VERBOSE% == 1 ECHO.(Verbose)
   ECHO.
   ECHO.The following actions are available:
