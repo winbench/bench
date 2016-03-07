@@ -25,7 +25,19 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
-### [0.9.1] - 2016-03-03
+## [0.9.2] 2016-03-07
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2)
+
+### Added
+- App: JRE 7
+
+### Changed
+- give JDKs a higher priority in the PATH than the JRE
+
+### Fixed
+- MSYS tools from MinGW are not in PATH
+
+## [0.9.1] - 2016-03-03
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.0...v0.9.1)
 
 ### Added
