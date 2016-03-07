@@ -34,7 +34,7 @@ Add a link to the GitHub diff like
 ### Fixed
 - MSYS tools from MinGW are not in PATH
 
-### [0.9.1] - 2016-03-03
+## [0.9.1] - 2016-03-03
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.0...v0.9.1)
 
 ### Added
