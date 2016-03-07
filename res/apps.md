@@ -706,6 +706,8 @@ Meta app MinGW with package manager and graphical user interface:
 * Dependencies: `MinGwGet`, `MinGwGetGui`
 * Website: <http://www.mingw.org/>
 * Packages: `mingw32-base`, `mingw32-gcc-g++`
+* Dir: `mingw`
+* Path: `bin`, `msys\1.0\bin`
 
 You can adapt the preselected MinGW packages by putting something like this in your `config\config.ps1`:
 
