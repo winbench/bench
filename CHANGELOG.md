@@ -27,6 +27,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: PHP 5 from 5.6.17 to 5.6.18
+- Update: PHP 7 from 7.0.2 to 7.0.3
 
 ## [0.9.2] 2016-03-07
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2)
