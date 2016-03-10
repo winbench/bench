@@ -591,7 +591,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 
 * ID: `PHP5`
 * Website: <http://www.php.net>
-* Version: 5.6.17
+* Version: 5.6.18
 * Url: `http://windows.php.net/downloads/releases/archives/php-$PHP5:Version$-Win32-VC11-x86.zip`
 * AppArchive: `php-$PHP5:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
