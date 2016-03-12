@@ -35,7 +35,7 @@ function ShellUnzip-Archive([string]$zipFile, [string]$targetDir) {
 function Extract-Archive([string]$archive, [string]$targetDir) {
     $7z = App-Exe SvZ
     $targetDir = Safe-Dir $targetDir
-    if ($7z) {
+    if (Test-Path $7z) {
         Debug "Extracting $archive to $targetDir"
         if ($archive -match "\.tar\.\w+$") {
             $tmpDir = "$(Get-ConfigPathValue TempDir)\${name}_tar"
