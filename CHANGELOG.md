@@ -25,6 +25,20 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Automatic proxy configuration
+
+### Changed
+- Moved logic from PowerShell scripts to .NET DLL `BenchLib.dll`
+- Improved parsing performance for Markdown configuration files
+- Improved format for list properties in Markdown configuration files
+- More stable parsing of Markdown configuration files
+    + ignore content of HTML comments
+    + ignore content of code blocks
+    + ignore content of YAML header
+- Moved default configuration from `auto\lib\config.lib.ps1` to `res\config.md`
+- Moved app activation from `config\config.ps1` to `config\apps-activated.txt`
+
 ## [0.9.2] 2016-03-07
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2)
 
