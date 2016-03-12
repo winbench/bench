@@ -123,10 +123,6 @@ function Find-DownloadedFile([string]$pattern) {
 }
 
 function Setup-Common([string]$name) {
-    Register-AppPaths $name
-    Update-EnvironmentPath
-    Register-AppEnvironment $name
-    Load-AppEnvironment $name
     Execute-AppCustomSetup $name
     Execute-AppEnvironmentSetup $name
     Setup-ExecutionProxies $name
@@ -246,7 +242,6 @@ Clean-ExecutionProxies
 Clean-Launchers
 Create-ActionLaunchers
 Load-Environment
-Update-EnvironmentPath
 $failedApps = @()
 $installedApps = @()
 $apps = $Script:cfg.Apps.ActiveApps
