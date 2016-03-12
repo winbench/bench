@@ -1,0 +1,71 @@
+# This file contains the list with all activated apps.
+
+# The first word in a non-empty line, not commented out with #, is treated as an app ID.
+# To activate an already listed app, just remove the leading hash sign.
+
+## Groups
+
+# Markdown (MdProc, VSCode)
+# Multimedia (Inkscape, Gimp, Dia, FFmpeg, GraphicsMagick, ...)
+# DevWebPHP5 (PHP5, EclipsePHP, MySQL, MySQLWB, Apache)
+# DevWebPHP7 (PHP7, EclipsePHP, MySQL, MySQLWB, Apache)
+# DevJava (JDK8, EclipseJava)
+# DevClojure (JDK8, Leiningen, LightTable)
+# DevPython2 (Python2, SublimeText3, IPython2)
+# DevPython3 (Python3, SublimeText3, IPython3)
+# DevCpp (MinGW, EclipseCpp)
+
+## Single Apps
+
+# OpenSSL
+# Putty
+# Sift
+# Wget
+# cURL
+# FileZilla
+# WinMerge
+# Pandoc
+# MikTeX
+# GraphicsMagick
+# FFmpeg
+# Graphviz
+# Dia
+# Inkscape
+# Gimp
+# Node
+# Npm
+# Gulp
+# Grunt
+# Bower
+# Yeoman
+# JSHint
+# MdProc
+# Python2
+# Python3
+# IPython
+# Ruby
+# PHP5
+# PHP7
+# JRE7
+# JRE8
+# JDK7
+# JDK8
+# Leiningen
+# MinGW
+# CMake
+# Clang
+# Go
+# VSCode
+# SublimeText3
+# LightTable
+# Emacs
+# Spacemacs
+# EclipseJava
+# EclipsePHP
+# EclipseCpp
+# Iron
+# MySQL
+# MySQLWB
+# PostgreSql
+# Apache
+# SysInternals

@@ -211,18 +211,19 @@ function Get-FileNameFromUrl($url) {
     }
 }
 
-function Check-AppResourceExists([string]$name) {
+function Check-AppResourceExists($app) {
     $downloadDir = Get-ConfigPathValue DownloadDir
-    $searchPattern = App-ResourceFile $name
+    $searchPattern = $app.ResourceFileName
     if (!$searchPattern) {
-        $searchPattern = App-ResourceArchive $name
+        $searchPattern = $app.ResourceArchiveName
     }
     $path = Find-File $downloadDir $searchPattern
     if ($path) { return $true } else { return $false }
 }
 
-function Download([string]$name) {
-    if (Check-AppResourceExists $name) {
+function Download($app) {
+	$name = $app.ID
+    if (Check-AppResourceExists $app) {
         Debug "Resource for app $name allready exists."
         return
     }
@@ -250,13 +251,12 @@ function Download([string]$name) {
     }
 }
 
-foreach ($name in $Script:apps) {
-    if (!$name) { continue }
-    if ((App-Typ $name) -eq "default") {
+foreach ($app in $Script:cfg.Apps.ActiveApps) {
+    if ($app.Typ -eq "default") {
         try {
-            Download $name
+            Download $app
         } catch {
-            Write-Warning "Failed to download app resources for ${name}: $($_.Exception.Message)"
+            Write-Warning "Failed to download app resources for $($app.ID): $($_.Exception.Message)"
             Debug "$($_.Exception.Message)$($_.InvocationInfo.PositionMessage)"
         }
     }

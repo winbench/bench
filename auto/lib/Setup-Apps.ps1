@@ -216,7 +216,7 @@ function Setup-PyPiPackage([string]$pythonVersion, [string]$name) {
     $version = App-Version $name
     if ((App-Force $name) -or !(Check-PyPiPackage $pythonVersion $name)) {
         $python = "Python$pythonVersion"
-        if ($Script:apps -contains $python) {
+        if ($Script:cfg.Apps[$python].IsActive) {
             $pip = "pip$pythonVersion"
             if ($version) {
                 Write-Host "Setting up PyPI package $packageName $version for Python $pythonVersion"
@@ -249,10 +249,10 @@ Load-Environment
 Update-EnvironmentPath
 $failedApps = @()
 $installedApps = @()
-foreach ($name in $Script:apps) {
-    if (!$name) { continue }
-    $typ = App-Typ $name
-    switch ($typ) {
+$apps = $Script:cfg.Apps.ActiveApps
+foreach ($app in $apps) {
+    $name = $app.ID
+    switch ($app.Typ) {
         "meta" {
             try {
                 Setup-MetaApp $name
