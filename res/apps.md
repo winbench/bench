@@ -13,40 +13,84 @@ There are three groups of apps:
 
 An app is defined by a number of properties (name-value-pairs).
 The pairs are written as an unordered list, with a colon separating the name and the value.
-A value can be surrounded by angle brackets `<` and `>` if it is a URL.
-Any value can be surrounded by backticks.
-If a value is a list, its items must be surrounded by backticks and separated by commas `, `.
+
+An app is identified by an ID, which must only contain alphanumeric characters
+and must not start with a numeric character.
+The ID must be the first entry in the list, defining an app.
+
+```Markdown
+* ID: `AppId`
+* Property1: Value 1
+```
+
+Property names must consist of alpha-numerical characters and must *not* contain whitespaces.
+A value can be surrounded by angle brackets `<` and `>` if it is an URL.
+A value can be surrounded by backticks.
+
+```Markdown
+* Property: Value 1
+* UrlProperty: <http://github.com>
+* QuotedProperty: `some value`
+```
+
+If a value is a list, its items must be surrounded by backticks and separated by commas &ndash;
+or formatted as nested list.
+
+```Markdown
+* ListProperty1: `Value 1`, `http://value2-com`, `Value 3`
+* ListProperty2:
+    + Value 1
+    + <http://value-2.com>
+    + `Value 3`
+```
+
+If a value is a dictionary, its items follow the rules of a list value,
+but each item is a key-value-pair separated by a colon.
+
+```Markdown
+* DictionaryProperty1: `Key 1: Value`, `KEY_2: Value 2`
+* DictionaryProperty2:
+    + Key 1: Value
+    + `KEY_2`: `Value 2`
+```
 
 You can use placeholders in variable values.
 Placeholders can be application specific configuration values
 like `$Git:Dir$` and `$Npm:Path$` or global configuration values
 like `$BenchRoot$` and `$ProjectArchiveDir$`.
-
-All apps are identified by an ID, which must only contain alphanumeric characters
-and must not start with a numeric character.
-The ID must be the first entry in a list, defining an app.
+Application specific placeholders can skip the app ID
+to refer to the current app like `$:Dir`.
 
 ## Common Properties
 
 * **ID**:
   The ID of the app.
 * **Typ**:
-  The application typ (optional, default is `default`).
+  The application typ
+  (optional, default is `default`).
 * **Dependencies**:
   A list with the IDs of all apps in this app group.
 * **Force**:
   A boolean, indicating if the package should allways be installed,
-  even if it is already installed (optional, default is `false`).
+  even if it is already installed
+  (optional, default is `false`).
 * **Dir**:
-  The name of the target directory for the app (optional, default is the app ID in lowercase).
+  The name of the target directory for the app
+  (optional, default is the app ID in lowercase).
 * **Path**:
-  A list of relative paths inside the app directory to register in the environment `PATH`. (optional, default is `.`).
+  A list of relative paths inside the app directory to register in the environment `PATH`
+  (optional, default is `.`).
   This property is only recognized, if `Register` is `true`.
 * **Register**:
-  A boolean to indicate if the path(s) of the application should be added to the environment `PATH` (optional, default is `true`).
+  A boolean to indicate if the path(s) of the application should be added to the environment `PATH`
+  (optional, default is `true`).
 * **Environment**:
-  A list of key-value-pairs, describing additional environment variables (optional, default is empty).
-  E.g. `MY_APP_HOME=$MyApp:Dir$`, `MY_APP_LOG=D:\logs\myapp.log`
+  A list of key-value-pairs, describing additional environment variables
+  (optional, default is empty).
+  E.g. `MY_APP_HOME: $MyApp:Dir$`, `MY_APP_LOG: D:\logs\myapp.log`
+* **Exe**:
+  The path of the main executable for this app, relative to the target directory of the app
+  (optional, default is `<app ID>.exe`).
 * **AdornedExecutables**:
   A list of executable paths, relative to the target directory of the app.
   Every listed executable will be adorned with pre- and post-execution scripts.
@@ -57,15 +101,20 @@ The ID must be the first entry in a list, defining an app.
   during execution of this app.
   (optional, default is empty)
 * **Launcher**:
-  A label for the app launcher (optional, default is empty).
+  A label for the app launcher
+  (optional, default is empty).
   A launcher for the app is created only if this property is set to a non empty string.
 * **LauncherExecutable**:
-  The absolute path to the executable targeted by the app launcher
+  The path to the executable targeted by the app launcher,
+  absolute or relative to the target directory of the app
   (optional, default is the `Exe` property).
 * **LauncherArguments**:
-  A list with arguments to the app executable (optional, default is `%*`).
+  A list with arguments to the app executable
+  (optional, default is `%*`).
 * **LauncherIcon**:
-  The absolute path to the icon of the launcher (optional, default is the executable).
+  The path to the icon of the launcher,
+  absolute or relative to the target directory of the app
+  (optional, default is the executable).
 
 ## App Types
 
@@ -80,7 +129,8 @@ There are currently the following types of apps:
 ### App Group and Custom Setup
 
 * **Typ**:
-  The application typ (required to be `meta`)
+  The application typ
+  (required to be `meta`)
 
 ### Windows Apps
 
@@ -89,41 +139,50 @@ A Windows app is some kind of executable for the Windows OS.
 * **Url**:
   The URL to the file, containing the app binaries
 * **DownloadCookies**:
-  A list of cookies, to send with the download request (optional, default is empty)
-* **AppFile**:
-  The name of the downloaded file (only for directly executable downloads like `*.exe` or `*.cmd`).
-* **AppArchive**:
-  The name of the downloaded archive with wildcards `?` and `*` (for archives which need to be extracted).
-* **AppArchiveTyp**:
-  The archive typ, which yields to the extractor selection (optional, default is `auto`).
+  A list of cookies, to send with the download request
+  (optional, default is empty)
+* **ResourceName**:
+  The name of the downloaded file
+  (only for directly executable downloads like `*.exe` or `*.cmd`).
+* **ArchiveName**:
+  The name of the downloaded archive with wildcards `?` and `*`
+  (for archives which need to be extracted like `*.zip`, `*.msi`, or setup programs).
+* **ArchiveTyp**:
+  The archive typ, which yields to the extractor selection
+  (optional, default is `auto`).
   Possible values are:
     + `auto` Try to determine the extractor by the filename extension or use the custom extractor script if it exists
     + `generic` Use 7-Zip to extract
     + `msi` Use LessMSI to extract
     + `inno` Use Inno Setup Unpacker to extract
     + `custom` Use the custom script `auto\apps\<app ID>.extract.ps1`
-* **AppArchiveSubDir**:
-  A sub folder in the archive to extract (optional, default is the archive root).
+* **ArchivePath**:
+  A sub folder in the archive to extract
+  (optional, default is the archive root).
 * **SetupTestFile**:
   The existence of this file is used, to determine if the app is already installed
   (optional, default is the value of the property `App-Exe`).
 
 Some restrictions for the properties:
 
-* The properties _AppFile_ and _AppArchive_ are mutually exclusive.
-* The property _AppArchiveSubDir_ is only recognized, if _AppArchive_ is used.
+* The properties _ResourceName_ and _ArchiveName_ are mutually exclusive.
+* The property _ArchivePath_ is only recognized, if _ArchiveName_ is used.
 
 ### NodeJS Packages
 
 * **Typ**:
-  The application typ (required to be `node-package`).
-* **NpmPackage**:
-  The name of the NPM package to install via NPM (optional, default is the app ID in lowercase).
+  The application typ
+  (required to be `node-package`).
+* **PackageName**:
+  The name of the NPM package to install via NPM
+  (optional, default is the app ID in lowercase).
 * **Version**:
   The package version or version range to install (e.g. `2.5.0` or `>=1.2.0 <3.0.0`),
-  if empty install latest (optional, default empty).
+  if empty install latest
+  (optional, default empty).
 * **Exe**:
-  The name of an NPM CLI wrapper from this package (optional, default is empty).
+  The name of an NPM CLI wrapper from this package
+  (optional, default is empty).
 * **Path**:
   This property is ignored for NodeJS packages.
 
@@ -133,14 +192,18 @@ To determine, if a NodeJS package is already installed, the existence of its pac
 ### Python Package
 
 * **Typ**:
-  The application typ (required to be `python2-package` or `python3-package`)
-* **PyPiPackage**:
-  The name of the PyPI package to install via PIP (optional, default is the app ID in lowercase).
+  The application typ
+  (required to be `python2-package` or `python3-package`)
+* **PackageName**:
+  The name of the PyPI package to install via PIP 
+  (optional, default is the app ID in lowercase).
 * **Version**:
   The package version or version range to install (e.g. `2.5.0` or `>=1.2.0,<3.0.0`),
-  if empty install latest (optional, default empty).
+  if empty install latest
+  (optional, default empty).
 * **Exe**:
-  The name of an PIP CLI wrapper from this package (optional, default is empty).
+  The name of an PIP CLI wrapper from this package
+  (optional, default is empty).
 * **Path**:
   This property is ignored for Python packages.
 
@@ -154,8 +217,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `LessMsi`
 * Version: 1.3
 * Website: <http://lessmsi.activescott.com/>
-* Url: `https://github.com/activescott/lessmsi/releases/download/v$LessMsi:Version$/$LessMsi:AppArchive$`
-* AppArchive: `lessmsi-v$LessMsi:Version$.zip`
+* Url: `https://github.com/activescott/lessmsi/releases/download/v$:Version$/$:ArchiveName$`
+* ArchiveName: `lessmsi-v$:Version$.zip`
 * Exe: `lessmsi.exe`
 * Register: `false`
 
@@ -165,9 +228,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * Website: <http://www.7-zip.de/download.html>
 * Version: 15.14
 * Release: 1514
-* Url: `http://7-zip.org/a/$SvZ:AppArchive$`
-* AppArchive: `7z$SvZ:Release$.msi`
-* AppArchiveSubDir: `SourceDir\Files\7-Zip`
+* Url: `http://7-zip.org/a/$:ArchiveName$`
+* ArchiveName: `7z$:Release$.msi`
+* ArchivePath: `SourceDir\Files\7-Zip`
 * Dir: `7z`
 * Exe: `7z.exe`
 
@@ -177,8 +240,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * Website: <http://innounp.sourceforge.net/>
 * Version: 0.45
 * Release: 045
-* Url: `http://sourceforge.net/projects/innounp/files/innounp/innounp%20$InnoUnp:Version$/$InnoUnp:AppArchive$`
-* AppArchive: `innounp$InnoUnp:Release$.rar`
+* Url: `http://sourceforge.net/projects/innounp/files/innounp/innounp%20$:Version$/$:ArchiveName$`
+* ArchiveName: `innounp$:Release$.rar`
 * Exe: `innounp.exe`
 * Register: `false`
 
@@ -188,8 +251,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * Website: <https://git-scm.com/download/win>
 * Version: 2.7.1.2
 * Release: 2.7.1.windows.2
-* Url: `https://github.com/git-for-windows/git/releases/download/v$Git:Release$/$Git:AppArchive$`
-* AppArchive: `PortableGit-$Git:Version$-32-bit.7z.exe`
+* Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
+* ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
 * Path: `cmd`
 * Exe: `cmd\git.exe`
 
@@ -256,9 +319,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `OpenSSL`
 * Website: <https://www.openssl.org/>
 * Version: 1.0.2d-fips-2.0.10
-* Url: `http://sourceforge.net/projects/openssl/files/openssl-$OpenSSL:Version$/$OpenSSL:AppArchive$`
-* AppArchive: `openssl-$OpenSSL:Version$.zip`
-* AppArchiveSubDir: `openssl-$OpenSSL:Version$`
+* Url: `http://sourceforge.net/projects/openssl/files/openssl-$:Version$/$:ArchiveName$`
+* ArchiveName: `openssl-$:Version$.zip`
+* ArchivePath: `openssl-$:Version$`
 * Path: `bin`
 * Exe: `bin\openssl.exe`
 
@@ -268,7 +331,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * Website: <http://www.putty.org>
 * Version: latest
 * Url: <http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip>
-* AppArchive: `putty.zip`
+* ArchiveName: `putty.zip`
 * RegistryKeys: `Software\SimonTatham`
 * Launcher: `Putty`
 
@@ -276,8 +339,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `GnuTLS`
 * Version: 3.3.11
-* Url: `http://sourceforge.net/projects/ezwinports/files/$GnuTLS:AppArchive$`
-* AppArchive: `gnutls-$GnuTLS:Version$-w32-bin.zip`
+* Url: `http://sourceforge.net/projects/ezwinports/files/$:ArchiveName$`
+* ArchiveName: `gnutls-$:Version$-w32-bin.zip`
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\gnutls-cli.exe`
@@ -287,16 +350,18 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `Wget`
 * Version: 1.11.4-1
 * Dependencies: `WgetDeps`
-* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$Wget:AppArchive$`
-* AppArchive: `wget-$Wget:Version$-bin.zip`
+* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$:Version$/$:ArchiveName$`
+* ArchiveName: `wget-$:Version$-bin.zip`
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\wget.exe`
-* Environment: `HTTP_CLIENT=wget --no-check-certificate -O`
+* Environment:
+    + `HTTP_CLIENT`: `wget --no-check-certificate -O`
 
 * ID: `WgetDeps`
-* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$Wget:Version$/$WgetDeps:AppArchive$`
-* AppArchive: `wget-$Wget:Version$-dep.zip`
+* Version: `$Wget:Version$`
+* Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$:Version$/$:ArchiveName$`
+* ArchiveName: `wget-$:Version$-dep.zip`
 * Dir: `gnu`
 * SetupTestFile: `bin\libssl32.dll`
 
@@ -305,9 +370,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
 * Version: 7.47.1
-* Url: `https://bintray.com/artifact/download/vszakats/generic/$cURL:AppArchive$`
-* AppArchive: `curl-$cURL:Version$-win32-mingw.7z`
-* AppArchiveSubDir: `curl-$cURL:Version$-win32-mingw`
+* Url: `https://bintray.com/artifact/download/vszakats/generic/$:ArchiveName$`
+* ArchiveName: `curl-$:Version$-win32-mingw.7z`
+* ArchivePath: `curl-$:Version$-win32-mingw`
 * Path: `bin`
 * Exe: `bin\curl.exe`
 
@@ -316,9 +381,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `FileZilla`
 * Version: 3.15.0.2
 * Website: <https://filezilla-project.org/>
-* Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$FileZilla:AppArchive$`
-* AppArchive: `FileZillaPortable_$FileZilla:Version$.paf.exe`
-* AppArchiveSubDir: `App/filezilla`
+* Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$:ArchiveName$`
+* ArchiveName: `FileZillaPortable_$:Version$.paf.exe`
+* ArchivePath: `App/filezilla`
 * Exe: `filezilla.exe`
 * Register: `false`
 * Launcher: `FileZilla`
@@ -328,17 +393,17 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `Sift`
 * Website: <https://sift-tool.org/>
 * Version: 0.8.0
-* Url: `https://sift-tool.org/downloads/sift/$Sift:AppArchive$`
-* AppArchive: `sift_$Sift:Version$_windows_386.zip`
+* Url: `https://sift-tool.org/downloads/sift/$:ArchiveName$`
+* ArchiveName: `sift_$:Version$_windows_386.zip`
 
 ### WinMerge
 
 * ID: `WinMerge`
 * Version: 2.14.0
 * Website: <http://winmerge.org/>
-* Url: `https://sourceforge.net/projects/portableapps/files/WinMerge%20Portable/$WinMerge:AppArchive$`
-* AppArchive: `WinMergePortable_$WinMerge:Version$.paf.exe`
-* AppArchiveSubDir: `App/winmerge`
+* Url: `https://sourceforge.net/projects/portableapps/files/WinMerge%20Portable/$:ArchiveName$`
+* ArchiveName: `WinMergePortable_$:Version$.paf.exe`
+* ArchivePath: `App/winmerge`
 * Exe: `WinMergeU.exe`
 * RegistryKeys: `Software\Thingamahoochie`
 * Register: `false`
@@ -349,9 +414,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
 * Version: 1.16.0.2
-* Url: `https://github.com/jgm/pandoc/releases/download/$Pandoc:Version$/$Pandoc:AppArchive$`
-* AppArchive: `pandoc-$Pandoc:Version$-windows.msi`
-* AppArchiveSubDir: `SourceDir\Pandoc`
+* Url: `https://github.com/jgm/pandoc/releases/download/$:Version$/$:ArchiveName$`
+* ArchiveName: `pandoc-$:Version$-windows.msi`
+* ArchivePath: `SourceDir\Pandoc`
 * Exe: `pandoc.exe`
 
 ### MikTeX
@@ -359,8 +424,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
 * Version: 2.9.5857
-* Url: `http://mirrors.ctan.org/systems/win32/miktex/setup/$MikTeX:AppArchive$`
-* AppArchive: `miktex-portable-$MikTeX:Version$.exe`
+* Url: `http://mirrors.ctan.org/systems/win32/miktex/setup/$:ArchiveName$`
+* ArchiveName: `miktex-portable-$:Version$.exe`
 * Path: `miktex\bin`
 * Exe: `miktex\bin\latex.exe`
 
@@ -369,10 +434,10 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `GraphicsMagick`
 * Website: <http://www.graphicsmagick.org/>
 * Version: 1.3.23
-* Url: `http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/$GraphicsMagick:Version$/$GraphicsMagick:AppArchive$`
-* AppArchive: `GraphicsMagick-$GraphicsMagick:Version$-Q16-win32-dll.exe`
-* AppArchiveTyp: `inno`
-* AppArchiveSubDir: `{app}`
+* Url: `http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/$:Version$/$:ArchiveName$`
+* ArchiveName: `GraphicsMagick-$:Version$-Q16-win32-dll.exe`
+* ArchiveTyp: `inno`
+* ArchivePath: `{app}`
 * Dir: `gm`
 * Exe: `gm.exe`
 
@@ -381,9 +446,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
 * Version: 20160213-git-588e2e3
-* Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$FFmpeg:AppArchive$`
-* AppArchive: `ffmpeg-$FFmpeg:Version$-win32-shared.7z`
-* AppArchiveSubDir: `ffmpeg-$FFmpeg:Version$-win32-shared`
+* Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$:ArchiveName$`
+* ArchiveName: `ffmpeg-$:Version$-win32-shared.7z`
+* ArchivePath: `ffmpeg-$:Version$-win32-shared`
 * Path: `bin`
 * Exe: `bin\ffmpeg.exe`
 
@@ -392,8 +457,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `Graphviz`
 * Website: <http://www.graphviz.org/Download_windows.php>
 * Version: 2.38
-* Url: `http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-$Graphviz:Version$.zip`
-* AppArchive: `graphviz-$Graphviz:Version$.zip`
+* Url: `http://www.graphviz.org/pub/graphviz/stable/windows/$:ArchiveName$`
+* ArchiveName: `graphviz-$:Version$.zip`
 * Path: `release\bin`
 * Exe: `release\bin\dot.exe`
 
@@ -403,8 +468,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * Version: 0.97.2
 * Release: 0.97.2-2
 * Website: <https://wiki.gnome.org/action/show/Apps/Dia>
-* Url: <http://sourceforge.net/projects/dia-installer/files/dia-win32-installer/$Dia:Version$/dia-setup-$Dia:Release$-unsigned.exe>
-* AppArchive: `dia-setup-$Dia:Release$-unsigned.exe`
+* Url: `http://sourceforge.net/projects/dia-installer/files/dia-win32-installer/$:Version$/$:ArchiveName$`
+* ArchiveName: `dia-setup-$:Release$-unsigned.exe`
 * Path: `bin`
 * Exe: `bin\dia.exe`
 * Launcher: `Dia`
@@ -417,8 +482,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * Website: <https://inkscape.org/de/herunterladen/>
 * Version: 0.91-1
 * Url: <https://inkscape.org/en/gallery/item/3932/download/>
-* AppArchive: `Inkscape-$Inkscape:Version$-win32.7z`
-* AppArchiveSubDir: `inkscape`
+* ArchiveName: `Inkscape-$:Version$-win32.7z`
+* ArchivePath: `inkscape`
 * Exe: `inkscape.exe`
 * Launcher: `Inkscape`
 
@@ -427,9 +492,9 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `Gimp`
 * Version: 2.8.16
 * Website: <http://www.gimp.org/>
-* Url: `https://sourceforge.net/projects/portableapps/files/GIMP Portable/$Gimp:AppArchive$`
-* AppArchive: `GIMPPortable_$Gimp:Version$.paf.exe`
-* AppArchiveSubDir: `App/gimp`
+* Url: `https://sourceforge.net/projects/portableapps/files/GIMP Portable/$:ArchiveName$`
+* ArchiveName: `GIMPPortable_$:Version$.paf.exe`
+* ArchivePath: `App/gimp`
 * Exe: `bin\gimp-2.8.exe`
 * Register: `false`
 * Launcher: `GIMP`
@@ -439,8 +504,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `Node`
 * Website: <https://nodejs.org>
 * Version: 4.3.1
-* Url: `https://nodejs.org/dist/v$Node:Version$/win-x86/node.exe`
-* AppFile: `node.exe`
+* Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
+* ResourceName: `node.exe`
 * Dir: `node`
 * Exe: `node.exe`
 
@@ -456,7 +521,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Website: <https://www.npmjs.com/package/npm>
 * Version: `>=3.7.0 <4.0.0`
 * Url: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
-* AppArchive: `npm-1.4.12.zip`
+* ArchiveName: `npm-1.4.12.zip`
 * Dir: `$Node:Dir$`
 * Exe: `npm.cmd`
 
@@ -488,7 +553,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 
 * ID: `Yeoman`
 * Typ: `node-package`
-* NpmPackage: `yo`
+* PackageName: `yo`
 * Version: `>=1.5.0 <2.0.0`
 * Website: <https://www.npmjs.com/package/yo>
 * Exe: `yo.cmd`
@@ -497,7 +562,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 
 * ID: `MdProc`
 * Typ: `node-package`
-* NpmPackage: `generator-mdproc`
+* PackageName: `generator-mdproc`
 * Version: `>=0.1.6 <0.2.0`
 * Website: <https://www.npmjs.com/package/generator-mdproc>
 * Dependencies: `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
@@ -515,9 +580,9 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Python2`
 * Website: <https://www.python.org/ftp/python/>
 * Version: 2.7.11
-* Url: `https://www.python.org/ftp/python/$Python2:Version$/python-$Python2:Version$.msi`
-* AppArchive: `python-$Python2:Version$.msi`
-* AppArchiveSubDir: `SourceDir`
+* Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
+* ArchiveName: `python-$:Version$.msi`
+* ArchivePath: `SourceDir`
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
@@ -526,9 +591,9 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ID: `Python3`
 * Website: <https://www.python.org/ftp/python/>
 * Version: 3.4.4
-* Url: `https://www.python.org/ftp/python/$Python3:Version$/python-$Python3:Version$.msi`
-* AppArchive: `python-$Python3:Version$.msi`
-* AppArchiveSubDir: `SourceDir`
+* Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
+* ArchiveName: `python-$:Version$.msi`
+* ArchivePath: `SourceDir`
 * Path: `.`, `Scripts`
 * Exe: `python.exe`
 
@@ -539,14 +604,14 @@ Required for colors in IPython.
 for Python 2:
 
 * ID: `PyReadline2`
-* PyPiPackage: `pyreadline`
+* PackageName: `pyreadline`
 * Typ: `python2-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
 
 for Python 3:
 
 * ID: `PyReadline3`
-* PyPiPackage: `pyreadline`
+* PackageName: `pyreadline`
 * Typ: `python3-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
 
@@ -556,7 +621,7 @@ for Python 2:
 
 * ID: `IPython2`
 * Typ: `python2-package`
-* PyPiPackage: `ipython`
+* PackageName: `ipython`
 * Dependencies: `PyReadline2`
 * Website: <https://pypi.python.org/pypi/ipython>
 * Exe: `Scripts\ipython2.exe`
@@ -566,7 +631,7 @@ for Python 3:
 
 * ID: `IPython3`
 * Typ: `python3-package`
-* PyPiPackage: `ipython`
+* PackageName: `ipython`
 * PythonVersions: `3`
 * Dependencies: `PyReadline3`
 * Website: <http://pypi.python.org/pypi/ipython>
@@ -578,10 +643,10 @@ for Python 3:
 * ID: `Ruby`
 * Website: <https://www.ruby-lang.org/>
 * Version: 2.2.4
-* Url: `http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-$Ruby:Version$.exe`
-* AppArchive: `rubyinstaller-$Ruby:Version$.exe`
-* AppArchiveTyp: `inno`
-* AppArchiveSubDir: `{app}`
+* Url: `http://dl.bintray.com/oneclick/rubyinstaller/$:ArchiveName$`
+* ArchiveName: `rubyinstaller-$:Version$.exe`
+* ArchiveTyp: `inno`
+* ArchivePath: `{app}`
 * Path: `bin`
 * Exe: `bin\ruby.exe`
 
@@ -592,8 +657,8 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 * ID: `PHP5`
 * Website: <http://www.php.net>
 * Version: 5.6.17
-* Url: `http://windows.php.net/downloads/releases/archives/php-$PHP5:Version$-Win32-VC11-x86.zip`
-* AppArchive: `php-$PHP5:Version$-Win32-VC11-x86.zip`
+* Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
+* ArchiveName: `php-$:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
 
 ### PHP 7
@@ -603,8 +668,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ID: `PHP7`
 * Website: <http://www.php.net>
 * Version: 7.0.2
-* Url: `http://windows.php.net/downloads/releases/archives/php-$PHP7:Version$-Win32-VC14-x86.zip`
-* AppArchive: `php-$PHP7:Version$-Win32-VC14-x86.zip`
+* Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
+* ArchiveName: `php-$:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
 
 ### Java Runtime Environment 7
@@ -613,10 +678,10 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Version: 7u80
 * Release: b15
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$JRE7:Version$-$JRE7:Release$/$JRE7:AppArchive$`
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jre-$JRE7:Version$-windows-i586.tar.gz`
-* AppArchiveSubDir: `jre1.7.0_80`
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
+* DownloadCookies:`oracle.com: oraclelicense=accept-securebackup-cookie`
+* ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
+* ArchivePath: `jre1.7.0_80`
 * Path: `bin`
 * Exe: `bin\java.exe`
 
@@ -626,10 +691,10 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Version: 8u74
 * Release: b02
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$JRE8:Version$-$JRE8:Release$/$JRE8:AppArchive$`
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jre-$JRE8:Version$-windows-i586.tar.gz`
-* AppArchiveSubDir: `jre1.8.0_74`
+* ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
+* ArchivePath: `jre1.8.0_74`
 * Path: `bin`
 * Exe: `bin\java.exe`
 
@@ -639,12 +704,13 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Version: $JRE7:Version$
 * Release: $JRE7:Release$
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$JDK7:Version$-$JDK7:Release$/$JDK7:AppArchive$`
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-$JDK7:Version$-windows-i586.exe`
+* ArchiveName: `jdk-$:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
-* Environment: `JAVA_HOME=$JDK7:Dir$`
+* Environment:
+    + `JAVA_HOME`: `$:Dir$`
 
 ### Java Development Kit 8
 
@@ -652,12 +718,13 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Version: $JRE8:Version$
 * Release: $JRE8:Release$
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$JDK8:Version$-$JDK8:Release$/$JDK8:AppArchive$`
+* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
-* AppArchive: `jdk-$JDK8:Version$-windows-i586.exe`
+* ArchiveName: `jdk-$:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
-* Environment: `JAVA_HOME=$JDK8:Dir$`
+* Environment:
+    + `JAVA_HOME`: `$:Dir$`
 
 ### Leiningen
 
@@ -667,14 +734,15 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dependencies: `Wget`
 * Website: <http://leiningen.org>
 * Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
-* AppFile: `lein.bat`
+* ResourceName: `lein.bat`
 * Dir: `lein`
 * Exe: `lein.bat`
-* Environment: `LEIN_JAR=$Leiningen:Dir$\leiningen.jar`
+* Environment:
+    + `LEIN_JAR`: `$:Dir$\leiningen.jar`
 
 ### MinGW
 
-[MinGW](http://www.mingw.org/) provides a GNU development environment for Windows, including compilers for C/C++, Objective-C, Fortran, Ada, ...
+[MinGW] provides a GNU development environment for Windows, including compilers for C/C++, Objective-C, Fortran, Ada, ...
 
 The MinGW package manager MinGW Get:
 
@@ -682,8 +750,8 @@ The MinGW package manager MinGW Get:
 * Version: 0.6.2
 * Release: beta-20131004-1
 * Dependencies: `Wget`
-* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGet:AppArchive$`
-* AppArchive: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-bin.tar.xz`
+* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$:Version$-$:Release$/$:ArchiveName$`
+* ArchiveName: `mingw-get-$:Version$-mingw32-$:Release$-bin.tar.xz`
 * Dir: `mingw`
 * Path: `bin`
 * Exe: `bin\mingw-get.exe`
@@ -692,8 +760,8 @@ Graphical user interface for MinGW Get:
 
 * ID: `MinGwGetGui`
 * Dependencies: `MinGwGet`
-* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$MinGwGetGui:AppArchive$`
-* AppArchive: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-gui.tar.xz`
+* Url: `https://sourceforge.net/projects/mingw/files/Installer/mingw-get/mingw-get-$MinGwGet:Version$-$MinGwGet:Release$/$:ArchiveName$`
+* ArchiveName: `mingw-get-$MinGwGet:Version$-mingw32-$MinGwGet:Release$-gui.tar.xz`
 * Dir: `mingw`
 * Exe: `libexec\mingw-get\guimain.exe`
 * Register: `false`
@@ -705,19 +773,24 @@ Meta app MinGW with package manager and graphical user interface:
 * Typ: `meta`
 * Dependencies: `MinGwGet`, `MinGwGetGui`
 * Website: <http://www.mingw.org/>
-* Packages: `mingw32-base`, `mingw32-gcc-g++`
 * Dir: `mingw`
 * Path: `bin`, `msys\1.0\bin`
+* Packages:
+    + `mingw32-base`
+    + `mingw32-gcc-g++`
 
-You can adapt the preselected MinGW packages by putting something like this in your `config\config.ps1`:
+You can adapt the preselected MinGW packages by putting something like this in your `config\config.md`:
 
-```PowerShell
-Set-AppConfigValue MinGW Packages @(
-    "mingw32-base",
-    "mingw32-gcc-g++",
-    "mingw32-autotools",
-    "msys-bash"
-)
+```Markdown
+### My MinGW Packages
+
+* ID: `MinGW`
+* Packages:
+    + `mingw32-base`
+    + `mingw32-gcc-g++`
+    + `mingw32-autotools`
+    + `msys-bash`
+    + `msys-grep`
 ```
 
 After the automatic setup by _Bench_, you can use the launcher shortcut `MinGW Package Manager`
@@ -733,9 +806,9 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 * ID: `CMake`
 * Version: 3.4.3
 * Website: <https://cmake.org/>
-* Url: `https://cmake.org/files/v3.4/$CMake:AppArchive$`
-* AppArchive: `cmake-$CMake:Version$-win32-x86.zip`
-* AppArchiveSubDir: `cmake-$Cmake:Version$-win32-x86`
+* Url: `https://cmake.org/files/v3.4/$C:ArchiveName$`
+* ArchiveName: `cmake-$C:Version$-win32-x86.zip`
+* ArchivePath: `cmake-$C:Version$-win32-x86`
 * Path: `bin`
 * Exe: `bin\cmake.exe`
 
@@ -754,24 +827,27 @@ install the LLVM-Plugin for Eclipse CDT.
 * ID: `Clang`
 * Version: 3.7.1
 * Website: <http://clang.llvm.org/>
-* Url: `http://llvm.org/releases/$Clang:Version$/$Clang:AppArchive$`
-* AppArchive: `LLVM-$Clang:Version$-win32.exe`
+* Url: `http://llvm.org/releases/$:Version$/$:ArchiveName$`
+* ArchiveName: `LLVM-$:Version$-win32.exe`
 * Dir: `llvm`
 * Path: `bin`
 * Exe: `bin\clang.exe`
-* Environment: `CC=$Clang:Dir$\bin\clang.exe`, `CXX=$Clang:Dir$\bin\clang++.exe`
+* Environment:
+    + `CC`: `$:Dir$\bin\clang.exe`
+    + `CXX`: `$:Dir$\bin\clang++.exe`
 
 ### Go
 
 * ID: `Go`
 * Version: 1.6
 * Website: <https://golang.org>
-* Url: `https://storage.googleapis.com/golang/$Go:AppArchive$`
-* AppArchive: `go$Go:Version$.windows-386.zip`
-* AppArchiveSubDir: `go`
+* Url: `https://storage.googleapis.com/golang/$:ArchiveName$`
+* ArchiveName: `go$:Version$.windows-386.zip`
+* ArchivePath: `go`
 * Path: `bin`
 * Exe: `bin\go.exe`
-* Environment: `GOROOT=$Go:Dir$`
+* Environment:
+    + `GOROOT`: `$:Dir$`
 
 ### Visual Studio Code
 
@@ -779,7 +855,7 @@ install the LLVM-Plugin for Eclipse CDT.
 * Website: <https://code.visualstudio.com/Docs/?dv=win>
 * Version: latest
 * Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
-* AppArchive: `VSCode-win32*.zip`
+* ArchiveName: `VSCode-win32*.zip`
 * Dir: `code`
 * Exe: `code.exe`
 * Launcher: `Visual Studio Code`
@@ -789,9 +865,9 @@ install the LLVM-Plugin for Eclipse CDT.
 * ID: `LightTable`
 * Website: <http://lighttable.com>
 * Version: 0.8.1
-* Url: `https://github.com/LightTable/LightTable/releases/download/$LightTable:Version$/$LightTable:AppArchive$`
-* AppArchive: `lighttable-$LightTable:Version$-windows.zip`
-* AppArchiveSubDir: `lighttable-$LightTable:Version$-windows`
+* Url: `https://github.com/LightTable/LightTable/releases/download/$:Version$/$:ArchiveName$`
+* ArchiveName: `lighttable-$:Version$-windows.zip`
+* ArchivePath: `lighttable-$:Version$-windows`
 * Dir: `lt`
 * Exe: `LightTable.exe`
 * Launcher: `LightTable`
@@ -801,8 +877,8 @@ install the LLVM-Plugin for Eclipse CDT.
 * ID: `SublimeText3`
 * Website: <http://www.sublimetext.com/3>
 * Version: Build 3103
-* Url: `https://download.sublimetext.com/$SublimeText3:AppArchive$`
-* AppArchive: `Sublime Text $SublimeText3:Version$.zip`
+* Url: `https://download.sublimetext.com/$:ArchiveName$`
+* ArchiveName: `Sublime Text $:Version$.zip`
 * Exe: `sublime_text.exe`
 * Launcher: `Sublime Text 3`
 
@@ -812,13 +888,13 @@ install the LLVM-Plugin for Eclipse CDT.
 * Dependencies: `GnuTLS`
 * Website: <https://www.gnu.org/software/emacs/>
 * Version: 24.5
-* Url: <http://ftp.gnu.org/gnu/emacs/windows/$Emacs:AppArchive$>
-* AppArchive: `emacs-$Emacs:Version$-bin-i686-mingw32.zip`
+* Url: `http://ftp.gnu.org/gnu/emacs/windows/$:ArchiveName$`
+* ArchiveName: `emacs-$:Version$-bin-i686-mingw32.zip`
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\emacs.exe`
 * Launcher: `Emacs`
-* LauncherExecutable: `$Emacs:Dir$\bin\runemacs.exe`
+* LauncherExecutable: `$:Dir$\bin\runemacs.exe`
 
 ### Spacemacs
 
@@ -837,9 +913,9 @@ Eclipse for Java development:
 * Release: 1
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseJava:CodeName$/$EclipseJava:Release$/$EclipseJava:AppArchive$>
-* AppArchive: `eclipse-java-$EclipseJava:CodeName$-$EclipseJava:Release$-win32.zip`
-* AppArchiveSubDir: `eclipse`
+* Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
+* ArchiveName: `eclipse-java-$:CodeName$-$:Release$-win32.zip`
+* ArchivePath: `eclipse`
 * Dir: `eclipse_java`
 * Exe: `eclipse.exe`
 * Register: `false`
@@ -853,9 +929,9 @@ Eclipse for PHP development:
 * Release: 1
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipsePHP:CodeName$/$EclipsePHP:Release$/$EclipsePHP:AppArchive$>
-* AppArchive: `eclipse-php-$EclipsePHP:CodeName$-$EclipsePHP:Release$-win32.zip`
-* AppArchiveSubDir: `eclipse`
+* Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
+* ArchiveName: `eclipse-php-$:CodeName$-$:Release$-win32.zip`
+* ArchivePath: `eclipse`
 * Dir: `eclipse_php`
 * Exe: `eclipse.exe`
 * Register: `false`
@@ -869,9 +945,9 @@ Eclipse for C/C++ development:
 * Release: 1
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
-* Url: <http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$EclipseCpp:CodeName$/$EclipseCpp:Release$/$EclipseCpp:AppArchive$>
-* AppArchive: `eclipse-cpp-$EclipseCpp:CodeName$-$EclipseCpp:Release$-win32.zip`
-* AppArchiveSubDir: `eclipse`
+* Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
+* ArchiveName: `eclipse-cpp-$:CodeName$-$:Release$-win32.zip`
+* ArchivePath: `eclipse`
 * Dir: `eclipse_cpp`
 * Exe: `eclipse.exe`
 * Register: `false`
@@ -885,8 +961,8 @@ A free portable derivative of Chromium, optimized for privacy.
 * Website: <http://www.chromium.org/Home>
 * Version: latest
 * Url: <http://www.srware.net/downloads/IronPortable.zip>
-* AppArchiveSubDir: `IronPortable\Iron`
-* AppArchive: `IronPortable.zip`
+* ArchivePath: `IronPortable\Iron`
+* ArchiveName: `IronPortable.zip`
 * Exe: `chrome.exe`
 * Launcher: `SRWare Iron`
 
@@ -900,22 +976,23 @@ The initial password for _root_ is `bench`.
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
 * Version: 5.7.11
-* Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$MySQL:AppArchive$`
-* AppArchive: `mysql-$MySQL:Version$-win32.zip`
-* AppArchiveSubDir: `mysql-$MySQL:Version$-win32`
+* Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$:ArchiveName$`
+* ArchiveName: `mysql-$:Version$-win32.zip`
+* ArchivePath: `mysql-$:Version$-win32`
 * Path: `bin`
 * Exe: `bin\mysqld.exe`
 * MySqlDataDir: `$HomeDir$\mysql_data`
-* Environment: `MYSQL_DATA=$MySQL:MySqlDataDir$`
+* Environment:
+    + `MYSQL_DATA`: `$:MySqlDataDir$`
 
 ### MySQL Workbench
 
 * ID: `MySQLWB`
 * Version: 6.3.6
 * Website: <http://dev.mysql.com/downloads/workbench/>
-* Url: `http://dev.mysql.com/get/Downloads/MySQLGUITools/$MySQLWB:AppArchive$`
-* AppArchive: `mysql-workbench-community-$MySQLWB:Version$-win32-noinstall.zip`
-* AppArchiveSubDir: `MySQL Workbench 6.3.6 CE (win32)`
+* Url: `http://dev.mysql.com/get/Downloads/MySQLGUITools/$:ArchiveName$`
+* ArchiveName: `mysql-workbench-community-$:Version$-win32-noinstall.zip`
+* ArchivePath: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 * Register: `false`
 * Launcher: `MySQL Workbench`
@@ -928,9 +1005,9 @@ The initial password for _postgres_ is `bench`.
 * ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
 * Version: 9.5.0-1
-* Url: `http://get.enterprisedb.com/postgresql/$PostgreSQL:AppArchive$`
-* AppArchive: `postgresql-$PostgreSQL:Version$-windows-binaries.zip`
-* AppArchiveSubDir: `pgsql`
+* Url: `http://get.enterprisedb.com/postgresql/$:ArchiveName$`
+* ArchiveName: `postgresql-$:Version$-windows-binaries.zip`
+* ArchivePath: `pgsql`
 * Dir: `postgres`
 * Path: `bin`
 * Exe: `bin\postgres.exe`
@@ -940,16 +1017,18 @@ The initial password for _postgres_ is `bench`.
 * AdornedExecutables: `bin\pgAdmin3.exe`
 * PostgreSqlDataDir: `$HomeDir$\pg_data`
 * PostgreSqlLogFile: `$HomeDir$\pg.log`
-* Environment: `PGDATA=$PostgreSQL:PostgreSqlDataDir$`, `PG_LOG=$PostgreSQL:PostgreSqlLogFile$`
+* Environment:
+	+ `PGDATA`: `$:PostgreSqlDataDir$`
+	+ `PG_LOG`: `$:PostgreSqlLogFile$`
 
 ### Apache
 
 * ID: `Apache`
 * Version: 2.4.18
 * Website: <https://httpd.apache.org/>
-* Url: `http://www.apachelounge.com/download/VC11/binaries/$Apache:AppArchive$`
-* AppArchive: `httpd-$Apache:Version$-win32-VC11.zip`
-* AppArchiveSubDir: `Apache24`
+* Url: `http://www.apachelounge.com/download/VC11/binaries/$:ArchiveName$`
+* ArchiveName: `httpd-$:Version$-win32-VC11.zip`
+* ArchivePath: `Apache24`
 * Path: `bin`
 * Exe: `bin\httpd.exe`
 * HttpdDocumentRoot: `$HomeDir$\www`
@@ -961,10 +1040,11 @@ The initial password for _postgres_ is `bench`.
 * Version: latest
 * Website: <https://technet.microsoft.com/de-de/sysinternals/bb842062>
 * Url: <https://download.sysinternals.com/files/SysinternalsSuite.zip>
-* AppArchive: `SysinternalsSuite.zip`
+* ArchiveName: `SysinternalsSuite.zip`
 * Exe: `procexp.exe`
 * Launcher: `Process Explorer`
 
 
 [MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
 [MS VC14]: https://www.microsoft.com/download/details.aspx?id=48145 "Microsoft Visual C++ Redistributable for Visual Studio 2015"
+[MinGW]: http://www.mingw.org/
