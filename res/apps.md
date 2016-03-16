@@ -806,9 +806,9 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 * ID: `CMake`
 * Version: 3.4.3
 * Website: <https://cmake.org/>
-* Url: `https://cmake.org/files/v3.4/$C:ArchiveName$`
-* ArchiveName: `cmake-$C:Version$-win32-x86.zip`
-* ArchivePath: `cmake-$C:Version$-win32-x86`
+* Url: `https://cmake.org/files/v3.4/$:ArchiveName$`
+* ArchiveName: `cmake-$:Version$-win32-x86.zip`
+* ArchivePath: `cmake-$:Version$-win32-x86`
 * Path: `bin`
 * Exe: `bin\cmake.exe`
 
