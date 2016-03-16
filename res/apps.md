@@ -855,7 +855,7 @@ install the LLVM-Plugin for Eclipse CDT.
 * Website: <https://code.visualstudio.com/Docs/?dv=win>
 * Version: latest
 * Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
-* ArchiveName: `VSCode-win32*.zip`
+* ArchiveName: `VSCode-win32.zip`
 * Dir: `code`
 * Exe: `code.exe`
 * Launcher: `Visual Studio Code`
