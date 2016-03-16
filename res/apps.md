@@ -679,7 +679,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Release: b15
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
-* DownloadCookies:`oracle.com: oraclelicense=accept-securebackup-cookie`
+* DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
 * ArchivePath: `jre1.7.0_80`
 * Path: `bin`
@@ -692,7 +692,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Release: b02
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
 * ArchivePath: `jre1.8.0_74`
 * Path: `bin`
@@ -705,7 +705,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Release: $JRE7:Release$
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jdk-$:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
@@ -719,7 +719,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Release: $JRE8:Release$
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
-* DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
+* DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jdk-$:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
