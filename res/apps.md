@@ -145,7 +145,7 @@ A Windows app is some kind of executable for the Windows OS.
   The name of the downloaded file
   (only for directly executable downloads like `*.exe` or `*.cmd`).
 * **ArchiveName**:
-  The name of the downloaded archive with wildcards `?` and `*`
+  The name of the downloaded archive
   (for archives which need to be extracted like `*.zip`, `*.msi`, or setup programs).
 * **ArchiveTyp**:
   The archive typ, which yields to the extractor selection
