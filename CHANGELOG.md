@@ -25,10 +25,14 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- App: Maven
+
 ### Changed
 - Update: PHP 5 from 5.6.17 to 5.6.18
 - Update: PHP 7 from 7.0.2 to 7.0.3
 - Update: NodeJS from 4.3.1 to 4.3.2
+- Added Maven to group DevJava and DevClojure
 
 ## [0.9.2] 2016-03-07
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2)

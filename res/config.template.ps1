@@ -42,8 +42,8 @@
 # Activate-App Multimedia # Inkscape, Gimp, Dia, FFmpeg, ...
 # Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache, EclipsePHP
 # Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache, EclipsePHP
-# Activate-App DevJava # JDK8, EclipseJava
-# Activate-App DevClojure # JDK8, Leiningen, LightTable
+# Activate-App DevJava # JDK8, Maven, EclipseJava
+# Activate-App DevClojure # JDK8, Maven, Leiningen, LightTable
 # Activate-App DevPython2 # Python2, SublimeText3, IPython
 # Activate-App DevPython3 # Python3, SublimeText3, IPython
 # Activate-App DevCpp # MinGW, EclipseCpp
@@ -83,6 +83,7 @@
 # Activate-App JRE8
 # Activate-App JDK7
 # Activate-App JDK8
+# Activate-App Maven
 # Activate-App Leiningen
 # Activate-App MinGW
 # Activate-App CMake

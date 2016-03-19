@@ -223,13 +223,13 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `DevJava`
 * Typ: `meta`
-* Dependencies: `JDK8`, `EclipseJava`
+* Dependencies: `JDK8`, `Maven`, `EclipseJava`
 
 ### Group: Clojure Development
 
 * ID: `DevClojure`
 * Typ: `meta`
-* Dependencies: `Leiningen`, `Lighttable`
+* Dependencies: `Maven`, `Leiningen`, `Lighttable`
 
 ### Group: Python 2
 
@@ -658,6 +658,19 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Path: `bin`
 * Exe: `bin\javac.exe`
 * Environment: `JAVA_HOME=$JDK8:Dir$`
+
+### Maven
+
+* ID: `Maven`
+* Dependencies: `JRE8`
+* Version: `3.3.9`
+* Website: <https://maven.apache.org>
+* Url: `http://www-eu.apache.org/dist/maven/maven-3/$Maven:Version$/binaries/$Maven:AppArchive$`
+* AppArchive: `apache-maven-$Maven:Version$-bin.zip`
+* AppArchiveSubDir: `apache-maven-$Maven:Version$`
+* Dir: `mvn`
+* Path: `bin`
+* Exe: `bin\mvn.bat`
 
 ### Leiningen
 
