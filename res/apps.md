@@ -282,6 +282,16 @@ To determine, if a Python package is already installed, the existence of its pac
 * Path: `bin`
 * Exe: `bin\gnutls-cli.exe`
 
+### GnuPG
+
+* ID: `GnuPG`
+* Version: 2.0.29
+* Url: `https://sourceforge.net/projects/portableapps/files/GPG Plugin Portable/$GnuPG:AppArchive$`
+* AppArchive: `GPG_Plugin_Portable_$GnuPG:Version$.paf.exe`
+* Dir: `gpg`
+* Path: `pub`
+* Exe: `pub\gpg.exe`
+
 ### Wget
 
 * ID: `Wget`
@@ -662,7 +672,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Maven
 
 * ID: `Maven`
-* Dependencies: `JRE8`
+* Dependencies: `JRE8`, `GnuPG`
 * Version: `3.3.9`
 * Website: <https://maven.apache.org>
 * Url: `http://www-eu.apache.org/dist/maven/maven-3/$Maven:Version$/binaries/$Maven:AppArchive$`
@@ -675,7 +685,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Leiningen
 
 * ID: `Leiningen`
-* Dependencies: `JDK8`
+* Dependencies: `JDK8`, `GnuPG`
 * Version: latest
 * Dependencies: `Wget`
 * Website: <http://leiningen.org>

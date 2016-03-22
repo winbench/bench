@@ -52,6 +52,7 @@
 
 # Activate-App OpenSSL
 # Activate-App Putty
+# Activate-App GnuPG
 # Activate-App Sift
 # Activate-App Wget
 # Activate-App cURL
