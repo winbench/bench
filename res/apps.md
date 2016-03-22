@@ -670,7 +670,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `apache-maven-$Maven:Version$`
 * Dir: `mvn`
 * Path: `bin`
-* Exe: `bin\mvn.bat`
+* Exe: `bin\mvn.cmd`
 
 ### Leiningen
 
