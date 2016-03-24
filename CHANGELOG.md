@@ -36,6 +36,10 @@ Add a link to the GitHub diff like
 - Added Maven to group DevJava and DevClojure
 - Added GnuPG as dependency to Maven and Leiningen
 
+### Fixed
+- Leiningen stores local repo in Windows user profile
+  ([#34](https://github.com/mastersign/bench/issues/34))
+
 ## [0.9.2] 2016-03-07
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2)
 
