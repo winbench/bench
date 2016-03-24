@@ -629,6 +629,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `jre1.7.0_80`
 * Path: `bin`
 * Exe: `bin\java.exe`
+* Environment: `JAVA_CMD=$JRE7:Exe$`
 
 ### Java Runtime Environment 8
 
@@ -642,6 +643,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `jre1.8.0_74`
 * Path: `bin`
 * Exe: `bin\java.exe`
+* Environment: `JAVA_CMD=$JRE8:Exe$`
 
 ### Java Development Kit 7
 
@@ -654,7 +656,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `jdk-$JDK7:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
-* Environment: `JAVA_HOME=$JDK7:Dir$`
+* Environment: `JAVA_HOME=$JDK7:Dir$`, `JAVA_CMD=$JDK7:Dir$\jre\bin\java.exe`
 
 ### Java Development Kit 8
 
@@ -667,7 +669,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchive: `jdk-$JDK8:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
-* Environment: `JAVA_HOME=$JDK8:Dir$`
+* Environment: `JAVA_HOME=$JDK8:Dir$`, `JAVA_CMD=$JDK8:Dir$\jre\bin\java.exe`
 
 ### Maven
 

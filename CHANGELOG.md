@@ -35,6 +35,7 @@ Add a link to the GitHub diff like
 - Update: NodeJS from 4.3.1 to 4.3.2
 - Added Maven to group DevJava and DevClojure
 - Added GnuPG as dependency to Maven and Leiningen
+- Set environment variable `JAVA_CMD` by JRE7/8 and JDK7/8 (last wins)
 
 ### Fixed
 - Leiningen stores local repo in Windows user profile
