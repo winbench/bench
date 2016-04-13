@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.9.3] - 2016-04-13
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.9.2...v0.9.3)
+
 ### Added
 - App: Maven
 - App: GnuPG
