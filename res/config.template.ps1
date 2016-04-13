@@ -76,7 +76,8 @@
 # Activate-App MdProc
 # Activate-App Python2
 # Activate-App Python3
-# Activate-App IPython
+# Activate-App IPython2
+# Activate-App IPython3
 # Activate-App Ruby
 # Activate-App PHP5
 # Activate-App PHP7
