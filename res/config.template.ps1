@@ -42,8 +42,8 @@
 # Activate-App Multimedia # Inkscape, Gimp, Dia, FFmpeg, ...
 # Activate-App WebDevPHP7 # PHP7, MySQL, MySQLWB, Apache, EclipsePHP
 # Activate-App WebDevPHP5 # PHP5, MySQL, MySQLWB, Apache, EclipsePHP
-# Activate-App DevJava # JDK8, EclipseJava
-# Activate-App DevClojure # JDK8, Leiningen, LightTable
+# Activate-App DevJava # JDK8, Maven, EclipseJava
+# Activate-App DevClojure # JDK8, Maven, Leiningen, LightTable
 # Activate-App DevPython2 # Python2, SublimeText3, IPython
 # Activate-App DevPython3 # Python3, SublimeText3, IPython
 # Activate-App DevCpp # MinGW, EclipseCpp
@@ -52,6 +52,7 @@
 
 # Activate-App OpenSSL
 # Activate-App Putty
+# Activate-App GnuPG
 # Activate-App Sift
 # Activate-App Wget
 # Activate-App cURL
@@ -75,7 +76,8 @@
 # Activate-App MdProc
 # Activate-App Python2
 # Activate-App Python3
-# Activate-App IPython
+# Activate-App IPython2
+# Activate-App IPython3
 # Activate-App Ruby
 # Activate-App PHP5
 # Activate-App PHP7
@@ -83,6 +85,7 @@
 # Activate-App JRE8
 # Activate-App JDK7
 # Activate-App JDK8
+# Activate-App Maven
 # Activate-App Leiningen
 # Activate-App MinGW
 # Activate-App CMake
@@ -111,9 +114,5 @@
 ## Override Version for NodeJS packages:
 
 # Set-AppConfigValue XYZ Version ">=3.5.0 <4.0.0"
-
-## Choose a Default Editor App
-
-# Set-ConfigValue EditorApp VSCode
 
 ## Setup developer identity:

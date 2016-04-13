@@ -25,6 +25,28 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.9.3] - 2016-04-13
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.9.2...v0.9.3)
+
+### Added
+- App: Maven
+- App: GnuPG
+
+### Changed
+- Update: Git from 2.7.1 to 2.8.1
+- Update: JDK 8 from rev. 74 to rev. 77
+- Update: JRE 8 from rev. 74 to rev. 77
+- Update: PHP 5 from 5.6.17 to 5.6.19
+- Update: PHP 7 from 7.0.2 to 7.0.4
+- Update: NodeJS from 4.3.1 to 4.4.3
+- Added Maven to group DevJava and DevClojure
+- Added GnuPG as dependency to Maven and Leiningen
+- Set environment variable `JAVA_CMD` by JRE7/8 and JDK7/8 (last wins)
+
+### Fixed
+- Leiningen stores local repo in Windows user profile
+  ([#34](https://github.com/mastersign/bench/issues/34))
+
 ## [0.9.2] 2016-03-07
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2)
 
