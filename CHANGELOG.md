@@ -33,6 +33,7 @@ Add a link to the GitHub diff like
 - Update: PHP 5 from 5.6.17 to 5.6.18
 - Update: PHP 7 from 7.0.2 to 7.0.3
 - Update: NodeJS from 4.3.1 to 4.3.2
+- Update: Git from 2.7.1 to 2.8.1
 - Added Maven to group DevJava and DevClojure
 - Added GnuPG as dependency to Maven and Leiningen
 - Set environment variable `JAVA_CMD` by JRE7/8 and JDK7/8 (last wins)

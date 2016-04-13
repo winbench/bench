@@ -186,8 +186,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.7.1.2
-* Release: 2.7.1.windows.2
+* Version: 2.8.1
+* Release: 2.8.1.windows.1
 * Url: `https://github.com/git-for-windows/git/releases/download/v$Git:Release$/$Git:AppArchive$`
 * AppArchive: `PortableGit-$Git:Version$-32-bit.7z.exe`
 * Path: `cmd`
