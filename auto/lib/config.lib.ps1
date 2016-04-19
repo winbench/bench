@@ -10,7 +10,7 @@ $_ = Set-StopOnError $True
 $benchLibFile = [IO.Path]::Combine($Script:myDir, "BenchLib.dll")
 $_ = [Reflection.Assembly]::LoadFile($benchLibFile)
 
-Write-Host "Loading configuration ..."
+Debug "Loading configuration ..."
 $Script:cfg = New-Object Mastersign.Bench.BenchConfiguration($Script:rootDir)
 
 function Set-ConfigValue([string]$name, $value) {
