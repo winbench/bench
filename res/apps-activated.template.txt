@@ -42,7 +42,8 @@
 # MdProc
 # Python2
 # Python3
-# IPython
+# IPython2
+# IPython3
 # Ruby
 # PHP5
 # PHP7
