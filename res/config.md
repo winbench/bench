@@ -11,7 +11,7 @@
 * AppDeactivationTemplateFile: `res\apps-deactivated.template.txt`
 * CustomAppIndexFile: `$CustomConfigDir$\apps.md`
 * CustomAppIndexTemplateFile: `res\apps.template.md`
-* DownloadDir: `res\download`
+* DownloadDir: `cache`
 * AppResourceBaseDir: `res\apps`
 * AppAdornmentBaseDir: `auto\proxies`
 * AppRegistryBaseDir: `$HomeDir$\registry_isolation`
