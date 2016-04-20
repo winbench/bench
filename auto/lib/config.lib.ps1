@@ -7,7 +7,7 @@ $Script:pathBackup = $env:PATH
 
 $_ = Set-StopOnError $True
 
-$benchLibFile = [IO.Path]::Combine($Script:myDir, "BenchLib.dll")
+$benchLibFile = [IO.Path]::Combine($Script:autoDir, "bin\BenchLib.dll")
 $_ = [Reflection.Assembly]::LoadFile($benchLibFile)
 
 Debug "Loading configuration ..."
