@@ -634,13 +634,13 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Runtime Environment 8
 
 * ID: `JRE8`
-* Version: 8u77
-* Release: b03
+* Version: 8u92
+* Release: b14
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$JRE8:Version$-$JRE8:Release$/$JRE8:AppArchive$`
 * DownloadCookies: `oracle.com: oraclelicense=accept-securebackup-cookie`
 * AppArchive: `jre-$JRE8:Version$-windows-i586.tar.gz`
-* AppArchiveSubDir: `jre1.8.0_77`
+* AppArchiveSubDir: `jre1.8.0_92`
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment: `JAVA_CMD=$JRE8:Exe$`
