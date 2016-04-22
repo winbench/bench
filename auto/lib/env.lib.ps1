@@ -1,9 +1,9 @@
-$tempDir = Get-ConfigPathValue TempDir
-$downloadDir = Get-ConfigPathValue DownloadDir
-$libDir = Get-ConfigPathValue LibDir
-$homeDir = Get-ConfigPathValue HomeDir
-$appDataDir = Get-ConfigPathValue AppDataDir
-$localAppDataDir = Get-ConfigPathValue LocalAppDataDir
+$tempDir = Get-ConfigValue TempDir
+$downloadDir = Get-ConfigValue DownloadDir
+$libDir = Get-ConfigValue LibDir
+$homeDir = Get-ConfigValue HomeDir
+$appDataDir = Get-ConfigValue AppDataDir
+$localAppDataDir = Get-ConfigValue LocalAppDataDir
 
 $Script:paths = $Script:cfg.Apps.EnvironmentPath
 $Script:additionalEnvVars = $Script:cfg.Apps.Environment

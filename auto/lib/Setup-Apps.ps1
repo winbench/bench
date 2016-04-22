@@ -38,7 +38,7 @@ function Extract-Archive([string]$archive, [string]$targetDir) {
     if (Test-Path $7z) {
         Debug "Extracting $archive to $targetDir"
         if ($archive -match "\.tar\.\w+$") {
-            $tmpDir = "$(Get-ConfigPathValue TempDir)\${name}_tar"
+            $tmpDir = "$(Get-ConfigValue TempDir)\${name}_tar"
             Empty-Dir $tmpDir | Out-Null
             & $7z "x" "-y" "-o$tmpDir" "$archive" | Out-Null
             $tarFile = Get-ChildItem "$tmpDir\*.tar"
@@ -113,7 +113,7 @@ function Find-DownloadedFile([string]$pattern) {
     if (!$pattern) {
         return $null
     }
-    $path = Find-File (Get-ConfigPathValue DownloadDir) $pattern
+    $path = Find-File (Get-ConfigValue DownloadDir) $pattern
     if (!$path) {
         throw "Download not found: $pattern"
     } else {
@@ -164,7 +164,7 @@ function Setup-DefaultApp([string]$name) {
 
         $dir = Safe-Dir $dir
         if ($subDir) {
-            $target = Safe-Dir "$(Get-ConfigPathValue TempDir)\$name"
+            $target = Safe-Dir "$(Get-ConfigValue TempDir)\$name"
         } else {
             $target = $dir
         }
@@ -302,7 +302,7 @@ foreach ($app in $apps) {
 }
 Write-EnvironmentFile
 
-Empty-Dir (Get-ConfigPathValue TempDir) | Out-Null
+Empty-Dir (Get-ConfigValue TempDir) | Out-Null
 
 Write-Host ""
 Write-Host "$($installedApps.Count) of $($apps.Count) apps successfully installed."

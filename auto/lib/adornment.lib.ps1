@@ -1,5 +1,5 @@
 function Clean-ExecutionProxies() {
-    $baseDir = Get-ConfigPathValue AppAdornmentBaseDir
+    $baseDir = Get-ConfigValue AppAdornmentBaseDir
     Debug "Cleaning adornment proxy base path: $baseDir"
     $_ = Empty-Dir $baseDir
 }
@@ -14,7 +14,7 @@ function Get-ExecutableProxy([string]$name, [string]$path) {
 function Setup-ExecutionProxies([string]$name) {
     $adornedExePaths = App-AdornedExecutables $name
     if ($adornedExePaths) {
-        $libDir = Get-ConfigPathValue LibDir
+        $libDir = Get-ConfigValue LibDir
         $nl = [Environment]::NewLine
         foreach ($exePath in $adornedExePaths) {
             Debug "Creating adornment proxy for '$exePath' of $name"

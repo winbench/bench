@@ -1,4 +1,4 @@
-$spacemacsResourceDir = "$(Get-ConfigPathValue AppResourceBaseDir)\spacemacs"
+$spacemacsResourceDir = "$(Get-ConfigValue AppResourceBaseDir)\spacemacs"
 $emacsDir = App-Path Emacs
 $git = App-Exe Git
 
@@ -8,8 +8,7 @@ function Run-Git ($arguments) {
     Start-Process $git -Wait -NoNewWindow $arguments
 }
 
-$homeDir = Get-ConfigPathValue HomeDir
-$spacemacsDir = [IO.Path]::Combine($homeDir, ".emacs.d")
+$homeDir = Get-ConfigValue HomeDir
 $spacemacsConfig = [IO.Path]::Combine($homeDir, ".spacemacs")
 $spacemacsConfigDir = [IO.Path]::Combine($homeDir, ".spacemacs.d")
 $spacemacsInitFile = [IO.Path]::Combine($spacemacsConfigDir, "init.el")
@@ -26,9 +25,11 @@ if (!(Test-Path $spacemacsConfig -PathType Leaf) -and !(Test-Path $spacemacsConf
     popd | Out-Null
 }
 
+$spacemacsDir = [IO.Path]::Combine($homeDir, ".emacs.d")
+
 if (!(Test-Path $spacemacsDir -PathType Container)) {
     Write-Host "Cloning Spacemacs ..."
-    Start-Process -Wait -NoNewWindow $git @("clone", "https://github.com/syl20bnr/spacemacs.git", $spacemacsDir)
+    Run-Git @("clone", "https://github.com/syl20bnr/spacemacs.git", $spacemacsDir)
     Write-Host ""
     Write-Host "Run 'emacs' once to initialize and start Spacemacs."
 }

@@ -6,8 +6,8 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 trap { Write-TrapError $_ }
 Set-Debugging $debug
 
-$libDir = Get-ConfigPathValue LibDir
-$tempDir = Get-ConfigPathValue TempDir
+$libDir = Get-ConfigValue LibDir
+$tempDir = Get-ConfigValue TempDir
 
 Purge-Dir $libDir "Removing installed files ..."
 Purge-Dir $tempDir "Removing temporary files ..."

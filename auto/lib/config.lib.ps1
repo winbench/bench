@@ -13,39 +13,28 @@ $_ = [Reflection.Assembly]::LoadFile($benchLibFile)
 Debug "Loading configuration ..."
 $Script:cfg = New-Object Mastersign.Bench.BenchConfiguration($Script:rootDir)
 
-function Set-ConfigValue([string]$name, $value) {
-    if ($Script:debug) {
-        Debug "Config: $name = $value"
-    }
-    $Script:cfg.SetValue($name, $value)
-}
-
 function Get-ConfigValue([string]$name) {
     return $Script:cfg.GetValue($name)
+}
+
+function Get-ConfigBooleanValue([string]$name) {
+    return $Script:cfg.GetBooleanValue($name)
 }
 
 function Get-ConfigListValue([string]$name) {
     return $Script:cfg.GetStringListValue($name)
 }
 
-function Get-ConfigPathValue([string]$name) {
-    return $Script:cfg.GetStringValue($name)
-}
-
-function Set-AppConfigValue([string]$app, [string]$name, $value) {
-	$Script:cfg.SetGroupValue($app, $name, $value)
-}
-
 function Get-AppConfigValue([string]$app, [string]$name) {
     return $Script:cfg.GetGroupValue($app, $name)
 }
 
-function Get-AppConfigListValue([string]$app, [string]$name) {
-    return $Script:cfg.GetStringListGroupValue($app, $name)
+function Get-AppConfigBooleanValue([string]$app, [string]$name) {
+    return $Script:cfg.GetBooleanGroupValue($app, $name)
 }
 
-function Get-AppConfigPathValue([string]$app, [string]$name) {
-    return $Script:cfg.GetStringGroupValue($app, $name)
+function Get-AppConfigListValue([string]$app, [string]$name) {
+    return $Script:cfg.GetStringListGroupValue($app, $name)
 }
 
 . "$Script:myDir\appconfig.lib.ps1"

@@ -42,7 +42,7 @@ if (!$user -or !$email) {
     }
 }
 
-if (Get-ConfigValue UseProxy) {
+if (Get-ConfigBooleanValue UseProxy) {
     & $git config --global "http.proxy" $(Get-ConfigValue HttpProxy)
     & $git config --global "https.proxy" $(Get-ConfigValue HttpsProxy)
     & $git config --global "url.https://.insteadof" "git://"

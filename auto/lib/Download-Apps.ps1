@@ -6,7 +6,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 trap { Write-TrapError $_ }
 Set-Debugging $debug
 
-$downloadDir = Safe-Dir $(Get-ConfigPathValue DownloadDir)
+$downloadDir = Safe-Dir $(Get-ConfigValue DownloadDir)
 
 function Get-ProxyUrl([uri]$uri) {
     if ($uri.Scheme -eq "https") {
@@ -212,7 +212,7 @@ function Get-FileNameFromUrl($url) {
 }
 
 function Check-AppResourceExists($app) {
-    $downloadDir = Get-ConfigPathValue DownloadDir
+    $downloadDir = Get-ConfigValue DownloadDir
     $searchPattern = $app.ResourceFileName
     if (!$searchPattern) {
         $searchPattern = $app.ResourceArchiveName
@@ -241,7 +241,7 @@ function Download($app) {
         Debug "Building filename from archive pattern..."
     }
     Debug "Downloading to file $fileName"
-    $file = [IO.Path]::Combine((Get-ConfigPathValue DownloadDir), $fileName)
+    $file = [IO.Path]::Combine((Get-ConfigValue DownloadDir), $fileName)
     if ($url -and $fileName) {
         if (!(Download-File $name $url $file)) {
             Write-Warning "Download failed: $url"

@@ -9,7 +9,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 trap { Write-TrapError $_ }
 Set-Debugging $debug
 
-$libDir = Safe-Dir (Get-ConfigPathValue LibDir)
+$libDir = Safe-Dir (Get-ConfigValue LibDir)
 
 if (!(Test-Path $libDir)) { return }
 

@@ -1,4 +1,4 @@
-﻿$homeDir = Get-ConfigPathValue HomeDir
+﻿$homeDir = Get-ConfigValue HomeDir
 $emacsInitFile = [IO.Path]::Combine($homeDir, ".emacs")
 $emacsUserDir = [IO.Path]::Combine($homeDir, ".emacs.d")
 

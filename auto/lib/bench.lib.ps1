@@ -18,7 +18,7 @@ function Get-ProjectPath ($name) {
         return Resolve-Path $name
     } else {
         Debug "Resolving project dir for: $name"
-        $projectRoot = Safe-Dir (Get-ConfigPathValue ProjectRootDir)
+        $projectRoot = Safe-Dir (Get-ConfigValue ProjectRootDir)
         $path = Resolve-Path "$projectRoot\$name"
         Debug "Resolved to: $path"
         return $path

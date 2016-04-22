@@ -1,5 +1,5 @@
 function Get-AppRegistryFileName([string]$name, [string]$typ, [int]$no = 0) {
-    $regBaseDir = Get-ConfigPathValue AppRegistryBaseDir
+    $regBaseDir = Get-ConfigValue AppRegistryBaseDir
     $resDir = Safe-Dir ([IO.Path]::Combine($regBaseDir, $name.ToLowerInvariant()))
     if ($no -gt 0) {
         $noPart = "_" + $no.ToString("00")
@@ -10,7 +10,7 @@ function Get-AppRegistryFileName([string]$name, [string]$typ, [int]$no = 0) {
 }
 
 function Get-IsolationLogFile () {
-    return [IO.Path]::Combine((Get-ConfigPathValue TempDir), "registry_isolation.log")
+    return [IO.Path]::Combine((Get-ConfigValue TempDir), "registry_isolation.log")
 }
 
 function Remove-IsolationLogFile () {

@@ -6,8 +6,8 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 trap { Write-TrapError $_ }
 Set-Debugging $debug
 
-$appDataDir = Get-ConfigPathValue AppDataDir
-$downloadDir = Get-ConfigPathValue DownloadDir
+$appDataDir = Get-ConfigValue AppDataDir
+$downloadDir = Get-ConfigValue DownloadDir
 
 Purge-Dir "$downloadDir" "Removing downloaded files ..."
 Purge-Dir "$appDataDir\npm-cache" "Clearing NPM cache ..."

@@ -1,5 +1,5 @@
-$codeResourceDir = "$(Get-ConfigPathValue AppResourceBaseDir)\vscode"
-$codeAppData = Safe-Dir "$(Get-ConfigPathValue AppDataDir)\Code\User"
+$codeResourceDir = "$(Get-ConfigValue AppResourceBaseDir)\vscode"
+$codeAppData = Safe-Dir "$(Get-ConfigValue AppDataDir)\Code\User"
 
 $snippetSourceDir = "$codeResourceDir\snippets"
 $snippetTargetDir = Safe-Dir "$codeAppData\snippets"

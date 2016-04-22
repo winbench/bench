@@ -1,7 +1,7 @@
-$mysqlResourceDir = "$(Get-ConfigPathValue AppResourceBaseDir)\mysql"
+$mysqlResourceDir = "$(Get-ConfigValue AppResourceBaseDir)\mysql"
 $mysqlDir = App-Dir MySQL
 $mysqlPath = App-Path MySQL
-$dataDir = Get-AppConfigPathValue MySQL MySqlDataDir
+$dataDir = Get-AppConfigValue MySQL MySqlDataDir
 
 if (!(Test-Path $dataDir -PathType Container)) {
     $_ = mkdir $dataDir
