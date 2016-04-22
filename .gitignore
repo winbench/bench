@@ -5,8 +5,6 @@
 /launcher
 /cache
 /auto/env.cmd
-/auto/launcher
-/auto/proxies
 /projects/*
 
 /*.log

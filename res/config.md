@@ -13,7 +13,7 @@
 * CustomAppIndexTemplateFile: `res\apps.template.md`
 * DownloadDir: `cache`
 * AppResourceBaseDir: `res\apps`
-* AppAdornmentBaseDir: `auto\proxies`
+* AppAdornmentBaseDir: `$LibDir$\_proxies`
 * AppRegistryBaseDir: `$HomeDir$\registry_isolation`
 * ActionDir: `actions`
 * TempDir: `tmp`
@@ -28,6 +28,7 @@
 * ProjectArchiveDir: `archive`
 * ProjectArchiveFormat: `zip`
 * LauncherDir: `launcher`
+* LauncherScriptDir: `$LibDir$\_launcher`
 * UseProxy: `false`
 * ProxyBypass: `localhost`
 * HttpProxy: `http://127.0.0.1:80`
