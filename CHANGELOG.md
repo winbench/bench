@@ -27,6 +27,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: JDK/JRE 8 from rev. 77 to rev. 92
+- Update: Apache Web Server from 2.4.18 to 2.4.20
 
 ## [0.9.3] - 2016-04-13
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.2...v0.9.3)

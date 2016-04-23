@@ -969,8 +969,10 @@ The initial password for _postgres_ is `bench`.
 
 ### Apache
 
+This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.
+
 * ID: `Apache`
-* Version: 2.4.18
+* Version: 2.4.20
 * Website: <https://httpd.apache.org/>
 * Url: `http://www.apachelounge.com/download/VC11/binaries/$Apache:AppArchive$`
 * AppArchive: `httpd-$Apache:Version$-win32-VC11.zip`
