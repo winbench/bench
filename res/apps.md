@@ -912,7 +912,7 @@ install the LLVM-Plugin for Eclipse CDT.
 * Typ: `meta`
 * Dependencies: `Git`, `Emacs`
 * Website: <http://spacemacs.org/>
-* SetupTestFile: `$HomeDir$\emacs.d\spacemacs.mk`
+* SetupTestFile: `$HomeDir$\.emacs.d\spacemacs.mk`
 
 ### Eclipse
 
