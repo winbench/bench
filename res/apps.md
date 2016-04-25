@@ -245,6 +245,17 @@ To determine, if a Python package is already installed, the existence of its pac
 * Exe: `innounp.exe`
 * Register: `false`
 
+### ConEmu
+
+* ID: `ConEmu`
+* Website: <https://conemu.github.io/>
+* Version: 16.03.13
+* Release: 160313
+* Url: `https://github.com/Maximus5/ConEmu/releases/download/v$:Version$/$:ArchiveName$`
+* ArchiveName: `ConEmuPack.$:Release$.7z`
+* Launcher: `ConEmu`
+* LauncherArguments: `-LoadCfgFile`, `$CustomConfigDir$\ConEmu.xml`,  `%*`
+
 ### Git
 
 * ID: `Git`
@@ -255,16 +266,6 @@ To determine, if a Python package is already installed, the existence of its pac
 * ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
 * Path: `cmd`
 * Exe: `cmd\git.exe`
-
-### ConEmu
-
-* ID: `ConEmu`
-* Website: <https://conemu.github.io/>
-* Version: 16.03.13
-* Release: 160313
-* Url: `https://github.com/Maximus5/ConEmu/releases/download/v$:Version$/$:ArchiveName$`
-* ArchiveName: `ConEmuPack.$:Release$.7z`
-* Launcher: `ConEmu`
 
 ## Groups
 
