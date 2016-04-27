@@ -18,6 +18,7 @@
 * ActionDir: `actions`
 * TempDir: `tmp`
 * LibDir: `lib`
+* LogDir: `log`
 * HomeDir: `home`
 * AppDataDir: `$HomeDir$\AppData\Roaming`
 * LocalAppDataDir: `$HomeDir$\AppData\Local`
@@ -36,4 +37,5 @@
 * DownloadAttempts: 3
 * ParallelDownloads: 4
 * BenchRepository: `https://github.com/mastersign/bench.git`
+* LogLevel: `Info`
 * EditorApp: `VSCode`
