@@ -740,9 +740,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Leiningen
 
 * ID: `Leiningen`
-* Dependencies: `JDK8`
+* Dependencies: `JDK8`, `Wget`
 * Version: latest
-* Dependencies: `Wget`
 * Website: <http://leiningen.org>
 * Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
 * ResourceName: `lein.bat`
