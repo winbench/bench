@@ -70,7 +70,7 @@ GOTO:EOF
   ECHO.  E: Update environment after moving Bench (update-env)
   ECHO.  S: Download and install selected apps (setup)
   ECHO.  D: Download missing app resources (download)
-  ECHO.  R: Download and reinstall selected apps (refresh)
+  ECHO.  R: Download and reinstall selected apps (reinstall)
   ECHO.  N: Redownload and reinstall selected apps (renew)
   ECHO.  U: Update Bench via Git reset+pull and renew (upgrade)
   IF %VERBOSE% == 0 (
@@ -86,7 +86,7 @@ GOTO:EOF
   IF ERRORLEVEL 6 SET ACTION=update-env
   IF ERRORLEVEL 5 SET ACTION=upgrade
   IF ERRORLEVEL 4 SET ACTION=renew
-  IF ERRORLEVEL 3 SET ACTION=refresh
+  IF ERRORLEVEL 3 SET ACTION=reinstall
   IF ERRORLEVEL 2 SET ACTION=setup
   IF ERRORLEVEL 1 SET ACTION=download
   IF "%ACTION%" == "quit" GOTO:EOF
@@ -105,7 +105,7 @@ GOTO:EOF
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
-  CALL :runps Update-Environment
+  CALL :runsetup update-env
 GOTO:EOF
 
 :action_setup
@@ -114,10 +114,7 @@ GOTO:EOF
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
-  CALL :runps Prepare-Config
-  CALL :runps Download-Apps "%~2"
-  CALL :runps Setup-Apps "%~2"
-  CALL :runps Finalize-Setup
+  CALL :runsetup setup
   CD /D "%ROOT_DIR%"
   CALL "%AUTO_DIR%\env.cmd"
   SET RUN_SHELL=1
@@ -129,21 +126,18 @@ GOTO:EOF
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
-  CALL :runps Prepare-Config
-  CALL :runps Download-Apps "%~2"
+  CALL :runsetup download
   CD /D "%ROOT_DIR%"
 GOTO:EOF
 
-:action_refresh
+:action_reinstall
   IF %SILENT% == 0 (
     ECHO.Download and reinstall selected apps...
     ECHO.
     PAUSE
   )
   CALL "%AUTO_DIR%\init.cmd"
-  CALL :runps Clear-Apps "%~2"
-  CALL :runps Download-Apps "%~2"
-  CALL :runps Setup-Apps "%~2"
+  CALL :runsetup reinstall
   CD /D "%ROOT_DIR%"
   CALL "%AUTO_DIR%\env.cmd"
   SET RUN_SHELL=1
@@ -156,10 +150,7 @@ GOTO:EOF
     PAUSE
   )
   CALL "%AUTO_DIR%\init.cmd"
-  CALL :runps Clear-Downloads "%~2"
-  CALL :runps Clear-Apps "%~2"
-  CALL :runps Download-Apps "%~2"
-  CALL :runps Setup-Apps "%~2"
+  CALL :runsetup renew
   CD /D "%ROOT_DIR%"
   CALL "%AUTO_DIR%\env.cmd"
   SET RUN_SHELL=1
@@ -173,13 +164,18 @@ GOTO:EOF
   )
   CALL "%AUTO_DIR%\init.cmd"
   CALL :runps Update-BenchRepo
-  CALL :runps Clear-Downloads
-  CALL :runps Clear-Apps
-  CALL :runps Download-Apps
-  CALL :runps Setup-Apps
+  CALL :runsetup renew
   CD /D "%ROOT_DIR%"
   CALL "%AUTO_DIR%\env.cmd"
   SET RUN_SHELL=1
+GOTO:EOF
+
+:runsetup
+  IF %VERBOSE% == 1 (
+    CALL runps Setup-Bench -Action %1 -WithInfo
+  ) ELSE (
+    CALL runps Setup-Bench -Action %1
+  )
 GOTO:EOF
 
 :runps
