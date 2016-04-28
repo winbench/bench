@@ -7,8 +7,8 @@
 
 # Markdown (MdProc, VSCode)
 # Multimedia (Inkscape, Gimp, Dia, FFmpeg, GraphicsMagick, ...)
-# DevWebPHP5 (PHP5, EclipsePHP, MySQL, MySQLWB, Apache)
-# DevWebPHP7 (PHP7, EclipsePHP, MySQL, MySQLWB, Apache)
+# WebDevPHP5 (PHP5, EclipsePHP, MySQL, MySQLWB, Apache)
+# WebDevPHP7 (PHP7, EclipsePHP, MySQL, MySQLWB, Apache)
 # DevJava (JDK8, EclipseJava)
 # DevClojure (JDK8, Leiningen, LightTable)
 # DevPython2 (Python2, SublimeText3, IPython2)
@@ -67,6 +67,6 @@
 # Iron
 # MySQL
 # MySQLWB
-# PostgreSql
+# PostgreSQL
 # Apache
 # SysInternals
