@@ -24,20 +24,12 @@ if (!$user -or !$email) {
     Write-Host "Configuring your GIT identity ..."
     if (!$user) {
         $user = Get-ConfigValue UserName
-        if (!$user) {
-            $user = Read-Host "User Name"
-        } else {
-            Write-Host "User Name: $user"
-        }
+        Write-Host "User Name: $user"
         & $git config --global "user.name" $user
     }
     if (!$email) {
         $email = Get-ConfigValue UserEmail
-        if (!$email) {
-            $email = Read-Host "Email"
-        } else {
-            Write-Host "Email: $email"
-        }
+        Write-Host "Email: $email"
         & $git config --global "user.email" $email
     }
 }
@@ -50,14 +42,6 @@ if (Get-ConfigBooleanValue UseProxy) {
     & $git config --global --unset "http.proxy"
     & $git config --global --unset "https.proxy"
     & $git config --global --unset "url.https://.insteadof"
-}
-
-if (!(Test-Path "$env:USERPROFILE\.ssh")) {
-    $gitDir = App-Dir Git
-    $keygen = "$gitDir\usr\bin\ssh-keygen.exe"
-    $_ = mkdir "$env:USERPROFILE\.ssh"
-    & $keygen -t rsa -b 4096 -f "$env:USERPROFILE\.ssh\id_rsa" -C "$user <$email>"
-    notepad "$env:USERPROFILE\.ssh\id_rsa.pub"
 }
 
 if (!(Test-Path "$Script:rootDir\.git")) {
