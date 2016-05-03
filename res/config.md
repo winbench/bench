@@ -44,4 +44,6 @@
 * ProjectArchiveFormat: `zip`
 * LauncherDir: `launcher`
 * LauncherScriptDir: `$LibDir$\_launcher`
+* WizzardEditCustomConfigBeforeSetup: `false`
+* WizzardStartAutoSetup: `true`
 * EditorApp: `VSCode`

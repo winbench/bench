@@ -13,7 +13,7 @@ IF "_%1_" == "__" GOTO:interactive
 IF "_%1_" == "_/?_" GOTO:help
 
 SET i=0
-FOR %%a IN (download, setup, refresh, renew, upgrade, update-env) DO (
+FOR %%a IN (initialize, download, setup, reinstall, renew, upgrade, update-env) DO (
   SET /A i+=1
   SET arg[!i!]=%%a
 )
@@ -21,6 +21,7 @@ FOR /L %%i IN (1,1,6) DO (
   IF /I "%1" == "!arg[%%i]!" (
     SET ACTION=!arg[%%i]!
     GOTO:silent
+    EXIT /B 0
   )
 )
 ECHO.Unknown action: %1
@@ -44,7 +45,7 @@ GOTO:interactive
   ECHO.  Interactive mode
   ECHO.bench-ctl ^<action^>
   ECHO.  Run one of the following actions:
-  ECHO.  download, setup, refresh, renew, upgrade, update-env
+  ECHO.  update-env, setup, download, reinstall, renew, upgrade
   ECHO.bench-ctl /?
   ECHO.  Display this help
 GOTO:EOF
@@ -53,9 +54,8 @@ GOTO:EOF
   SET SILENT=1
   2>NUL CALL :action_%ACTION% %*
   IF ERRORLEVEL 1 (
-    ECHO.Unknown action: %ACTION%
-    ECHO.
-    CALL :help
+    ECHO.Error during execution of action %ACTION%
+    EXIT /B 1
   )
 GOTO:EOF
 
@@ -72,6 +72,7 @@ GOTO:EOF
   ECHO.  D: Download missing app resources (download)
   ECHO.  R: Download and reinstall selected apps (reinstall)
   ECHO.  N: Redownload and reinstall selected apps (renew)
+  ECHO.  I: Initialize and setup Bench (initialize)
   ECHO.  U: Update Bench via Git reset+pull and renew (upgrade)
   IF %VERBOSE% == 0 (
     ECHO.  V: Activate verbose messages
@@ -80,9 +81,10 @@ GOTO:EOF
   )
   ECHO.  Q: Quit
   ECHO.
-  CHOICE /C DSRNUEVQ /M "Select Action"
-  IF ERRORLEVEL 8 SET ACTION=quit
-  IF ERRORLEVEL 7 GOTO:switch_verbose
+  CHOICE /C DSRNUEIVQ /M "Select Action"
+  IF ERRORLEVEL 9 SET ACTION=quit
+  IF ERRORLEVEL 8 GOTO:switch_verbose
+  IF ERRORLEVEL 7 SET ACTION=initialize
   IF ERRORLEVEL 6 SET ACTION=update-env
   IF ERRORLEVEL 5 SET ACTION=upgrade
   IF ERRORLEVEL 4 SET ACTION=renew
@@ -97,6 +99,15 @@ GOTO:EOF
   IF %RUN_SHELL% == 1 (
     runps Shell
   )
+GOTO:EOF
+
+:action_initialize
+  IF %SILENT% == 0 (
+    ECHO.Initializing Bench environment...
+    ECHO.
+  )
+  CALL "%AUTO_DIR%\init.cmd"
+  CALL :runps Initialize-Bench
 GOTO:EOF
 
 :action_update-env
@@ -132,9 +143,11 @@ GOTO:EOF
 
 :action_reinstall
   IF %SILENT% == 0 (
+    ECHO.This will first uninstall and then install all active apps.
+    ECHO.Are you shure?
+    PAUSE
     ECHO.Download and reinstall selected apps...
     ECHO.
-    PAUSE
   )
   CALL "%AUTO_DIR%\init.cmd"
   CALL :runsetup reinstall
@@ -145,9 +158,11 @@ GOTO:EOF
 
 :action_renew
   IF %SILENT% == 0 (
+    ECHO.This will first delete and redownload all app resources and then uninstall and reinstall all active apps.
+    ECHO.Are you shure?
+    PAUSE
     ECHO.Redownload and reinstall selected apps...
     ECHO.
-    PAUSE
   )
   CALL "%AUTO_DIR%\init.cmd"
   CALL :runsetup renew
@@ -158,9 +173,13 @@ GOTO:EOF
 
 :action_upgrade
   IF %SILENT% == 0 (
+    ECHO.EXPERIMENTAL!
+    ECHO.This will first upgrade the Bench source code and the predefined app index via Git reset+pull, then delete and redownload all app resources, and finally uninstall and reinstall all active apps. 
+    ECHO.Are you shure?
+    PAUSE
+    ECHO.
     ECHO.Update Bench via Git reset+pull, redownload, and reinstall selected apps...
     ECHO.
-    PAUSE
   )
   CALL "%AUTO_DIR%\init.cmd"
   CALL :runps Update-BenchRepo
