@@ -1,22 +1,12 @@
 ﻿$Script:myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$Script:myDir\common.lib.ps1"
+& "$Script:myDir\Load-ClrLibs.ps1"
 
 [string]$Script:autoDir = Resolve-Path ([IO.Path]::Combine($myDir, ".."))
 [string]$Script:rootDir = Resolve-Path ([IO.Path]::Combine($autoDir, ".."))
 $Script:pathBackup = $env:PATH
 
 $_ = Set-StopOnError $True
-
-function Load-Assembly($name)
-{
-    $dir = [IO.Path]::Combine($Script:autoDir, "bin")
-    $file = [IO.Path]::Combine($dir, $name)
-    $_ = [Reflection.Assembly]::LoadFile($file)
-}
-
-Load-Assembly "Ionic.Zip.dll"
-Load-Assembly "Interop.IWshRuntimeLibrary.dll"
-Load-Assembly "BenchLib.dll"
 
 Debug "Loading configuration ..."
 $Script:cfg = New-Object Mastersign.Bench.BenchConfiguration($Script:rootDir)
