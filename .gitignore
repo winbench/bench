@@ -1,11 +1,13 @@
 /tmp
-/lib
 /log
-/home
 /config
+/auto/env.cmd
 /launcher
 /cache
-/auto/env.cmd
-/projects/*
+/lib
+/home
+/projects
+/archive
 
-/*.log
+/*.zip
+*.lnk
