@@ -14,6 +14,8 @@
 * CustomConfigDir: `config`
 * CustomConfigFile: `$CustomConfigDir$\config.md`
 * CustomConfigTemplateFile: `res\config.template.md`
+* SiteConfigFileName: `bench-site.md`
+* SiteConfigTemplateFile: `res\bench-site.template.md`
 * AppIndexFile: `res\apps.md`
 * AppActivationFile: `$CustomConfigDir$\apps-activated.txt`
 * AppActivationTemplateFile: `res\apps-activated.template.txt`
