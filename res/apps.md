@@ -195,7 +195,7 @@ To determine, if a NodeJS package is already installed, the existence of its pac
   The application typ
   (required to be `python2-package` or `python3-package`)
 * **PackageName**:
-  The name of the PyPI package to install via PIP 
+  The name of the PyPI package to install via PIP
   (optional, default is the app ID in lowercase).
 * **Version**:
   The package version or version range to install (e.g. `2.5.0` or `>=1.2.0,<3.0.0`),
