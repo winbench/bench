@@ -2,54 +2,45 @@ $gitDir = App-Dir Git
 $git = App-Exe Git
 if (!$git) { throw "Git not found" }
 
-if (Test-Path "$gitDir\post-install.bat") {
-    Debug "Renaming post-install script ..."
+if (Test-Path "$gitDir\post-install.bat")
+{
+    Write-Host "Renaming Git post-install script to prevent deletion"
     mv "$gitDir\post-install.bat" "$gitDir\git-post-install.bat"
 }
 
-$autocrlf = & $git config --global core.autocrlf
-$pushDefault = & $git config --global push.default
-$user = & $git config --global user.name
-$email = & $git config --global user.email
+pushd $gitDir
+Write-Host "Running post-install script for Git ..."
+cmd /C "git-post-install.bat" | Out-Null
+popd
 
-if (!$autocrlf) {
-    & $git config --global "core.autocrlf" "true"
+$autocrlf = git config --global core.autocrlf
+$pushDefault = git config --global push.default
+$user = git config --global user.name
+$email = git config --global user.email
+
+if (!$autocrlf)
+{
+    git config --global "core.autocrlf" "true"
 }
 
-if (!$pushDefault) {
-    & $git config --global "push.default" "simple"
+if (!$pushDefault)
+{
+    git config --global "push.default" "simple"
 }
 
-if (!$user -or !$email) {
+if (!$user -or !$email)
+{
     Write-Host "Configuring your GIT identity ..."
-    if (!$user) {
+    if (!$user)
+    {
         $user = Get-ConfigValue UserName
         Write-Host "User Name: $user"
-        & $git config --global "user.name" $user
+        git config --global "user.name" $user
     }
-    if (!$email) {
+    if (!$email)
+    {
         $email = Get-ConfigValue UserEmail
         Write-Host "Email: $email"
-        & $git config --global "user.email" $email
+        git config --global "user.email" $email
     }
-}
-
-if (Get-ConfigBooleanValue UseProxy) {
-    & $git config --global "http.proxy" $(Get-ConfigValue HttpProxy)
-    & $git config --global "https.proxy" $(Get-ConfigValue HttpsProxy)
-    & $git config --global "url.https://.insteadof" "git://"
-} else {
-    & $git config --global --unset "http.proxy"
-    & $git config --global --unset "https.proxy"
-    & $git config --global --unset "url.https://.insteadof"
-}
-
-if (!(Test-Path "$Script:rootDir\.git")) {
-    $repo = Get-ConfigValue BenchRepository
-    cd $Script:rootDir
-    & $git init
-    & $git remote add origin $repo
-    & $git fetch
-    & $git reset --mixed origin/master
-    & $git branch --set-upstream-to=origin/master master
 }
