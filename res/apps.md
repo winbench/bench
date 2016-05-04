@@ -266,6 +266,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
 * Path: `cmd`
 * Exe: `cmd\git.exe`
+* Environment: `GIT_SSH: $:Dir$\usr\bin\ssh.exe`
 
 ## Groups
 
