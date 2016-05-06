@@ -31,9 +31,7 @@ if (!$cfg)
 	exit 1
 }
 
-$dashboardClrVersion = New-Object Version (4, 5, 0, 0)
-$runDashboard = [Mastersign.Bench.Windows.ClrInfo]::IsVersionSupported($dashboardClrVersion) 
-if ($runDashboard)
+if ([Mastersign.Bench.BenchTasks]::IsDashboardSupported)
 {
 	if ($wizzardStartAutoSetup) 
 	{
