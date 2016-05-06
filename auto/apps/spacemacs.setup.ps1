@@ -29,7 +29,7 @@ $spacemacsDir = [IO.Path]::Combine($homeDir, ".emacs.d")
 
 if (!(Test-Path $spacemacsDir -PathType Container)) {
     Write-Host "Cloning Spacemacs ..."
-    Run-Git @("clone", "https://github.com/syl20bnr/spacemacs.git", $spacemacsDir)
+    Run-Git @("clone", "https://github.com/syl20bnr/spacemacs.git", "`"$spacemacsDir`"")
     Write-Host ""
     Write-Host "Run 'emacs' once to initialize and start Spacemacs."
 }
