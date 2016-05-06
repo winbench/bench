@@ -25,9 +25,39 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+For this release a clean install is required and the configuration
+must be migrated to the new format.
+
+### Added
+- Graphical User Interface _Bench Dashboard_
+- Automatic proxy configuration
+- Global config property `ParallelDownloads`
+- Support for global custom scripts `config\setup.ps1` and `config\env.ps1`
+
 ### Changed
+- Moved logic from PowerShell scripts to .NET DLL `BenchLib.dll`
+- Improved parsing performance for Markdown configuration files
+- Improved format for list properties in Markdown configuration files
+- More stable parsing of Markdown configuration files
+    + ignore content of HTML comments
+    + ignore content of code blocks
+    + ignore content of YAML header
+- Renamed app properties
+    + `AppFile` &rarr; `ResourceName`
+    + `AppArchive` &rarr; `ArchiveName`
+    + `AppArchiveTyp` &rarr; `ArchiveTyp`
+    + `AppArchiveSubDir` &rarr; `ArchivePath`
+    + `NpmPackage` &rarr; `PackageName`
+    + `PyPiPackage` &rarr; `PackageName`
+- Moved default configuration from `auto\lib\config.lib.ps1` to `res\config.md`
+- Moved custom configuration from `config\config.ps1` to `config\config.md`
+- Moved app activation from `config\config.ps1` to `config\apps-activated.txt`
+- Moved proxy and user infos from `config\config.ps1` to `bench-site.md`
 - Update: JDK/JRE 8 from rev. 77 to rev. 92
 - Update: Apache Web Server from 2.4.18 to 2.4.20
+
+### Fixed
+- Spacemacs under path with whitespaces
 
 ## [0.9.3] - 2016-04-13
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.2...v0.9.3)

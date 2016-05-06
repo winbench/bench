@@ -1,8 +1,8 @@
-$pgResourceDir = "$(Get-ConfigPathValue AppResourceBaseDir)\postgresql"
+$pgResourceDir = "$(Get-ConfigValue AppResourceBaseDir)\postgresql"
 $pgPath = App-Path PostgreSQL
 
-$dataDir = Get-AppConfigPathValue PostgreSQL PostgreSqlDataDir
-$logFile = Get-AppConfigPathValue PostgreSQL PostgreSqlLogFile
+$dataDir = Get-AppConfigValue PostgreSQL PostgreSqlDataDir
+$logFile = Get-AppConfigValue PostgreSQL PostgreSqlLogFile
 
 if (!(Test-Path $dataDir -PathType Container)) {
     Write-Host "Initializing PostgreSQL database in $dataDir"

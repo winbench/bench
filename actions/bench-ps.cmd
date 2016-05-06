@@ -1,4 +1,4 @@
 @ECHO OFF
-CALL "%~dp0\..\auto\env.cmd"
 CD /D "%~dp0\.."
-runps Shell 'BENCH ROOT' %*
+CALL .\auto\env.cmd
+.\auto\runps.cmd Shell 'BENCH ROOT' %*

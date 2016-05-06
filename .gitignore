@@ -1,12 +1,15 @@
 /tmp
+/log
+/config
+/auto/env.cmd
+/auto/bin
+/launcher
+/cache
 /lib
 /home
-/config
-/launcher
-/res/download
-/auto/env.cmd
-/auto/launcher
-/auto/proxies
-/projects/*
+/projects
+/archive
 
-/*.log
+/*.zip
+/bench-site.md
+*.lnk
