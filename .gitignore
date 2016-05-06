@@ -2,6 +2,7 @@
 /log
 /config
 /auto/env.cmd
+/auto/bin
 /launcher
 /cache
 /lib
