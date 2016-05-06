@@ -55,6 +55,7 @@ must be migrated to the new format.
 - Moved proxy and user infos from `config\config.ps1` to `bench-site.md`
 - Update: JDK/JRE 8 from rev. 77 to rev. 92
 - Update: Apache Web Server from 2.4.18 to 2.4.20
+- Update: Git from 2.8.1 to 2.8.2
 
 ### Fixed
 - Spacemacs under path with whitespaces
