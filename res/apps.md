@@ -260,8 +260,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.7.1.2
-* Release: 2.7.1.windows.2
+* Version: 2.8.1
+* Release: 2.8.1.windows.1
 * Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
 * ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
 * Path: `cmd`
@@ -298,13 +298,13 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `DevJava`
 * Typ: `meta`
-* Dependencies: `JDK8`, `EclipseJava`
+* Dependencies: `JDK8`, `Maven`, `EclipseJava`
 
 ### Group: Clojure Development
 
 * ID: `DevClojure`
 * Typ: `meta`
-* Dependencies: `Leiningen`, `LightTable`
+* Dependencies: `Maven`, `Leiningen`, `Lighttable`
 
 ### Group: Python 2
 
@@ -356,6 +356,16 @@ To determine, if a Python package is already installed, the existence of its pac
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\gnutls-cli.exe`
+
+### GnuPG
+
+* ID: `GnuPG`
+* Version: 2.0.29
+* Url: `https://sourceforge.net/projects/portableapps/files/GPG Plugin Portable/$GnuPG:AppArchive$`
+* AppArchive: `GPG_Plugin_Portable_$GnuPG:Version$.paf.exe`
+* Dir: `gpg`
+* Path: `pub`
+* Exe: `pub\gpg.exe`
 
 ### Wget
 
@@ -517,7 +527,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: 4.3.1
+* Version: 4.4.3
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
@@ -671,7 +681,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 
 * ID: `PHP5`
 * Website: <http://www.php.net>
-* Version: 5.6.17
+* Version: 5.6.19
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
@@ -682,7 +692,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `PHP7`
 * Website: <http://www.php.net>
-* Version: 7.0.2
+* Version: 7.0.4
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
@@ -699,19 +709,21 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ArchivePath: `jre1.7.0_80`
 * Path: `bin`
 * Exe: `bin\java.exe`
+* Environment: `JAVA_CMD=$JRE7:Exe$`
 
 ### Java Runtime Environment 8
 
 * ID: `JRE8`
-* Version: 8u74
-* Release: b02
+* Version: 8u92
+* Release: b14
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
-* ArchivePath: `jre1.8.0_74`
+* AppArchiveSubDir: `jre1.8.0_92`
 * Path: `bin`
 * Exe: `bin\java.exe`
+* Environment: `JAVA_CMD=$JRE8:Exe$`
 
 ### Java Development Kit 7
 
@@ -726,6 +738,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `bin\javac.exe`
 * Environment:
     + `JAVA_HOME`: `$:Dir$`
+    + `JAVA_CMD`: `$:Dir$\jre\bin\java.exe`
 
 ### Java Development Kit 8
 
@@ -740,11 +753,25 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Exe: `bin\javac.exe`
 * Environment:
     + `JAVA_HOME`: `$:Dir$`
+    + `JAVA_CMD`: `$:Dir$\jre\bin\java.exe`
+
+### Maven
+
+* ID: `Maven`
+* Dependencies: `JRE8`, `GnuPG`
+* Version: `3.3.9`
+* Website: <https://maven.apache.org>
+* Url: `http://www-eu.apache.org/dist/maven/maven-3/$Maven:Version$/binaries/$Maven:AppArchive$`
+* AppArchive: `apache-maven-$Maven:Version$-bin.zip`
+* AppArchiveSubDir: `apache-maven-$Maven:Version$`
+* Dir: `mvn`
+* Path: `bin`
+* Exe: `bin\mvn.cmd`
 
 ### Leiningen
 
 * ID: `Leiningen`
-* Dependencies: `JDK8`, `Wget`
+* Dependencies: `JDK8`, `GnuPG`, `Wget`
 * Version: latest
 * Website: <http://leiningen.org>
 * Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
