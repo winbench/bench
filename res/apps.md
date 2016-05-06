@@ -440,6 +440,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ArchiveName: `miktex-portable-$:Version$.exe`
 * Path: `miktex\bin`
 * Exe: `miktex\bin\latex.exe`
+* Launcher: `TeXworks`
+* LauncherExecutable: `miktex\bin\texworks.exe`
 
 ### Graphics Magick
 
@@ -520,6 +522,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * ResourceName: `node.exe`
 * Dir: `node`
 * Exe: `node.exe`
+* Launcher: NodeJS
 
 ### NPM
 
