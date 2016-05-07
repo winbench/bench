@@ -4,9 +4,7 @@ $binDir = Resolve-Path ([IO.Path]::Combine([IO.Path]::Combine($myDir, ".."), "bi
 function Load-Assembly($dir, $name)
 {
     $file = [IO.Path]::Combine($dir, $name)
-    $_ = [Reflection.Assembly]::LoadFile($file)
+    $_ = [Reflection.Assembly]::LoadFrom($file)
 }
 
-Load-Assembly $binDir "Ionic.Zip.dll"
-Load-Assembly $binDir "Interop.IWshRuntimeLibrary.dll"
 Load-Assembly $binDir "BenchLib.dll"
