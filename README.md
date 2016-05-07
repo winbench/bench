@@ -54,5 +54,9 @@ The following environment variables are set by _Bench_:
 `APPDATA`, `LOCALAPPDATA`,
 `TEMP`, `TMP`, and `PATH`.
 
+## License
+
+This project is released under the MIT license.
+
 [Yeoman]: http://yeoman.io "The web's scaffolding tool for modern web apps"
 [Markdown]: https://daringfireball.net/projects/markdown/
