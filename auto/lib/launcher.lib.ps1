@@ -1,5 +1,5 @@
-﻿$launcherDir = Safe-Dir (Get-ConfigPathValue LauncherDir)
-$launcherScriptDir = Safe-Dir ([IO.Path]::Combine((Get-ConfigPathValue BenchAuto), "launcher"))
+﻿$launcherDir = Safe-Dir (Get-ConfigValue LauncherDir)
+$launcherScriptDir = Safe-Dir ([IO.Path]::Combine((Get-ConfigValue BenchAuto), "launcher"))
 
 $wshShell = New-Object -ComObject WScript.Shell
 
@@ -104,16 +104,16 @@ function Create-Launcher([string]$name) {
     Debug "Path of launcher: $launcherFile"
 
     Create-Shortcut $launcherFile (Get-LauncherScriptFile $name) `
-      -workingDir (Get-ConfigPathValue BenchRoot) `
+      -workingDir (Get-ConfigValue BenchRoot) `
       -iconPath (App-LauncherIcon $name) -windowStyle 7
 }
 
 function Create-ActionLauncher($label, $action, $icon) {
     $launcherFile = [IO.Path]::Combine($launcherDir, $label + '.lnk')
-    $targetPath = [IO.Path]::Combine((Get-ConfigPathValue ActionDir), "$action.cmd")
+    $targetPath = [IO.Path]::Combine((Get-ConfigValue ActionDir), "$action.cmd")
     Debug "Creating launcher for '$label' ..."
     Create-Shortcut $launcherFile $targetPath `
-      -workingDir (Get-ConfigPathValue BenchRoot) `
+      -workingDir (Get-ConfigValue BenchRoot) `
       -iconPath $icon
 }
 

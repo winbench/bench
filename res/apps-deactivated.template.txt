@@ -1,0 +1,7 @@
+# This file contains the list with all deactivated apps.
+# This file superseeds the listed apps from activated-apps.txt and their dependencies.
+
+# The first word in a non-empty line, not commented out with #, is treated as an app ID.
+
+## Deactivated Apps
+

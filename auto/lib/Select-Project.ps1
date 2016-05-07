@@ -6,7 +6,7 @@ $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 trap { Write-TrapError $_ }
 Set-Debugging $debug
 
-$projectRoot = Safe-Dir (Get-ConfigPathValue ProjectRootDir)
+$projectRoot = Safe-Dir (Get-ConfigValue ProjectRootDir)
 
 [array]$projectNames = [IO.Directory]::GetDirectories($projectRoot) `
     | % { [IO.Path]::GetFileName($_) } `
