@@ -266,7 +266,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
 * Path: `cmd`
 * Exe: `cmd\git.exe`
-* Environment: `GIT_SSH: $:Dir$\usr\bin\ssh.exe`
+* Environment:
+    + `GIT_SSH`: `$:Dir$\usr\bin\ssh.exe`
 
 ## Groups
 
@@ -711,7 +712,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * ArchivePath: `jre1.7.0_80`
 * Path: `bin`
 * Exe: `bin\java.exe`
-* Environment: `JAVA_CMD=$JRE7:Exe$`
+* Environment:
+    + `JAVA_CMD`: `$JRE7:Exe$`
 
 ### Java Runtime Environment 8
 
@@ -725,7 +727,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * AppArchiveSubDir: `jre1.8.0_92`
 * Path: `bin`
 * Exe: `bin\java.exe`
-* Environment: `JAVA_CMD=$JRE8:Exe$`
+* Environment:
+    + `JAVA_CMD`: `$JRE8:Exe$`
 
 ### Java Development Kit 7
 
