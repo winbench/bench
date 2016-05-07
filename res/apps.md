@@ -674,6 +674,8 @@ for Python 3:
 * ArchivePath: `{app}`
 * Path: `bin`
 * Exe: `bin\ruby.exe`
+* Launcher: `Ruby`
+* LauncherArguments: `$:Dir$\bin\irb`
 
 ### PHP 5
 
