@@ -1,7 +1,7 @@
 $lein = App-Exe Leiningen
-$leinResourceDir = "$(Get-ConfigPathValue AppResourceBaseDir)\leiningen"
+$leinResourceDir = "$(Get-ConfigValue AppResourceBaseDir)\leiningen"
 $leinProfilesTemplate = "$leinResourceDir\profiles.clj"
-$leinProfiles = "$(Get-ConfigPathValue HomeDir)\.lein\profiles.clj"
+$leinProfiles = "$(Get-ConfigValue HomeDir)\.lein\profiles.clj"
 
 Debug "LEIN_JAR: $env:LEIN_JAR"
 
