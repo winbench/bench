@@ -362,8 +362,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `GnuPG`
 * Version: 2.0.29
-* Url: `https://sourceforge.net/projects/portableapps/files/GPG Plugin Portable/$GnuPG:AppArchive$`
-* AppArchive: `GPG_Plugin_Portable_$GnuPG:Version$.paf.exe`
+* Url: `https://sourceforge.net/projects/portableapps/files/GPG Plugin Portable/$:ArchiveName$`
+* ArchiveName: `GPG_Plugin_Portable_$:Version$.paf.exe`
 * Dir: `gpg`
 * Path: `pub`
 * Exe: `pub\gpg.exe`
@@ -724,7 +724,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
-* AppArchiveSubDir: `jre1.8.0_92`
+* ArchivePath: `jre1.8.0_92`
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment:
@@ -766,9 +766,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Dependencies: `JRE8`, `GnuPG`
 * Version: `3.3.9`
 * Website: <https://maven.apache.org>
-* Url: `http://www-eu.apache.org/dist/maven/maven-3/$Maven:Version$/binaries/$Maven:AppArchive$`
-* AppArchive: `apache-maven-$Maven:Version$-bin.zip`
-* AppArchiveSubDir: `apache-maven-$Maven:Version$`
+* Url: `http://www-eu.apache.org/dist/maven/maven-3/$:Version$/binaries/$:ArchiveName$`
+* ArchiveName: `apache-maven-$:Version$-bin.zip`
+* ArchivePath: `apache-maven-$:Version$`
 * Dir: `mvn`
 * Path: `bin`
 * Exe: `bin\mvn.cmd`
