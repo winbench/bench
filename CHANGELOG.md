@@ -25,6 +25,14 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Fixed
+- Leiningen profile setup
+- Multiple typos in the app index
+    + `DevClojure` dependency `LightTable`
+    + `GnuPG` properties
+    + `JRE8` properties
+    + `Maven` properties
+
 ## [0.10.0] - 2016-05-07
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.9.3...v0.10.0)
 
