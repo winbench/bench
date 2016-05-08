@@ -26,6 +26,7 @@ Add a link to the GitHub diff like
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ### Fixed
+- Installing NodeJS and Python packages via _Bench Dashboard_
 - Leiningen profile setup
 - Multiple typos in the app index
     + `DevClojure` dependency `LightTable`
