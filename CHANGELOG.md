@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.10.1] - 2016-05-08
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.0...v0.10.1)
+
 ### Fixed
 - Installing NodeJS and Python packages via _Bench Dashboard_
 - Leiningen profile setup
