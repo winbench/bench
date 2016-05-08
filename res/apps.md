@@ -713,7 +713,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment:
-    + `JAVA_CMD`: `$JRE7:Exe$`
+    + `JAVA_CMD`: `$:Exe$`
 
 ### Java Runtime Environment 8
 
@@ -728,7 +728,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment:
-    + `JAVA_CMD`: `$JRE8:Exe$`
+    + `JAVA_CMD`: `$:Exe$`
 
 ### Java Development Kit 7
 
