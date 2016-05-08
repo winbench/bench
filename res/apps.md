@@ -305,7 +305,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `DevClojure`
 * Typ: `meta`
-* Dependencies: `Maven`, `Leiningen`, `Lighttable`
+* Dependencies: `Maven`, `Leiningen`, `LightTable`
 
 ### Group: Python 2
 
