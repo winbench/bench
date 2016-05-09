@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Support for Ruby Gems (app typ `ruby-package`)
+  ([#36](https://github.com/mastersign/bench/issues/36))
 ## [0.10.1] - 2016-05-08
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.0...v0.10.1)
 
