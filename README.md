@@ -23,16 +23,6 @@
 * Follow the instructions of the setup wizzard
 * Use the setup dialog in _Bench Dashboard_ to activate apps and app groups
 
-## Quickstart with a new Markdown project
-
-If you activated the `Markdown` app group, you can go ahead with these steps: 
-
-* Run the `new-project.cmd` action to scaffold a project with [Yeoman]
-* Choose the _MdProc_ generator to build a [Markdown] documentation project
-* Choose one of the different [Markdown] project templates (`Demo`, `Minimal`, `Personal Log`, ...)
-* Follow further instructions
-* Take a look at the README file in the scaffolded project
-
 ## Apps
 
 _Bench_ downloads a selection of commandline tools and applications,
@@ -40,7 +30,7 @@ and provides an isolated path environment with all tools available.
 
 Take a look at the [app registry](res/apps.md) to check out the prepared apps.
 You can add your own apps to the _Bench_ environment by editing the `apps.md`
-in the root folder of _Bench_.
+in the `config` folder of _Bench_.
 
 ## Isolated Environment
 
@@ -53,6 +43,16 @@ The following environment variables are set by _Bench_:
 `HOME`, `HOMEDRIVE`, `HOMEPATH`,
 `APPDATA`, `LOCALAPPDATA`,
 `TEMP`, `TMP`, and `PATH`.
+
+## Quickstart with a new Markdown project
+
+If you activated the `Markdown` app group, you can go ahead with these steps:
+
+* Run the `new-project.cmd` action to scaffold a project with [Yeoman]
+* Choose the _MdProc_ generator to build a [Markdown] documentation project
+* Choose one of the different [Markdown] project templates (`Demo`, `Minimal`, `Personal Log`, ...)
+* Follow further instructions
+* Take a look at the README file in the scaffolded project
 
 ## License
 
