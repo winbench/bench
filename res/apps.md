@@ -123,6 +123,7 @@ There are currently the following types of apps:
 * Typ `meta`: app groups or apps with a fully customized setup process
 * Typ `default`: Windows executables from a downloades file, archive, or setup
 * Typ `node-package`: NodeJS packages, installable with NPM
+* Typ `ruby-package`: Ruby packages, installable with Gem
 * Typ `python2-package`: Python packages for Python 2 from PyPI, installable with PIP
 * Typ `python3-package`: Python packages for Python 3 from PyPI, installable with PIP
 
@@ -188,6 +189,27 @@ Some restrictions for the properties:
 
 To determine, if a NodeJS package is already installed, the existence of its package folder in
 `node_modules` in the NodeJS directory is checked.
+
+### Ruby Packages
+
+* **Typ**:
+  The application typ
+  (required to be `ruby-package`).
+* **PackageName**:
+  The name of the Ruby package to install via Gem
+  (optional, default is the app ID in lowercase).
+* **Version**:
+  The package version or version range to install (e.g. `2.5.0`),
+  if empty install latest
+  (optional, default empty).
+* **Exe**:
+  The name of an Gem CLI wrapper from this package
+  (optional, default is empty).
+* **Path**:
+  This property is ignored for Ruby packages.
+
+To determine, if a Ruby gem is already installed, the existence of its package folder in
+`lib\ruby\gems\<ruby-version>\gems` in the Ruby directory is checked.
 
 ### Python Package
 
@@ -658,7 +680,6 @@ for Python 3:
 * ID: `IPython3`
 * Typ: `python3-package`
 * PackageName: `ipython`
-* PythonVersions: `3`
 * Dependencies: `PyReadline3`
 * Website: <http://pypi.python.org/pypi/ipython>
 * Exe: `Scripts\ipython3.exe`
@@ -677,6 +698,12 @@ for Python 3:
 * Exe: `bin\ruby.exe`
 * Launcher: `Ruby`
 * LauncherArguments: `$:Dir$\bin\irb`
+
+### SASS
+
+* ID: `Sass`
+* Typ: `ruby-package`
+* Website: <http://sass-lang.com/>
 
 ### PHP 5
 
