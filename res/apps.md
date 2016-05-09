@@ -680,7 +680,6 @@ for Python 3:
 * ID: `IPython3`
 * Typ: `python3-package`
 * PackageName: `ipython`
-* PythonVersions: `3`
 * Dependencies: `PyReadline3`
 * Website: <http://pypi.python.org/pypi/ipython>
 * Exe: `Scripts\ipython3.exe`
