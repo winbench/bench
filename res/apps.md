@@ -699,6 +699,12 @@ for Python 3:
 * Launcher: `Ruby`
 * LauncherArguments: `$:Dir$\bin\irb`
 
+### SASS
+
+* ID: `Sass`
+* Typ: `ruby-package`
+* Website: <http://sass-lang.com/>
+
 ### PHP 5
 
 This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.

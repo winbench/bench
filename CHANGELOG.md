@@ -28,6 +28,8 @@ Add a link to the GitHub diff like
 ### Added
 - Support for Ruby Gems (app typ `ruby-package`)
   ([#36](https://github.com/mastersign/bench/issues/36))
+- Added SASS (latest)
+
 ## [0.10.1] - 2016-05-08
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.0...v0.10.1)
 
