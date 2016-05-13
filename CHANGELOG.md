@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Added GitKraken (latest)
+
 ## [0.10.2] - 2016-05-09
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.1...v0.10.2)
 
