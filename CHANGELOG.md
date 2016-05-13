@@ -28,6 +28,12 @@ Add a link to the GitHub diff like
 ### Added
 - Added GitKraken (latest)
 
+### Fixed
+- Path resolution of list properties
+  ([#43](https://github.com/mastersign/bench/issues/43))
+- MinGW MSYS path was not included in the environment
+  ([#42](https://github.com/mastersign/bench/issues/42))
+
 ## [0.10.2] - 2016-05-09
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.1...v0.10.2)
 
