@@ -537,7 +537,7 @@ To determine, if a Python package is already installed, the existence of its pac
 ### Inkscape
 
 * ID: `Inkscape`
-* Website: <https://inkscape.org/de/herunterladen/>
+* Website: <https://inkscape.org/en/download/>
 * Version: 0.91-1
 * Url: <https://inkscape.org/en/gallery/item/3932/download/>
 * ArchiveName: `Inkscape-$:Version$-win32.7z`
