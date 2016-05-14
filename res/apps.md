@@ -469,7 +469,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.16.0.2
+* Version: 1.17.0.2
 * Url: `https://github.com/jgm/pandoc/releases/download/$:Version$/$:ArchiveName$`
 * ArchiveName: `pandoc-$:Version$-windows.msi`
 * ArchivePath: `SourceDir\Pandoc`
