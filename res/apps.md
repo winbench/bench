@@ -354,7 +354,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * ID: `GitKraken`
 * Version: latest
 * Website: <https://www.gitkraken.com/>
-* URL: <https://release.gitkraken.com/win32/GitKrakenSetup.exe>
+* Url: <https://release.gitkraken.com/win32/GitKrakenSetup.exe>
 * ArchiveName: `GitKrakenSetup.exe`
 * ArchiveTyp: `custom`
 * ArchivePath: `lib\net45`
