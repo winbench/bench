@@ -37,6 +37,7 @@ Add a link to the GitHub diff like
 - Update: CMake from 3.4.3 to 3.5.2
 - Update: Clang from 3.7.1 to 3.8.0
 - Update: MySQL from 5.7.11 to 5.7.12
+- Update: PostgreSQL from 9.5.0 to 9.5.3
 
 ### Fixed
 - GitKraken Resource Url

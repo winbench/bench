@@ -1090,7 +1090,7 @@ The initial password for _postgres_ is `bench`.
 
 * ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
-* Version: 9.5.0-1
+* Version: 9.5.3-1
 * Url: `http://get.enterprisedb.com/postgresql/$:ArchiveName$`
 * ArchiveName: `postgresql-$:Version$-windows-binaries.zip`
 * ArchivePath: `pgsql`
