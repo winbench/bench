@@ -29,6 +29,7 @@ Add a link to the GitHub diff like
 - Update: Sublime Text 3 from build 3103 to 3114
 - Update: GnuPG from 2.0.29 to 2.0.30
 - Update: cURL from 7.47.1 to 7.48.0
+- Update: FileZilla from 3.15.0.2 to 3.17.0.1
 
 ### Fixed
 - GitKraken Resource Url

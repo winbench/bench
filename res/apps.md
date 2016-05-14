@@ -435,7 +435,7 @@ To determine, if a Python package is already installed, the existence of its pac
 ### FileZilla
 
 * ID: `FileZilla`
-* Version: 3.15.0.2
+* Version: 3.17.0.1
 * Website: <https://filezilla-project.org/>
 * Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$:ArchiveName$`
 * ArchiveName: `FileZillaPortable_$:Version$.paf.exe`
