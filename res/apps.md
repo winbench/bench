@@ -910,7 +910,7 @@ If you want to use the Clang compiler with Eclipse, you must manually
 install the LLVM-Plugin for Eclipse CDT.
 
 * ID: `Clang`
-* Version: 3.7.1
+* Version: 3.8.0
 * Website: <http://clang.llvm.org/>
 * Url: `http://llvm.org/releases/$:Version$/$:ArchiveName$`
 * ArchiveName: `LLVM-$:Version$-win32.exe`
