@@ -960,7 +960,7 @@ install the LLVM-Plugin for Eclipse CDT.
 
 * ID: `SublimeText3`
 * Website: <http://www.sublimetext.com/3>
-* Version: Build 3103
+* Version: Build 3114
 * Url: `https://download.sublimetext.com/$:ArchiveName$`
 * ArchiveName: `Sublime Text $:Version$.zip`
 * Exe: `sublime_text.exe`

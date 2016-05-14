@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Changed
+- Update: Sublime Text 3 from build 3103 to 3114
+
 ### Fixed
 - GitKraken Resource Url
 
