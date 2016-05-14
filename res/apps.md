@@ -349,7 +349,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 ## Optional
 
-## GitKraken
+### GitKraken
 
 * ID: `GitKraken`
 * Version: latest
