@@ -888,9 +888,10 @@ To setup a C/C++ project with CMake and MinGW (`mingw32-make`), you have to acti
 Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefiles" <project folder>` to generate the `Makefile`. Run `cmake --build <project folder>` to compile the project.
 
 * ID: `CMake`
-* Version: 3.4.3
+* MajorVersion: 3.5
+* Version: $:MajorVersion$.2
 * Website: <https://cmake.org/>
-* Url: `https://cmake.org/files/v3.4/$:ArchiveName$`
+* Url: `https://cmake.org/files/v$:MajorVersion$/$:ArchiveName$`
 * ArchiveName: `cmake-$:Version$-win32-x86.zip`
 * ArchivePath: `cmake-$:Version$-win32-x86`
 * Path: `bin`
