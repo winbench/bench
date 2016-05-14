@@ -1,12 +1,12 @@
 @ECHO OFF
 SET ROOT=%~dp0
 
-SET BENCH_ZIPURL=https://github.com/mastersign/bench/archive/master.zip
+SET VERSION=0.10.4
+SET BENCH_ZIPURL=https://github.com/mastersign/bench/archive/v%VERSION%.zip
 SET BENCH_ZIPFILE=%ROOT%bench.zip
-SET BENCH_SUBFLDR=\bench-master
+SET BENCH_SUBFLDR=\bench-%VERSION%
 SET BENCH_DIR=%ROOT%
-SET BENCHMGR_TAG=v0.10.3
-SET BENCHMGR_ZIPURL=https://github.com/mastersign/bench-manager/releases/download/%BENCHMGR_TAG%/BenchManager.zip
+SET BENCHMGR_ZIPURL=https://github.com/mastersign/bench-manager/releases/download/v%VERSION%/BenchManager.zip
 SET BENCHMGR_ZIPFILE=%ROOT%BenchManager.zip
 SET BENCHMGR_SUBFLDR=
 SET BENCHMGR_DIR=%ROOT%auto\bin

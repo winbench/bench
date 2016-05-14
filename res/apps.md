@@ -349,12 +349,12 @@ To determine, if a Python package is already installed, the existence of its pac
 
 ## Optional
 
-## GitKraken
+### GitKraken
 
 * ID: `GitKraken`
 * Version: latest
 * Website: <https://www.gitkraken.com/>
-* URL: <https://release.gitkraken.com/win32/GitKrakenSetup.exe>
+* Url: <https://release.gitkraken.com/win32/GitKrakenSetup.exe>
 * ArchiveName: `GitKrakenSetup.exe`
 * ArchiveTyp: `custom`
 * ArchivePath: `lib\net45`
@@ -394,7 +394,7 @@ To determine, if a Python package is already installed, the existence of its pac
 ### GnuPG
 
 * ID: `GnuPG`
-* Version: 2.0.29
+* Version: 2.0.30
 * Url: `https://sourceforge.net/projects/portableapps/files/GPG Plugin Portable/$:ArchiveName$`
 * ArchiveName: `GPG_Plugin_Portable_$:Version$.paf.exe`
 * Dir: `gpg`
@@ -425,7 +425,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
-* Version: 7.47.1
+* Version: 7.48.0
 * Url: `https://bintray.com/artifact/download/vszakats/generic/$:ArchiveName$`
 * ArchiveName: `curl-$:Version$-win32-mingw.7z`
 * ArchivePath: `curl-$:Version$-win32-mingw`
@@ -435,7 +435,7 @@ To determine, if a Python package is already installed, the existence of its pac
 ### FileZilla
 
 * ID: `FileZilla`
-* Version: 3.15.0.2
+* Version: 3.17.0.1
 * Website: <https://filezilla-project.org/>
 * Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$:ArchiveName$`
 * ArchiveName: `FileZillaPortable_$:Version$.paf.exe`
@@ -469,7 +469,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.16.0.2
+* Version: 1.17.0.2
 * Url: `https://github.com/jgm/pandoc/releases/download/$:Version$/$:ArchiveName$`
 * ArchiveName: `pandoc-$:Version$-windows.msi`
 * ArchivePath: `SourceDir\Pandoc`
@@ -503,7 +503,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160213-git-588e2e3
+* Version: 20160512-git-cd244fa
 * Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$:ArchiveName$`
 * ArchiveName: `ffmpeg-$:Version$-win32-shared.7z`
 * ArchivePath: `ffmpeg-$:Version$-win32-shared`
@@ -537,7 +537,7 @@ To determine, if a Python package is already installed, the existence of its pac
 ### Inkscape
 
 * ID: `Inkscape`
-* Website: <https://inkscape.org/de/herunterladen/>
+* Website: <https://inkscape.org/en/download/>
 * Version: 0.91-1
 * Url: <https://inkscape.org/en/gallery/item/3932/download/>
 * ArchiveName: `Inkscape-$:Version$-win32.7z`
@@ -722,7 +722,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 
 * ID: `PHP5`
 * Website: <http://www.php.net>
-* Version: 5.6.19
+* Version: 5.6.20
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
@@ -733,7 +733,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `PHP7`
 * Website: <http://www.php.net>
-* Version: 7.0.4
+* Version: 7.0.5
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
@@ -888,9 +888,10 @@ To setup a C/C++ project with CMake and MinGW (`mingw32-make`), you have to acti
 Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefiles" <project folder>` to generate the `Makefile`. Run `cmake --build <project folder>` to compile the project.
 
 * ID: `CMake`
-* Version: 3.4.3
+* MajorVersion: 3.5
+* Version: $:MajorVersion$.2
 * Website: <https://cmake.org/>
-* Url: `https://cmake.org/files/v3.4/$:ArchiveName$`
+* Url: `https://cmake.org/files/v$:MajorVersion$/$:ArchiveName$`
 * ArchiveName: `cmake-$:Version$-win32-x86.zip`
 * ArchivePath: `cmake-$:Version$-win32-x86`
 * Path: `bin`
@@ -909,7 +910,7 @@ If you want to use the Clang compiler with Eclipse, you must manually
 install the LLVM-Plugin for Eclipse CDT.
 
 * ID: `Clang`
-* Version: 3.7.1
+* Version: 3.8.0
 * Website: <http://clang.llvm.org/>
 * Url: `http://llvm.org/releases/$:Version$/$:ArchiveName$`
 * ArchiveName: `LLVM-$:Version$-win32.exe`
@@ -960,7 +961,7 @@ install the LLVM-Plugin for Eclipse CDT.
 
 * ID: `SublimeText3`
 * Website: <http://www.sublimetext.com/3>
-* Version: Build 3103
+* Version: Build 3114
 * Url: `https://download.sublimetext.com/$:ArchiveName$`
 * ArchiveName: `Sublime Text $:Version$.zip`
 * Exe: `sublime_text.exe`
@@ -1060,7 +1061,7 @@ The initial password for _root_ is `bench`.
 
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
-* Version: 5.7.11
+* Version: 5.7.12
 * Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$:ArchiveName$`
 * ArchiveName: `mysql-$:Version$-win32.zip`
 * ArchivePath: `mysql-$:Version$-win32`
@@ -1089,7 +1090,7 @@ The initial password for _postgres_ is `bench`.
 
 * ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
-* Version: 9.5.0-1
+* Version: 9.5.3-1
 * Url: `http://get.enterprisedb.com/postgresql/$:ArchiveName$`
 * ArchiveName: `postgresql-$:Version$-windows-binaries.zip`
 * ArchivePath: `pgsql`

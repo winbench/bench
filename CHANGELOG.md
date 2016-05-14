@@ -25,6 +25,30 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.10.4] - 2016-05-14
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.3...v0.10.4)
+
+### Added
+- Content tree in Markdown viewer
+
+### Changed
+- Dashboard window behavior (maximizable, no parents)
+- Update: Sublime Text 3 from build 3103 to 3114
+- Update: GnuPG from 2.0.29 to 2.0.30
+- Update: cURL from 7.47.1 to 7.48.0
+- Update: FileZilla from 3.15.0.2 to 3.17.0.1
+- Update: Pandoc from 1.16.0.2 to 1.17.0.2
+- Update: FFmpeg from 20160213 to 20160512
+- Update: PHP 5 from 5.6.19 to 5.6.20
+- Update: PHP 7 from 7.0.4 to 7.0.5
+- Update: CMake from 3.4.3 to 3.5.2
+- Update: Clang from 3.7.1 to 3.8.0
+- Update: MySQL from 5.7.11 to 5.7.12
+- Update: PostgreSQL from 9.5.0 to 9.5.3
+
+### Fixed
+- GitKraken Resource Url
+
 ## [0.10.3] - 2016-05-13
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.2...v0.10.3)
 
