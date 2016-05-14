@@ -31,6 +31,7 @@ Add a link to the GitHub diff like
 - Update: cURL from 7.47.1 to 7.48.0
 - Update: FileZilla from 3.15.0.2 to 3.17.0.1
 - Update: Pandoc from 1.16.0.2 to 1.17.0.2
+- Update: FFmpeg from 20160213 to 20160512
 
 ### Fixed
 - GitKraken Resource Url

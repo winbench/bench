@@ -503,7 +503,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160213-git-588e2e3
+* Version: 20160512-git-cd244fa
 * Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$:ArchiveName$`
 * ArchiveName: `ffmpeg-$:Version$-win32-shared.7z`
 * ArchivePath: `ffmpeg-$:Version$-win32-shared`
