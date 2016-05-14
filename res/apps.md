@@ -1061,7 +1061,7 @@ The initial password for _root_ is `bench`.
 
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
-* Version: 5.7.11
+* Version: 5.7.12
 * Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$:ArchiveName$`
 * ArchiveName: `mysql-$:Version$-win32.zip`
 * ArchivePath: `mysql-$:Version$-win32`
