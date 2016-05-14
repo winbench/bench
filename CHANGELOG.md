@@ -25,7 +25,11 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Content tree in Markdown viewer
+
 ### Changed
+- Dashboard window behavior (maximizable, no parents)
 - Update: Sublime Text 3 from build 3103 to 3114
 - Update: GnuPG from 2.0.29 to 2.0.30
 - Update: cURL from 7.47.1 to 7.48.0
