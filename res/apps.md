@@ -394,7 +394,7 @@ To determine, if a Python package is already installed, the existence of its pac
 ### GnuPG
 
 * ID: `GnuPG`
-* Version: 2.0.29
+* Version: 2.0.30
 * Url: `https://sourceforge.net/projects/portableapps/files/GPG Plugin Portable/$:ArchiveName$`
 * ArchiveName: `GPG_Plugin_Portable_$:Version$.paf.exe`
 * Dir: `gpg`

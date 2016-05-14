@@ -27,6 +27,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: Sublime Text 3 from build 3103 to 3114
+- Update: GnuPG from 2.0.29 to 2.0.30
 
 ### Fixed
 - GitKraken Resource Url
