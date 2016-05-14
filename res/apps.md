@@ -425,7 +425,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
-* Version: 7.47.1
+* Version: 7.48.0
 * Url: `https://bintray.com/artifact/download/vszakats/generic/$:ArchiveName$`
 * ArchiveName: `curl-$:Version$-win32-mingw.7z`
 * ArchivePath: `curl-$:Version$-win32-mingw`
