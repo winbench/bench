@@ -733,7 +733,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 * ID: `PHP7`
 * Website: <http://www.php.net>
-* Version: 7.0.4
+* Version: 7.0.5
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`

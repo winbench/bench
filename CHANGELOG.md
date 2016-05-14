@@ -33,6 +33,7 @@ Add a link to the GitHub diff like
 - Update: Pandoc from 1.16.0.2 to 1.17.0.2
 - Update: FFmpeg from 20160213 to 20160512
 - Update: PHP 5 from 5.6.19 to 5.6.20
+- Update: PHP 7 from 7.0.4 to 7.0.5
 
 ### Fixed
 - GitKraken Resource Url
