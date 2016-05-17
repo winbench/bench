@@ -3,5 +3,5 @@
 * OverrideHome: `true`
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
-* ProjectArchiveFormat: `zip`
+* ~~ProjectArchiveFormat: `7z`~~
 * ProjectArchiveDir: `archive`
