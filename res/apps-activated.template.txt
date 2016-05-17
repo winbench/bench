@@ -17,12 +17,15 @@
 
 ## Single Apps
 
+# GitKraken
 # OpenSSL
 # Putty
-# Sift
+# GnuTLS
+# GnuPG
 # Wget
 # cURL
 # FileZilla
+# Sift
 # WinMerge
 # Pandoc
 # MikTeX
@@ -38,27 +41,30 @@
 # Grunt
 # Bower
 # Yeoman
-# JSHint
 # MdProc
+# JSHint
 # Python2
 # Python3
 # IPython2
 # IPython3
 # Ruby
+# Sass
 # PHP5
 # PHP7
 # JRE7
 # JRE8
 # JDK7
 # JDK8
+# Maven
 # Leiningen
 # MinGW
 # CMake
 # Clang
 # Go
+# NuGet
 # VSCode
-# SublimeText3
 # LightTable
+# SublimeText3
 # Emacs
 # Spacemacs
 # EclipseJava

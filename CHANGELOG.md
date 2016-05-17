@@ -25,6 +25,21 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.10.5] - 2016-05-17
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)
+
+### Added
+- Configuration properties to control the appearance of shell launchers
+  ([#39](https://github.com/mastersign/bench/issues/39))
+  + `QuickAccessCmd` defaults to `true`
+  + `QuickAccessPowerShell` defaults to `false`
+  + `QuickAccessBash` defaults to `false`
+- Added NuGet
+
+### Changed
+- Do not convert the Bench root into a Git working copy during setup
+  ([#44](https://github.com/mastersign/bench/issues/44))
+
 ## [0.10.4] - 2016-05-14
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.3...v0.10.4)
 

@@ -1,7 +1,6 @@
 ﻿# Default Configuration
 
 * VersionFile: `res\version.txt`
-* BenchRepository: `https://github.com/mastersign/bench.git`
 * UseProxy: `false`
 * ProxyBypass: `localhost`
 * HttpProxy: `http://127.0.0.1:80`
@@ -46,4 +45,7 @@
 * LauncherScriptDir: `$LibDir$\_launcher`
 * WizzardEditCustomConfigBeforeSetup: `false`
 * WizzardStartAutoSetup: `true`
+* QuickAccessCmd: `true`
+* QuickAccessPowerShell: `false`
+* QuickAccessBash: `false`
 * EditorApp: `VSCode`

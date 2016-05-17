@@ -3,6 +3,8 @@
 * OverrideHome: `true`
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
-* ~~DownloadDir: `$HomeDir$\Downloads\Bench`~~
-* ProjectArchiveFormat: `zip`
+* ~~ProjectArchiveFormat: `7z`~~
 * ProjectArchiveDir: `archive`
+* QuickAccessCmd: `true`
+* ~~QuickAccessPowerShell: `true`~~
+* ~~QuickAccessBash: `true`~~
