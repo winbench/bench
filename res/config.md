@@ -45,4 +45,7 @@
 * LauncherScriptDir: `$LibDir$\_launcher`
 * WizzardEditCustomConfigBeforeSetup: `false`
 * WizzardStartAutoSetup: `true`
+* QuickAccessCmd: `true`
+* QuickAccessPowerShell: `false`
+* QuickAccessBash: `false`
 * EditorApp: `VSCode`
