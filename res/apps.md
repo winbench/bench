@@ -934,6 +934,14 @@ install the LLVM-Plugin for Eclipse CDT.
 * Environment:
     + `GOROOT`: `$:Dir$`
 
+### NuGet
+
+* ID: `NuGet`
+* Version: latest
+* Website: <https://www.nuget.org>
+* Url: <https://dist.nuget.org/win-x86-commandline/latest/nuget.exe>
+* ResourceName: `nuget.exe`
+
 ### Visual Studio Code
 
 * ID: `VSCode`

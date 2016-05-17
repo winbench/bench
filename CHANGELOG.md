@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Added NuGet
+
 ## [0.10.4] - 2016-05-14
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.3...v0.10.4)
 

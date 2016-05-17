@@ -61,6 +61,7 @@
 # CMake
 # Clang
 # Go
+# NuGet
 # VSCode
 # LightTable
 # SublimeText3
