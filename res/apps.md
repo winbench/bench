@@ -248,8 +248,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `SvZ`
 * Website: <http://www.7-zip.de/download.html>
-* Version: 15.14
-* Release: 1514
+* Version: 16.00
+* Release: 1600
 * Url: `http://7-zip.org/a/$:ArchiveName$`
 * ArchiveName: `7z$:Release$.msi`
 * ArchivePath: `SourceDir\Files\7-Zip`

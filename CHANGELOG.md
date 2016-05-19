@@ -25,6 +25,8 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Changed
+- Update: 7.Zip from 15.18 to 16.00
 ### Fixed
 - Initializing/Upgrading the Bench environment
 
