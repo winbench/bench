@@ -2,11 +2,12 @@
 SET ROOT=%~dp0
 
 SET VERSION=0.10.5
-SET BENCH_ZIPURL=https://github.com/mastersign/bench/archive/v%VERSION%.zip
+SET TAG=v%VERSION%
+SET BENCH_ZIPURL=https://github.com/mastersign/bench/archive/%TAG%.zip
 SET BENCH_ZIPFILE=%ROOT%bench.zip
 SET BENCH_SUBFLDR=\bench-%VERSION%
 SET BENCH_DIR=%ROOT%
-SET BENCHMGR_ZIPURL=https://github.com/mastersign/bench-manager/releases/download/v%VERSION%/BenchManager.zip
+SET BENCHMGR_ZIPURL=https://github.com/mastersign/bench-manager/releases/download/%TAG%/BenchManager.zip
 SET BENCHMGR_ZIPFILE=%ROOT%BenchManager.zip
 SET BENCHMGR_SUBFLDR=
 SET BENCHMGR_DIR=%ROOT%auto\bin
@@ -20,7 +21,7 @@ CALL :EXTRACT "%BENCH_ZIPFILE%" "%BENCH_SUBFLDR%" "%BENCH_DIR%"
 IF NOT EXIST "%BENCHMGR_DIR%\" MKDIR "%BENCHMGR_DIR%"
 CALL :EXTRACT "%BENCHMGR_ZIPFILE%" "%BENCHMGR_SUBFLDR%" "%BENCHMGR_DIR%"
 
-ECHO.Deleting ZIP files...
+ECHO.Deleting ZIP files ...
 DEL "%BENCH_ZIPFILE%"
 DEL "%BENCHMGR_ZIPFILE%"
 
@@ -33,7 +34,7 @@ EXIT /B 0
 :DOWNLOAD
 REM 1: URL, 2: target file
 IF EXIST "%~2" GOTO:EOF
-ECHO.Downloading ZIP archive...
+ECHO.Downloading ZIP archive ...
 ECHO.  %~1
 PUSHD "%ROOT%"
 powershell -NoLogo -NoProfile -C "& { (New-Object System.Net.WebClient).DownloadFile('%~1', '%~2') }"

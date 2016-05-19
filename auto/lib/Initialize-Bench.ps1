@@ -16,7 +16,7 @@ $mgr = New-Object Mastersign.Bench.DefaultBenchManager ($cfg)
 $mgr.Verbose = $True
 $cfg = $null
 
-$success = $mgr.AutoSetup()
+$success = $mgr.SetupRequiredApps()
 
 if (!$success)
 {
