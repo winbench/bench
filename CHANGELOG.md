@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Fixed
+- Initializing/Upgrading the Bench environment
+
 ## [0.10.5] - 2016-05-17
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)
 
