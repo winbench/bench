@@ -6,11 +6,7 @@ SHIFT
 SET "args="
 :parse
 IF "%~1" NEQ "" (
-  ECHO.%~1 |>nul FINDSTR /R ^"\s^" && (
-    SET args=%args% '%~1'
-  ) || (
-    SET args=%args% %~1
-  )
+  SET args=%args% '%~1'
   SHIFT
   GOTO :parse
 )
