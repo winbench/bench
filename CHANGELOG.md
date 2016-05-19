@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Launcher for 7-Zip file manager
+
 ### Changed
 - Update: 7.Zip from 15.18 to 16.00
 - Execution order of a custom post-execution script and registry restoration

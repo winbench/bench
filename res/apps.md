@@ -255,6 +255,8 @@ To determine, if a Python package is already installed, the existence of its pac
 * ArchivePath: `SourceDir\Files\7-Zip`
 * Dir: `7z`
 * Exe: `7z.exe`
+* Launcher: 7-Zip
+* LauncherExecutable: `7zFM.exe`
 
 ### Inno Setup Unpacker
 
