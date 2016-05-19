@@ -27,6 +27,9 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: 7.Zip from 15.18 to 16.00
+- Execution order of a custom post-execution script and registry restoration
+  for adorned executables
+
 ### Fixed
 - Initializing/Upgrading the Bench environment
 

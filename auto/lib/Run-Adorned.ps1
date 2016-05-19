@@ -51,12 +51,12 @@ try {
 # Post-Execution Phase
 #
 
-Restore-RegistryKeys $name
-
 $customPostFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).post-run.ps1"
 if (Test-Path $customPostFile) {
     Write-Host "Executing custom post-run script ..."
     . $customPostFile
 }
+
+Restore-RegistryKeys $name
 
 $Host.UI.RawUI.WindowTitle = $oldTitle
