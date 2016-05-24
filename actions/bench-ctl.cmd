@@ -10,9 +10,12 @@ SET SURE=0
 
 CD /D "%ROOT_DIR%"
 
+REM If no argument is given, start interactive mode
 IF "_%1_" == "__" GOTO:interactive
+REM If the first argument is /?, show help
 IF "_%1_" == "_/?_" GOTO:help
 
+REM Check if the first given argument is a valid action, else show help
 SET i=0
 FOR %%a IN (initialize, download, setup, reinstall, renew, upgrade, update-env) DO (
   SET /A i+=1
