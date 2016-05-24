@@ -27,6 +27,8 @@ Add a link to the GitHub diff like
 
 ### Added
 - Launcher for 7-Zip file manager
+- Added Zeal Docs
+  ([#46](https://github.com/mastersign/bench/issues/46))
 
 ### Changed
 - Update: 7.Zip from 15.18 to 16.00

@@ -944,6 +944,17 @@ install the LLVM-Plugin for Eclipse CDT.
 * Url: <https://dist.nuget.org/win-x86-commandline/latest/nuget.exe>
 * ResourceName: `nuget.exe`
 
+### Zeal
+
+* ID: `Zeal`
+* Version: 0.2.1
+* Website: <https://zealdocs.org>
+* Url: `https://bintray.com/artifact/download/zealdocs/windows/$:ArchiveName$`
+* ArchiveName: `zeal-$:Version$-windows-x86.msi`
+* ArchivePath: `SourceDir\PFiles\Zeal`
+* RegistryKeys: `Software\Zeal`
+* Launcher: Zeal Docs
+
 ### Visual Studio Code
 
 * ID: `VSCode`
