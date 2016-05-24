@@ -1,7 +1,7 @@
 @ECHO OFF
 SET ROOT=%~dp0
 
-SET VERSION=0.10.5
+SET VERSION=0.10.6
 SET TAG=v%VERSION%
 SET BENCH_ZIPURL=https://github.com/mastersign/bench/archive/%TAG%.zip
 SET BENCH_ZIPFILE=%ROOT%bench.zip
