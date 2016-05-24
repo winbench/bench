@@ -25,6 +25,22 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.10.6] - 2016-05-24
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)
+
+### Added
+- Launcher for 7-Zip file manager
+- Added Zeal Docs
+  ([#46](https://github.com/mastersign/bench/issues/46))
+
+### Changed
+- Update: 7.Zip from 15.18 to 16.00
+- Execution order of a custom post-execution script and registry restoration
+  for adorned executables
+
+### Fixed
+- Initializing/Upgrading the Bench environment
+
 ## [0.10.5] - 2016-05-17
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)
 

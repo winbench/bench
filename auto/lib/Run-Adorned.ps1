@@ -1,7 +1,6 @@
 param (
     $name,
-    $executable,
-    [switch]$debug
+    $executable
 )
 $oldTitle = $Host.UI.RawUI.WindowTitle
 $Host.UI.RawUI.WindowTitle = "Bench - $([IO.Path]::GetFileNameWithoutExtension($executable))"
@@ -15,7 +14,6 @@ trap {
     Pause
     exit 1
 }
-Set-Debugging $debug
 
 #
 # Pre-Execution Phase
@@ -25,7 +23,7 @@ Suspend-RegistryKeys $name
 
 $customPreFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).pre-run.ps1"
 if (Test-Path $customPreFile) {
-    Debug "Executing custom pre-run script ..."
+    Write-Host "Executing custom pre-run script ..."
     . $customPreFile
 }
 
@@ -53,12 +51,12 @@ try {
 # Post-Execution Phase
 #
 
-Restore-RegistryKeys $name
-
 $customPostFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).post-run.ps1"
 if (Test-Path $customPostFile) {
-    Debug "Executing custom post-run script ..."
+    Write-Host "Executing custom post-run script ..."
     . $customPostFile
 }
+
+Restore-RegistryKeys $name
 
 $Host.UI.RawUI.WindowTitle = $oldTitle

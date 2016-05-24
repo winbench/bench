@@ -248,13 +248,15 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `SvZ`
 * Website: <http://www.7-zip.de/download.html>
-* Version: 15.14
-* Release: 1514
+* Version: 16.00
+* Release: 1600
 * Url: `http://7-zip.org/a/$:ArchiveName$`
 * ArchiveName: `7z$:Release$.msi`
 * ArchivePath: `SourceDir\Files\7-Zip`
 * Dir: `7z`
 * Exe: `7z.exe`
+* Launcher: 7-Zip
+* LauncherExecutable: `7zFM.exe`
 
 ### Inno Setup Unpacker
 
@@ -941,6 +943,17 @@ install the LLVM-Plugin for Eclipse CDT.
 * Website: <https://www.nuget.org>
 * Url: <https://dist.nuget.org/win-x86-commandline/latest/nuget.exe>
 * ResourceName: `nuget.exe`
+
+### Zeal
+
+* ID: `Zeal`
+* Version: 0.2.1
+* Website: <https://zealdocs.org>
+* Url: `https://bintray.com/artifact/download/zealdocs/windows/$:ArchiveName$`
+* ArchiveName: `zeal-$:Version$-windows-x86.msi`
+* ArchivePath: `SourceDir\PFiles\Zeal`
+* RegistryKeys: `Software\Zeal`
+* Launcher: Zeal Docs
 
 ### Visual Studio Code
 
