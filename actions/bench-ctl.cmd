@@ -6,6 +6,7 @@ SET AUTO_DIR=%ROOT_DIR%\auto
 SET /P BENCH_VERSION=<"%ROOT_DIR%\res\version.txt"
 SET RUN_SHELL=0
 SET VERBOSE=0
+SET SURE=0
 
 CD /D "%ROOT_DIR%"
 
@@ -101,6 +102,15 @@ GOTO:EOF
   )
 GOTO:EOF
 
+:reasure
+  CHOICE /C NY /M "Are you shure?"
+  IF ERRORLEVEL 2 (
+    SET SURE=1
+  ) ELSE (
+    SET SURE=0
+  )
+GOTO:EOF
+
 :action_initialize
   IF %SILENT% == 0 (
     ECHO.Initializing Bench environment...
@@ -144,8 +154,9 @@ GOTO:EOF
 :action_reinstall
   IF %SILENT% == 0 (
     ECHO.This will first uninstall and then install all active apps.
-    ECHO.Are you shure?
-    PAUSE
+    CALL :reasure
+    IF !SURE! == 0 GOTO:EOF
+    ECHO.
     ECHO.Download and reinstall selected apps...
     ECHO.
   )
@@ -159,8 +170,9 @@ GOTO:EOF
 :action_renew
   IF %SILENT% == 0 (
     ECHO.This will first delete and redownload all app resources and then uninstall and reinstall all active apps.
-    ECHO.Are you shure?
-    PAUSE
+    CALL :reasure
+    IF !SURE! == 0 GOTO:EOF
+    ECHO.
     ECHO.Redownload and reinstall selected apps...
     ECHO.
   )
@@ -173,12 +185,11 @@ GOTO:EOF
 
 :action_upgrade
   IF %SILENT% == 0 (
-    ECHO.EXPERIMENTAL!
-    ECHO.This will first upgrade the Bench source code and the predefined app index via Git reset+pull, then delete and redownload all app resources, and finally uninstall and reinstall all active apps. 
-    ECHO.Are you shure?
-    PAUSE
+    ECHO.This will first upgrade Bench including the predefined app index, then delete and redownload app resources, and finally uninstall and reinstall all active apps. 
+    CALL :reasure
+    IF !SURE! == 0 GOTO:EOF
     ECHO.
-    ECHO.Update Bench via Git reset+pull, redownload, and reinstall selected apps...
+    ECHO.Update Bench, redownload, and reinstall selected apps...
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
@@ -199,7 +210,7 @@ GOTO:EOF
 
 :runps
   IF %VERBOSE% == 1 (
-    CALL runps %1 -debug "%~2"
+    CALL runps %1 -WithInfo "%~2"
   ) ELSE (
     CALL runps %1 "%~2"
   )
