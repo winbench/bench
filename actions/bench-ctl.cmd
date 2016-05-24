@@ -77,7 +77,7 @@ GOTO:EOF
   ECHO.  R: Download and reinstall selected apps (reinstall)
   ECHO.  N: Redownload and reinstall selected apps (renew)
   ECHO.  I: Initialize and setup Bench (initialize)
-  ECHO.  U: Update Bench via Git reset+pull and renew (upgrade)
+  ECHO.  U: Update Bench and renew (upgrade)
   IF %VERBOSE% == 0 (
     ECHO.  V: Activate verbose messages
   ) ELSE (
@@ -196,11 +196,12 @@ GOTO:EOF
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
-  CALL :runps Update-BenchRepo
-  CALL :runsetup renew
+  IF %SILENT% == 0 (
+    CALL runps Upgrade-Bench
+  ) ELSE (
+    CALL runps Upgrade-Bench -Silent
+  )
   CD /D "%ROOT_DIR%"
-  CALL "%AUTO_DIR%\env.cmd"
-  SET RUN_SHELL=1
 GOTO:EOF
 
 :runsetup
