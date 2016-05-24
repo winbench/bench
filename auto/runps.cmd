@@ -1,12 +1,19 @@
 @ECHO OFF
-SETLOCAL
+Setlocal EnableDelayedExpansion
 SET SCRIPT=%~dp0\lib\%1.ps1
 
 SHIFT
 SET "args="
 :parse
 IF "%~1" NEQ "" (
-  SET args=%args% '%~1'
+  REM check for spaces
+  SET arg=%~1
+  IF "!arg!"=="!arg: =!" (
+    SET args=%args% !arg!
+  ) ELSE (
+    REM quote if necessary
+    SET args=%args% '!arg!'
+  )
   SHIFT
   GOTO :parse
 )
