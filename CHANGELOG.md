@@ -42,7 +42,7 @@ Add a link to the GitHub diff like
   ([#49](https://github.com/mastersign/bench/issues/49))
 
 ## [0.10.6] - 2016-05-24
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.5...v0.10.6)
 
 ### Added
 - Launcher for 7-Zip file manager
