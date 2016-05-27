@@ -500,8 +500,9 @@ No proxy support yet (Version 1.3.0).
 * ArchivePath: `texmfs`
 * Path: `install\miktex\bin`
 * Exe: `install\miktex\bin\latex.exe`
-* Launcher: `MikTeX`
+* Launcher: `MikTeX Tray Icon`
 * LauncherExecutable: `install\miktex\bin\miktex-taskbar-icon.exe`
+* LauncherIcon: `install\miktex\bin\mo.exe`
 
 ### Graphics Magick
 
