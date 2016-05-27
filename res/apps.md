@@ -280,19 +280,6 @@ To determine, if a Python package is already installed, the existence of its pac
 * Launcher: `ConEmu`
 * LauncherArguments: `-LoadCfgFile`, `$CustomConfigDir$\ConEmu.xml`,  `%*`
 
-### Git
-
-* ID: `Git`
-* Website: <https://git-scm.com/download/win>
-* Version: 2.8.2
-* Release: 2.8.2.windows.1
-* Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
-* ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
-* Path: `cmd`
-* Exe: `cmd\git.exe`
-* Environment:
-    + `GIT_SSH`: `$:Dir$\usr\bin\ssh.exe`
-
 ## Groups
 
 ### Group: Markdown
@@ -350,6 +337,19 @@ To determine, if a Python package is already installed, the existence of its pac
 * Dependencies: `MinGW`, `EclipseCpp`
 
 ## Optional
+
+### Git
+
+* ID: `Git`
+* Website: <https://git-scm.com/download/win>
+* Version: 2.8.2
+* Release: 2.8.2.windows.1
+* Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
+* ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
+* Path: `cmd`
+* Exe: `cmd\git.exe`
+* Environment:
+    + `GIT_SSH`: `$:Dir$\usr\bin\ssh.exe`
 
 ### GitKraken
 
