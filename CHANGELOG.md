@@ -28,6 +28,7 @@ Add a link to the GitHub diff like
 ### Changed
 - Made Git an optional app
 - Update: Git from 2.8.2 to 2.8.3
+- Update: MikTeX from 2.9.5857 to 2.9.5987
 
 ## [0.10.6] - 2016-05-24
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)

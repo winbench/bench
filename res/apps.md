@@ -483,13 +483,14 @@ No proxy support yet (Version 1.3.0).
 
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
-* Version: 2.9.5857
+* Version: 2.9.5987
 * Url: `http://mirrors.ctan.org/systems/win32/miktex/setup/$:ArchiveName$`
 * ArchiveName: `miktex-portable-$:Version$.exe`
-* Path: `miktex\bin`
-* Exe: `miktex\bin\latex.exe`
-* Launcher: `TeXworks`
-* LauncherExecutable: `miktex\bin\texworks.exe`
+* ArchivePath: `texmfs`
+* Path: `install\miktex\bin`
+* Exe: `install\miktex\bin\latex.exe`
+* Launcher: `MikTeX`
+* LauncherExecutable: `install\miktex\bin\miktex-taskbar-icon.exe`
 
 ### Graphics Magick
 
