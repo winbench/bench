@@ -27,11 +27,14 @@ Add a link to the GitHub diff like
 
 ### Added
 - Added AntRenamer
+  ([#47](https://github.com/mastersign/bench/issues/47))
 
 ### Changed
 - Made Git an optional app
+  ([#54](https://github.com/mastersign/bench/issues/54))
 - Update: Git from 2.8.2 to 2.8.3
 - Update: MikTeX from 2.9.5857 to 2.9.5987
+  ([#52](https://github.com/mastersign/bench/issues/52))
 - Update: NodeJS from 4.4.4 to 4.4.5
 
 ### Fixed
