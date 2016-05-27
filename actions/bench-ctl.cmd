@@ -188,11 +188,11 @@ GOTO:EOF
 
 :action_upgrade
   IF %SILENT% == 0 (
-    ECHO.This will first upgrade Bench including the predefined app index, then delete and redownload app resources, and finally uninstall and reinstall all active apps. 
+    ECHO.This will first upgrade Bench including the predefined app index, then download missing app resources, and finally uninstall and reinstall all active apps. 
     CALL :reasure
     IF !SURE! == 0 GOTO:EOF
     ECHO.
-    ECHO.Update Bench, redownload, and reinstall selected apps...
+    ECHO.Update Bench, download, and reinstall selected apps...
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"

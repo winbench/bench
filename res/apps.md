@@ -280,19 +280,6 @@ To determine, if a Python package is already installed, the existence of its pac
 * Launcher: `ConEmu`
 * LauncherArguments: `-LoadCfgFile`, `$CustomConfigDir$\ConEmu.xml`,  `%*`
 
-### Git
-
-* ID: `Git`
-* Website: <https://git-scm.com/download/win>
-* Version: 2.8.2
-* Release: 2.8.2.windows.1
-* Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
-* ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
-* Path: `cmd`
-* Exe: `cmd\git.exe`
-* Environment:
-    + `GIT_SSH`: `$:Dir$\usr\bin\ssh.exe`
-
 ## Groups
 
 ### Group: Markdown
@@ -351,7 +338,22 @@ To determine, if a Python package is already installed, the existence of its pac
 
 ## Optional
 
+### Git
+
+* ID: `Git`
+* Website: <https://git-scm.com/download/win>
+* Version: 2.8.3
+* Release: 2.8.3.windows.1
+* Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
+* ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
+* Path: `cmd`
+* Exe: `cmd\git.exe`
+* Environment:
+    + `GIT_SSH`: `$:Dir$\usr\bin\ssh.exe`
+
 ### GitKraken
+
+No proxy support yet (Version 1.3.0).
 
 * ID: `GitKraken`
 * Version: latest
@@ -467,6 +469,17 @@ To determine, if a Python package is already installed, the existence of its pac
 * Register: `false`
 * Launcher: `WinMerge`
 
+### Ant Renamer
+
+* ID: `AntRenamer`
+* Version: latest
+* Url: <http://update.antp.be/renamer/antrenamer2.zip>
+* Website: <http://antp.be/software/renamer>
+* ArchiveName: `antrenamer2.zip`
+* Dir: `renamer`
+* Exe: `Renamer.exe`
+* Launcher: Renamer
+
 ### Pandoc
 
 * ID: `Pandoc`
@@ -481,13 +494,15 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
-* Version: 2.9.5857
+* Version: 2.9.5987
 * Url: `http://mirrors.ctan.org/systems/win32/miktex/setup/$:ArchiveName$`
 * ArchiveName: `miktex-portable-$:Version$.exe`
-* Path: `miktex\bin`
-* Exe: `miktex\bin\latex.exe`
-* Launcher: `TeXworks`
-* LauncherExecutable: `miktex\bin\texworks.exe`
+* ArchivePath: `texmfs`
+* Path: `install\miktex\bin`
+* Exe: `install\miktex\bin\latex.exe`
+* Launcher: `MikTeX Tray Icon`
+* LauncherExecutable: `install\miktex\bin\miktex-taskbar-icon.exe`
+* LauncherIcon: `install\miktex\bin\mo.exe`
 
 ### Graphics Magick
 
@@ -563,7 +578,7 @@ To determine, if a Python package is already installed, the existence of its pac
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: 4.4.4
+* Version: 4.4.5
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
