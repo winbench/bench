@@ -353,6 +353,8 @@ To determine, if a Python package is already installed, the existence of its pac
 
 ### GitKraken
 
+No proxy support yet (Version 1.3.0).
+
 * ID: `GitKraken`
 * Version: latest
 * Website: <https://www.gitkraken.com/>
