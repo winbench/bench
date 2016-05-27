@@ -34,6 +34,10 @@ Add a link to the GitHub diff like
 - Update: MikTeX from 2.9.5857 to 2.9.5987
 - Update: NodeJS from 4.4.4 to 4.4.5
 
+### Fixed
+- Description of upgrade action in `bench-ctl.cmd`
+  ([#49](https://github.com/mastersign/bench/issues/49))
+
 ## [0.10.6] - 2016-05-24
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)
 
