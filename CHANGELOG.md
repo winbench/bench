@@ -26,6 +26,10 @@ Add a link to the GitHub diff like
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ### Added
+- Setup action for downloading all app resources
+  ([#50](https://github.com/mastersign/bench/issues/50))
+- Setup action for deleting obsolete app resources
+  ([#51](https://github.com/mastersign/bench/issues/51))
 - Added AntRenamer
   ([#47](https://github.com/mastersign/bench/issues/47))
 
@@ -40,6 +44,8 @@ Add a link to the GitHub diff like
 ### Fixed
 - Description of upgrade action in `bench-ctl.cmd`
   ([#49](https://github.com/mastersign/bench/issues/49))
+- App IDs without quotes
+  ([#53](https://github.com/mastersign/bench/issues/53))
 
 ## [0.10.6] - 2016-05-24
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.5...v0.10.6)
