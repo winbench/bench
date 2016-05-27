@@ -577,7 +577,7 @@ No proxy support yet (Version 1.3.0).
 
 * ID: `Node`
 * Website: <https://nodejs.org>
-* Version: 4.4.4
+* Version: 4.4.5
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
