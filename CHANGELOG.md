@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Added AntRenamer
+
 ### Changed
 - Made Git an optional app
 - Update: Git from 2.8.2 to 2.8.3

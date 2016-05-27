@@ -469,6 +469,17 @@ No proxy support yet (Version 1.3.0).
 * Register: `false`
 * Launcher: `WinMerge`
 
+### Ant Renamer
+
+* ID: `AntRenamer`
+* Version: latest
+* Url: <http://update.antp.be/renamer/antrenamer2.zip>
+* Website: <http://antp.be/software/renamer>
+* ArchiveName: `antrenamer2.zip`
+* Dir: `renamer`
+* Exe: `Renamer.exe`
+* Launcher: Renamer
+
 ### Pandoc
 
 * ID: `Pandoc`
