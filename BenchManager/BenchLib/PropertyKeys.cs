@@ -59,6 +59,8 @@ namespace Mastersign.Bench
         public const string OverrideHome = "OverrideHome";
         public const string OverrideTemp = "OverrideTemp";
         public const string IgnoreSystemPath = "IgnoreSystemPath";
+        public const string CustomPath = "EnvironmentPath";
+        public const string CustomEnvironment = "Environment";
 
         public const string ProjectRootDir = "ProjectRootDir";
         public const string ProjectArchiveDir = "ProjectArchiveDir";

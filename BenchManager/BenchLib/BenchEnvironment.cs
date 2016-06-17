@@ -49,8 +49,20 @@ namespace Mastersign.Bench
             {
                 set(k, env[k]);
             }
+            var customEnv = Config.GetValue(PropertyKeys.CustomEnvironment) as IDictionary<string, string>;
+            if (customEnv != null)
+            {
+                foreach(var k in customEnv.Keys)
+                {
+                    if ("PATH".Equals(k, StringComparison.InvariantCultureIgnoreCase)) continue;
+                    set(k, customEnv[k]);
+                }
+            }
 
-            var paths = new List<string>(Config.Apps.EnvironmentPath);
+            var paths = new List<string>();
+            paths.Add(Config.GetStringValue(PropertyKeys.BenchAuto));
+            paths.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
+            paths.AddRange(Config.Apps.EnvironmentPath);
             if (Config.GetBooleanValue(PropertyKeys.IgnoreSystemPath))
             {
                 paths.Add(Environment.GetEnvironmentVariable("SystemRoot"));
@@ -126,7 +138,10 @@ namespace Mastersign.Bench
                         TryMakeRelative(Config.GetStringValue(PropertyKeys.TempDir)));
                     w.WriteLine("SET TMP=%TEMP%");
                 }
-                w.WriteLine("SET BENCH_PATH={0}", PathList(Config.Apps.EnvironmentPath));
+                var benchPath = new List<string>();
+                benchPath.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
+                benchPath.AddRange(Config.Apps.EnvironmentPath);
+                w.WriteLine("SET BENCH_PATH={0}", PathList(benchPath.ToArray()));
                 if (Config.GetBooleanValue(PropertyKeys.IgnoreSystemPath))
                 {
                     w.WriteLine("SET PATH={0}", PathList(
@@ -148,6 +163,15 @@ namespace Mastersign.Bench
                 foreach (var k in env.Keys)
                 {
                     w.WriteLine("SET {0}={1}", k, TryMakeRelative(env[k]));
+                }
+                var customEnv = Config.GetValue(PropertyKeys.CustomEnvironment) as IDictionary<string, string>;
+                if (customEnv != null)
+                {
+                    foreach (var k in customEnv.Keys)
+                    {
+                        if ("PATH".Equals(k, StringComparison.InvariantCultureIgnoreCase)) continue;
+                        w.WriteLine("SET {0}={1}", k, TryMakeRelative(customEnv[k]));
+                    }
                 }
 
                 w.WriteLine("GOTO:EOF");

@@ -22,16 +22,29 @@ namespace Mastersign.Bench
 
         public object ResolveGroupValue(string group, string name, object value)
         {
-            switch (name)
+            if (string.IsNullOrEmpty(group))
             {
-                case PropertyKeys.AppDownloadHeaders:
-                    return ParseKeyValuePairs(value);
-                case PropertyKeys.AppDownloadCookies:
-                    return ParseKeyValuePairs(value);
-                case PropertyKeys.AppEnvironment:
-                    return ParseKeyValuePairs(value);
-                default:
-                    return value;
+                switch (name)
+                {
+                    case PropertyKeys.CustomEnvironment:
+                        return ParseKeyValuePairs(value);
+                    default:
+                        return value;
+                }
+            }
+            else
+            {
+                switch (name)
+                {
+                    case PropertyKeys.AppDownloadHeaders:
+                        return ParseKeyValuePairs(value);
+                    case PropertyKeys.AppDownloadCookies:
+                        return ParseKeyValuePairs(value);
+                    case PropertyKeys.AppEnvironment:
+                        return ParseKeyValuePairs(value);
+                    default:
+                        return value;
+                }
             }
         }
 

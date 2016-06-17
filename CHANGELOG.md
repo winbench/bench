@@ -25,6 +25,14 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Custom config dictionary property `Environment` to add environment variables
+  in `config.md`
+  ([#56](https://github.com/mastersign/bench/issues/56))
+- Custom config list property `EnvironmentPath` to add paths
+  to the `PATH` environment variable in `config.md`
+  ([#56](https://github.com/mastersign/bench/issues/56))
+
 ### Changed
 - Moved `auto\env.cmd` to the Bench root folder
   ([#59](https://github.com/mastersign/bench/issues/59))
