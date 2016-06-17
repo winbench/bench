@@ -124,7 +124,6 @@ if (!$NoRelease)
         echo "  $artifact"
         Copy-Artifact "$rootDir\$artifact" $stageDir
     }
-    if (Test-Path "$stageDir\auto\env.cmd") { del "$stageDir\auto\env.cmd" }
 
     # Create release archive
     cd "$rootDir"

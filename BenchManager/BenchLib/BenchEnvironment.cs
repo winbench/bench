@@ -81,7 +81,7 @@ namespace Mastersign.Bench
 
         public void WriteEnvironmentFile()
         {
-            var envFilePath = Path.Combine(Config.GetStringValue(PropertyKeys.BenchAuto), "env.cmd");
+            var envFilePath = Path.Combine(Config.BenchRootDir, "env.cmd");
             using (var w = new StreamWriter(envFilePath, false, Encoding.Default))
             {
                 w.WriteLine("@ECHO OFF");
@@ -101,8 +101,8 @@ namespace Mastersign.Bench
                     var userEmail = Config.GetStringValue(PropertyKeys.UserEmail);
                     if (!string.IsNullOrEmpty(userEmail)) w.WriteLine("SET USEREMAIL={0}", userEmail);
                 }
-                w.WriteLine("SET BENCH_AUTO=%~dp0");
-                w.WriteLine("CALL :SET_BENCH_HOME \"%BENCH_AUTO%..\"");
+                w.WriteLine("SET BENCH_AUTO=%~dp0auto");
+                w.WriteLine("CALL :SET_BENCH_HOME \"%BENCH_AUTO%\\..\"");
                 w.WriteLine("SET /P BENCH_VERSION=<\"%BENCH_HOME%\\res\\version.txt\"");
                 w.WriteLine("CALL :SET_BENCH_DRIVE \"%BENCH_AUTO%\"");
                 w.WriteLine("SET BENCH_APPS={0}",
@@ -139,8 +139,8 @@ namespace Mastersign.Bench
                 else
                 {
                     w.WriteLine("SET PATH={0}", PathList(
-                        "%BENCH_AUTO%", 
-                        "%BENCH_PATH%", 
+                        "%BENCH_AUTO%",
+                        "%BENCH_PATH%",
                         "%PATH%"));
                 }
 

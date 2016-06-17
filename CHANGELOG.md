@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Changed
+- Moved `auto\env.cmd` to the Bench root folder
+  ([#59](https://github.com/mastersign/bench/issues/59))
+
 ### Fixed
 - Visible console window when starting adorned executables from main window
   ([#60](https://github.com/mastersign/bench/issues/60))

@@ -942,19 +942,19 @@ namespace Mastersign.Bench
             var args = CommandLine.FormatArgumentList(app.LauncherArguments);
             var script = app.GetLauncherScriptFile();
             var autoDir = config.GetStringValue(PropertyKeys.BenchAuto);
+            var rootDir = config.BenchRootDir;
 
             var code = new StringBuilder();
             code.AppendLine("@ECHO OFF");
-            code.AppendLine(string.Format("ECHO.Launching {0} in Bench Context ...", label));
-            code.AppendLine(string.Format("CALL \"{0}\\env.cmd\"", autoDir));
+            code.AppendLine($"ECHO.Launching {label} in Bench Context ...");
+            code.AppendLine($"CALL \"{rootDir}\\env.cmd\"");
             if (app.IsExecutableAdorned(executable))
             {
-                code.AppendLine(string.Format("\"{0}\\runps.cmd\" Run-Adorned {1} \"{2}\" {3}",
-                    autoDir, app.ID, executable, args));
+                code.AppendLine($"\"{autoDir}\\runps.cmd\" Run-Adorned {app.ID} \"{executable}\" {args}");
             }
             else
             {
-                code.AppendLine(string.Format("START \"{0}\" \"{1}\" {2}", label, executable, args));
+                code.AppendLine($"START \"{label}\" \"{executable}\" {args}");
             }
             File.WriteAllText(script, code.ToString());
 
