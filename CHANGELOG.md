@@ -44,6 +44,8 @@ Add a link to the GitHub diff like
 ### Fixed
 - Visible console window when starting adorned executables from main window
   ([#60](https://github.com/mastersign/bench/issues/60))
+- Prevent setup dialog from getting minimized while it is busy
+  ([#61](https://github.com/mastersign/bench/issues/61))
 
 ## [0.10.8] - 2016-05-27
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.7...v0.10.8)

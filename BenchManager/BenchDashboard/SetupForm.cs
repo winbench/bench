@@ -170,7 +170,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 case ActionState.BusyWithoutErrors:
                     picState.Image = Resources.progress_36_animation;
-                    toolTip.SetToolTip(picState, null);
+                    NotifyBusyStateChanged(true);
                     break;
                 case ActionState.BusyCanceled:
                     picState.Image = Resources.stop_36_animation;
@@ -180,16 +180,32 @@ namespace Mastersign.Bench.Dashboard
                     break;
                 case ActionState.FinishedWithoutErrors:
                     picState.Image = Resources.ok_48;
+                    NotifyBusyStateChanged(false);
                     break;
                 case ActionState.FinishedWithErrors:
                     picState.Image = Resources.warning_48;
+                    NotifyBusyStateChanged(false);
                     break;
                 case ActionState.Canceled:
                     picState.Image = Resources.cancelled_48;
+                    NotifyBusyStateChanged(false);
                     break;
                 default:
                     picState.Image = null;
                     break;
+            }
+        }
+
+        private void NotifyBusyStateChanged(bool busy)
+        {
+            if (busy)
+            {
+                toolTip.SetToolTip(picState, null);
+                MinimizeBox = false;
+            }
+            else
+            {
+                MinimizeBox = true;
             }
         }
 
