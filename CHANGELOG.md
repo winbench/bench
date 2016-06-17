@@ -34,6 +34,8 @@ Add a link to the GitHub diff like
   ([#56](https://github.com/mastersign/bench/issues/56))
 - Entry for opening the apps website in the context menu of the setup dialogs app list
   ([#62](https://github.com/mastersign/bench/issues/62))
+- App property label
+  ([#63](https://github.com/mastersign/bench/issues/63))
 
 ### Changed
 - Moved `auto\env.cmd` to the Bench root folder

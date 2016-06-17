@@ -82,6 +82,7 @@ namespace Mastersign.Bench
         public const string AppIsRequired = "IsRequired";
         public const string AppIsDependency = "IsDependency";
 
+        public const string AppLabel = "Label";
         public const string AppTyp = "Typ";
         public const string AppVersion = "Version";
         public const string AppWebsite = "Website";

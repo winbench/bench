@@ -23,6 +23,8 @@ namespace Mastersign.Bench.Dashboard
 
         public string ID { get { return app.ID; } }
 
+        public string Label { get { return app.Label; } }
+
         public string Version { get { return app.Version; } }
 
         public string Launcher { get { return app.Launcher; } }

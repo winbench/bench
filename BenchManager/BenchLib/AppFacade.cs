@@ -66,6 +66,8 @@ namespace Mastersign.Bench
 
         public string ID { get { return AppName; } }
 
+        public string Label { get { return StringValue(PropertyKeys.AppLabel); } }
+
         public string Category { get { return AppIndex.GetGroupCategory(AppName); } }
 
         public string Typ { get { return StringValue(PropertyKeys.AppTyp); } }

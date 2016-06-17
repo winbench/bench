@@ -45,13 +45,14 @@ namespace Mastersign.Bench.Dashboard
         {
             InitializeComponent();
             gridResolved.DoubleBuffered(true);
-            lblAppId.Text = app.ID;
+            lblAppId.Text = app.Label;
             LoadProperties(config, app);
         }
 
         private void LoadProperties(BenchConfiguration config, AppFacade app)
         {
             gridResolved.Rows.Clear();
+            AddRow(gridResolved, "ID", app.ID);
             AddRow(gridResolved, PropertyKeys.AppTyp, app.Typ);
             AddRow(gridResolved, PropertyKeys.AppWebsite, app.Website);
             AddRow(gridResolved, PropertyKeys.AppVersion, app.Version);
@@ -85,6 +86,7 @@ namespace Mastersign.Bench.Dashboard
             }
 
             gridRaw.Rows.Clear();
+            AddRow(gridRaw, "ID", app.ID);
             foreach(var key in config.PropertyNames(app.ID))
             {
                 AddRow(gridRaw, key, config.GetRawGroupValue(app.ID, key));

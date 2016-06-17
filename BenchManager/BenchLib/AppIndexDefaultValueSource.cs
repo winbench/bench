@@ -23,6 +23,8 @@ namespace Mastersign.Bench
             string appTyp;
             switch (key)
             {
+                case PropertyKeys.AppLabel:
+                    return appName;
                 case PropertyKeys.AppTyp:
                     return AppTyps.Default;
                 case PropertyKeys.AppArchiveTyp:
@@ -92,6 +94,7 @@ namespace Mastersign.Bench
         public bool CanGetGroupValue(string group, string name)
         {
             return name == PropertyKeys.AppTyp
+                || name == PropertyKeys.AppLabel
                 || name == PropertyKeys.AppArchiveTyp
                 || name == PropertyKeys.AppPackageName
                 || name == PropertyKeys.AppDir

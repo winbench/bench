@@ -65,6 +65,9 @@ to refer to the current app like `$:Dir`.
 
 * **ID**:
   The ID of the app.
+* **Label**:
+  A user friendly name for the app. 
+  (optional, default is the apps ID)
 * **Typ**:
   The application typ
   (optional, default is `default`).
@@ -236,7 +239,10 @@ To determine, if a Python package is already installed, the existence of its pac
 
 ### Less MSIerables
 
+A tool to view and extract the contents of a Windows Installer (.msi) file.
+
 * ID: `LessMsi`
+* Label: Less MSIerables
 * Version: 1.3
 * Website: <http://lessmsi.activescott.com/>
 * Url: `https://github.com/activescott/lessmsi/releases/download/v$:Version$/$:ArchiveName$`
@@ -246,8 +252,14 @@ To determine, if a Python package is already installed, the existence of its pac
 
 ### 7zip
 
+7-Zip is a file archiver with a high compression ratio.
+It comes with a graphical file manager and supports a large range of compression formats for extraction.
+
 * ID: `SvZ`
+* Label: 7-Zip
 * Website: <http://www.7-zip.de/download.html>
+* Docs:
+    + Help: `7-zip.chm`
 * VersionYear: 16
 * VersionNo: 02
 * Version: $:VersionYear$.$:VersionNo$
@@ -257,7 +269,7 @@ To determine, if a Python package is already installed, the existence of its pac
 * ArchivePath: `SourceDir\Files\7-Zip`
 * Dir: `7z`
 * Exe: `7z.exe`
-* Launcher: 7-Zip
+* Launcher: $:Label$
 * LauncherExecutable: `7zFM.exe`
 
 ### Inno Setup Unpacker
@@ -299,42 +311,49 @@ To determine, if a Python package is already installed, the existence of its pac
 ### Group: Web Development with PHP7 and MySQL
 
 * ID: `WebDevPHP7`
+* Label: Web Development with PHP 7
 * Typ: `meta`
 * Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ### Group: Web Development with PHP5 and MySQL
 
 * ID: `WebDevPHP5`
+* Label: Web Development with PHP 5
 * Typ: `meta`
 * Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ### Group: Java Development
 
 * ID: `DevJava`
+* Label: Java Development
 * Typ: `meta`
 * Dependencies: `JDK8`, `Maven`, `EclipseJava`
 
 ### Group: Clojure Development
 
 * ID: `DevClojure`
+* Label: Clojure Development
 * Typ: `meta`
 * Dependencies: `Maven`, `Leiningen`, `LightTable`
 
 ### Group: Python 2
 
 * ID: `DevPython2`
+* Label: Python 2 Development
 * Typ: `meta`
 * Dependencies: `Python2`, `SublimeText3`, `IPython2`
 
 ### Group: Python 3
 
 * ID: `DevPython3`
+* Label: Python 3 Development
 * Typ: `meta`
 * Dependencies: `Python3`, `SublimeText3`, `IPython3`
 
 ### Group: C++
 
 * ID: `DevCpp`
+* Label: C++ Development
 * Typ: `meta`
 * Dependencies: `MinGW`, `EclipseCpp`
 
@@ -364,7 +383,7 @@ No proxy support yet (Version 1.3.0).
 * ArchiveName: `GitKrakenSetup.exe`
 * ArchiveTyp: `custom`
 * ArchivePath: `lib\net45`
-* Launcher: GitKraken
+* Launcher: $:Label$
 
 ### OpenSSL
 
@@ -387,11 +406,13 @@ No proxy support yet (Version 1.3.0).
 * Url: <http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip>
 * ArchiveName: `putty.zip`
 * RegistryKeys: `Software\SimonTatham`
-* Launcher: `Putty`
+* Launcher: $:Label$
 
 ### GNU TLS
 
 * ID: `GnuTLS`
+* Label: GNU TLS
+* Website: <http://www.gnutls.org/>
 * Version: 3.3.11
 * Url: `http://sourceforge.net/projects/ezwinports/files/$:ArchiveName$`
 * ArchiveName: `gnutls-$:Version$-w32-bin.zip`
@@ -450,7 +471,7 @@ No proxy support yet (Version 1.3.0).
 * ArchivePath: `App/filezilla`
 * Exe: `filezilla.exe`
 * Register: `false`
-* Launcher: `FileZilla`
+* Launcher: $:Label$
 
 ### Sift
 
@@ -471,18 +492,19 @@ No proxy support yet (Version 1.3.0).
 * Exe: `WinMergeU.exe`
 * RegistryKeys: `Software\Thingamahoochie`
 * Register: `false`
-* Launcher: `WinMerge`
+* Launcher: $:Label$
 
 ### Ant Renamer
 
 * ID: `AntRenamer`
+* Label: Ant Renamer
 * Version: latest
 * Url: <http://update.antp.be/renamer/antrenamer2.zip>
 * Website: <http://antp.be/software/renamer>
 * ArchiveName: `antrenamer2.zip`
 * Dir: `renamer`
 * Exe: `Renamer.exe`
-* Launcher: Renamer
+* Launcher: $:Label$
 
 ### Pandoc
 
@@ -511,6 +533,7 @@ No proxy support yet (Version 1.3.0).
 ### Graphics Magick
 
 * ID: `GraphicsMagick`
+* Label: Graphics Magick
 * Website: <http://www.graphicsmagick.org/>
 * Version: 1.3.23
 * Url: `http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/$:Version$/$:ArchiveName$`
@@ -551,7 +574,7 @@ No proxy support yet (Version 1.3.0).
 * ArchiveName: `dia-setup-$:Release$-unsigned.exe`
 * Path: `bin`
 * Exe: `bin\dia.exe`
-* Launcher: `Dia`
+* Launcher: $:Label$
 * LauncherExecutable: `bin\diaw.exe`
 * LauncherArguments: `--integrated`, `%*`
 
@@ -564,11 +587,12 @@ No proxy support yet (Version 1.3.0).
 * ArchiveName: `Inkscape-$:Version$-win32.7z`
 * ArchivePath: `inkscape`
 * Exe: `inkscape.exe`
-* Launcher: `Inkscape`
+* Launcher: $:Label$
 
 ### GIMP
 
 * ID: `Gimp`
+* Label: GIMP
 * Version: 2.8.16
 * Website: <http://www.gimp.org/>
 * Url: `https://sourceforge.net/projects/portableapps/files/GIMP Portable/$:ArchiveName$`
@@ -576,18 +600,19 @@ No proxy support yet (Version 1.3.0).
 * ArchivePath: `App/gimp`
 * Exe: `bin\gimp-2.8.exe`
 * Register: `false`
-* Launcher: `GIMP`
+* Launcher: $:Label$
 
 ### NodeJS
 
 * ID: `Node`
+* Label: NodeJS
 * Website: <https://nodejs.org>
 * Version: 4.4.5
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
 * Exe: `node.exe`
-* Launcher: NodeJS
+* Launcher: $:Label$
 
 ### NPM
 
@@ -597,6 +622,7 @@ _NPM_ 1.4.12 is the last version of _NPM_ which was released seperately.
 Therefore, the latest version of _NPM_ is installed afterwards via the setup script `auto\apps\npm.setup.ps1`.
 
 * ID: `Npm`
+* Label: NPM
 * Dependencies: `Node`
 * Website: <https://www.npmjs.com/package/npm>
 * Version: `>=3.7.0 <4.0.0`
@@ -641,6 +667,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 ### Yeoman Generator for Markdown Projects
 
 * ID: `MdProc`
+* Label: Yeoman Generator for Markdown Projects
 * Typ: `node-package`
 * PackageName: `generator-mdproc`
 * Version: `>=0.1.6 <0.2.0`
@@ -658,6 +685,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 ### Python 2
 
 * ID: `Python2`
+* Label: Python 2
 * Website: <https://www.python.org/ftp/python/>
 * Version: 2.7.11
 * Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
@@ -669,6 +697,7 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 ### Python 3
 
 * ID: `Python3`
+* Label: Python 3
 * Website: <https://www.python.org/ftp/python/>
 * Version: 3.4.4
 * Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
@@ -684,6 +713,7 @@ Required for colors in IPython.
 for Python 2:
 
 * ID: `PyReadline2`
+* Label: PyReadline (Python 2)
 * PackageName: `pyreadline`
 * Typ: `python2-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
@@ -691,6 +721,7 @@ for Python 2:
 for Python 3:
 
 * ID: `PyReadline3`
+* Label: PyReadline (Python 3)
 * PackageName: `pyreadline`
 * Typ: `python3-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
@@ -700,22 +731,24 @@ for Python 3:
 for Python 2:
 
 * ID: `IPython2`
+* Label: IPython 2
 * Typ: `python2-package`
 * PackageName: `ipython`
 * Dependencies: `PyReadline2`
 * Website: <https://pypi.python.org/pypi/ipython>
 * Exe: `Scripts\ipython2.exe`
-* Launcher: `IPython 2`
+* Launcher: $:Label$
 
 for Python 3:
 
 * ID: `IPython3`
+* Label: IPython 3
 * Typ: `python3-package`
 * PackageName: `ipython`
 * Dependencies: `PyReadline3`
 * Website: <http://pypi.python.org/pypi/ipython>
 * Exe: `Scripts\ipython3.exe`
-* Launcher: `IPython 3`
+* Launcher: $:Label$
 
 ### Ruby
 
@@ -734,6 +767,7 @@ for Python 3:
 ### SASS
 
 * ID: `Sass`
+* Label: SASS
 * Typ: `ruby-package`
 * Website: <http://sass-lang.com/>
 
@@ -742,6 +776,7 @@ for Python 3:
 This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.
 
 * ID: `PHP5`
+* Label: PHP 5
 * Website: <http://www.php.net>
 * Version: 5.6.20
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
@@ -753,6 +788,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 This application needs the x86 version of the [Visual C++ 14 Redistributable][MS VC14] installed.
 
 * ID: `PHP7`
+* Label: PHP 7
 * Website: <http://www.php.net>
 * Version: 7.0.5
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
@@ -762,6 +798,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Runtime Environment 7
 
 * ID: `JRE7`
+* Label: Java Runtime Environment 7
 * Version: 7u80
 * Release: b15
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
@@ -777,6 +814,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Runtime Environment 8
 
 * ID: `JRE8`
+* Label: Java Runtime Environment 8
 * Version: 8u92
 * Release: b14
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
@@ -792,6 +830,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Development Kit 7
 
 * ID: `JDK7`
+* Label: Java Development Kit 7
 * Version: $JRE7:Version$
 * Release: $JRE7:Release$
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
@@ -807,6 +846,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 ### Java Development Kit 8
 
 * ID: `JDK8`
+* Label: Java Development Kit 8
 * Version: $JRE8:Version$
 * Release: $JRE8:Release$
 * Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
@@ -931,6 +971,7 @@ If you want to use the Clang compiler with Eclipse, you must manually
 install the LLVM-Plugin for Eclipse CDT.
 
 * ID: `Clang`
+* Label: LLVM Clang
 * Version: 3.8.0
 * Website: <http://clang.llvm.org/>
 * Url: `http://llvm.org/releases/$:Version$/$:ArchiveName$`
@@ -966,24 +1007,26 @@ install the LLVM-Plugin for Eclipse CDT.
 ### Zeal
 
 * ID: `Zeal`
+* Label: Zeal Docs
 * Version: 0.2.1
 * Website: <https://zealdocs.org>
 * Url: `https://bintray.com/artifact/download/zealdocs/windows/$:ArchiveName$`
 * ArchiveName: `zeal-$:Version$-windows-x86.msi`
 * ArchivePath: `SourceDir\PFiles\Zeal`
 * RegistryKeys: `Software\Zeal`
-* Launcher: Zeal Docs
+* Launcher: $:Label$
 
 ### Visual Studio Code
 
 * ID: `VSCode`
+* Label: Visual Studio Code
 * Website: <https://code.visualstudio.com/Docs/?dv=win>
 * Version: latest
 * Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
 * ArchiveName: `VSCode-win32.zip`
 * Dir: `code`
 * Exe: `code.exe`
-* Launcher: `Visual Studio Code`
+* Launcher: $:Label$
 
 ### LightTable
 
@@ -995,17 +1038,18 @@ install the LLVM-Plugin for Eclipse CDT.
 * ArchivePath: `lighttable-$:Version$-windows`
 * Dir: `lt`
 * Exe: `LightTable.exe`
-* Launcher: `LightTable`
+* Launcher: $:Label$
 
 ### Sublime Text 3
 
 * ID: `SublimeText3`
+* Label: Sublime Text 3
 * Website: <http://www.sublimetext.com/3>
 * Version: Build 3114
 * Url: `https://download.sublimetext.com/$:ArchiveName$`
 * ArchiveName: `Sublime Text $:Version$.zip`
 * Exe: `sublime_text.exe`
-* Launcher: `Sublime Text 3`
+* Launcher: $:Label$
 
 ### Emacs
 
@@ -1018,7 +1062,7 @@ install the LLVM-Plugin for Eclipse CDT.
 * Dir: `gnu`
 * Path: `bin`
 * Exe: `bin\emacs.exe`
-* Launcher: `Emacs`
+* Launcher: $:Label$
 * LauncherExecutable: `$:Dir$\bin\runemacs.exe`
 
 ### Spacemacs
@@ -1034,6 +1078,7 @@ install the LLVM-Plugin for Eclipse CDT.
 Eclipse for Java development:
 
 * ID: `EclipseJava`
+* Label: Eclipse for Java
 * Version: 4.5
 * CodeName: mars
 * Release: 1
@@ -1045,11 +1090,12 @@ Eclipse for Java development:
 * Dir: `eclipse_java`
 * Exe: `eclipse.exe`
 * Register: `false`
-* Launcher: `Eclipse Java`
+* Launcher: $:Label$
 
 Eclipse for PHP development:
 
 * ID: `EclipsePHP`
+* Label: Eclipse for PHP
 * Version: 4.5
 * CodeName: mars
 * Release: 1
@@ -1061,11 +1107,12 @@ Eclipse for PHP development:
 * Dir: `eclipse_php`
 * Exe: `eclipse.exe`
 * Register: `false`
-* Launcher: `Eclipse PHP`
+* Launcher: $:Label$
 
 Eclipse for C/C++ development:
 
 * ID: `EclipseCpp`
+* Label: Eclipse for C++
 * Version: 4.5
 * CodeName: mars
 * Release: 1
@@ -1077,20 +1124,21 @@ Eclipse for C/C++ development:
 * Dir: `eclipse_cpp`
 * Exe: `eclipse.exe`
 * Register: `false`
-* Launcher: `Eclipse C++`
+* Launcher: $:Label$
 
 ### SRWare Iron
 
 A free portable derivative of Chromium, optimized for privacy.
 
 * ID: `Iron`
+* Label: SWare Iron
 * Website: <http://www.chromium.org/Home>
 * Version: latest
 * Url: <http://www.srware.net/downloads/IronPortable.zip>
 * ArchivePath: `IronPortable\Iron`
 * ArchiveName: `IronPortable.zip`
 * Exe: `chrome.exe`
-* Launcher: `SRWare Iron`
+* Launcher: $:Label$
 
 ### MySQL
 
@@ -1114,6 +1162,7 @@ The initial password for _root_ is `bench`.
 ### MySQL Workbench
 
 * ID: `MySQLWB`
+* Label: MySQL Workbench
 * Version: 6.3.6
 * Website: <http://dev.mysql.com/downloads/workbench/>
 * Url: `http://dev.mysql.com/get/Downloads/MySQLGUITools/$:ArchiveName$`
@@ -1121,7 +1170,7 @@ The initial password for _root_ is `bench`.
 * ArchivePath: `MySQL Workbench 6.3.6 CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 * Register: `false`
-* Launcher: `MySQL Workbench`
+* Launcher: $:Label$
 
 ### PostgreSQL
 
