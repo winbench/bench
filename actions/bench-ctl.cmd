@@ -125,7 +125,7 @@ GOTO:EOF
 
 :action_update-env
   IF %SILENT% == 0 (
-    ECHO.Update Bench environment paths and lauchners...
+    ECHO.Update Bench environment paths and launchers...
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
