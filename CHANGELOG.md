@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Fixed
+- Visible console window when starting adorned executables from main window
+  ([#60](https://github.com/mastersign/bench/issues/60))
+
 ## [0.10.8] - 2016-05-27
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.7...v0.10.8)
 

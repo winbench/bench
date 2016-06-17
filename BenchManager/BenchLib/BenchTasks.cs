@@ -267,30 +267,51 @@ namespace Mastersign.Bench
             {
                 throw new FileNotFoundException("The executable could not be found.", exe);
             }
-
-            var p = new Process();
             var si = new ProcessStartInfo(exe, arguments);
             si.UseShellExecute = false;
             si.WorkingDirectory = cwd;
             env.Load(si.EnvironmentVariables);
-            p.StartInfo = si;
-            p.Start();
-            return p;
+            return Process.Start(si);
+        }
+
+        public static Process StartProcessViaShell(BenchEnvironment env,
+            string cwd, string exe, string arguments,
+            ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
+        {
+            if (!File.Exists(exe))
+            {
+                throw new FileNotFoundException("The executable could not be found.", exe);
+            }
+            var si = new ProcessStartInfo(exe, arguments);
+            si.UseShellExecute = true;
+            si.WindowStyle = windowStyle;
+            si.WorkingDirectory = cwd;
+            return Process.Start(si);
         }
 
         public static Process LaunchApp(BenchConfiguration config, BenchEnvironment env,
-            string appId, string[] args)
+                    string appId, string[] args)
         {
             var app = config.Apps[appId];
             var exe = app.LauncherExecutable;
-            if (app.IsExecutableAdorned(exe)) exe = app.GetLauncherScriptFile();
+            var isAdorned = app.IsExecutableAdorned(exe);
+            if (isAdorned) exe = app.GetLauncherScriptFile();
 
             if (string.IsNullOrEmpty(exe))
             {
                 throw new ArgumentException("The launcher executable is not set.");
             }
-            return StartProcess(env, config.GetStringValue(PropertyKeys.HomeDir),
-                exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args));
+            if (isAdorned)
+            {
+                return StartProcessViaShell(env, config.GetStringValue(PropertyKeys.HomeDir),
+                    exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
+                    ProcessWindowStyle.Minimized);
+            }
+            else
+            {
+                return StartProcess(env, config.GetStringValue(PropertyKeys.HomeDir),
+                    exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args));
+            }
         }
 
         private static string GemExe(BenchConfiguration config)
@@ -804,7 +825,7 @@ namespace Mastersign.Bench
             }
 
             var cnt = 0;
-            foreach(var name in fileNames)
+            foreach (var name in fileNames)
             {
                 if (cancelation.IsCanceled) break;
                 var progress = (float)cnt / fileNames.Count;
