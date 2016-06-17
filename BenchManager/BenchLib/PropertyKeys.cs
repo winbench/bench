@@ -86,6 +86,7 @@ namespace Mastersign.Bench
         public const string AppTyp = "Typ";
         public const string AppVersion = "Version";
         public const string AppWebsite = "Website";
+        public const string AppDocs = "Docs";
         public const string AppDependencies = "Dependencies";
         public const string AppResponsibilities = "Responsibilities";
         public const string AppForce = "Force";

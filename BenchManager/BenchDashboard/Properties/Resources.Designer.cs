@@ -182,6 +182,26 @@ namespace Mastersign.Bench.Dashboard.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap doc_16 {
+            get {
+                object obj = ResourceManager.GetObject("doc_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap docs_16 {
+            get {
+                object obj = ResourceManager.GetObject("docs_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap download_16 {
             get {
                 object obj = ResourceManager.GetObject("download_16", resourceCulture);

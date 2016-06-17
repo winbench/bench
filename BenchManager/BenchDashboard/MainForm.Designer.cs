@@ -36,6 +36,7 @@
             this.tsslAppCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslAppCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.btnDocs = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnShellBash = new System.Windows.Forms.Button();
             this.btnShellPowerShell = new System.Windows.Forms.Button();
@@ -57,7 +58,7 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 339);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(400, 22);
-            this.statusStrip.TabIndex = 4;
+            this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // tsslRootPathLabel
@@ -88,6 +89,7 @@
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.btnDocs);
             this.panelTop.Controls.Add(this.btnAbout);
             this.panelTop.Controls.Add(this.btnShellBash);
             this.panelTop.Controls.Add(this.btnShellPowerShell);
@@ -97,7 +99,19 @@
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(400, 29);
-            this.panelTop.TabIndex = 5;
+            this.panelTop.TabIndex = 0;
+            // 
+            // btnDocs
+            // 
+            this.btnDocs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDocs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.docs_16;
+            this.btnDocs.Location = new System.Drawing.Point(302, 2);
+            this.btnDocs.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDocs.Name = "btnDocs";
+            this.btnDocs.Size = new System.Drawing.Size(29, 25);
+            this.btnDocs.TabIndex = 3;
+            this.toolTip.SetToolTip(this.btnDocs, "Bench Setup and Configuration");
+            this.btnDocs.Click += new System.EventHandler(this.DocsHandler);
             // 
             // btnAbout
             // 
@@ -107,7 +121,7 @@
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(29, 25);
-            this.btnAbout.TabIndex = 4;
+            this.btnAbout.TabIndex = 5;
             this.toolTip.SetToolTip(this.btnAbout, "Bench Info");
             this.btnAbout.Click += new System.EventHandler(this.AboutHandler);
             // 
@@ -118,7 +132,7 @@
             this.btnShellBash.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.btnShellBash.Name = "btnShellBash";
             this.btnShellBash.Size = new System.Drawing.Size(29, 25);
-            this.btnShellBash.TabIndex = 3;
+            this.btnShellBash.TabIndex = 2;
             this.toolTip.SetToolTip(this.btnShellBash, "Git Bash");
             this.btnShellBash.Click += new System.EventHandler(this.ShellBashHandler);
             // 
@@ -129,7 +143,7 @@
             this.btnShellPowerShell.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.btnShellPowerShell.Name = "btnShellPowerShell";
             this.btnShellPowerShell.Size = new System.Drawing.Size(29, 25);
-            this.btnShellPowerShell.TabIndex = 2;
+            this.btnShellPowerShell.TabIndex = 1;
             this.toolTip.SetToolTip(this.btnShellPowerShell, "Windows PowerShell");
             this.btnShellPowerShell.Click += new System.EventHandler(this.ShellPowerShellHandler);
             // 
@@ -140,7 +154,7 @@
             this.btnShellCmd.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.btnShellCmd.Name = "btnShellCmd";
             this.btnShellCmd.Size = new System.Drawing.Size(29, 25);
-            this.btnShellCmd.TabIndex = 1;
+            this.btnShellCmd.TabIndex = 0;
             this.toolTip.SetToolTip(this.btnShellCmd, "Windows Command Prompt");
             this.btnShellCmd.Click += new System.EventHandler(this.ShellCmdHandler);
             // 
@@ -152,7 +166,7 @@
             this.btnSetup.Margin = new System.Windows.Forms.Padding(2);
             this.btnSetup.Name = "btnSetup";
             this.btnSetup.Size = new System.Drawing.Size(29, 25);
-            this.btnSetup.TabIndex = 0;
+            this.btnSetup.TabIndex = 4;
             this.toolTip.SetToolTip(this.btnSetup, "Bench Setup and Configuration");
             this.btnSetup.Click += new System.EventHandler(this.SetupHandler);
             // 
@@ -164,7 +178,7 @@
             this.appLauncherList.Location = new System.Drawing.Point(0, 29);
             this.appLauncherList.Name = "appLauncherList";
             this.appLauncherList.Size = new System.Drawing.Size(400, 310);
-            this.appLauncherList.TabIndex = 3;
+            this.appLauncherList.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -204,6 +218,7 @@
         private System.Windows.Forms.Button btnShellBash;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Button btnDocs;
     }
 }
 

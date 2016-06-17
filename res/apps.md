@@ -287,6 +287,8 @@ It comes with a graphical file manager and supports a large range of compression
 
 * ID: `ConEmu`
 * Website: <https://conemu.github.io/>
+* Docs:
+    + Documentation: <https://conemu.github.io/en/TableOfContents.html>
 * Version: 16.03.13
 * Release: 160313
 * Url: `https://github.com/Maximus5/ConEmu/releases/download/v$:Version$/$:ArchiveName$`
@@ -363,6 +365,9 @@ It comes with a graphical file manager and supports a large range of compression
 
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
+* Docs:
+    + Reference: <https://git-scm.com/docs>
+    + Pro Git Book: <https://git-scm.com/book/en/v2>
 * Version: 2.9.0
 * Release: $:Version$.windows.1
 * Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
@@ -379,6 +384,8 @@ No proxy support yet (Version 1.3.0).
 * ID: `GitKraken`
 * Version: latest
 * Website: <https://www.gitkraken.com/>
+* Docs:
+    + FAQ: <https://www.gitkraken.com/faq>
 * Url: <https://release.gitkraken.com/win32/GitKrakenSetup.exe>
 * ArchiveName: `GitKrakenSetup.exe`
 * ArchiveTyp: `custom`
@@ -389,6 +396,10 @@ No proxy support yet (Version 1.3.0).
 
 * ID: `OpenSSL`
 * Website: <https://www.openssl.org/>
+* Docs:
+    + Overview: <https://www.openssl.org/docs/man1.0.2/apps/openssl.html>
+    + Commands: <https://www.openssl.org/docs/man1.0.2/apps/>
+    + Windows Build: <http://slproweb.com/products/Win32OpenSSL.html>
 * Version: 1.0.2h
 * Version2: `1_0_2h`
 * Url: `http://slproweb.com/download/$:ArchiveName$`
@@ -402,6 +413,8 @@ No proxy support yet (Version 1.3.0).
 
 * ID: `Putty`
 * Website: <http://www.putty.org>
+* Docs:
+    + User Manual: <http://the.earth.li/~sgtatham/putty/0.67/htmldoc/>
 * Version: latest
 * Url: <http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip>
 * ArchiveName: `putty.zip`
@@ -413,6 +426,8 @@ No proxy support yet (Version 1.3.0).
 * ID: `GnuTLS`
 * Label: GNU TLS
 * Website: <http://www.gnutls.org/>
+* Docs:
+    + Manual: <http://www.gnutls.org/manual/gnutls.html>
 * Version: 3.3.11
 * Url: `http://sourceforge.net/projects/ezwinports/files/$:ArchiveName$`
 * ArchiveName: `gnutls-$:Version$-w32-bin.zip`

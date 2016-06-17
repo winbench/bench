@@ -36,6 +36,8 @@ namespace Mastersign.Bench
             {
                 switch (name)
                 {
+                    case PropertyKeys.AppDocs:
+                        return ParseKeyValuePairs(value);
                     case PropertyKeys.AppDownloadHeaders:
                         return ParseKeyValuePairs(value);
                     case PropertyKeys.AppDownloadCookies:

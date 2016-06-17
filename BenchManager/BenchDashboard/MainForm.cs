@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace Mastersign.Bench.Dashboard
         private readonly Core core;
 
         private SetupForm setupForm;
+        private ContextMenuStrip docsMenu;
 
         public MainForm(Core core)
         {
@@ -26,6 +28,7 @@ namespace Mastersign.Bench.Dashboard
             core.ConfigReloaded += ConfigReloadedHandler;
             InitializeComponent();
             InitializeAppLauncherList();
+            InitializeDocsMenu();
             InitializeTopPanel();
             InitializeStatusStrip();
         }
@@ -61,6 +64,7 @@ namespace Mastersign.Bench.Dashboard
         {
             UpdateShellButtons();
             InitializeAppLauncherList();
+            InitializeDocsMenu();
             InitializeStatusStrip();
         }
 
@@ -68,6 +72,59 @@ namespace Mastersign.Bench.Dashboard
         {
             appLauncherList.Core = core;
             appLauncherList.AppIndex = core.Config.Apps;
+        }
+
+        private void InitializeDocsMenu()
+        {
+            var ctxm = new ContextMenuStrip();
+
+            var apps = core.Config.Apps.ActiveApps.OrderBy(app => app.Label);
+            foreach (var app in apps)
+            {
+                var label = app.Label;
+                var websiteUrl = app.Website;
+                var docs = app.Docs;
+                if (string.IsNullOrEmpty(websiteUrl) && (docs == null || docs.Count == 0)) continue;
+                var item = new ToolStripMenuItem(label);
+                item.Image = ExtractLauncherIcon(app);
+                if (!string.IsNullOrEmpty(websiteUrl))
+                {
+                    if (item.Image == null)
+                    {
+                        item.Image = Resources.website_16;
+                    }
+                    item.Tag = websiteUrl;
+                    item.Click += LinkHandler;
+                }
+                if (docs != null)
+                {
+                    foreach (var n in docs.Keys.OrderBy(k => k))
+                    {
+                        var docItem = item.DropDownItems.Add(n, Resources.doc_16);
+                        docItem.Tag = docs[n];
+                        docItem.Click += LinkHandler;
+                    }
+                }
+                ctxm.Items.Add(item);
+            }
+
+            docsMenu = ctxm;
+        }
+
+        private Image ExtractLauncherIcon(AppFacade app)
+        {
+            var path = app.LauncherIcon;
+            if (string.IsNullOrEmpty(app.Launcher) || string.IsNullOrEmpty(path)) return null;
+            Icon icon;
+            try
+            {
+                icon = Icon.ExtractAssociatedIcon(path);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return new Icon(icon, new Size(16, 16)).ToBitmap();
         }
 
         private void InitializeStatusStrip()
@@ -192,6 +249,19 @@ namespace Mastersign.Bench.Dashboard
         private void AboutHandler(object sender, EventArgs e)
         {
             new AboutDialog().ShowDialog(this);
+        }
+
+        private void DocsHandler(object sender, EventArgs e)
+        {
+            if (docsMenu == null) return;
+            docsMenu.Show(btnDocs, new Point(btnDocs.Width, btnDocs.Height),
+                ToolStripDropDownDirection.BelowLeft);
+        }
+
+        private void LinkHandler(object sender, EventArgs e)
+        {
+            var url = (sender as ToolStripItem)?.Tag as string;
+            Process.Start(url);
         }
     }
 }

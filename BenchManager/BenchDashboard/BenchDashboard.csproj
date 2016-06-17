@@ -223,6 +223,8 @@
     <Content Include="Resources\install_16.png" />
     <Content Include="Resources\logo_64.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
+    <Content Include="Resources\doc_16.png" />
+    <Content Include="Resources\docs_16.png" />
     <Content Include="Resources\none_16.png" />
     <None Include="Resources\ok_48.png" />
     <None Include="Resources\progress_36_animation.gif" />
