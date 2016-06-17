@@ -58,6 +58,7 @@
             this.colLauncher = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ctxmAppActions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.miInstall = new System.Windows.Forms.ToolStripMenuItem();
             this.miReinstall = new System.Windows.Forms.ToolStripMenuItem();
             this.miPackageUpgrade = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +67,8 @@
             this.miDownloadResource = new System.Windows.Forms.ToolStripMenuItem();
             this.miDeleteResource = new System.Windows.Forms.ToolStripMenuItem();
             this.splitterConsole = new System.Windows.Forms.Splitter();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tsSeparatorWebsite = new System.Windows.Forms.ToolStripSeparator();
             this.downloadList = new Mastersign.Bench.Dashboard.DownloadList();
             this.menuStrip = new Mastersign.Bench.Dashboard.ImmediateMenuStrip();
             this.tsmSetup = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,10 +78,10 @@
             this.tsmiReinstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUninstallAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCleanUpObsoleteResources = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDownloadAllResources = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDownloadAllAppResources = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteAllResources = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCleanUpObsoleteResources = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditCustomConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditCustomApps = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,7 +92,6 @@
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -99,21 +101,6 @@
             this.ctxmAppActions.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
             // 
             // tsSeparatorDownloads
             // 
@@ -391,6 +378,8 @@
             // ctxmAppActions
             // 
             this.ctxmAppActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miWebsite,
+            this.tsSeparatorWebsite,
             this.miInstall,
             this.miReinstall,
             this.miPackageUpgrade,
@@ -401,7 +390,15 @@
             this.miDeleteResource});
             this.ctxmAppActions.Name = "ctxMenuAppActions";
             this.ctxmAppActions.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ctxmAppActions.Size = new System.Drawing.Size(180, 164);
+            this.ctxmAppActions.Size = new System.Drawing.Size(180, 214);
+            // 
+            // miWebsite
+            // 
+            this.miWebsite.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.website_16;
+            this.miWebsite.Name = "miWebsite";
+            this.miWebsite.Size = new System.Drawing.Size(179, 22);
+            this.miWebsite.Text = "Open &Website";
+            this.miWebsite.Click += new System.EventHandler(this.OpenWebsiteHandler);
             // 
             // miInstall
             // 
@@ -448,7 +445,7 @@
             this.miDownloadResource.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.download_16;
             this.miDownloadResource.Name = "miDownloadResource";
             this.miDownloadResource.Size = new System.Drawing.Size(179, 22);
-            this.miDownloadResource.Text = "Do&wnload Resource";
+            this.miDownloadResource.Text = "D&ownload Resource";
             this.miDownloadResource.Click += new System.EventHandler(this.DownloadAppResourceHandler);
             // 
             // miDeleteResource
@@ -467,6 +464,11 @@
             this.splitterConsole.Size = new System.Drawing.Size(684, 5);
             this.splitterConsole.TabIndex = 9;
             this.splitterConsole.TabStop = false;
+            // 
+            // tsSeparatorWebsite
+            // 
+            this.tsSeparatorWebsite.Name = "tsSeparatorWebsite";
+            this.tsSeparatorWebsite.Size = new System.Drawing.Size(176, 6);
             // 
             // downloadList
             // 
@@ -520,6 +522,11 @@
             this.tsmiAuto.Text = "&Automatic Setup";
             this.tsmiAuto.Click += new System.EventHandler(this.AutoHandler);
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+            // 
             // tsmiUpdateEnvironment
             // 
             this.tsmiUpdateEnvironment.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.updateenv_16;
@@ -560,6 +567,19 @@
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
             // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
+            // 
+            // tsmiCleanUpObsoleteResources
+            // 
+            this.tsmiCleanUpObsoleteResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.cleanup_16;
+            this.tsmiCleanUpObsoleteResources.Name = "tsmiCleanUpObsoleteResources";
+            this.tsmiCleanUpObsoleteResources.Size = new System.Drawing.Size(230, 22);
+            this.tsmiCleanUpObsoleteResources.Text = "&Clean-Up Obsolete Resources";
+            this.tsmiCleanUpObsoleteResources.Click += new System.EventHandler(this.CleanUpResourcesHandler);
+            // 
             // tsmiDownloadAllResources
             // 
             this.tsmiDownloadAllResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.download_16;
@@ -583,14 +603,6 @@
             this.tsmiDeleteAllResources.Size = new System.Drawing.Size(230, 22);
             this.tsmiDeleteAllResources.Text = "&Delete All Resources";
             this.tsmiDeleteAllResources.Click += new System.EventHandler(this.DeleteAllResourcesHandler);
-            // 
-            // tsmiCleanUpObsoleteResources
-            // 
-            this.tsmiCleanUpObsoleteResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.cleanup_16;
-            this.tsmiCleanUpObsoleteResources.Name = "tsmiCleanUpObsoleteResources";
-            this.tsmiCleanUpObsoleteResources.Size = new System.Drawing.Size(230, 22);
-            this.tsmiCleanUpObsoleteResources.Text = "&Clean-Up Obsolete Resources";
-            this.tsmiCleanUpObsoleteResources.Click += new System.EventHandler(this.CleanUpResourcesHandler);
             // 
             // tsmEdit
             // 
@@ -660,6 +672,11 @@
             this.tsmiShowCustomAppIndex.Size = new System.Drawing.Size(205, 22);
             this.tsmiShowCustomAppIndex.Text = "&Custom Apps";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
             // 
             // tsmiAlwaysShowDownloads
             // 
@@ -767,5 +784,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDownloadAllAppResources;
         private System.Windows.Forms.ToolStripMenuItem tsmiCleanUpObsoleteResources;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ToolStripMenuItem miWebsite;
+        private System.Windows.Forms.ToolStripSeparator tsSeparatorWebsite;
     }
 }

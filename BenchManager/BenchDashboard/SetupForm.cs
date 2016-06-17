@@ -454,6 +454,25 @@ namespace Mastersign.Bench.Dashboard
             await core.UpdateEnvironmentAsync(TaskInfoHandler);
         }
 
+        private void OpenWebsiteHandler(object sender, EventArgs e)
+        {
+            try
+            {
+                var url = new Uri(contextApp.Website, UriKind.Absolute);
+                if (url.Scheme != "http" && url.Scheme != "https")
+                {
+                    throw new ArgumentException("The given URL does not use the HTTP(S) protocol: "
+                        + contextApp.Website);
+                }
+                System.Diagnostics.Process.Start(url.AbsoluteUri);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(this, exc.Message, "Open Website",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private async void InstallAppHandler(object sender, EventArgs e)
         {
             AnnounceTask("Install App " + contextApp.ID);
@@ -540,6 +559,8 @@ namespace Mastersign.Bench.Dashboard
             if (appWrapper == null) return;
             contextApp = appWrapper.App;
 
+            miWebsite.Visible = !string.IsNullOrEmpty(contextApp.Website);
+
             miInstall.Visible = contextApp.CanInstall;
             miReinstall.Visible = contextApp.CanReinstall;
             miUpgrade.Visible = contextApp.CanUpgrade;
@@ -549,14 +570,17 @@ namespace Mastersign.Bench.Dashboard
             miDownloadResource.Visible = contextApp.CanDownloadResource;
             miDeleteResource.Visible = contextApp.CanDeleteResource;
 
-            tsSeparatorDownloads.Visible =
-                (miInstall.Visible
-                    || miReinstall.Visible
-                    || miUpgrade.Visible
-                    || miPackageUpgrade.Visible
-                    || miUninstall.Visible)
-                && (miDownloadResource.Visible
-                    || miDeleteResource.Visible);
+            var g1 = !string.IsNullOrEmpty(contextApp.Website);
+            var g2 = contextApp.CanInstall
+                  || contextApp.CanReinstall
+                  || contextApp.CanUpgrade
+                  || contextApp.IsInstalled && contextApp.IsManagedPackage
+                  || contextApp.CanUninstall;
+            var g3 = contextApp.CanDownloadResource
+                  || contextApp.CanDeleteResource;
+
+            tsSeparatorWebsite.Visible = g1 && g2;
+            tsSeparatorDownloads.Visible = (g1 || g2) && g3;
 
             e.ContextMenuStrip = ctxmAppActions;
         }

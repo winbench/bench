@@ -32,6 +32,8 @@ Add a link to the GitHub diff like
 - Custom config list property `EnvironmentPath` to add paths
   to the `PATH` environment variable in `config.md`
   ([#56](https://github.com/mastersign/bench/issues/56))
+- Entry for opening the apps website in the context menu of the setup dialogs app list
+  ([#62](https://github.com/mastersign/bench/issues/62))
 
 ### Changed
 - Moved `auto\env.cmd` to the Bench root folder
