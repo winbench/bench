@@ -368,10 +368,12 @@ No proxy support yet (Version 1.3.0).
 
 * ID: `OpenSSL`
 * Website: <https://www.openssl.org/>
-* Version: 1.0.2d-fips-2.0.10
-* Url: `http://sourceforge.net/projects/openssl/files/openssl-$:Version$/$:ArchiveName$`
-* ArchiveName: `openssl-$:Version$.zip`
-* ArchivePath: `openssl-$:Version$`
+* Version: 1.0.2h
+* Version2: `1_0_2h`
+* Url: `http://slproweb.com/download/$:ArchiveName$`
+* ArchiveName: `Win32OpenSSL-$:Version2$.exe`
+* ArchiveTyp: `inno`
+* ArchivePath: `{app}`
 * Path: `bin`
 * Exe: `bin\openssl.exe`
 
