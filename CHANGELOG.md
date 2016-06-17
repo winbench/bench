@@ -31,6 +31,7 @@ Add a link to the GitHub diff like
 - Update: Git from 2.8.3 to 2.9.0
 - Update: FileZilla from 3.17.0.1 to 3.18.0
 - Update: OpenSSL from 1.0.2d to 1.0.2h
+- Update: 7-Zip from 16.00 to 16.02
 
 ### Fixed
 - Visible console window when starting adorned executables from main window
