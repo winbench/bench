@@ -799,6 +799,25 @@ GIMP provides you with sophisticated tools to get your job done.
 * Register: `false`
 * Launcher: $:Label$
 
+### MeshLab
+
+MeshLab is an open source, portable, and extensible system for the processing
+and editing of unstructured 3D triangular meshes.
+The system is aimed to help the processing of the typical not-so-small
+unstructured models arising in 3D scanning, providing a set of tools for editing,
+cleaning, healing, inspecting, rendering and converting this kind of meshes. 
+
+* ID: `MeshLab`
+* VersionMajor: 1
+* VersionMinor: 3
+* VersionRevision: 3
+* Version: $:VersionMajor$.$:VersionMinor$.$:VersionRevision$
+* Website: <http://meshlab.sourceforge.net/>
+* Url: `https://sourceforge.net/projects/meshlab/files/meshlab/MeshLab%20v$:Version$/$:ArchiveName$`
+* ArchiveName: `MeshLab_v$:VersionMajor$$:VersionMinor$$:VersionRevision$.exe`
+* Exe: `meshlab_32.exe`
+* Launcher: $:Label$
+
 ### Node.js
 
 Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.
