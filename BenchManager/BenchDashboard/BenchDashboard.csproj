@@ -204,6 +204,7 @@
     <None Include="Resources\missing_app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\properties_16.png" />
     <Content Include="Resources\website_16.png" />
     <None Include="acknowledgements.txt" />
     <None Include="licenses.txt" />

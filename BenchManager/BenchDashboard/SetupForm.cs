@@ -454,6 +454,12 @@ namespace Mastersign.Bench.Dashboard
             await core.UpdateEnvironmentAsync(TaskInfoHandler);
         }
 
+        private void AppInfoHandler(object sender, EventArgs e)
+        {
+            if (contextApp == null) return;
+            new AppInfoDialog(core.Config, contextApp).ShowDialog(this);
+        }
+
         private void OpenWebsiteHandler(object sender, EventArgs e)
         {
             try
@@ -570,17 +576,16 @@ namespace Mastersign.Bench.Dashboard
             miDownloadResource.Visible = contextApp.CanDownloadResource;
             miDeleteResource.Visible = contextApp.CanDeleteResource;
 
-            var g1 = !string.IsNullOrEmpty(contextApp.Website);
-            var g2 = contextApp.CanInstall
+            var g1 = contextApp.CanInstall
                   || contextApp.CanReinstall
                   || contextApp.CanUpgrade
                   || contextApp.IsInstalled && contextApp.IsManagedPackage
                   || contextApp.CanUninstall;
-            var g3 = contextApp.CanDownloadResource
+            var g2 = contextApp.CanDownloadResource
                   || contextApp.CanDeleteResource;
 
-            tsSeparatorWebsite.Visible = g1 && g2;
-            tsSeparatorDownloads.Visible = (g1 || g2) && g3;
+            tsSeparatorWebsite.Visible = g1;
+            tsSeparatorDownloads.Visible = g1 && g2;
 
             e.ContextMenuStrip = ctxmAppActions;
         }
@@ -644,11 +649,6 @@ namespace Mastersign.Bench.Dashboard
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-        }
-
-        private void tsmiDownloadAllAppResources_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
