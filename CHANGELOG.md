@@ -47,6 +47,7 @@ Add a link to the GitHub diff like
 - Update: OpenSSL from 1.0.2d to 1.0.2h
 - Update: 7-Zip from 16.00 to 16.02
 - Update: Pandoc from 1.17.0.2 to 1.17.1
+- Update: PHP 5 from 5.6.20 to 5.6.21
 
 ### Fixed
 - Visible console window when starting adorned executables from main window
