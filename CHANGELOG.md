@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.11.0] - 2016-06-18
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.8...v0.11.0)
+
 ### Added
 - Custom config dictionary property `Environment` to add environment variables
   in `config.md`
