@@ -44,6 +44,7 @@ Add a link to the GitHub diff like
 - Added JabRef
 - Added TeXnicCenter
 - Group: LaTeX
+- Group: 3D Modeling
 
 ### Changed
 - Moved `auto\env.cmd` to the Bench root folder

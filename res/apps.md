@@ -315,6 +315,13 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 * Typ: `meta`
 * Dependencies: `Inkscape`, `Dia`, `Gimp`, `Pandoc`, `MikTeX`, `GraphicsMagick`, `Graphviz`, `FFmpeg`
 
+### Group: 3D Modeling
+
+* ID: `Dev3D`
+* Label: 3D Modeling
+* Typ: `meta`
+* Dependencies: `Blender`, `MeshLab`, `Gimp`
+
 ### Group: Web Development with PHP7 and MySQL
 
 * ID: `WebDevPHP7`
