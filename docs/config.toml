@@ -6,7 +6,7 @@ author = "Tobias Kiertscher"
 theme = "blackburn"
 
 # Shown in the side menu
-copyright = "&copy; 2016. All rights reserved."
+copyright = "Copyright &copy; by Tobias Kiertscher 2016. All rights reserved."
 canonifyurls = true
 paginate = 10
 
@@ -40,7 +40,7 @@ paginate = 10
     url = "/post/"
   [[menu.main]]
     name = "About"
-    pre = "<i class='fa fa-user fa-fw'></i>"
+    pre = "<i class='fa fa-info-circle fa-fw'></i>"
     weight = 2
     identifier = "about"
     url = "/about/"
