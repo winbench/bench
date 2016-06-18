@@ -620,6 +620,26 @@ and related programs for Windows (all current variants).
 * LauncherExecutable: `install\miktex\bin\miktex-taskbar-icon.exe`
 * LauncherIcon: `install\miktex\bin\mo.exe`
 
+### JabRef
+
+JabRef is an open source bibliography reference manager.
+The native file format used by JabRef is BibTeX, the standard LaTeX bibliography format.
+
+* ID: `JabRef`
+* Dependencies: `JRE8`
+* Website: <http://www.jabref.org>
+* Docs:
+    + Help: <http://help.jabref.org/en/>
+    + FAQ: <http://www.jabref.org/faq/>
+* Version: 3.3
+* FileNo: 1460933278
+* Url: `http://app.oldfoss.com/download/JabRef/$:FileNo$$:ResourceName$`
+* ResourceName: `JabRef-$:Version$.jar`
+* Exe: `$:ResourceName$`
+* Launcher: $:Label$
+* LauncherExecutable: `$JRE8:Path$\javaw.exe`
+* LauncherArguments: `-jar`, `$:Exe$`
+
 ### Graphics Magick
 
 GraphicsMagick is the swiss army knife of image processing. It provides a robust
