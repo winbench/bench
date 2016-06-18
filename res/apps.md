@@ -1396,6 +1396,24 @@ You'll love the slick user interface, extraordinary features and amazing perform
 * Exe: `sublime_text.exe`
 * Launcher: $:Label$
 
+### TeXnicCenter
+
+Premium LaTeX Editing for Windows.
+
+* ID: `TeXnicCenter`
+* Dependencies: `MikTeX`
+* Website: <http://www.texniccenter.org>
+* Docs:
+    + Features: <http://www.texniccenter.org/about/feature/>
+    + Documentation: <http://texniccenter.sourceforge.net/>
+* Version: 2.02
+* Url: `http://sourceforge.net/projects/texniccenter/files/TeXnicCenter/$:Version$%20Stable/$:ArchiveName$`
+* ArchiveName: `TXCSetup_$:Version$Stable_Win32.exe`
+* ArchiveTyp: `inno`
+* ArchivePath: `{app}`
+* RegistryKeys: `SOFTWARE\ToolsCenter`
+* Launcher: $:Label$
+
 ### Emacs
 
 An extensible, customizable, free text editor - and more.

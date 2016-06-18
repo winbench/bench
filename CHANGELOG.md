@@ -38,6 +38,7 @@ Add a link to the GitHub diff like
   ([#63](https://github.com/mastersign/bench/issues/63))
 - Support for documentation URLs
   ([#57](https://github.com/mastersign/bench/issues/57))
+- Added TeXnicCenter
 
 ### Changed
 - Moved `auto\env.cmd` to the Bench root folder
