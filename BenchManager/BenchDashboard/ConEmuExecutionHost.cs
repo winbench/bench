@@ -71,7 +71,6 @@ namespace Mastersign.Bench.Dashboard
             si.StartupDirectory = cwd;
             si.IsReadingAnsiStream = collectOutput;
             env.Load((k, v) => si.SetEnv(k, v));
-            env.Load();
             si.WhenConsoleProcessExits = WhenConsoleProcessExits.CloseConsoleEmulator;
             return si;
         }
