@@ -40,6 +40,7 @@ Add a link to the GitHub diff like
   ([#57](https://github.com/mastersign/bench/issues/57))
 - Added JabRef
 - Added TeXnicCenter
+- Group: LaTeX
 
 ### Changed
 - Moved `auto\env.cmd` to the Bench root folder

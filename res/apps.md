@@ -364,6 +364,13 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 * Typ: `meta`
 * Dependencies: `MinGW`, `EclipseCpp`
 
+### Group: LaTeX
+
+* ID: `LaTeX`
+* Label: `LaTeX Writing`
+* Typ: `meta`
+* Dependencies: `MiKTeX`, `JabRef`, `TeXnicCenter`
+
 ## Optional
 
 ### Git
