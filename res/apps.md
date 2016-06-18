@@ -843,6 +843,26 @@ Blender is the open source, cross platform suite of tools for 3D creation.
 * ArchivePath: `blender-$:Version$$:VersionSuffix$-windows32`
 * Launcher: $:Label$
 
+### Hugo
+
+A fast and modern static website engine.
+
+Hugo flexibly works with many formats and is ideal for blogs, docs, portfolios
+and much more. Hugo’s speed fosters creativity and makes building a website fun again.
+
+* ID: `Hugo`
+* Website: <https://gohugo.io/> 
+* Docs:
+    + Introduction: <https://gohugo.io/overview/introduction/>
+    + Commands: <https://gohugo.io/commands/>
+    + Content Organization: <https://gohugo.io/content/organization/>
+    + Templates: <https://gohugo.io/templates/overview/>
+    + Taxonomies: <https://gohugo.io/taxonomies/overview/>
+    + Theme Showcase: <http://themes.gohugo.io/>
+* Version: 0.16
+* Url: `https://github.com/spf13/hugo/releases/download/v$:Version$/$:ArchiveName$`
+* ArchiveName: `hugo_$:Version$_windows-32bit.zip`
+
 ### Node.js
 
 Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.

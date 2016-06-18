@@ -41,6 +41,7 @@ Add a link to the GitHub diff like
 - Added VLC Player
 - Added MeshLab
 - Added Blender
+- Added Hugo
 - Added JabRef
 - Added TeXnicCenter
 - Group: LaTeX
