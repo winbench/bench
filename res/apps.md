@@ -687,10 +687,11 @@ and in visual interfaces for other technical domains.
     + Command-Line Invocation: <http://www.graphviz.org/content/command-line-invocation>
     + Output Formats: <http://www.graphviz.org/content/output-formats>
 * Version: 2.38
-* Url: `http://www.graphviz.org/pub/graphviz/stable/windows/$:ArchiveName$`
-* ArchiveName: `graphviz-$:Version$.zip`
-* Path: `release\bin`
-* Exe: `release\bin\dot.exe`
+* Url:`https://github.com/ErwinJanssen/graphviz/releases/download/v$:Version$/$:ArchiveName$`
+* ArchiveName: `graphviz-$:Version$.msi`
+* ArchivePath: `SourceDir`
+* Path: `bin`
+* Exe: `bin\dot.exe`
 
 ### Dia
 
