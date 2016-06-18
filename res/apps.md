@@ -590,10 +590,10 @@ Pandoc is a library and command-line tool for converting from one markup format 
 
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.17.0.2
 * Docs:
     + User's Guide: <http://pandoc.org/README.html>
     + FAQ: <http://pandoc.org/faqs.html>
+* Version: 1.17.1
 * Release: $:Version$-1
 * Url: `https://github.com/jgm/pandoc/releases/download/$:Version$/$:ArchiveName$`
 * ArchiveName: `pandoc-$:Release$-windows.msi`
