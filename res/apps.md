@@ -694,6 +694,23 @@ No matter if they were designed by some standards committee, the community or a 
 * Path: `bin`
 * Exe: `bin\ffmpeg.exe`
 
+### VLC
+
+VLC is a free and open source cross-platform multimedia player and framework
+that plays most multimedia files, and various streaming protocols.
+
+* ID: `VLC`
+* Label: VLC Player
+* Website: <http://www.videolan.org/vlc/>
+* Docs:
+    + Features: <http://www.videolan.org/vlc/features.html>
+    + Skins: <http://www.videolan.org/vlc/skins.html>
+* Version: 2.2.4
+* Url: `http://get.videolan.org/vlc/$:Version$/win32/$:ArchiveName$`
+* ArchiveName: `vlc-$:Version$-win32.7z`
+* ArchivePath: `vlc-$:Version$`
+* Launcher: $:Label$
+
 ### Graphviz
 
 Graphviz is open source graph visualization software.
