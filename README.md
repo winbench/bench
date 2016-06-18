@@ -34,7 +34,7 @@ in the `config` folder of _Bench_.
 
 ## Isolated Environment
 
-The setup process of _Bench_ generates a file which is called `auto/env.cmd`.
+The setup process of _Bench_ generates a file which is called `env.cmd`.
 This CMD script initializes the execution environment for programs to run inside of _Bench_.
 
 The following environment variables are set by _Bench_:

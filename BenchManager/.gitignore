@@ -1,0 +1,9 @@
+obj
+bin
+*.suo
+*.user
+*.cache
+
+/nuget.exe
+/packages
+/artwork/tmp

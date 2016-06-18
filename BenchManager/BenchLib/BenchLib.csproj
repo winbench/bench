@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3FF60D62-D733-40E8-B759-848FAE5FEA93}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mastersign.Bench</RootNamespace>
+    <AssemblyName>BenchLib</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip, Version=1.10.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.10.0\lib\net20\Ionic.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivationFile.cs" />
+    <Compile Include="AppArchiveTyps.cs" />
+    <Compile Include="AppFacade.cs" />
+    <Compile Include="AppIndexDefaultValueSource.cs" />
+    <Compile Include="AppIndexFacade.cs" />
+    <Compile Include="AppIndexValueResolver.cs" />
+    <Compile Include="AppKeys.cs" />
+    <Compile Include="AppStatusIcon.cs" />
+    <Compile Include="AppTyps.cs" />
+    <Compile Include="BenchConfiguration.cs" />
+    <Compile Include="BenchEnvironment.cs" />
+    <Compile Include="BenchProxyInfo.cs" />
+    <Compile Include="BenchTasks.cs" />
+    <Compile Include="BenchUserInfo.cs" />
+    <Compile Include="Cancelation.cs" />
+    <Compile Include="CommandLine.cs" />
+    <Compile Include="DefaultBenchManager.cs" />
+    <Compile Include="DefaultExecutionHost.cs" />
+    <Compile Include="ConsoleUI.cs" />
+    <Compile Include="Delegates.cs" />
+    <Compile Include="Downloader.cs" />
+    <Compile Include="DownloadEventArgs.cs" />
+    <Compile Include="DownloadTask.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="GroupedVariableResolver.cs" />
+    <Compile Include="IBenchManager.cs" />
+    <Compile Include="IProcessExecutionHost.cs" />
+    <Compile Include="LogLevels.cs" />
+    <Compile Include="Markdown\MarkdownHtmlConverter.cs" />
+    <Compile Include="Markdown\MdAnchor.cs" />
+    <Compile Include="Markdown\MdContext.cs" />
+    <Compile Include="Markdown\MdHeadline.cs" />
+    <Compile Include="Markdown\MdSyntax.cs" />
+    <Compile Include="PowerShell.cs" />
+    <Compile Include="ProcessExecutionFailedException.cs" />
+    <Compile Include="PythonVersion.cs" />
+    <Compile Include="SchemeDispatchProxy.cs" />
+    <Compile Include="SurroundedHtmlLinkUrlResolver.cs" />
+    <Compile Include="AsyncManager.cs" />
+    <Compile Include="TaskInfo.cs" />
+    <Compile Include="TaskInfoLogger.cs" />
+    <Compile Include="TaskResult.cs" />
+    <Compile Include="UI\AdvancedStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AdvancedStepControl.Designer.cs">
+      <DependentUpon>AdvancedStepControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ExistingConfigStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ExistingConfigStepControl.Designer.cs">
+      <DependentUpon>ExistingConfigStepControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\InitializeConfigTask.cs" />
+    <Compile Include="UI\WizzardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WizzardForm.Designer.cs">
+      <DependentUpon>WizzardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProxyStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ProxyStepControl.Designer.cs">
+      <DependentUpon>ProxyStepControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserIdentificationStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserIdentificationStepControl.Designer.cs">
+      <DependentUpon>UserIdentificationStepControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WizzardStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\WizzardStepControl.Designer.cs">
+      <DependentUpon>WizzardStepControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WizzardTask.cs" />
+    <Compile Include="UrlPattern.cs" />
+    <Compile Include="HtmlLinkUrlResolver.cs" />
+    <Compile Include="IConfiguration.cs" />
+    <Compile Include="IConfigurationPart.cs" />
+    <Compile Include="IPropertySource.cs" />
+    <Compile Include="IGroupedPropertySource.cs" />
+    <Compile Include="IGroupedPropertyCollection.cs" />
+    <Compile Include="IGroupedPropertyTarget.cs" />
+    <Compile Include="IPropertyCollection.cs" />
+    <Compile Include="IPropertyTarget.cs" />
+    <Compile Include="IGroupedValueResolver.cs" />
+    <Compile Include="IUrlResolver.cs" />
+    <Compile Include="Markdown\MarkdownPropertyEditor.cs" />
+    <Compile Include="Markdown\MarkdownPropertyParser.cs" />
+    <Compile Include="PageContentUrlResolver.cs" />
+    <Compile Include="PathResolver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GroupedPropertyCollection.cs" />
+    <Compile Include="PropertyKeys.cs" />
+    <Compile Include="ResolvingPropertyCollection.cs" />
+    <Compile Include="IUserInterface.cs" />
+    <Compile Include="VariableResolver.cs" />
+    <Compile Include="Vendor\MarkdownSharp\GitHubCodeBlockExtension.cs" />
+    <Compile Include="Vendor\MarkdownSharp\IExtensionInterface.cs" />
+    <Compile Include="Vendor\MarkdownSharp\Markdown.cs" />
+    <Compile Include="Vendor\MarkdownSharp\MarkdownOptions.cs" />
+    <Compile Include="Windows\ClrInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\AdvancedStepControl.resx">
+      <DependentUpon>AdvancedStepControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExistingConfigStepControl.resx">
+      <DependentUpon>ExistingConfigStepControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WizzardForm.resx">
+      <DependentUpon>WizzardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ProxyStepControl.resx">
+      <DependentUpon>ProxyStepControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserIdentificationStepControl.resx">
+      <DependentUpon>UserIdentificationStepControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WizzardStepControl.resx">
+      <DependentUpon>WizzardStepControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

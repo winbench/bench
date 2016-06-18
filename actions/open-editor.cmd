@@ -1,3 +1,3 @@
-@ECHO OFF
-CALL "%~dp0\..\auto\env.cmd"
+@ECHO ON
+CALL "%~dp0..\env.cmd"
 runps Start-Editor %*

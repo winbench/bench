@@ -125,7 +125,7 @@ GOTO:EOF
 
 :action_update-env
   IF %SILENT% == 0 (
-    ECHO.Update Bench environment paths and lauchners...
+    ECHO.Update Bench environment paths and launchers...
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
@@ -140,7 +140,7 @@ GOTO:EOF
   CALL "%AUTO_DIR%\init.cmd"
   CALL :runsetup setup
   CD /D "%ROOT_DIR%"
-  CALL "%AUTO_DIR%\env.cmd"
+  CALL ".\env.cmd"
   SET RUN_SHELL=1
 GOTO:EOF
 
@@ -166,7 +166,7 @@ GOTO:EOF
   CALL "%AUTO_DIR%\init.cmd"
   CALL :runsetup reinstall
   CD /D "%ROOT_DIR%"
-  CALL "%AUTO_DIR%\env.cmd"
+  CALL ".\env.cmd"
   SET RUN_SHELL=1
 GOTO:EOF
 
@@ -182,7 +182,7 @@ GOTO:EOF
   CALL "%AUTO_DIR%\init.cmd"
   CALL :runsetup renew
   CD /D "%ROOT_DIR%"
-  CALL "%AUTO_DIR%\env.cmd"
+  CALL ".\env.cmd"
   SET RUN_SHELL=1
 GOTO:EOF
 

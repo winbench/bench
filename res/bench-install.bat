@@ -1,21 +1,16 @@
 @ECHO OFF
 SET ROOT=%~dp0
 
-SET VERSION=0.10.8
+SET VERSION=0.11.0
 SET TAG=v%VERSION%
-SET BENCH_ZIPURL=https://github.com/mastersign/bench/archive/%TAG%.zip
-SET BENCH_ZIPFILE=%ROOT%bench.zip
-SET BENCH_SUBFLDR=\bench-%VERSION%
+SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
+SET BENCH_ZIPFILE=%ROOT%Bench.zip
+SET BENCH_SUBFLDR=
 SET BENCH_DIR=%ROOT%
-SET BENCHMGR_ZIPURL=https://github.com/mastersign/bench-manager/releases/download/%TAG%/BenchManager.zip
-SET BENCHMGR_ZIPFILE=%ROOT%BenchManager.zip
-SET BENCHMGR_SUBFLDR=
-SET BENCHMGR_DIR=%ROOT%auto\bin
 
 PUSHD "%ROOT%"
 
 CALL :DOWNLOAD "%BENCH_ZIPURL%" "%BENCH_ZIPFILE%"
-CALL :DOWNLOAD "%BENCHMGR_ZIPURL%" "%BENCHMGR_ZIPFILE%"
 
 ECHO Removing old Bench files ...
 FOR %%d IN (actions, auto, res, lib, tmp) DO (
@@ -23,12 +18,9 @@ FOR %%d IN (actions, auto, res, lib, tmp) DO (
 )
 
 CALL :EXTRACT "%BENCH_ZIPFILE%" "%BENCH_SUBFLDR%" "%BENCH_DIR%"
-IF NOT EXIST "%BENCHMGR_DIR%\" MKDIR "%BENCHMGR_DIR%"
-CALL :EXTRACT "%BENCHMGR_ZIPFILE%" "%BENCHMGR_SUBFLDR%" "%BENCHMGR_DIR%"
 
 ECHO.Deleting ZIP files ...
 DEL "%BENCH_ZIPFILE%"
-DEL "%BENCHMGR_ZIPFILE%"
 
 ECHO.Running initialization script ...
 .\actions\bench-ctl.cmd initialize
@@ -65,3 +57,4 @@ IF %ERRORLEVEL% NEQ 0 (
   EXIT /B 1
 )
 POPD
+GOTO:EOF

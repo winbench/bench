@@ -25,6 +25,50 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.11.0] - 2016-06-18
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.8...v0.11.0)
+
+### Added
+- Custom config dictionary property `Environment` to add environment variables
+  in `config.md`
+  ([#56](https://github.com/mastersign/bench/issues/56))
+- Custom config list property `EnvironmentPath` to add paths
+  to the `PATH` environment variable in `config.md`
+  ([#56](https://github.com/mastersign/bench/issues/56))
+- Entry for opening the apps website in the context menu of the setup dialogs app list
+  ([#62](https://github.com/mastersign/bench/issues/62))
+- App property label
+  ([#63](https://github.com/mastersign/bench/issues/63))
+- Support for documentation URLs
+  ([#57](https://github.com/mastersign/bench/issues/57))
+- Added VLC Player
+- Added MeshLab
+- Added Blender
+- Added Hugo
+- Added JabRef
+- Added TeXnicCenter
+- Group: LaTeX
+- Group: 3D Modeling
+
+### Changed
+- Moved `auto\env.cmd` to the Bench root folder
+  ([#59](https://github.com/mastersign/bench/issues/59))
+- Simplified install process by mergin Bench Dashboard into main repo
+- Update: Git from 2.8.3 to 2.9.0
+- Update: FileZilla from 3.17.0.1 to 3.18.0
+- Update: OpenSSL from 1.0.2d to 1.0.2h
+- Update: 7-Zip from 16.00 to 16.02
+- Update: Pandoc from 1.17.0.2 to 1.17.1
+- Update: PHP 5 from 5.6.20 to 5.6.21
+- Update: PHP 7 from 7.0.5 to 7.0.6
+- Added VLC Player and Blender to group Multimedia
+
+### Fixed
+- Visible console window when starting adorned executables from main window
+  ([#60](https://github.com/mastersign/bench/issues/60))
+- Prevent setup dialog from getting minimized while it is busy
+  ([#61](https://github.com/mastersign/bench/issues/61))
+
 ## [0.10.8] - 2016-05-27
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.7...v0.10.8)
 

@@ -1,0 +1,10 @@
+﻿Microsoft for the OS and .NET ecosystem
+Igor Pavlov for 7-Zip
+Scott Willeke for Less Msiérables
+Ariman for Inno Setup Unpacker
+Maximus5 for ConEmu
+Dino Chisa for DotNetZip
+John Gruber for Markdown
+Jeff Atwood for MarkdownSharp
+Tsuda Kageyu for the IconExtractor
+Linus Torvalds, Junio C. Hamano, Shawn O. Pearce, et.al. for Git

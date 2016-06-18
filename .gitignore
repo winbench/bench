@@ -1,7 +1,6 @@
 /tmp
 /log
 /config
-/auto/env.cmd
 /auto/bin
 /launcher
 /cache
@@ -9,7 +8,9 @@
 /home
 /projects
 /archive
+/release
 
+/env.cmd
 /*.zip
 /bench-site.md
 *.lnk
