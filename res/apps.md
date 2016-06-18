@@ -125,7 +125,7 @@ There are currently the following types of apps:
 
 * Typ `meta`: app groups or apps with a fully customized setup process
 * Typ `default`: Windows executables from a downloades file, archive, or setup
-* Typ `node-package`: NodeJS packages, installable with NPM
+* Typ `node-package`: Node.js packages, installable with NPM
 * Typ `ruby-package`: Ruby packages, installable with Gem
 * Typ `python2-package`: Python packages for Python 2 from PyPI, installable with PIP
 * Typ `python3-package`: Python packages for Python 3 from PyPI, installable with PIP
@@ -172,7 +172,7 @@ Some restrictions for the properties:
 * The properties _ResourceName_ and _ArchiveName_ are mutually exclusive.
 * The property _ArchivePath_ is only recognized, if _ArchiveName_ is used.
 
-### NodeJS Packages
+### Node.js Packages
 
 * **Typ**:
   The application typ
@@ -188,10 +188,10 @@ Some restrictions for the properties:
   The name of an NPM CLI wrapper from this package
   (optional, default is empty).
 * **Path**:
-  This property is ignored for NodeJS packages.
+  This property is ignored for Node.js packages.
 
-To determine, if a NodeJS package is already installed, the existence of its package folder in
-`node_modules` in the NodeJS directory is checked.
+To determine, if a Node.js package is already installed, the existence of its package folder in
+`node_modules` in the Node.js directory is checked.
 
 ### Ruby Packages
 
@@ -274,7 +274,10 @@ It comes with a graphical file manager and supports a large range of compression
 
 ### Inno Setup Unpacker
 
+A tool to extract the files from an Inno Setup executable.
+
 * ID: `InnoUnp`
+* Label: Inno Setup Unpacker
 * Website: <http://innounp.sourceforge.net/>
 * Version: 0.45
 * Release: 045
@@ -284,6 +287,8 @@ It comes with a graphical file manager and supports a large range of compression
 * Register: `false`
 
 ### ConEmu
+
+ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple consoles and simple GUI applications as one customizable GUI window with various features. 
 
 * ID: `ConEmu`
 * Website: <https://conemu.github.io/>
@@ -363,6 +368,8 @@ It comes with a graphical file manager and supports a large range of compression
 
 ### Git
 
+Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+
 * ID: `Git`
 * Website: <https://git-scm.com/download/win>
 * Docs:
@@ -379,6 +386,8 @@ It comes with a graphical file manager and supports a large range of compression
 
 ### GitKraken
 
+The downright luxurious Git client, for Windows, Mac & Linux.
+
 No proxy support yet (Version 1.3.0).
 
 * ID: `GitKraken`
@@ -393,6 +402,9 @@ No proxy support yet (Version 1.3.0).
 * Launcher: $:Label$
 
 ### OpenSSL
+
+OpenSSL is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols.
+It is also a general-purpose cryptography library.
 
 * ID: `OpenSSL`
 * Website: <https://www.openssl.org/>
@@ -411,6 +423,8 @@ No proxy support yet (Version 1.3.0).
 
 ### Putty
 
+PuTTY is a free (MIT-licensed) Win32 Telnet and SSH client.
+
 * ID: `Putty`
 * Website: <http://www.putty.org>
 * Docs:
@@ -422,6 +436,8 @@ No proxy support yet (Version 1.3.0).
 * Launcher: $:Label$
 
 ### GNU TLS
+
+The GnuTLS Transport Layer Security Library.
 
 * ID: `GnuTLS`
 * Label: GNU TLS
@@ -437,7 +453,16 @@ No proxy support yet (Version 1.3.0).
 
 ### GnuPG
 
+GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP).
+GnuPG allows to encrypt and sign your data and communication, features a versatile key management system
+as well as access modules for all kinds of public key directories.
+GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications. 
+
 * ID: `GnuPG`
+* Website: <https://gnupg.org>
+* Docs:
+    + Manual: <https://gnupg.org/documentation/manuals/gnupg-2.0/>
+    + Commands: <https://gnupg.org/documentation/manuals/gnupg-2.0/Operational-GPG-Commands.html>
 * Version: 2.0.30
 * Url: `https://sourceforge.net/projects/portableapps/files/GPG Plugin Portable/$:ArchiveName$`
 * ArchiveName: `GPG_Plugin_Portable_$:Version$.paf.exe`
@@ -447,7 +472,13 @@ No proxy support yet (Version 1.3.0).
 
 ### Wget
 
+GNU Wget is a free utility for non-interactive download of files from the Web.
+It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP proxies.
+
 * ID: `Wget`
+* Website: <https://www.gnu.org>
+* Docs:
+    + Manual: <https://www.gnu.org/software/wget/>
 * Version: 1.11.4-1
 * Dependencies: `WgetDeps`
 * Url: `https://sourceforge.net/projects/gnuwin32/files/wget/$:Version$/$:ArchiveName$`
@@ -467,8 +498,18 @@ No proxy support yet (Version 1.3.0).
 
 ### cURL
 
+curl is an open source command line tool and library for transferring data with URL syntax,
+supporting DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S,
+RTMP, RTSP, SCP, SFTP, SMB, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates,
+HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies,
+user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos),
+file transfer resume, proxy tunneling and more.
+
 * ID: `cURL`
 * Website: <http://curl.haxx.se/>
+* Docs:
+    + Manual: <https://curl.haxx.se/docs/manual.html>
+    + Man Page: <https://curl.haxx.se/docs/manpage.html>
 * Version: 7.48.0
 * Url: `https://bintray.com/artifact/download/vszakats/generic/$:ArchiveName$`
 * ArchiveName: `curl-$:Version$-win32-mingw.7z`
@@ -478,9 +519,15 @@ No proxy support yet (Version 1.3.0).
 
 ### FileZilla
 
+FileZilla Client is a free, open source FTP client. It supports FTP, SFTP, and FTPS (FTP over SSL/TLS). 
+
 * ID: `FileZilla`
-* Version: 3.18.0
 * Website: <https://filezilla-project.org/>
+* Docs:
+    + Documentation: <https://wiki.filezilla-project.org/Documentation>
+    + Usage: <https://wiki.filezilla-project.org/Using>
+    + Tutorial: <https://wiki.filezilla-project.org/FileZilla_Client_Tutorial_(en)>
+* Version: 3.18.0
 * Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$:ArchiveName$`
 * ArchiveName: `FileZillaPortable_$:Version$.paf.exe`
 * ArchivePath: `App/filezilla`
@@ -490,17 +537,28 @@ No proxy support yet (Version 1.3.0).
 
 ### Sift
 
+Sift - grep on steroids. A fast and powerful alternative to grep.
+
 * ID: `Sift`
 * Website: <https://sift-tool.org/>
+* Docs:
+    + Documentation: <https://sift-tool.org/docs>
 * Version: 0.8.0
 * Url: `https://sift-tool.org/downloads/sift/$:ArchiveName$`
 * ArchiveName: `sift_$:Version$_windows_386.zip`
 
 ### WinMerge
 
+WinMerge is an Open Source differencing and merging tool for Windows.
+WinMerge can compare both folders and files, presenting differences in a visual text format
+that is easy to understand and handle.
+
 * ID: `WinMerge`
-* Version: 2.14.0
 * Website: <http://winmerge.org/>
+* Docs:
+    + Quick Tour: <http://tour.winmerge.org/>
+    + Manual: <http://manual.winmerge.org/>
+* Version: 2.14.0
 * Url: `https://sourceforge.net/projects/portableapps/files/WinMerge%20Portable/$:ArchiveName$`
 * ArchiveName: `WinMergePortable_$:Version$.paf.exe`
 * ArchivePath: `App/winmerge`
@@ -511,11 +569,16 @@ No proxy support yet (Version 1.3.0).
 
 ### Ant Renamer
 
+Ant Renamer is a free program that makes easier the renaming of lots of files and folders
+by using specified settings.
+
 * ID: `AntRenamer`
 * Label: Ant Renamer
+* Website: <http://antp.be/software/renamer>
+* Docs:
+    + Forum: <http://forum.antp.be/phpbb2/index.php?c=5>
 * Version: latest
 * Url: <http://update.antp.be/renamer/antrenamer2.zip>
-* Website: <http://antp.be/software/renamer>
 * ArchiveName: `antrenamer2.zip`
 * Dir: `renamer`
 * Exe: `Renamer.exe`
@@ -523,18 +586,30 @@ No proxy support yet (Version 1.3.0).
 
 ### Pandoc
 
+Pandoc is a library and command-line tool for converting from one markup format to another.
+
 * ID: `Pandoc`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
 * Version: 1.17.0.2
+* Docs:
+    + User's Guide: <http://pandoc.org/README.html>
+    + FAQ: <http://pandoc.org/faqs.html>
+* Release: $:Version$-1
 * Url: `https://github.com/jgm/pandoc/releases/download/$:Version$/$:ArchiveName$`
-* ArchiveName: `pandoc-$:Version$-windows.msi`
+* ArchiveName: `pandoc-$:Release$-windows.msi`
 * ArchivePath: `SourceDir\Pandoc`
 * Exe: `pandoc.exe`
 
 ### MikTeX
 
+MiKTeX (pronounced mick-tech) is an up-to-date implementation of TeX/LaTeX
+and related programs for Windows (all current variants).
+
 * ID: `MikTeX`
 * Website: <http://miktex.org/portable>
+* Docs:
+    + Manual: <http://docs.miktex.org/2.9/manual/>
+    + LaTeX Guides: <https://latex-project.org/guides/>
 * Version: 2.9.5987
 * Url: `http://mirrors.ctan.org/systems/win32/miktex/setup/$:ArchiveName$`
 * ArchiveName: `miktex-portable-$:Version$.exe`
@@ -547,9 +622,20 @@ No proxy support yet (Version 1.3.0).
 
 ### Graphics Magick
 
+GraphicsMagick is the swiss army knife of image processing. It provides a robust
+and efficient collection of tools and libraries which support reading, writing,
+and manipulating an image in over 88 major formats including important formats
+like DPX, GIF, JPEG, JPEG-2000, PNG, PDF, PNM, and TIFF.
+
 * ID: `GraphicsMagick`
 * Label: Graphics Magick
 * Website: <http://www.graphicsmagick.org/>
+* Docs:
+    + Utilities: <http://www.graphicsmagick.org/utilities.html>
+    + FAQ: <http://www.graphicsmagick.org/FAQ.html>
+    + APIs: <http://www.graphicsmagick.org/programming.html>
+    + Supported Formats: <http://www.graphicsmagick.org/programming.html>
+    + Color Reference: <http://www.graphicsmagick.org/color.html>
 * Version: 1.3.23
 * Url: `http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/$:Version$/$:ArchiveName$`
 * ArchiveName: `GraphicsMagick-$:Version$-Q16-win32-dll.exe`
@@ -560,8 +646,20 @@ No proxy support yet (Version 1.3.0).
 
 ### FFmpeg
 
+FFmpeg is the leading multimedia framework, able to decode, encode, transcode,
+mux, demux, stream, filter and play pretty much anything that humans and machines have created.
+It supports the most obscure ancient formats up to the cutting edge.
+No matter if they were designed by some standards committee, the community or a corporation.
+
 * ID: `FFmpeg`
 * Website: <https://www.ffmpeg.org/>
+* Docs:
+    + Overview: <http://ffmpeg.org/documentation.html>
+    + ffmpeg Tool: <http://ffmpeg.org/ffmpeg.html>
+    + ffplay Tool: <http://ffmpeg.org/ffplay.html>
+    + ffprobe Tool: <http://ffmpeg.org/ffprobe.html>
+    + ffserver Tool: <http://ffmpeg.org/ffserver.html>
+    + Wiki: <https://trac.ffmpeg.org/wiki>
 * Version: 20160512-git-cd244fa
 * Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$:ArchiveName$`
 * ArchiveName: `ffmpeg-$:Version$-win32-shared.7z`
@@ -571,8 +669,23 @@ No proxy support yet (Version 1.3.0).
 
 ### Graphviz
 
+Graphviz is open source graph visualization software.
+Graph visualization is a way of representing structural information as diagrams
+of abstract graphs and networks. It has important applications in networking,
+bioinformatics,  software engineering, database and web design, machine learning,
+and in visual interfaces for other technical domains. 
+
 * ID: `Graphviz`
-* Website: <http://www.graphviz.org/Download_windows.php>
+* Website: <http://www.graphviz.org/>
+* Docs:
+    + Overview: <http://www.graphviz.org/Documentation.php>
+    + The DOT Language: <http://www.graphviz.org/content/dot-language>
+    + Attributes: <http://www.graphviz.org/content/attrs>
+    + Color Names: <http://www.graphviz.org/content/color-names>
+    + Node Shapes: <http://www.graphviz.org/content/node-shapes>
+    + Arrow Shapes: <http://www.graphviz.org/content/arrow-shapes>
+    + Command-Line Invocation: <http://www.graphviz.org/content/command-line-invocation>
+    + Output Formats: <http://www.graphviz.org/content/output-formats>
 * Version: 2.38
 * Url: `http://www.graphviz.org/pub/graphviz/stable/windows/$:ArchiveName$`
 * ArchiveName: `graphviz-$:Version$.zip`
@@ -581,10 +694,16 @@ No proxy support yet (Version 1.3.0).
 
 ### Dia
 
+Dia is a program to draw structured diagrams.
+
 * ID: `Dia`
+* Website: <https://wiki.gnome.org/Apps/Dia>
+* Docs:
+    + Overview: <https://wiki.gnome.org/Apps/Dia/Documentation>
+    + Manual: <http://dia-installer.de/doc/en/index.html>
+    + FAQ: <https://wiki.gnome.org/Apps/Dia/Faq>
 * Version: 0.97.2
 * Release: 0.97.2-2
-* Website: <https://wiki.gnome.org/action/show/Apps/Dia>
 * Url: `http://sourceforge.net/projects/dia-installer/files/dia-win32-installer/$:Version$/$:ArchiveName$`
 * ArchiveName: `dia-setup-$:Release$-unsigned.exe`
 * Path: `bin`
@@ -595,8 +714,17 @@ No proxy support yet (Version 1.3.0).
 
 ### Inkscape
 
+Inkscape is a professional vector graphics editor for Windows, Mac OS X and Linux.
+It's free and open source.
+
 * ID: `Inkscape`
 * Website: <https://inkscape.org/en/download/>
+* Docs:
+    + Manual: <http://tavmjong.free.fr/INKSCAPE/MANUAL/html/>
+    + Tutorials: <https://inkscape.org/en/learn/tutorials/>
+    + FAQ: <https://inkscape.org/en/learn/faq/>
+    + Command Line Reference: <https://inkscape.org/en/doc/inkscape-man.html>
+    + Keyboard Shortcuts: <https://inkscape.org/en/doc/keys091.html>
 * Version: 0.91-1
 * Url: <https://inkscape.org/en/gallery/item/3932/download/>
 * ArchiveName: `Inkscape-$:Version$-win32.7z`
@@ -606,10 +734,19 @@ No proxy support yet (Version 1.3.0).
 
 ### GIMP
 
+The GNU Image Manipulation Program.
+
+GIMP is a cross-platform image editor.
+Whether you are a graphic designer, photographer, illustrator, or scientist,
+GIMP provides you with sophisticated tools to get your job done.
+
 * ID: `Gimp`
 * Label: GIMP
-* Version: 2.8.16
 * Website: <http://www.gimp.org/>
+* Docs:
+    + Manual: <http://docs.gimp.org/2.8/en/>
+    + Tutorials: <http://www.gimp.org/tutorials/>
+* Version: 2.8.16
 * Url: `https://sourceforge.net/projects/portableapps/files/GIMP Portable/$:ArchiveName$`
 * ArchiveName: `GIMPPortable_$:Version$.paf.exe`
 * ArchivePath: `App/gimp`
@@ -617,11 +754,18 @@ No proxy support yet (Version 1.3.0).
 * Register: `false`
 * Launcher: $:Label$
 
-### NodeJS
+### Node.js
+
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
+Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 
 * ID: `Node`
-* Label: NodeJS
+* Label: Node.js
 * Website: <https://nodejs.org>
+* Docs:
+    + API Documentation: <https://nodejs.org/dist/latest-v4.x/docs/api/>
+    + Guides: <https://nodejs.org/en/docs/guides/>
 * Version: 4.4.5
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
@@ -631,8 +775,12 @@ No proxy support yet (Version 1.3.0).
 
 ### NPM
 
-Because _NodeJS_ is downloaded as bare executable, _NPM_ must be installed seperately.
-But NPM, in its latest versions, is only distributed as part of the _NodeJS_ setup.
+npm is the package manager for JavaScript.
+Find, share, and reuse packages of code from hundreds of thousands of 
+developers — and assemble them in powerful new ways.
+
+Because _Node.js_ is downloaded as bare executable, _NPM_ must be installed seperately.
+But NPM, in its latest versions, is only distributed as part of the _Node.js_ setup.
 _NPM_ 1.4.12 is the last version of _NPM_ which was released seperately.
 Therefore, the latest version of _NPM_ is installed afterwards via the setup script `auto\apps\npm.setup.ps1`.
 
@@ -648,60 +796,116 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 
 ### Gulp
 
+The streaming build system.
+
 * ID: `Gulp`
 * Typ: `node-package`
+* Website: <http://gulpjs.com>
+* Docs:
+    + npm Package: <https://www.npmjs.com/package/gulp>
+    + Getting Started: <https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
+    + API: <https://github.com/gulpjs/gulp/blob/master/docs/API.md>
+    + Command-Line: <https://github.com/gulpjs/gulp/blob/master/docs/CLI.md>
+    + Unofficial Documentation: <http://gulpjs.org/>
 * Version: `>=3.9.0 <4.0.0`
-* Website: <https://www.npmjs.com/package/gulp>
 * Exe: `gulp.cmd`
 
 ### Grunt
 
+The JavaScript Task Runner
+
 * ID: `Grunt`
 * Typ: `node-package`
-* Version: `>=0.4.5 <0.5.0`
 * Website: <http://gruntjs.com>
+* Docs:
+    + npm Package: <https://www.npmjs.org/package/grunt>
+    + Getting Started: <http://gruntjs.com/getting-started>
+    + Sample Gruntfile: <http://gruntjs.com/sample-gruntfile>
+    + Creating Tasks: <http://gruntjs.com/creating-tasks>
+    + Command-Line: <http://gruntjs.com/using-the-cli>
+    + API: <http://gruntjs.com/api/grunt>
+* Version: `>=0.4.5 <0.5.0`
 * Exe: `grunt.cmd`
 
 ### Bower
 
+Web sites are made of lots of things — frameworks, libraries, assets, and utilities.
+Bower manages all these things for you.
+
+Bower can manage components that contain HTML, CSS, JavaScript, fonts or even image files.
+Bower doesn’t concatenate or minify code or do anything else - it just installs
+the right versions of the packages you need and their dependencies.
+
 * ID: `Bower`
 * Typ: `node-package`
+* Website: <https://bower.io/>
+* Docs:
+    + npm Package: <https://www.npmjs.com/package/bower>
+    + Getting Started: <https://bower.io/#getting-started>
+    + Commands: <https://bower.io/docs/api/#commands>
 * Version: `>=1.7.0 <2.0.0`
-* Website: <https://www.npmjs.com/package/bower>
 * Exe: `bower.cmd`
 
 ### Yeoman
 
+The web's scaffolding tool for modern webapps.
+
+Yeoman helps you to kickstart new projects, prescribing best practices and tools
+to help you stay productive.
+
 * ID: `Yeoman`
 * Typ: `node-package`
 * PackageName: `yo`
+* Website: <http://yeoman.io/>
+* Docs:
+    + npm Package: <https://www.npmjs.com/package/yo>
+    + Getting Started: <http://yeoman.io/learning/index.html>
+    + Tutorial: <http://yeoman.io/codelab/index.html>
+    + Generators: <http://yeoman.io/generators/>
+    + Creating a Generator: <http://yeoman.io/authoring/>
 * Version: `>=1.5.0 <2.0.0`
-* Website: <https://www.npmjs.com/package/yo>
 * Exe: `yo.cmd`
 
 ### Yeoman Generator for Markdown Projects
+
+A project generator for Markdown projects with support for building
+HTML, PDF, and DOCX output. Leveraging Pandoc, Graphviz and a number of
+Node.js packages to pre-process the Markdown and post-process the output.
 
 * ID: `MdProc`
 * Label: Yeoman Generator for Markdown Projects
 * Typ: `node-package`
 * PackageName: `generator-mdproc`
-* Version: `>=0.1.6 <0.2.0`
 * Website: <https://www.npmjs.com/package/generator-mdproc>
+* Version: `>=0.1.6 <0.2.0`
 * Dependencies: `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
 
 ### JSHint
 
+JSHint is a tool that helps to detect errors and potential problems in your JavaScript code.
+
 * ID: `JSHint`
 * Typ: `node-package`
+* Website: <http://jshint.com/>
+* Docs:
+    + npm Package: <https://www.npmjs.com/package/jshint>
+    + Documentation: <http://jshint.com/docs/>
+    + Command-Line: <http://jshint.com/docs/cli/>
+    + API: <http://jshint.com/docs/api/>
 * Version: `>=2.8.0 <3.0.0`
-* Website: <https://www.npmjs.com/package/jshint>
 * Exe: `jshint.cmd`
 
 ### Python 2
 
+Python is a programming language that lets you work quickly and integrate systems more effectively.
+
 * ID: `Python2`
 * Label: Python 2
-* Website: <https://www.python.org/ftp/python/>
+* Website: <https://www.python.org/>
+* Docs:
+    + Documentation: <https://docs.python.org/2/>
+    + Language Reference: <https://docs.python.org/2/reference/index.html>
+    + Library Reference: <https://docs.python.org/2/library/index.html>
 * Version: 2.7.11
 * Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
 * ArchiveName: `python-$:Version$.msi`
@@ -711,9 +915,15 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 
 ### Python 3
 
+Python is a programming language that lets you work quickly and integrate systems more effectively.
+
 * ID: `Python3`
 * Label: Python 3
-* Website: <https://www.python.org/ftp/python/>
+* Website: <https://www.python.org/>
+* Docs:
+    + Documentation: <https://docs.python.org/3/>
+    + Language Reference: <https://docs.python.org/3/reference/index.html>
+    + Library Reference: <https://docs.python.org/3/library/index.html>
 * Version: 3.4.4
 * Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
 * ArchiveName: `python-$:Version$.msi`
@@ -743,6 +953,8 @@ for Python 3:
 
 ### IPython
 
+IPython provides a rich architecture for computing with a powerful interactive shell.
+
 for Python 2:
 
 * ID: `IPython2`
@@ -750,7 +962,9 @@ for Python 2:
 * Typ: `python2-package`
 * PackageName: `ipython`
 * Dependencies: `PyReadline2`
-* Website: <https://pypi.python.org/pypi/ipython>
+* Website: <http://pypi.python.org/pypi/ipython>
+* Docs:
+    + Documentation: <http://ipython.readthedocs.io/en/stable/>
 * Exe: `Scripts\ipython2.exe`
 * Launcher: $:Label$
 
@@ -762,13 +976,22 @@ for Python 3:
 * PackageName: `ipython`
 * Dependencies: `PyReadline3`
 * Website: <http://pypi.python.org/pypi/ipython>
+* Docs:
+    + Documentation: <http://ipython.readthedocs.io/en/stable/>
 * Exe: `Scripts\ipython3.exe`
 * Launcher: $:Label$
 
 ### Ruby
 
+A dynamic, open source programming language with a focus on simplicity and productivity.
+It has an elegant syntax that is natural to read and easy to write.
+
 * ID: `Ruby`
 * Website: <https://www.ruby-lang.org/>
+* Docs:
+    + Documentation: <https://www.ruby-lang.org/en/documentation/>
+    + Programming Ruby: <http://ruby-doc.com/docs/ProgrammingRuby/>
+    + Libraries: <https://www.ruby-lang.org/en/libraries/>
 * Version: 2.2.4
 * Url: `http://dl.bintray.com/oneclick/rubyinstaller/$:ArchiveName$`
 * ArchiveName: `rubyinstaller-$:Version$.exe`
@@ -781,12 +1004,20 @@ for Python 3:
 
 ### SASS
 
+Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.
+
 * ID: `Sass`
 * Label: SASS
 * Typ: `ruby-package`
 * Website: <http://sass-lang.com/>
+* Docs:
+    + Guide: <http://sass-lang.com/guide>
+    + Reference: <http://sass-lang.com/documentation/file.SASS_REFERENCE.html>
 
 ### PHP 5
+
+PHP is a popular general-purpose scripting language that is especially suited to web development.
+Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
 
 This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.
 
@@ -794,11 +1025,16 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 * Label: PHP 5
 * Website: <http://www.php.net>
 * Version: 5.6.20
+* Docs:
+    + PHP Manual: <http://php.net/manual/en/>
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
 
 ### PHP 7
+
+PHP is a popular general-purpose scripting language that is especially suited to web development.
+Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
 
 This application needs the x86 version of the [Visual C++ 14 Redistributable][MS VC14] installed.
 
@@ -806,17 +1042,25 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Label: PHP 7
 * Website: <http://www.php.net>
 * Version: 7.0.5
+* Docs:
+    + PHP Manual: <http://php.net/manual/en/>
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
 
 ### Java Runtime Environment 7
 
+According to Oracle, Java is the world's #1 programming language.
+
+The runtime environment is required for a compiled Java program to get executed.
+
 * ID: `JRE7`
 * Label: Java Runtime Environment 7
+* Website: <https://www.oracle.com/java/>
+* Docs:
+    + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
 * Version: 7u80
 * Release: b15
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
@@ -828,11 +1072,17 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 ### Java Runtime Environment 8
 
+According to Oracle, Java is the world's #1 programming language.
+
+The runtime environment is required for a compiled Java program to get executed.
+
 * ID: `JRE8`
 * Label: Java Runtime Environment 8
+* Website: <https://www.oracle.com/java/>
+* Docs:
+    + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
 * Version: 8u92
 * Release: b14
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
@@ -844,11 +1094,19 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 ### Java Development Kit 7
 
+According to Oracle, Java is the world's #1 programming language.
+
+The development kit is required for Java source code to get compiled.
+
 * ID: `JDK7`
 * Label: Java Development Kit 7
+* Website: <https://www.oracle.com/java/>
+* Docs:
+    + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
+    + Documentation: <http://docs.oracle.com/javase/7/docs/>
+    + Java SE 7 API: <http://docs.oracle.com/javase/7/docs/api/index.html>
 * Version: $JRE7:Version$
 * Release: $JRE7:Release$
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jdk-$:Version$-windows-i586.exe`
@@ -860,11 +1118,19 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 ### Java Development Kit 8
 
+According to Oracle, Java is the world's #1 programming language.
+
+The development kit is required for Java source code to get compiled.
+
 * ID: `JDK8`
 * Label: Java Development Kit 8
+* Website: <https://www.oracle.com/java/>
+* Docs:
+    + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
+    + Documentation: <http://docs.oracle.com/javase/8/docs/>
+    + Java SE 8 API: <http://docs.oracle.com/javase/8/docs/api/index.html>
 * Version: $JRE8:Version$
 * Release: $JRE8:Release$
-* Website: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jdk-$:Version$-windows-i586.exe`
@@ -876,10 +1142,17 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 ### Maven
 
+Apache Maven is a software project management and comprehension tool.
+Based on the concept of a project object model (POM), Maven can manage a project's build,
+reporting and documentation from a central piece of information.
+
 * ID: `Maven`
 * Dependencies: `JRE8`, `GnuPG`
-* Version: `3.3.9`
 * Website: <https://maven.apache.org>
+* Docs:
+    + Reference: `https://maven.apache.org/ref/$:Version$/`
+    + API Docs: `https://maven.apache.org/ref/$:Version$/apidocs/index.html`
+* Version: `3.3.9`
 * Url: `http://www-eu.apache.org/dist/maven/maven-3/$:Version$/binaries/$:ArchiveName$`
 * ArchiveName: `apache-maven-$:Version$-bin.zip`
 * ArchivePath: `apache-maven-$:Version$`
@@ -889,10 +1162,21 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 
 ### Leiningen
 
+Leiningen is the easiest way to use Clojure.
+With a focus on project automation and declarative configuration,
+it gets out of your way and lets you focus on your code.
+
 * ID: `Leiningen`
 * Dependencies: `JDK8`, `GnuPG`, `Wget`
-* Version: latest
 * Website: <http://leiningen.org>
+* Docs:
+    + Tutorial: <https://github.com/technomancy/leiningen/blob/stable/doc/TUTORIAL.md>
+    + Sample project.clj: <https://github.com/technomancy/leiningen/blob/stable/sample.project.clj>
+    + FAQ: <https://github.com/technomancy/leiningen/blob/stable/doc/FAQ.md>
+    + Clojure Documentation: <http://clojure-doc.org/>
+    + Clojure Reference: <http://clojure.org/reference/documentation>
+    + Clojure API: <http://clojure.github.io/clojure/>
+* Version: latest
 * Url: <https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat>
 * ResourceName: `lein.bat`
 * Dir: `lein`
@@ -933,6 +1217,9 @@ Meta app MinGW with package manager and graphical user interface:
 * Typ: `meta`
 * Dependencies: `MinGwGet`, `MinGwGetGui`
 * Website: <http://www.mingw.org/>
+* Docs:
+    + FAQ: <http://mingw.org/wiki/FAQ>
+    + HOWTO: <http://mingw.org/wiki/HOWTO>
 * Dir: `mingw`
 * Path: `bin`, `msys\1.0\bin`
 * Packages:
@@ -958,15 +1245,22 @@ to start the GUI for _MinGW Get_ and install more MinGW packages.
 
 ### CMake
 
+CMake is an open-source, cross-platform family of tools designed to build,
+test and package software. CMake is used to control the software compilation process
+using simple platform and compiler independent configuration files, and generate native
+makefiles and workspaces that can be used in the compiler environment of your choice.
+The suite of CMake tools were created by Kitware in response to the need for a powerful,
+cross-platform build environment for open-source projects such as ITK and VTK.
+
 Usually you want to use this app with _MinGW_.
 
 To setup a C/C++ project with CMake and MinGW (`mingw32-make`), you have to activate the _MinGW_ app with the `mingw32-make` package.
 Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefiles" <project folder>` to generate the `Makefile`. Run `cmake --build <project folder>` to compile the project.
 
 * ID: `CMake`
+* Website: <https://cmake.org/>
 * MajorVersion: 3.5
 * Version: $:MajorVersion$.2
-* Website: <https://cmake.org/>
 * Url: `https://cmake.org/files/v$:MajorVersion$/$:ArchiveName$`
 * ArchiveName: `cmake-$:Version$-win32-x86.zip`
 * ArchivePath: `cmake-$:Version$-win32-x86`
@@ -1000,9 +1294,18 @@ install the LLVM-Plugin for Eclipse CDT.
 
 ### Go
 
+Go is an open source programming language that makes it easy
+to build simple, reliable, and efficient software.
+
 * ID: `Go`
 * Version: 1.6
 * Website: <https://golang.org>
+* Docs:
+    + Overview: <https://golang.org/doc/>
+    + FAQ: <https://golang.org/doc/faq>
+    + Language Specification: <https://golang.org/ref/spec>
+    + Command-Line: <https://golang.org/doc/cmd>
+    + Packages: <https://golang.org/pkg/>
 * Url: `https://storage.googleapis.com/golang/$:ArchiveName$`
 * ArchiveName: `go$:Version$.windows-386.zip`
 * ArchivePath: `go`
@@ -1013,18 +1316,29 @@ install the LLVM-Plugin for Eclipse CDT.
 
 ### NuGet
 
+NuGet is the package manager for the Microsoft development platform including .NET.
+The NuGet client tools provide the ability to produce and consume packages.
+The NuGet Gallery is the central package repository used by all package authors and consumers.
+
 * ID: `NuGet`
-* Version: latest
 * Website: <https://www.nuget.org>
+* Docs:
+    + Consume: <https://docs.nuget.org/consume>
+    + Create: <https://docs.nuget.org/create>
+    + Command-Line: <https://docs.nuget.org/Consume/Command-Line-Reference>
+    + Configuration File: <https://docs.nuget.org/Consume/NuGet-Config-File>
+* Version: latest
 * Url: <https://dist.nuget.org/win-x86-commandline/latest/nuget.exe>
 * ResourceName: `nuget.exe`
 
 ### Zeal
 
+An offline documentation browser inspired by [Dash](https://kapeli.com/dash/).
+
 * ID: `Zeal`
 * Label: Zeal Docs
-* Version: 0.2.1
 * Website: <https://zealdocs.org>
+* Version: 0.2.1
 * Url: `https://bintray.com/artifact/download/zealdocs/windows/$:ArchiveName$`
 * ArchiveName: `zeal-$:Version$-windows-x86.msi`
 * ArchivePath: `SourceDir\PFiles\Zeal`
@@ -1033,9 +1347,13 @@ install the LLVM-Plugin for Eclipse CDT.
 
 ### Visual Studio Code
 
+A cross platform code editor from Microsoft.
+
 * ID: `VSCode`
 * Label: Visual Studio Code
-* Website: <https://code.visualstudio.com/Docs/?dv=win>
+* Website: <https://code.visualstudio.com/>
+* Docs:
+    + Documentation: <https://code.visualstudio.com/Docs>
 * Version: latest
 * Url: <http://go.microsoft.com/fwlink/?LinkID=623231>
 * ArchiveName: `VSCode-win32.zip`
@@ -1045,8 +1363,12 @@ install the LLVM-Plugin for Eclipse CDT.
 
 ### LightTable
 
+The next generation code editor.
+
 * ID: `LightTable`
 * Website: <http://lighttable.com>
+* Docs:
+    + Documentation: <http://docs.lighttable.com/>
 * Version: 0.8.1
 * Url: `https://github.com/LightTable/LightTable/releases/download/$:Version$/$:ArchiveName$`
 * ArchiveName: `lighttable-$:Version$-windows.zip`
@@ -1057,9 +1379,16 @@ install the LLVM-Plugin for Eclipse CDT.
 
 ### Sublime Text 3
 
+Sublime Text is a sophisticated text editor for code, markup and prose.
+You'll love the slick user interface, extraordinary features and amazing performance.
+
 * ID: `SublimeText3`
 * Label: Sublime Text 3
 * Website: <http://www.sublimetext.com/3>
+* Docs:
+    + Documentation: <https://www.sublimetext.com/docs/3/>
+    + Unofficial Documentation: <http://docs.sublimetext.info/en/latest/index.html>
+    + Package Control: <https://packagecontrol.io/>
 * Version: Build 3114
 * Url: `https://download.sublimetext.com/$:ArchiveName$`
 * ArchiveName: `Sublime Text $:Version$.zip`
@@ -1068,9 +1397,18 @@ install the LLVM-Plugin for Eclipse CDT.
 
 ### Emacs
 
+An extensible, customizable, free text editor - and more.
+
+GNU Emacs at its core is an interpreter for Emacs Lisp, a dialect of the Lisp programming language
+with extensions to support text editing. 
+
 * ID: `Emacs`
 * Dependencies: `GnuTLS`
 * Website: <https://www.gnu.org/software/emacs/>
+* Docs:
+    + Manual: <https://www.gnu.org/software/emacs/manual/html_node/emacs/index.html>
+    + Emacs Lisp: <https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html>
+    + Other Manuals: <https://www.gnu.org/software/emacs/manual/index.html>
 * Version: 24.5
 * Url: `http://ftp.gnu.org/gnu/emacs/windows/$:ArchiveName$`
 * ArchiveName: `emacs-$:Version$-bin-i686-mingw32.zip`
@@ -1082,10 +1420,16 @@ install the LLVM-Plugin for Eclipse CDT.
 
 ### Spacemacs
 
+The best editor is neither Emacs nor Vim, it's Emacs and Vim!
+
 * ID: `Spacemacs`
 * Typ: `meta`
 * Dependencies: `Git`, `Emacs`
 * Website: <http://spacemacs.org/>
+* Docs:
+    + Documentation: <http://spacemacs.org/doc/DOCUMENTATION.html>
+    + Configuration Layers: <http://spacemacs.org/doc/LAYERS.html>
+    + Layers: <http://spacemacs.org/layers/LAYERS.html>
 * SetupTestFile: `$HomeDir$\.emacs.d\spacemacs.mk`
 
 ### Eclipse
@@ -1157,6 +1501,10 @@ A free portable derivative of Chromium, optimized for privacy.
 
 ### MySQL
 
+According to Oracle:
+MySQL Community Edition is the freely downloadable version
+of the world's most popular open source database.
+
 The MySQL data is stored in `%USERPROFILE%\mysql_data`.
 You can start the MySQL server by running `mysql_start` in the _Bench_ shell.
 You can stop the MySQL server by running `mysql_stop` in the _Bench_ shell.
@@ -1164,6 +1512,11 @@ The initial password for _root_ is `bench`.
 
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
+* Docs:
+    + Documentation: <http://dev.mysql.com/doc/refman/5.7/en/>
+    + SQL Syntax: <http://dev.mysql.com/doc/refman/5.7/en/sql-syntax.html>
+    + Data Types: <http://dev.mysql.com/doc/refman/5.7/en/data-types.html>
+    + Functions: <http://dev.mysql.com/doc/refman/5.7/en/functions.html>
 * Version: 5.7.12
 * Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$:ArchiveName$`
 * ArchiveName: `mysql-$:Version$-win32.zip`
@@ -1176,10 +1529,16 @@ The initial password for _root_ is `bench`.
 
 ### MySQL Workbench
 
+MySQL Workbench is a unified visual tool for database architects, developers, and DBAs.
+MySQL Workbench provides data modeling, SQL development, and comprehensive administration
+tools for server configuration, user administration, backup, and much more.
+
 * ID: `MySQLWB`
 * Label: MySQL Workbench
-* Version: 6.3.6
 * Website: <http://dev.mysql.com/downloads/workbench/>
+* Docs:
+    + Documentation: <http://dev.mysql.com/doc/workbench/en/>
+* Version: 6.3.6
 * Url: `http://dev.mysql.com/get/Downloads/MySQLGUITools/$:ArchiveName$`
 * ArchiveName: `mysql-workbench-community-$:Version$-win32-noinstall.zip`
 * ArchivePath: `MySQL Workbench 6.3.6 CE (win32)`
@@ -1189,11 +1548,22 @@ The initial password for _root_ is `bench`.
 
 ### PostgreSQL
 
+PostgreSQL is a powerful, open source object-relational database system.
+It has more than 15 years of active development and a proven architecture
+that has earned it a strong reputation for reliability, data integrity, and correctness.
+It is fully ACID compliant, has full support for foreign keys, joins, views,
+triggers, and stored procedures (in multiple languages).
+It also supports storage of binary large objects, including pictures, sounds, or video.
+It has native programming interfaces for C/C++, Java, .Net, Perl, Python,
+Ruby, Tcl, ODBC, among others
+
 Contains the _PostgreSQL Server_ and the management tool _pgAdminIII_.
 The initial password for _postgres_ is `bench`.
 
 * ID: `PostgreSQL`
 * Website: <http://www.postgresql.org>
+* Docs:
+    + Documentation: <https://www.postgresql.org/docs/9.5/static/index.html>
 * Version: 9.5.3-1
 * Url: `http://get.enterprisedb.com/postgresql/$:ArchiveName$`
 * ArchiveName: `postgresql-$:Version$-windows-binaries.zip`
@@ -1213,11 +1583,17 @@ The initial password for _postgres_ is `bench`.
 
 ### Apache
 
+The Apache HTTP Server is a secure, efficient and extensible server
+that provides HTTP services in sync with the current HTTP standards.
+The Apache HTTP Server is the most popular web server since over 20 years.
+
 This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.
 
 * ID: `Apache`
-* Version: 2.4.20
 * Website: <https://httpd.apache.org/>
+* Docs:
+    + Documentation: <http://httpd.apache.org/docs/2.4/en/>
+* Version: 2.4.20
 * Url: `http://www.apachelounge.com/download/VC11/binaries/$:ArchiveName$`
 * ArchiveName: `httpd-$:Version$-win32-VC11.zip`
 * ArchivePath: `Apache24`
@@ -1228,9 +1604,17 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 
 ### Windows Sysinternals Suite
 
+A collection of tools by Mark Russinovich, to inspect and investigate
+the Microsoft Windows operating systems and its processes.
+
 * ID: `SysInternals`
+* Website: <https://technet.microsoft.com/de-de/sysinternals>
+* Docs:
+    + Downloads: <https://technet.microsoft.com/de-de/sysinternals/bb842062>
+    + Forum: <http://forum.sysinternals.com/>
+    + Blog: <https://blogs.technet.microsoft.com/sysinternals/>
+    + Learning Resources: <https://technet.microsoft.com/de-de/sysinternals/bb469930>
 * Version: latest
-* Website: <https://technet.microsoft.com/de-de/sysinternals/bb842062>
 * Url: <https://download.sysinternals.com/files/SysinternalsSuite.zip>
 * ArchiveName: `SysinternalsSuite.zip`
 * Exe: `procexp.exe`
