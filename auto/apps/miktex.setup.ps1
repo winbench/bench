@@ -1,6 +1,6 @@
-$mpm = "$(App-Path MikTeX)\mpm.exe"
+$mpm = "$(App-Path MiKTeX)\mpm.exe"
 if (!(Test-Path $mpm)) {
-    throw "MikTeX Package Manager not found"
+    throw "MiKTeX Package Manager not found"
 }
 
 $packages = @(

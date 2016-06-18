@@ -313,7 +313,7 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 
 * ID: `Multimedia`
 * Typ: `meta`
-* Dependencies: `Inkscape`, `Dia`, `Gimp`, `Pandoc`, `MikTeX`, `GraphicsMagick`, `Graphviz`, `FFmpeg`, `VLC`, `Blender`
+* Dependencies: `Inkscape`, `Dia`, `Gimp`, `Pandoc`, `MiKTeX`, `GraphicsMagick`, `Graphviz`, `FFmpeg`, `VLC`, `Blender`
 
 ### Group: 3D Modeling
 
@@ -614,12 +614,12 @@ Pandoc is a library and command-line tool for converting from one markup format 
 * ArchivePath: `SourceDir\Pandoc`
 * Exe: `pandoc.exe`
 
-### MikTeX
+### MiKTeX
 
 MiKTeX (pronounced mick-tech) is an up-to-date implementation of TeX/LaTeX
 and related programs for Windows (all current variants).
 
-* ID: `MikTeX`
+* ID: `MiKTeX`
 * Website: <http://miktex.org/portable>
 * Docs:
     + Manual: <http://docs.miktex.org/2.9/manual/>
@@ -630,7 +630,7 @@ and related programs for Windows (all current variants).
 * ArchivePath: `texmfs`
 * Path: `install\miktex\bin`
 * Exe: `install\miktex\bin\latex.exe`
-* Launcher: `MikTeX Tray Icon`
+* Launcher: `MiKTeX Tray Icon`
 * LauncherExecutable: `install\miktex\bin\miktex-taskbar-icon.exe`
 * LauncherIcon: `install\miktex\bin\mo.exe`
 
@@ -987,7 +987,7 @@ Node.js packages to pre-process the Markdown and post-process the output.
 * PackageName: `generator-mdproc`
 * Website: <https://www.npmjs.com/package/generator-mdproc>
 * Version: `>=0.1.6 <0.2.0`
-* Dependencies: `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MikTeX`
+* Dependencies: `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MiKTeX`
 
 ### JSHint
 
@@ -1509,7 +1509,7 @@ You'll love the slick user interface, extraordinary features and amazing perform
 Premium LaTeX Editing for Windows.
 
 * ID: `TeXnicCenter`
-* Dependencies: `MikTeX`
+* Dependencies: `MiKTeX`
 * Website: <http://www.texniccenter.org>
 * Docs:
     + Features: <http://www.texniccenter.org/about/feature/>
