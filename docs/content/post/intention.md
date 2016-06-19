@@ -9,11 +9,12 @@ topics = []
 
 ## Intention
 
-_Bench_ aims to take the pain out of the following scenarios:
+Bench aims to take the pain out of the following scenarios:
 
 * I quickly need a command line tool under Windows but first I need to
   find it on the web, then download it, install it, and then make shure
   it is on the `PATH` variable, but wait it has a dependency I need to fulfill first...
+<!--more-->
 * I have a project with a number of tool dependencies and want a friend
   to help me make progress, but then he needs to install all the tools
   I so carefully prepared on my maschine...
