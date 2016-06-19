@@ -4,3 +4,10 @@
     font-size: 1.3em;
     margin: 0;
 }
+
+.home-article h2
+{
+    text-align: center;
+    font-weight: normal;
+    font-size: 2em;
+}
