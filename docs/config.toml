@@ -6,7 +6,7 @@ author = "Tobias Kiertscher"
 theme = "blackburn"
 
 # Shown in the side menu
-copyright = "Copyright &copy; by Tobias Kiertscher 2016. All rights reserved."
+copyright = "Content licensed<br/>by Tobias Kiertscher"
 canonifyurls = true
 paginate = 10
 
