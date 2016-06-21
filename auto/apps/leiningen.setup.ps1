@@ -4,10 +4,14 @@ $leinProfilesTemplate = "$leinResourceDir\profiles.clj"
 $leinProfilesDir = "$(Get-ConfigValue HomeDir)\.lein"
 $leinProfiles = [IO.Path]::Combine($leinProfilesDir, "profiles.clj")
 
-Debug "LEIN_JAR: $env:LEIN_JAR"
+$leinEnv = Get-AppConfigValue Leiningen Environment
+$leinJar = $leinEnv["LEIN_JAR"]
 
-if (!(Test-Path $env:LEIN_JAR))
+if (!(Test-Path $leinJar))
 {
+    $env:LEIN_JAR = $leinJar
+    Write-Host "Installing Leiningen to: $leinJar"
+    Pause
     & $lein self-install
 }
 
