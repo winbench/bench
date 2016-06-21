@@ -6,8 +6,8 @@
 </div>
 
 <div class="content">
-  {{ range ( .Paginate (where .Data.Pages "Type" "home")).Pages }}
-    {{ .Render "teaser" }}
+  {{ range .Data.Pages }}
+    {{ .Render "summary" }}
   {{ end }}
 
   {{ partial "pagination.html" . }}

@@ -1,13 +1,9 @@
 +++
-date = "2016-06-18"
-description = "What is the purpose of Bench?"
-draft = false
-tags = []
-title = "Intention"
-topics = []
+date = "2016-06-21T15:46:03+02:00"
+description = "What can Bench do for me?"
+draft = true
+title = "Scenarios"
 +++
-
-## Intention
 
 Bench aims to take the pain out of the following scenarios:
 

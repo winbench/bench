@@ -2,7 +2,9 @@
 date = "2016-06-19T16:47:06+02:00"
 description = "What is Bench?"
 draft = true
-title = "Introduction"
+title = "About Bench"
+icon = "home"
+follow_up_url = "/about/"
 weight = 1
 +++
 

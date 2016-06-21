@@ -5,9 +5,33 @@
     margin: 0;
 }
 
-.home-article h2
+article.teaser h2
 {
-    text-align: center;
+    text-align: left;
+    margin-left: 160px;
     font-weight: normal;
     font-size: 2em;
+}
+
+.teaser-icon
+{
+    clear: left;
+    float: left;
+    width: 128px;
+}
+.teaser-icon .fa
+{
+    font-size: 128px;
+}
+.teaser-text
+{
+    margin-left: 160px;
+}
+.teaser-text p:last-of-type
+{
+    margin-bottom: 0;
+}
+.teaser-follow-up
+{
+    text-align: right;
 }

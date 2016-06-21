@@ -1,0 +1,21 @@
+<article class="teaser">
+  <div class="teaser-icon">
+    {{ if .Params.follow_up_url }}
+    <a href="{{ relURL .Params.follow_up_url }}"><it class="fa fa-{{ .Params.icon }}"></it></a>
+    {{ else }}
+    <it class="fa fa-{{ .Params.icon }}"></it>
+    {{ end }}
+  </div>
+  <header>
+    <h2>{{ .Title }}</h2>
+  </header>
+  <div class="teaser-text">
+  {{ .Content }}
+  {{ if .Params.follow_up_url }}
+  <div class="teaser-follow-up">
+    <a href="{{ relURL .Params.follow_up_url }}"><it class="fa fa-angle-double-right"></it>&nbsp;Read more</a>
+  </div>
+  {{ end }}
+  </div>
+  <div style="clear:left"></div>
+</article>
