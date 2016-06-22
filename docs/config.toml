@@ -40,16 +40,40 @@ paginate = 10
     url = "/about/"
   [[menu.main]]
     name = "Scenarios"
-    pre = "<i class='fa fa-info-circle fa-fw'></i>"
+    pre = "<i class='fa fa-plus-circle fa-fw'></i>"
     weight = 2
     identifier = "scenarios"
     url = "/scenarios/"
-  [[maun.main]]
-    name = "Overview"
-    pre = "<i class='fa fa-info-circle fa-fw'></i>"
+  [[menu.main]]
+    name = "Quickstart"
+    pre = "<i class='fa fa-arrow-circle-right fa-fw'></i>"
     weight = 3
+    identifier = "start"
+    url = "/start/"
+  [[menu.main]]
+    name = "Overview"
+    pre = "<i class='fa fa-sitemap fa-fw'></i>"
+    weight = 4
     identifier = "overview"
     url = "/overview/"
+  [[menu.main]]
+    name = "Tutorials"
+    pre = "<i class='fa fa-graduation-cap fa-fw'></i>"
+    weight = 5
+    identifier = "tutorials"
+    url = "/tutorial/"
+  [[menu.main]]
+    name = "Tech Guides"
+    pre = "<i class='fa fa-lightbulb-o fa-fw'></i>"
+    weight = 6
+    identifier = "guides"
+    url = "/guide/"
+  [[menu.main]]
+    name = "API Reference"
+    pre = "<i class='fa fa-book fa-fw'></i>"
+    weight = 7
+    identifier = "reference"
+    url = "/ref/"
   [[menu.main]]
     name = "Contact"
     pre = "<i class='fa fa-phone fa-fw'></i>"
