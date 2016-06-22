@@ -1,11 +1,11 @@
 +++
 title = "Contact"
 date = "2016-06-18"
-sidemenu = "true"
-description = "how to contact me"
+description = "How to contact the author?"
 +++
 
-If you have any questions or remarks, you do not want to put into an GitHub issue,
+If you have any questions or remarks, you do not want to put into a
+[GitHub issue](https://github.com/mastersign/bench/issues),
 feel free to write me an email.
 
 **Tobias Kiertscher**

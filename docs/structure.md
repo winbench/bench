@@ -44,10 +44,10 @@ The Quickstart should contain a short version of selected tutorials.
 The Quickstarts are chained, to guide the user to the next step.
 A Quickstart is primary linked to the tutorials for _step-by-step descritions_.
 
-* `install` Installation
-* `apps` Selecting and installing apps
-* `project` Creating a new project
-* `work` Working in the context of a project
+* `install` Installing Bench
+* `apps` Installing Apps
+* `project` Setting-Up a Project
+* `work` Working in a Project
 
 ## Tutorials `tutorial`
 
@@ -59,24 +59,28 @@ Color: green
 Tutorials should be in step-by-step form and allow the user to complete the following tasks.
 A tutorial is primary linked to the guides to explain _how_ things work.
 
-* `install` Installation
+* `setup` Setting-Up Bench
     + Bootstrap
     + Bench site initialization
     + First setup
     + Configuration initialization
         - Clean
         - From Git existing repo
-* `apps` Selecting and installing apps
-* `app-custom` Defining a custom app
-* `shell-start` Ways of starting a shell
-* `app-start` Ways of starting an app
-* `project-new` Creating a new project
-* `project-import` Importing an existing project into Bench
+* `apps` Selecting and Installing Apps
+* `apps-upgrade` Upgrading Apps
+* `apps-remove` Removing Apps
+* `apps-custom` Defining Custom Apps
+* `app-start` Starting an App
+* `shell-start` Starting a Shell
+* `project-new` Creating a New Project
+* `project-import` Importing an Existing Project
 * `project-work` Working in the context of a project
     + From an editor or IDE
     + From the shell
 * `portable` Using Bench on a USB drive
-* `multi-env` Using multiple Bench environments side by side
+* `config-git` Managing the Bench Configuration
+* `upgrade` Upgrading Bench
+* `multi-env` Using Multiple Bench Environments Side-by-Side
 
 ## Guides `guide`
 
@@ -108,7 +112,7 @@ Guides should link primary to the references for _details_.
 * `shell` Shells
 * `launcher` Launchers and execution proxies
 * `project-initializer` Project initializers
-* `project-action` Project actions
+* `project-tasks` Project tasks
 
 ## References `ref`
 
@@ -126,7 +130,7 @@ References cover components or processes of Bench in detail.
     + Setup dialog
     + App info dialog
     + App list windows
-* `config-syntax` Markdown syntax for `res\config.md`, `config\config.md`, and `bench-site.md`
+* `markup-syntax` Markdown syntax for `res\config.md`, `config\config.md`, and `bench-site.md`
 * `config` Configuration properties
     + Customizable properties should be marked
 * `apps-syntax` Markdown syntax for `res\apps.md` and `config\apps.md`
