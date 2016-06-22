@@ -6,11 +6,11 @@ title = "Setting Up Bench"
 weight = 1
 +++
 
-Bench is installed with the bootstrap script [`bench-install.bat`][bootstrap].
+Bench is installed with the bootstrap script [`bench-install.bat`][bootstrap-file].
 
 TODO
 
-You can find a more detailed step-by-step description in the [Installation Tutorial].
+You can find a more detailed description in the tutorial [Installation].
 
-[Installation Tutorial]: /tutorial/install/
-[bootstrap]: https://github.com/mastersign/bench/raw/master/res/bench-install.bat
+[Installation]: /tutorial/install/
+[bootstrap-file]: https://github.com/mastersign/bench/raw/master/res/bench-install.bat

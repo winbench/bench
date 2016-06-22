@@ -2,12 +2,13 @@
 date = "2016-06-21T16:35:09+02:00"
 description = "How do I use a Bench app in my project?"
 draft = true
-title = "Working In A Project"
+title = "Working in a Project"
+weight = 4
 +++
 
 TODO
 
-You can walk through the more detailed tutorials about working in a project in the tutorial
-[Working In A Project].
+You can find a more detailed description of working in a project in the tutorial
+[Working in a Project].
 
-[Working In A Project]: /tutorial/project-work/
+[Working in a Project]: /tutorial/project-work/

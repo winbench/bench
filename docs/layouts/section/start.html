@@ -1,0 +1,14 @@
+{{ partial "header.html" . }}
+
+<div class="header">
+  <h1>Quickstart</h1>
+  <h2>How do I get started?</h2>
+</div>
+
+<div class="content">
+  {{ range .Data.Pages }}
+    {{ .Render "simple" }}
+  {{ end }}
+</div>
+
+{{ partial "footer.html" . }}
