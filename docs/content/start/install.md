@@ -2,7 +2,7 @@
 date = "2016-06-21T16:34:43+02:00"
 description = "How do I get Bench up and running?"
 draft = true
-title = "Setting Up Bench"
+title = "Installing Bench"
 weight = 1
 +++
 
