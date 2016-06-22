@@ -1,9 +1,9 @@
 <article class="teaser">
   <div class="teaser-icon">
     {{ if .Params.follow_up_url }}
-    <a href="{{ relURL .Params.follow_up_url }}"><it class="fa fa-{{ .Params.icon }}"></it></a>
+    <a href="{{ relURL .Params.follow_up_url }}"><i class="fa fa-{{ .Params.icon }}"></i></a>
     {{ else }}
-    <it class="fa fa-{{ .Params.icon }}"></it>
+    <i class="fa fa-{{ .Params.icon }}"></i>
     {{ end }}
   </div>
   <header>
@@ -13,7 +13,7 @@
   {{ .Content }}
   {{ if .Params.follow_up_url }}
   <div class="teaser-follow-up">
-    <a href="{{ relURL .Params.follow_up_url }}"><it class="fa fa-angle-double-right"></it>&nbsp;Read more</a>
+    <a href="{{ relURL .Params.follow_up_url }}"><i class="fa fa-angle-double-right"></i>&nbsp;Read more</a>
   </div>
   {{ end }}
   </div>
