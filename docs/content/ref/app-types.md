@@ -43,33 +43,36 @@ Optionally some custom scripts can be executed during the setup,
 to perform some additional configuration for the app.
 
 ## Node.js Package
-An app is a _Node.js Package_, if its `typ` property is set to `node-package`.
+An app is a _Node.js Package_ if its `typ` property is set to `node-package`.
 
 This app type recognizes the [common app properties] and the [properties of Node.js packages].
 
-TODO
+A _Node.js Package_ is downloaded and installed by _npm_ the Node.js package manager.
 
-To determine, if a Node.js package is already installed, the existence of its package folder in
+To determine, if a _Node.js Package_ is already installed, the existence of its package folder in
 `node_modules` in the Node.js directory is checked.
 
 ## Python Package
-An app is a _Python Package_, if its `typ` property is set to `python2-package` or `python3-package`.
+An app is a _Python Package_ if its `typ` property is set to `python2-package` or `python3-package`.
 
 This app type recognizes the [common app properties] and the [properties of Python packages].
 
-TODO
+A _Python Package_ is downloaded and installed by _PIP_ the Python package manager.
+_Python Packages_ for Python 2 and Python 3 are defined separately.
+If you need a _Python Package_ for both major versions, you need to define it twice.
 
-To determine, if a Python package is already installed, the existence of its package folder in
+To determine, if a _Python Package_ is already installed, the existence of its package folder in
 `lib\site-packages` in the Python directory is checked.
 
 ## Ruby Package
-An app is a _Ruby Package_, if its `typ` property is set to `ruby-package`.
+An app is a _Ruby Package_ if its `typ` property is set to `ruby-package`.
 
 This app type recognizes the [common app properties] and the [properties of Ruby packages].
 
-TODO
+A _Ruby Package_ is actually a _gem_ and is downloaded and installed by the Ruby package
+manager, also called _gem_.
 
-To determine, if a Ruby gem is already installed, the existence of its package folder in
+To determine, if a _Ruby gem_ is already installed, the existence of its package folder in
 `lib\ruby\gems\<ruby-version>\gems` in the Ruby directory is checked.
 
 [common app properties]: /ref/app-properties/#common-properties
