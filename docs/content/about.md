@@ -48,7 +48,7 @@ And it supports a transparent backup and restore mechanism for registry keys.
 
 ## Portability
 Because Bench does not change your Windows installation but only changes files
-in its root folder, it can be moved easily and also can used on a portable drive.
+in its root folder, it can be easily moved and also used on a portable drive.
 
-The only thing you have to do when the path to the Bench root folder changes is
-run the environment update action.
+The only thing you have to do, when the path to the Bench root folder changes,
+is run the environment update action.
