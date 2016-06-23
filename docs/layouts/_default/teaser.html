@@ -7,7 +7,11 @@
     {{ end }}
   </div>
   <header>
-    <h2>{{ .Title }}</h2>
+    <h2>
+    {{ if .Params.follow_up_url }}
+    <a href="{{ relURL .Params.follow_up_url }}">{{ .Title }}</a>
+    {{ else }}{{ .Title }}{{ end }}
+    </h2>
   </header>
   <div class="teaser-text">
   {{ .Content }}
