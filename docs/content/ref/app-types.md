@@ -1,9 +1,8 @@
 +++
 date = "2016-06-22T13:43:21+02:00"
 description = "The different types of apps in Bench"
-draft = true
 title = "App Types"
-weight = 6
+weight = 7
 +++
 
 There are currently the following types of apps:
@@ -16,7 +15,7 @@ There are currently the following types of apps:
 * Typ `ruby-package`: Ruby packages, installable with Gem
 
 ## Meta App
-An app is a _Meta App_, if its `typ` is set to `meta`.
+An app is a _Meta App_ if its `typ` is set to `meta`.
 
 This app type recognizes the [common app properties].
 
@@ -26,7 +25,7 @@ Or it can be used to fully customize the download and setup process
 of an app with custom scripts.
 
 ## Default Windows App
-An app is a _Default Windows App_, if its `typ` property
+An app is a _Default Windows App_ if its `typ` property
 is set to `default` or not set at all.
 
 This app type recognizes the [common app properties] and the [properties of default apps].

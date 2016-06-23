@@ -1,9 +1,9 @@
 +++
 date = "2016-06-22T13:43:12+02:00"
-description = ""
+description = "The layout of the folders and files in the Bench environment"
 draft = true
-title = "file structure"
-weight = 0
-
+title = "File Structure"
+weight = 4
 +++
 
+TODO

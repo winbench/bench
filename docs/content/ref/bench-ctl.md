@@ -1,7 +1,6 @@
 +++
 date = "2016-06-22T11:21:28+02:00"
 description = "The command-line interface: bench-ctl"
-draft = true
 title = "Bench CLI"
 weight = 2
 +++

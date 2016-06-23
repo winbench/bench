@@ -3,7 +3,7 @@ date = "2016-06-22T13:43:28+02:00"
 description = "The properties for the definition of an app"
 draft = true
 title = "App Properties"
-weight = 7
+weight = 8
 +++
 
 ## Common Properties

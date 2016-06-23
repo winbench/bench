@@ -2,7 +2,7 @@
 date = "2016-06-22T13:41:10+02:00"
 description = "The Markdown-based syntax for configuration files"
 title = "Configuration Markup Syntax"
-weight = 4
+weight = 5
 +++
 
 The most of the configuration files in Bench are actually [Markdown] files.

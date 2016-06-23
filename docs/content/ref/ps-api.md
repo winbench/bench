@@ -1,9 +1,9 @@
 +++
 date = "2016-06-22T13:43:35+02:00"
-description = ""
+description = "The programming interface for hooks and custom scripts"
 draft = true
-title = "ps api"
-weight = 0
-
+title = "PowerShell API"
+weight = 9
 +++
 
+TODO
