@@ -8,7 +8,7 @@ $hugo = $cfg.Apps["Hugo"].Exe
 
 pushd $docsDir
 
-& $hugo
+& $hugo -D
 $hugoExitCode = $LastExitCode
 
 popd
