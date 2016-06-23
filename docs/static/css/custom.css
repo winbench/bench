@@ -1,37 +1,78 @@
-#menu .brand
-{
+#menu .brand {
     font-weight: normal;
     font-size: 1.3em;
     margin: 0;
 }
 
-article.teaser h2
-{
+.list-item-description:before {
+    content: "\00A0\2013\00A0";
+}
+
+article.teaser h2 {
     text-align: left;
     margin-left: 160px;
     font-weight: normal;
     font-size: 2em;
+    transition: margin-left 0.2s ease-out;
+    -webkit-transition: margin-left 0.2s ease-out;
 }
 
-.teaser-icon
-{
+.teaser-icon {
     clear: left;
     float: left;
-    width: 128px;
 }
-.teaser-icon .fa
-{
+.teaser-icon .fa {
     font-size: 128px;
+    transition: font-size 0.2s ease-out;
+    -webkit-transition: font-size 0.2s ease-out;
 }
-.teaser-text
-{
+.teaser-text {
     margin-left: 160px;
+    transition: margin-left 0.2s ease-out;
+    -webkit-transition: margin-left 0.2s ease-out;
 }
-.teaser-text p:last-of-type
-{
+.teaser-text p:last-of-type {
     margin-bottom: 0;
 }
-.teaser-follow-up
-{
+.teaser-follow-up {
     text-align: right;
+}
+
+@media (max-width: 48em) {
+    .list-item-description:before {
+        content: "";
+    }
+    .list-item-description {
+        display: block;
+    }
+    article.teaser h2 {
+        margin-left: 120px;
+    }
+    .teaser-icon .fa {
+        font-size: 96px;
+    }
+    .teaser-text {
+        margin-left: 120px;
+    }
+}
+@media (max-width: 30em) {
+    .list-item-description {
+        display: none;
+    }
+    article.teaser h2 {
+        margin-left: 0;
+        margin-top: 0em;
+        text-align: center;
+    }
+    .teaser-icon {
+        float: none;
+        text-align: center;
+        margin: 1em 0;
+    }
+    .teaser-icon .fa {
+        font-size: 64px;
+    }
+    .teaser-text {
+        margin-left: inherit;
+    }
 }
