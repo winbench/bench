@@ -4,6 +4,9 @@
     margin: 0;
 }
 
+.content table {
+}
+
 .list-item-description:before {
     content: "\00A0\2013\00A0";
 }

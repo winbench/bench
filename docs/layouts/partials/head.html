@@ -7,27 +7,7 @@
   <title>{{ if .IsHome }}{{ .Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}</title>
 
   <!-- CSS -->
-  {{ $purecss := "https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/" }}
-  <link rel="stylesheet" href="{{ $purecss }}pure-min.css">
-
-  {{ "<!--[if lte IE 8]>" | safeHTML }}
-  <link rel="stylesheet" href="{{ $purecss }}grids-responsive-old-ie-min.css">
-  {{ "<![endif]-->" | safeHTML }}
-  {{ "<!--[if gt IE 8]><!-->" | safeHTML }}
-  <link rel="stylesheet" href="{{ $purecss }}grids-responsive-min.css">
-  {{ "<!--<![endif]-->" | safeHTML }}
-
-  {{ "<!--[if lte IE 8]>" | safeHTML }}
-  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
-  {{ "<![endif]-->" | safeHTML }}
-  {{ "<!--[if gt IE 8]><!-->" | safeHTML }}
-  <link rel="stylesheet" href="/css/side-menu.css">
-  {{ "<!--<![endif]-->" | safeHTML }}
-
-  <link rel="stylesheet" href="/css/blackburn.css">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="/css/style.min.css" rel="stylesheet" type="text/css">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -37,13 +17,9 @@
   <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ .RSSlink }}" />
   {{ end }}
 
-  {{ with .Site.Params.highlightjs }}
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/{{ . }}.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script src="/js/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-  {{ end }}
 
   {{ partial "favicon.html" . }}
-  {{ partial "headextension.html" }}
 
 </head>
