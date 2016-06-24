@@ -4,7 +4,7 @@ param (
     [switch]$NoRelease
 )
 
-$rootDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$rootDir = [IO.Path]::GetDirectoryName([IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition))
 pushd
 
 $projectName = "Bench"

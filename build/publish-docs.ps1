@@ -1,4 +1,5 @@
-$rootDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$rootDir = [IO.Path]::GetDirectoryName($myDir)
 $ghpDir = "$rootDir.gh-pages"
 $branchName = "gh-pages"
 
@@ -10,7 +11,7 @@ $cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $
 $benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($cfg)
 $benchEnv.Load()
 
-& "$rootDir\build-docs.ps1"
+& "$myDir\build-docs.ps1"
 
 $branches = git branch --list | ? { $_ -match $branchName }
 $branchMissing = !$branches
