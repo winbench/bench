@@ -1,38 +1,16 @@
 +++
 date = "2016-06-22T13:43:28+02:00"
 description = "The properties for the definition of an app"
-draft = true
 title = "App Properties"
 weight = 8
 +++
 
-| Property | App Types | Required |
-|----------|-----------|----------|
-| [ID](#id) | all | `true` |
-| [Label](#label) | all | `false` |
-| [Typ](#typ) | all | `false` |
-| [Dependencies](#dependencies) | all | `false` |
-| [Force](#force) | all | `false` |
-| [Dir](#dir) | all | `false` |
-| [Path](#path) | `meta`, `default` | `false` |
-| [Register](#register) | `meta`, `default` | `false` |
-| [Environment](#environment) | all | `false` |
-| [Exe](#exe) | all | `false` |
-| [AdornedExecutables](#adornedexecutables) | all | `false` |
-| [RegistryKeys](#registrykeys) | all | `false` |
-| [Launcher](#launcher) | all | `false` |
-| [LauncherExecutable](#launcherexecutable) | all | `false` |
-| [LauncherArguments](#launcherarguments) | all | `false` |
-| [LauncherIcon](#launchericon) | all | `false` |
-| [Url](#url) | `default` | `true` |
-| [DownloadCookies](#downloadcookies) | `default` | `false` |
-| [ResourceName](#resourcename) | `default` | `true`* |
-| [ArchiveName](#archivename) | `default` | `true`* |
-| [ArchiveTyp](#archivetyp) | `default` | `false` |
-| [ArchivePath](#archivepath) | `default` | `false` |
-| [SetupTestFile](#setuptestfile) | `meta`, `default` | `false` |
-| [PackageName](#packagename) | `*-package` | `false` |
-| [Version](#version) | `*-package` | `false` |
+<!--
+#data-table /*/*/Description
+#column Property: name(..)
+#column App Types: value(../App Types)
+#column Required: value(../Required)
+-->
 
 ## ID
 
