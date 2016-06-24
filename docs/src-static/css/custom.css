@@ -5,6 +5,24 @@
 }
 
 .content table {
+    border-collapse: collapse;
+    margin-top: 1em;
+    border: 1px solid #cbcbcb;
+}
+.content table thead {
+    background-color: #e0e0e0;
+    color: #000;
+}
+.content table thead td, .content table thead th {
+    border-bottom: 1ps solid #cbcbcb;
+}
+.content table td, .content table th {
+    padding: 0.33em 0.66em;
+    border-left: 1px solid #cbcbcb;
+    border-right: 1px solid #cbcbcb;
+}
+.content table tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
 .list-item-description:before {
