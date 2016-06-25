@@ -25,6 +25,13 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Changed
+- The environment variables are not configured with the Bench environment
+  during execution of custom scripts and hooks anymore
+
+### Fixed
+- Custom setup script of Leiningen
+
 ## [0.11.0] - 2016-06-18
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.8...v0.11.0)
 
