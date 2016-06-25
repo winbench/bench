@@ -1,12 +1,12 @@
 # Bench
 
-[![Bench](res/logo.png)][bench-website]
+[![Bench](docs/static/img/bench-logo.png)][bench-website]
 
 > Portable Environment for Software Development on Windows
 
 [Bench Website][bench-website] (currently under construction)
 
-![Bench Dashboard](res/teaser.png)
+![Bench Dashboard](docs/static/img/teaser.png)
 
 ## Prerequisites
 
