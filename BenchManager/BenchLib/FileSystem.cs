@@ -71,8 +71,7 @@ namespace Mastersign.Bench
 
             foreach (string file in files)
             {
-                File.SetAttributes(file, FileAttributes.Normal);
-                File.Delete(file);
+                ForceDeleteFile(file);
             }
 
             foreach (string dir in dirs)
@@ -83,21 +82,34 @@ namespace Mastersign.Bench
             Directory.Delete(targetDir, false);
         }
 
+        private static void ForceDeleteFile(string targetFile)
+        {
+            File.SetAttributes(targetFile, FileAttributes.Normal);
+            File.Delete(targetFile);
+        }
+
         public static void MoveContent(string sourceDir, string targetDir)
         {
             Debug.WriteLine("Moving content from: " + sourceDir + " to: " + targetDir);
             AsureDir(targetDir);
             foreach (var dir in Directory.GetDirectories(sourceDir))
             {
-                Directory.Move(
-                    dir,
-                    Path.Combine(targetDir, Path.GetFileName(dir)));
+                var tp = Path.Combine(targetDir, Path.GetFileName(dir));
+                if (Directory.Exists(tp))
+                {
+                    MoveContent(dir, tp);
+                    ForceDeleteDirectory(dir);
+                }
+                else
+                {
+                    Directory.Move(dir, tp);
+                }
             }
             foreach (var file in Directory.GetFiles(sourceDir))
             {
-                File.Move(
-                    file,
-                    Path.Combine(targetDir, Path.GetFileName(file)));
+                var tp = Path.Combine(targetDir, Path.GetFileName(file));
+                if (File.Exists(tp)) ForceDeleteFile(tp);
+                File.Move(file, tp);
             }
         }
 

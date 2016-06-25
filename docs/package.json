@@ -1,0 +1,14 @@
+{
+  "name": "bench-docs",
+  "version": "1.0.0",
+  "description": "The documentation for Bench",
+  "author": "Tobias Kiertscher <dev@mastersign.de>",
+  "license": "CC-BY-4.0",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-concat": "^2.6.0",
+    "gulp-text-simple": "^0.4.0",
+    "mdquery": "^0.2.2"
+  }
+}

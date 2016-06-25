@@ -1,0 +1,23 @@
+{{ partial "header.html" . }}
+
+<div class="header">
+  <h1>{{ .Title }}</h1>
+  <h2>{{ .Site.Params.subtitle }}</h2>
+</div>
+
+<div class="content">
+  <div class="work-in-progress-warning">
+    <h2>Warning</h2>
+    <p>This documentation is currently work in progress, do not expect it to be complete.
+    Take a look at the related <a href="https://github.com/mastersign/bench/issues/58">GitHub issue</a> to watch the progress.</p>
+  </div>
+
+  {{ range ( .Paginate (where .Data.Pages "Type" "home")).Pages }}
+    {{ .Render "teaser" }}
+  {{ end }}
+
+  {{ partial "pagination.html" . }}
+
+</div>
+
+{{ partial "footer.html" . }}

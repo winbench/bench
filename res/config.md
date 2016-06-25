@@ -49,3 +49,4 @@
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
 * EditorApp: `VSCode`
+* Website: <http://mastersign.github.io/bench>

@@ -629,14 +629,6 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
-        public void StartProcess(string exe, params string[] args)
-        {
-            ProcessExecutionHost.StartProcess(Env, Config.BenchRootDir, exe,
-                CommandLine.FormatArgumentList(args),
-                result => { },
-                ProcessMonitoring.ExitCode);
-        }
-
         public void ShowPathInExplorer(string path)
         {
             Process.Start(path);

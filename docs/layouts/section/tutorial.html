@@ -1,0 +1,22 @@
+{{ partial "header.html" . }}
+
+<div class="header">
+  <h1>Tutorials</h1>
+  <h2>How can I use it?</h2>
+</div>
+
+<div class="content">
+  <h2>Overview</h2>
+  <ul class="toc">
+    {{ range .Data.Pages }}
+      {{ .Render "li" }}
+    {{ end }}
+  </ul>
+  
+  {{ range .Data.Pages }}
+    {{ .Render "summary" }}
+  {{ end }}
+
+</div>
+
+{{ partial "footer.html" . }}

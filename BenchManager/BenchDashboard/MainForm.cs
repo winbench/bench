@@ -78,6 +78,13 @@ namespace Mastersign.Bench.Dashboard
         {
             var ctxm = new ContextMenuStrip();
 
+            var benchItem = new ToolStripMenuItem("Bench");
+            benchItem.Image = new Icon(Icon, new Size(16, 16)).ToBitmap();
+            benchItem.Tag = core.Config.GetStringValue(PropertyKeys.Website);
+            benchItem.Click += LinkHandler;
+            ctxm.Items.Add(benchItem);
+            ctxm.Items.Add(new ToolStripSeparator());
+
             var apps = core.Config.Apps.ActiveApps.OrderBy(app => app.Label);
             foreach (var app in apps)
             {

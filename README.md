@@ -1,8 +1,10 @@
 # Bench
 
-![Bench](res/logo.png)
+[![Bench](res/logo.png)][bench-website]
 
 > Portable Environment for Software Development on Windows
+
+[Bench Website][bench-website] (currently under construction)
 
 ![Bench Dashboard](res/teaser.png)
 
@@ -58,5 +60,6 @@ If you activated the `Markdown` app group, you can go ahead with these steps:
 
 This project is released under the MIT license.
 
+[bench-website]: http://mastersign.github.com/bench "Bench Website"
 [Yeoman]: http://yeoman.io "The web's scaffolding tool for modern web apps"
 [Markdown]: https://daringfireball.net/projects/markdown/

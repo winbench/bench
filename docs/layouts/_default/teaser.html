@@ -1,0 +1,25 @@
+<article class="teaser">
+  <div class="teaser-icon">
+    {{ if .Params.follow_up_url }}
+    <a href="{{ relURL .Params.follow_up_url }}"><i class="fa fa-{{ .Params.icon }}"></i></a>
+    {{ else }}
+    <i class="fa fa-{{ .Params.icon }}"></i>
+    {{ end }}
+  </div>
+  <header>
+    <h2>
+    {{ if .Params.follow_up_url }}
+    <a href="{{ relURL .Params.follow_up_url }}">{{ .Title }}</a>
+    {{ else }}{{ .Title }}{{ end }}
+    </h2>
+  </header>
+  <div class="teaser-text">
+  {{ .Content }}
+  {{ if .Params.follow_up_url }}
+  <div class="teaser-follow-up">
+    <a href="{{ relURL .Params.follow_up_url }}"><i class="fa fa-angle-double-right"></i>&nbsp;Read more</a>
+  </div>
+  {{ end }}
+  </div>
+  <div style="clear:left"></div>
+</article>

@@ -1,0 +1,115 @@
+baseurl = "http://mastersign.github.io/bench/"
+languageCode = "en-us"
+title = "Bench"
+author = "Tobias Kiertscher"
+
+theme = "blackburn"
+
+# Shown in the side menu
+copyright = "Content licensed<br/>by Tobias Kiertscher"
+canonifyurls = true
+paginate = 10
+
+[indexes]
+  tag = "tags"
+  topic = "topics"
+
+[params]
+  # Shown in the home page
+  subtitle = "A portable software development environment for Windows"
+  brand = "Bench"
+  googleAnalytics = ""
+  disqus = ""
+  # CSS name for highlight.js
+  highlightjs = "androidstudio"
+  #dateFormat = "02 Jan 2006, 15:04"
+  dateFormat = "2006-01-02"
+
+[menu]
+  # Shown in the side menu.
+  [[menu.main]]
+    name = "Home"
+    pre = "<i class='fa fa-home fa-fw'></i>"
+    weight = 0
+    identifier = "home"
+    url = "/"
+  [[menu.main]]
+    name = "About"
+    pre = "<i class='fa fa-info-circle fa-fw'></i>"
+    weight = 1
+    identifier = "about"
+    url = "/about/"
+  [[menu.main]]
+    name = "Scenarios"
+    pre = "<i class='fa fa-plus-circle fa-fw'></i>"
+    weight = 2
+    identifier = "scenarios"
+    url = "/scenarios/"
+  [[menu.main]]
+    name = "Quickstart"
+    pre = "<i class='fa fa-arrow-circle-right fa-fw'></i>"
+    weight = 3
+    identifier = "start"
+    url = "/start/"
+  [[menu.main]]
+    name = "Overview"
+    pre = "<i class='fa fa-sitemap fa-fw'></i>"
+    weight = 4
+    identifier = "overview"
+    url = "/overview/"
+  [[menu.main]]
+    name = "Tutorials"
+    pre = "<i class='fa fa-graduation-cap fa-fw'></i>"
+    weight = 5
+    identifier = "tutorials"
+    url = "/tutorial/"
+  [[menu.main]]
+    name = "Tech Guides"
+    pre = "<i class='fa fa-lightbulb-o fa-fw'></i>"
+    weight = 6
+    identifier = "guides"
+    url = "/guide/"
+  [[menu.main]]
+    name = "API Reference"
+    pre = "<i class='fa fa-book fa-fw'></i>"
+    weight = 7
+    identifier = "reference"
+    url = "/ref/"
+  [[menu.main]]
+    name = "Contact"
+    pre = "<i class='fa fa-phone fa-fw'></i>"
+    weight = 100
+    url = "/contact/"
+
+[social]
+  # Link your social networking accouns to the side menu
+  # by entering your username or ID.
+
+  # SNS microblogging
+  twitter = "mastersign"
+  #facebook = "*"
+  #googleplus = "*"
+  #weibo = "*"
+
+  # SNS photo/video sharing
+  #instagram = "*"
+  #flickr = "*"
+  #pinterest = "*"
+  #youtube = "*"
+  #vimeo = "*"
+  #vine = "*"
+  #slideshare = "*"
+
+  # SNS career oriented
+  #linkedin = "*"
+  #xing = "*"
+
+  # SNS news
+  #reddit = "*"
+  #hackernews = "*"
+
+  # Techie
+  github = "mastersign"
+  #bitbucket = "*"
+  #stackoverflow = "*"
+  

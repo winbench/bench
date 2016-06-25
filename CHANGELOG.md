@@ -25,6 +25,26 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.11.1] - 2016-06-25
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.0...v0.11.1)
+
+### Added
+- Bench configuration property `Website`
+- Link to the Bench Website
+- Added Vim (graphical and console)
+  ([#69](https://github.com/mastersign/bench/issues/69))
+- Added Atom
+  ([#65](https://github.com/mastersign/bench/issues/65))
+
+### Changed
+- The environment variables are not configured with the Bench environment
+  during execution of custom scripts and hooks anymore
+
+### Fixed
+- Installing multiple apps into the same dir
+  ([#70](https://github.com/mastersign/bench/issues/70))
+- Custom setup script of Leiningen
+
 ## [0.11.0] - 2016-06-18
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.10.8...v0.11.0)
 
