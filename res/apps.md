@@ -1352,6 +1352,46 @@ The best editor is neither Emacs nor Vim, it's Emacs and Vim!
     + Layers: <http://spacemacs.org/layers/LAYERS.html>
 * SetupTestFile: `$HomeDir$\.emacs.d\spacemacs.mk`
 
+### Vim
+
+Vim is a highly configurable text editor built to enable efficient text editing.
+It is an improved version of the vi editor distributed with most UNIX systems.
+
+* ID: `VimRT`
+* Version: $Vim:Version$
+* Url: `http://ftp.vim.org/pub/vim/pc/$:ArchiveName$`
+* ArchiveName: `vim$Vim:Release$rt.zip`
+* ArchivePath: `vim\vim$Vim:Release$`
+* Dir: `$Vim:Dir$`
+* Register: `false`
+* SetupTestFile: `scripts.vim`
+
+* ID: `VimConsole`
+* Dependencies: `VimRT`
+* Version: $Vim:Version$
+* Url: `http://ftp.vim.org/pub/vim/pc/$:ArchiveName$`
+* ArchiveName: `vim$Vim:Release$w32.zip`
+* ArchivePath: `vim\vim$Vim:Release$`
+* Dir: `$Vim:Dir$`
+* Exe: `vim.exe`
+
+* ID: `Vim`
+* Website: <http://www.vim.org>
+* Docs:
+    + Overview: <http://www.vim.org/docs.php>
+    + Vimdoc: <http://vimdoc.sourceforge.net/>
+    + User Manual: <http://vimdoc.sourceforge.net/htmldoc/usr_toc.html>
+* Dependencies: `VimRT`, `VimConsole`
+* VersionMajor: 7
+* VersionMinor: 4
+* Version: $:VersionMajor$.$:VersionMinor$
+* Release: $:VersionMajor$$:VersionMinor$
+* Url: `http://ftp.vim.org/pub/vim/pc/$:ArchiveName$`
+* ArchiveName: `gvim$:Release$.zip`
+* ArchivePath: `vim\vim$:Release$`
+* Exe: `gvim.exe`
+* Launcher: $:Label$
+
 ### Eclipse
 
 Eclipse for Java development:

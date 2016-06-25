@@ -28,6 +28,8 @@ Add a link to the GitHub diff like
 ### Added
 - Bench configuration property `Website`
 - Link to the Bench Website
+- Added Vim (graphical and console)
+  ([#69](https://github.com/mastersign/bench/issues/69))
 - Added Atom
   ([#65](https://github.com/mastersign/bench/issues/65))
 
