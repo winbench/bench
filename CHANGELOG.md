@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Bench configuration property `Website`
+- Link to the Bench Website
+
 ### Changed
 - The environment variables are not configured with the Bench environment
   during execution of custom scripts and hooks anymore

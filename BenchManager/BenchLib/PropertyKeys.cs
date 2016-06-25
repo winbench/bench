@@ -8,7 +8,7 @@ namespace Mastersign.Bench
     {
         public const string Version = "Version";
         public const string VersionFile = "VersionFile";
-        public const string BenchRepository = "BenchRepository";
+        public const string Website = "Website";
 
         public const string UserName = "UserName";
         public const string UserEmail = "UserEmail";
