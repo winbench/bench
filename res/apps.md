@@ -1230,6 +1230,23 @@ An offline documentation browser inspired by [Dash](https://kapeli.com/dash/).
 * RegistryKeys: `Software\Zeal`
 * Launcher: $:Label$
 
+### Atom
+
+A hackable text editor for the 21st Century.
+
+* ID: `Atom`
+* Website: <https://atom.io>
+* Docs:
+    + Packages: <https://atom.io/packages>
+    + Themes: <https://atom.io/themes>
+    + Flight Manual: <http://flight-manual.atom.io/>
+    + API Reference: `https://atom.io/docs/api/v$:Version$/AtomEnvironment`
+* Version: 1.8.0
+* Url: `https://github.com/atom/atom/releases/download/v$:Version$/$:ArchiveName$`
+* ArchiveName: `atom-windows.zip`
+* ArchivePath: `Atom`
+* Launcher: $:Label$
+
 ### Visual Studio Code
 
 A cross platform code editor from Microsoft.
