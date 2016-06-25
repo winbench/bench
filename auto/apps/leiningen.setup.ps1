@@ -11,7 +11,6 @@ if (!(Test-Path $leinJar))
 {
     $env:LEIN_JAR = $leinJar
     Write-Host "Installing Leiningen to: $leinJar"
-    Pause
     & $lein self-install
 }
 
