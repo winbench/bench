@@ -6,62 +6,114 @@ title = "App Library"
 weight = 1
 +++
 
+## Overview
+
+**Groups**
+
+<!--
+#data-table /*/Groups/*
+#column ID: value(ID)
+#column Name: name(.)
+-->
+
+**Required Apps**
+
+<!--
+#data-table /*/Required Apps/*
+#column ID: value(ID)
+#column Name: name(.)
+#column Version: value(Version)
+#column Website: value(Website)
+-->
+
+**Optional Apps**
+
+<!--
+#data-table /*/Optional Apps/*
+#column ID: value(ID)
+#column Name: name(.)
+#column Version: value(Version)
+#column Website: value(Website)
+-->
+
 ## Groups
 
 ### 3D Modeling
 
 * ID: `Dev3D`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `Blender`, `MeshLab`, `Gimp`
 
 ### C++ Development
 
 * ID: `DevCpp`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `MinGW`, `EclipseCpp`
 
 ### Clojure Development
 
 * ID: `DevClojure`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `Maven`, `Leiningen`, `LightTable`
 
 ### Java Development
 
 * ID: `DevJava`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `JDK8`, `Maven`, `EclipseJava`
 
 ### LaTeX Writing
 
 * ID: `LaTeX`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `MiKTeX`, `JabRef`, `TeXnicCenter`
 
 ### Markdown
 
 * ID: `Markdown`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `MdProc`, `VSCode`
 
 ### Multimedia
 
 * ID: `Multimedia`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `Inkscape`, `Dia`, `Gimp`, `Pandoc`, `MiKTeX`, `GraphicsMagick`, `Graphviz`, `FFmpeg`, `VLC`, `Blender`
 
 ### Python 2 Development
 
 * ID: `DevPython2`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `Python2`, `SublimeText3`, `IPython2`
 
 ### Python 3 Development
 
 * ID: `DevPython3`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `Python3`, `SublimeText3`, `IPython3`
 
 ### Web Development with PHP 5
 
 * ID: `WebDevPHP5`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `PHP5`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ### Web Development with PHP 7
 
 * ID: `WebDevPHP7`
 * Typ: `meta`
+* Version: latest
+* Dependencies: `PHP7`, `MySQL`, `MySQLWB`, `Apache`, `EclipsePHP`
 
 ## Required Apps
 
@@ -109,6 +161,13 @@ weight = 1
 * Website: <https://httpd.apache.org/>
 * Version: 2.4.20
 
+### Atom
+
+* ID: `Atom`
+* Typ: `default`
+* Website: <https://atom.io>
+* Version: 1.8.0
+
 ### Blender
 
 * ID: `Blender`
@@ -122,6 +181,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <https://bower.io/>
 * Version: >=1.7.0 <2.0.0
+* Dependencies: `Npm`
 
 ### CMake
 
@@ -150,6 +210,7 @@ weight = 1
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
 * Version: 4.5
+* Dependencies: `JRE8`
 
 ### Eclipse for Java
 
@@ -157,6 +218,7 @@ weight = 1
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
 * Version: 4.5
+* Dependencies: `JRE8`
 
 ### Eclipse for PHP
 
@@ -164,6 +226,7 @@ weight = 1
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
 * Version: 4.5
+* Dependencies: `JRE8`
 
 ### Emacs
 
@@ -171,6 +234,7 @@ weight = 1
 * Typ: `default`
 * Website: <https://www.gnu.org/software/emacs/>
 * Version: 24.5
+* Dependencies: `GnuTLS`
 
 ### FFmpeg
 
@@ -248,6 +312,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <http://gruntjs.com>
 * Version: >=0.4.5 <0.5.0
+* Dependencies: `Npm`
 
 ### Gulp
 
@@ -255,6 +320,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <http://gulpjs.com>
 * Version: >=3.9.0 <4.0.0
+* Dependencies: `Npm`
 
 ### Hugo
 
@@ -275,12 +341,16 @@ weight = 1
 * ID: `IPython2`
 * Typ: `python2-package`
 * Website: <http://pypi.python.org/pypi/ipython>
+* Version: latest
+* Dependencies: `PyReadline2`, `Python2`
 
 ### IPython 3
 
 * ID: `IPython3`
 * Typ: `python3-package`
 * Website: <http://pypi.python.org/pypi/ipython>
+* Version: latest
+* Dependencies: `PyReadline3`, `Python3`
 
 ### JabRef
 
@@ -288,6 +358,7 @@ weight = 1
 * Typ: `default`
 * Website: <http://www.jabref.org>
 * Version: 3.3
+* Dependencies: `JRE8`
 
 ### Java Development Kit 7
 
@@ -323,6 +394,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <http://jshint.com/>
 * Version: >=2.8.0 <3.0.0
+* Dependencies: `Npm`
 
 ### Leiningen
 
@@ -330,6 +402,7 @@ weight = 1
 * Typ: `default`
 * Website: <http://leiningen.org>
 * Version: latest
+* Dependencies: `JDK8`, `GnuPG`, `Wget`
 
 ### LightTable
 
@@ -351,6 +424,7 @@ weight = 1
 * Typ: `default`
 * Website: <https://maven.apache.org>
 * Version: 3.3.9
+* Dependencies: `JRE8`, `GnuPG`
 
 ### MeshLab
 
@@ -371,17 +445,22 @@ weight = 1
 * ID: `MinGW`
 * Typ: `meta`
 * Website: <http://www.mingw.org/>
+* Version: latest
+* Dependencies: `MinGwGet`, `MinGwGetGui`
 
 ### MinGwGet
 
 * ID: `MinGwGet`
 * Typ: `default`
 * Version: 0.6.2
+* Dependencies: `Wget`
 
 ### MinGwGetGui
 
 * ID: `MinGwGetGui`
 * Typ: `default`
+* Version: latest
+* Dependencies: `MinGwGet`
 
 ### MySQL
 
@@ -410,6 +489,7 @@ weight = 1
 * Typ: `default`
 * Website: <https://www.npmjs.com/package/npm>
 * Version: >=3.7.0 <4.0.0
+* Dependencies: `Node`
 
 ### NuGet
 
@@ -465,12 +545,16 @@ weight = 1
 * ID: `PyReadline2`
 * Typ: `python2-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
+* Version: latest
+* Dependencies: `Python2`
 
 ### PyReadline (Python 3)
 
 * ID: `PyReadline3`
 * Typ: `python3-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
+* Version: latest
+* Dependencies: `Python3`
 
 ### Python 2
 
@@ -498,6 +582,8 @@ weight = 1
 * ID: `Sass`
 * Typ: `ruby-package`
 * Website: <http://sass-lang.com/>
+* Version: latest
+* Dependencies: `Ruby`
 
 ### Sift
 
@@ -511,6 +597,8 @@ weight = 1
 * ID: `Spacemacs`
 * Typ: `meta`
 * Website: <http://spacemacs.org/>
+* Version: latest
+* Dependencies: `Git`, `Emacs`
 
 ### Sublime Text 3
 
@@ -539,6 +627,28 @@ weight = 1
 * Typ: `default`
 * Website: <http://www.texniccenter.org>
 * Version: 2.02
+* Dependencies: `MiKTeX`
+
+### Vim
+
+* ID: `Vim`
+* Typ: `default`
+* Website: <http://www.vim.org>
+* Version: 7.4
+* Dependencies: `VimRT`, `VimConsole`
+
+### VimConsole
+
+* ID: `VimConsole`
+* Typ: `default`
+* Version: 7.4
+* Dependencies: `VimRT`
+
+### VimRT
+
+* ID: `VimRT`
+* Typ: `default`
+* Version: 7.4
 
 ### Visual Studio Code
 
@@ -560,6 +670,7 @@ weight = 1
 * Typ: `default`
 * Website: <https://www.gnu.org>
 * Version: 1.11.4-1
+* Dependencies: `WgetDeps`
 
 ### WgetDeps
 
@@ -580,6 +691,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <http://yeoman.io/>
 * Version: >=1.5.0 <2.0.0
+* Dependencies: `Npm`
 
 ### Yeoman Generator for Markdown Projects
 
@@ -587,6 +699,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <https://www.npmjs.com/package/generator-mdproc>
 * Version: >=0.1.6 <0.2.0
+* Dependencies: `Yeoman`, `Gulp`, `Pandoc`, `Graphviz`, `Inkscape`, `MiKTeX`, `Npm`
 
 ### Zeal Docs
 

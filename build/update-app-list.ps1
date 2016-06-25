@@ -37,25 +37,55 @@ function GetFrontMatter($file)
 
 function WriteAppBlock($sb, $app)
 {
-	$_ = $sb.AppendLine("### $($app.Label)")
-	$_ = $sb.AppendLine()
-	$_ = $sb.AppendLine("* ID: ``$($app.ID)``")
-	$_ = $sb.AppendLine("* Typ: ``$($app.Typ)``")
-	if ($app.Website) { $_ = $sb.AppendLine("* Website: <$($app.Website)>") }
-	if ($app.Version) { $_ = $sb.AppendLine("* Version: $($app.Version)") }
-	$_ = $sb.AppendLine()
+	  $_ = $sb.AppendLine("### $($app.Label)")
+	  $_ = $sb.AppendLine()
+	  $_ = $sb.AppendLine("* ID: ``$($app.ID)``")
+	  $_ = $sb.AppendLine("* Typ: ``$($app.Typ)``")
+	  if ($app.Website) { $_ = $sb.AppendLine("* Website: <$($app.Website)>") }
+    $version = $app.Version
+    if (!$version) { $version = "latest" }
+    $_ = $sb.AppendLine("* Version: $version")
+    if ($app.Dependencies.Length -gt 0)
+    {
+        [array]$deps = $app.Dependencies | % { "``$_``" }
+        $depsList = [string]::Join(", ", $deps)
+        $_ = $sb.AppendLine("* Dependencies: $depsList")
+    }
+	  $_ = $sb.AppendLine()
+}
+
+function WriteAppTable($sb, $label)
+{
+    $_ = $sb.AppendLine("**$label**")
+    $_ = $sb.AppendLine()
+    $_ = $sb.AppendLine("<!--")
+    $_ = $sb.AppendLine("#data-table /*/$label/*")
+    $_ = $sb.AppendLine("#column ID: value(ID)")
+    $_ = $sb.AppendLine("#column Name: name(.)")
+    if ($label -ne "Groups")
+    {
+        $_ = $sb.AppendLine("#column Version: value(Version)")
+        $_ = $sb.AppendLine("#column Website: value(Website)")
+    }
+    $_ = $sb.AppendLine("-->")
+    $_ = $sb.AppendLine()
 }
 
 function WriteAppCategory($sb, $label, $name)
 {
-	$_ = $sb.AppendLine("## $label")
-	$_ = $sb.AppendLine()
-	$apps.ByCategory($name) | Sort-Object -Property Label | % { WriteAppBlock $sb $_ }
+	  $_ = $sb.AppendLine("## $label")
+	  $_ = $sb.AppendLine()
+	  $apps.ByCategory($name) | Sort-Object -Property Label | % { WriteAppBlock $sb $_ }
 }
 
 $sb = New-Object System.Text.StringBuilder
 $_ = $sb.Append((GetFrontMatter $targetFile))
 $_ = $sb.AppendLine()
+$_ = $sb.AppendLine("## Overview")
+$_ = $sb.AppendLine()
+WriteAppTable $sb "Groups"
+WriteAppTable $sb "Required Apps"
+WriteAppTable $sb "Optional Apps"
 
 WriteAppCategory $sb "Groups" "Groups"
 WriteAppCategory $sb "Required Apps" "Required"
