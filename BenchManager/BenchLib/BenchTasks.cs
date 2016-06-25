@@ -1166,7 +1166,6 @@ namespace Mastersign.Bench
 
             if (app.ResourceArchivePath != null)
             {
-                FileSystem.PurgeDir(targetDir);
                 FileSystem.MoveContent(Path.Combine(extractDir, app.ResourceArchivePath), targetDir);
                 FileSystem.PurgeDir(extractDir);
             }

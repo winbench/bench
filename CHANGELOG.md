@@ -30,6 +30,8 @@ Add a link to the GitHub diff like
   during execution of custom scripts and hooks anymore
 
 ### Fixed
+- Installing multiple apps into the same dir
+  ([#70](https://github.com/mastersign/bench/issues/70))
 - Custom setup script of Leiningen
 
 ## [0.11.0] - 2016-06-18
