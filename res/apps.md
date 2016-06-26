@@ -651,7 +651,7 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 * Docs:
     + API Documentation: <https://nodejs.org/dist/latest-v4.x/docs/api/>
     + Guides: <https://nodejs.org/en/docs/guides/>
-* Version: 4.4.5
+* Version: 4.4.6
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
