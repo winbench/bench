@@ -42,16 +42,6 @@ namespace Mastersign.Bench.Dashboard
             gridApps.AutoGenerateColumns = false;
         }
 
-        private void SetupForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            DisposeConsole();
-            core.ConfigReloaded -= CoreConfigReloadedHandler;
-            core.AllAppStateChanged -= CoreAllAppStateChangedHandler;
-            core.AppStateChanged -= CoreAppStateChangedHandler;
-            core.BusyChanged -= CoreBusyChangedHandler;
-            core.ActionStateChanged -= CoreActionStateChangedHandler;
-        }
-
         private void SetupForm_Load(object sender, EventArgs e)
         {
             InitializeDownloadList();
@@ -218,13 +208,15 @@ namespace Mastersign.Bench.Dashboard
             c.Visible = true;
             Controls.Add(c);
             conControl = c;
-            conHost = new ConEmuExecutionHost(conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
+            conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
             core.ProcessExecutionHost = conHost;
         }
 
         private void DisposeConsole()
         {
+            var oldHost = core.ProcessExecutionHost;
             core.ProcessExecutionHost = new DefaultExecutionHost();
+            oldHost.Dispose();
         }
 
         private void InitializeDownloadList()
@@ -649,6 +641,12 @@ namespace Mastersign.Bench.Dashboard
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+            DisposeConsole();
+            core.ConfigReloaded -= CoreConfigReloadedHandler;
+            core.AllAppStateChanged -= CoreAllAppStateChangedHandler;
+            core.AppStateChanged -= CoreAppStateChangedHandler;
+            core.BusyChanged -= CoreBusyChangedHandler;
+            core.ActionStateChanged -= CoreActionStateChangedHandler;
         }
     }
 }

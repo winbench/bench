@@ -15,6 +15,10 @@ namespace Mastersign.Bench
             string cwd, string exe, string arguments,
             ProcessExitCallback cb, ProcessMonitoring monitoring)
         {
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(nameof(DefaultExecutionHost));
+            }
             AsyncManager.StartTask(() =>
             {
                 cb(RunProcess(env, cwd, exe, arguments, monitoring));
@@ -25,6 +29,10 @@ namespace Mastersign.Bench
             string cwd, string exe, string arguments,
             ProcessMonitoring monitoring)
         {
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(nameof(DefaultExecutionHost));
+            }
             var p = new Process();
             if (!File.Exists(exe))
             {
@@ -78,6 +86,14 @@ namespace Mastersign.Bench
             {
                 return new ProcessExecutionResult(p.ExitCode);
             }
+        }
+
+        public bool IsDisposed { get; private set; }
+
+        public void Dispose()
+        {
+            if (IsDisposed) return;
+            IsDisposed = true;
         }
 
         private static string CliXmlFormatter(Match m)

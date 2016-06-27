@@ -57,6 +57,7 @@
             this.colVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ctxmAppActions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miAppInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.miWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSeparatorWebsite = new System.Windows.Forms.ToolStripSeparator();
             this.miInstall = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +92,6 @@
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
-            this.miAppInfo = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -395,7 +395,16 @@
             this.miDeleteResource});
             this.ctxmAppActions.Name = "ctxMenuAppActions";
             this.ctxmAppActions.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ctxmAppActions.Size = new System.Drawing.Size(180, 236);
+            this.ctxmAppActions.Size = new System.Drawing.Size(180, 214);
+            // 
+            // miAppInfo
+            // 
+            this.miAppInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.miAppInfo.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.properties_16;
+            this.miAppInfo.Name = "miAppInfo";
+            this.miAppInfo.Size = new System.Drawing.Size(179, 22);
+            this.miAppInfo.Text = "&Property Details";
+            this.miAppInfo.Click += new System.EventHandler(this.AppInfoHandler);
             // 
             // miWebsite
             // 
@@ -683,15 +692,6 @@
             this.tsmiRefreshView.Text = "&Reload Configuration";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
             // 
-            // miAppInfo
-            // 
-            this.miAppInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.miAppInfo.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.properties_16;
-            this.miAppInfo.Name = "miAppInfo";
-            this.miAppInfo.Size = new System.Drawing.Size(179, 22);
-            this.miAppInfo.Text = "&Property Details";
-            this.miAppInfo.Click += new System.EventHandler(this.AppInfoHandler);
-            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -710,7 +710,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Bench - Setup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetupForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SetupForm_FormClosed);
             this.Load += new System.EventHandler(this.SetupForm_Load);
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();

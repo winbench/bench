@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public interface IProcessExecutionHost
+    public interface IProcessExecutionHost : IDisposable
     {
         void StartProcess(BenchEnvironment env, string cwd, string executable, string arguments, ProcessExitCallback cb, ProcessMonitoring monitorin);
 
@@ -31,7 +31,7 @@ namespace Mastersign.Bench
             Output = output;
         }
 
-        public ProcessExecutionResult(int exitCode) 
+        public ProcessExecutionResult(int exitCode)
             : this(exitCode, null)
         {
         }
