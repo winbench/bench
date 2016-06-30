@@ -26,6 +26,7 @@ Add a link to the GitHub diff like
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ### Changed
+- Update: ConEmu from 16.03.13 to 16.06.19
 - Update: Node.js from 4.4.5 to 4.4.6
 - Improved execution speed of custom scripts via GUI
 
