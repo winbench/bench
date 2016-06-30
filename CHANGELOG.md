@@ -25,6 +25,17 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.11.2] - 2016-06-30
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.1...v0.11.2)
+
+### Changed
+- Update: ConEmu from 16.03.13 to 16.06.19
+- Update: Node.js from 4.4.5 to 4.4.6
+- Improved execution speed of custom scripts via GUI
+
+### Fixed
+- Focus flicker of GUI app
+
 ## [0.11.1] - 2016-06-25
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.11.0...v0.11.1)
 

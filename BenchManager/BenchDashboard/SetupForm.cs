@@ -1,7 +1,4 @@
-﻿extern alias v40async;
-using v40async::ConEmu.WinForms;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ConEmu.WinForms;
 using Mastersign.Bench.Dashboard.Properties;
 
 namespace Mastersign.Bench.Dashboard
@@ -40,16 +38,6 @@ namespace Mastersign.Bench.Dashboard
             gridApps.DoubleBuffered(true);
             InitializeConsole();
             gridApps.AutoGenerateColumns = false;
-        }
-
-        private void SetupForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            DisposeConsole();
-            core.ConfigReloaded -= CoreConfigReloadedHandler;
-            core.AllAppStateChanged -= CoreAllAppStateChangedHandler;
-            core.AppStateChanged -= CoreAppStateChangedHandler;
-            core.BusyChanged -= CoreBusyChangedHandler;
-            core.ActionStateChanged -= CoreActionStateChangedHandler;
         }
 
         private void SetupForm_Load(object sender, EventArgs e)
@@ -218,13 +206,15 @@ namespace Mastersign.Bench.Dashboard
             c.Visible = true;
             Controls.Add(c);
             conControl = c;
-            conHost = new ConEmuExecutionHost(conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
+            conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
             core.ProcessExecutionHost = conHost;
         }
 
         private void DisposeConsole()
         {
+            var oldHost = core.ProcessExecutionHost;
             core.ProcessExecutionHost = new DefaultExecutionHost();
+            oldHost.Dispose();
         }
 
         private void InitializeDownloadList()
@@ -649,6 +639,12 @@ namespace Mastersign.Bench.Dashboard
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+            DisposeConsole();
+            core.ConfigReloaded -= CoreConfigReloadedHandler;
+            core.AllAppStateChanged -= CoreAllAppStateChangedHandler;
+            core.AppStateChanged -= CoreAppStateChangedHandler;
+            core.BusyChanged -= CoreBusyChangedHandler;
+            core.ActionStateChanged -= CoreActionStateChangedHandler;
         }
     }
 }

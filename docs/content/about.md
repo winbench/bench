@@ -14,6 +14,8 @@ and a GUI for quick and easy configuration of a development environment.
 It aims to feel comfortable from the command-lines perspective but
 at the same time to be easy to use via a graphical interface.
 
+![Screenshot](/img/teaser.png)
+
 Bench is hosted on [GitHub](https://github.com/mastersign/bench/)
 and is primarily developed by [Tobias Kiertscher](http://www.mastersign.de/).
 

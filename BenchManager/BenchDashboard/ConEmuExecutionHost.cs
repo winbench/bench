@@ -1,47 +1,55 @@
-﻿extern alias v40async;
-using v40async::ConEmu.WinForms;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Xml;
+using System.IO.Pipes;
+using System.Diagnostics;
+using System.Windows.Forms;
+using ConEmu.WinForms;
 
 namespace Mastersign.Bench.Dashboard
 {
     class ConEmuExecutionHost : IProcessExecutionHost
     {
+        private const string PowerShellHostScript = "PsExecHost.ps1";
+
+        private const int CONNECTION_TIMEOUT = 5000;
+
+        private const string EXITCODE_LINE_FORMAT = "EXITCODE {0} ";
+        private const string TRANSCRIPTPATH_LINE_FORMAT = "TRANSCRIPT {0} ";
+
         private readonly ConEmuControl control;
+
+        private readonly Core core;
 
         private readonly string conEmuExe;
 
+        private readonly Semaphore hostSemaphore = new Semaphore(1, 1);
+
         private XmlDocument config;
 
-        private volatile int runningProcesses = 0;
-
-        public event EventHandler ProcessIsRunningChanged;
-
-        public bool ProcessIsRunning { get { return runningProcesses > 0; } }
+        private string currentToken;
+        private ConEmuSession currentSession;
 
         private IProcessExecutionHost backupHost;
 
-        public ConEmuExecutionHost(ConEmuControl control, string conEmuExe)
+        public ConEmuExecutionHost(Core core, ConEmuControl control, string conEmuExe)
         {
+            this.core = core;
             this.control = control;
             this.conEmuExe = conEmuExe;
             backupHost = new DefaultExecutionHost();
             config = LoadConfigFromResource();
-        }
-
-        private void OnProcessIsRunningChanged()
-        {
-            var handler = ProcessIsRunningChanged;
-            if (handler != null) handler(this, EventArgs.Empty);
+            StartPowerShellExecutionHost();
+            this.core.ConfigReloaded += (s, e) =>
+            {
+                StopPowerShellExecutionHost();
+                StartPowerShellExecutionHost();
+            };
         }
 
         private XmlDocument LoadConfigFromResource()
@@ -56,9 +64,9 @@ namespace Mastersign.Bench.Dashboard
             return doc;
         }
 
-        private bool IsConEmuInstalled { get { return File.Exists(conEmuExe); } }
+        private bool IsConEmuInstalled => File.Exists(conEmuExe);
 
-        private ConEmuStartInfo BuildStartInfo(BenchEnvironment env, string cwd, string executable, string arguments, bool collectOutput)
+        private ConEmuStartInfo BuildStartInfo(string cwd, string executable, string arguments)
         {
             // http://www.windowsinspired.com/understanding-the-command-line-string-and-arguments-received-by-a-windows-program/
 
@@ -69,22 +77,9 @@ namespace Mastersign.Bench.Dashboard
             si.ConsoleProcessCommandLine = cmdLine;
             si.BaseConfiguration = config;
             si.StartupDirectory = cwd;
-            si.IsReadingAnsiStream = collectOutput;
-            env.Load((k, v) => si.SetEnv(k, v));
+            si.IsReadingAnsiStream = false;
             si.WhenConsoleProcessExits = WhenConsoleProcessExits.CloseConsoleEmulator;
             return si;
-        }
-
-        private void NotifyProcessStart()
-        {
-            runningProcesses++;
-            if (runningProcesses == 1) OnProcessIsRunningChanged();
-        }
-
-        private void NotifyProcessEnd()
-        {
-            runningProcesses--;
-            if (runningProcesses == 0) OnProcessIsRunningChanged();
         }
 
         private ConEmuSession StartProcess(ConEmuStartInfo startInfo)
@@ -98,82 +93,202 @@ namespace Mastersign.Bench.Dashboard
             return control.Start(startInfo);
         }
 
+        private void StartPowerShellExecutionHost()
+        {
+            if (!IsConEmuInstalled)
+            {
+                return;
+            }
+            var config = core.Config;
+            var hostScript = Path.Combine(config.GetStringValue(PropertyKeys.BenchScripts), PowerShellHostScript);
+            if (!File.Exists(hostScript))
+            {
+                throw new FileNotFoundException("The PowerShell host script was not found.");
+            }
+            currentToken = Guid.NewGuid().ToString("D");
+            var cwd = config.GetStringValue(PropertyKeys.BenchRoot);
+            var startInfo = BuildStartInfo(cwd, PowerShell.Executable,
+                "\"" + string.Join(" ", "-NoProfile", "-NoLogo",
+                    "-File", "\"" + hostScript + "\"",
+                    "-Token", currentToken));
+            currentSession = StartProcess(startInfo);
+            currentSession.ConsoleEmulatorClosed += (s, o) =>
+            {
+                currentToken = null;
+                currentSession = null;
+            };
+        }
+
+        private bool IsPowerShellExecutionHostRunning =>
+            currentSession != null;
+
+        private void WaitForSessionToEnd()
+        {
+            while (currentSession != null)
+            {
+                if (control.InvokeRequired)
+                {
+                    Thread.Sleep(100);
+                }
+                else
+                {
+                    Application.DoEvents();
+                }
+            }
+        }
+
+        private IEnumerable<string> SendCommand(string command, params string[] arguments)
+        {
+            if (!IsPowerShellExecutionHostRunning) throw new InvalidOperationException();
+            hostSemaphore.WaitOne();
+            try
+            {
+                var client = new NamedPipeClientStream(".", currentToken, PipeDirection.InOut);
+                TextWriter w;
+                TextReader r;
+                try
+                {
+                    client.Connect(CONNECTION_TIMEOUT);
+                    w = new StreamWriter(client, Encoding.UTF8, 4, true);
+                    r = new StreamReader(client, Encoding.UTF8, false, 4, true);
+                }
+                catch (TimeoutException)
+                {
+                    yield break;
+                }
+                catch (IOException ioEx)
+                {
+                    Debug.WriteLine(ioEx);
+                    yield break;
+                }
+                w.WriteLine(command);
+                foreach (var arg in arguments)
+                {
+                    w.WriteLine(arg);
+                }
+                w.Flush();
+                while (client.IsConnected)
+                {
+                    var l = r.ReadLine();
+                    if (l != null)
+                    {
+                        yield return l;
+                    }
+                }
+                r.Dispose();
+                client.Dispose();
+            }
+            finally
+            {
+                hostSemaphore.Release();
+            }
+        }
+
+        private void StopPowerShellExecutionHost()
+        {
+            if (!IsPowerShellExecutionHostRunning) return;
+            SendCommand("close").Any(l => l == "OK");
+            WaitForSessionToEnd();
+        }
+
+        private bool ParseExitCode(string line, ref int exitCode)
+        {
+            var exitCodePrefix = string.Format(EXITCODE_LINE_FORMAT, currentToken);
+            if (line.StartsWith(exitCodePrefix))
+            {
+                var number = line.Substring(exitCodePrefix.Length);
+                int tmp;
+                if (int.TryParse(number, out tmp)) exitCode = tmp;
+                return true;
+            }
+            return false;
+        }
+
+        private bool ParseTranscriptPath(string line, ref string transcriptPath)
+        {
+            var exitCodePrefix = string.Format(TRANSCRIPTPATH_LINE_FORMAT, currentToken);
+            if (line.StartsWith(exitCodePrefix))
+            {
+                transcriptPath = line.Substring(exitCodePrefix.Length);
+                return true;
+            }
+            return false;
+        }
+
         public ProcessExecutionResult RunProcess(BenchEnvironment env,
             string cwd, string executable, string arguments,
             ProcessMonitoring monitoring)
         {
-            if (!IsConEmuInstalled)
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(nameof(ConEmuExecutionHost));
+            }
+            if (!IsPowerShellExecutionHostRunning)
             {
                 return backupHost.RunProcess(env, cwd, executable, arguments, monitoring);
             }
-            if (!File.Exists(executable))
-            {
-                throw new FileNotFoundException("The executable could not be found.", executable);
-            }
-            if (!Directory.Exists(cwd))
-            {
-                throw new DirectoryNotFoundException("The working directory could not be found: " + cwd);
-            }
             var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
-            var startInfo = BuildStartInfo(env, cwd, executable, arguments, collectOutput);
-            NotifyProcessStart();
-            var session = StartProcess(startInfo);
-            StringBuilder sb = collectOutput ? new StringBuilder() : null;
-            if (collectOutput)
+            var response = SendCommand("exec", cwd, executable, arguments);
+            var exitCode = 999999;
+            var transcriptPath = default(string);
+            foreach (var l in response)
             {
-                session.AnsiStreamChunkReceived += (s, e) => sb.Append(e.GetMbcsText());
+                ParseExitCode(l, ref exitCode);
+                ParseTranscriptPath(l, ref transcriptPath);
             }
-            var t = session.WaitForConsoleEmulatorCloseAsync();
-            t.Wait();
-            NotifyProcessEnd();
-            var exitCode = t.IsFaulted ? 999999 : session.GetConsoleProcessExitCode();
-            if (collectOutput)
+            var output = default(string);
+            if (collectOutput && transcriptPath != null && File.Exists(transcriptPath))
             {
-                return new ProcessExecutionResult(exitCode, sb.ToString());
+                output = File.ReadAllText(transcriptPath, Encoding.Default);
+                File.Delete(transcriptPath);
             }
-            else
-            {
-                return new ProcessExecutionResult(exitCode);
-            }
+            return new ProcessExecutionResult(exitCode, output);
         }
 
         public void StartProcess(BenchEnvironment env,
             string cwd, string executable, string arguments,
             ProcessExitCallback cb, ProcessMonitoring monitoring)
         {
-            if (!IsConEmuInstalled)
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(nameof(ConEmuExecutionHost));
+            }
+            if (!IsPowerShellExecutionHostRunning)
             {
                 backupHost.StartProcess(env, cwd, executable, arguments, cb, monitoring);
                 return;
             }
-            if (!File.Exists(executable))
-            {
-                throw new FileNotFoundException("The executable could not be found.", executable);
-            }
-            if (!Directory.Exists(cwd))
-            {
-                throw new DirectoryNotFoundException("The working directory could not be found: " + cwd);
-            }
             var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
-            var startInfo = BuildStartInfo(env, cwd, executable, arguments, collectOutput);
-            NotifyProcessStart();
-            var session = StartProcess(startInfo);
-            var sb = new StringBuilder();
-            if (collectOutput)
-            {
-                session.AnsiStreamChunkReceived += (s, e) => sb.Append(e.GetMbcsText());
-            }
-            var t = session.WaitForConsoleEmulatorCloseAsync();
+            var response = SendCommand("exec", cwd, executable, arguments);
             AsyncManager.StartTask(() =>
             {
-                t.Wait();
-                NotifyProcessEnd();
-                var exitCode = t.IsFaulted ? 999999 : session.GetConsoleProcessExitCode();
-                var result = collectOutput
-                    ? new ProcessExecutionResult(exitCode, sb.ToString())
-                    : new ProcessExecutionResult(exitCode);
+                var exitCode = 999999;
+                var transcriptPath = default(string);
+                foreach (var l in response)
+                {
+                    ParseExitCode(l, ref exitCode);
+                    ParseTranscriptPath(l, ref transcriptPath);
+                }
+                var output = default(string);
+                if (collectOutput && transcriptPath != null && File.Exists(transcriptPath))
+                {
+                    output = File.ReadAllText(transcriptPath, Encoding.Default);
+                    File.Delete(transcriptPath);
+                }
+                var result = new ProcessExecutionResult(exitCode, output);
                 cb(result);
             });
+        }
+
+        public bool IsDisposed { get; private set; }
+
+        public void Dispose()
+        {
+            if (IsDisposed) return;
+            IsDisposed = true;
+            StopPowerShellExecutionHost();
+            backupHost.Dispose();
+            backupHost = null;
         }
 
         private delegate ConEmuSession ConEmuStarter(ConEmuStartInfo si);

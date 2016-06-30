@@ -70,8 +70,8 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 * Website: <https://conemu.github.io/>
 * Docs:
     + Documentation: <https://conemu.github.io/en/TableOfContents.html>
-* Version: 16.03.13
-* Release: 160313
+* Version: 16.06.19
+* Release: 160619
 * Url: `https://github.com/Maximus5/ConEmu/releases/download/v$:Version$/$:ArchiveName$`
 * ArchiveName: `ConEmuPack.$:Release$.7z`
 * Launcher: `ConEmu`
@@ -651,7 +651,7 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 * Docs:
     + API Documentation: <https://nodejs.org/dist/latest-v4.x/docs/api/>
     + Guides: <https://nodejs.org/en/docs/guides/>
-* Version: 4.4.5
+* Version: 4.4.6
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`

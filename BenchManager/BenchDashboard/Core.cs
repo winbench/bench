@@ -247,11 +247,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Installing Apps", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Installing Apps", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Installing Apps",
                     BuildCombinedErrorMessage(
@@ -272,11 +268,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Downloading App Resources", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Downloading App Resources", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Downloading App Resources",
                     BuildCombinedErrorMessage(
@@ -314,11 +306,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Downloading All App Resources", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Downloading All App Resources", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Downloading All App Resources",
                     BuildCombinedErrorMessage(
@@ -339,11 +327,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Deleting App Resources", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Deleting App Resources", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Deleting App Resources",
                     BuildCombinedErrorMessage(
@@ -381,11 +365,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Clening Up App Resources", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Cleaning Up App Resources", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Cleaning Up App Resources",
                     BuildCombinedErrorMessage(
@@ -406,11 +386,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Installing Apps", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Installing Apps", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Installing Apps",
                     BuildCombinedErrorMessage(
@@ -448,11 +424,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Uninstalling Apps", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Uninstalling Apps", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Uninstalling Apps",
                     BuildCombinedErrorMessage(
@@ -490,11 +462,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Reinstalling Apps", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Reinstalling Apps", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Reinstalling Apps",
                     BuildCombinedErrorMessage(
@@ -532,11 +500,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Upgrading Apps", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Upgrading Apps", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Upgrading Apps",
                     BuildCombinedErrorMessage(
@@ -574,11 +538,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 UI.ShowWarning("Updating Environment", "Canceled.");
             }
-            else if (result.Success)
-            {
-                UI.ShowInfo("Updating Environment", "Finished.");
-            }
-            else
+            else if (!result.Success)
             {
                 UI.ShowWarning("Updating Environment",
                     BuildCombinedErrorMessage(

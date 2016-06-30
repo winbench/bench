@@ -1,5 +1,5 @@
 $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-$binDir = Resolve-Path ([IO.Path]::Combine([IO.Path]::Combine($myDir, ".."), "bin"))
+$binDir = Resolve-Path "$myDir\..\bin"
 
 function Load-Assembly($dir, $name)
 {

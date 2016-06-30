@@ -15,6 +15,10 @@ namespace Mastersign.Bench
             string cwd, string exe, string arguments,
             ProcessExitCallback cb, ProcessMonitoring monitoring)
         {
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(nameof(DefaultExecutionHost));
+            }
             AsyncManager.StartTask(() =>
             {
                 cb(RunProcess(env, cwd, exe, arguments, monitoring));
@@ -25,6 +29,10 @@ namespace Mastersign.Bench
             string cwd, string exe, string arguments,
             ProcessMonitoring monitoring)
         {
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(nameof(DefaultExecutionHost));
+            }
             var p = new Process();
             if (!File.Exists(exe))
             {
@@ -34,6 +42,7 @@ namespace Mastersign.Bench
             {
                 throw new DirectoryNotFoundException("The working directory could not be found: " + cwd);
             }
+            PreparePowerShellScriptExecution(ref exe, ref arguments);
             var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
             StringBuilder sbStd = null;
             StringBuilder sbErr = null;
@@ -77,6 +86,29 @@ namespace Mastersign.Bench
             else
             {
                 return new ProcessExecutionResult(p.ExitCode);
+            }
+        }
+
+        public bool IsDisposed { get; private set; }
+
+        public void Dispose()
+        {
+            if (IsDisposed) return;
+            IsDisposed = true;
+        }
+
+        private static void PreparePowerShellScriptExecution(ref string exe, ref string args)
+        {
+            if (Path.GetExtension(exe).Equals(".ps1", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var command = string.Format(
+                    "$cmdArgs = $ExecutionContext.InvokeCommand.InvokeScript(\"{1}\"); & \"{0}\" @cmdArgs",
+                    exe, args.Replace("\"", "`\""));
+                var encodedCommand = Convert.ToBase64String(Encoding.Unicode.GetBytes(command));
+                exe = PowerShell.Executable;
+                args = CommandLine.FormatArgumentList(
+                    "-ExecutionPolicy", "Unrestricted", "-NoLogo", "-NoProfile", "-OutputFormat", "Text",
+                    "-EncodedCommand", encodedCommand);
             }
         }
 

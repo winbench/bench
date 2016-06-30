@@ -11,7 +11,11 @@ if (Test-Path "$gitDir\post-install.bat")
 pushd $gitDir
 Write-Host "Running post-install script for Git ..."
 copy "post-install.bat.bak" "post-install.bat"
-cmd /C "post-install.bat" | Out-Null
+try
+{
+    cmd /C "post-install.bat" | Out-Null
+}
+catch { }
 popd
 
 $autocrlf = & $git config --global core.autocrlf

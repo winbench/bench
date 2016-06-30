@@ -3,18 +3,18 @@
 
 function Set-Debugging ($enabled) {
     if ($enabled) {
-        $Script:DebugPreference = "Continue"
+        $global:DebugPreference = "Continue"
     } else {
-        $Script:DebugPreference = "SilentlyContinue"
+        $global:DebugPreference = "SilentlyContinue"
     }
 }
 
 function Set-StopOnError ($enabled) {
-    $old = $Script:ErrorActionPreference -eq "Stop"
+    $old = $global:ErrorActionPreference -eq "Stop"
     if ($enabled) {
-        $Script:ErrorActionPreference = "Stop"
+        $global:ErrorActionPreference = "Stop"
     } else {
-        $Script:ErrorActionPreference = "Continue"
+        $global:ErrorActionPreference = "Continue"
     }
     return $old
 }

@@ -64,7 +64,7 @@ If no project path is specified, the project can be selected interactively.
 
 #### `project-watch`
 
-Runs the `watch` task for a specific project, if the project is automated with [Gulp] or [Grunt]. 
+Runs the `watch` task for a specific project, if the project is automated with [Gulp] or [Grunt].
 
 #### `project-backup`
 
