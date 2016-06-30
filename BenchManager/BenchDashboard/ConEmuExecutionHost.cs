@@ -20,6 +20,7 @@ namespace Mastersign.Bench.Dashboard
         private const int CONNECTION_TIMEOUT = 5000;
 
         private const string EXITCODE_LINE_FORMAT = "EXITCODE {0} ";
+        private const string TRANSCRIPTPATH_LINE_FORMAT = "TRANSCRIPT {0} ";
 
         private readonly ConEmuControl control;
 
@@ -65,7 +66,7 @@ namespace Mastersign.Bench.Dashboard
 
         private bool IsConEmuInstalled => File.Exists(conEmuExe);
 
-        private ConEmuStartInfo BuildStartInfo(string cwd, string executable, string arguments, bool collectOutput)
+        private ConEmuStartInfo BuildStartInfo(string cwd, string executable, string arguments)
         {
             // http://www.windowsinspired.com/understanding-the-command-line-string-and-arguments-received-by-a-windows-program/
 
@@ -76,7 +77,7 @@ namespace Mastersign.Bench.Dashboard
             si.ConsoleProcessCommandLine = cmdLine;
             si.BaseConfiguration = config;
             si.StartupDirectory = cwd;
-            si.IsReadingAnsiStream = collectOutput;
+            si.IsReadingAnsiStream = false;
             si.WhenConsoleProcessExits = WhenConsoleProcessExits.CloseConsoleEmulator;
             return si;
         }
@@ -109,8 +110,7 @@ namespace Mastersign.Bench.Dashboard
             var startInfo = BuildStartInfo(cwd, PowerShell.Executable,
                 "\"" + string.Join(" ", "-NoProfile", "-NoLogo",
                     "-File", "\"" + hostScript + "\"",
-                    "-Token", currentToken),
-                true);
+                    "-Token", currentToken));
             currentSession = StartProcess(startInfo);
             currentSession.ConsoleEmulatorClosed += (s, o) =>
             {
@@ -204,6 +204,17 @@ namespace Mastersign.Bench.Dashboard
             return false;
         }
 
+        private bool ParseTranscriptPath(string line, ref string transcriptPath)
+        {
+            var exitCodePrefix = string.Format(TRANSCRIPTPATH_LINE_FORMAT, currentToken);
+            if (line.StartsWith(exitCodePrefix))
+            {
+                transcriptPath = line.Substring(exitCodePrefix.Length);
+                return true;
+            }
+            return false;
+        }
+
         public ProcessExecutionResult RunProcess(BenchEnvironment env,
             string cwd, string executable, string arguments,
             ProcessMonitoring monitoring)
@@ -219,17 +230,19 @@ namespace Mastersign.Bench.Dashboard
             var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
             var response = SendCommand("exec", cwd, executable, arguments);
             var exitCode = 999999;
-            var sb = new StringBuilder();
+            var transcriptPath = default(string);
             foreach (var l in response)
             {
-                if (!ParseExitCode(l, ref exitCode))
-                {
-                    sb.AppendLine(l);
-                }
+                ParseExitCode(l, ref exitCode);
+                ParseTranscriptPath(l, ref transcriptPath);
             }
-            return collectOutput
-                ? new ProcessExecutionResult(exitCode, sb.ToString())
-                : new ProcessExecutionResult(exitCode);
+            var output = default(string);
+            if (collectOutput && transcriptPath != null && File.Exists(transcriptPath))
+            {
+                output = File.ReadAllText(transcriptPath, Encoding.Default);
+                File.Delete(transcriptPath);
+            }
+            return new ProcessExecutionResult(exitCode, output);
         }
 
         public void StartProcess(BenchEnvironment env,
@@ -250,17 +263,19 @@ namespace Mastersign.Bench.Dashboard
             AsyncManager.StartTask(() =>
             {
                 var exitCode = 999999;
-                var sb = new StringBuilder();
+                var transcriptPath = default(string);
                 foreach (var l in response)
                 {
-                    if (!ParseExitCode(l, ref exitCode))
-                    {
-                        sb.AppendLine(l);
-                    }
+                    ParseExitCode(l, ref exitCode);
+                    ParseTranscriptPath(l, ref transcriptPath);
                 }
-                var result = collectOutput
-                    ? new ProcessExecutionResult(exitCode, sb.ToString())
-                    : new ProcessExecutionResult(exitCode);
+                var output = default(string);
+                if (collectOutput && transcriptPath != null && File.Exists(transcriptPath))
+                {
+                    output = File.ReadAllText(transcriptPath, Encoding.Default);
+                    File.Delete(transcriptPath);
+                }
+                var result = new ProcessExecutionResult(exitCode, output);
                 cb(result);
             });
         }

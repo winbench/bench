@@ -101,12 +101,14 @@ namespace Mastersign.Bench
         {
             if (Path.GetExtension(exe).Equals(".ps1", StringComparison.InvariantCultureIgnoreCase))
             {
-                var command = Convert.ToBase64String(Encoding.Unicode.GetBytes(
-                    string.Format("& \"{0}\" {1}", exe, args)));
+                var command = string.Format(
+                    "$cmdArgs = $ExecutionContext.InvokeCommand.InvokeScript(\"{1}\"); & \"{0}\" @cmdArgs",
+                    exe, args.Replace("\"", "`\""));
+                var encodedCommand = Convert.ToBase64String(Encoding.Unicode.GetBytes(command));
                 exe = PowerShell.Executable;
                 args = CommandLine.FormatArgumentList(
                     "-ExecutionPolicy", "Unrestricted", "-NoLogo", "-NoProfile", "-OutputFormat", "Text",
-                    "-EncodedCommand", command);
+                    "-EncodedCommand", encodedCommand);
             }
         }
 

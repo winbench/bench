@@ -3,10 +3,12 @@ param ($Token = "Bench.Default")
 $scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = Resolve-Path "$scriptsDir\..\.."
 . "$scriptsDir\bench.lib.ps1"
+. "$scriptsLib\reg.lib.ps1"
+$Script:benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($Script:cfg)
 
 function _WaitForClient([IO.Pipes.NamedPipeServerStream]$pipe)
 {
-	Write-Host "Bench: Waiting for Request..."
+	Write-Host ">>>>"
 	while ($true)
 	{
 		try
@@ -22,7 +24,7 @@ function _WaitForClient([IO.Pipes.NamedPipeServerStream]$pipe)
 	}
 }
 
-function _ParseArguments([string]$argStr)
+function _ParseShellArguments([string]$argStr)
 {
 	$sb = New-Object System.Text.StringBuilder
 	$escaped = $false
@@ -65,13 +67,9 @@ function _ParseArguments([string]$argStr)
 	}
 }
 
-function _TeeOutput([IO.TextWriter]$w)
+function _ParsePsArguments([string]$argStr)
 {
-	process
-	{
-		$w.WriteLine($_)
-		$_
-	}
+	return $ExecutionContext.InvokeCommand.InvokeScript($argStr)
 }
 
 function _HandleExecutionRequest([IO.TextReader]$reader, [IO.TextWriter]$writer)
@@ -80,46 +78,50 @@ function _HandleExecutionRequest([IO.TextReader]$reader, [IO.TextWriter]$writer)
 	{
 		$cwd = $reader.ReadLine()
 		$cmd = $reader.ReadLine()
-		$args = $reader.ReadLine()
+		$cmdArgs = $reader.ReadLine()
 	}
 	catch
 	{
 		Write-Warning "Bench: Could not read execution arguments from named pipe."
 		return
 	}
-	[array]$argList = _ParseArguments $args
-	$exitCode = 0
-	$env = New-Object Mastersign.Bench.BenchEnvironment ($Script:cfg)
-	$env.Load()
+	
+	$Script:benchEnv.Load()
 	pushd $cwd
+	$exitCode = 0
+	$transcriptPath = [IO.Path]::Combine((Get-ConfigValue TempDir), $token)
+	Start-Transcript -Path $transcriptPath | Out-Null
 	try
 	{
 		if ([IO.Path]::GetExtension($cmd) -ieq ".ps1")
 		{
-			# Write-Host "Running script: $([IO.Path]::GetFileName($cmd)) ..."
-			. $cmd @argList | _TeeOutput $writer | Out-Default
+			[array]$cmdArgList = _ParsePsArguments $cmdArgs
+			. $cmd @cmdArgList
 			if (!$?) { $exitCode = -1 }
-			Write-Host "----"
 		}
 		else
 		{
-			# Write-Host "Running executable: $([IO.Path]::GetFileName($cmd)) ..."
-			& $cmd @argList | _TeeOutput $writer | Out-Default
+			[array]$cmdArgList = _ParseShellArguments $cmdArgs
+			& $cmd @cmdArgList
 			$exitCode = $LastExitCode
-			Write-Host "----"
 		}
 	}
 	catch
 	{
-		Write-Warning $_.Exception.Message
+		if ($_.Exception.Message)
+		{
+			Write-Warning $_.Exception.Message
+			$writer.WriteLine($_.Exception.Message)
+		}
 		if ($exitCode -eq 0) { $exitCode = -1 }
 	}
+	Stop-Transcript | Out-Null
 	popd
 	$writer.WriteLine("EXITCODE $Token $exitCode")
+	$writer.WriteLine("TRANSCRIPT $Token $transcriptPath")
 }
 
 $server = New-Object System.IO.Pipes.NamedPipeServerStream($Token, [IO.Pipes.PipeDirection]::InOut)
-# Write-Host "Bench: Started Execution Host ..."
 
 $closed = $false
 while (!$closed)
@@ -140,4 +142,4 @@ while (!$closed)
 	$server.Disconnect()
 }
 $server.Dispose()
-Write-Host "Bench: Stopped Execution Host."
+Write-Host "<<<<"

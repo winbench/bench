@@ -215,7 +215,7 @@ namespace Mastersign.Bench
                 "Run-CustomScript.ps1");
             var result = execHost.RunProcess(new BenchEnvironment(config),
                 config.BenchRootDir, customScriptRunner,
-                CommandLine.FormatArgumentList(path, PowerShell.FormatStringList(args)),
+                $"@(\"{path}\", {PowerShell.FormatStringList(args)})",
                 ProcessMonitoring.ExitCodeAndOutput);
             if (result.ExitCode != 0)
             {
@@ -238,7 +238,7 @@ namespace Mastersign.Bench
                 "Run-CustomScript.ps1");
             var result = execHost.RunProcess(new BenchEnvironment(config),
                 config.BenchRootDir, customScriptRunner,
-                CommandLine.FormatArgumentList(path, PowerShell.FormatStringList(args)),
+                $"@(\"{path}\", {PowerShell.FormatStringList(args)})",
                 ProcessMonitoring.ExitCodeAndOutput);
             if (result.ExitCode != 0)
             {
