@@ -213,10 +213,10 @@ namespace Mastersign.Bench
             var customScriptRunner = Path.Combine(
                 config.GetStringValue(PropertyKeys.BenchScripts),
                 "Run-CustomScript.ps1");
-            var result = PowerShell.RunScript(new BenchEnvironment(config), execHost,
-                ProcessMonitoring.ExitCodeAndOutput,
+            var result = execHost.RunProcess(new BenchEnvironment(config),
                 config.BenchRootDir, customScriptRunner,
-                CommandLine.EscapeArgument(path), PowerShell.FormatStringList(args));
+                CommandLine.FormatArgumentList(path, PowerShell.FormatStringList(args)),
+                ProcessMonitoring.ExitCodeAndOutput);
             if (result.ExitCode != 0)
             {
                 throw new ProcessExecutionFailedException("Executing custom script failed.",
@@ -236,10 +236,10 @@ namespace Mastersign.Bench
             var customScriptRunner = Path.Combine(
                 config.GetStringValue(PropertyKeys.BenchScripts),
                 "Run-CustomScript.ps1");
-            var result = PowerShell.RunScript(new BenchEnvironment(config), execHost,
-                ProcessMonitoring.ExitCodeAndOutput,
+            var result = execHost.RunProcess(new BenchEnvironment(config),
                 config.BenchRootDir, customScriptRunner,
-                CommandLine.EscapeArgument(path), PowerShell.FormatStringList(args));
+                CommandLine.FormatArgumentList(path, PowerShell.FormatStringList(args)),
+                ProcessMonitoring.ExitCodeAndOutput);
             if (result.ExitCode != 0)
             {
                 throw new ProcessExecutionFailedException("Executing global custom script failed.",

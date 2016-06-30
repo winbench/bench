@@ -42,6 +42,7 @@ namespace Mastersign.Bench
             {
                 throw new DirectoryNotFoundException("The working directory could not be found: " + cwd);
             }
+            PreparePowerShellScriptExecution(ref exe, ref arguments);
             var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
             StringBuilder sbStd = null;
             StringBuilder sbErr = null;
@@ -94,6 +95,19 @@ namespace Mastersign.Bench
         {
             if (IsDisposed) return;
             IsDisposed = true;
+        }
+
+        private static void PreparePowerShellScriptExecution(ref string exe, ref string args)
+        {
+            if (Path.GetExtension(exe).Equals(".ps1", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var command = Convert.ToBase64String(Encoding.Unicode.GetBytes(
+                    string.Format("& \"{0}\" {1}", exe, args)));
+                exe = PowerShell.Executable;
+                args = CommandLine.FormatArgumentList(
+                    "-ExecutionPolicy", "Unrestricted", "-NoLogo", "-NoProfile", "-OutputFormat", "Text",
+                    "-EncodedCommand", command);
+            }
         }
 
         private static string CliXmlFormatter(Match m)
