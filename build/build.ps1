@@ -25,7 +25,7 @@ $stageDir = "$releaseDir\staging" # absolute
 $buildArtifacts = @(
     "BenchLib\bin\$mode\BenchLib.dll",
     "BenchLib\bin\$mode\Interop.IWshRuntimeLibrary.dll",
-    "BenchLib\bin\$mode\Ionic.Zip.dll",
+    "BenchLib\bin\$mode\DotNetZip.dll",
     "BenchDashboard\bin\$mode\BenchDashboard.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe.config",
     "BenchDashboard\bin\$mode\ConEmu.WinForms.dll"
