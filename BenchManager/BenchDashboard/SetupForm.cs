@@ -1,7 +1,4 @@
-﻿extern alias v40async;
-using v40async::ConEmu.WinForms;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ConEmu.WinForms;
 using Mastersign.Bench.Dashboard.Properties;
 
 namespace Mastersign.Bench.Dashboard
