@@ -4,7 +4,11 @@ $git = App-Exe Git
 pushd $gitDir
 Write-Host "Running post-install script for Git ..."
 copy "post-install.bat.bak" "post-install.bat"
-cmd /C "post-install.bat" | Out-Null
+try
+{
+    cmd /C "post-install.bat" | Out-Null
+}
+catch { }
 popd
 
 if (Get-ConfigBooleanValue UseProxy)
