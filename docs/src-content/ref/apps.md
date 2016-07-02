@@ -129,7 +129,7 @@ weight = 1
 * ID: `ConEmu`
 * Typ: `default`
 * Website: <https://conemu.github.io/>
-* Version: 16.03.13
+* Version: 16.06.19
 
 ### Inno Setup Unpacker
 
@@ -181,7 +181,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <https://bower.io/>
 * Version: >=1.7.0 <2.0.0
-* Dependencies: `Npm`
+* Dependencies: `Git`, `Npm`
 
 ### CMake
 
@@ -481,7 +481,7 @@ weight = 1
 * ID: `Node`
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Version: 4.4.5
+* Version: 4.4.6
 
 ### NPM
 
