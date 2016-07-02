@@ -109,6 +109,7 @@ namespace Mastersign.Bench.Dashboard
             var cwd = config.GetStringValue(PropertyKeys.BenchRoot);
             var startInfo = BuildStartInfo(cwd, PowerShell.Executable,
                 "\"" + string.Join(" ", "-NoProfile", "-NoLogo",
+                    "-ExecutionPolicy", "Unrestricted",
                     "-File", "\"" + hostScript + "\"",
                     "-Token", currentToken));
             currentSession = StartProcess(startInfo);

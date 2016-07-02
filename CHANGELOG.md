@@ -25,6 +25,12 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.11.3] - 2016-07-02
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.2...v0.11.3)
+
+### Fixed
+- Fixed execution policy for running `PsExecHost.ps1`
+
 ## [0.11.2] - 2016-06-30
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.11.1...v0.11.2)
 
