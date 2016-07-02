@@ -723,6 +723,7 @@ the right versions of the packages you need and their dependencies.
 
 * ID: `Bower`
 * Typ: `node-package`
+* Dependencies: `Git`
 * Website: <https://bower.io/>
 * Docs:
     + npm Package: <https://www.npmjs.com/package/bower>
