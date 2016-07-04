@@ -3,7 +3,7 @@ param (
     [array]$scriptArgs
 )
 
-if (!$Script:cfg)
+if (!$global:BenchConfig)
 {
 	$scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 	. "$scriptsLib\bench.lib.ps1"

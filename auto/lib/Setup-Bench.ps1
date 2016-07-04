@@ -5,7 +5,7 @@ param (
 $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$myDir\bench.lib.ps1"
 
-$manager = New-Object Mastersign.Bench.DefaultBenchManager ($Script:cfg)
+$manager = New-Object Mastersign.Bench.DefaultBenchManager ($global:BenchConfig)
 $manager.Verbose = $WithInfo
 
 $success = $False
