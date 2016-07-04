@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,6 +7,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using Mastersign.Bench.Dashboard.Properties;
+using System.Threading.Tasks;
 
 namespace Mastersign.Bench.Dashboard
 {
@@ -25,29 +27,29 @@ namespace Mastersign.Bench.Dashboard
             get { return appIndex; }
             set
             {
-                if (appIndex != null) ReleaseAppIndex();
                 appIndex = value;
                 if (appIndex != null) BindAppIndex();
             }
         }
 
-        private void ReleaseAppIndex()
+        private async void BindAppIndex()
         {
-            listView.Items.Clear();
             icons16.Images.Clear();
             icons32.Images.Clear();
-        }
-
-        private void BindAppIndex()
-        {
             foreach (var app in appIndex.ActiveApps)
             {
                 if (app.Launcher != null)
                 {
-                    LoadIcons(app);
-                    listView.Items.Add(AppItem(app));
+                    var icons = await LoadIcons(app);
+                    icons16.Images.Add(app.ID, icons.Item1);
+                    icons32.Images.Add(app.ID, icons.Item2);
                 }
             }
+            listView.Items.Clear();
+            var items = from app in appIndex.ActiveApps
+                        where app.Launcher != null
+                        select AppItem(app);
+            listView.Items.AddRange(items.ToArray());
         }
 
         private ListViewItem AppItem(AppFacade app)
@@ -59,20 +61,24 @@ namespace Mastersign.Bench.Dashboard
             };
         }
 
-        private void LoadIcons(AppFacade app)
+        private Task<Tuple<Icon, Icon>> LoadIcons(AppFacade app)
         {
-            var path = app.LauncherIcon;
-            Icon icon;
-            try
+            return Task.Run(() =>
             {
-                icon = Icon.ExtractAssociatedIcon(path);
-            }
-            catch (Exception)
-            {
-                icon = Resources.MissingApp;
-            }
-            icons16.Images.Add(app.ID, new Icon(icon, icons16.ImageSize));
-            icons32.Images.Add(app.ID, new Icon(icon, icons32.ImageSize));
+                var path = app.LauncherIcon;
+                Icon icon;
+                try
+                {
+                    icon = Icon.ExtractAssociatedIcon(path);
+                }
+                catch (Exception)
+                {
+                    icon = Resources.MissingApp;
+                }
+                return Tuple.Create(
+                    new Icon(icon, icons16.ImageSize),
+                    new Icon(icon, icons32.ImageSize));
+            });
         }
 
         private void listView_DoubleClick(object sender, EventArgs e)

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Mastersign.Bench.Dashboard.Properties;
 using TsudaKageyu;
+using System.Threading.Tasks;
 
 namespace Mastersign.Bench.Dashboard
 {
@@ -75,7 +76,7 @@ namespace Mastersign.Bench.Dashboard
             appLauncherList.AppIndex = core.Config.Apps;
         }
 
-        private void InitializeDocsMenu()
+        private async void InitializeDocsMenu()
         {
             var ctxm = new ContextMenuStrip();
 
@@ -94,7 +95,7 @@ namespace Mastersign.Bench.Dashboard
                 var docs = app.Docs;
                 if (string.IsNullOrEmpty(websiteUrl) && (docs == null || docs.Count == 0)) continue;
                 var item = new ToolStripMenuItem(label);
-                item.Image = ExtractLauncherIcon(app);
+                item.Image = await ExtractLauncherIcon(app);
                 if (!string.IsNullOrEmpty(websiteUrl))
                 {
                     if (item.Image == null)
@@ -119,20 +120,23 @@ namespace Mastersign.Bench.Dashboard
             docsMenu = ctxm;
         }
 
-        private Image ExtractLauncherIcon(AppFacade app)
+        private Task<Image> ExtractLauncherIcon(AppFacade app)
         {
-            var path = app.LauncherIcon;
-            if (string.IsNullOrEmpty(app.Launcher) || string.IsNullOrEmpty(path)) return null;
-            Icon icon;
-            try
+            return Task.Run<Image>(() =>
             {
-                icon = Icon.ExtractAssociatedIcon(path);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            return new Icon(icon, new Size(16, 16)).ToBitmap();
+                var path = app.LauncherIcon;
+                if (string.IsNullOrEmpty(app.Launcher) || string.IsNullOrEmpty(path)) return null;
+                Icon icon;
+                try
+                {
+                    icon = Icon.ExtractAssociatedIcon(path);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+                return new Icon(icon, new Size(16, 16)).ToBitmap();
+            });
         }
 
         private void InitializeStatusStrip()
@@ -141,38 +145,35 @@ namespace Mastersign.Bench.Dashboard
             tsslAppCount.Text = core.Config.Apps.ActiveApps.Length.ToString();
         }
 
-        private void InitializeTopPanel()
+        private async void InitializeTopPanel()
         {
             UpdateShellButtons();
-            new Thread(() =>
-            {
-                var cmdImg = ExtractIcon(core.CmdPath, "CMD");
-                var psImg = ExtractIcon(core.PowerShellPath, "PowerShell");
-                var imageResDllPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\imageres.dll");
-                var bashImg = ExtractIcon(imageResDllPath, "Bash", 95);
-                BeginInvoke((ThreadStart)(() =>
-                {
-                    btnShellCmd.Image = cmdImg ?? Resources.missing_app_16;
-                    btnShellPowerShell.Image = psImg ?? Resources.missing_app_16;
-                    btnShellBash.Image = bashImg ?? Resources.missing_app_16;
-                }));
-            }).Start();
+            var cmdImg = await ExtractIcon(core.CmdPath, "CMD");
+            var psImg = await ExtractIcon(core.PowerShellPath, "PowerShell");
+            var imageResDllPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\imageres.dll");
+            var bashImg = await ExtractIcon(imageResDllPath, "Bash", 95);
+            btnShellCmd.Image = cmdImg ?? Resources.missing_app_16;
+            btnShellPowerShell.Image = psImg ?? Resources.missing_app_16;
+            btnShellBash.Image = bashImg ?? Resources.missing_app_16;
         }
 
-        private static Bitmap ExtractIcon(string path, string name, int index = 0)
+        private static Task<Bitmap> ExtractIcon(string path, string name, int index = 0)
         {
-            if (!File.Exists(path)) return null;
-            try
+            return Task.Run(() =>
             {
-                var extractor = new IconExtractor(path);
-                var icon = extractor.GetIcon(index);
-                return new Icon(icon, new Size(16, 16)).ToBitmap();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Failed to load icon for " + name + ": " + e);
-                return null;
-            }
+                if (!File.Exists(path)) return null;
+                try
+                {
+                    var extractor = new IconExtractor(path);
+                    var icon = extractor.GetIcon(index);
+                    return new Icon(icon, new Size(16, 16)).ToBitmap();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Failed to load icon for " + name + ": " + e);
+                    return null;
+                }
+            });
         }
 
         private void UpdateShellButtons()
