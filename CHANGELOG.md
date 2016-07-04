@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.11.4] - 2016-07-04
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.3...v0.11.4)
+
 ### Changed
 - Update: Node.js from 4.4.6 to 6.2.2
 
