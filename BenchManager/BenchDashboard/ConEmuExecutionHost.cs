@@ -37,6 +37,8 @@ namespace Mastersign.Bench.Dashboard
 
         private IProcessExecutionHost backupHost;
 
+        private bool reloadConfigBeforeNextExecution = false;
+
         public ConEmuExecutionHost(Core core, ConEmuControl control, string conEmuExe)
         {
             this.core = core;
@@ -45,11 +47,12 @@ namespace Mastersign.Bench.Dashboard
             backupHost = new DefaultExecutionHost();
             config = LoadConfigFromResource();
             StartPowerShellExecutionHost();
-            this.core.ConfigReloaded += (s, e) =>
-            {
-                StopPowerShellExecutionHost();
-                StartPowerShellExecutionHost();
-            };
+            this.core.ConfigReloaded += CoreConfigReloadedHandler;
+        }
+
+        private void CoreConfigReloadedHandler(object sender, EventArgs e)
+        {
+            reloadConfigBeforeNextExecution = true;
         }
 
         private XmlDocument LoadConfigFromResource()
@@ -185,6 +188,13 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        private void ReloadConfiguration()
+        {
+            if (!IsPowerShellExecutionHostRunning) return;
+            SendCommand("reload").Any(l => l == "OK");
+            reloadConfigBeforeNextExecution = false;
+        }
+
         private void StopPowerShellExecutionHost()
         {
             if (!IsPowerShellExecutionHostRunning) return;
@@ -227,6 +237,10 @@ namespace Mastersign.Bench.Dashboard
             if (!IsPowerShellExecutionHostRunning)
             {
                 return backupHost.RunProcess(env, cwd, executable, arguments, monitoring);
+            }
+            if (reloadConfigBeforeNextExecution)
+            {
+                ReloadConfiguration();
             }
             var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
             var response = SendCommand("exec", cwd, executable, arguments);
@@ -287,6 +301,7 @@ namespace Mastersign.Bench.Dashboard
         {
             if (IsDisposed) return;
             IsDisposed = true;
+            core.ConfigReloaded -= CoreConfigReloadedHandler;
             StopPowerShellExecutionHost();
             backupHost.Dispose();
             backupHost = null;

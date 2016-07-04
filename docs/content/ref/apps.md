@@ -29,7 +29,7 @@ weight = 1
 | ID | Name | Version | Website |
 |----|------|---------|---------|
 | `SvZ` | [7-Zip](#zip) | 16.02 | <http://www.7-zip.de/download.html> |
-| `ConEmu` | [ConEmu](#conemu) | 16.03.13 | <https://conemu.github.io/> |
+| `ConEmu` | [ConEmu](#conemu) | 16.06.19 | <https://conemu.github.io/> |
 | `InnoUnp` | [Inno Setup Unpacker](#inno-setup-unpacker) | 0.45 | <http://innounp.sourceforge.net/> |
 | `LessMsi` | [Less MSIerables](#less-msierables) | 1.3 | <http://lessmsi.activescott.com/> |
 
@@ -82,7 +82,7 @@ weight = 1
 | `MinGwGetGui` | [MinGwGetGui](#mingwgetgui) | latest |  |
 | `MySQL` | [MySQL](#mysql) | 5.7.12 | <http://www.mysql.com/> |
 | `MySQLWB` | [MySQL Workbench](#mysql-workbench) | 6.3.6 | <http://dev.mysql.com/downloads/workbench/> |
-| `Node` | [Node.js](#node.js) | 4.4.5 | <https://nodejs.org> |
+| `Node` | [Node.js](#node.js) | 4.4.6 | <https://nodejs.org> |
 | `Npm` | [NPM](#npm) | >=3.7.0 <4.0.0 | <https://www.npmjs.com/package/npm> |
 | `NuGet` | [NuGet](#nuget) | latest | <https://www.nuget.org> |
 | `OpenSSL` | [OpenSSL](#openssl) | 1.0.2h | <https://www.openssl.org/> |
@@ -208,7 +208,7 @@ weight = 1
 * ID: `ConEmu`
 * Typ: `default`
 * Website: <https://conemu.github.io/>
-* Version: 16.03.13
+* Version: 16.06.19
 
 ### Inno Setup Unpacker
 
@@ -260,7 +260,7 @@ weight = 1
 * Typ: `node-package`
 * Website: <https://bower.io/>
 * Version: >=1.7.0 <2.0.0
-* Dependencies: `Npm`
+* Dependencies: `Git`, `Npm`
 
 ### CMake
 
@@ -560,7 +560,7 @@ weight = 1
 * ID: `Node`
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Version: 4.4.5
+* Version: 4.4.6
 
 ### NPM
 

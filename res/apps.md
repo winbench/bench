@@ -649,9 +649,9 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 * Label: Node.js
 * Website: <https://nodejs.org>
 * Docs:
-    + API Documentation: <https://nodejs.org/dist/latest-v4.x/docs/api/>
+    + API Documentation: <https://nodejs.org/dist/latest-v6.x/docs/api/>
     + Guides: <https://nodejs.org/en/docs/guides/>
-* Version: 4.4.6
+* Version: 6.2.2
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
@@ -723,6 +723,7 @@ the right versions of the packages you need and their dependencies.
 
 * ID: `Bower`
 * Typ: `node-package`
+* Dependencies: `Git`
 * Website: <https://bower.io/>
 * Docs:
     + npm Package: <https://www.npmjs.com/package/bower>
