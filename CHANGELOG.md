@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Fixed
+- UI performance when activating/deactivating apps
+
 ## [0.11.3] - 2016-07-02
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.11.2...v0.11.3)
 

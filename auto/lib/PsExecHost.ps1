@@ -4,6 +4,7 @@ $scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = Resolve-Path "$scriptsDir\..\.."
 . "$scriptsDir\bench.lib.ps1"
 . "$scriptsLib\reg.lib.ps1"
+
 $Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
 
 function _WaitForClient([IO.Pipes.NamedPipeServerStream]$pipe)
@@ -85,8 +86,8 @@ function _HandleExecutionRequest([IO.TextReader]$reader, [IO.TextWriter]$writer)
 		Write-Warning "Bench: Could not read execution arguments from named pipe."
 		return
 	}
-	
-	$Script:benchEnv.Load()
+
+	$Script:BenchEnv.Load()
 	pushd $cwd
 	$exitCode = 0
 	$transcriptPath = [IO.Path]::Combine((Get-ConfigValue TempDir), $token)
@@ -121,6 +122,15 @@ function _HandleExecutionRequest([IO.TextReader]$reader, [IO.TextWriter]$writer)
 	$writer.WriteLine("TRANSCRIPT $Token $transcriptPath")
 }
 
+function _ReloadBenchConfig([IO.TextReader]$reader, [IO.TextWriter]$writer)
+{
+    Write-Host "Reloading Bench configuration..."
+    $rootDir = $global:BenchConfig.BenchRootDir
+    $global:BenchConfig = New-Object Mastersign.Bench.BenchConfiguration ($rootDir)
+    $Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
+    $writer.WriteLine("OK")
+}
+
 $server = New-Object System.IO.Pipes.NamedPipeServerStream($Token, [IO.Pipes.PipeDirection]::InOut)
 
 $closed = $false
@@ -133,6 +143,7 @@ while (!$closed)
 	switch ($cmd)
 	{
 		"exec" { _HandleExecutionRequest $reader $writer | Out-Default }
+		"reload" { _ReloadBenchConfig $reader $writer | Out-Default }
 		"close" { $closed = $true }
 	}
 	$writer.Flush()
