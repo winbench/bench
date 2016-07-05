@@ -37,7 +37,7 @@ function GetFrontMatter($file)
 
 function WriteAppBlock($sb, $app)
 {
-	  $_ = $sb.AppendLine("### $($app.Label)")
+	  $_ = $sb.AppendLine("### $($app.Label) {#$($app.ID)}")
 	  $_ = $sb.AppendLine()
 	  $_ = $sb.AppendLine("* ID: ``$($app.ID)``")
 	  $_ = $sb.AppendLine("* Typ: ``$($app.Typ)``")
@@ -47,7 +47,10 @@ function WriteAppBlock($sb, $app)
     $_ = $sb.AppendLine("* Version: $version")
     if ($app.Dependencies.Length -gt 0)
     {
-        [array]$deps = $app.Dependencies | % { "``$_``" }
+        [array]$deps = $app.Dependencies | % {
+            $depApp = $apps[$_]
+            return "[$($depApp.Label)](#$_)"
+        }
         $depsList = [string]::Join(", ", $deps)
         $_ = $sb.AppendLine("* Dependencies: $depsList")
     }
