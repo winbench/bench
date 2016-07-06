@@ -9,9 +9,9 @@ weight = 6
 Configuration properties for Bench use the [list syntax in Markdown][syntax]
 and can be defined in the following files.
 
-* Default Configuration file `res\config.md`
-* Custom Configuration file `config\config.md`
-* Site Configuration files `bench-site.md`
+* Default configuration file `res\config.md`
+* Custom configuration file `config\config.md`
+* Site configuration files `bench-site.md`
   in the Bench root directory and all of its parents.
 
 The configuration files are applied in the order they are listed above.
@@ -36,62 +36,22 @@ configuration, but _can_ be overridden in the custom or site configuration.
 
 **System Properties**
 
-| Name | Data Type | Default |
-|------|-----------|---------|
-| [VersionFile](#VersionFile) | path | `res\version.txt` |
-| [CustomConfigDir](#CustomConfigDir) | path | `config` |
-| [CustomConfigFile](#CustomConfigFile) | path | `$CustomConfigDir$\config.md` |
-| [CustomConfigTemplateFile](#CustomConfigTemplateFile) | path | `res\config.template.md` |
-| [SiteConfigFileName](#SiteConfigFileName) | string | `bench-site.md` |
-| [SiteConfigTemplateFile](#SiteConfigTemplateFile) | path | `res\bench-site.template.md` |
-| [AppIndexFile](#AppIndexFile) | path | `res\apps.md` |
-| [AppActivationFile](#AppActivationFile) | path | `$CustomConfigDir$\apps-activated.txt` |
-| [AppActivationTemplateFile](#AppActivationTemplateFile) | path | `res\apps-activated.template.txt` |
-| [AppDeactivationFile](#AppDeactivationFile) | path | `$CustomConfigDir$\apps-deactivated.txt` |
-| [AppDeactivationTemplateFile](#AppDeactivationTemplateFile) | path | `res\apps-deactivated.template.txt` |
-| [CustomAppIndexFile](#CustomAppIndexFile) | path | `$CustomConfigDir$\apps.md` |
-| [CustomAppIndexTemplateFile](#CustomAppIndexTemplateFile) | path | `res\apps.template.md` |
-| [ConEmuConfigFile](#ConEmuConfigFile) | path | `$CustomConfigDir$\ConEmu.xml` |
-| [ConEmuConfigTemplateFile](#ConEmuConfigTemplateFile) | path | `res\ConEmu.template.xml` |
-| [AppResourceBaseDir](#AppResourceBaseDir) | path | `res\apps` |
-| [ActionDir](#ActionDir) | path | `actions` |
-| [LibDir](#LibDir) | path | `lib` |
+<!--
+#data-table /*/System Properties/*
+#column Name: name(.)
+#column Data Type: value(Data Type)
+#column Default: value(Default)
+-->
 
 **Customizable Properties**
 
-| Name | Typ | Data Type | Default |
-|------|-----|-----------|---------|
-| [UseProxy](#UseProxy) | Site | boolean | `false` |
-| [ProxyBypass](#ProxyBypass) | Site | list of strings | `localhost` |
-| [HttpProxy](#HttpProxy) | Site | URL | `http://127.0.0.1:80` |
-| [HttpsProxy](#HttpsProxy) | Site | URL | `http://127.0.0.1:443` |
-| [DownloadAttempts](#DownloadAttempts) | Site | integer | 3 |
-| [ParallelDownloads](#ParallelDownloads) | Site | integer | 4 |
-| [UserName](#UserName) | Custom, Site | string | user |
-| [UserEmail](#UserEmail) | Custom, Site | string | user@localhost |
-| [DownloadDir](#DownloadDir) | Custom, Site | path | `cache` |
-| [AppAdornmentBaseDir](#AppAdornmentBaseDir) |  |  | `$LibDir$\_proxies` |
-| [AppRegistryBaseDir](#AppRegistryBaseDir) |  |  | `$HomeDir$\registry_isolation` |
-| [TempDir](#TempDir) |  |  | `tmp` |
-| [LogDir](#LogDir) |  |  | `log` |
-| [HomeDir](#HomeDir) |  |  | `home` |
-| [AppDataDir](#AppDataDir) |  |  | `$HomeDir$\AppData\Roaming` |
-| [LocalAppDataDir](#LocalAppDataDir) |  |  | `$HomeDir$\AppData\Local` |
-| [OverrideHome](#OverrideHome) |  |  | `true` |
-| [OverrideTemp](#OverrideTemp) |  |  | `true` |
-| [IgnoreSystemPath](#IgnoreSystemPath) |  |  | `true` |
-| [ProjectRootDir](#ProjectRootDir) |  |  | `projects` |
-| [ProjectArchiveDir](#ProjectArchiveDir) |  |  | `archive` |
-| [ProjectArchiveFormat](#ProjectArchiveFormat) |  |  | `zip` |
-| [LauncherDir](#LauncherDir) |  |  | `launcher` |
-| [LauncherScriptDir](#LauncherScriptDir) |  |  | `$LibDir$\_launcher` |
-| [WizzardEditCustomConfigBeforeSetup](#WizzardEditCustomConfigBeforeSetup) |  |  | `false` |
-| [WizzardStartAutoSetup](#WizzardStartAutoSetup) |  |  | `true` |
-| [QuickAccessCmd](#QuickAccessCmd) |  |  | `true` |
-| [QuickAccessPowerShell](#QuickAccessPowerShell) |  |  | `false` |
-| [QuickAccessBash](#QuickAccessBash) |  |  | `false` |
-| [EditorApp](#EditorApp) |  |  | `VSCode` |
-| [Website](#Website) |  |  | <http://mastersign.github.io/bench> |
+<!--
+#data-table /*/Customizable Properties/*
+#column Name: name(.)
+#column Typ: value(Typ)
+#column Data Type: value(Data Type)
+#column Default: value(Default)
+-->
 
 ## System Properties
 
