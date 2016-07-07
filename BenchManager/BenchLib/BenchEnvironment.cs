@@ -101,9 +101,9 @@ namespace Mastersign.Bench
                 w.WriteLine();
                 if (Config.GetBooleanValue(PropertyKeys.UseProxy))
                 {
-                    w.WriteLine("SET HTTP_PROPXY={0}",
+                    w.WriteLine("SET HTTP_PROXY={0}",
                         Config.GetStringValue(PropertyKeys.HttpProxy).TrimEnd('/'));
-                    w.WriteLine("SET HTTPS_PROPXY={0}",
+                    w.WriteLine("SET HTTPS_PROXY={0}",
                         Config.GetStringValue(PropertyKeys.HttpsProxy).TrimEnd('/'));
                 }
                 if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
