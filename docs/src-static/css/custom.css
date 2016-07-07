@@ -59,6 +59,12 @@ article.teaser h2 {
     text-align: right;
 }
 
+@media (max-height: 48em) {
+    #menu {
+        width: 165px;
+    }
+}
+
 @media (max-width: 48em) {
     .list-item-description:before {
         content: "";
