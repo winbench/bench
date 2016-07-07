@@ -1,7 +1,6 @@
 +++
 date = "2016-06-22T13:42:49+02:00"
 description = "The properties of the Bench configuration"
-draft = true
 title = "Configuration Properties"
 weight = 6
 +++
@@ -26,7 +25,7 @@ Properties of the data type `path` can be absolute, or relative to the Bench roo
 
 ## Overview
 
-There two groups of configuration properties:
+There are two groups of configuration properties:
 The first group contains properties, which are predefined by the default
 configuration, and can _not_ be set in the custom or site configuration.
 These properties can not be overridden, because they are used during the
@@ -72,7 +71,7 @@ these changes.
 
 ### CustomConfigDir {#CustomConfigDir}
 
-* Description: The path to the directory with the custom configuration (`config.md`, `apps-activated.txt`, ...)
+* Description: The path to the directory with the custom configuration (`config.md`, `apps-activated.txt`, ...) is stored.
 * Data Type: path
 * Default: `config`
 * Typ: System
@@ -219,6 +218,27 @@ Bench action scripts are typically `*.cmd` files.
 * Default: `lib`
 * Typ: System
 
+### Website {#Website}
+
+* Description: The URL for the Bench documentation.
+* Data Type: URL
+* Default: <http://mastersign.github.io/bench>
+* Typ: System
+
+### WizzardEditCustomConfigBeforeSetup {#WizzardEditCustomConfigBeforeSetup}
+
+* Description: A temporary switch which is used during the Bench setup process.
+* Data Type: boolean
+* Default: `false`
+* Typ: Temporary
+
+### WizzardStartAutoSetup {#WizzardStartAutoSetup}
+
+* Description: A temporary switch which is used during the Bench setup process.
+* Data Type: boolean
+* Default: `true`
+* Typ: Temporary
+
 ## Customizable Properties
 
 Properties in this group are customizable and can be set in
@@ -277,7 +297,7 @@ The usage in the custom scripts for apps is not completely implemented yet.
 * Description: The name of the Bench user.
 * Data Type: string
 * Default: user
-* Typ: Custom, Site
+* Typ: Custom/Site
 
 This property is used to set the environment variable `USER_NAME`
 and in custom scripts e.g. from [Git](/ref/apps/#Git).
@@ -287,7 +307,7 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Description: The email address of the Bench user.
 * Data Type: string
 * Default: user@localhost
-* Typ: Custom, Site
+* Typ: Custom/Site
 
 This property is used to set the environment variable `USER_EMAIL`
 and in custom scripts e.g. from [Git](/ref/apps/#Git).
@@ -297,94 +317,146 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Description: The path to the directory where downloaded app resources are cached.
 * Data Type: path
 * Default: `cache`
-* Typ: Custom, Site
+* Typ: Custom/Site
 
 ### AppAdornmentBaseDir {#AppAdornmentBaseDir}
 
+* Description: The path to the directory where wrapper scripts are stored,
+  which allow the adornment of an app execution.
+* Data Type: path
 * Default: `$LibDir$\_proxies`
+* Typ: Custom
 
 ### AppRegistryBaseDir {#AppRegistryBaseDir}
 
+* Description: The path to the directory where registry backups
+  for the app isolation mechanism are stored.
+* Data Type: path
 * Default: `$HomeDir$\registry_isolation`
+* Typ: Custom
 
 ### TempDir {#TempDir}
 
+* Description: The path to the temporary directory of the Bench environment.
+* Data Type: path
 * Default: `tmp`
+* Typ: Custom/Site
 
 ### LogDir {#LogDir}
 
+* Description: The path to the directory where Bench setup logs are stored.
+* Data Type: path
 * Default: `log`
+* Typ: Custom
 
 ### HomeDir {#HomeDir}
 
+* Description: The path to the user profile of the Bench environment.
+* Data Type: path
 * Default: `home`
+* Typ: Custom/Site
 
 ### AppDataDir {#AppDataDir}
 
+* Description: The path to the `AppData\Roaming` directory in the user profile
+  of the Bench environment.
+* Data Type: path
 * Default: `$HomeDir$\AppData\Roaming`
+* Typ: Custom/Site
 
 ### LocalAppDataDir {#LocalAppDataDir}
 
+* Description: The path to the `AppData\Local` directory in the user profile
+  of the Bench environment.
+* Data Type: path
 * Default: `$HomeDir$\AppData\Local`
+* Typ: Custom/Site
 
 ### OverrideHome {#OverrideHome}
 
+* Description: A switch to control if the environment variables `HOME`, `HOMEPATH`, `HOMEDRIVE`, `USERPROFILE`, `APPDATA`, and `LOCALAPPDATA` are overridden in the Bench environment.
+* Data Type: boolen
 * Default: `true`
+* Typ: Custom/Site
 
 ### OverrideTemp {#OverrideTemp}
 
+* Description: A switch to control if the environment variables `TEMP` and `TMP` are overridden in the Bench environment.
+* Data Type: boolean
 * Default: `true`
+* Typ: Custom/Site
 
 ### IgnoreSystemPath {#IgnoreSystemPath}
 
+* Description: A switch to control if only Bench tools are on the `PATH` in the Bench environment or if the `PATH` of the current Windows user is preserved.
+* Data Type: boolean
 * Default: `true`
+* Typ: Custom/Site
 
 ### ProjectRootDir {#ProjectRootDir}
 
+* Description: The path to the directory where projects are stored.
+* Data Type: path
 * Default: `projects`
+* Typ: Custom/Site
 
 ### ProjectArchiveDir {#ProjectArchiveDir}
 
+* Description: The path to the directory where project backups are stored.
+* Data Type: path
 * Default: `archive`
+* Typ: Custom/Site
 
 ### ProjectArchiveFormat {#ProjectArchiveFormat}
 
+* Description: The file format of the project backups.
+* Data Type: string
+* Possible Values: `zip`, `7z`, `tar`, `wim`
 * Default: `zip`
+* Typ: Custom/Site
 
 ### LauncherDir {#LauncherDir}
 
+* Description: The path to the directory where launcher shortcuts are stored.
+* Data Type: path
 * Default: `launcher`
+* Typ: Custom
 
 ### LauncherScriptDir {#LauncherScriptDir}
 
+* Description: The path to the directory where launcher wrapper scripts are stored.
+* Data Type: path
 * Default: `$LibDir$\_launcher`
-
-### WizzardEditCustomConfigBeforeSetup {#WizzardEditCustomConfigBeforeSetup}
-
-* Default: `false`
-
-### WizzardStartAutoSetup {#WizzardStartAutoSetup}
-
-* Default: `true`
+* Typ: Custom
 
 ### QuickAccessCmd {#QuickAccessCmd}
 
+* Description: A switch which controls if a launcher for the Windows command interpreter (CMD) is created.
+* Data Type: boolean
 * Default: `true`
+* Typ: Custom/Site
 
 ### QuickAccessPowerShell {#QuickAccessPowerShell}
 
+* Description: A switch which controls if a launcher for the PowerShell is created.
+* Data Type: boolean
 * Default: `false`
+* Typ: Custom/Site
 
 ### QuickAccessBash {#QuickAccessBash}
 
+* Description: A switch which controls if a launcher for the Git Bash is created.
+* Data Type: boolean
 * Default: `false`
+* Typ: Custom/Site
+
+This switch only takes affect, if the [Git app](/ref/apps/#Git) is activated.
 
 ### EditorApp {#EditorApp}
 
+* Description: The ID of an app which is used as the default text editor.
+* Data Type: string
 * Default: `VSCode`
-
-### Website {#Website}
-
-* Default: <http://mastersign.github.io/bench>
+* Typ: Custom/Site
 
 [syntax]: /ref/markup-syntax
