@@ -18,16 +18,12 @@ configuration property is mentioned.
 The core structure consists of directories and files, which are installed
 during the Bench setup, and _can not_ be moved via custom or site configuration.
 
-* `actions` ([ActionDir](/ref/config/#ActionDir))  
-  This directory contains `*.cmd` scripts to run a couple of useful tasks
-  in the Bench environment.
-  They do load the `env.cmd` by themselfs if necessary. Therefore,
-  they can be started directly from an arbitrary command prompt, via a Windows shortcut,
-  or from the explorer.
-    + `bench-bash.cmd`
-    + `bench-cmd.cmd`
-    + `bench-ctl.cmd`
-    + `bench-ps.cmd`
+* [`actions`](#action-dir)
+  ([ActionDir](/ref/config/#ActionDir))
+    + [`bench-bash.cmd`](#action-bench-bash)
+    + [`bench-cmd.cmd`](#action-bench-cmd)
+    + [`bench-ctl.cmd`](#action-bench-ctl)
+    + [`bench-ps.cmd`](#action-bench-ps)
     + `clone-git-project.cmd`
     + `new-project.cmd`
     + `open-editor.cmd`
@@ -51,26 +47,46 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
     + `editor.cmd`
     + `init.cmd`
     + `runps.cmd`
-* `config` ([CustomConfigDir](/ref/config/#CustomConfigDir))
-    + `apps.md` ([CustomAppIndexFile](/ref/config/#CustomAppIndexFile))
-    + `apps-activated.txt` ([AppActivationFile](/ref/config/#AppActivationFile))
-    + `apps-deactivated.txt` ([AppDeactivationFile](/ref/config/#AppDeactivationFile))
-    + `config.md` ([CustomConfigFile](/ref/config/#CustomConfigFile))
-    + `ConEmu.xml` ([ConEmuConfigFile](/ref/config/#ConEmuConfigFile))
+* `config`
+  ([CustomConfigDir](/ref/config/#CustomConfigDir))
+    + `apps.md`
+      ([CustomAppIndexFile](/ref/config/#CustomAppIndexFile))
+    + `apps-activated.txt`
+      ([AppActivationFile](/ref/config/#AppActivationFile))
+    + `apps-deactivated.txt`
+      ([AppDeactivationFile](/ref/config/#AppDeactivationFile))
+    + `config.md`
+      ([CustomConfigFile](/ref/config/#CustomConfigFile))
+    + `ConEmu.xml`
+      ([ConEmuConfigFile](/ref/config/#ConEmuConfigFile))
     + `env.ps1`
     + `setup.ps1`
 * `res`
-    + `apps` ([AppResourceBaseDir](/ref/config/#AppResourceBaseDir))
-    + `apps.template.md` ([CustomAppIndexTemplateFile](/ref/config/#CustomAppIndexTemplateFile))
-    + `apps-activated.template.txt` ([AppActivationTemplateFile](/ref/config/#AppActivationTemplateFile))
-    + `apps-deactivated.template.txt` ([AppDeactivationTemplateFile](/ref/config/#AppDeactivationTemplateFile))
+    + `apps`
+      ([AppResourceBaseDir](/ref/config/#AppResourceBaseDir))
+    + `apps.template.md`
+      ([CustomAppIndexTemplateFile](/ref/config/#CustomAppIndexTemplateFile))
+    + `apps-activated.template.txt`
+      ([AppActivationTemplateFile](/ref/config/#AppActivationTemplateFile))
+    + `apps-deactivated.template.txt`
+      ([AppDeactivationTemplateFile](/ref/config/#AppDeactivationTemplateFile))
     + `bench-install.bat`
-    + `bench-site.template.md` ([SiteConfigTemplateFile](/ref/config/#SiteConfigTemplateFile))
-    + `ConEmu.template.xml` ([ConEmuConfigTemplateFile](/ref/config/#ConEmuConfigTemplateFile))
+    + `bench-site.template.md`
+      ([SiteConfigTemplateFile](/ref/config/#SiteConfigTemplateFile))
+    + `ConEmu.template.xml`
+      ([ConEmuConfigTemplateFile](/ref/config/#ConEmuConfigTemplateFile))
     + `config.md`
-    + `config.template.md` ([CustomConfigTemplateFile](/ref/config/#CustomConfigTemplateFile))
-    + `version.txt` ([VersionFile](/ref/config/#VersionFile))
-* `lib` ([LibDir](/ref/config/#LibDir))
+    + `config.template.md`
+      ([CustomConfigTemplateFile](/ref/config/#CustomConfigTemplateFile))
+    + `version.txt`
+      ([VersionFile](/ref/config/#VersionFile))
+* `lib`
+   ([LibDir](/ref/config/#LibDir))
+     + `_proxies`
+       ([AppAdornmentBaseDir](/ref/config/#AppAdornmentBaseDir))
+     + `_launcher`
+       ([LauncherScriptDir](/ref/config/#LauncherScriptDir))
+     + ...
 * `CHANGELOG.md`
 * `env.cmd`
 * `LICENSE.md`
@@ -83,16 +99,72 @@ during the usage of Bench &ndash; including the installation of apps,
 and _can_ be moved via custom or site configuration.
 
 * `archive`
+  ([ProjectArchiveDir](/ref/config/#ProjectArchiveDir))
 * `cache`
+  ([DownloadDir](/ref/config/#DownloadDir))
 * `home`
+  ([HomeDir](/ref/config/#HomeDir))
     + `AppData`
         - `Local`
+          ([LocalAppDataDir](/ref/config/#LocalAppDataDir))
         - `Roaming`
+          ([AppDataDir](/ref/config/#AppDataDir))
     + `Desktop`
     + `Documents`
+    + `registry_isolation`
+      ([AppRegistryBaseDir](/ref/config/#AppRegistryBaseDir))
     + ...
 * `launcher`
+  ([LauncherDir](/ref/config/#LauncherDir))
 * `log`
+  ([LogDir](/ref/config/#LogDir))
 * `projects`
+  ([ProjectRootDir](/ref/config/#ProjectRootDir))
 * `tmp`
-* `bench-site.md` ([SiteConfigFileName](/ref/config/#SiteConfigFileName))
+  ([TempDir](/ref/config/#TempDir))
+* `bench-site.md`
+  ([SiteConfigFileName](/ref/config/#SiteConfigFileName))
+
+## Details {#details}
+
+### Action Directory {#action-dir}
+
+* Description: Script for task execution in the Bench environment.
+* Path: `actions`
+* Typ: directory
+* Config Property: ([ActionDir](/ref/config/#ActionDir))
+
+This directory contains `*.cmd` scripts to run a couple of useful tasks
+in the Bench environment.
+They do load the `env.cmd` by themselfs if necessary.
+Therefore, they can be started directly from an arbitrary command prompt,
+via a Windows shortcut, or from the explorer.
+
+### Action `bench-bash` {#action-bench-bash}
+
+* Description: Starts a [Git][] shell in the Bench environment.
+* Path: `actions\bench-bash.cmd`
+* Typ: file
+
+This action will fail if [Git][] is not installed
+
+### Action `bench-cmd` {#action-bench-cmd}
+
+* Description: Starts a Windows CMD console in the Bench environment.
+* Path: `actions\bench-cmd.cmd`
+* Typ: file
+
+### Action `bench-ctl` {#action-bench-ctl}
+
+* Description: Starts the [command line interface][Bench CLI] of the Bench manager.
+* Path: `actions\bench-ctl.cmd`
+* Typ: file
+
+### Action `bench-ps` {#action-bench-ps}
+
+* Description: Starts a PowerShell console in the Bench environment.
+* Path: `actions\bench-ps.cmd`
+* Typ: file
+
+[Bench CLI]: /ref/bench-ctl
+[Git]: /ref/apps#Git
