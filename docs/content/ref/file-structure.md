@@ -31,25 +31,25 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
     + `project-editor.cmd`
     + `project-ps.cmd`
     + `project-watch.cmd`
-* `auto`
-    + `apps`
+* [`auto`](#auto-dir) Bench Automation
+    + [`apps`](#auto-apps-dir) App Custom Scripts
         - `<app-id>.extract.ps1`
         - `<app-id>.setup.ps1`
         - `<app-id>.env.ps1`
         - `<app-id>.remove.ps1`
-    + `bin`
+    + [`bin`](#auto-bin-dir) Bench Binaries
         - `BenchDashboard.exe`
         - `BenchLib.dll`
-    + `lib`
+    + [`lib`](#auto-lib-dir) Bench Scripts
         - `bench.lib.ps1`
         - ...
     + `archive.cmd`
     + `editor.cmd`
     + `init.cmd`
     + `runps.cmd`
-* `config`
+* `config` Custom Configuration
   ([CustomConfigDir](/ref/config/#CustomConfigDir))
-    + `apps.md`
+    + `apps.md` App Library
       ([CustomAppIndexFile](/ref/config/#CustomAppIndexFile))
     + `apps-activated.txt`
       ([AppActivationFile](/ref/config/#AppActivationFile))
@@ -61,8 +61,8 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
       ([ConEmuConfigFile](/ref/config/#ConEmuConfigFile))
     + `env.ps1`
     + `setup.ps1`
-* `res`
-    + `apps`
+* `res` Bench Resources
+    + `apps` App Resources
       ([AppResourceBaseDir](/ref/config/#AppResourceBaseDir))
     + `apps.template.md`
       ([CustomAppIndexTemplateFile](/ref/config/#CustomAppIndexTemplateFile))
@@ -70,17 +70,17 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
       ([AppActivationTemplateFile](/ref/config/#AppActivationTemplateFile))
     + `apps-deactivated.template.txt`
       ([AppDeactivationTemplateFile](/ref/config/#AppDeactivationTemplateFile))
-    + `bench-install.bat`
+    + `bench-install.bat` Bootstrap Batch File
     + `bench-site.template.md`
       ([SiteConfigTemplateFile](/ref/config/#SiteConfigTemplateFile))
     + `ConEmu.template.xml`
       ([ConEmuConfigTemplateFile](/ref/config/#ConEmuConfigTemplateFile))
-    + `config.md`
+    + `config.md` Default Configuration
     + `config.template.md`
       ([CustomConfigTemplateFile](/ref/config/#CustomConfigTemplateFile))
-    + `version.txt`
+    + `version.txt` Version String
       ([VersionFile](/ref/config/#VersionFile))
-* `lib`
+* `lib` App Installations
    ([LibDir](/ref/config/#LibDir))
      + `_proxies`
        ([AppAdornmentBaseDir](/ref/config/#AppAdornmentBaseDir))
@@ -165,6 +165,30 @@ This action will fail if [Git][] is not installed
 * Description: Starts a PowerShell console in the Bench environment.
 * Path: `actions\bench-ps.cmd`
 * Typ: file
+
+### Bench Automation Directory {#auto-dir}
+
+* Description: The base directory for the Bench scripts and binaries.
+* Path: `auto`
+* Typ: directory
+
+### App Custom Script Directory {#auto-apps-dir}
+
+* Description: The directory with the custom scripts of the apps included in Bench.
+* Path: `auto\apps`
+* Typ: directory
+
+### Bench Binary Directory {#auto-bin-dir}
+
+* Description: The directory with all binary executables and libraries of Bench.
+* Path: `auto\bin`
+* Typ: directory
+
+### Bench Script Directory {#auto-lib-dir}
+
+* Description: The directory with the PowerShell scripts of Bench.
+* Path: `auto\lib`
+* Typ: directory
 
 [Bench CLI]: /ref/bench-ctl
 [Git]: /ref/apps#Git
