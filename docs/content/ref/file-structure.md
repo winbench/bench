@@ -37,9 +37,11 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
         - [`<app-id>.setup.ps1`](#auto-apps-setup)
         - [`<app-id>.env.ps1`](#auto-apps-env)
         - [`<app-id>.remove.ps1`](#auto-apps-remove)
+        - [`<app-id>.pre-run.ps1`](#auto-apps-pre-run)
+        - [`<app-id>.post-run.ps1`](#auto-apps-post-run)
     + [`bin`](#auto-bin-dir) Bench Binaries
-        - `BenchDashboard.exe`
-        - `BenchLib.dll`
+        - [`BenchDashboard.exe`](/ref/dashboard/)
+        - [`BenchLib.dll`](/ref/clr-api/)
     + [`lib`](#auto-lib-dir) Bench Scripts
         - `bench.lib.ps1`
         - ...
@@ -47,20 +49,20 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
     + `editor.cmd`
     + `init.cmd`
     + `runps.cmd`
-* `config` Custom Configuration
+* [`config`](#config) Custom Configuration
   ([CustomConfigDir](/ref/config/#CustomConfigDir))
-    + `apps.md` App Library
+    + [`apps.md`](#config-apps) App Library
       ([CustomAppIndexFile](/ref/config/#CustomAppIndexFile))
-    + `apps-activated.txt`
+    + [`apps-activated.txt`](#config-apps-activated) App Activation List
       ([AppActivationFile](/ref/config/#AppActivationFile))
-    + `apps-deactivated.txt`
+    + [`apps-deactivated.txt`](#config-apps-deactivated) App Deactivation List
       ([AppDeactivationFile](/ref/config/#AppDeactivationFile))
-    + `config.md`
+    + [`config.md`](#config-config) Custom Configuration File
       ([CustomConfigFile](/ref/config/#CustomConfigFile))
     + `ConEmu.xml`
       ([ConEmuConfigFile](/ref/config/#ConEmuConfigFile))
-    + `env.ps1`
-    + `setup.ps1`
+    + `env.ps1` Environment Setup Hook
+    + `setup.ps1` Setup Hook
 * `res` Bench Resources
     + `apps` App Resources
       ([AppResourceBaseDir](/ref/config/#AppResourceBaseDir))
@@ -193,7 +195,7 @@ If the [`ArchiveTyp`](/ref/app-properties/#ArchiveTyp) of the app is set
 to `auto` and a custom script for extraction for this app exists,
 the custom script takes precedence over the other extraction methods.
 
-Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
+Inside of the custom script is the [PowerShell API](/ref/ps-api/) iis available.
 Custom extraction scripts are called with two command line arguments:
 
 1. The absolute path of the downloaded app resource archive
@@ -238,7 +240,7 @@ in lower case, and the name extension `.setup.ps1`.
 If a custom setup script for an app exists, it is executed after
 the installation of the (extracted) app resources in the 
 [apps target dir](#lib-app).
-Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
+Inside of the custom script is the [PowerShell API](/ref/ps-api/) is available.
 
 ### App Custom Script `env` {#auto-apps-env}
 
@@ -253,7 +255,7 @@ If a custom environment setup script for an app exists, it is executed
 after the setup to update configuration files depending
 on the location of Bench or other [configuration properties](/ref/config).
 It is also called if the _Upade Environment_ task for Bench is executed.
-Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
+Inside of the custom script is the [PowerShell API](/ref/ps-api/) iis available.
 
 ### App Custom Script `remove` {#auto-apps-remove}
 
@@ -266,7 +268,37 @@ in lower case, and the name extension `.remove.ps1`.
 
 If a custom deinstallation script for an app exists, it is executed
 instead of the default uninstall method.
-Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
+Inside of the custom script is the [PowerShell API](/ref/ps-api/) iis available.
+
+### App Custom Script `pre-run` {#auto-apps-pre-run}
+
+* Description: Pre-run hook for adorned executables of an app.
+* Path: `auto\apps\<app-id>.pre-run.ps1`
+* Typ: file
+
+The custom pre-run script is executed immediatly before an app executable is run.
+It is only executed if an app executable is run via its execution proxy.
+This is usually the case because it is listed in 
+[AdornedExecutables](/ref/app-properties/#AdornedExecutables).
+The [main executable](/ref/app-properties/#Exe) of an app is automatically
+included in the list of adorned executables
+if the [registry isolation](/ref/app-properties/#RegistryKeys) is used.
+Inside of the custom script is the [PowerShell API](/ref/ps-api/) iis available.
+
+### App Custom Script `post-run` {#auto-apps-post-run}
+
+* Description: Post-run hook for adorned executables of an app.
+* Path: `auto\apps\<app-id>.post-run.ps1`
+* Typ: file
+
+The custom post-run script is executed immediatly after an app executable is run.
+It is only executed if an app executable is run via its execution proxy.
+This is usually the case because it is listed in 
+[AdornedExecutables](/ref/app-properties/#AdornedExecutables).
+The [main executable](/ref/app-properties/#Exe) of an app is automatically
+included in the list of adorned executables
+if the [registry isolation](/ref/app-properties/#RegistryKeys) is used.
+Inside of the custom script is the [PowerShell API](/ref/ps-api/) iis available.
 
 ### Bench Binary Directory {#auto-bin-dir}
 
@@ -279,6 +311,69 @@ Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
 * Description: The directory with the PowerShell scripts of Bench.
 * Path: `auto\lib`
 * Typ: directory
+
+### Configuration Directory {#config-dir}
+
+* Description: The directory for the custom configuration.
+* Path: `config`
+* Config Property: [CustomConfigDir](/ref/config/#CustomConfigDir)
+* Typ: directory
+
+This directory is designed to be put under version control,
+to manage and share Bench configurations.
+
+### Custom App Library {#config-apps}
+
+* Description: The custom app library.
+* Path: `config\apps.md`
+* Config Property: [CustomAppIndexFile](/ref/config/#CustomAppIndexFile)
+* Typ: file
+
+The custom app libary file is written in [Markdown list syntax](/ref/markup-syntax).
+
+### App Activation List {#config-apps-activated}
+
+* Description: The list of activated apps.
+* Path: `config\apps-activated.txt`
+* Config Property: [AppActivationFile](/ref/config/#AppActivationFile)
+* Typ: file
+
+The specified file must be an UTF8 encoded text file.
+Every non empty line, which is not commented with a # is interpreted
+as an app ID.
+Only non-space characters, up to the first space or the end of a line,
+are considered.
+
+### App Deactivation List {#config-apps-deactivated}
+
+* Description: The list of deactivated apps.
+* Path: `config\apps-deactivated.txt`
+* Config Property: [AppDeactivationFile](/ref/config/#AppDeactivationFile)
+* Typ: file
+
+The specified file must be an UTF8 encoded text file.
+Every non empty line, which is not commented with a # is interpreted
+as an app ID.
+Only non-space characters, up to the first space or the end of a line,
+are considered.
+
+### Custom Configuration File {#config-config}
+
+* Description: The custom configuration file.
+* Path: `config\config.md`
+* Config Property: [CustomConfigFile](/ref/config/#CustomConfigFile)
+* Typ: file
+
+The custom configuration file is written in [Markdown list syntax](/ref/markup-syntax).
+
+### Environment Setup Hook {#config-env}
+
+* Description: The hook script for environment setup.
+* Path: `config\env.ps1`
+* Typ: file
+
+This script is executed, at the end of the Bench environment setup.
+Inside of the custom script is the [PowerShell API](/ref/ps-api/) iis available.
 
 [Bench CLI]: /ref/bench-ctl
 [Git]: /ref/apps#Git
