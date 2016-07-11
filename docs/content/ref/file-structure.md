@@ -33,10 +33,10 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
     + `project-watch.cmd`
 * [`auto`](#auto-dir) Bench Automation
     + [`apps`](#auto-apps-dir) App Custom Scripts
-        - `<app-id>.extract.ps1`
-        - `<app-id>.setup.ps1`
-        - `<app-id>.env.ps1`
-        - `<app-id>.remove.ps1`
+        - [`<app-id>.extract.ps1`](#auto-apps-extract)
+        - [`<app-id>.setup.ps1`](#auto-apps-setup)
+        - [`<app-id>.env.ps1`](#auto-apps-env)
+        - [`<app-id>.remove.ps1`](#auto-apps-remove)
     + [`bin`](#auto-bin-dir) Bench Binaries
         - `BenchDashboard.exe`
         - `BenchLib.dll`
@@ -86,7 +86,7 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
        ([AppAdornmentBaseDir](/ref/config/#AppAdornmentBaseDir))
      + `_launcher`
        ([LauncherScriptDir](/ref/config/#LauncherScriptDir))
-     + ...
+     + `<app-id>` App Target Dir
 * `CHANGELOG.md`
 * `env.cmd`
 * `LICENSE.md`
@@ -177,6 +177,96 @@ This action will fail if [Git][] is not installed
 * Description: The directory with the custom scripts of the apps included in Bench.
 * Path: `auto\apps`
 * Typ: directory
+
+### App Custom Script `extract` {#auto-apps-extract}
+
+* Description: Custom script for app resource extraction.
+* Path: `auto\apps\<app-id>.extract.ps1`
+* Typ: file
+
+Custom scripts for app resource extraction must be named with the app ID
+in lower case, and the name extension `.extract.ps1`.
+
+The custom script for extraction is executed if the
+[`ArchiveTyp`](/ref/app-properties/#ArchiveTyp) is set to `auto` or `custom`.
+If the [`ArchiveTyp`](/ref/app-properties/#ArchiveTyp) of the app is set
+to `auto` and a custom script for extraction for this app exists,
+the custom script takes precedence over the other extraction methods.
+
+Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
+Custom extraction scripts are called with two command line arguments:
+
+1. The absolute path of the downloaded app resource archive
+2. The absolute path of the target directory to extract the resources
+
+Example for extraction of a nested archive:
+
+```PowerShell
+param ($archivePath, $targetDir)
+
+# create temporary directory
+$tmpDir = Empty-Dir "$(Get-ConfigValue TempDir)\custom_extract"
+
+# get path of 7-Zip
+$7z = App-Exe SvZ
+
+# call 7-Zip to extract outer archive
+& $7z x "-o$tmpDir" "$archivePath"
+
+# check if expected inner archive exists
+if (!(Test-Path "$tmpDir\nested.zip"))
+{
+    throw "Did not find the expected content in the app resource."
+}
+
+# call 7-Zip to extract inner archive
+& $7z x "-o$targetDir" "$tmpDir\nested.zip"
+
+# Delete temporary directory
+Purge-Dir $tmpDir
+```
+
+### App Custom Script `setup` {#auto-apps-setup}
+
+* Description: Custom script for app setup.
+* Path: `auto\apps\<app-id>.setup.md`
+* Typ: file
+
+Custom scripts for app resource extraction must be named with the app ID
+in lower case, and the name extension `.setup.ps1`.
+
+If a custom setup script for an app exists, it is executed after
+the installation of the (extracted) app resources in the 
+[apps target dir](#lib-app).
+Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
+
+### App Custom Script `env` {#auto-apps-env}
+
+* Description: Custom script for environment setup.
+* Path: `auto\apps\<app-id>.env.ps1`
+* Typ: file
+
+Custom scripts for environment setup must be named with the app ID
+in lower case, and the name extension `.env.ps1`.
+
+If a custom environment setup script for an app exists, it is executed
+after the setup to update configuration files depending
+on the location of Bench or other [configuration properties](/ref/config).
+It is also called if the _Upade Environment_ task for Bench is executed.
+Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
+
+### App Custom Script `remove` {#auto-apps-remove}
+
+* Description: Custom script for app deinstallation.
+* Path: `auto\apps\<app-id>.remove.ps1`
+* Typ: files
+
+Custom scripts for deinstallation must be named with the app ID
+in lower case, and the name extension `.remove.ps1`.
+
+If a custom deinstallation script for an app exists, it is executed
+instead of the default uninstall method.
+Inside of the custom script the [PowerShell API](/ref/ps-api/) is available.
 
 ### Bench Binary Directory {#auto-bin-dir}
 
