@@ -6,6 +6,8 @@ $branchName = "gh-pages"
 $scriptsDir = Resolve-Path "$rootDir\auto\lib"
 $docsDir = Resolve-Path "$rootDir\docs"
 
+pushd
+
 & "$scriptsDir\Load-ClrLibs.ps1"
 $cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $true)
 $benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($cfg)
@@ -54,3 +56,5 @@ cp "$docsDir\public\*" "$ghpDir\" -Recurse
 cd $ghpDir
 git add -A :/
 git commit -m "Automatic Update"
+
+popd

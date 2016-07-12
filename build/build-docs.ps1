@@ -18,6 +18,8 @@ function check-success() {
 
 pushd $docsDir
 
+del .\public -Recurse -Force
+
 & "$myDir\update-app-list.ps1"
 if (!(Test-Path "$docsDir\node_modules"))
 {
