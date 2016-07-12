@@ -1,6 +1,7 @@
 var os = require('os');
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var less = require('gulp-less');
 var cleanCSS = require('gulp-clean-css');
 var mdquery = require('mdquery').transform;
 var textTransformation = require('gulp-text-simple');
@@ -35,7 +36,14 @@ return     gulp.src(['bower_components/font-awesome/fonts/*'])
         .pipe(gulp.dest('static/fonts'));
 });
 
-gulp.task('build-css', function () {
+gulp.task('build-less', function () {
+    return gulp.src('./src-static/css/*.less')
+        .pipe(less())
+        .pipe(concat('custom.css'))
+        .pipe(gulp.dest('./src-static/css/'));
+});
+
+gulp.task('build-css', ['build-less'], function () {
     return gulp.src(['./bower_components/pure/base.css',
                      './bower_components/pure/grids-responsive.css',
                      './bower_components/pure/menus-core.css',
