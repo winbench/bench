@@ -6,64 +6,462 @@ title = "PowerShell API"
 weight = 9
 +++
 
-The _PowerShell API_ of Bench consists of a set of functions/commandlets,
+The _PowerShell API_ of Bench consists of a set of global variables and functions,
 available in custom and hook scripts.
 
-## Variables
+[**Variables**](#vars)
 
-### `$global:BenchConfig` {#var-bench-config}
+* [`$BenchConfig`](#var-bench-config)
 
-This variable in the global scope holds a reference to a
+[**Utility Functions**](#util-funcs)
+
+* [`Exit-OnError`](#fun-exit-onerror)
+* [`Pause`](#fun-pause)
+* [`Run-Detached`](#fun-run-detached)
+
+[**File System Functions**](#fs-funcs)
+
+* [`Empty-Dir`](#fun-empty-dir)
+* [`Find-File`](#fun-find-file)
+* [`Find-Files`](#fun-find-files)
+* [`Purge-Dir`](#fun-purge-dir)
+* [`Safe-Dir`](#fun-safe-dir)
+
+[**Bench Configuration Functions**](#config-funcs)
+
+* [`Get-ConfigValue`](#fun-get-configvalue)
+* [`Get-ConfigBooleanValue`](#fun-configbooleanvalue)
+* [`Get-ConfigListValue`](#fun-configlistvalue)
+
+[**App Property Functions**](#app-config-funcs)
+
+* [`Get-AppConfigValue`](#fun-get-appconfigvalue)
+* [`Get-AppConfigBooleanValue`](#fun-get-appconfigbooleanvalue)
+* [`Get-AppConfigListValue`](#fun-get-appconfiglistvalue)
+* [`App-Typ`](#fun-app-typ)
+* [`App-Version`](#fun-app-version)
+* [`App-Dependencies`](#fun-app-dependencies)
+* [`App-Url`](#fun-app-url)
+* [`App-DownloadHeaders`](#fun-app-downloadheaders)
+* [`App-DownloadCookies`](#fun-app-downloadcookies)
+* [`App-ResourceFile`](#fun-app-resourcefile)
+* [`App-ResourceArchive`](#fun-app-resourcearchive)
+* [`App-ResourceArchiveTyp`](#fun-app-resourcearchivetyp)
+* [`App-ResourceArchivePath`](#fun-app-resourcearchivepath)
+* [`App-Force`](#fun-app-force)
+* [`App-PackageName`](#fun-app-packagename)
+* [`App-Dir`](#fun-app-dir)
+* [`App-Path`](#fun-app-path)
+* [`App-Paths`](#fun-app-paths)
+* [`App-Exe`](#fun-app-exe)
+* [`App-Register`](#fun-app-register)
+* [`App-Environment`](#fun-app-environment)
+* [`App-AdornedExecutables`](#fun-app-adornedexecutables)
+* [`App-RegistryKeys`](#fun-app-registrykeys)
+* [`App-Launcher`](#fun-app-launcher)
+* [`App-LauncherExecutable`](#fun-app-launcherexecutable)
+* [`App-LauncherArguments`](#fun-app-launcherarguments)
+* [`App-LauncherIcon`](#fun-app-launchericon)
+* [`App-SetupTestFile`](#fun-app-setuptestfile)
+* [`Check-App`](#fun-check-app)
+
+## Variables {#vars}
+
+### `$BenchConfig` {#var-bench-config}
+
+This variable in the global scope a
 [`Mastersign.Bench.BenchConfiguration`](/ref/clr-api/class/Mastersign.Bench.BenchConfiguration)
 object.
 This object holds the merged Bench configuration from all configuration files.
 
-## Functions
+**Hint**: Access via `$global:BenchConfig`.
 
-### Utilities
+## Utility Functions {#util-funcs}
 
-#### `Exit-OnError` {#fun-exit-onerror}
+### `Exit-OnError` {#fun-exit-onerror}
 
 * Description: Checks an process exit code and exits the current script if it is not 0.
-* Parameter
+* Parameter:
     + `exitCode` (optional)
       The exit code to check.
       Default value is `$LastExitCode`.
 
-#### `Pause` {#fun-pause}
+### `Pause` {#fun-pause}
 
 * Description: Prints a message and waits for an arbitrary key press before it returns.
-* Parameter
+* Parameter:
     + `msg` (optional)
       The message to print.
       Default value is `"Press any key to exit ..."`.
 
-#### `Run-Detached` {#fun-run-detached}
+### `Run-Detached` {#fun-run-detached}
 
-### File System
+* Description: Starts a detached process without blocking.
+* Parameter:
+    + `path` The absolute path to the executable.
+    + ... An arbitrary number of command line arguments
 
-#### `Empty-Dir` {#fun-empty-dir}
+## File System Functions {#fs-funcs}
 
-#### `Find-File` {#fun-find-file}
+### `Empty-Dir` {#fun-empty-dir}
 
-#### `Find-Files` {#fun-find-files}
+* Description: Makes sure a path points to an empty directory.
+* Parameter:
+    + `path` The absolute path to the directory.
+* Return Value: The absolute path to the directory.
 
-#### `Purge-Dir` {#fun-purge-dir}
+If the directory exists, all of its children are deleted.
+If the directory does not exist, it is created.
 
-#### `Safe-Dir` {#fun-safe-dir}
+This function is a wrapper for [Mastersign.Bench.FileSystem.EmptyDir()](/ref/clr-api/method/Mastersign.Bench.FileSystem.EmptyDir).
 
-### Configuration Properties
+### `Find-File` {#fun-find-file}
 
-#### `Get-ConfigValue`
+* Description: Searches for the first file that matches a given pattern, in a given directory.
+* Parameter:
+    + `dir` The absolute path to a directory.
+    + `pattern` The pattern to search for, syntax according to
+      [`System.IO.Directory.GetFiles()`](https://msdn.microsoft.com/de-de/library/wz42302f.aspx).
+* Return Value: The absolute path of the found file or `$null`,
+  if the given directory does not exist or no file matches.
 
-#### `Get-ConfigBooleanValue`
+If more than one file in the given directory matches the pattern,
+it is not defined which one is returned.
 
-#### `Get-ConfigListValue`
+### `Find-Files` {#fun-find-files}
 
-### App Properties
+* Description: Searches for files which match a given pattern, in a given directory.
+* Parameter:
+    + `dir` The absolute path to a directory.
+    + `pattern` The pattern to search for, syntax according to
+      [`System.IO.Directory.GetFiles()`](https://msdn.microsoft.com/de-de/library/wz42302f.aspx).
+* Return Value: An array with the found files.
 
-#### `Get-AppConfigValue`
+If the specified directory does not exist, an empty array is returned.
 
-#### `Get-AppConfigBooleanValue`
+### `Purge-Dir` {#fun-purge-dir}
 
-#### `Get-AppConfigListValue`
+* Description: Deletes a directory and all of its content.
+* Parameter:
+    + `path` The absolute path to the directory.
+
+Solves a problem with deleting directories recursively, if they contain read-only files.
+This function is a wrapper for
+[Mastersign.Bench.FileSystem.PurgeDir()](/ref/clr-api/method/Mastersign.Bench.FileSystem.PurgeDir).
+
+### `Safe-Dir` {#fun-safe-dir}
+
+* Description: Makes sure a directory exists.
+* Parameter:
+    + `path` The absolute path to the directory.
+* Return Value: The absolute path to the directory.
+
+This method is a wrapper for
+[Mastersign.Bench.FileSystem.AsureDir()](/ref/clr-api/method/Mastersign.Bench.FileSystem.AsureDir).
+
+## Bench Configuration Functions {#config-funcs}
+
+### `Get-ConfigValue` {#fun-get-configvalue}
+
+* Description: Returns the value of a [Bench configuration property](/ref/config).
+* Parameter:
+    + `name` The name of the configuration property.
+* Return Value: The value of the property or `$null`.
+
+The data type of the property can be string, boolean, array of strings,
+or dictionary with string keys and values.
+If you want to read a boolean value use [`Get-ConfigBooleanValue`](#fun-get-configbooleanvalue),
+because strings can be interpreted as booleans.
+If you want to read a list value use [`Get-ConfigListValue`](#fun-get-configlistvalue),
+because strings can be interpreted as an array with one element.
+
+### `Get-ConfigBooleanValue` {#fun-configbooleanvalue}
+
+* Description: Returns the boolean value of a [Bench configuration property](/ref/config).
+* Parameter:
+    + `name` The name of the configuration property.
+* Return Value: The value of the property as boolean.
+
+If the property has no value, `$false` is returned.
+
+### `Get-ConfigListValue` {#fun-configlistvalue}
+
+* Description: Returns the list value of a [Bench configuration property](/ref/config).
+* Parameter:
+    + `name` The name of the configuration property.
+* Return Value: The value of the property as array of strings.
+
+If the property only contains a string, an array with one element is returned.
+If the property has no value, an empty array is returned.
+
+## App Property Functions {#app-config-funcs}
+
+### `Get-AppConfigValue` {#fun-get-appconfigvalue}
+
+* Description: Returns the value of an [Bench app property](/ref/app-properties).
+* Parameter:
+    + `app` The ID of an app.
+    + `name` The name of the property.
+* Return Value: The value of the property as string or `$null`.
+
+If the property has no value, or the app ID is not defined, `$null` is returned.
+If you want to read a boolean value use [`Get-AppConfigBooleanValue`](#fun-get-appconfigbooleanvalue),
+because strings can be interpreted as booleans.
+If you want to read a list value use [`Get-AppConfigListValue`](#fun-get-appconfiglistvalue),
+because strings can be interpreted as an array with one element.
+
+### `Get-AppConfigBooleanValue` {#fun-get-appconfigbooleanvalue}
+
+* Description: Returns the boolean value of an [Bench app property](/ref/app-properties).
+* Parameter:
+    + `app` The ID of an app.
+    + `name` The name of the property.
+* Return Value: The value of the property as boolean.
+
+If the property has no value, `$false` is returned.
+If the app ID is not defined, `$null` is returned.
+
+### `Get-AppConfigListValue` {#fun-get-appconfiglistvalue}
+
+* Description: Returns the list value of an [Bench app property](/ref/app-properties).
++ `app` The ID of an app.
++ `name` The name of the property.
+* Return Value: The value of the property as boolean.
+
+If the property only contains a string, an array with one element is returned.
+If the property has no value, an empty array is returned.
+If the app ID is not defined, `$null` is returned.
+
+### `App-Typ` {#fun-app-typ}
+
+* Description: This function returns the value of the
+  [`Typ`](/ref/app-properties/#Typ) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The string value of the property,
+  or `$null` in case the app ID is not defined.
+
+### `App-Version` {#fun-app-version}
+
+* Description: This function returns the value of the
+  [`Version`](/ref/app-properties/#Version) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-Dependencies` {#fun-app-dependencies}
+
+* Description: This function returns the list value of the
+  [`Dependencies`](/ref/app-properties/#Dependencies) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as array of strings,
+  or `$null` in case the app ID is not defined.
+
+### `App-Url` {#fun-app-url}
+
+* Description: This function returns the value of the
+  [`Url`](/ref/app-properties/#Url) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-DownloadHeaders` {#fun-app-downloadheaders}
+
+* Description: This function returns the dictionary value of the
+  [`DownloadHeaders`](/ref/app-properties/#DownloadHeaders) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as dictionary,
+  or `$null` in case the app ID is not defined.
+
+### `App-DownloadCookies` {#fun-app-downloadcookies}
+
+* Description: This function returns the dictionary value of the
+  [`DownloadCookies`](/ref/app-properties/#DownloadCookies) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as dictionary,
+  or `$null` in case the app ID is not defined.
+
+### `App-ResourceFile` {#fun-app-resourcefile}
+
+* Description: This function returns the string value of the
+  [`ResourceName`](/ref/app-properties/#ResourceName) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-ResourceArchive` {#fun-app-resourcearchive}
+
+* Description: This function returns the string value of the
+  [`ArchiveName`](/ref/app-properties/#ArchiveName) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-ResourceArchiveTyp` {#fun-app-resourcearchivetyp}
+
+* Description: This function returns the string value of the
+  [`ResourceArchiveTyp`](/ref/app-properties/#ResourceArchiveTyp) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-ResourceArchivePath` {#fun-app-resourcearchivepath}
+
+* Description: This function returns the string value of the
+  [`ArchivePath`](/ref/app-properties/#ArchivePath) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-Force` {#fun-app-force}
+
+* Description: This function returns the boolean value of the
+  [`Force`](/ref/app-properties/#Force) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as boolean,
+  or `$null` in case the app ID is not defined.
+
+### `App-PackageName` {#fun-app-packagename}
+
+* Description: This function returns the string value of the
+  [`PackageName`](/ref/app-properties/#PackageName) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-Dir` {#fun-app-dir}
+
+* Description: This function returns the string value of the
+  [`Dir`](/ref/app-properties/#Dir) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-Path` {#fun-app-path}
+
+* Description: This function returns the first element in the list value of the
+  [`Path`](/ref/app-properties/#Path) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The first item in the array value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-Paths` {#fun-app-paths}
+
+* Description: This function returns the list value of the
+  [`Path`](/ref/app-properties/#Path) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as array of strings,
+  or `$null` in case the app ID is not defined.
+
+### `App-Exe` {#fun-app-exe}
+
+* Description: This function returns the string value of the
+  [`Exe`](/ref/app-properties/#Exe) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-Register` {#fun-app-register}
+
+* Description: This function returns the boolean value of the
+  [`Register`](/ref/app-properties/#Register) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as boolean,
+  or `$null` in case the app ID is not defined.
+
+### `App-Environment` {#fun-app-environment}
+
+* Description: This function returns the dictionary value of the
+  [`Environment`](/ref/app-properties/#Environment) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as dictionary,
+  or `$null` in case the app ID is not defined.
+
+### `App-AdornedExecutables` {#fun-app-adornedexecutables}
+
+* Description: This function returns the list value of the
+  [`AdornedExecutables`](/ref/app-properties/#AdornedExecutables) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as array of strings,
+  or `$null` in case the app ID is not defined.
+
+### `App-RegistryKeys` {#fun-app-registrykeys}
+
+* Description: This function returns the list value of the
+  [`RegistryKeys`](/ref/app-properties/#RegistryKeys) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as array of strings,
+  or `$null` in case the app ID is not defined.
+
+### `App-Launcher` {#fun-app-launcher}
+
+* Description: This function returns the string value of the
+  [`Launcher`](/ref/app-properties/#Launcher) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-LauncherExecutable` {#fun-app-launcherexecutable}
+
+* Description: This function returns the string value of the
+  [`LauncherExecutable`](/ref/app-properties/#LauncherExecutable) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-LauncherArguments` {#fun-app-launcherarguments}
+
+* Description: This function returns the list value of the
+  [`LauncherArguments`](/ref/app-properties/#LauncherArguments) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as array of strings,
+  or `$null` in case the app ID is not defined.
+
+### `App-LauncherIcon` {#fun-app-launchericon}
+
+* Description: This function returns the string value of the
+  [`LauncherIcon`](/ref/app-properties/#LauncherIcon) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `App-SetupTestFile` {#fun-app-setuptestfile}
+
+* Description: This function returns the string value of the
+  [`SetupTestFile`](/ref/app-properties/#SetupTestFile) property.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: The value of the property as string,
+  or `$null` in case the app ID is not defined.
+
+### `Check-App` {#fun-check-app}
+
+* Description: This function returns a boolean value, indicating if this app is installed.
+* Parameter:
+    + `app`: The app ID.
+* Return Value: `$true` if the app is installed,
+  `$false` if the app is not installed,
+  and `$null` if the app ID is not defined.
