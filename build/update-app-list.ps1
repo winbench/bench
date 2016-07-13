@@ -57,9 +57,9 @@ function WriteAppBlock($sb, $app)
 	  $_ = $sb.AppendLine()
 }
 
-function WriteAppTable($sb, $label)
+function WriteAppTable($sb, $label, $anchor)
 {
-    $_ = $sb.AppendLine("**$label**")
+    $_ = $sb.AppendLine("[**$label**](#$anchor)")
     $_ = $sb.AppendLine()
     $_ = $sb.AppendLine("<!--")
     $_ = $sb.AppendLine("#data-table /*/$label/*")
@@ -74,9 +74,9 @@ function WriteAppTable($sb, $label)
     $_ = $sb.AppendLine()
 }
 
-function WriteAppCategory($sb, $label, $name)
+function WriteAppCategory($sb, $label, $anchor, $name)
 {
-	  $_ = $sb.AppendLine("## $label")
+	  $_ = $sb.AppendLine("## $label {#$anchor}")
 	  $_ = $sb.AppendLine()
 	  $apps.ByCategory($name) | Sort-Object -Property Label | % { WriteAppBlock $sb $_ }
 }
@@ -86,12 +86,12 @@ $_ = $sb.Append((GetFrontMatter $targetFile))
 $_ = $sb.AppendLine()
 $_ = $sb.AppendLine("## Overview")
 $_ = $sb.AppendLine()
-WriteAppTable $sb "Groups"
-WriteAppTable $sb "Required Apps"
-WriteAppTable $sb "Optional Apps"
+WriteAppTable $sb "Groups" "groups"
+WriteAppTable $sb "Required Apps" "apps-required"
+WriteAppTable $sb "Optional Apps" "apps-optional"
 
-WriteAppCategory $sb "Groups" "Groups"
-WriteAppCategory $sb "Required Apps" "Required"
-WriteAppCategory $sb "Optional Apps" "Optional"
+WriteAppCategory $sb "Groups" "groups" "Groups"
+WriteAppCategory $sb "Required Apps" "apps-required" "Required"
+WriteAppCategory $sb "Optional Apps" "apps-optional" "Optional"
 
 [IO.File]::WriteAllText($targetFile, $sb.ToString(), [Text.Encoding]::UTF8)

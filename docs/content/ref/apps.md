@@ -8,7 +8,7 @@ weight = 1
 
 ## Overview
 
-**Groups**
+[**Groups**](#groups)
 
 | ID | Name |
 |----|------|
@@ -24,7 +24,7 @@ weight = 1
 | `WebDevPHP5` | [Web Development with PHP 5](#WebDevPHP5) |
 | `WebDevPHP7` | [Web Development with PHP 7](#WebDevPHP7) |
 
-**Required Apps**
+[**Required Apps**](#apps-required)
 
 | ID | Name | Version | Website |
 |----|------|---------|---------|
@@ -33,7 +33,7 @@ weight = 1
 | `InnoUnp` | [Inno Setup Unpacker](#InnoUnp) | 0.45 | <http://innounp.sourceforge.net/> |
 | `LessMsi` | [Less MSIerables](#LessMsi) | 1.3 | <http://lessmsi.activescott.com/> |
 
-**Optional Apps**
+[**Optional Apps**](#apps-optional)
 
 | ID | Name | Version | Website |
 |----|------|---------|---------|
@@ -115,7 +115,7 @@ weight = 1
 | `MdProc` | [Yeoman Generator for Markdown Projects](#MdProc) | >=0.1.6 <0.2.0 | <https://www.npmjs.com/package/generator-mdproc> |
 | `Zeal` | [Zeal Docs](#Zeal) | 0.2.1 | <https://zealdocs.org> |
 
-## Groups
+## Groups {#groups}
 
 ### 3D Modeling {#Dev3D}
 
@@ -194,7 +194,7 @@ weight = 1
 * Version: latest
 * Dependencies: [PHP 7](#PHP7), [MySQL](#MySQL), [MySQL Workbench](#MySQLWB), [Apache](#Apache), [Eclipse for PHP](#EclipsePHP)
 
-## Required Apps
+## Required Apps {#apps-required}
 
 ### 7-Zip {#SvZ}
 
@@ -224,7 +224,7 @@ weight = 1
 * Website: <http://lessmsi.activescott.com/>
 * Version: 1.3
 
-## Optional Apps
+## Optional Apps {#apps-optional}
 
 ### Ant Renamer {#AntRenamer}
 

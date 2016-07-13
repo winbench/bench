@@ -8,7 +8,7 @@ weight = 1
 
 ## Overview
 
-**Groups**
+[**Groups**](#groups)
 
 <!--
 #data-table /*/Groups/*
@@ -16,7 +16,7 @@ weight = 1
 #column Name: name(.)
 -->
 
-**Required Apps**
+[**Required Apps**](#apps-required)
 
 <!--
 #data-table /*/Required Apps/*
@@ -26,7 +26,7 @@ weight = 1
 #column Website: value(Website)
 -->
 
-**Optional Apps**
+[**Optional Apps**](#apps-optional)
 
 <!--
 #data-table /*/Optional Apps/*
@@ -36,7 +36,7 @@ weight = 1
 #column Website: value(Website)
 -->
 
-## Groups
+## Groups {#groups}
 
 ### 3D Modeling {#Dev3D}
 
@@ -115,7 +115,7 @@ weight = 1
 * Version: latest
 * Dependencies: [PHP 7](#PHP7), [MySQL](#MySQL), [MySQL Workbench](#MySQLWB), [Apache](#Apache), [Eclipse for PHP](#EclipsePHP)
 
-## Required Apps
+## Required Apps {#apps-required}
 
 ### 7-Zip {#SvZ}
 
@@ -145,7 +145,7 @@ weight = 1
 * Website: <http://lessmsi.activescott.com/>
 * Version: 1.3
 
-## Optional Apps
+## Optional Apps {#apps-optional}
 
 ### Ant Renamer {#AntRenamer}
 
