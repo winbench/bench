@@ -48,7 +48,7 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
     + `editor.cmd`
     + `init.cmd`
     + `runps.cmd`
-* [`config`](#config) Custom Configuration
+* [`config`](#config-dir) Custom Configuration
   ([CustomConfigDir](/ref/config/#CustomConfigDir))
     + [`apps.md`](#config-apps) App Library
       ([CustomAppIndexFile](/ref/config/#CustomAppIndexFile))
@@ -71,7 +71,7 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
       ([AppActivationTemplateFile](/ref/config/#AppActivationTemplateFile))
     + [`apps-deactivated.template.txt`](#res-app-deactivation-template)
       ([AppDeactivationTemplateFile](/ref/config/#AppDeactivationTemplateFile))
-    + [`bench-install.bat`](#res-bench.install) Bootstrap Batch File
+    + [`bench-install.bat`](#res-bench-install) Bootstrap Batch File
     + [`bench-site.template.md`](#res-site-config-template)
       ([SiteConfigTemplateFile](/ref/config/#SiteConfigTemplateFile))
     + [`ConEmu.template.xml`](#res-conemu-template)
