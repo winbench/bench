@@ -32,10 +32,12 @@ weight = 8
 
 * Description: The application typ
 * Data Type: string
-* Possible Values: `default`, `meta`, `*-package`python3-package`, `ruby-package`
+* Possible Values: `default`, `meta`, `node-package`, `python2-package`, `python3-package`, `ruby-package`
 * Required: `false`
 * Default: `default`
 * App Types: all
+
+The meaning of the different possible values is explained in [App Types](/ref/app-types).
 
 ## Dependencies {#Dependencies}
 
