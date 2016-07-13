@@ -2,19 +2,19 @@
 . "$myDir\profile.ps1"
 . "$myDir\config.lib.ps1"
 
-function Purge-Dir ($dir)
+function Purge-Dir ($path)
 {
-    [Mastersign.Bench.FileSystem]::PurgeDir($dir)
+    [Mastersign.Bench.FileSystem]::PurgeDir($path)
 }
 
-function Safe-Dir ($dir)
+function Safe-Dir ($path)
 {
-    return [Mastersign.Bench.FileSystem]::AsureDir($dir)
+    return [Mastersign.Bench.FileSystem]::AsureDir($path)
 }
 
-function Empty-Dir ($dir)
+function Empty-Dir ($path)
 {
-    return [Mastersign.Bench.FileSystem]::EmptyDir($dir)
+    return [Mastersign.Bench.FileSystem]::EmptyDir($path)
 }
 
 function Find-Files($dir, $pattern)

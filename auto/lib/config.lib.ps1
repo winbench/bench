@@ -27,10 +27,9 @@ function App-DownloadCookies([string]$name) { return $global:BenchConfig.Apps[$n
 function App-ResourceFile([string]$name) { return $global:BenchConfig.Apps[$name].ResourceFileName }
 function App-ResourceArchive([string]$name) { return $global:BenchConfig.Apps[$name].ResourceArchiveName }
 function App-ResourceArchiveTyp([string]$name) { return $global:BenchConfig.Apps[$name].ResourceArchiveTyp }
-function App-ResourceArchiveSubDir([string]$name) { return $global:BenchConfig.Apps[$name].ResourceArchivePath }
+function App-ResourceArchivePath([string]$name) { return $global:BenchConfig.Apps[$name].ResourceArchivePath }
 function App-Force([string]$name) { return $global:BenchConfig.Apps[$name].Force }
-function App-NpmPackage([string]$name) { return $global:BenchConfig.Apps[$name].PackageName }
-function App-PyPiPackage([string]$name) { return $global:BenchConfig.Apps[$name].PackageName }
+function App-PackageName([string]$name) { return $global:BenchConfig.Apps[$name].PackageName }
 function App-Dir([string]$name) { return $global:BenchConfig.Apps[$name].Dir }
 function App-Paths([string]$name) { return $global:BenchConfig.Apps[$name].Path }
 function App-Exe([string]$name, [bool]$checkExist = $true) { return $global:BenchConfig.Apps[$name].Exe }
@@ -43,9 +42,6 @@ function App-LauncherExecutable([string]$name) { return $global:BenchConfig.Apps
 function App-LauncherArguments([string]$name) { return $global:BenchConfig.Apps[$name].LauncherArguments }
 function App-LauncherIcon([string]$name) { return $global:BenchConfig.Apps[$name].LauncherIcon }
 function App-SetupTestFile([string]$name) { return $global:BenchConfig.Apps[$name].SetupTestFile }
-function Check-DefaultApp([string]$name) { return $global:BenchConfig.Apps[$name].IsInstalled }
-function Check-NpmPackage([string]$name) { return $global:BenchConfig.Apps[$name].IsInstalled }
-function Check-PyPiPackage ([string]$pythonVersion, [string]$name) { return $global:BenchConfig.Apps[$name].IsInstalled }
 function Check-App([string]$name) { return $global:BenchConfig.Apps[$name].IsInstalled }
 
 function App-Path([string]$name) {
