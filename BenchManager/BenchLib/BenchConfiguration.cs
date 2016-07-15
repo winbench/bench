@@ -8,22 +8,79 @@ using Mastersign.Bench.Markdown;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// <para>The merged configuration and app library for a Bench environment.</para>
+    /// <para>
+    /// The configuration is merged by loading the following files:
+    /// </para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>default</term>
+    ///         <description><c>res\config.md</c></description>
+    ///     </item>
+    ///     <item>
+    ///         <term>custom</term>
+    ///         <description><c>config\config.md</c></description>
+    ///     </item>
+    ///     <item>
+    ///         <term>site</term>
+    ///         <description><c>bench-site.md</c> files (filename can be changed via default/custom config)</description>
+    ///     </item>
+    /// </list>
+    /// <para>
+    /// The app library is merged by loading the following files:
+    /// </para>
+    /// <list type="bullet">
+    ///     <item>
+    ///       <term>default</term>
+    ///       <description><c>res\apps.md</c></description>
+    ///     </item>
+    ///     <item>
+    ///         <term>custom</term>
+    ///         <description><c>config\apps.md</c></description>
+    ///     </item>
+    /// </list>
+    /// </summary>
     public class BenchConfiguration : ResolvingPropertyCollection
     {
         private const string AutoDir = @"auto";
         private const string ScriptsDir = @"auto\lib";
         private const string ConfigFile = @"res\config.md";
+
+        /// <summary>
+        /// The property group category, which contains app definitions of required apps.
+        /// </summary>
         public const string DefaultAppCategory = "Required";
 
         private readonly AppIndexFacade appIndexFacade;
 
+        /// <summary>
+        /// The absolute path to the root directory of Bench.
+        /// </summary>
         public string BenchRootDir { get; private set; }
+
         private string siteConfigFileName; // cached to prevent overriding by custom configuration
 
+        /// <summary>
+        /// A flag which indicates if the app library was loaded during initialization of the <see cref="BenchConfiguration"/>.
+        /// </summary>
         public bool WithAppIndex { get; private set; }
+
+        /// <summary>
+        /// A flag which indicates if the custom configuration was loaded during initialization of the <see cref="BenchConfiguration"/>.
+        /// </summary>
         public bool WithCustomConfiguration { get; private set; }
+
+        /// <summary>
+        /// A flag which indicates if the site configuration was loaded during the initialization of the <see cref="BenchConfiguration"/>.
+        /// </summary>
         public bool WithSiteConfiguration { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="BenchConfiguration"/>
+        /// loading all configuration and app library files.
+        /// </summary>
+        /// <param name="benchRootDir">The absolute path to the root directory of Bench.</param>
         public BenchConfiguration(string benchRootDir)
             : this(benchRootDir, true, true, true)
         {
