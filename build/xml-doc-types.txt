@@ -1,0 +1,2 @@
+Mastersign.Bench.BenchConfiguration
+Mastersign.Bench.ActivationFile
