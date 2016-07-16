@@ -1,8 +1,24 @@
 param (
-    $sourceFile = $(Resolve-Path "$myDir\..\BenchManager\BenchLib\bin\Debug\BenchLib.xml"),
-    $typesFile = $(Resolve-Path "$myDir\xml-doc-types.txt"),
-    $targetDir = $(Resolve-Path "$myDir\..\tmp\clr-docs")
+    $sourceFile = $(Resolve-Path "$([IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition))\..\BenchManager\BenchLib\bin\Debug\BenchLib.xml"),
+    $typesFile = $(Resolve-Path "$([IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition))\xml-doc-types.txt"),
+    $targetDir = $(Resolve-Path "$([IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition))\..\tmp\clr-docs")
 )
+
+if (!$sourceFile -or !(Test-Path $sourceFile -PathType Leaf))
+{
+	Write-Error "Could not find the source file."
+	return
+}
+if (!$typesFile -or !(Test-Path $typesFile -PathType Leaf))
+{
+	Write-Error "Could not find the list of types to consider."
+	return
+}
+if (!$targetDir -or !(Test-Path $targetDir -PathType Container))
+{
+	Write-Error "Could not find the target directory."
+	return
+}
 
 Set-Alias new New-Object
 $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
