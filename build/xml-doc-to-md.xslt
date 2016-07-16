@@ -2,7 +2,11 @@
 
 <stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform">
 
-  <include href="helper.xslt"/>
+  <template match="text()">
+    <value-of select="normalize-space(.)"/>
+    <text>
+</text>
+  </template>
 
   <template match="c">
     <text> `</text>
@@ -34,18 +38,33 @@
   </template>
 
   <template match="see">
-    <text>`</text>
-    <value-of select="@cref"/>
-    <text>`
+    <text>[`</text>
+    <call-template name="cref-label">
+      <with-param name="cref" select="@cref" />
+    </call-template>
+    <text>`][]
 </text>
   </template>
 
-  <template match="text()">
-    <call-template name="string-trim">
-      <with-param name="string" select="." />
-    </call-template>
-    <text>
-</text>
+  <template name="cref-label">
+    <param name="cref" />
+    <variable name="sign" select="substring-after($cref, ':')" />
+    <choose>
+      <when test="starts-with($cref, 'T:')">
+        <value-of select="substring-after($sign,'.')"/>
+      </when>
+      <when test="starts-with($sign, 'M:')">
+        <value-of select="substring-before(substring-after($sign, '.'), '(')"/>
+      </when>
+    </choose>
+  </template>
+
+  <template name="cref-url">
+
+  </template>
+
+  <template name="cref-id">
+
   </template>
 
 </stylesheet>
