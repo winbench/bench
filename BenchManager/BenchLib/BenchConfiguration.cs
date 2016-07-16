@@ -86,6 +86,14 @@ namespace Mastersign.Bench
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="BenchConfiguration"/>
+        /// loading the specified set of configuration and app library files.
+        /// </summary>
+        /// <param name="benchRootDir">The absolute path to the root directory of Bench.</param>
+        /// <param name="loadAppIndex">A flag to control if app library files are going to be loaded.</param>
+        /// <param name="loadCustomConfiguration">A flag to control if custom configuration files are going to be loaded.</param>
+        /// <param name="loadSiteConfiguration">A flag to control if site configuration files are going to be loaded.</param>
         public BenchConfiguration(string benchRootDir, bool loadAppIndex, bool loadCustomConfiguration, bool loadSiteConfiguration)
         {
             BenchRootDir = benchRootDir;
@@ -197,6 +205,11 @@ namespace Mastersign.Bench
             return results.ToArray();
         }
 
+        /// <summary>
+        /// Search for all existing site configuration files in the root directory of Bench
+        /// and its parents.
+        /// </summary>
+        /// <returns>An array with the absolute paths of the found site configuration files.</returns>
         public string[] FindSiteConfigFiles()
         {
             return FindSiteConfigFiles(BenchRootDir, siteConfigFileName);
@@ -296,8 +309,18 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// The merged definition of the Bench apps as a <see cref="AppIndexFacade"/>.
+        /// </summary>
         public AppIndexFacade Apps { get { return appIndexFacade; } }
 
+        /// <summary>
+        /// Reloads the set of configuration files, specified during construction.
+        /// Call this method to create an updated instance of <see cref="BenchConfiguration"/>
+        /// after one of the configuration files was changed.
+        /// </summary>
+        /// <returns>A new instance of <see cref="BenchConfiguration"/>,
+        /// which has loaded the same set of configuration files as this instance.</returns>
         public BenchConfiguration Reload()
         {
             return new BenchConfiguration(BenchRootDir,

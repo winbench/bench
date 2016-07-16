@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// A collection of Bench apps.
+    /// </summary>
     public class AppIndexFacade : IEnumerable<AppFacade>
     {
         private readonly IConfiguration AppIndex;
@@ -22,6 +25,10 @@ namespace Mastersign.Bench
             return app;
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="AppIndexFacade"/>.
+        /// </summary>
+        /// <param name="appIndex">An instance of <see cref="IConfiguration"/> holding the configuration of Bench apps.</param>
         public AppIndexFacade(IConfiguration appIndex)
         {
             AppIndex = appIndex;
