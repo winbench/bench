@@ -23,6 +23,10 @@ if (!$targetDir -or !(Test-Path $targetDir -PathType Container))
 Set-Alias new New-Object
 $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
+Add-Type -Path "$myDir\XsltFunctionExtension.cs"
+$crefParsing = new Mastersign.XmlDoc.Xsl.CRefParsing
+$crefFormatting = new Mastersign.XmlDoc.Xsl.CRefFormatting
+
 $typeStyleFile = Resolve-Path "$myDir\xml-doc-to-md-type.xslt"
 $memberStyleFile = Resolve-Path "$myDir\xml-doc-to-md-member.xslt"
 
@@ -70,7 +74,9 @@ function transform($style, [System.Xml.XmlElement]$m)
     $sr = new System.IO.StringReader ("<partial>" + [string]$m.OuterXml + "</partial>")
     $xr = [System.Xml.XmlReader]::Create($sr)
     $xmlArgs = new System.Xml.Xsl.XsltArgumentList
-    try 
+	$xmlArgs.AddExtensionObject("urn:CRefParsing", $crefParsing)
+	$xmlArgs.AddExtensionObject("urn:CRefFormatting", $crefFormatting)
+    try
     {
         $style.Transform($xr, $xmlArgs, $w)
     }
@@ -88,7 +94,7 @@ $types = Get-Content $typesFile
 foreach ($t in $types)
 {
     $tm = type-member $t
-    
+
     $out = [IO.File]::OpenWrite("$targetDir\${t}.md")
     $writer = new System.IO.StreamWriter($out, (new System.Text.UTF8Encoding ($false)))
 

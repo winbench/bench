@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform">
+<stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform"
+            xmlns:cp="urn:CRefParsing"
+            xmlns:cf="urn:CRefFormatting">
 
   <template match="text()">
     <value-of select="normalize-space(.)"/>
@@ -39,22 +41,20 @@
 
   <template match="see">
     <text>[`</text>
-    <call-template name="cref-label">
-      <with-param name="cref" select="@cref" />
-    </call-template>
+    <value-of select="cf:FormatLabel(@cref)"/>
     <text>`][]
 </text>
   </template>
 
   <template name="cref-label">
     <param name="cref" />
-    <variable name="sign" select="substring-after($cref, ':')" />
+    <variable name="member-type" select="cp:MemberType($cref)" />
     <choose>
-      <when test="starts-with($cref, 'T:')">
-        <value-of select="substring-after($sign,'.')"/>
+      <when test="$member-type = 'T'">
+        <value-of select="cp:TypeName($cref)"/>
       </when>
-      <when test="starts-with($sign, 'M:')">
-        <value-of select="substring-before(substring-after($sign, '.'), '(')"/>
+      <when test="$member-type = 'M'">
+        <value-of select="cp:MethodName($cref)"/>
       </when>
     </choose>
   </template>
