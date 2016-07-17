@@ -9,6 +9,14 @@ namespace Mastersign.XmlDoc.Xsl
 
         private static readonly Regex M_MethodNameP = new Regex(@"^M\:.*\.(.*?)\(.*$");
 
+        private static readonly Regex CRefPattern = new Regex(@"^(?<type>\w)\:(?<def>.*)");
+
+        private static readonly Regex TypePattern = new Regex(@"^(?:(?<ns>.+)\.)?(?<name>[^\.]+?)$");
+
+        private static readonly Regex MethodPattern = new Regex(@"^(?<type>.+?)\.(?<name>.*)\((?<args>.*)\)$");
+
+        private static readonly Regex PropertyPattern = new Regex(@"^(?<type>.+?)\.(?<name>.*)$");
+
         public string MemberType(string cref)
         {
             int p = cref.IndexOf(':');
