@@ -117,9 +117,9 @@ weight = 1
 
 ## Required Apps {#apps-required}
 
-### 7-Zip {#SvZ}
+### 7-Zip {#7z}
 
-* ID: `SvZ`
+* ID: `7z`
 * Typ: `default`
 * Website: <http://www.7-zip.de/download.html>
 * Version: 16.02

@@ -28,7 +28,7 @@ weight = 1
 
 | ID | Name | Version | Website |
 |----|------|---------|---------|
-| `SvZ` | [7-Zip](#SvZ) | 16.02 | <http://www.7-zip.de/download.html> |
+| `7z` | [7-Zip](#7z) | 16.02 | <http://www.7-zip.de/download.html> |
 | `ConEmu` | [ConEmu](#ConEmu) | 16.06.19 | <https://conemu.github.io/> |
 | `InnoUnp` | [Inno Setup Unpacker](#InnoUnp) | 0.45 | <http://innounp.sourceforge.net/> |
 | `LessMsi` | [Less MSIerables](#LessMsi) | 1.3 | <http://lessmsi.activescott.com/> |
@@ -196,9 +196,9 @@ weight = 1
 
 ## Required Apps {#apps-required}
 
-### 7-Zip {#SvZ}
+### 7-Zip {#7z}
 
-* ID: `SvZ`
+* ID: `7z`
 * Typ: `default`
 * Website: <http://www.7-zip.de/download.html>
 * Version: 16.02

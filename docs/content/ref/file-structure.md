@@ -211,7 +211,7 @@ $nestedArchive = "nested.zip"
 $tmpDir = Empty-Dir "$(Get-ConfigValue TempDir)\custom_extract"
 
 # get path of 7-Zip
-$7z = App-Exe SvZ
+$7z = App-Exe 7z
 
 # call 7-Zip to extract outer archive
 & $7z x "-o$tmpDir" "$archivePath"

@@ -8,7 +8,7 @@ if (!$projectName) { return }
 $scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$scriptsLib\bench.lib.ps1"
 
-$7z = App-Exe SvZ
+$7z = App-Exe 7z
 
 trap { Write-TrapError $_ }
 Set-Debugging $debug
