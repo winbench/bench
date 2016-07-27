@@ -283,10 +283,15 @@ namespace Mastersign.Bench
 
         public string GetCustomScriptFile(string typ)
         {
-            var path = IOPath.Combine(
+            var userPath = IOPath.Combine(
+                IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.CustomConfigDir), "apps"),
+                ID.ToLowerInvariant() + "." + typ + ".ps1");
+            if (File.Exists(userPath)) return userPath;
+            var integratedPath = IOPath.Combine(
                 IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.BenchAuto), "apps"),
                 ID.ToLowerInvariant() + "." + typ + ".ps1");
-            return File.Exists(path) ? path : null;
+            if (File.Exists(integratedPath)) return integratedPath;
+            return null;
         }
 
         #endregion

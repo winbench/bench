@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Support for custom scripts in `config\apps`
+  ([#72](https://github.com/mastersign/bench/issues/72))
+
 ### Changed
 - Changed app ID of 7-Zip from `SvZ` to `7z`
 - Update: JDK/JRE 8 from rev. 92 to rev. 102
