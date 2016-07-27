@@ -27,6 +27,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Changed app ID of 7-Zip from `SvZ` to `7z`
+- Update: JDK/JRE 8 from rev. 92 to rev. 102
 
 ### Fixed
 - Typo in `HTTP_PROXY` and `HTTPS_PROXY` in `env.cmd`

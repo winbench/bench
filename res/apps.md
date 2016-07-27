@@ -967,12 +967,12 @@ The runtime environment is required for a compiled Java program to get executed.
 * Website: <https://www.oracle.com/java/>
 * Docs:
     + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
-* Version: 8u92
+* Version: 8u102
 * Release: b14
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
-* ArchivePath: `jre1.8.0_92`
+* ArchivePath: `jre1.8.0_102`
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment:
