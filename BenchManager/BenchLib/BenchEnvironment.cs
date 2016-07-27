@@ -6,17 +6,34 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// <para>
+    /// This class represents all environment variables manipulated by the Bench system.
+    /// </para>
+    /// <para>
+    /// It provides methods to load the environment variables in the current process,
+    /// or write a batch file containing the variables for loading from another batch script.
+    /// </para>
+    /// </summary>
     public class BenchEnvironment
     {
         private static readonly string PathBackup = Environment.GetEnvironmentVariable("PATH");
 
         private readonly BenchConfiguration Config;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="BenchEnvironment"/>.
+        /// </summary>
+        /// <param name="config">The configuration of the Bench system.</param>
         public BenchEnvironment(BenchConfiguration config)
         {
             Config = config;
         }
 
+        /// <summary>
+        /// Calls the given handler for every environment variable in the configuration.
+        /// </summary>
+        /// <param name="set">The handler for an individual variable.</param>
         public void Load(DictionaryEntryHandler set)
         {
             if (Config.GetBooleanValue(PropertyKeys.UseProxy))
@@ -76,21 +93,39 @@ namespace Mastersign.Bench
             set("PATH", PathList(paths.ToArray()));
         }
 
+        /// <summary>
+        /// Loads the environment variables in the current process.
+        /// </summary>
         public void Load()
         {
-            Load((k, v) => Environment.SetEnvironmentVariable(k, v));
+            Load((k, v) => Environment.SetEnvironmentVariable(k, v, EnvironmentVariableTarget.Process));
         }
 
+        /// <summary>
+        /// Stores the environment variables in the given generic dictionary.
+        /// </summary>
+        /// <param name="dict">A dictionary with the variable names as keys.</param>
         public void Load(IDictionary<string, string> dict)
         {
             Load((k, v) => dict[k] = v);
         }
 
+        /// <summary>
+        /// Stores the environment variables in the given string dictionary.
+        /// </summary>
+        /// <param name="dict">A dictionary with the variable names as keys.</param>
         public void Load(StringDictionary dict)
         {
             Load((k, v) => dict[k] = v);
         }
 
+        /// <summary>
+        /// Writes the environment file of the Bench system.
+        /// </summary>
+        /// <remarks>
+        /// The environment file is stored in the root of the Bench directory structure
+        /// and called <c>env.cmd</c>.
+        /// </remarks>
         public void WriteEnvironmentFile()
         {
             var envFilePath = Path.Combine(Config.BenchRootDir, "env.cmd");

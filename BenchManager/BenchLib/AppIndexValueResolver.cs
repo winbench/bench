@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public class AppIndexValueResolver : IGroupedValueResolver
+    internal class AppIndexValueResolver : IGroupedValueResolver
     {
         private static readonly char[] KeyValueSeparator = new char[] { ':' };
 

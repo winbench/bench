@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public class BenchProxyInfo : IConfigurationPart
+    internal class BenchProxyInfo : IConfigurationPart
     {
         private const string DefaultExternalHttpTarget = "http://www.some-external-server-for-bench.com/";
 

@@ -6,7 +6,10 @@ using System.Text;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// A collection of Bench apps.
+    /// <para>A collection of Bench apps.</para>
+    /// <para>
+    /// This class provides a facade to handle the properties and the states of the bench apps
+    /// in an object-oriented fashion.</para>
     /// </summary>
     public class AppIndexFacade : IEnumerable<AppFacade>
     {
@@ -34,11 +37,25 @@ namespace Mastersign.Bench
             AppIndex = appIndex;
         }
 
+        /// <summary>
+        /// Gets an instance of <see cref="AppFacade"/> for the specified app.
+        /// </summary>
+        /// <param name="appName">The ID of an app.</param>
+        /// <returns>The facade for the app, or <c>null</c>.</returns>
         public AppFacade this[string appName]
         {
             get { return Exists(appName) ? GetAppFacade(appName) : null; }
         }
 
+        /// <summary>
+        /// Gets a collection with <see cref="AppFacade"/> objects for multiple apps.
+        /// </summary>
+        /// <remarks>
+        /// If an app ID can not be found, a <c>null</c> is placed in the returned collection.
+        /// Therefore, the returned collection has always the same number of items as the given enumeration.
+        /// </remarks>
+        /// <param name="appNames">An enumeration with app IDs.</param>
+        /// <returns>A collection with facades.</returns>
         public ICollection<AppFacade> GetApps(IEnumerable<string> appNames)
         {
             var result = new List<AppFacade>();
@@ -46,11 +63,21 @@ namespace Mastersign.Bench
             return result;
         }
 
+        /// <summary>
+        /// Checks whether an app ID exists in the app index.
+        /// </summary>
+        /// <param name="appName">The app ID.</param>
+        /// <returns><c>true</c> if the app was found; otherwise <c>false</c>.</returns>
         public bool Exists(string appName)
         {
             return AppIndex.ContainsGroup(appName);
         }
 
+        /// <summary>
+        /// Gets all apps of a given category.
+        /// </summary>
+        /// <param name="category">The app category.</param>
+        /// <returns>An array with facades for all apps in the given category.</returns>
         public AppFacade[] ByCategory(string category)
         {
             var appNames = AppIndex.GroupsByCategory(category);
@@ -62,6 +89,9 @@ namespace Mastersign.Bench
             return result.ToArray();
         }
 
+        /// <summary>
+        /// Gets an array with facades for all active apps.
+        /// </summary>
         public AppFacade[] ActiveApps
         {
             get
@@ -79,6 +109,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Gets an array with facades for all inactive apps.
+        /// </summary>
         public AppFacade[] InactiveApps
         {
             get
@@ -96,6 +129,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Gets an array with facades for all apps required by Bench itself.
+        /// </summary>
         public AppFacade[] RequiredApps
         {
             get
@@ -113,6 +149,10 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Gets the facades for all apps in the index.
+        /// </summary>
+        /// <returns>An enumerator with <see cref="AppFacade"/> objects.</returns>
         public IEnumerator<AppFacade> GetEnumerator()
         {
             foreach (var appName in AppIndex.Groups())
@@ -126,6 +166,9 @@ namespace Mastersign.Bench
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Gets an array with the paths for environment registration of all activated apps.
+        /// </summary>
         public string[] EnvironmentPath
         {
             get
@@ -146,6 +189,11 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Gets a dictionary with the merged environment variables of all activated apps.
+        /// That excludes the <c>PATH</c> environment variable, which is handeled
+        /// separatly in <see cref="EnvironmentPath"/>.
+        /// </summary>
         public IDictionary<string, string> Environment
         {
             get

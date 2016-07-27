@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public static class AppArchiveTyps
+    internal static class AppArchiveTyps
     {
         public const string Auto = "auto";
         public const string Generic = "generic";
