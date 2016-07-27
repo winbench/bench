@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.12.0] - 2016-07-27
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.4...v0.12.0)
+
 ### Added
 - Support for custom scripts in `config\apps`
   ([#72](https://github.com/mastersign/bench/issues/72))
