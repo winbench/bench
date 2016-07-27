@@ -28,6 +28,8 @@ Add a link to the GitHub diff like
 ### Added
 - Support for custom scripts in `config\apps`
   ([#72](https://github.com/mastersign/bench/issues/72))
+- Support for setting environment variables in Windows user profile
+  ([#74](https://github.com/mastersign/bench/issues/74))
 
 ### Changed
 - Changed app ID of 7-Zip from `SvZ` to `7z`

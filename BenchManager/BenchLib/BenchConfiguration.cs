@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Mastersign.Bench.Markdown;
+using Microsoft.Win32;
 
 namespace Mastersign.Bench
 {
@@ -215,12 +216,16 @@ namespace Mastersign.Bench
             return FindSiteConfigFiles(BenchRootDir, siteConfigFileName);
         }
 
+        private string GetVolatileEnvironmentVariable(string name)
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey("Volatile Environment", false))
+            {
+                return key.GetValue(name, null) as string;
+            }
+        }
+
         private void AutomaticConfiguration()
         {
-            foreach (var app in Apps)
-            {
-                app.SetupAutoConfiguration();
-            }
             SetValue(PropertyKeys.BenchRoot, BenchRootDir);
             SetValue(PropertyKeys.BenchDrive, Path.GetPathRoot(BenchRootDir));
             SetValue(PropertyKeys.BenchAuto, Path.Combine(BenchRootDir, AutoDir));
@@ -229,6 +234,22 @@ namespace Mastersign.Bench
             var versionFile = GetValue(PropertyKeys.VersionFile) as string;
             var version = File.Exists(versionFile) ? File.ReadAllText(versionFile, Encoding.UTF8) : "0.0.0";
             SetValue(PropertyKeys.Version, version);
+
+            if (!GetBooleanValue(PropertyKeys.OverrideHome))
+            {
+                SetValue(PropertyKeys.HomeDir, GetVolatileEnvironmentVariable("USERPROFILE"));
+                SetValue(PropertyKeys.AppDataDir, GetVolatileEnvironmentVariable("APPDATA"));
+                SetValue(PropertyKeys.LocalAppDataDir, GetVolatileEnvironmentVariable("LOCALAPPDATA"));
+            }
+            if (!GetBooleanValue(PropertyKeys.OverrideTemp))
+            {
+                SetValue(PropertyKeys.TempDir, Path.GetTempPath());
+            }
+
+            foreach (var app in Apps)
+            {
+                app.SetupAutoConfiguration();
+            }
         }
 
         private void AutomaticActivation(bool withCustomConfiguration)

@@ -8,6 +8,7 @@ With the following properties, the composition of the environment variables is c
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
 * ~~EnvironmentPath: `$HomeDir$\bin`~~
+* RegisterInUserProfile: `false`
 * Environment:
     + ~~`MY_VAR`: `my custom value`~~
 

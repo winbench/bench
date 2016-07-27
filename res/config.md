@@ -38,6 +38,7 @@
 * OverrideHome: `true`
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
+* RegisterInUserProfile: `false`
 * ProjectRootDir: `projects`
 * ProjectArchiveDir: `archive`
 * ProjectArchiveFormat: `zip`
