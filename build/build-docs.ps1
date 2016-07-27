@@ -11,7 +11,7 @@ $benchEnv.Load()
 function check-success() {
   if ($LastExitCode -ne 0)
   {
-    pushd
+    popd
     exit $exitCode
   }
 }
@@ -20,7 +20,9 @@ pushd $docsDir
 
 del .\public -Recurse -Force
 
+& "$myDir\build-clr-docs.ps1"
 & "$myDir\update-app-list.ps1"
+
 if (!(Test-Path "$docsDir\node_modules"))
 {
   npm install
