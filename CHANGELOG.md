@@ -25,6 +25,27 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.12.0] - 2016-07-27
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.4...v0.12.0)
+
+### Added
+- Support for custom scripts in `config\apps`
+  ([#72](https://github.com/mastersign/bench/issues/72))
+- Support for setting environment variables in Windows user profile
+  ([#74](https://github.com/mastersign/bench/issues/74))
+
+### Changed
+- Changed app ID of 7-Zip from `SvZ` to `7z`
+- Update: JDK/JRE 8 from rev. 92 to rev. 102
+- Update: JabRef from 3.3 to 3.5
+- Update: Node.js from 6.2.2 to 6.3.1
+
+### Fixed
+- Typo in `HTTP_PROXY` and `HTTPS_PROXY` in `env.cmd`
+  ([#71](https://github.com/mastersign/bench/issues/71))
+- Atom using the Windows user profile folder
+  ([#73](https://github.com/mastersign/bench/issues/73))
+
 ## [0.11.4] - 2016-07-04
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.11.3...v0.11.4)
 

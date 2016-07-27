@@ -107,3 +107,14 @@ But you can allways run  the `setup` and `reinstall` tasks in an attempt to repa
 This script does not touch any user data in the _Bench_ home directory,
 and it does not touch the custom configuration (`config.md`, `apps.md`, ...)
 in the `config` folder either.
+
+### `initialize`
+This task performs the initial setup or upgrade of a _Bench_ installation.
+This task is run by the [bootstrap file](/ref/file-structure/#bench-install)
+and usually does not need to be run manually.
+It performs the following steps:
+
+* Initializing the [site configuration](/ref/file-structure/#bench-site) if none exists
+* Installing the [required apps](/ref/apps/#apps-required)
+* Initializing the [custom configuration](/ref/file-structure/#config-dir) if none exists
+* Running the Bench setup (app installation and environment setup) with the custom configuration

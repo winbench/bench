@@ -35,62 +35,22 @@ configuration, but _can_ be overridden in the custom or site configuration.
 
 **System Properties**
 
-| Name | Data Type | Default |
-|------|-----------|---------|
-| [VersionFile](#VersionFile) | path | `res\version.txt` |
-| [CustomConfigDir](#CustomConfigDir) | path | `config` |
-| [CustomConfigFile](#CustomConfigFile) | path | `$CustomConfigDir$\config.md` |
-| [CustomConfigTemplateFile](#CustomConfigTemplateFile) | path | `res\config.template.md` |
-| [SiteConfigFileName](#SiteConfigFileName) | string | `bench-site.md` |
-| [SiteConfigTemplateFile](#SiteConfigTemplateFile) | path | `res\bench-site.template.md` |
-| [AppIndexFile](#AppIndexFile) | path | `res\apps.md` |
-| [AppActivationFile](#AppActivationFile) | path | `$CustomConfigDir$\apps-activated.txt` |
-| [AppActivationTemplateFile](#AppActivationTemplateFile) | path | `res\apps-activated.template.txt` |
-| [AppDeactivationFile](#AppDeactivationFile) | path | `$CustomConfigDir$\apps-deactivated.txt` |
-| [AppDeactivationTemplateFile](#AppDeactivationTemplateFile) | path | `res\apps-deactivated.template.txt` |
-| [CustomAppIndexFile](#CustomAppIndexFile) | path | `$CustomConfigDir$\apps.md` |
-| [CustomAppIndexTemplateFile](#CustomAppIndexTemplateFile) | path | `res\apps.template.md` |
-| [ConEmuConfigFile](#ConEmuConfigFile) | path | `$CustomConfigDir$\ConEmu.xml` |
-| [ConEmuConfigTemplateFile](#ConEmuConfigTemplateFile) | path | `res\ConEmu.template.xml` |
-| [AppResourceBaseDir](#AppResourceBaseDir) | path | `res\apps` |
-| [ActionDir](#ActionDir) | path | `actions` |
-| [LibDir](#LibDir) | path | `lib` |
-| [Website](#Website) | URL | <http://mastersign.github.io/bench> |
-| [WizzardEditCustomConfigBeforeSetup](#WizzardEditCustomConfigBeforeSetup) | boolean | `false` |
-| [WizzardStartAutoSetup](#WizzardStartAutoSetup) | boolean | `true` |
+<!--
+#data-table /*/System Properties/*
+#column Name: name(.)
+#column Data Type: value(Data Type)
+#column Default: value(Default)
+-->
 
 **Customizable Properties**
 
-| Name | Typ | Data Type | Default |
-|------|-----|-----------|---------|
-| [UseProxy](#UseProxy) | Site | boolean | `false` |
-| [ProxyBypass](#ProxyBypass) | Site | list of strings | `localhost` |
-| [HttpProxy](#HttpProxy) | Site | URL | `http://127.0.0.1:80` |
-| [HttpsProxy](#HttpsProxy) | Site | URL | `http://127.0.0.1:443` |
-| [DownloadAttempts](#DownloadAttempts) | Site | integer | 3 |
-| [ParallelDownloads](#ParallelDownloads) | Site | integer | 4 |
-| [UserName](#UserName) | Custom/Site | string | user |
-| [UserEmail](#UserEmail) | Custom/Site | string | user@localhost |
-| [DownloadDir](#DownloadDir) | Custom/Site | path | `cache` |
-| [AppAdornmentBaseDir](#AppAdornmentBaseDir) | Custom | path | `$LibDir$\_proxies` |
-| [AppRegistryBaseDir](#AppRegistryBaseDir) | Custom | path | `$HomeDir$\registry_isolation` |
-| [TempDir](#TempDir) | Custom/Site | path | `tmp` |
-| [LogDir](#LogDir) | Custom | path | `log` |
-| [HomeDir](#HomeDir) | Custom/Site | path | `home` |
-| [AppDataDir](#AppDataDir) | Custom/Site | path | `$HomeDir$\AppData\Roaming` |
-| [LocalAppDataDir](#LocalAppDataDir) | Custom/Site | path | `$HomeDir$\AppData\Local` |
-| [OverrideHome](#OverrideHome) | Custom/Site | boolen | `true` |
-| [OverrideTemp](#OverrideTemp) | Custom/Site | boolean | `true` |
-| [IgnoreSystemPath](#IgnoreSystemPath) | Custom/Site | boolean | `true` |
-| [ProjectRootDir](#ProjectRootDir) | Custom/Site | path | `projects` |
-| [ProjectArchiveDir](#ProjectArchiveDir) | Custom/Site | path | `archive` |
-| [ProjectArchiveFormat](#ProjectArchiveFormat) | Custom/Site | string | `zip` |
-| [LauncherDir](#LauncherDir) | Custom | path | `launcher` |
-| [LauncherScriptDir](#LauncherScriptDir) | Custom | path | `$LibDir$\_launcher` |
-| [QuickAccessCmd](#QuickAccessCmd) | Custom/Site | boolean | `true` |
-| [QuickAccessPowerShell](#QuickAccessPowerShell) | Custom/Site | boolean | `false` |
-| [QuickAccessBash](#QuickAccessBash) | Custom/Site | boolean | `false` |
-| [EditorApp](#EditorApp) | Custom/Site | string | `VSCode` |
+<!--
+#data-table /*/Customizable Properties/*
+#column Name: name(.)
+#column Typ: value(Typ)
+#column Data Type: value(Data Type)
+#column Default: value(Default)
+-->
 
 ## System Properties
 

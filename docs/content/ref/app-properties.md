@@ -7,33 +7,33 @@ weight = 8
 
 | Property | App Types | Required |
 |----------|-----------|----------|
-| [ID](#id) | all | `true` |
-| [Label](#label) | all | `false` |
-| [Typ](#typ) | all | `false` |
-| [Dependencies](#dependencies) | all | `false` |
-| [Force](#force) | all | `false` |
-| [Dir](#dir) | all | `false` |
-| [Path](#path) | `meta`, `default` | `false` |
-| [Register](#register) | `meta`, `default` | `false` |
-| [Environment](#environment) | all | `false` |
-| [Exe](#exe) | all | `false` |
-| [AdornedExecutables](#adornedexecutables) | all | `false` |
-| [RegistryKeys](#registrykeys) | all | `false` |
-| [Launcher](#launcher) | all | `false` |
-| [LauncherExecutable](#launcherexecutable) | all | `false` |
-| [LauncherArguments](#launcherarguments) | all | `false` |
-| [LauncherIcon](#launchericon) | all | `false` |
-| [Url](#url) | `default` | `true` |
-| [DownloadCookies](#downloadcookies) | `default` | `false` |
-| [ResourceName](#resourcename) | `default` | `true`* |
-| [ArchiveName](#archivename) | `default` | `true`* |
-| [ArchiveTyp](#archivetyp) | `default` | `false` |
-| [ArchivePath](#archivepath) | `default` | `false` |
-| [SetupTestFile](#setuptestfile) | `meta`, `default` | `false` |
-| [PackageName](#packagename) | `*-package` | `false` |
-| [Version](#version) | `*-package` | `false` |
+| [ID](#ID) | all | `true` |
+| [Label](#Label) | all | `false` |
+| [Typ](#Typ) | all | `false` |
+| [Dependencies](#Dependencies) | all | `false` |
+| [Force](#Force) | all | `false` |
+| [Dir](#Dir) | all | `false` |
+| [Path](#Path) | `meta`, `default` | `false` |
+| [Register](#Register) | `meta`, `default` | `false` |
+| [Environment](#Environment) | all | `false` |
+| [Exe](#Exe) | all | `false` |
+| [AdornedExecutables](#AdornedExecutables) | all | `false` |
+| [RegistryKeys](#RegistryKeys) | all | `false` |
+| [Launcher](#Launcher) | all | `false` |
+| [LauncherExecutable](#LauncherExecutable) | all | `false` |
+| [LauncherArguments](#LauncherArguments) | all | `false` |
+| [LauncherIcon](#LauncherIcon) | all | `false` |
+| [Url](#Url) | `default` | `true` |
+| [DownloadCookies](#DownloadCookies) | `default` | `false` |
+| [ResourceName](#ResourceName) | `default` | `true`* |
+| [ArchiveName](#ArchiveName) | `default` | `true`* |
+| [ArchiveTyp](#ArchiveTyp) | `default` | `false` |
+| [ArchivePath](#ArchivePath) | `default` | `false` |
+| [SetupTestFile](#SetupTestFile) | `meta`, `default` | `false` |
+| [PackageName](#PackageName) | `*-package` | `false` |
+| [Version](#Version) | `*-package` | `false` |
 
-## ID
+## ID {#ID}
 
 * Description: The ID of the app
 * Data Type: string
@@ -41,7 +41,7 @@ weight = 8
 * Required: `true`
 * App Types: all
 
-## Label
+## Label {#Label}
 
 * Description: A user friendly name for the app
 * Data Type: string
@@ -49,16 +49,18 @@ weight = 8
 * Default: the value of the `ID` property
 * App Types: all
 
-## Typ
+## Typ {#Typ}
 
 * Description: The application typ
 * Data Type: string
-* Possible Values: `default`, `meta`, `*-package`python3-package`, `ruby-package`
+* Possible Values: `default`, `meta`, `node-package`, `python2-package`, `python3-package`, `ruby-package`
 * Required: `false`
 * Default: `default`
 * App Types: all
 
-## Dependencies
+The meaning of the different possible values is explained in [App Types](/ref/app-types).
+
+## Dependencies {#Dependencies}
 
 * Description: A list with the IDs of all apps in this app group
 * Data Type: list of strings
@@ -67,7 +69,7 @@ weight = 8
 * Default: empty
 * App Types: all
 
-## Force
+## Force {#Force}
 
 * Description: A boolean, indicating if the package should allways be installed, even if it is already installed
 * Data Type: boolean
@@ -76,7 +78,7 @@ weight = 8
 * Default: `false`
 * App Types: all
 
-## Dir
+## Dir {#Dir}
 
 * Description: The name of the target directory for the app
 * Data Type: string
@@ -87,7 +89,7 @@ weight = 8
 For package apps like `node-package` or `python3-package`,
 the default value is the directory of the respective interpreter/compiler app.
 
-## Path
+## Path {#Path}
 
 * Description: A list of relative paths inside the app directory to register in the environment `PATH`
 * Data Type: list of strings
@@ -100,7 +102,7 @@ For package apps like `node-package` or `python3-package`,
 this property is ignored and implicitly set to the directory
 of its interpreter/compiler app where the CLI wrapper scripts are stored.
 
-## Register
+## Register {#Register}
 
 * Description: A boolean to indicate if the path(s) of the application should be added to the environment `PATH`
 * Data Type: boolean
@@ -109,7 +111,7 @@ of its interpreter/compiler app where the CLI wrapper scripts are stored.
 * Default: `true`
 * App Types: `meta`, `default`
 
-## Environment
+## Environment {#Environment}
 
 * Description: A list of key-value-pairs, describing additional environment variables
 * Data Type: dictionary
@@ -118,7 +120,7 @@ of its interpreter/compiler app where the CLI wrapper scripts are stored.
 * Example: `MY_APP_HOME: $:Dir$`, `MY_APP_LOG: D:\logs\myapp.log`
 * App Types: all
 
-## Exe
+## Exe {#Exe}
 
 * Description: The path of the main executable for this app
 * Data Type: string
@@ -131,7 +133,7 @@ For package apps like `node-package` or `python3-package`,
 the path can be just the name of CLI wrapper script,
 given the package provides a CLI.
 
-## AdornedExecutables
+## AdornedExecutables {#AdornedExecutables}
 
 * Description: A list of executables, which must be adorned with pre- and post-execution scripts
 * Data Type: list of strings
@@ -141,7 +143,7 @@ given the package provides a CLI.
 
 Every listed path must be relative to the target directory of the app.
 
-## RegistryKeys
+## RegistryKeys {#RegistryKeys}
 
 * Description: A list of registry keys to back up and restore for isolation
   during the execution of this app
@@ -152,7 +154,7 @@ Every listed path must be relative to the target directory of the app.
 * Example: `Software\Company Foo\Program Bar`
 * App Types: all
 
-## Launcher
+## Launcher {#Launcher}
 
 * Description: A label for the app launcher
 * Data Type: string
@@ -162,7 +164,7 @@ Every listed path must be relative to the target directory of the app.
 
 A launcher for the app is created only if this property is set to a non empty string.
 
-## LauncherExecutable
+## LauncherExecutable {#LauncherExecutable}
 
 * Description: The path to the executable targeted by the app launcher
 * Data Type: string
@@ -172,7 +174,7 @@ A launcher for the app is created only if this property is set to a non empty st
 
 The path can be absolute, or relative to the target directory of the app.
 
-## LauncherArguments
+## LauncherArguments {#LauncherArguments}
 
 * Description: A list with arguments to the app executable
 * Data Type: list of strings
@@ -185,7 +187,7 @@ the last element in the list must be `%*`.
 Passing arguments from the launcher to the executable allows drag-and-drop
 for files from the Explorer onto the launcher.
 
-## LauncherIcon
+## LauncherIcon {#LauncherIcon}
 
 * Description: The path to the icon of the launcher
 * Data Type: string
@@ -196,7 +198,7 @@ for files from the Explorer onto the launcher.
 
 The path can be absolute or relative to the target directory of the app.
 
-## Url
+## Url {#Url}
 
 * Description: The URL to the file, containing the app resource
 * Data Type: string
@@ -204,7 +206,7 @@ The path can be absolute or relative to the target directory of the app.
 * Required: `true`
 * App Types: `default`
 
-## DownloadCookies
+## DownloadCookies {#DownloadCookies}
 
 * Description: A dictionary with cookies, to send along with the download request
 * Data Type: dictionary
@@ -213,7 +215,7 @@ The path can be absolute or relative to the target directory of the app.
 * Example: `cookie-name: cookie-value`
 * App Types: `default`
 
-## ResourceName
+## ResourceName {#ResourceName}
 
 * Description: The name of the downloaded executable file
 * Data Type: string
@@ -224,7 +226,7 @@ The path can be absolute or relative to the target directory of the app.
 
 *) Only one of `ResourceName` or `ArchiveName` must be set.
 
-## ArchiveName
+## ArchiveName {#ArchiveName}
 
 * Description: The name of the downloaded archive
 * Data Type: string
@@ -235,7 +237,7 @@ The path can be absolute or relative to the target directory of the app.
 
 *) Only one of `ResourceName` or `ArchiveName` must be set.
 
-## ArchiveTyp
+## ArchiveTyp {#ArchiveTyp}
 
 * Description: The archive typ, which controls the extractor selection
 * Required: `false`
@@ -252,7 +254,7 @@ The path can be absolute or relative to the target directory of the app.
 
 This property is only recognized, if the `ArchiveName` property is set.
 
-## ArchivePath
+## ArchivePath {#ArchivePath}
 
 * Description: A sub folder in the archive to extract
 * Data Type: string
@@ -263,7 +265,7 @@ This property is only recognized, if the `ArchiveName` property is set.
 
 This property is only recognized, if the property `ArchiveName` is set.
 
-## SetupTestFile
+## SetupTestFile {#SetupTestFile}
 
 * Description: The path to a file as part of the app installation
 * Data Type: string
@@ -274,7 +276,7 @@ This property is only recognized, if the property `ArchiveName` is set.
 The path is relative to the target directory of the app.
 The existence of thdescribed file is used, to determine if the app is already installed.
 
-## PackageName
+## PackageName {#PackageName}
 
 * Description: The name of the NPM package to install via NPM
 * Data Type: string
@@ -282,7 +284,7 @@ The existence of thdescribed file is used, to determine if the app is already in
 * Default: the value of the `ID` property in lowercase
 * App Types: `*-package`
 
-## Version
+## Version {#Version}
 
 * Description: The package version or version range to install by the respective package mananer, if empty install latest
 * Required: `false`

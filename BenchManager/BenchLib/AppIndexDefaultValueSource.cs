@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public class AppIndexDefaultValueSource : IGroupedPropertySource
+    internal class AppIndexDefaultValueSource : IGroupedPropertySource
     {
         public IGroupedPropertySource AppIndex { get; set; }
 

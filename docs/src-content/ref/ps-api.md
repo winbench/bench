@@ -10,59 +10,23 @@ available in custom and hook scripts.
 
 [**Variables**](#vars)
 
-* [`$BenchConfig`](#var-bench-config)
+<!-- #data-list /*/Variables/* -->
 
 [**Utility Functions**](#util-funcs)
 
-* [`Exit-OnError`](#fun-exit-onerror)
-* [`Pause`](#fun-pause)
-* [`Run-Detached`](#fun-run-detached)
+<!-- #data-list /*/Utility Functions/* -->
 
 [**File System Functions**](#fs-funcs)
 
-* [`Empty-Dir`](#fun-empty-dir)
-* [`Find-File`](#fun-find-file)
-* [`Find-Files`](#fun-find-files)
-* [`Purge-Dir`](#fun-purge-dir)
-* [`Safe-Dir`](#fun-safe-dir)
+<!-- #data-list /*/File System Functions/* -->
 
 [**Bench Configuration Functions**](#config-funcs)
 
-* [`Get-ConfigValue`](#fun-get-configvalue)
-* [`Get-ConfigBooleanValue`](#fun-configbooleanvalue)
-* [`Get-ConfigListValue`](#fun-configlistvalue)
+<!-- #data-list /*/Bench Configuration Functions/* -->
 
 [**App Property Functions**](#app-config-funcs)
 
-* [`Get-AppConfigValue`](#fun-get-appconfigvalue)
-* [`Get-AppConfigBooleanValue`](#fun-get-appconfigbooleanvalue)
-* [`Get-AppConfigListValue`](#fun-get-appconfiglistvalue)
-* [`App-Typ`](#fun-app-typ)
-* [`App-Version`](#fun-app-version)
-* [`App-Dependencies`](#fun-app-dependencies)
-* [`App-Url`](#fun-app-url)
-* [`App-DownloadHeaders`](#fun-app-downloadheaders)
-* [`App-DownloadCookies`](#fun-app-downloadcookies)
-* [`App-ResourceFile`](#fun-app-resourcefile)
-* [`App-ResourceArchive`](#fun-app-resourcearchive)
-* [`App-ResourceArchiveTyp`](#fun-app-resourcearchivetyp)
-* [`App-ResourceArchivePath`](#fun-app-resourcearchivepath)
-* [`App-Force`](#fun-app-force)
-* [`App-PackageName`](#fun-app-packagename)
-* [`App-Dir`](#fun-app-dir)
-* [`App-Path`](#fun-app-path)
-* [`App-Paths`](#fun-app-paths)
-* [`App-Exe`](#fun-app-exe)
-* [`App-Register`](#fun-app-register)
-* [`App-Environment`](#fun-app-environment)
-* [`App-AdornedExecutables`](#fun-app-adornedexecutables)
-* [`App-RegistryKeys`](#fun-app-registrykeys)
-* [`App-Launcher`](#fun-app-launcher)
-* [`App-LauncherExecutable`](#fun-app-launcherexecutable)
-* [`App-LauncherArguments`](#fun-app-launcherarguments)
-* [`App-LauncherIcon`](#fun-app-launchericon)
-* [`App-SetupTestFile`](#fun-app-setuptestfile)
-* [`Check-App`](#fun-check-app)
+<!-- #data-list /*/App Property Functions/* -->
 
 ## Variables {#vars}
 

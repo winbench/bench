@@ -2,7 +2,7 @@ param ($archive, $targetDir)
 
 $extractDir = Empty-Dir "$(Get-ConfigValue TempDir)\gitkraken"
 
-$7z = App-Exe SvZ
+$7z = App-Exe 7z
 
 & $7z x "-o$extractDir" "$archive" | Out-Null
 

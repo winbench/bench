@@ -2,7 +2,7 @@ param ($archive, $targetDir)
 
 $jdkexDir = Empty-Dir "$(Get-ConfigValue TempDir)\jdk8ex"
 
-$7z = App-Exe SvZ
+$7z = App-Exe 7z
 
 & $7z x "-o$jdkexDir" "$archive" | Out-Null
 

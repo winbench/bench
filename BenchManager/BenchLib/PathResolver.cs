@@ -33,7 +33,7 @@ namespace Mastersign.Bench
             if (value is string)
             {
                 var path = (string)value;
-                if (!Path.IsPathRooted(path) && BasePathSource != null)
+                if (!Path.IsPathRooted(path) && BasePathSource != null && BasePathSource(group, name) != null)
                 {
                     value = Path.Combine(BasePathSource(group, name), path);
                 }

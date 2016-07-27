@@ -980,6 +980,24 @@ namespace Mastersign.Bench
             }
             try
             {
+                if (man.Config.GetBooleanValue(PropertyKeys.RegisterInUserProfile))
+                {
+                    man.Env.RegisterInUserProfile();
+                }
+                else
+                {
+                    man.Env.UnregisterFromUserProfile();
+                }
+            }
+            catch (Exception e)
+            {
+                notify(new TaskError(
+                    string.Format("Registering the environment in the user profile failed: {0}", e.Message),
+                    null, null, e));
+                return;
+            }
+            try
+            {
                 CleanExecutionProxies(man.Config);
             }
             catch (Exception e)

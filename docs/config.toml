@@ -5,9 +5,9 @@ author = "Tobias Kiertscher"
 
 theme = "blackburn"
 
-# Shown in the side menu
 copyright = "Content licensed<br/>by Tobias Kiertscher"
 canonifyurls = true
+relativeurls = false
 paginate = 10
 
 [indexes]
@@ -112,4 +112,3 @@ paginate = 10
   github = "mastersign"
   #bitbucket = "*"
   #stackoverflow = "*"
-  

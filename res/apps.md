@@ -31,7 +31,7 @@ A tool to view and extract the contents of a Windows Installer (.msi) file.
 7-Zip is a file archiver with a high compression ratio.
 It comes with a graphical file manager and supports a large range of compression formats for extraction.
 
-* ID: `SvZ`
+* ID: `7z`
 * Label: 7-Zip
 * Website: <http://www.7-zip.de/download.html>
 * Docs:
@@ -64,7 +64,7 @@ A tool to extract the files from an Inno Setup executable.
 
 ### ConEmu
 
-ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple consoles and simple GUI applications as one customizable GUI window with various features. 
+ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple consoles and simple GUI applications as one customizable GUI window with various features.
 
 * ID: `ConEmu`
 * Website: <https://conemu.github.io/>
@@ -246,7 +246,7 @@ The GnuTLS Transport Layer Security Library.
 GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP).
 GnuPG allows to encrypt and sign your data and communication, features a versatile key management system
 as well as access modules for all kinds of public key directories.
-GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications. 
+GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications.
 
 * ID: `GnuPG`
 * Website: <https://gnupg.org>
@@ -309,7 +309,7 @@ file transfer resume, proxy tunneling and more.
 
 ### FileZilla
 
-FileZilla Client is a free, open source FTP client. It supports FTP, SFTP, and FTPS (FTP over SSL/TLS). 
+FileZilla Client is a free, open source FTP client. It supports FTP, SFTP, and FTPS (FTP over SSL/TLS).
 
 * ID: `FileZilla`
 * Website: <https://filezilla-project.org/>
@@ -421,9 +421,8 @@ The native file format used by JabRef is BibTeX, the standard LaTeX bibliography
 * Docs:
     + Help: <http://help.jabref.org/en/>
     + FAQ: <http://www.jabref.org/faq/>
-* Version: 3.3
-* FileNo: 1460933278
-* Url: `http://app.oldfoss.com/download/JabRef/$:FileNo$$:ResourceName$`
+* Version: 3.5
+* Url: `http://app.oldfoss.com/download/JabRef/$:ResourceName$`
 * ResourceName: `JabRef-$:Version$.jar`
 * Exe: `$:ResourceName$`
 * Launcher: $:Label$
@@ -500,7 +499,7 @@ Graphviz is open source graph visualization software.
 Graph visualization is a way of representing structural information as diagrams
 of abstract graphs and networks. It has important applications in networking,
 bioinformatics,  software engineering, database and web design, machine learning,
-and in visual interfaces for other technical domains. 
+and in visual interfaces for other technical domains.
 
 * ID: `Graphviz`
 * Website: <http://www.graphviz.org/>
@@ -588,7 +587,7 @@ MeshLab is an open source, portable, and extensible system for the processing
 and editing of unstructured 3D triangular meshes.
 The system is aimed to help the processing of the typical not-so-small
 unstructured models arising in 3D scanning, providing a set of tools for editing,
-cleaning, healing, inspecting, rendering and converting this kind of meshes. 
+cleaning, healing, inspecting, rendering and converting this kind of meshes.
 
 * ID: `MeshLab`
 * VersionMajor: 1
@@ -627,7 +626,7 @@ Hugo flexibly works with many formats and is ideal for blogs, docs, portfolios
 and much more. Hugo’s speed fosters creativity and makes building a website fun again.
 
 * ID: `Hugo`
-* Website: <https://gohugo.io/> 
+* Website: <https://gohugo.io/>
 * Docs:
     + Introduction: <https://gohugo.io/overview/introduction/>
     + Commands: <https://gohugo.io/commands/>
@@ -651,7 +650,7 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 * Docs:
     + API Documentation: <https://nodejs.org/dist/latest-v6.x/docs/api/>
     + Guides: <https://nodejs.org/en/docs/guides/>
-* Version: 6.2.2
+* Version: 6.3.1
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
@@ -661,7 +660,7 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 ### NPM
 
 npm is the package manager for JavaScript.
-Find, share, and reuse packages of code from hundreds of thousands of 
+Find, share, and reuse packages of code from hundreds of thousands of
 developers — and assemble them in powerful new ways.
 
 Because _Node.js_ is downloaded as bare executable, _NPM_ must be installed seperately.
@@ -967,12 +966,12 @@ The runtime environment is required for a compiled Java program to get executed.
 * Website: <https://www.oracle.com/java/>
 * Docs:
     + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
-* Version: 8u92
+* Version: 8u102
 * Release: b14
 * Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
 * ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
-* ArchivePath: `jre1.8.0_92`
+* ArchivePath: `jre1.8.0_102`
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment:
@@ -1246,6 +1245,8 @@ A hackable text editor for the 21st Century.
 * Url: `https://github.com/atom/atom/releases/download/v$:Version$/$:ArchiveName$`
 * ArchiveName: `atom-windows.zip`
 * ArchivePath: `Atom`
+* Environment:
+    + ATOM_HOME: `$HomeDir$\.atom`
 * Launcher: $:Label$
 
 ### Visual Studio Code
@@ -1321,7 +1322,7 @@ Premium LaTeX Editing for Windows.
 An extensible, customizable, free text editor - and more.
 
 GNU Emacs at its core is an interpreter for Emacs Lisp, a dialect of the Lisp programming language
-with extensions to support text editing. 
+with extensions to support text editing.
 
 * ID: `Emacs`
 * Dependencies: `GnuTLS`

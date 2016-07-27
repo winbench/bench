@@ -7,6 +7,33 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// <para>Represents a text file with a list of app IDs.</para>
+    /// <para>
+    /// The syntax of the text file follows the following rules:
+    /// </para>
+    /// <list type="bullet">
+    ///     <item>Empty lines are ignored.</item>
+    ///     <item>Lines with nothing but white space are ignored.</item>
+    ///     <item>White space at the beginning and the end of lines is trimmed.</item>
+    ///     <item>Lines starting with <c>#</c> are ignored.</item>
+    ///     <item>The first word (contiguous non white space) in a line is considered to be an app ID.</item>
+    ///     <item>Additional characters after the first word are ignored, and can be used to commment the entry.</item>
+    /// </list>
+    /// <example>
+    /// A text file represented by this class could look like this:
+    /// <code>
+    /// # --- Activated Apps --- #
+    /// 
+    /// AppA
+    /// AppB (this app has a comment)
+    ///  AppC (this app ID is valid, despite the fact, that it is indended)
+    ///  
+    /// # AppD (this app is not activated, because the line is commented out)
+    /// AppE some arbitrary comment
+    /// </code>
+    /// </example>
+    /// </summary>
     public class ActivationFile : IEnumerable<string>
     {
         private static readonly Regex SpaceExp = new Regex(@"\s");
@@ -15,6 +42,10 @@ namespace Mastersign.Bench
 
         private readonly string FilePath;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="ActivationFile"/>.
+        /// </summary>
+        /// <param name="path">An absolute path to the text file.</param>
         public ActivationFile(string path)
         {
             FilePath = path;
@@ -91,16 +122,38 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Makes shure, the given app ID is listed active.<br/>
+        /// The text file is updated immediately.
+        /// </summary>
+        /// <remarks>
+        /// If the given app ID is already listed, but commented out, the commenting <c>#</c> is removed.
+        /// If the given app ID is not listed, it is added at the end of the file.
+        /// </remarks>
+        /// <param name="id">An app ID. Must be a string without whitespace.</param>
         public void SignIn(string id)
         {
             EditFile(lines => Activator(lines, id));
         }
 
+        /// <summary>
+        /// Makes shure, the given app ID is not listed active.<br/>
+        /// The text file is updated immediately.
+        /// </summary>
+        /// <remarks>
+        /// If the given app ID is not listed, or commented out, the text file is not changed.
+        /// If the given app ID is listed and not commented out, its line is prepended with a <c># </c> to comment it out.
+        /// </remarks>
+        /// <param name="id">An app ID. Must be a string without whitespace.</param>
         public void SignOut(string id)
         {
             EditFile(lines => Deactivator(lines, id));
         }
 
+        /// <summary>
+        /// Returns all app IDs listed as active.
+        /// </summary>
+        /// <returns>An enumerator of strings.</returns>
         public IEnumerator<string> GetEnumerator()
         {
             if (!File.Exists(FilePath)) yield break;
