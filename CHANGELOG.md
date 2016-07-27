@@ -32,6 +32,8 @@ Add a link to the GitHub diff like
 ### Fixed
 - Typo in `HTTP_PROXY` and `HTTPS_PROXY` in `env.cmd`
   ([#71](https://github.com/mastersign/bench/issues/71))
+- Atom using the Windows user profile folder
+  ([#73](https://github.com/mastersign/bench/issues/73))
 
 ## [0.11.4] - 2016-07-04
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.11.3...v0.11.4)

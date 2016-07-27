@@ -1246,6 +1246,8 @@ A hackable text editor for the 21st Century.
 * Url: `https://github.com/atom/atom/releases/download/v$:Version$/$:ArchiveName$`
 * ArchiveName: `atom-windows.zip`
 * ArchivePath: `Atom`
+* Environment:
+    + ATOM_HOME: `$HomeDir$\.atom`
 * Launcher: $:Label$
 
 ### Visual Studio Code
