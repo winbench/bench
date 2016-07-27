@@ -421,9 +421,8 @@ The native file format used by JabRef is BibTeX, the standard LaTeX bibliography
 * Docs:
     + Help: <http://help.jabref.org/en/>
     + FAQ: <http://www.jabref.org/faq/>
-* Version: 3.3
-* FileNo: 1460933278
-* Url: `http://app.oldfoss.com/download/JabRef/$:FileNo$$:ResourceName$`
+* Version: 3.5
+* Url: `http://app.oldfoss.com/download/JabRef/$:ResourceName$`
 * ResourceName: `JabRef-$:Version$.jar`
 * Exe: `$:ResourceName$`
 * Launcher: $:Label$
