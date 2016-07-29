@@ -25,6 +25,13 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.12.1] - 2016-07-29
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)
+
+### Fixed
+- Environment setup fails if the user has no `PATH` environment variable
+  ([#76](https://github.com/mastersign/bench/issues/76))
+
 ## [0.12.0] - 2016-07-27
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.11.4...v0.12.0)
 
