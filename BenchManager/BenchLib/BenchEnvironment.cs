@@ -242,6 +242,21 @@ namespace Mastersign.Bench
 
         private delegate string StringTransformer(string value);
 
+        private static List<string> GetCurrentUserPaths()
+        {
+            var userPath = GetUnexpandedEnvironmentVar("PATH") ?? "";
+            var userPathParts = userPath.Split(Path.PathSeparator);
+            var paths = new List<string>();
+            foreach (var p in userPathParts)
+            {
+                if (p == null) continue;
+                var trimmedPath = p.Trim();
+                if (trimmedPath.Length == 0) continue;
+                paths.Add(trimmedPath);
+            }
+            return paths;
+        }
+
         /// <summary>
         /// <para>
         /// Registers the Bench environment in the Windows user profile.
@@ -288,8 +303,7 @@ namespace Mastersign.Bench
             }
             SetEnvironmentVar("BENCH_PATH", PathList(benchPath.ToArray()), true);
 
-            var userPath = GetUnexpandedEnvironmentVar("PATH");
-            var paths = new List<string>(userPath.Split(Path.PathSeparator));
+            var paths = GetCurrentUserPaths();
             if (paths.Contains("%BENCH_PATH%")) paths.Remove("%BENCH_PATH%");
             paths.Insert(0, "%BENCH_PATH%");
             SetEnvironmentVar("PATH", PathList(paths.ToArray()), true);
@@ -331,8 +345,7 @@ namespace Mastersign.Bench
             DeleteEnvironmentVar("BENCH_APPS");
             DeleteEnvironmentVar("BENCH_PATH");
 
-            var userPath = GetUnexpandedEnvironmentVar("PATH");
-            var paths = new List<string>(userPath.Split(Path.PathSeparator));
+            var paths = GetCurrentUserPaths();
             if (paths.Contains("%BENCH_PATH%")) paths.Remove("%BENCH_PATH%");
             SetEnvironmentVar("PATH", PathList(paths.ToArray()), true);
         }

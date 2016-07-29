@@ -11,34 +11,34 @@ namespace Mastersign.Bench
     public static class CommandLine
     {
         /// <summary>
-        /// Given a number of strings, containing batch style placeholders for
+        /// Given an array of strings, containing batch style placeholders for
         /// environment variables and numbered parameters, the placeholders are 
-        /// replaced by the referred values.
+        /// replaced by the referred parameter values.
         /// </summary>
         /// <example>
-        /// Given the environment variable <c>MY_DIR</c> with a value of <c>C:\my-dir</c>
-        /// and an <paramref name="args"/> array with the following values <c>["a", "b"]</c>,
-        /// an <paramref name="argumentList"/> with <c>["-out", "%MY_DIR%\result", "-msg", "%2 + %1 = ?"]</c>
-        /// is substituted into the following array:
+        /// Given the environment variable <c>MY_DIR</c> with a value of <c>C:\my-dir</c>,
+        /// and an array with <c>["a", "b"]</c> for <paramref name="parameters"/>,
+        /// the array with <c>["-out", "%MY_DIR%\result", "-msg", "%2 + %1 = ?"]</c>
+        /// for <paramref name="values"/> is substituted into the following array:
         /// <c>["-out", "C:\my-dir\result", "-msg", "b + a = ?"]</c>.
         /// </example>
-        /// <param name="argumentList">
+        /// <param name="values">
         /// A number of strings possibly with placeholders for environment
         /// varibales and numbered parameters.
         /// Environment variables are written as <c>%NAME%</c>, and numbered parameters
         /// are written as <c>%x</c>, with <c>x</c> beeing a digit from <c>0</c> to <c>9</c>.
         /// </param>
-        /// <param name="args">An array with parameters.</param>
+        /// <param name="parameters">An array with ordered parameter strings.</param>
         /// <returns>An array with the substituted strings.</returns>
-        public static string SubstituteArgumentList(string[] argumentList, string[] args)
+        public static string SubstituteArgumentList(string[] values, string[] parameters)
         {
             var result = new List<string>();
-            for (int i = 0; i < argumentList.Length; i++)
+            for (int i = 0; i < values.Length; i++)
             {
-                var arg = SubstituteArgument(argumentList[i], args);
+                var arg = SubstituteArgument(values[i], parameters);
                 if (arg == "%*")
                 {
-                    result.AddRange(args);
+                    result.AddRange(parameters);
                 }
                 else
                 {
@@ -48,15 +48,16 @@ namespace Mastersign.Bench
             return FormatArgumentList(result.ToArray());
         }
 
-        public static string SubstituteArgument(string arg, string[] args)
+
+        public static string SubstituteArgument(string argument, string[] args)
         {
-            arg = Environment.ExpandEnvironmentVariables(arg);
+            argument = Environment.ExpandEnvironmentVariables(argument);
             for (int i = 0; i < 10; i++)
             {
                 var v = args.Length > i ? args[i] : "";
-                arg = arg.Replace("%" + i, v);
+                argument = argument.Replace("%" + i, v);
             }
-            return arg;
+            return argument;
         }
 
         // http://www.windowsinspired.com/understanding-the-command-line-string-and-arguments-received-by-a-windows-program/
