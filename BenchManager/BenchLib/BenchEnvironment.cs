@@ -57,6 +57,10 @@ namespace Mastersign.Bench
                 set("LOCALAPPDATA",
                     Config.GetStringValue(PropertyKeys.LocalAppDataDir));
             }
+            else
+            {
+                set("HOME", Environment.GetEnvironmentVariable("USERPROFILE"));
+            }
             if (Config.GetBooleanValue(PropertyKeys.OverrideTemp))
             {
                 var temp = Config.GetStringValue(PropertyKeys.TempDir);
@@ -170,6 +174,10 @@ namespace Mastersign.Bench
                         TryUseVar(Config.GetStringValue(PropertyKeys.AppDataDir)));
                     w.WriteLine("SET LOCALAPPDATA={0}",
                         TryUseVar(Config.GetStringValue(PropertyKeys.LocalAppDataDir)));
+                }
+                else
+                {
+                    w.WriteLine("SET HOME=%USERPROFILE%");
                 }
                 if (Config.GetBooleanValue(PropertyKeys.OverrideTemp))
                 {
