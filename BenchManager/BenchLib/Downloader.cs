@@ -8,6 +8,10 @@ using System.Threading;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// This class implements a download manager for downloading multiple HTTP(S) resources
+    /// in parallel and monitoring their progress.
+    /// </summary>
     public class Downloader : IDisposable
     {
         private readonly int ParallelDownloads;
@@ -21,33 +25,72 @@ namespace Mastersign.Bench
         private volatile int runningDownloads = 0;
         private volatile bool working = false;
 
-        public int ActiveDownloads { get { return runningDownloads; } }
-
         private readonly Semaphore availableTasks;
 
+        /// <summary>
+        /// This event is fired, when a download started.
+        /// </summary>
         public event EventHandler<DownloadEventArgs> DownloadStarted;
 
+        /// <summary>
+        /// This event is fired, when the progress of a running download was updated.
+        /// </summary>
         public event EventHandler<DownloadProgressEventArgs> DownloadProgress;
 
+        /// <summary>
+        /// This event is fired, when a download ended.
+        /// This can mean success or failure.
+        /// </summary>
         public event EventHandler<DownloadEventArgs> DownloadEnded;
 
+        /// <summary>
+        /// This event is fired, when all queued download tasks have ended.
+        /// </summary>
         public event EventHandler WorkFinished;
 
+        /// <summary>
+        /// This event is fired, when the downloader starts with the first download after
+        /// doing nothing, or if the downloader finished the last queued download task.
+        /// </summary>
         public event EventHandler IsWorkingChanged;
 
+        /// <summary>
+        /// Gets or sets the proxy configuration for HTTP connections.
+        /// </summary>
         public WebProxy HttpProxy { get; set; }
 
+        /// <summary>
+        /// Gets or sets the proxy configuration for HTTPS connections.
+        /// </summary>
         public WebProxy HttpsProxy { get; set; }
 
+        /// <summary>
+        /// Gets or sets the number of attempts per download task.
+        /// </summary>
         public int DownloadAttempts { get; set; }
 
+        /// <summary>
+        /// Gets a collection with <see cref="IUrlResolver"/> objects.
+        /// This collection can be changed by the user to control how URLs are resolved before
+        /// the actual download of a resource starts.
+        /// </summary>
         public ICollection<IUrlResolver> UrlResolver { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="Downloader"/> with a default configuration,
+        /// allowing only sequential downloads.
+        /// </summary>
         public Downloader()
             : this(1)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="Downloader"/> with a configuration,
+        /// allowing the given number of parallel downloads.
+        /// </summary>
+        /// <param name="parallelDownloads">The maximum number of parallel downloads.
+        /// This value must be in the interval of <c>1</c> and <c>9999</c>.</param>
         public Downloader(int parallelDownloads)
         {
             if (parallelDownloads < 1 || parallelDownloads > 9999)
@@ -127,8 +170,17 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether the downloader has queued download tasks, or if it currently does nothing.
+        /// </summary>
+        /// <value><c>true</c> if at least download if in progress or queued;
+        /// <c>false</c> if the downloader does nothing.</value>
         public bool IsWorking { get { return working; } }
 
+        /// <summary>
+        /// Enqueues a new download task.
+        /// </summary>
+        /// <param name="task">The download task.</param>
         public void Enqueue(DownloadTask task)
         {
             Debug.WriteLine("Queuing " + task.Id + ", TargetFile=" + task.TargetFile + ", URL=" + task.Url);
@@ -375,6 +427,9 @@ namespace Mastersign.Bench
             return errorMessage;
         }
 
+        /// <summary>
+        /// Request the downloader to cancel all pending download tasks and to clear the queue.
+        /// </summary>
         public void CancelAll()
         {
             Debug.WriteLine("Canceling current downloads...");
@@ -393,8 +448,14 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this instance was disposed, or not.
+        /// </summary>
         public bool IsDisposed { get; private set; }
 
+        /// <summary>
+        /// Disposes the downloader by cancelling all pending download tasks and freeing all ocupied resource.
+        /// </summary>
         public void Dispose()
         {
             if (IsDisposed) return;

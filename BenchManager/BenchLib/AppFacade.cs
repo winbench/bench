@@ -1,31 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Text;
 
 using IOPath = System.IO.Path;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// This class is a facade to the properties and the state of an app.
+    /// It is initialized with the <see cref="IConfiguration"/> object, holding the apps properties
+    /// and the ID of the app.
+    /// </summary>
     public class AppFacade
     {
         private readonly IConfiguration AppIndex;
 
         private readonly string AppName;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="AppFacade"/>.
+        /// </summary>
+        /// <param name="source">The configuration, containing the properties of the app.</param>
+        /// <param name="appName">The ID of the app.</param>
         public AppFacade(IConfiguration source, string appName)
         {
             AppIndex = source;
             AppName = appName;
         }
 
+        /// <summary>
+        /// Does some expensive checks for the app and caches the result for later requests.
+        /// These checks involve interaction with the file system.
+        /// </summary>
         public void LoadCachedValues()
         {
             isInstalled = GetIsInstalled();
             isResourceCached = GetIsResourceCached();
         }
 
+        /// <summary>
+        /// Clears cached values from the state of the app.
+        /// If the state of an app was possibly changed, this method has to be called,
+        /// to allow determining the new state from the file system and not just showing
+        /// the last cached state.
+        /// </summary>
+        /// <seealso cref="LoadCachedValues"/>
         public void DiscardCachedValues()
         {
             isInstalled = null;
@@ -64,14 +84,33 @@ namespace Mastersign.Bench
             AppIndex.SetGroupValue(AppName, property, value);
         }
 
+        /// <summary>
+        /// Gets the ID of the app.
+        /// </summary>
         public string ID { get { return AppName; } }
 
+        /// <summary>
+        /// Gets the label of the app.
+        /// </summary>
         public string Label { get { return StringValue(PropertyKeys.AppLabel); } }
 
+        /// <summary>
+        /// Gets the category, this app belongs to.
+        /// E.g. there are <c>Required</c> and <c>Optional</c> apps.
+        /// </summary>
+        /// <see cref="BenchConfiguration.DefaultAppCategory"/>
         public string Category { get { return AppIndex.GetGroupCategory(AppName); } }
 
+        /// <summary>
+        /// <para>The typ of this app.</para>
+        /// <para>See for <see cref="AppTyps"/> to compare and list the app typs.</para>
+        /// </summary>
         public string Typ { get { return StringValue(PropertyKeys.AppTyp); } }
 
+        /// <summary>
+        /// Checks, if this app is a packaged managed by some kind of package manager.
+        /// </summary>
+        /// <value><c>true</c> if this app is managed by a package manager; otherwise <c>false</c>.</value>
         public bool IsManagedPackage
         {
             get
@@ -84,8 +123,18 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Gets the version string of the app, or <c>null</c> if the app has no specified version.
+        /// </summary>
+        /// <remarks>
+        /// If the app has the version <c>"latest"</c> it is considered to have no specified version.
+        /// </remarks>
+        /// <seealso cref="IsVersioned"/>
         public string Version { get { return StringValue(PropertyKeys.AppVersion); } }
 
+        /// <summary>
+        /// Checks, if this app has a specified version.
+        /// </summary>
         public bool IsVersioned
         {
             get
@@ -94,93 +143,187 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Gets the URL of the project or vendor website of this app, or <c>null</c> if no website was specified.
+        /// </summary>
         public string Website { get { return StringValue(PropertyKeys.AppWebsite); } }
 
+        /// <summary>
+        /// Gets a dictionary with labels and URLs for help and documentation.
+        /// If an URL is relative, it is considered to be relative to the apps <see cref="Dir"/>.
+        /// </summary>
         public IDictionary<string, string> Docs { get { return Value(PropertyKeys.AppDocs) as IDictionary<string, string>; } }
 
+        /// <summary>
+        /// An array with app IDs which are necessary to be installed for this app to work.
+        /// </summary>
         public string[] Dependencies
         {
             get { return ListValue(PropertyKeys.AppDependencies); }
             set { UpdateValue(PropertyKeys.AppDependencies, value); }
         }
 
+        /// <summary>
+        /// An array of app IDs which depend on this app to be installed.
+        /// </summary>
         public string[] Responsibilities
         {
             get { return ListValue(PropertyKeys.AppResponsibilities); }
             set { UpdateValue(PropertyKeys.AppResponsibilities, value); }
         }
 
+        /// <summary>
+        /// Checks, whether this app is marked as activated by the user, or not.
+        /// </summary>
+        /// <value><c>true</c> if the apps ID is marked as activated by the user; otherwise <c>false</c>.</value>
         public bool IsActivated { get { return BoolValue(PropertyKeys.AppIsActivated); } }
 
+        /// <summary>
+        /// Checks, whether this app is marked as deactivated by the user, or not.
+        /// </summary>
+        /// <value><c>true</c> if the apps ID is marked as deactivated by the user; otherwise <c>false</c>.</value>
         public bool IsDeactivated { get { return BoolValue(PropertyKeys.AppIsDeactivated); } }
 
+        /// <summary>
+        /// Checks, whether this app is required by the Bench system, or not.
+        /// </summary>
+        /// <value><c>true</c> if the app is required by Bench; otherwise <c>false</c>.</value>
         public bool IsRequired { get { return BoolValue(PropertyKeys.AppIsRequired); } }
 
+        /// <summary>
+        /// Checks, whether this app is dependency of another app.
+        /// </summary>
+        /// <value><c>true</c> if the app is required by another app; otherwise <c>false</c>.</value>
         public bool IsDependency { get { return BoolValue(PropertyKeys.AppIsDependency); } }
 
+        /// <summary>
+        /// Gets the URL of the apps resource, or <c>null</c> if the app has no downloadable resource.
+        /// </summary>
         public string Url { get { return StringValue(PropertyKeys.AppUrl); } }
 
+        /// <summary>
+        /// Gets a dictionary with HTTP header fields for the download request.
+        /// </summary>
         public IDictionary<string, string> DownloadHeaders
         {
             get { return Value(PropertyKeys.AppDownloadHeaders) as IDictionary<string, string>; }
         }
 
+        /// <summary>
+        /// Gets a dictionary with HTTP cookies for the download request.
+        /// </summary>
         public IDictionary<string, string> DownloadCookies
         {
             get { return Value(PropertyKeys.AppDownloadCookies) as IDictionary<string, string>; }
         }
 
+        /// <summary>
+        /// Gets the name of the apps file resource, or <c>null</c>
+        /// in case the app has an archive resource or no downloadable resource at all.
+        /// </summary>
         public string ResourceFileName { get { return StringValue(PropertyKeys.AppResourceName); } }
 
+        /// <summary>
+        /// Gets the name of the apps archive resource, or <c>null</c>
+        /// in case the app has a file resource or no downloadable resource at all.
+        /// </summary>
         public string ResourceArchiveName { get { return StringValue(PropertyKeys.AppArchiveName); } }
 
+        /// <summary>
+        /// Gets the sub path inside of the resource archive, or <c>null</c>
+        /// in case the whole archive can be extracted or the app has no archive resource.
+        /// </summary>
         public string ResourceArchivePath { get { return StringValue(PropertyKeys.AppArchivePath); } }
 
+        /// <summary>
+        /// Gets the typ of the resource archive, or <c>null</c> if the app has no archive resource.
+        /// See <see cref="AppArchiveTyps"/> to compare or list the possible typs of an archive resource.
+        /// </summary>
         public string ResourceArchiveTyp { get { return StringValue(PropertyKeys.AppArchiveTyp); } }
 
+        /// <summary>
+        /// Gets a value, which specifies if the app will be installed even if it is already installed.
+        /// </summary>
         public bool Force
         {
             get { return BoolValue(PropertyKeys.AppForce); }
             set { UpdateValue(PropertyKeys.AppForce, value); }
         }
 
+        /// <summary>
+        /// The name of the package represented by this app, or <c>null</c> in case
+        /// <see cref="IsManagedPackage"/> is <c>false</c>.
+        /// </summary>
         public string PackageName { get { return StringValue(PropertyKeys.AppPackageName); } }
 
+        /// <summary>
+        /// The name of the target directory for this app.
+        /// The target directory is the directory where the app resources are installed.
+        /// </summary>
         public string Dir { get { return StringValue(PropertyKeys.AppDir); } }
 
+        /// <summary>
+        /// The relative path of the main executable file of the app, or <c>null</c>
+        /// in case the app has no executable (e.g. the app is just a group).
+        /// The path is relative to the target <see cref="Dir"/> of this app.
+        /// </summary>
         public string Exe { get { return StringValue(PropertyKeys.AppExe); } }
 
+        /// <summary>
+        /// The relative path to a file, which existence can be used to check if the app is installed,
+        /// or <c>null</c> e.g. in case the app is a package managed by a package manager.
+        /// The path is relative to the target <see cref="Dir"/> of this app.
+        /// </summary>
         public string SetupTestFile { get { return StringValue(PropertyKeys.AppSetupTestFile); } }
 
+        /// <summary>
+        /// An array with relative or absolute paths,
+        /// which will be added to the environment variable <c>PATH</c> when this app is activated.
+        /// If a path is relative, it is relative to the target <see cref="Dir"/> of this app.
+        /// </summary>
+        /// <seealso cref="Register"/>
         public string[] Path
         {
             get { return ListValue(PropertyKeys.AppPath); }
             set { UpdateValue(PropertyKeys.AppPath, value); }
         }
 
+        /// <summary>
+        /// A flag to control if the <see cref="Path"/>s of this app will be added
+        /// to the environment variable <c>PATH</c>.
+        /// </summary>
         public bool Register { get { return BoolValue(PropertyKeys.AppRegister); } }
 
+        /// <summary>
+        /// A dictionary with additional environment variables to setup, when this app is activated.
+        /// </summary>
         public IDictionary<string, string> Environment
         {
             get { return Value(PropertyKeys.AppEnvironment) as IDictionary<string, string>; }
         }
 
+        /// <summary>
+        /// An array with paths to executables, which must be adorned.
+        /// </summary>
         public string[] AdornedExecutables
         {
             get { return ListValue(PropertyKeys.AppAdornedExecutables); }
             set { UpdateValue(PropertyKeys.AppAdornedExecutables, value); }
         }
 
-        public void AddAdornedExecutable(string path)
+        internal void AddAdornedExecutable(string path)
         {
             AdornedExecutables = AddToSet(AdornedExecutables, path);
         }
 
-        public void RemoveAdornedExecutable(string path)
+        internal void RemoveAdornedExecutable(string path)
         {
             AdornedExecutables = RemoveFromSet(AdornedExecutables, path);
         }
 
+        /// <summary>
+        /// Gets the base path of the directory containing the adornmend proxy scripts for the executables of this app.
+        /// </summary>
         public string AdornmentProxyBasePath
         {
             get
@@ -191,6 +334,11 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether an executable of this app is marked as adorned, or not.
+        /// </summary>
+        /// <param name="exePath">The path to the executable in question.</param>
+        /// <returns><c>true</c> if the executable must be adorned, otherwise <c>false</c>.</returns>
         public bool IsExecutableAdorned(string exePath)
         {
             if (!IOPath.IsPathRooted(exePath))
@@ -208,30 +356,57 @@ namespace Mastersign.Bench
             return false;
         }
 
+        /// <summary>
+        /// Gets the path to the adornment wrapper script for a given executable fo this app.
+        /// </summary>
+        /// <param name="exePath">The path to the executable.</param>
+        /// <returns>The path to the adornment script.</returns>
         public string GetExecutableProxy(string exePath)
         {
             return IOPath.Combine(AdornmentProxyBasePath,
                 IOPath.GetFileNameWithoutExtension(exePath) + ".cmd");
         }
 
+        /// <summary>
+        /// An array with registry paths relative to the <c>HKCU</c> (current user) hive,
+        /// which must be considered for registry isolation.
+        /// </summary>
         public string[] RegistryKeys { get { return ListValue(PropertyKeys.AppRegistryKeys); } }
 
+        /// <summary>
+        /// The label for the apps launcher, or <c>null</c> if the app has no launcher.
+        /// </summary>
         public string Launcher { get { return StringValue(PropertyKeys.AppLauncher); } }
 
+        /// <summary>
+        /// The path to the main executable, to be started by the apps launcher,
+        /// or <c>null</c> if the app has no launcher.
+        /// </summary>
         public string LauncherExecutable { get { return StringValue(PropertyKeys.AppLauncherExecutable); } }
 
+        /// <summary>
+        /// An array with command line arguments to be sent to the <see cref="LauncherExecutable"/>
+        /// by the launcher.
+        /// The last entry in this array must be <c>%*</c> if additional arguments shell be passed
+        /// from the launcher to the executable. This is also necessary for drag-and-drop of files
+        /// onto the launcher to work.
+        /// </summary>
         public string[] LauncherArguments { get { return ListValue(PropertyKeys.AppLauncherArguments); } }
 
+        /// <summary>
+        /// A path to an <c>*.ico</c> or <c>*.exe</c> file with the icon for the apps launcher,
+        /// or <c>null</c> if the app has no launcher.
+        /// </summary>
         public string LauncherIcon { get { return StringValue(PropertyKeys.AppLauncherIcon); } }
 
         #region Recursive Discovery
 
-        public IList<string> FindAllDependencies()
+        internal IList<string> FindAllDependencies()
         {
             return FindAppsRecursively(PropertyKeys.AppDependencies);
         }
 
-        public IList<string> FindAllResponsibilities()
+        internal IList<string> FindAllResponsibilities()
         {
             return FindAppsRecursively(PropertyKeys.AppResponsibilities);
         }
@@ -264,7 +439,7 @@ namespace Mastersign.Bench
 
         #region File Discovery
 
-        public string GetLauncherFile()
+        internal string GetLauncherFile()
         {
             var launcher = Launcher;
             return launcher != null
@@ -274,14 +449,14 @@ namespace Mastersign.Bench
                 : null;
         }
 
-        public string GetLauncherScriptFile()
+        internal string GetLauncherScriptFile()
         {
             return IOPath.Combine(
                 AppIndex.GetStringValue(PropertyKeys.LauncherScriptDir),
                 ID.ToLowerInvariant() + ".cmd");
         }
 
-        public string GetCustomScriptFile(string typ)
+        internal string GetCustomScriptFile(string typ)
         {
             var userPath = IOPath.Combine(
                 IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.CustomConfigDir), "apps"),
@@ -298,6 +473,17 @@ namespace Mastersign.Bench
 
         #region Status
 
+        /// <summary>
+        /// <para>
+        /// Checks, whether is app is active.
+        /// An app can be active, because it was marked by the user to be activated,
+        /// or because it is required by Bench or it is a dependency for another app.
+        /// </para>
+        /// <para>
+        /// An app is <strong>not active</strong> if it was marked by the user as deactivated,
+        /// regardless whether it is required by Bench or another app or marked as activated.
+        /// </para>
+        /// </summary>
         public bool IsActive
         {
             get
@@ -307,6 +493,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this app has a downloadable app resource, or not.
+        /// </summary>
         public bool HasResource
         {
             get
@@ -316,6 +505,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether the installation state of this app can be checked, or not.
+        /// </summary>
         public bool CanCheckInstallation
         {
             get
@@ -367,6 +559,16 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this app is currently installed, or not.
+        /// </summary>
+        /// <remarks>
+        /// This state is cached for performance reasons.
+        /// To be shure to get the real current state, call <see cref="DiscardCachedValues"/>
+        /// upfront.
+        /// </remarks>
+        /// <seealso cref="DiscardCachedValues"/>
+        /// <seealso cref="LoadCachedValues"/>
         public bool IsInstalled
         {
             get
@@ -393,6 +595,23 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// <para>
+        /// Checks, whether this apps resource is currently cached, or not.
+        /// </para>
+        /// <para>
+        /// Returns always <c>false</c>, if the apps <see cref="Typ"/> is not <see cref="AppTyps.Default"/>.
+        /// Returns <c>true</c> if the apps <see cref="Typ"/> is <see cref="AppTyps.Default"/>,
+        /// but the app has no downloadable resource.
+        /// </para>
+        /// </summary>
+        /// <remarks>
+        /// This state is cached for performance reasons.
+        /// To be shure to get the real current state, call <see cref="DiscardCachedValues"/>
+        /// upfront.
+        /// </remarks>
+        /// <seealso cref="DiscardCachedValues"/>
+        /// <seealso cref="LoadCachedValues"/>
         public bool IsResourceCached
         {
             get
@@ -402,6 +621,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Returns a short string, describing the overall state of the app.
+        /// </summary>
         public string ShortStatus
         {
             get
@@ -443,6 +665,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Returns a string with a virtually complete description of the apps overall state.
+        /// </summary>
         public string LongStatus
         {
             get
@@ -591,6 +816,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Returns a code for an icon, describing the overall state of this app.
+        /// </summary>
         public AppStatusIcon StatusIcon
         {
             get
@@ -651,10 +879,19 @@ namespace Mastersign.Bench
 
         #region Possible Actions
 
+        /// <summary>
+        /// Checks, whether the app has a resource and the resource is not cached.
+        /// </summary>
         public bool CanDownloadResource { get { return HasResource && !IsResourceCached; } }
 
+        /// <summary>
+        /// Checks, whether the app has cached resource.
+        /// </summary>
         public bool CanDeleteResource { get { return HasResource && IsResourceCached; } }
 
+        /// <summary>
+        /// Checks, whether this app can be installed.
+        /// </summary>
         public bool CanInstall
         {
             get
@@ -664,6 +901,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this app can be uninstalled.
+        /// </summary>
         public bool CanUninstall
         {
             get
@@ -673,6 +913,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this app can be reinstalled.
+        /// </summary>
         public bool CanReinstall
         {
             get
@@ -686,6 +929,12 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this app can be upgraded to a more recent version.
+        /// </summary>
+        /// <remarks>
+        /// This method does not check if there really is more recent version of this app.
+        /// </remarks>
         public bool CanUpgrade
         {
             get
@@ -702,6 +951,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this app is active (activated or required) but not installed.
+        /// </summary>
         public bool ShouldBeInstalled
         {
             get
@@ -712,6 +964,9 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this app is not activated or even deactivated but installed.
+        /// </summary>
         public bool ShouldBeRemoved
         {
             get
@@ -726,19 +981,19 @@ namespace Mastersign.Bench
 
         #region Configuration
 
-        public void Activate()
+        internal void Activate()
         {
             AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsActivated, true);
             ActivateDependencies();
         }
 
-        public void ActivateAsRequired()
+        internal void ActivateAsRequired()
         {
             AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsRequired, true);
             ActivateDependencies();
         }
 
-        public void ActivateAsDependency()
+        internal void ActivateAsDependency()
         {
             AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsDependency, true);
             ActivateDependencies();
@@ -859,6 +1114,10 @@ namespace Mastersign.Bench
 
         #endregion
 
+        /// <summary>
+        /// Returns a string, containing the apps typ and ID.
+        /// </summary>
+        /// <returns>A short string representation of the app.</returns>
         public override string ToString()
         {
             return string.Format("App[{0}] {1}", Typ, ID);
