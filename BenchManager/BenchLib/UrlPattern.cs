@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench
 {
-    internal class UrlPattern
+    public class UrlPattern
     {
         public Regex HostPattern { get; private set; }
 

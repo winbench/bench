@@ -5,22 +5,51 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench
 {
-    internal class VariableResolver : IGroupedValueResolver
+    /// <summary>
+    /// <para>
+    /// This resolver for group property values, resolves variable references in property values.
+    /// </para>
+    /// <para>
+    /// The default syntax for a variable reference is an expression like <c>$NAME$</c>.
+    /// Every occurance of such an expression is replaced by the value of the referenced property
+    /// from <see cref="ValueSource"/>.
+    /// This syntax can be changed by setting a custom expression for <see cref="VariablePattern"/>.
+    /// </para>
+    /// <para>
+    /// If the referenced property does not exists, the expression is transformed
+    /// by replacing it with <c>#NAME#</c>.
+    /// </para>
+    /// </summary>
+    public class VariableResolver : IGroupedValueResolver
     {
         private static readonly Regex DefaultVariablePattern = new Regex("\\$(?<name>.+?)\\$");
 
+        /// <summary>
+        /// A regular expression, that detects variable references.
+        /// The defaut expression is <c>\$(?&lt;name&gt;.+?)\$</c>
+        /// </summary>
         /// <remarks>
-        /// The regular expression needs a named group with name <c>name</c>'.
+        /// The regular expression needs a named capture group called <c>name</c>'.
         /// </remarks>
         public Regex VariablePattern { get; set; }
 
+        /// <summary>
+        /// A property collection, which will be used as to retrieve the referenced property values.
+        /// </summary>
         public IPropertyCollection ValueSource { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="VariableResolver"/>.
+        /// </summary>
         public VariableResolver()
         {
             VariablePattern = DefaultVariablePattern;
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="VariableResolver"/>.
+        /// </summary>
+        /// <param name="valueSource">The value source for the referenced variables.</param>
         public VariableResolver(IPropertyCollection valueSource)
             : this()
         {

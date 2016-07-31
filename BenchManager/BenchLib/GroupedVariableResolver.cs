@@ -7,10 +7,10 @@ namespace Mastersign.Bench
 {
     /// <summary>
     /// <para>
-    /// This resolver for group property values, resolves variable references in property values.
+    /// This resolver for group property values, resolves grouped variable references in property values.
     /// </para>
     /// <para>
-    /// The default syntax for a variable reference is an expression like <c>$GROUP:NAME$</c>.
+    /// The default syntax for a grouped variable reference is an expression like <c>$GROUP:NAME$</c>.
     /// Every occurance of such an expression is replaced by the value of the referenced property
     /// from <see cref="ValueSource"/>.
     /// This syntax can be changed by setting a custom expression for <see cref="GroupVariablePattern"/>.
@@ -34,7 +34,7 @@ namespace Mastersign.Bench
         public Regex GroupVariablePattern { get; set; }
 
         /// <summary>
-        /// A property collection, which will be used as to retrieve the referenced property values.
+        /// A group property collection, which will be used as to retrieve the referenced property values.
         /// </summary>
         public IGroupedPropertyCollection ValueSource { get; set; }
 
