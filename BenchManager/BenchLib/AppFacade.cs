@@ -1011,12 +1011,18 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Marks this app as deactivetd.
+        /// </summary>
         public void Deactivate()
         {
             AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsDeactivated, true);
         }
 
-        public void SetupAutoConfiguration()
+        /// <summary>
+        /// Make some implicit values and relationships explicit in the property values.
+        /// </summary>
+        internal void SetupAutoConfiguration()
         {
             SetupAutoDependencies();
             SetupAdornmentForRegistryIsolation();
@@ -1047,7 +1053,11 @@ namespace Mastersign.Bench
             }
         }
 
-        public void TrackResponsibilities()
+        /// <summary>
+        /// Track down all apps, which refer to this app as a dependency 
+        /// and store the list app IDs in the app property <c>Responsibilities</c>.
+        /// </summary>
+        internal void TrackResponsibilities()
         {
             foreach (var dependency in Dependencies)
             {

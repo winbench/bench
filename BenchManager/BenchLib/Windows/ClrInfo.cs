@@ -6,8 +6,18 @@ using System.Text;
 
 namespace Mastersign.Bench.Windows
 {
+    /// <summary>
+    /// This static class contains methods to investigate the installed .NET framework versions.
+    /// </summary>
     public static class ClrInfo
     {
+        /// <summary>
+        /// Checks whether the given .NET framework version
+        /// is supported and installed under the current Windows system.
+        /// </summary>
+        /// <param name="v">The .NET framework version required.</param>
+        /// <returns><c>true</c> if the installed .NET framework can support
+        /// the requested .NET framework version; othwise <c>false</c>.</returns>
         public static bool IsVersionSupported(Version v)
         {
             foreach (var version in GetInstalledVersions())
@@ -29,6 +39,10 @@ namespace Mastersign.Bench.Windows
 
         // https://msdn.microsoft.com/en-us/library/hh925568.aspx
 
+        /// <summary>
+        /// Gets the version number of all installed .NET framework versions.
+        /// </summary>
+        /// <returns>An array with the version numbers.</returns>
         public static Version[] GetInstalledVersions()
         {
             var versions = new List<Version>();

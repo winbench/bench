@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench
 {
-    public class VariableResolver : IGroupedValueResolver
+    internal class VariableResolver : IGroupedValueResolver
     {
         private static readonly Regex DefaultVariablePattern = new Regex("\\$(?<name>.+?)\\$");
 

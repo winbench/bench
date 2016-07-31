@@ -4,8 +4,13 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// This class contains string constants for all configuration and app properties.
+    /// </summary>
     public static class PropertyKeys
     {
+#pragma warning disable CS1591 // warning for missing XML doc comment
+
         public const string Version = "Version";
         public const string VersionFile = "VersionFile";
         public const string Website = "Website";
@@ -117,5 +122,7 @@ namespace Mastersign.Bench
         // Package App Properties
 
         public const string AppPackageName = "PackageName";
+
+#pragma warning restore CS1591 // warning for missing XML doc comment
     }
 }
