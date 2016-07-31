@@ -133,7 +133,6 @@
     <Compile Include="UrlPattern.cs" />
     <Compile Include="HtmlLinkUrlResolver.cs" />
     <Compile Include="IConfiguration.cs" />
-    <Compile Include="IConfigurationPart.cs" />
     <Compile Include="IPropertySource.cs" />
     <Compile Include="IGroupedPropertySource.cs" />
     <Compile Include="IGroupedPropertyCollection.cs" />

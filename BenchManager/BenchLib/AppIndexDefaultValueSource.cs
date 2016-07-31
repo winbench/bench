@@ -18,6 +18,11 @@ namespace Mastersign.Bench
             AppIndex = appIndex;
         }
 
+        public string GetGroupCategory(string group)
+        {
+            throw new NotSupportedException();
+        }
+
         public object GetGroupValue(string appName, string key)
         {
             string appTyp;

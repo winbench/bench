@@ -74,7 +74,7 @@ namespace Mastersign.Bench
         /// This collection can be changed by the user to control how URLs are resolved before
         /// the actual download of a resource starts.
         /// </summary>
-        public ICollection<IUrlResolver> UrlResolver { get; private set; }
+        internal ICollection<IUrlResolver> UrlResolver { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of <see cref="Downloader"/> with a default configuration,

@@ -9,7 +9,7 @@ namespace Mastersign.Bench
     /// It holds the name and the email address, of the user, which are used
     /// to configure the environment variables and apps.
     /// </summary>
-    public class BenchUserInfo : IConfigurationPart
+    public class BenchUserInfo
     {
         /// <summary>
         /// The name of the user.
@@ -35,16 +35,6 @@ namespace Mastersign.Bench
         {
             Name = name;
             Email = email;
-        }
-
-        /// <summary>
-        /// Stores the user information in the given dictionary.
-        /// </summary>
-        /// <param name="dict">A dictionary for configuration properties.</param>
-        public void Transfer(IDictionary<string, string> dict)
-        {
-            dict[PropertyKeys.UserName] = Name;
-            dict[PropertyKeys.UserEmail] = Email;
         }
 
         /// <summary>

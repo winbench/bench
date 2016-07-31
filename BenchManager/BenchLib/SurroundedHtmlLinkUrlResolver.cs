@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench
 {
-    public class SurroundedHtmlLinkUrlResolver : HtmlLinkUrlResolver
+    internal class SurroundedHtmlLinkUrlResolver : HtmlLinkUrlResolver
     {
         public Regex SurroundingPattern { get; private set; }
 

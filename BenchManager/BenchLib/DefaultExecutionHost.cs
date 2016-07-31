@@ -20,7 +20,7 @@ namespace Mastersign.Bench
         /// </summary>
         /// <param name="env">The environment variables of Bench.</param>
         /// <param name="cwd">The working directory, to start the process in.</param>
-        /// <param name="executable">The path to the executable.</param>
+        /// <param name="exe">The path to the executable.</param>
         /// <param name="arguments">The string with the command line arguments.</param>
         /// <param name="cb">The handler method to call when the execution of the process finishes.</param>
         /// <param name="monitoring">A flag to control the level of monitoring.</param>
@@ -44,7 +44,7 @@ namespace Mastersign.Bench
         /// </summary>
         /// <param name="env">The environment variables of Bench.</param>
         /// <param name="cwd">The working directory, to start the process in.</param>
-        /// <param name="executable">The path to the executable.</param>
+        /// <param name="exe">The path to the executable.</param>
         /// <param name="arguments">The string with the command line arguments.</param>
         /// <param name="monitoring">A flag to control the level of monitoring.</param>
         /// <returns>An instance of <see cref="ProcessExecutionResult"/> with the exit code
