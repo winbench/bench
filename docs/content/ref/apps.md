@@ -65,11 +65,11 @@ weight = 1
 | `Inkscape` | [Inkscape](#Inkscape) | 0.91-1 | <https://inkscape.org/en/download/> |
 | `IPython2` | [IPython 2](#IPython2) | latest | <http://pypi.python.org/pypi/ipython> |
 | `IPython3` | [IPython 3](#IPython3) | latest | <http://pypi.python.org/pypi/ipython> |
-| `JabRef` | [JabRef](#JabRef) | 3.3 | <http://www.jabref.org> |
+| `JabRef` | [JabRef](#JabRef) | 3.5 | <http://www.jabref.org> |
 | `JDK7` | [Java Development Kit 7](#JDK7) | 7u80 | <https://www.oracle.com/java/> |
-| `JDK8` | [Java Development Kit 8](#JDK8) | 8u92 | <https://www.oracle.com/java/> |
+| `JDK8` | [Java Development Kit 8](#JDK8) | 8u102 | <https://www.oracle.com/java/> |
 | `JRE7` | [Java Runtime Environment 7](#JRE7) | 7u80 | <https://www.oracle.com/java/> |
-| `JRE8` | [Java Runtime Environment 8](#JRE8) | 8u92 | <https://www.oracle.com/java/> |
+| `JRE8` | [Java Runtime Environment 8](#JRE8) | 8u102 | <https://www.oracle.com/java/> |
 | `JSHint` | [JSHint](#JSHint) | >=2.8.0 <3.0.0 | <http://jshint.com/> |
 | `Leiningen` | [Leiningen](#Leiningen) | latest | <http://leiningen.org> |
 | `LightTable` | [LightTable](#LightTable) | 0.8.1 | <http://lighttable.com> |
@@ -82,7 +82,7 @@ weight = 1
 | `MinGwGetGui` | [MinGwGetGui](#MinGwGetGui) | latest |  |
 | `MySQL` | [MySQL](#MySQL) | 5.7.12 | <http://www.mysql.com/> |
 | `MySQLWB` | [MySQL Workbench](#MySQLWB) | 6.3.6 | <http://dev.mysql.com/downloads/workbench/> |
-| `Node` | [Node.js](#Node) | 6.2.2 | <https://nodejs.org> |
+| `Node` | [Node.js](#Node) | 6.3.1 | <https://nodejs.org> |
 | `Npm` | [NPM](#Npm) | >=3.7.0 <4.0.0 | <https://www.npmjs.com/package/npm> |
 | `NuGet` | [NuGet](#NuGet) | latest | <https://www.nuget.org> |
 | `OpenSSL` | [OpenSSL](#OpenSSL) | 1.0.2h | <https://www.openssl.org/> |
@@ -436,7 +436,7 @@ weight = 1
 * ID: `JabRef`
 * Typ: `default`
 * Website: <http://www.jabref.org>
-* Version: 3.3
+* Version: 3.5
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Java Development Kit 7 {#JDK7}
@@ -451,7 +451,7 @@ weight = 1
 * ID: `JDK8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u92
+* Version: 8u102
 
 ### Java Runtime Environment 7 {#JRE7}
 
@@ -465,7 +465,7 @@ weight = 1
 * ID: `JRE8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u92
+* Version: 8u102
 
 ### JSHint {#JSHint}
 
@@ -560,7 +560,7 @@ weight = 1
 * ID: `Node`
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Version: 6.2.2
+* Version: 6.3.1
 
 ### NPM {#Npm}
 

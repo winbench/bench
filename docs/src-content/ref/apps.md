@@ -357,7 +357,7 @@ weight = 1
 * ID: `JabRef`
 * Typ: `default`
 * Website: <http://www.jabref.org>
-* Version: 3.3
+* Version: 3.5
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Java Development Kit 7 {#JDK7}
@@ -372,7 +372,7 @@ weight = 1
 * ID: `JDK8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u92
+* Version: 8u102
 
 ### Java Runtime Environment 7 {#JRE7}
 
@@ -386,7 +386,7 @@ weight = 1
 * ID: `JRE8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u92
+* Version: 8u102
 
 ### JSHint {#JSHint}
 
@@ -481,7 +481,7 @@ weight = 1
 * ID: `Node`
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Version: 6.2.2
+* Version: 6.3.1
 
 ### NPM {#Npm}
 
