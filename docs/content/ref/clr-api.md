@@ -9,5 +9,4 @@ weight = 10
 
 * [Mastersign.Bench](/clr-api/ns-mastersign-bench)
 * [Mastersign.Bench.Markdown](/clr-api/ns-mastersign-bench-markdown)
-* [Mastersign.Bench.UI](/clr-api/ns-mastersign-bench-ui)
 * [Mastersign.Bench.Windows](/clr-api/ns-mastersign-bench-windows)
