@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Mastersign.Bench.UI
 {
-    public abstract class WizzardTask
+    /// <summary>
+    /// The base class for tasks, which involve the interaction with the user via a wizzard.
+    /// </summary>
+    internal abstract class WizzardTask
     {
         public abstract WizzardStepControl[] StepControls { get; }
 

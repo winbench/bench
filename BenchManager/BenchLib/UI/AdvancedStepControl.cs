@@ -8,7 +8,11 @@ using System.Windows.Forms;
 
 namespace Mastersign.Bench.UI
 {
-    public partial class AdvancedStepControl : WizzardStepControl
+    /// <summary>
+    /// A wizzard control, which allows the user to setup advanced configuration parameters
+    /// for the Bench initialization.
+    /// </summary>
+    internal partial class AdvancedStepControl : WizzardStepControl
     {
         public AdvancedStepControl()
         {

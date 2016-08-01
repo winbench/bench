@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench.Markdown
 {
-    public static class MdSyntax
+    internal static class MdSyntax
     {
         private static readonly string YamlHeaderStart = "---";
         private static readonly Regex YamlHeaderEndExp = new Regex("^---|...$");

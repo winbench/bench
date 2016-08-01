@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench.Markdown
 {
-    public static class MarkdownPropertyEditor
+    internal static class MarkdownPropertyEditor
     {
         private const string PatternTemplate = @"^{0}\s+((?:~~)?)\s*{1}\s*:\s*{2}\s*\1\s*$";
         private const string PropertyTemplate = @"* {0}: `{1}`";

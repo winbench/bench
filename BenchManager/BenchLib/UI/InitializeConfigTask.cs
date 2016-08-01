@@ -6,7 +6,7 @@ using Mastersign.Bench.Markdown;
 
 namespace Mastersign.Bench.UI
 {
-    class InitializeConfigTask : WizzardTask
+    internal class InitializeConfigTask : WizzardTask
     {
         private ProxyStepControl stepProxy;
         private UserIdentificationStepControl stepUserIdentification;

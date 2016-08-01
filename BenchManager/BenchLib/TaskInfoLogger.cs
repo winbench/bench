@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public class TaskInfoLogger : IDisposable
+    internal class TaskInfoLogger : IDisposable
     {
         private bool onlyErrors;
         private TextWriter writer;

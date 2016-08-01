@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench.Markdown
 {
-    public enum MdContext
+    internal enum MdContext
     {
         Inactive,
         YamlHeader,

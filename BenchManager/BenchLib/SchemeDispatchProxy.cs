@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public class SchemeDispatchProxy : IWebProxy
+    internal class SchemeDispatchProxy : IWebProxy
     {
         private readonly IDictionary<string, IWebProxy> proxyTable;
 

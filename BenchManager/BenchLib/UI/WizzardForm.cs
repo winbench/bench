@@ -8,7 +8,10 @@ using System.Windows.Forms;
 
 namespace Mastersign.Bench.UI
 {
-    public partial class WizzardForm : Form
+    /// <summary>
+    /// A form hosting a number of wizzard controls for an assisted configuration process.
+    /// </summary>
+    internal partial class WizzardForm : Form
     {
         private WizzardTask task;
         private WizzardStepControl[] stepControls;

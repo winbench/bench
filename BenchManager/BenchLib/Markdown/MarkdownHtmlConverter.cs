@@ -7,6 +7,12 @@ using MarkdownSharp.Extensions;
 
 namespace Mastersign.Bench.Markdown
 {
+    /// <summary>
+    /// This class allows to convert a Markdown text into a HTML page.
+    /// It makes sure, that all headlines have anchors,
+    /// and makes these anchors available to the user of this class,
+    /// to support a navigation index.
+    /// </summary>
     public class MarkdownToHtmlConverter
     {
         private static readonly Regex HeadlinePattern = new Regex("^(?<hashes>#+)\\s+(?<text>.+?)\\s*(?:\\{.*?\\})?\\s*\\1?$");
@@ -16,15 +22,29 @@ namespace Mastersign.Bench.Markdown
         private int LineNo;
         private string CodePreamble;
 
+        /// <summary>
+        /// All anchors in the converted HTML page.
+        /// </summary>
         public IList<MdAnchor> Anchors;
 
         private MdContext Context;
 
+        /// <summary>
+        /// Converts the given data into a HTML page.
+        /// The data is interpreted as UTF8 encoded Markdown text.
+        /// </summary>
+        /// <param name="source">The input data.</param>
+        /// <returns>A string with the HTML markup of the generated page.</returns>
         public string ConvertToHtml(Stream source)
         {
             return ConvertToHtml(new StreamReader(source, Encoding.UTF8));
         }
 
+        /// <summary>
+        /// Converts the given Markdown text into a HTML page.
+        /// </summary>
+        /// <param name="source">The input Markdown text.</param>
+        /// <returns>A string with the HTML markup of the generated page.</returns>
         public string ConvertToHtml(TextReader source)
         {
             Output = new StringBuilder();
