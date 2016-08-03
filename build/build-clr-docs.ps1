@@ -35,7 +35,7 @@ if ($LastExitCode -ne 0)
 echo "Copying the help website to the target directory ..."
 
 cd $rootDir
-robocopy "$solutionDir\$helpOutputDir" "$helpTargetDir" /MIR /NJH /NP /XF *.log /XF *.php /XF *.aspx /XF *.config
+robocopy "$solutionDir\$helpOutputDir" "$helpTargetDir" /MIR /NJH /NFL /NP /XF *.log /XF *.php /XF *.aspx /XF *.config
 
 popd
 
