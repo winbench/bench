@@ -129,7 +129,7 @@ weight = 1
 * ID: `ConEmu`
 * Typ: `default`
 * Website: <https://conemu.github.io/>
-* Version: 16.06.19
+* Version: 16.07.24
 
 ### Inno Setup Unpacker {#InnoUnp}
 

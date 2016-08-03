@@ -1,27 +1,43 @@
+param (
+    $Mode = "Debug",
+    $MsBuildVerbosity = "minimal"
+)
+
 $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
+pushd
 
-$assemblyPath = "$rootDir\BenchManager\BenchLib\bin\Debug\BenchLib.dll"
+$clrVersion = "4.0.30319"
+$toolsVersion = "14.0"
+$mode = $Mode
+$verbosity = $MsBuildVerbosity
+$msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
+$solutionDir = "BenchManager" # relative to root dir
+$solutionFile = "BenchManager.sln" # relative to solution dir
+$helpProject = "BenchLibDocs\BenchLibDocs.shfbproj" # relative to solution dir
+$helpOutputDir = "BenchLibDocs\Help\" # relative to solution dir
+$helpTargetDir = "docs\public\clr-api\" # relative to root dir
 
-if (!(Test-Path $assemblyPath))
+# Build the Sand Castle Help File Builder project
+echo ""
+echo "Building SHFB project $solutionFile ..."
+cd "$rootDir\$solutionDir"
+& $msbuild $helpProject /v:$verbosity /tv:$toolsVersion /m /p:Configuration=$mode /nodereuse:false
+if ($LastExitCode -ne 0)
 {
-    & "$myDir\build-debug.ps1"
+    Write-Error "Building the help SHFB project failed."
+    popd
+    return
 }
 
-$assembly = Resolve-path $assemblyPath
-$outDir = "$rootDir\docs\content\clr-api"
-if (Test-Path $outDir -PathType Container)
-{
-    del "$outDir\*" -Recurse -Force
-}
+# Copy Help Website
 
-& "$myDir\xmldoc2md\xmldoc2md.ps1" `
-    -TargetPath "$myDir\..\docs\content\clr-api" `
-    -Assemblies @($assembly) `
-    -UrlBase "/clr-api/" `
-    -UrlFileNameExtension "/" `
-    -Title "BenchLib" `
-    -Author "Tobias Kiertscher" `
-    -Copyright "Licensed by CC-BY-4.0" `
-    -NoTitleHeadline `
-    -MetaDataStyle Hugo
+echo "Copying the help website to the target directory ..."
+
+cd $rootDir
+robocopy "$solutionDir\$helpOutputDir" "$helpTargetDir" /MIR /NJH /NP /XF *.log /XF *.php /XF *.aspx /XF *.config
+
+popd
+
+echo ""
+echo "Finished building the BenchLib .NET API documentation."

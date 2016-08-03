@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="7e54f8d7-094e-4b84-a031-8d325c1b5937" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>Welcome to the .NET API of the core library of Bench.</para>
+			<para>
+		        You can find the main documentation for Bench
+				<externalLink>
+					<linkText>here</linkText>
+					<linkUri>http://mastersign.github.io/bench/</linkUri>
+				</externalLink>.
+			</para>
+		</introduction>
+		<relatedTopics>
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>

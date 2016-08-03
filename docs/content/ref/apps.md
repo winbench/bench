@@ -29,7 +29,7 @@ weight = 1
 | ID | Name | Version | Website |
 |----|------|---------|---------|
 | `7z` | [7-Zip](#7z) | 16.02 | <http://www.7-zip.de/download.html> |
-| `ConEmu` | [ConEmu](#ConEmu) | 16.06.19 | <https://conemu.github.io/> |
+| `ConEmu` | [ConEmu](#ConEmu) | 16.07.24 | <https://conemu.github.io/> |
 | `InnoUnp` | [Inno Setup Unpacker](#InnoUnp) | 0.45 | <http://innounp.sourceforge.net/> |
 | `LessMsi` | [Less MSIerables](#LessMsi) | 1.3 | <http://lessmsi.activescott.com/> |
 
@@ -208,7 +208,7 @@ weight = 1
 * ID: `ConEmu`
 * Typ: `default`
 * Website: <https://conemu.github.io/>
-* Version: 16.06.19
+* Version: 16.07.24
 
 ### Inno Setup Unpacker {#InnoUnp}
 

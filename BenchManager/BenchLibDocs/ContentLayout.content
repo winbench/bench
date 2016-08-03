@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Topics>
+  <Topic id="7e54f8d7-094e-4b84-a031-8d325c1b5937" visible="True" isDefault="true" isSelected="true" title="BenchLib .NET API">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="Welcome" />
+    </HelpKeywords>
+  </Topic>
+</Topics>
