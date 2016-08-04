@@ -46,6 +46,8 @@ Add a link to the GitHub diff like
 - Removed Bench tasks affecting all apps,
   from then menu in the setup dialog of BenchDashboard,
   because they where unsafe to execute while BenchDashboard is running
+- Removed option for editing the config file during the initialization
+  ([#67](https://github.com/mastersign/bench/issues/67))
 
 ## [0.12.1] - 2016-07-29
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)

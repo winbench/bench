@@ -53,7 +53,6 @@ namespace Mastersign.Bench
             foreach (var key in new[]
                 {
                     PropertyKeys.CustomConfigRepository,
-                    PropertyKeys.WizzardEditCustomConfigBeforeSetup,
                     PropertyKeys.WizzardStartAutoSetup
                 })
             {
@@ -115,13 +114,6 @@ namespace Mastersign.Bench
 
                     var customConfigTemplateFile = man.Config.GetStringValue(PropertyKeys.CustomConfigTemplateFile);
                     File.Copy(customConfigTemplateFile, customConfigFile, false);
-                }
-
-                if (man.Config.GetBooleanValue(PropertyKeys.WizzardEditCustomConfigBeforeSetup))
-                {
-                    Thread.Sleep(500);
-                    man.UI.EditTextFile(customConfigDir,
-                        "Adapt the custom configuration before starting the final setup.");
                 }
             }
 
@@ -609,7 +601,7 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
-        /// Runs the Bench task of uninstalling a specific app and all apps, depending on it, 
+        /// Runs the Bench task of uninstalling a specific app and all apps, depending on it,
         /// and then installing the specified app.
         /// </summary>
         /// <param name="man">The Bench manager.</param>

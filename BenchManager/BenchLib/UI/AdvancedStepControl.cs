@@ -20,12 +20,6 @@ namespace Mastersign.Bench.UI
             InitializeComponent();
         }
 
-        public bool EditCustomConfigBeforeSetup
-        {
-            get { return chkEditCustomConfigBeforeSetup.Checked; }
-            set { chkEditCustomConfigBeforeSetup.Checked = value; }
-        }
-
         public bool StartAutoSetup
         {
             get { return chkStartAutoSetup.Checked; }
