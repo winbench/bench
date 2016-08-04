@@ -110,7 +110,7 @@
             this.btnDocs.Name = "btnDocs";
             this.btnDocs.Size = new System.Drawing.Size(29, 25);
             this.btnDocs.TabIndex = 3;
-            this.toolTip.SetToolTip(this.btnDocs, "Bench Setup and Configuration");
+            this.toolTip.SetToolTip(this.btnDocs, "Documentation and Online Resources");
             this.btnDocs.Click += new System.EventHandler(this.DocsHandler);
             // 
             // btnAbout

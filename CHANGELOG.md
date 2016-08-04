@@ -34,6 +34,9 @@ Add a link to the GitHub diff like
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24
 
+### Fixed
+- Tooltip for documentation button in BenchDashboard
+
 ## [0.12.1] - 2016-07-29
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)
 
