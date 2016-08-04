@@ -28,6 +28,8 @@ Add a link to the GitHub diff like
 ### Added
 - Erlang 19.0
   ([#41](https://github.com/mastersign/bench/issues/41))
+- RabbitMQ 3.6.4
+  ([#41](https://github.com/mastersign/bench/issues/41))
 
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24

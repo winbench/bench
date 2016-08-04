@@ -1586,6 +1586,28 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 * HttpdDocumentRoot: `$HomeDir$\www`
 * HttpdListen: `127.0.0.1:80`
 
+### RabbitMQ
+
+RabbitMQ is ...  
+Robust messaging for applications,
+Easy to use,
+Runs on all major operating systems,
+Supports a huge number of developer platforms,
+Open source and commercially supported
+
+* ID: `RabbitMQ`
+* Website: <http://www.rabbitmq.com>
+* Docs:
+    + Documentation: <http://www.rabbitmq.com/documentation.html>
+    + Web Interface: <http://localhost:15672/>
+* Dependencies: `Erlang`
+* Version: 3.6.4
+* Url: `http://www.rabbitmq.com/releases/rabbitmq-server/v$:Version$/$:ArchiveName$`
+* ArchiveName: `rabbitmq-server-windows-$:Version$.zip`
+* ArchivePath: `rabbitmq_server-$:Version$`
+* Path: `sbin`
+* Exe: `sbin\rabbitmq-server.bat`
+
 ### Windows Sysinternals Suite
 
 A collection of tools by Mark Russinovich, to inspect and investigate
