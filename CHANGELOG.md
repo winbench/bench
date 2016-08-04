@@ -36,6 +36,7 @@ Add a link to the GitHub diff like
 
 ### Fixed
 - Tooltip for documentation button in BenchDashboard
+- Incorrect syntax in `config.md` template
 
 ## [0.12.1] - 2016-07-29
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)
