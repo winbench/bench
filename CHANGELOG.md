@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Erlang 19.0
+  ([#41](https://github.com/mastersign/bench/issues/41))
+
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24
 

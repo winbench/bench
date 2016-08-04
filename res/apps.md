@@ -1199,6 +1199,28 @@ to build simple, reliable, and efficient software.
 * Environment:
     + `GOROOT`: `$:Dir$`
 
+### Erlang
+
+Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance.
+
+* ID: `Erlang`
+* Website: <http://www.erlang.org/>
+* Docs:
+    + Documentation: `$:Dir$\doc\index.html`
+* VersionMajor: 19
+* VersionMinor: 0
+* ErtsVersion: 8.0
+* Version: $:VersionMajor$.$:VersionMinor$
+* Url: `http://erlang.org/download/$:ArchiveName$`
+* ArchiveName: `otp_win32_$:Version$.exe`
+* ArchiveType: `generic`
+* ErtsDir: `erts-$:ErtsVersion$`
+* Path: `$:ErtsDir$\bin`
+* Exe: `$:ErtsDir$\bin\erl.exe`
+* Environment: `ERLANG_HOME=$:ErtsDir$`
+* Launcher: $:Label$
+* LauncherExecutable: `$:ErtsDir$\bin\werl.exe`
+
 ### NuGet
 
 NuGet is the package manager for the Microsoft development platform including .NET.
