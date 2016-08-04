@@ -33,9 +33,6 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24
-- Removed Bench tasks affecting all apps, from then menu
-  in the setup dialog of BenchDashboard,
-  because they where unsafe to execute while BenchDashboard is running
 - Introduced file system watcher to automatically update
   the configuration of BenchDashboard incase a configuration
   file was changed.
@@ -44,6 +41,11 @@ Add a link to the GitHub diff like
 ### Fixed
 - Tooltip for documentation button in BenchDashboard
 - Incorrect syntax in `config.md` template
+
+### Removed
+- Removed Bench tasks affecting all apps,
+  from then menu in the setup dialog of BenchDashboard,
+  because they where unsafe to execute while BenchDashboard is running
 
 ## [0.12.1] - 2016-07-29
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)
