@@ -36,6 +36,10 @@ Add a link to the GitHub diff like
 - Removed Bench tasks affecting all apps, from then menu
   in the setup dialog of BenchDashboard,
   because they where unsafe to execute while BenchDashboard is running
+- Introduced file system watcher to automatically update
+  the configuration of BenchDashboard incase a configuration
+  file was changed.
+  ([#66](https://github.com/mastersign/bench/issues/66))
 
 ### Fixed
 - Tooltip for documentation button in BenchDashboard

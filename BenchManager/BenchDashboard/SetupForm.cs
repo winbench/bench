@@ -306,7 +306,6 @@ namespace Mastersign.Bench.Dashboard
 
         private void EditTextFile(string name, string path)
         {
-            if (core.Busy) throw new InvalidOperationException("The core is already busy.");
             if (!File.Exists(path))
             {
                 MessageBox.Show(
@@ -318,13 +317,7 @@ namespace Mastersign.Bench.Dashboard
                     MessageBoxIcon.Error);
                 return;
             }
-            core.Busy = true;
-            AsyncManager.StartTask(() =>
-            {
-                core.UI.EditTextFile(path);
-                core.Busy = false;
-                core.Reload(path == core.Config.GetStringValue(PropertyKeys.CustomConfigFile));
-            });
+            System.Diagnostics.Process.Start(path);
         }
 
         private void EditCustomConfigHandler(object sender, EventArgs e)

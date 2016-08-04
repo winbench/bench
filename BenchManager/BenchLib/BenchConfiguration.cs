@@ -192,6 +192,38 @@ namespace Mastersign.Bench
             RecordResponsibilities();
         }
 
+        /// <summary>
+        /// Gets an array with absolute paths for all configuration files
+        /// used to compile this configuration.
+        /// </summary>
+        public string[] Sources
+        {
+            get
+            {
+                var paths = new List<string>();
+                paths.Add(Path.Combine(BenchRootDir, ConfigFile));
+                if (WithCustomConfiguration)
+                {
+                    paths.Add(GetStringValue(PropertyKeys.CustomConfigFile));
+                }
+                if (WithSiteConfiguration)
+                {
+                    paths.AddRange(FindSiteConfigFiles(BenchRootDir, siteConfigFileName));
+                }
+                if (WithAppIndex)
+                {
+                    paths.Add(GetStringValue(PropertyKeys.AppIndexFile));
+                    if (WithCustomConfiguration)
+                    {
+                        paths.Add(GetStringValue(PropertyKeys.CustomAppIndexFile));
+                        paths.Add(GetStringValue(PropertyKeys.AppActivationFile));
+                        paths.Add(GetStringValue(PropertyKeys.AppDeactivationFile));
+                    }
+                }
+                return paths.ToArray();
+            }
+        }
+
         private static string[] FindSiteConfigFiles(string benchRootDir, string fileName)
         {
             var results = new List<string>();
