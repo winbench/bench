@@ -32,6 +32,7 @@ Add a link to the GitHub diff like
   ([#41](https://github.com/mastersign/bench/issues/41))
 - RabbitMQ 3.6.4
   ([#41](https://github.com/mastersign/bench/issues/41))
+- NUnit 3 Test Runner (latest)
 
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24

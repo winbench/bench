@@ -1238,6 +1238,22 @@ The NuGet Gallery is the central package repository used by all package authors 
 * Url: <https://dist.nuget.org/win-x86-commandline/latest/nuget.exe>
 * ResourceName: `nuget.exe`
 
+### NUnit 3 Runner
+
+NUnit is a unit-testing framework for all .Net languages.
+The console runner `nunit3-console.exe` executes tests on the console.
+
+* ID: `NUnit.Runners`
+* Label: NUnit 3 Runners
+* Typ: nuget-package
+* Website: <http://nunit.org/>
+* Docs:
+    + Documentation: <https://github.com/nunit/docs/wiki>
+    + Console Runner: <https://github.com/nunit/docs/wiki/Console-Runner>
+    + Command Line: <https://github.com/nunit/docs/wiki/Console-Command-Line>
+* Path: `NUnit.ConsoleRunner\tools`
+* Exe: `$:Path$\nunit3-console.exe`
+
 ### Zeal
 
 An offline documentation browser inspired by [Dash](https://kapeli.com/dash/).
