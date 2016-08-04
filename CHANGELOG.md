@@ -26,6 +26,8 @@ Add a link to the GitHub diff like
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ### Added
+- Support for NuGet packages
+  ([#75](https://github.com/mastersign/bench/issues/75))
 - Erlang 19.0
   ([#41](https://github.com/mastersign/bench/issues/41))
 - RabbitMQ 3.6.4

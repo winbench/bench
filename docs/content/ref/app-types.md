@@ -15,6 +15,7 @@ There are currently the following types of apps:
 * Typ `python2-package`: Python packages for Python 2 from PyPI, installable with PIP
 * Typ `python3-package`: Python packages for Python 3 from PyPI, installable with PIP
 * Typ `ruby-package`: Ruby packages, installable with Gem
+* Typ `nuget-package`: NuGet packages, installable with NuGet
 
 ## Meta App {#meta}
 An app is a _Meta App_ if its [`Typ`][] is set to `meta`.
@@ -66,3 +67,16 @@ manager, also called _gem_.
 
 To determine, if a _Ruby gem_ is already installed, the existence of its package folder in
 `lib\ruby\gems\<ruby-version>\gems` in the Ruby directory is checked.
+
+## NuGet Package {#nuget-package}
+An app is a _NuGet Package_ if its [`Typ`][] property is set to `nuget-package`.
+
+A _NuGet Package_ is one package from <https://www.nuget.org/packages> and all of its dependencies.
+The package and its dependencies are installed inside of the apps target directory
+`lib\<AppDir>` side-by-side.
+The individual package folders in the app target directory `lib\<AppDir>\<PackageName>`
+are created without a version number, to simplify building paths.
+
+To determine, if a _NuGet Package_ is already installed,
+the existence of the `*.nupkg` file of the main package
+`lib\<AppDir>\<PackageName>\<PackageName>.nupkg` is checked.

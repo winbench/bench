@@ -26,5 +26,8 @@ namespace Mastersign.Bench
 
         /// <summary>The name of the app typ for Python 3 packages, managed by PIP.</summary>
         public const string Python3Package = "python3-package";
+
+        /// <summary>The name of the app typ for NuGet packages.</summary>
+        public const string NuGetPackage = "nuget-package";
     }
 }

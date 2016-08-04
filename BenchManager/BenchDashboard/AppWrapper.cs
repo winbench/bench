@@ -49,6 +49,8 @@ namespace Mastersign.Bench.Dashboard
                         return "Python 2";
                     case AppTyps.Python3Package:
                         return "Python 3";
+                    case AppTyps.NuGetPackage:
+                        return "NuGet";
                     default:
                         return app.Typ;
                 }

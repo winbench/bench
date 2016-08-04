@@ -1505,7 +1505,7 @@ namespace Mastersign.Bench
             var argList = new List<string>();
             argList.Add("install");
             argList.Add(app.PackageName);
-            if (app.Version != null) argList.Add(app.Version);
+            if (app.IsVersioned) argList.Add(app.Version);
             if (app.IsInstalled) argList.Add("--upgrade");
             argList.Add("--quiet");
             var args = CommandLine.FormatArgumentList(argList.ToArray());
@@ -1517,6 +1517,41 @@ namespace Mastersign.Bench
                 throw new ProcessExecutionFailedException(
                     string.Format("Installing the {0} package {1} failed.", pyVer, app.PackageName),
                     pipExe + " " + args, result.ExitCode, result.Output);
+            }
+        }
+
+        private static void InstallNuGetPackage(BenchConfiguration config, IProcessExecutionHost execHost, AppFacade app)
+        {
+            var nugetExe = config.Apps[AppKeys.NuGet].Exe;
+            if (nugetExe == null || !File.Exists(nugetExe))
+            {
+                throw new FileNotFoundException("The NuGet executable was not found.");
+            }
+            var argList = new List<string>();
+            argList.Add("install");
+            argList.Add(app.PackageName);
+            if (app.IsVersioned)
+            {
+                argList.Add("-Version");
+                argList.Add(app.Version);
+            }
+            argList.Add("-OutputDirectory");
+            argList.Add(app.Dir);
+            argList.Add("-ExcludeVersion");
+            argList.Add("-NoCache");
+            argList.Add("-Verbosity");
+            argList.Add("normal");
+            argList.Add("-NonInteractive");
+            var args = CommandLine.FormatArgumentList(argList.ToArray());
+            FileSystem.AsureDir(app.Dir);
+            var result = execHost.RunProcess(new BenchEnvironment(config), config.BenchRootDir, nugetExe, args,
+                ProcessMonitoring.ExitCodeAndOutput);
+
+            if (result.ExitCode != 0)
+            {
+                throw new ProcessExecutionFailedException(
+                    string.Format("Installing the NuGet package {1} failed.", app.PackageName),
+                    nugetExe + " " + args, result.ExitCode, result.Output);
             }
         }
 
@@ -1582,6 +1617,9 @@ namespace Mastersign.Bench
                             break;
                         case AppTyps.Python3Package:
                             InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                            break;
+                        case AppTyps.NuGetPackage:
+                            InstallNuGetPackage(man.Config, man.ProcessExecutionHost, app);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException("Invalid app typ '" + app.Typ + "' for app " + app.ID + ".");
@@ -1842,6 +1880,9 @@ namespace Mastersign.Bench
                                 break;
                             case AppTyps.Python3Package:
                                 UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                                break;
+                            case AppTyps.NuGetPackage:
+                                UninstallGeneric(man.Config, app);
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException("Invalid app typ '" + app.Typ + "' for app " + app.ID + ".");

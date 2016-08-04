@@ -69,6 +69,12 @@ namespace Mastersign.Bench
                             return Path.Combine(
                                 AppIndex.GetGroupValue(AppKeys.Python3, PropertyKeys.AppDir) as string,
                                 "Scripts");
+                        case AppTyps.NuGetPackage:
+                            return Path.Combine(
+                                Path.Combine(
+                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppDir) as string,
+                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppPackageName) as string),
+                                "tools");
                         default:
                             return AppIndex.GetGroupValue(appName, PropertyKeys.AppDir);
                     }
@@ -90,7 +96,18 @@ namespace Mastersign.Bench
                 case PropertyKeys.AppLauncherIcon:
                     return AppIndex.GetGroupValue(appName, PropertyKeys.AppLauncherExecutable);
                 case PropertyKeys.AppSetupTestFile:
-                    return AppIndex.GetGroupValue(appName, PropertyKeys.AppExe);
+                    appTyp = AppIndex.GetGroupValue(appName, PropertyKeys.AppTyp) as string;
+                    switch (appTyp)
+                    {
+                        case AppTyps.NuGetPackage:
+                            return Path.Combine(
+                                Path.Combine(
+                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppDir) as string,
+                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppPackageName) as string),
+                                AppIndex.GetGroupValue(appName, PropertyKeys.AppPackageName) + ".nupkg");
+                        default:
+                            return AppIndex.GetGroupValue(appName, PropertyKeys.AppExe);
+                    }
                 default:
                     throw new NotSupportedException();
             }

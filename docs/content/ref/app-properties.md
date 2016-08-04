@@ -53,7 +53,14 @@ weight = 8
 
 * Description: The application typ
 * Data Type: string
-* Possible Values: `default`, `meta`, `node-package`, `python2-package`, `python3-package`, `ruby-package`
+* Possible Values:
+    + `default`
+    + `meta`
+    + `node-package`
+    + `python2-package`
+    + `python3-package`
+    + `ruby-package`
+    + `nuget-package`
 * Required: `false`
 * Default: `default`
 * App Types: all

@@ -119,7 +119,8 @@ namespace Mastersign.Bench
                 return typ == AppTyps.NodePackage
                     || typ == AppTyps.RubyPackage
                     || typ == AppTyps.Python2Package
-                    || typ == AppTyps.Python3Package;
+                    || typ == AppTyps.Python3Package
+                    || typ == AppTyps.NuGetPackage;
             }
         }
 
@@ -782,6 +783,7 @@ namespace Mastersign.Bench
                     case AppTyps.RubyPackage:
                     case AppTyps.Python2Package:
                     case AppTyps.Python3Package:
+                    case AppTyps.NuGetPackage:
                         if (IsInstalled)
                         {
                             if (IsDeactivated)
@@ -1050,11 +1052,14 @@ namespace Mastersign.Bench
                 case AppTyps.Python3Package:
                     AddDependency(AppKeys.Python3);
                     break;
+                case AppTyps.NuGetPackage:
+                    AddDependency(AppKeys.NuGet);
+                    break;
             }
         }
 
         /// <summary>
-        /// Track down all apps, which refer to this app as a dependency 
+        /// Track down all apps, which refer to this app as a dependency
         /// and store the list app IDs in the app property <c>Responsibilities</c>.
         /// </summary>
         internal void TrackResponsibilities()
