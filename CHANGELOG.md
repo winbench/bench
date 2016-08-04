@@ -33,6 +33,9 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24
+- Removed Bench tasks affecting all apps, from then menu
+  in the setup dialog of BenchDashboard,
+  because they where unsafe to execute while BenchDashboard is running
 
 ### Fixed
 - Tooltip for documentation button in BenchDashboard

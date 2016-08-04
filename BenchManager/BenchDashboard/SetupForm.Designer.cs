@@ -106,6 +106,7 @@
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+            toolStripSeparator2.Visible = false;
             // 
             // toolStripSeparator3
             // 
@@ -513,8 +514,8 @@
             // 
             this.tsmSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAuto,
-            toolStripSeparator2,
             this.tsmiUpdateEnvironment,
+            toolStripSeparator2,
             this.tsmiInstallAll,
             this.tsmiReinstallAll,
             this.tsmiUpgradeAll,
@@ -550,6 +551,7 @@
             this.tsmiInstallAll.Name = "tsmiInstallAll";
             this.tsmiInstallAll.Size = new System.Drawing.Size(230, 22);
             this.tsmiInstallAll.Text = "&Install Apps";
+            this.tsmiInstallAll.Visible = false;
             this.tsmiInstallAll.Click += new System.EventHandler(this.InstallAllHandler);
             // 
             // tsmiReinstallAll
@@ -558,6 +560,7 @@
             this.tsmiReinstallAll.Name = "tsmiReinstallAll";
             this.tsmiReinstallAll.Size = new System.Drawing.Size(230, 22);
             this.tsmiReinstallAll.Text = "&Reinstall Apps";
+            this.tsmiReinstallAll.Visible = false;
             this.tsmiReinstallAll.Click += new System.EventHandler(this.ReinstallAllHandler);
             // 
             // tsmiUpgradeAll
@@ -566,6 +569,7 @@
             this.tsmiUpgradeAll.Name = "tsmiUpgradeAll";
             this.tsmiUpgradeAll.Size = new System.Drawing.Size(230, 22);
             this.tsmiUpgradeAll.Text = "&Upgrade Apps";
+            this.tsmiUpgradeAll.Visible = false;
             this.tsmiUpgradeAll.Click += new System.EventHandler(this.UpgradeAllHandler);
             // 
             // tsmiUninstallAll
@@ -574,6 +578,7 @@
             this.tsmiUninstallAll.Name = "tsmiUninstallAll";
             this.tsmiUninstallAll.Size = new System.Drawing.Size(230, 22);
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
+            this.tsmiUninstallAll.Visible = false;
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
             // 
             // tsmiCleanUpObsoleteResources
