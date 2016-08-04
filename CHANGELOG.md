@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Changed
+- Update: ConEmu from 16.06.19 to 16.07.24
+
 ## [0.12.1] - 2016-07-29
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)
 
