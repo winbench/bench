@@ -236,6 +236,13 @@ weight = 1
 * Version: 24.5
 * Dependencies: [GNU TLS](#GnuTLS)
 
+### Erlang {#Erlang}
+
+* ID: `Erlang`
+* Typ: `default`
+* Website: <http://www.erlang.org/>
+* Version: 19.0
+
 ### FFmpeg {#FFmpeg}
 
 * ID: `FFmpeg`
@@ -498,6 +505,14 @@ weight = 1
 * Website: <https://www.nuget.org>
 * Version: latest
 
+### NUnit 3 Runners {#NUnit.Runners}
+
+* ID: `NUnit.Runners`
+* Typ: `nuget-package`
+* Website: <http://nunit.org/>
+* Version: latest
+* Dependencies: [NuGet](#NuGet)
+
 ### OpenSSL {#OpenSSL}
 
 * ID: `OpenSSL`
@@ -569,6 +584,14 @@ weight = 1
 * Typ: `default`
 * Website: <https://www.python.org/>
 * Version: 3.4.4
+
+### RabbitMQ {#RabbitMQ}
+
+* ID: `RabbitMQ`
+* Typ: `default`
+* Website: <http://www.rabbitmq.com>
+* Version: 3.6.4
+* Dependencies: [Erlang](#Erlang)
 
 ### Ruby {#Ruby}
 

@@ -49,6 +49,7 @@ weight = 1
 | `EclipseJava` | [Eclipse for Java](#EclipseJava) | 4.5 | <http://www.eclipse.org/> |
 | `EclipsePHP` | [Eclipse for PHP](#EclipsePHP) | 4.5 | <http://www.eclipse.org/> |
 | `Emacs` | [Emacs](#Emacs) | 24.5 | <https://www.gnu.org/software/emacs/> |
+| `Erlang` | [Erlang](#Erlang) | 19.0 | <http://www.erlang.org/> |
 | `FFmpeg` | [FFmpeg](#FFmpeg) | 20160512-git-cd244fa | <https://www.ffmpeg.org/> |
 | `FileZilla` | [FileZilla](#FileZilla) | 3.18.0 | <https://filezilla-project.org/> |
 | `Gimp` | [GIMP](#Gimp) | 2.8.16 | <http://www.gimp.org/> |
@@ -85,6 +86,7 @@ weight = 1
 | `Node` | [Node.js](#Node) | 6.3.1 | <https://nodejs.org> |
 | `Npm` | [NPM](#Npm) | >=3.7.0 <4.0.0 | <https://www.npmjs.com/package/npm> |
 | `NuGet` | [NuGet](#NuGet) | latest | <https://www.nuget.org> |
+| `NUnit.Runners` | [NUnit 3 Runners](#NUnit.Runners) | latest | <http://nunit.org/> |
 | `OpenSSL` | [OpenSSL](#OpenSSL) | 1.0.2h | <https://www.openssl.org/> |
 | `Pandoc` | [Pandoc](#Pandoc) | 1.17.1 | <https://github.com/jgm/pandoc/releases/latest> |
 | `PHP5` | [PHP 5](#PHP5) | 5.6.21 | <http://www.php.net> |
@@ -95,6 +97,7 @@ weight = 1
 | `PyReadline3` | [PyReadline (Python 3)](#PyReadline3) | latest | <https://pypi.python.org/pypi/pyreadline> |
 | `Python2` | [Python 2](#Python2) | 2.7.11 | <https://www.python.org/> |
 | `Python3` | [Python 3](#Python3) | 3.4.4 | <https://www.python.org/> |
+| `RabbitMQ` | [RabbitMQ](#RabbitMQ) | 3.6.4 | <http://www.rabbitmq.com> |
 | `Ruby` | [Ruby](#Ruby) | 2.2.4 | <https://www.ruby-lang.org/> |
 | `Sass` | [SASS](#Sass) | latest | <http://sass-lang.com/> |
 | `Sift` | [Sift](#Sift) | 0.8.0 | <https://sift-tool.org/> |
@@ -314,6 +317,13 @@ weight = 1
 * Website: <https://www.gnu.org/software/emacs/>
 * Version: 24.5
 * Dependencies: [GNU TLS](#GnuTLS)
+
+### Erlang {#Erlang}
+
+* ID: `Erlang`
+* Typ: `default`
+* Website: <http://www.erlang.org/>
+* Version: 19.0
 
 ### FFmpeg {#FFmpeg}
 
@@ -577,6 +587,14 @@ weight = 1
 * Website: <https://www.nuget.org>
 * Version: latest
 
+### NUnit 3 Runners {#NUnit.Runners}
+
+* ID: `NUnit.Runners`
+* Typ: `nuget-package`
+* Website: <http://nunit.org/>
+* Version: latest
+* Dependencies: [NuGet](#NuGet)
+
 ### OpenSSL {#OpenSSL}
 
 * ID: `OpenSSL`
@@ -648,6 +666,14 @@ weight = 1
 * Typ: `default`
 * Website: <https://www.python.org/>
 * Version: 3.4.4
+
+### RabbitMQ {#RabbitMQ}
+
+* ID: `RabbitMQ`
+* Typ: `default`
+* Website: <http://www.rabbitmq.com>
+* Version: 3.6.4
+* Dependencies: [Erlang](#Erlang)
 
 ### Ruby {#Ruby}
 
