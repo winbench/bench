@@ -61,6 +61,23 @@ can not really be upgraded without changing their definition.
 But apps without a specific version number or a version range,
 can be upgraded in that way.
 
+## Dependencies and Order
+Before an app can be installed, all of its dependencies must be installed.
+This is necessary to allow custom setup scripts of an app
+depend on the apps dependencies to be installed.
+If an app with dependencies is installed in a task, then the task is automatically
+extended to cover all dependencies not installed yet.
+The same is true the other way around for the uninstallation of an app.
+Before an app is uninstalled, all apps that depend on this app
+are uninstalled before the app is uninstalled.
+
+If multiple apps are installed or uninstalled in one task, the steps, e.g.
+_download_, _setup_, and _environment setup_, can be performed consolidated.
+Meaning first all _downloads_ are performed, then all _setups_ are performed,
+and at last the _environment setup_ for all affected apps is performed.
+Multiple apps are always installed in the order their ID is first listed in
+the application libraries &ndash; first Bench app library, then user app library.
+
 ## Custom Scripts and Hooks {#custom-scripts}
 Simple [default apps][default app] with XCOPY deployment or
 package apps, usually do not need custom scripts.
@@ -99,14 +116,14 @@ is used.
 _Default Apps_ are programs, which consist of at least one file,
 which is executable by Windows.
 This can be an `*.exe`, a `*.cmd`, or a `*.bat` file.
-A default app has a resource file or archive which can be downloaded via a HTTP(S) URL.
+A _Default App_ has a resource file or archive which can be downloaded via a HTTP(S) URL.
 If the app has resource file, usually the resource file itself is the executable.
 If the app has a resource archive, the executable can be one of many files.
 
 #### Installation {#typ-default-install}
 A _Default App_ can be installed, if it is not installed already.
 
-The installation of a default app is performed by the following steps:
+The installation of a _Default App_ is performed by the following steps:
 
 * Download the resource file or archive if not cached
 * **If** the resource is an archive file:
@@ -132,27 +149,14 @@ The installation of a default app is performed by the following steps:
 * Run the [environment setup hook script][Environment Setup Hook] if it exists.
   If multiple apps are installed in one task, the hook script is only run once at the end.
 
-Before an app can be installed, all of its dependencies must be installed.
-This is necessary to allow custom setup scripts of an app
-depend on the apps dependencies to be installed.
-If an app with dependencies is installed in a task, then the task is automatically
-extended to cover all dependencies not installed yet.
-
-If multiple apps are installed in one task, the steps _download_, _setup_,
-and _environment setup_ can be performed consolidated.
-Meaning first all _downloads_ are performed, then all _setups_ are performed,
-and at last the _environment setup_ for all affected apps is performed.
-Multiple apps are always installed in the order their ID is first listed in
-the application libraries (first internal, then custom).
-
-To check if an app is already installed, the [`SetupTestFile`][App SetupTestFile]
+To check if a _Default App_ is already installed, the [`SetupTestFile`][App SetupTestFile]
 is checked for existence.
 
 #### Upgrade {#typ-default-upgrade}
 A _Default App_ can be upgraded, if it is installed,
 and its [`Version`][App Version] is empty or set to `latest`.
 
-The upgrade of an app is performed by [removing](#typ-default-uninstall) the app,
+The upgrade of an _Default App_ is performed by [removing](#typ-default-uninstall) the app,
 deleting its app resource in case it is cached,
 and [installing](#typ-default-install) the app again.
 
@@ -171,7 +175,7 @@ Examples are _npm_ for _Node.js_ or _PIP_ for _Python_.
 #### Installation {#typ-package-install}
 A _Package App_ can be installed, if it is not installed already.
 
-The installation of a package app is performed by the following steps:
+The installation of a _Package App_ is performed by the following steps:
 
 * Execute the package manager in the installation mode,  
   e.g. `npm install package-xyz@3.1.2 --global`.
@@ -192,9 +196,9 @@ deleting its app resource in case it is cached, and [installing](#typ-package-in
 the app again.
 
 #### Uninstallation {#typ-package-uninstall}
-A package app can be uninstalled, if it is installed.
+A _Package App_ can be uninstalled, if it is installed.
 
-The uninstallation of a package app is performed by the following steps:
+The uninstallation of a _Package App_ is performed by the following steps:
 
 * Run the [custom removal script][] `<app-id>.remove.ps1` if one is found.
 * Remove the installed package
