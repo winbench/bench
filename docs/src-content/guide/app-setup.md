@@ -1,13 +1,13 @@
 +++
 date = "2016-06-22T13:22:33+02:00"
 description = "The process of installing or upgrading an app"
-draft = true
 title = "App Setup and Upgrade"
 weight = 3
 +++
 
 [App Types]: /ref/app-types
 [Default App]: /ref/app-types/#default
+[NuGet Package]: /ref/app-types/#nuget-package
 [App Version]: /ref/app-properties/#Version
 [App Dependencies]: /ref/app-properties/#Dependencies
 [App ArchiveTyp]: /ref/app-properties/#ArchiveTyp
@@ -41,13 +41,13 @@ Not all app types support or need all steps.
 2. Extracting the app resource archive
    (only for [default apps][default app] with archive resource,
    can be overridden by a [custom extract script][])
-3. Setup of the resources by copying them to the target directory or installation
+3. Setup of the resources by copying to the target directory or installation
    via package manager
    (can be followed by a [custom setup script][])
 4. Setup of the execution adornment proxies and the launchers
 5. Environment setup for configuration depending on the proxy settings,
    the absolute path of the Bench root directory, or other parameters
-   that my change after setting up the app
+   that may change after setting up the app
    (this step can be performed multiple times, whenever the environment changes,
    implemented by a [custom environment setup script][]])
 6. Uninstalling the app
@@ -96,7 +96,7 @@ When uninstalling or upgrading _Meta Apps_, the [uninstall step][custom remove]
 is used.
 
 ### Default Apps {#typ-default}
-Default apps are programs, which consist of at least one file,
+_Default Apps_ are programs, which consist of at least one file,
 which is executable by Windows.
 This can be an `*.exe`, a `*.cmd`, or a `*.bat` file.
 A default app has a resource file or archive which can be downloaded via a HTTP(S) URL.
@@ -104,6 +104,8 @@ If the app has resource file, usually the resource file itself is the executable
 If the app has a resource archive, the executable can be one of many files.
 
 #### Installation {#typ-default-install}
+A _Default App_ can be installed, if it is not installed already.
+
 The installation of a default app is performed by the following steps:
 
 * Download the resource file or archive if not cached
@@ -147,26 +149,28 @@ To check if an app is already installed, the [`SetupTestFile`][App SetupTestFile
 is checked for existence.
 
 #### Upgrade {#typ-default-upgrade}
-An app can be upgraded, if it is installed, and its [`Version`][App Version]
-is empty or set to `latest`.
+A _Default App_ can be upgraded, if it is installed,
+and its [`Version`][App Version] is empty or set to `latest`.
 
 The upgrade of an app is performed by [removing](#typ-default-uninstall) the app,
-deleting its app resource in case it is cached, and [installing](#typ-default-install)
-the app again.
+deleting its app resource in case it is cached,
+and [installing](#typ-default-install) the app again.
 
 #### Uninstalling {#typ-default-uninstall}
-An app can be uninstalled, if it is installed.
+A _Default App_ can be uninstalled, if it is installed.
 
 The removal of an app is performed by the following steps:
 
-* Run the [custom removal script][] `<app-id>.remove.ps1` if it exists.
+* Run the [custom removal script][] `<app-id>.remove.ps1` if one is found.
 * Delete the apps target directory and all of its content.
 
 ### Package Apps {#typ-package}
-Package apps are apps, which are managed by some kind of package manager.
+_Package Apps_ are apps, which are managed by some kind of package manager.
 Examples are _npm_ for _Node.js_ or _PIP_ for _Python_.
 
 #### Installation {#typ-package-install}
+A _Package App_ can be installed, if it is not installed already.
+
 The installation of a package app is performed by the following steps:
 
 * Execute the package manager in the installation mode,  
@@ -180,10 +184,24 @@ The installation of a package app is performed by the following steps:
 * Run the [environment setup hook script][Environment Setup Hook] if it exists.
   If multiple apps are installed in one task, the hook script is only run once at the end.
 
+#### Upgrade {#typ-default-upgrade}
+An _Package App_ can be upgraded, if it is installed.
+
+The upgrade of an app is performed by [removing](#typ-package-uninstall) the app,
+deleting its app resource in case it is cached, and [installing](#typ-package-install)
+the app again.
+
 #### Uninstallation {#typ-package-uninstall}
+A package app can be uninstalled, if it is installed.
+
 The uninstallation of a package app is performed by the following steps:
 
-* Execute the package manager in the uninstallation mode,  
-  e.g. `npm remove package-xyz --global`.
+* Run the [custom removal script][] `<app-id>.remove.ps1` if one is found.
+* Remove the installed package
+    + If it is a [NuGet package][]:
+      Deleting the app target directory with all its content.
+    + Otherwise:
+      Execute the package manager in the uninstallation mode,  
+      e.g. `npm remove package-xyz --global`.
 
-TODO
+Notice: To remove the _Launcher_ for the app, the environment setup must be executed.
