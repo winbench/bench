@@ -791,7 +791,7 @@ Python is a programming language that lets you work quickly and integrate system
     + Documentation: <https://docs.python.org/2/>
     + Language Reference: <https://docs.python.org/2/reference/index.html>
     + Library Reference: <https://docs.python.org/2/library/index.html>
-* Version: 2.7.11
+* Version: 2.7.12
 * Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
 * ArchiveName: `python-$:Version$.msi`
 * ArchivePath: `SourceDir`
