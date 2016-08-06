@@ -57,4 +57,9 @@ gulp.task('build-css', ['build-less'], function () {
         .pipe(gulp.dest('static/css/'));
 });
 
+gulp.task('watch', ['preprocess-markdown', 'build-css'], function () {
+    gulp.watch('./src-content/**/*.md', ['preprocess-markdown']);
+    gulp.watch('./src-static/css/*.less', ['build-css']);
+});
+
 gulp.task('default', ['preprocess-markdown', 'copy-fonts', 'build-css']);
