@@ -300,7 +300,7 @@ file transfer resume, proxy tunneling and more.
 * Docs:
     + Manual: <https://curl.haxx.se/docs/manual.html>
     + Man Page: <https://curl.haxx.se/docs/manpage.html>
-* Version: 7.48.0
+* Version: 7.50.1
 * Url: `https://bintray.com/artifact/download/vszakats/generic/$:ArchiveName$`
 * ArchiveName: `curl-$:Version$-win32-mingw.7z`
 * ArchivePath: `curl-$:Version$-win32-mingw`
