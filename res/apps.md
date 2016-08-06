@@ -1283,8 +1283,8 @@ is picked up from Atom._
     + Flight Manual: <http://flight-manual.atom.io/>
     + API Reference: `https://atom.io/docs/api/v$:Version$/AtomEnvironment`
 * Version: 1.9.6
-* Url: `https://github.com/atom/atom/releases/download/v$:Version$/$:ArchiveName$`
-* ArchiveName: `atom-windows.zip`
+* Url: `https://github.com/atom/atom/releases/download/v$:Version$/atom-windows.zip`
+* ArchiveName: `atom-windows-$:Version$.zip`
 * ArchivePath: `Atom`
 * Environment:
     + ATOM_HOME: `$HomeDir$\.atom`
