@@ -38,6 +38,7 @@ Add a link to the GitHub diff like
 - Update: ConEmu from 16.06.19 to 16.07.24
 - Update: Git from 2.9.0 to 2.9.2
 - Update: cURL from 7.48.0 to 7.50.1
+- Update: FileZilla from 3.18.0 to 3.20.1
 - Update: Python 2 from 2.7.11 to 2.7.12
 - Update: Atom from 1.8.0 to 1.9.6
 - Introduced file system watcher to automatically update

@@ -317,7 +317,7 @@ FileZilla Client is a free, open source FTP client. It supports FTP, SFTP, and F
     + Documentation: <https://wiki.filezilla-project.org/Documentation>
     + Usage: <https://wiki.filezilla-project.org/Using>
     + Tutorial: <https://wiki.filezilla-project.org/FileZilla_Client_Tutorial_(en)>
-* Version: 3.18.0
+* Version: 3.20.1
 * Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$:ArchiveName$`
 * ArchiveName: `FileZillaPortable_$:Version$.paf.exe`
 * ArchivePath: `App/filezilla`
