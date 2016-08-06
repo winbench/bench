@@ -40,6 +40,7 @@ Add a link to the GitHub diff like
 - Update: cURL from 7.48.0 to 7.50.1
 - Update: FileZilla from 3.18.0 to 3.20.1
 - Update: Pandoc from 1.17.1 to 1.17.2
+- Update: GraphicsMagick from 1.3.23 to 1.3.24
 - Update: Python 2 from 2.7.11 to 2.7.12
 - Update: Atom from 1.8.0 to 1.9.6
 - Introduced file system watcher to automatically update
