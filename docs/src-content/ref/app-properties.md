@@ -55,6 +55,30 @@ The meaning of the different possible values is explained in [App Types](/ref/ap
 * Default: empty
 * App Types: all
 
+## Website {#Website}
+
+* Description: A URL to the main website of this program
+* Data Type: URL
+* Required: `false`
+* Default: empty
+* App Types: all
+
+This URL is used to create an entry in the documentation menu in the
+main window of the Bench Dashboard.
+
+## Docs {#Docs}
+
+* Description: A dictionary with documentation URLs for this program
+* Data Type: dictionary of labels and URLs
+* Required: `false`
+* Default: empty
+* App Types: all
+
+This dictionary lists a number of documentation links for this program.
+Each entry is a key-value-pair of a label and a URL.
+This dictionary is used to create entries in the documentation menu in the
+main window of the Bench Dashbaord.
+
 ## Force {#Force}
 
 * Description: A boolean, indicating if the package should allways be installed, even if it is already installed
