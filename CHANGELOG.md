@@ -36,6 +36,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24
+- Update: Atom from 1.8.0 to 1.9.6
 - Introduced file system watcher to automatically update
   the configuration of BenchDashboard incase a configuration
   file was changed.

@@ -1272,6 +1272,9 @@ An offline documentation browser inspired by [Dash](https://kapeli.com/dash/).
 
 A hackable text editor for the 21st Century.
 
+_Hint: Install the `env-from-shell` package to make sure the Bench environment
+is picked up from Atom._
+
 * ID: `Atom`
 * Website: <https://atom.io>
 * Docs:
@@ -1279,7 +1282,7 @@ A hackable text editor for the 21st Century.
     + Themes: <https://atom.io/themes>
     + Flight Manual: <http://flight-manual.atom.io/>
     + API Reference: `https://atom.io/docs/api/v$:Version$/AtomEnvironment`
-* Version: 1.8.0
+* Version: 1.9.6
 * Url: `https://github.com/atom/atom/releases/download/v$:Version$/$:ArchiveName$`
 * ArchiveName: `atom-windows.zip`
 * ArchivePath: `Atom`
