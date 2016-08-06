@@ -76,9 +76,10 @@ and [`apps-deactivated.txt`][Deactivated Apps] with a text editor and run
 the Bench auto setup afterwards.
 
 ### Activation with Bench Dashboard
-To activate or deactivate an app in the Bench Dashboard, open the setup dialog
-and just click on the checkboxes in the app list.
-After making your app selection, you have to run the Bench auto setup,
+To activate or deactivate an app in the [Bench Dashboard](/ref/dashboard),
+open the [setup dialog](/ref/dashboard/#setup) and just click on the checkboxes
+in the [app list](/ref/dashboard/#setup-applist).
+After making your app selection, you have to run the _Bench Auto Setup_,
 to make the needed changes to the Bench installation.
 
 ### Activation by Editing Text Files
