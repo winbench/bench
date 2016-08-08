@@ -19,6 +19,11 @@ namespace Mastersign.Bench
     public static class BenchTasks
     {
         /// <summary>
+        /// A list with app IDs which will not be uninstalled during Bench tasks.
+        /// </summary>
+        public static List<string> UninstallBlacklist = new List<string>();
+
+        /// <summary>
         /// Checks, whether the installed .NET framework has at least the version 4.5,
         /// and therefore supports the BenchDashboard user interface.
         /// </summary>
@@ -1844,6 +1849,8 @@ namespace Mastersign.Bench
                 if (cancelation.IsCanceled) break;
                 cnt++;
                 var progress = (float)cnt / selectedApps.Count;
+
+                if (UninstallBlacklist.Contains(app.ID)) continue;
 
                 notify(new TaskProgress(
                     string.Format("Uninstalling app {0}.", app.ID),
