@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
+using System.Text.RegularExpressions;
 using IOPath = System.IO.Path;
 
 namespace Mastersign.Bench
@@ -37,6 +37,7 @@ namespace Mastersign.Bench
         {
             isInstalled = GetIsInstalled();
             isResourceCached = GetIsResourceCached();
+            installedVersion = GetInstalledVersion();
         }
 
         /// <summary>
@@ -50,6 +51,7 @@ namespace Mastersign.Bench
         {
             isInstalled = null;
             isResourceCached = null;
+            installedVersion = null;
         }
 
         private object Value(string property)
@@ -142,6 +144,17 @@ namespace Mastersign.Bench
             {
                 return Version != null && !Version.Equals("latest", StringComparison.InvariantCultureIgnoreCase);
             }
+        }
+
+        private static Regex simpleVersionPattern = new Regex(@"^\d+(\.\d)*$");
+
+        /// <summary>
+        /// Checks, if the version of this app is a simple version number
+        /// like <c>1.12.5.000</c> or <c>3.4</c>.
+        /// </summary>
+        public bool IsSimpleVersion
+        {
+            get { return IsVersioned && simpleVersionPattern.Match(Version).Success; }
         }
 
         /// <summary>
@@ -470,6 +483,13 @@ namespace Mastersign.Bench
             return null;
         }
 
+        internal string GetVersionFile()
+        {
+            return IOPath.Combine(
+                AppIndex.GetStringValue(PropertyKeys.AppVersionIndexDir),
+                ID + ".txt");
+        }
+
         #endregion
 
         #region Status
@@ -620,6 +640,53 @@ namespace Mastersign.Bench
                 if (!isResourceCached.HasValue) isResourceCached = GetIsResourceCached();
                 return isResourceCached.Value;
             }
+        }
+
+        private string installedVersion;
+
+        private string GetInstalledVersion()
+        {
+            var versionFile = GetVersionFile();
+            return File.Exists(versionFile)
+                ? File.ReadAllText(versionFile, Encoding.UTF8).Trim()
+                : string.Empty;
+        }
+
+        private void SetInstalledVersion(string version)
+        {
+            var versionFile = GetVersionFile();
+            if (string.IsNullOrEmpty(version))
+            {
+                if (File.Exists(versionFile))
+                {
+                    File.Delete(versionFile);
+                }
+            }
+            else
+            {
+                File.WriteAllText(versionFile, version.Trim(), Encoding.UTF8);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the version string, of the currently installed app.
+        /// </summary>
+        public string InstalledVersion
+        {
+            get { return installedVersion ?? (installedVersion = GetInstalledVersion()); }
+            set
+            {
+                SetInstalledVersion(value);
+                installedVersion = string.IsNullOrEmpty(value.Trim()) ? null : value;
+            }
+        }
+
+        /// <summary>
+        /// Checks, whether the version of the app definition equals the version of the installed app.
+        /// </summary>
+        public bool IsVersionUpToDate
+        {
+            get { return InstalledVersion.Equals(Version ?? string.Empty); }
         }
 
         /// <summary>
@@ -833,7 +900,9 @@ namespace Mastersign.Bench
                     {
                         if (IsActive)
                         {
-                            if (HasResource && !IsResourceCached)
+                            if (!IsVersionUpToDate)
+                                return AppStatusIcon.Info;
+                            else if (HasResource && !IsResourceCached)
                                 return AppStatusIcon.Info;
                             else
                                 return AppStatusIcon.OK;
@@ -935,18 +1004,19 @@ namespace Mastersign.Bench
         /// Checks, whether this app can be upgraded to a more recent version.
         /// </summary>
         /// <remarks>
-        /// This method does not check if there really is more recent version of this app.
+        /// This method does not check if there really is a more recent version of this app.
         /// </remarks>
         public bool CanUpgrade
         {
             get
             {
                 return
+                    // Default app with no version or version difference
                     CanCheckInstallation && IsInstalled
-                        && HasResource && !IsVersioned
                         && !IsManagedPackage
+                        && (!IsVersioned || !IsVersionUpToDate)
+                    // Default app with custom setup and remove
                     || !CanCheckInstallation
-                        && HasResource
                         && !IsManagedPackage
                         && GetCustomScriptFile("remove") != null
                         && GetCustomScriptFile("setup") != null;

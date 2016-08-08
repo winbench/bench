@@ -1573,6 +1573,8 @@ namespace Mastersign.Bench
                     man.Config.GetStringValue(PropertyKeys.LauncherDir));
                 FileSystem.AsureDir(
                     man.Config.GetStringValue(PropertyKeys.AppAdornmentBaseDir));
+                FileSystem.AsureDir(
+                    man.Config.GetStringValue(PropertyKeys.AppVersionIndexDir));
             }
             catch (Exception e)
             {
@@ -1720,6 +1722,9 @@ namespace Mastersign.Bench
                     }
                 }
 
+                // 6. Store installed version
+                app.InstalledVersion = app.Version;
+
                 notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress, app.ID));
                 app.DiscardCachedValues();
             }
@@ -1843,6 +1848,7 @@ namespace Mastersign.Bench
                 notify(new TaskProgress(
                     string.Format("Uninstalling app {0}.", app.ID),
                     progress, app.ID));
+
                 var customScript = app.GetCustomScriptFile("remove");
                 try
                 {
@@ -1888,6 +1894,8 @@ namespace Mastersign.Bench
                                 throw new ArgumentOutOfRangeException("Invalid app typ '" + app.Typ + "' for app " + app.ID + ".");
                         }
                     }
+
+                    app.InstalledVersion = null;
                 }
                 catch (Exception e)
                 {
@@ -1896,6 +1904,7 @@ namespace Mastersign.Bench
                         app.ID, null, e));
                     continue;
                 }
+
                 notify(new TaskProgress(string.Format("Finished uninstalling app {0}.", app.ID), progress, app.ID));
                 app.DiscardCachedValues();
             }

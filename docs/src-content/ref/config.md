@@ -103,7 +103,7 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 * Typ: System
 
 Site configuration files are searched in the Bench root directory and in all of its parents.
-The specified file must be a Markdown file and follow the [Markdown list syntax][syntax]. 
+The specified file must be a Markdown file and follow the [Markdown list syntax][syntax].
 
 ### SiteConfigTemplateFile {#SiteConfigTemplateFile}
 
@@ -190,6 +190,13 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
   which is copied during the Bench setup in case no custom configuration exists.
 * Data Type: path
 * Default: `res\ConEmu.template.xml`
+* Typ: System
+
+### AppVersionIndexDir {#AppVersionIndexDir}
+
+* Description: The directory to store the currently installed version numbers of the apps.
+* Data Type: path
+* Default: `$LibDir$\_versions`
 * Typ: System
 
 ### AppResourceBaseDir {#AppResourceBaseDir}

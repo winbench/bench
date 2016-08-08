@@ -22,6 +22,7 @@
 * AppDeactivationTemplateFile: `res\apps-deactivated.template.txt`
 * CustomAppIndexFile: `$CustomConfigDir$\apps.md`
 * CustomAppIndexTemplateFile: `res\apps.template.md`
+* AppVersionIndexDir: `$LibDir$\_versions`
 * ConEmuConfigFile: `$CustomConfigDir$\ConEmu.xml`
 * ConEmuConfigTemplateFile: `res\ConEmu.template.xml`
 * DownloadDir: `cache`

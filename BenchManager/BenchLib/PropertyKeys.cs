@@ -37,6 +37,7 @@ namespace Mastersign.Bench
         public const string AppActivationTemplateFile = "AppActivationTemplateFile";
         public const string AppDeactivationFile = "AppDeactivationFile";
         public const string AppDeactivationTemplateFile = "AppDeactivationTemplateFile";
+        public const string AppVersionIndexDir = "AppVersionIndexDir";
 
         public const string WizzardStartAutoSetup = "WizzardStartAutoSetup";
         public const string QuickAccessCmd = "QuickAccessCmd";

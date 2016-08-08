@@ -96,6 +96,8 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
        ([AppAdornmentBaseDir](/ref/config/#AppAdornmentBaseDir))
      + [`_launcher`](#lib-launcher-dir)
        ([LauncherScriptDir](/ref/config/#LauncherScriptDir))
+     + [`_versions`](#lib-versions-dir)
+       ([AppVersionIndexDir](/ref/config/#AppVersionIndexDir))
      + ...
 * [`CHANGELOG.md`](#changelog)
 * [`env.cmd`](#env)
@@ -523,6 +525,18 @@ and placed in the _execution proxy directory_.
 
 For every launcher, a batch file is generated, to inject command line arguments
 in the shell call and call the execution proxy if necessary.
+
+### Version Index Directory {#lib-versions-dir}
+
+* Description: The version numbers of the currently installed apps are stored here.
+* Path: `lib\_versions`
+* Config Property: [AppVersionIndexDir](/ref/config/#AppVersionIndexDir)
+* Type: directory
+
+When Bench installes an app, it stores the version number from the app property
+[Version](/ref/app-properties/#Version) in a text file, named with the apps ID.
+This stored version number is used determine, if the app definition was updated
+since the installation of the app.
 
 ### Changelog {#changelog}
 
