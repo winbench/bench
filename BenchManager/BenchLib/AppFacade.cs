@@ -677,7 +677,7 @@ namespace Mastersign.Bench
             set
             {
                 SetInstalledVersion(value);
-                installedVersion = string.IsNullOrEmpty(value.Trim()) ? null : value;
+                installedVersion = (value ?? "").Trim() == "" ? null : value;
             }
         }
 
