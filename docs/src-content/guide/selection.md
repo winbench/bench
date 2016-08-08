@@ -82,6 +82,8 @@ in the [app list](/ref/dashboard/#setup-applist).
 After making your app selection, you have to run the _Bench Auto Setup_,
 to make the needed changes to the Bench installation.
 
+![Bench Dashboard App Selection](/img/Dashboard_SetupSelection.png)
+
 ### Activation by Editing Text Files
 The two text files for activation [`apps-activated.txt`][Activated Apps]
 and deactivation [`apps-deactivated.txt`][Deactivated Apps]
