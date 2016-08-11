@@ -153,6 +153,8 @@ namespace Mastersign.Bench.Dashboard
             }
             foreach (ToolStripItem mi in ctxmAppActions.Items)
             {
+                if (mi == miAppInfo) continue;
+                if (mi == miWebsite) continue;
                 mi.Enabled = notBusy;
             }
             btnAuto.Image = notBusy
