@@ -911,7 +911,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 * Website: <http://www.php.net>
 * Docs:
     + PHP Manual: <http://php.net/manual/en/>
-* Version: 5.6.21
+* Version: 5.6.23
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
