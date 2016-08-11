@@ -33,6 +33,7 @@ Add a link to the GitHub diff like
 - RabbitMQ 3.6.5
   ([#41](https://github.com/mastersign/bench/issues/41))
 - NUnit 3 Test Runner (latest)
+- Auto Setup button in BenchDashboard
 
 ### Changed
 - Update: ConEmu from 16.06.19 to 16.07.24
@@ -62,6 +63,8 @@ Add a link to the GitHub diff like
 ### Fixed
 - Tooltip for documentation button in BenchDashboard
 - Incorrect syntax in `config.md` template
+- Exception when clicking on header of icon column in the setup dialog
+- Fixed disabled entries in app context menu in setup dialog
 
 ### Removed
 - Removed Bench tasks affecting all apps,
