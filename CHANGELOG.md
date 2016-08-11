@@ -30,7 +30,7 @@ Add a link to the GitHub diff like
   ([#75](https://github.com/mastersign/bench/issues/75))
 - Erlang 19.0
   ([#41](https://github.com/mastersign/bench/issues/41))
-- RabbitMQ 3.6.4
+- RabbitMQ 3.6.5
   ([#41](https://github.com/mastersign/bench/issues/41))
 - NUnit 3 Test Runner (latest)
 
