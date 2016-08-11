@@ -42,7 +42,7 @@ Add a link to the GitHub diff like
 - Update: Pandoc from 1.17.1 to 1.17.2
 - Update: GraphicsMagick from 1.3.23 to 1.3.24
 - Update: Python 2 from 2.7.11 to 2.7.12
-- Update: Atom from 1.8.0 to 1.9.6
+- Update: Atom from 1.8.0 to 1.9.8
 - Update: FFmpeg from 20160512 to _latest_
 - Update: Gimp from 2.8.19 to 2.8.18
 - Update: Ruby from 2.2.4 to 2.3.1
