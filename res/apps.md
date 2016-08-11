@@ -1537,15 +1537,18 @@ MySQL Workbench is a unified visual tool for database architects, developers, an
 MySQL Workbench provides data modeling, SQL development, and comprehensive administration
 tools for server configuration, user administration, backup, and much more.
 
+This application needs the x86 version of the [Visual C++ 12 Redistributable][MS VC12],
+and the [Microsoft.NET Framework 4.0 Client Profile][CLR40CP] installed.
+
 * ID: `MySQLWB`
 * Label: MySQL Workbench
 * Website: <http://dev.mysql.com/downloads/workbench/>
 * Docs:
     + Documentation: <http://dev.mysql.com/doc/workbench/en/>
-* Version: 6.3.6
+* Version: 6.3.7
 * Url: `http://dev.mysql.com/get/Downloads/MySQLGUITools/$:ArchiveName$`
 * ArchiveName: `mysql-workbench-community-$:Version$-win32-noinstall.zip`
-* ArchivePath: `MySQL Workbench 6.3.6 CE (win32)`
+* ArchivePath: `MySQL Workbench $:Version$ CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 * Register: `false`
 * Launcher: $:Label$
@@ -1648,5 +1651,7 @@ the Microsoft Windows operating systems and its processes.
 
 
 [MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
+[MS VC12]: https://www.microsoft.com/download/details.aspx?id=40784 "Microsoft Visual C++ Redistributable for Visual Studio 2013"
 [MS VC14]: https://www.microsoft.com/download/details.aspx?id=48145 "Microsoft Visual C++ Redistributable for Visual Studio 2015"
 [MinGW]: http://www.mingw.org/
+[CLR40CP]: http://www.microsoft.com/download/details.aspx?id=17113 "Microsoft.NET Framework 4.0 CLient Profile"

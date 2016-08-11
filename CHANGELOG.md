@@ -52,6 +52,7 @@ Add a link to the GitHub diff like
 - Update: Clang from 3.8.0 to 3.8.1
 - Update: Eclipse from 4.5 mars to 4.6 neon
 - Update: MySQL from 5.7.12 to 5.7.14
+- Update: MySQL Workbench from 6.3.6 to 6.3.7
 - Introduced file system watcher to automatically update
   the configuration of BenchDashboard incase a configuration
   file was changed.
