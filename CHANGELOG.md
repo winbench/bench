@@ -43,6 +43,7 @@ Add a link to the GitHub diff like
 - Update: GraphicsMagick from 1.3.23 to 1.3.24
 - Update: Python 2 from 2.7.11 to 2.7.12
 - Update: Atom from 1.8.0 to 1.9.6
+- Update: FFmpeg from 20160512 to _latest_
 - Introduced file system watcher to automatically update
   the configuration of BenchDashboard incase a configuration
   file was changed.

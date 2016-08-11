@@ -469,7 +469,7 @@ No matter if they were designed by some standards committee, the community or a 
     + ffprobe Tool: <http://ffmpeg.org/ffprobe.html>
     + ffserver Tool: <http://ffmpeg.org/ffserver.html>
     + Wiki: <https://trac.ffmpeg.org/wiki>
-* Version: 20160512-git-cd244fa
+* Version: latest
 * Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$:ArchiveName$`
 * ArchiveName: `ffmpeg-$:Version$-win32-shared.7z`
 * ArchivePath: `ffmpeg-$:Version$-win32-shared`
