@@ -877,7 +877,7 @@ It has an elegant syntax that is natural to read and easy to write.
     + Documentation: <https://www.ruby-lang.org/en/documentation/>
     + Programming Ruby: <http://ruby-doc.com/docs/ProgrammingRuby/>
     + Libraries: <https://www.ruby-lang.org/en/libraries/>
-* Version: 2.2.4
+* Version: 2.3.1
 * Url: `http://dl.bintray.com/oneclick/rubyinstaller/$:ArchiveName$`
 * ArchiveName: `rubyinstaller-$:Version$.exe`
 * ArchiveTyp: `inno`

@@ -45,6 +45,7 @@ Add a link to the GitHub diff like
 - Update: Atom from 1.8.0 to 1.9.6
 - Update: FFmpeg from 20160512 to _latest_
 - Update: Gimp from 2.8.19 to 2.8.18
+- Update: Ruby from 2.2.4 to 2.3.1
 - Introduced file system watcher to automatically update
   the configuration of BenchDashboard incase a configuration
   file was changed.

@@ -337,7 +337,7 @@ namespace Mastersign.Bench
         {
             var rubyExe = config.GetStringGroupValue(AppKeys.Ruby, PropertyKeys.AppExe);
             return rubyExe != null
-                ? Path.Combine(Path.GetDirectoryName(rubyExe), "gem.bat")
+                ? Path.Combine(Path.GetDirectoryName(rubyExe), "gem.cmd")
                 : null;
         }
 
