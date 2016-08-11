@@ -1441,9 +1441,9 @@ Eclipse for Java development:
 
 * ID: `EclipseJava`
 * Label: Eclipse for Java
-* Version: 4.5
-* CodeName: mars
-* Release: 1
+* Version: 4.6
+* CodeName: neon
+* Release: R
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
@@ -1458,9 +1458,9 @@ Eclipse for PHP development:
 
 * ID: `EclipsePHP`
 * Label: Eclipse for PHP
-* Version: 4.5
-* CodeName: mars
-* Release: 1
+* Version: 4.6
+* CodeName: neon
+* Release: R
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
@@ -1475,9 +1475,9 @@ Eclipse for C/C++ development:
 
 * ID: `EclipseCpp`
 * Label: Eclipse for C++
-* Version: 4.5
-* CodeName: mars
-* Release: 1
+* Version: 4.6
+* CodeName: neon
+* Release: R
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
