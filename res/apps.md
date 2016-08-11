@@ -1144,8 +1144,8 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 
 * ID: `CMake`
 * Website: <https://cmake.org/>
-* MajorVersion: 3.5
-* Version: $:MajorVersion$.2
+* MajorVersion: 3.6
+* Version: $:MajorVersion$.1
 * Url: `https://cmake.org/files/v$:MajorVersion$/$:ArchiveName$`
 * ArchiveName: `cmake-$:Version$-win32-x86.zip`
 * ArchivePath: `cmake-$:Version$-win32-x86`
