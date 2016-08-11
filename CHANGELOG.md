@@ -44,6 +44,7 @@ Add a link to the GitHub diff like
 - Update: Python 2 from 2.7.11 to 2.7.12
 - Update: Atom from 1.8.0 to 1.9.6
 - Update: FFmpeg from 20160512 to _latest_
+- Update: Gimp from 2.8.19 to 2.8.18
 - Introduced file system watcher to automatically update
   the configuration of BenchDashboard incase a configuration
   file was changed.
