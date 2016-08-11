@@ -526,6 +526,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void gridApps_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.ColumnIndex == 0) return;
             var col = gridApps.Columns[e.ColumnIndex];
             if (col == sortedColumn)
             {
