@@ -1166,7 +1166,7 @@ install the LLVM-Plugin for Eclipse CDT.
 
 * ID: `Clang`
 * Label: LLVM Clang
-* Version: 3.8.0
+* Version: 3.8.1
 * Website: <http://clang.llvm.org/>
 * Url: `http://llvm.org/releases/$:Version$/$:ArchiveName$`
 * ArchiveName: `LLVM-$:Version$-win32.exe`

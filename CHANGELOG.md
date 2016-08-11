@@ -49,6 +49,7 @@ Add a link to the GitHub diff like
 - Update: PHP 5 from 5.6.21 to 5.6.23
 - Update: PHP 7 from 7.0.6 to 7.0.8
 - Update: CMake from 3.5.2 to 3.6.1
+- Update: Clang from 3.8.0 to 3.8.1
 - Introduced file system watcher to automatically update
   the configuration of BenchDashboard incase a configuration
   file was changed.
