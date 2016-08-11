@@ -1516,12 +1516,13 @@ The initial password for _root_ is `bench`.
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
 * Docs:
-    + Documentation: <http://dev.mysql.com/doc/refman/5.7/en/>
-    + SQL Syntax: <http://dev.mysql.com/doc/refman/5.7/en/sql-syntax.html>
-    + Data Types: <http://dev.mysql.com/doc/refman/5.7/en/data-types.html>
-    + Functions: <http://dev.mysql.com/doc/refman/5.7/en/functions.html>
-* Version: 5.7.12
-* Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$:ArchiveName$`
+    + Documentation: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/`
+    + SQL Syntax: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/sql-syntax.html`
+    + Data Types: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/data-types.html`
+    + Functions: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/functions.html`
+* VersionMajor: 5.7
+* Version: $:VersionMajor$.14
+* Url: `http://dev.mysql.com/get/Downloads/MySQL-$:VersionMajor$/$:ArchiveName$`
 * ArchiveName: `mysql-$:Version$-win32.zip`
 * ArchivePath: `mysql-$:Version$-win32`
 * Path: `bin`
