@@ -643,28 +643,48 @@ namespace Mastersign.Bench
         }
 
         private string installedVersion;
+        private readonly object versionFileLockHandle = new object();
 
         private string GetInstalledVersion()
         {
             var versionFile = GetVersionFile();
-            return File.Exists(versionFile)
-                ? File.ReadAllText(versionFile, Encoding.UTF8).Trim()
-                : string.Empty;
+            lock (versionFileLockHandle)
+            {
+                if (File.Exists(versionFile))
+                {
+                    using (var s = File.Open(versionFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    using (var r = new StreamReader(s, Encoding.UTF8, true))
+                    {
+                        return r.ReadToEnd().Trim();
+                    }
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
         }
 
         private void SetInstalledVersion(string version)
         {
             var versionFile = GetVersionFile();
-            if (string.IsNullOrEmpty(version))
+            lock (versionFileLockHandle)
             {
-                if (File.Exists(versionFile))
+                if (string.IsNullOrEmpty(version))
                 {
-                    File.Delete(versionFile);
+                    if (File.Exists(versionFile))
+                    {
+                        File.Delete(versionFile);
+                    }
                 }
-            }
-            else
-            {
-                File.WriteAllText(versionFile, version.Trim(), Encoding.UTF8);
+                else
+                {
+                    using (var s = File.Open(versionFile, FileMode.Create, FileAccess.Write, FileShare.None))
+                    using (var w = new StreamWriter(s, Encoding.UTF8))
+                    {
+                        w.Write(version.Trim());
+                    }
+                }
             }
         }
 
