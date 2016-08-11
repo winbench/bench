@@ -27,6 +27,7 @@ namespace Mastersign.Bench.Dashboard
             core.AllAppStateChanged += AppStateChangedHandler;
             core.AppStateChanged += AppStateChangedHandler;
             core.ConfigReloaded += ConfigReloadedHandler;
+            core.BusyChanged += CoreBusyChangedHandler;
             InitializeComponent();
             InitializeAppLauncherList();
             InitializeDocsMenu();
@@ -53,6 +54,11 @@ namespace Mastersign.Bench.Dashboard
                     "Closing Setup Window",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void CoreBusyChangedHandler(object sender, EventArgs e)
+        {
+            btnAutoSetup.Enabled = !core.Busy;
         }
 
         private void AppStateChangedHandler(object sender, EventArgs e)
@@ -252,7 +258,32 @@ namespace Mastersign.Bench.Dashboard
             {
                 setupForm = new SetupForm(core);
             }
-            if (!setupForm.Visible) setupForm.Show();
+            if (!setupForm.Visible)
+            {
+                setupForm.Show();
+            }
+            else
+            {
+                setupForm.Focus();
+            }
+        }
+
+        private void AutoSetupHandler(object sender, EventArgs e)
+        {
+            core.SetupOnStartup = true;
+            if (setupForm == null || setupForm.IsDisposed)
+            {
+                setupForm = new SetupForm(core);
+                Application.DoEvents();
+            }
+            if (!setupForm.Visible)
+            {
+                setupForm.Show();
+            }
+            else
+            {
+                setupForm.StartAutoSetup();
+            }
         }
 
         private void AboutHandler(object sender, EventArgs e)

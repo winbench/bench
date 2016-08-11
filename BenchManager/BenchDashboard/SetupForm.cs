@@ -49,9 +49,17 @@ namespace Mastersign.Bench.Dashboard
 
             if (core.SetupOnStartup)
             {
-                core.SetupOnStartup = false;
-                AutoHandler(this, EventArgs.Empty);
+                StartAutoSetup();
             }
+        }
+
+        public void StartAutoSetup()
+        {
+            if (core.Busy) return;
+            core.SetupOnStartup = false;
+            Visible = true;
+            Application.DoEvents();
+            AutoHandler(this, EventArgs.Empty);
         }
 
         private void InitializeBounds()
