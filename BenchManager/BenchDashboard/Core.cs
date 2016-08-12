@@ -469,7 +469,7 @@ namespace Mastersign.Bench.Dashboard
                         "Installing the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -507,7 +507,7 @@ namespace Mastersign.Bench.Dashboard
                         "Uninstalling the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -545,7 +545,7 @@ namespace Mastersign.Bench.Dashboard
                         "Reinstalling the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -583,7 +583,7 @@ namespace Mastersign.Bench.Dashboard
                         "Upgrading the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -604,7 +604,6 @@ namespace Mastersign.Bench.Dashboard
                         "Updating the bench environment failed.",
                         result.Errors, 10));
             }
-            OnAllAppStateChanged();
             return result;
         }
 
