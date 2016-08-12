@@ -667,14 +667,14 @@
             // 
             this.tsmiShowAppIndex.Name = "tsmiShowAppIndex";
             this.tsmiShowAppIndex.Size = new System.Drawing.Size(205, 22);
-            this.tsmiShowAppIndex.Text = "A&pp Repository";
+            this.tsmiShowAppIndex.Text = "Bench App &Library";
             this.tsmiShowAppIndex.Click += new System.EventHandler(this.ShowAppIndexHandler);
             // 
             // tsmiShowCustomAppIndex
             // 
             this.tsmiShowCustomAppIndex.Name = "tsmiShowCustomAppIndex";
             this.tsmiShowCustomAppIndex.Size = new System.Drawing.Size(205, 22);
-            this.tsmiShowCustomAppIndex.Text = "&Custom Apps";
+            this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
             // 
             // tsmiAlwaysShowDownloads
@@ -682,14 +682,14 @@
             this.tsmiAlwaysShowDownloads.CheckOnClick = true;
             this.tsmiAlwaysShowDownloads.Name = "tsmiAlwaysShowDownloads";
             this.tsmiAlwaysShowDownloads.Size = new System.Drawing.Size(205, 22);
-            this.tsmiAlwaysShowDownloads.Text = "&Always Show Downloads";
+            this.tsmiAlwaysShowDownloads.Text = "Always Show &Downloads";
             this.tsmiAlwaysShowDownloads.CheckedChanged += new System.EventHandler(this.AlwaysShowDownloadsCheckedChanged);
             // 
             // tsmiRefreshView
             // 
             this.tsmiRefreshView.Name = "tsmiRefreshView";
             this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
-            this.tsmiRefreshView.Text = "&Reload Configuration";
+            this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
             // 
             // SetupForm
