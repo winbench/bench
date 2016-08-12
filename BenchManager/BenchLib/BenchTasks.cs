@@ -1832,6 +1832,37 @@ namespace Mastersign.Bench
             }
         }
 
+        private static bool CanOmitUninstall(ICollection<AppFacade> selectedApps, AppFacade app)
+        {
+            var parentAppId = default(string);
+            switch(app.Typ)
+            {
+                case AppTyps.NodePackage:
+                    parentAppId = AppKeys.NodeJS;
+                    break;
+                case AppTyps.Python2Package:
+                    parentAppId = AppKeys.Python2;
+                    break;
+                case AppTyps.Python3Package:
+                    parentAppId = AppKeys.Python3;
+                    break;
+                case AppTyps.RubyPackage:
+                    parentAppId = AppKeys.Ruby;
+                    break;
+            }
+            if (parentAppId != null)
+            {
+                foreach(var selectedApp in selectedApps)
+                {
+                    if (selectedApp.ID == parentAppId)
+                    {
+                        return app.GetCustomScriptFile("remove") == null;
+                    }
+                }
+            }
+            return false;
+        }
+
         private static void UninstallApps(IBenchManager man,
             ICollection<AppFacade> apps,
             Action<TaskInfo> notify, Cancelation cancelation)
@@ -1839,7 +1870,10 @@ namespace Mastersign.Bench
             var selectedApps = new List<AppFacade>();
             foreach (var app in apps)
             {
-                if (app.CanUninstall) selectedApps.Add(app);
+                if (app.CanUninstall && !CanOmitUninstall(apps, app))
+                {
+                    selectedApps.Add(app);
+                }
             }
             selectedApps.Reverse();
 
