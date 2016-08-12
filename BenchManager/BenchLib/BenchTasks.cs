@@ -383,6 +383,19 @@ namespace Mastersign.Bench
                 UpdateEnvironment);
         }
 
+        private static ICollection<AppFacade> AutoUninstallApps(AppIndexFacade apps)
+        {
+            var uninstallApps = new List<AppFacade>(apps.InactiveApps);
+            foreach (var app in apps.ActiveApps)
+            {
+                if (!app.IsVersionUpToDate)
+                {
+                    uninstallApps.Add(app);
+                }
+            }
+            return uninstallApps;
+        }
+
         /// <summary>
         /// Runs the Bench task of automatically setting up all active apps including downloading missing resources,
         /// and setting up the environment afterwards.
@@ -394,10 +407,11 @@ namespace Mastersign.Bench
         public static ActionResult DoAutoSetup(IBenchManager man,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
+
             return RunTasks(man,
                 new ICollection<AppFacade>[]
                 {
-                    man.Config.Apps.InactiveApps,
+                    AutoUninstallApps(man.Config.Apps),
                     man.Config.Apps.ActiveApps
                 },
                 notify, cancelation,
