@@ -623,23 +623,23 @@
             // 
             this.tsmiEditCustomConfig.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.userconfig_16;
             this.tsmiEditCustomConfig.Name = "tsmiEditCustomConfig";
-            this.tsmiEditCustomConfig.Size = new System.Drawing.Size(193, 22);
-            this.tsmiEditCustomConfig.Text = "&Custom Configuration";
+            this.tsmiEditCustomConfig.Size = new System.Drawing.Size(174, 22);
+            this.tsmiEditCustomConfig.Text = "User &Configuration";
             this.tsmiEditCustomConfig.Click += new System.EventHandler(this.EditCustomConfigHandler);
             // 
             // tsmiEditCustomApps
             // 
             this.tsmiEditCustomApps.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.apps;
             this.tsmiEditCustomApps.Name = "tsmiEditCustomApps";
-            this.tsmiEditCustomApps.Size = new System.Drawing.Size(193, 22);
-            this.tsmiEditCustomApps.Text = "C&ustom Apps";
+            this.tsmiEditCustomApps.Size = new System.Drawing.Size(174, 22);
+            this.tsmiEditCustomApps.Text = "&User Apps";
             this.tsmiEditCustomApps.Click += new System.EventHandler(this.EditCustomAppsHandler);
             // 
             // tsmiEditActivationList
             // 
             this.tsmiEditActivationList.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.include;
             this.tsmiEditActivationList.Name = "tsmiEditActivationList";
-            this.tsmiEditActivationList.Size = new System.Drawing.Size(193, 22);
+            this.tsmiEditActivationList.Size = new System.Drawing.Size(174, 22);
             this.tsmiEditActivationList.Text = "&Activated Apps";
             this.tsmiEditActivationList.Click += new System.EventHandler(this.ActivationListHandler);
             // 
@@ -647,7 +647,7 @@
             // 
             this.tsmiEditDeactivationList.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.exclude;
             this.tsmiEditDeactivationList.Name = "tsmiEditDeactivationList";
-            this.tsmiEditDeactivationList.Size = new System.Drawing.Size(193, 22);
+            this.tsmiEditDeactivationList.Size = new System.Drawing.Size(174, 22);
             this.tsmiEditDeactivationList.Text = "&Deactivated Apps";
             this.tsmiEditDeactivationList.Click += new System.EventHandler(this.DeactivationListHandler);
             // 
@@ -665,6 +665,7 @@
             // 
             // tsmiShowAppIndex
             // 
+            this.tsmiShowAppIndex.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.library_16;
             this.tsmiShowAppIndex.Name = "tsmiShowAppIndex";
             this.tsmiShowAppIndex.Size = new System.Drawing.Size(205, 22);
             this.tsmiShowAppIndex.Text = "Bench App &Library";
@@ -672,6 +673,7 @@
             // 
             // tsmiShowCustomAppIndex
             // 
+            this.tsmiShowCustomAppIndex.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.userlibrary_16;
             this.tsmiShowCustomAppIndex.Name = "tsmiShowCustomAppIndex";
             this.tsmiShowCustomAppIndex.Size = new System.Drawing.Size(205, 22);
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
@@ -687,6 +689,7 @@
             // 
             // tsmiRefreshView
             // 
+            this.tsmiRefreshView.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.refresh_16;
             this.tsmiRefreshView.Name = "tsmiRefreshView";
             this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
             this.tsmiRefreshView.Text = "&Refresh";

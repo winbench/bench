@@ -206,8 +206,12 @@
     <None Include="Resources\properties_16.png" />
     <None Include="Resources\about.ico" />
     <None Include="Resources\bash.ico" />
+    <None Include="Resources\library_16.png" />
     <None Include="Resources\Markdown.ico" />
+    <None Include="Resources\markdown_16.png" />
+    <None Include="Resources\refresh_16.png" />
     <None Include="Resources\userconfig_16.png" />
+    <None Include="Resources\userlibrary_16.png" />
     <None Include="Resources\website_16.png" />
     <None Include="acknowledgements.txt" />
     <None Include="licenses.txt" />

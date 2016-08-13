@@ -618,14 +618,14 @@ namespace Mastersign.Bench.Dashboard
         private void ShowAppIndexHandler(object sender, EventArgs e)
         {
             var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "App Repository");
+            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
             viewer.Show();
         }
 
         private void ShowCustomAppIndexHandler(object sender, EventArgs e)
         {
             var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile), "Custom Apps");
+            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile), "User App Library");
             viewer.Show();
         }
 
