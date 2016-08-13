@@ -621,7 +621,7 @@
             // 
             // tsmiEditCustomConfig
             // 
-            this.tsmiEditCustomConfig.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.config;
+            this.tsmiEditCustomConfig.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.userconfig_16;
             this.tsmiEditCustomConfig.Name = "tsmiEditCustomConfig";
             this.tsmiEditCustomConfig.Size = new System.Drawing.Size(193, 22);
             this.tsmiEditCustomConfig.Text = "&Custom Configuration";
