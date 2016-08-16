@@ -32,6 +32,17 @@ namespace Mastersign.Bench
             get { return ClrInfo.IsVersionSupported(new Version(4, 5)); }
         }
 
+        /// <summary>
+        /// This method is the first step for initializing or upgrading a Bench installation.
+        /// </summary>
+        /// <remarks>
+        /// It looks for a site configuration file. If it does not find a matching file,
+        /// it starts a graphical wizzard to request basic configuration parameters from the user.
+        /// Then it creates a initial site configuration.
+        /// </remarks>
+        /// <param name="benchRootDir">The root directory for the Bench installation.</param>
+        /// <returns>A <see cref="BenchConfiguration"/> object, initialized with the default configuration,
+        /// the default app library and the site configuration.</returns>
         public static BenchConfiguration InitializeSiteConfiguration(string benchRootDir)
         {
             var cfg = new BenchConfiguration(benchRootDir, false, false, false);
@@ -73,9 +84,23 @@ namespace Mastersign.Bench
             return resultCfg;
         }
 
+        /// <summary>
+        /// This method is the second step for initializing or upgrading a Bench installation.
+        /// </summary>
         /// <remarks>
-        /// Precondition: Git must be set up.
+        /// <para>
+        /// This method looks for the user configuration file.
+        /// If it does not find a matching file, it creates it and other user configuration
+        /// files like app activation lists from templates.
+        /// Then it creates all missing directories, that are missing for the Bench installation.
+        /// </para>
+        /// <para>
+        /// Precondition: For cloning an existing Bench configuration, Git must be set up.
+        /// </para>
         /// </remarks>
+        /// <param name="man">A <see cref="IBenchManager"/> object to use when running initializations.</param>
+        /// <returns>A <see cref="BenchConfiguration"/> object, fully initialized
+        /// with all configuration files and app libraries.</returns>
         public static BenchConfiguration InitializeCustomConfiguration(IBenchManager man)
         {
             var customConfigDir = man.Config.GetStringValue(PropertyKeys.CustomConfigDir);
