@@ -10,7 +10,9 @@ using Microsoft.Win32;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// <para>The merged configuration and app library for a Bench environment.</para>
+    /// The merged configuration and app library for a Bench environment.
+    /// </summary>
+    /// <remarks>
     /// <para>
     /// The configuration is merged by loading the following files:
     /// </para>
@@ -41,7 +43,7 @@ namespace Mastersign.Bench
     ///         <description><c>config\apps.md</c></description>
     ///     </item>
     /// </list>
-    /// </summary>
+    /// </remarks>
     public class BenchConfiguration : ResolvingPropertyCollection
     {
         private const string AutoDir = @"auto";
@@ -190,6 +192,38 @@ namespace Mastersign.Bench
             AutomaticConfiguration();
             AutomaticActivation(loadCustomConfiguration);
             RecordResponsibilities();
+        }
+
+        /// <summary>
+        /// Gets an array with absolute paths for all configuration files
+        /// used to compile this configuration.
+        /// </summary>
+        public string[] Sources
+        {
+            get
+            {
+                var paths = new List<string>();
+                paths.Add(Path.Combine(BenchRootDir, ConfigFile));
+                if (WithCustomConfiguration)
+                {
+                    paths.Add(GetStringValue(PropertyKeys.CustomConfigFile));
+                }
+                if (WithSiteConfiguration)
+                {
+                    paths.AddRange(FindSiteConfigFiles(BenchRootDir, siteConfigFileName));
+                }
+                if (WithAppIndex)
+                {
+                    paths.Add(GetStringValue(PropertyKeys.AppIndexFile));
+                    if (WithCustomConfiguration)
+                    {
+                        paths.Add(GetStringValue(PropertyKeys.CustomAppIndexFile));
+                        paths.Add(GetStringValue(PropertyKeys.AppActivationFile));
+                        paths.Add(GetStringValue(PropertyKeys.AppDeactivationFile));
+                    }
+                }
+                return paths.ToArray();
+            }
         }
 
         private static string[] FindSiteConfigFiles(string benchRootDir, string fileName)

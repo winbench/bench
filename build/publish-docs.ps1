@@ -6,14 +6,14 @@ $branchName = "gh-pages"
 $scriptsDir = Resolve-Path "$rootDir\auto\lib"
 $docsDir = Resolve-Path "$rootDir\docs"
 
+& "$myDir\build-docs.ps1"
+
 pushd
 
 & "$scriptsDir\Load-ClrLibs.ps1"
 $cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $true)
 $benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($cfg)
 $benchEnv.Load()
-
-& "$myDir\build-docs.ps1"
 
 $branches = git branch --list | ? { $_ -match $branchName }
 $branchMissing = !$branches

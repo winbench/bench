@@ -9,14 +9,14 @@ using Microsoft.Win32;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// <para>
     /// This class represents all environment variables manipulated by the Bench system.
-    /// </para>
-    /// <para>
-    /// It provides methods to load the environment variables in the current process,
-    /// or write a batch file containing the variables for loading from another batch script.
-    /// </para>
     /// </summary>
+    /// <remarks>
+    /// This class provides methods to load the environment variables in the current process,
+    /// or to write a batch file, containing the variables for loading from another batch script.
+    /// At last it provides methods to write environment variables to the Windows user profile.
+    /// In that way, the Bench apps are available on the <c>PATH</c> of the Windows command line.
+    /// </remarks>
     public class BenchEnvironment
     {
         private static readonly string PathBackup = Environment.GetEnvironmentVariable("PATH");
@@ -47,6 +47,8 @@ namespace Mastersign.Bench
             }
             if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
             {
+                set("USERNAME", Config.GetStringValue(PropertyKeys.UserName));
+                set("USEREMAIL", Config.GetStringValue(PropertyKeys.UserEmail));
                 var home = Config.GetStringValue(PropertyKeys.HomeDir);
                 set("USERPROFILE", home);
                 set("HOME", home);
@@ -56,6 +58,10 @@ namespace Mastersign.Bench
                     Config.GetStringValue(PropertyKeys.AppDataDir));
                 set("LOCALAPPDATA",
                     Config.GetStringValue(PropertyKeys.LocalAppDataDir));
+            }
+            else
+            {
+                set("HOME", Environment.GetEnvironmentVariable("USERPROFILE"));
             }
             if (Config.GetBooleanValue(PropertyKeys.OverrideTemp))
             {
@@ -171,6 +177,10 @@ namespace Mastersign.Bench
                     w.WriteLine("SET LOCALAPPDATA={0}",
                         TryUseVar(Config.GetStringValue(PropertyKeys.LocalAppDataDir)));
                 }
+                else
+                {
+                    w.WriteLine("SET HOME=%USERPROFILE%");
+                }
                 if (Config.GetBooleanValue(PropertyKeys.OverrideTemp))
                 {
                     w.WriteLine("SET TEMP={0}",
@@ -258,9 +268,9 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
-        /// <para>
         /// Registers the Bench environment in the Windows user profile.
-        /// </para>
+        /// </summary>
+        /// <remarks>
         /// <para>
         /// Stores the following environment variables are set or updated in the user profile:
         /// </para>
@@ -270,7 +280,7 @@ namespace Mastersign.Bench
         ///     <item><c>BENCH_PATH</c></item>
         ///     <item><c>PATH</c> is changed by adding <c>%BENCH_PATH%</c></item>
         /// </list>
-        /// </summary>
+        /// </remarks>
         public void RegisterInUserProfile()
         {
             if (Config.GetBooleanValue(PropertyKeys.UseProxy))
@@ -325,9 +335,9 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
-        /// <para>
         /// Unregisters the Bench environment from the Windows user profile.
-        /// </para>
+        /// </summary>
+        /// <remarks>
         /// <para>
         /// The following environment variables are deleted or updated in the user profile:
         /// </para>
@@ -337,7 +347,7 @@ namespace Mastersign.Bench
         ///     <item><c>BENCH_PATH</c></item>
         ///     <item><c>PATH</c> is changed by removing <c>%BENCH_PATH%</c></item>
         /// </list>
-        /// </summary>
+        /// </remarks>
         public void UnregisterFromUserProfile()
         {
             DeleteEnvironmentVar("BENCH_VERSION");

@@ -27,6 +27,7 @@ namespace Mastersign.Bench.Dashboard
             core.AllAppStateChanged += AppStateChangedHandler;
             core.AppStateChanged += AppStateChangedHandler;
             core.ConfigReloaded += ConfigReloadedHandler;
+            core.BusyChanged += CoreBusyChangedHandler;
             InitializeComponent();
             InitializeAppLauncherList();
             InitializeDocsMenu();
@@ -53,6 +54,11 @@ namespace Mastersign.Bench.Dashboard
                     "Closing Setup Window",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void CoreBusyChangedHandler(object sender, EventArgs e)
+        {
+            btnAutoSetup.Enabled = !core.Busy;
         }
 
         private void AppStateChangedHandler(object sender, EventArgs e)
@@ -85,6 +91,16 @@ namespace Mastersign.Bench.Dashboard
             benchItem.Tag = core.Config.GetStringValue(PropertyKeys.Website);
             benchItem.Click += LinkHandler;
             ctxm.Items.Add(benchItem);
+
+            var appLibItem = new ToolStripMenuItem("Bench App Library");
+            appLibItem.Image = Resources.library_16;
+            appLibItem.Click += AppIndexHandler;
+            ctxm.Items.Add(appLibItem);
+            var userAppLibItem = new ToolStripMenuItem("User App Library");
+            userAppLibItem.Image = Resources.userlibrary_16;
+            userAppLibItem.Click += CustomAppIndexHandler;
+            ctxm.Items.Add(userAppLibItem);
+
             ctxm.Items.Add(new ToolStripSeparator());
 
             var apps = core.Config.Apps.ActiveApps.OrderBy(app => app.Label);
@@ -118,6 +134,20 @@ namespace Mastersign.Bench.Dashboard
             }
 
             docsMenu = ctxm;
+        }
+
+        private void AppIndexHandler(object sender, EventArgs e)
+        {
+            var viewer = new MarkdownViewer(core);
+            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
+            viewer.Show();
+        }
+
+        private void CustomAppIndexHandler(object sender, EventArgs e)
+        {
+            var viewer = new MarkdownViewer(core);
+            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile), "User App Library");
+            viewer.Show();
         }
 
         private Task<Image> ExtractLauncherIcon(AppFacade app)
@@ -252,7 +282,32 @@ namespace Mastersign.Bench.Dashboard
             {
                 setupForm = new SetupForm(core);
             }
-            if (!setupForm.Visible) setupForm.Show();
+            if (!setupForm.Visible)
+            {
+                setupForm.Show();
+            }
+            else
+            {
+                setupForm.Focus();
+            }
+        }
+
+        private void AutoSetupHandler(object sender, EventArgs e)
+        {
+            core.SetupOnStartup = true;
+            if (setupForm == null || setupForm.IsDisposed)
+            {
+                setupForm = new SetupForm(core);
+                Application.DoEvents();
+            }
+            if (!setupForm.Visible)
+            {
+                setupForm.Show();
+            }
+            else
+            {
+                setupForm.StartAutoSetup();
+            }
         }
 
         private void AboutHandler(object sender, EventArgs e)

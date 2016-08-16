@@ -11,6 +11,12 @@ h5:target,
 h6:target {
   color: #3b8bba;
 }
+dt {
+  font-style: italic;
+}
+img {
+  max-width: 100%;
+}
 .content table {
   border-collapse: collapse;
   margin-top: 1em;

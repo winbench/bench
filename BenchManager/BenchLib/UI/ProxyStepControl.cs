@@ -8,7 +8,10 @@ using System.Windows.Forms;
 
 namespace Mastersign.Bench.UI
 {
-    public partial class ProxyStepControl : WizzardStepControl
+    /// <summary>
+    /// A wizzard control, which allows the user to specify HTTP(S) proxy addresses.
+    /// </summary>
+    internal partial class ProxyStepControl : WizzardStepControl
     {
         public ProxyStepControl()
         {

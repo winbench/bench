@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -26,6 +27,12 @@ namespace Mastersign.Bench.Dashboard
         public bool SetupOnStartup { get; set; }
 
         private bool busy;
+
+        private bool configReloadNecessary;
+
+        private readonly object configReloadLockHandle = new object();
+
+        private FileSystemWatcher[] fsWatchers;
 
         private ActionState actionState;
 
@@ -62,6 +69,7 @@ namespace Mastersign.Bench.Dashboard
             Env = new BenchEnvironment(Config);
             Downloader = BenchTasks.InitializeDownloader(Config);
             ProcessExecutionHost = new DefaultExecutionHost();
+            SetupFileWatchers();
         }
 
         public void SyncWithGui(ThreadStart task)
@@ -84,6 +92,10 @@ namespace Mastersign.Bench.Dashboard
                 if (value == busy) return;
                 busy = value;
                 OnBusyChanged();
+                if (!busy && configReloadNecessary)
+                {
+                    Reload();
+                }
             }
         }
 
@@ -117,6 +129,50 @@ namespace Mastersign.Bench.Dashboard
         }
 
         public Cancelation Cancelation { get { return cancelation; } }
+
+        private void SetupFileWatchers()
+        {
+            DisposeFileWatchers();
+            var paths = Config.Sources;
+            fsWatchers = paths
+                .Select(p => new FileSystemWatcher(Path.GetDirectoryName(p))
+                {
+                    Filter = Path.GetFileName(p),
+                    //NotifyFilter = NotifyFilters.LastWrite,
+                    IncludeSubdirectories = false,
+                    EnableRaisingEvents = true,
+                })
+                .ToArray();
+            foreach (var w in fsWatchers)
+            {
+                w.Changed += SourceFileChangedHandler;
+            }
+        }
+
+        private void DisposeFileWatchers()
+        {
+            if (fsWatchers != null)
+            {
+                foreach (var w in fsWatchers)
+                {
+                    w.Changed -= SourceFileChangedHandler;
+                    w.Dispose();
+                }
+                fsWatchers = null;
+            }
+        }
+
+        private void SourceFileChangedHandler(object sender, FileSystemEventArgs e)
+        {
+            if (busy)
+            {
+                configReloadNecessary = true;
+            }
+            else
+            {
+                Task.Run(() => Reload(true));
+            }
+        }
 
         private void OnConfigReloaded()
         {
@@ -156,12 +212,16 @@ namespace Mastersign.Bench.Dashboard
 
         public void Reload(bool configChanged = false)
         {
-            Config = Config.Reload();
-            Env = new BenchEnvironment(Config);
-            if (configChanged)
+            configReloadNecessary = false;
+            lock (configReloadLockHandle)
             {
-                Downloader.Dispose();
-                Downloader = BenchTasks.InitializeDownloader(Config);
+                Config = Config.Reload();
+                Env = new BenchEnvironment(Config);
+                if (configChanged)
+                {
+                    Downloader.Dispose();
+                    Downloader = BenchTasks.InitializeDownloader(Config);
+                }
             }
             OnConfigReloaded();
         }
@@ -177,7 +237,6 @@ namespace Mastersign.Bench.Dashboard
             {
                 activationFile.SignOut(appId);
             }
-            Reload();
         }
 
         public void SetAppDeactivated(string appId, bool value)
@@ -191,7 +250,6 @@ namespace Mastersign.Bench.Dashboard
             {
                 deactivationFile.SignOut(appId);
             }
-            Reload();
         }
 
         public Task<ActionResult> RunTaskAsync(BenchTaskForAll action,
@@ -411,7 +469,7 @@ namespace Mastersign.Bench.Dashboard
                         "Installing the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -449,7 +507,7 @@ namespace Mastersign.Bench.Dashboard
                         "Uninstalling the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -487,7 +545,7 @@ namespace Mastersign.Bench.Dashboard
                         "Reinstalling the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -525,7 +583,7 @@ namespace Mastersign.Bench.Dashboard
                         "Upgrading the app " + appId + " failed.",
                         result.Errors, 10));
             }
-            OnAppStateChanged(appId);
+            OnAllAppStateChanged();
             return result;
         }
 
@@ -546,7 +604,6 @@ namespace Mastersign.Bench.Dashboard
                         "Updating the bench environment failed.",
                         result.Errors, 10));
             }
-            OnAllAppStateChanged();
             return result;
         }
 

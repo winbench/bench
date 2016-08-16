@@ -8,7 +8,10 @@ using System.Windows.Forms;
 
 namespace Mastersign.Bench.UI
 {
-    public partial class WizzardStepControl : UserControl
+    /// <summary>
+    /// The base class for wizzard controls.
+    /// </summary>
+    internal partial class WizzardStepControl : UserControl
     {
         public string Description { get; protected set; }
 

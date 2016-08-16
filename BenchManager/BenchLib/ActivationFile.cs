@@ -8,7 +8,9 @@ using System.Text.RegularExpressions;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// <para>Represents a text file with a list of app IDs.</para>
+    /// Represents a text file with a list of app IDs.
+    /// </summary>
+    /// <remarks>
     /// <para>
     /// The syntax of the text file follows the following rules:
     /// </para>
@@ -20,20 +22,20 @@ namespace Mastersign.Bench
     ///     <item>The first word (contiguous non white space) in a line is considered to be an app ID.</item>
     ///     <item>Additional characters after the first word are ignored, and can be used to commment the entry.</item>
     /// </list>
+    /// </remarks>
     /// <example>
     /// A text file represented by this class could look like this:
     /// <code>
     /// # --- Activated Apps --- #
-    /// 
+    ///
     /// AppA
     /// AppB (this app has a comment)
     ///  AppC (this app ID is valid, despite the fact, that it is indended)
-    ///  
+    ///
     /// # AppD (this app is not activated, because the line is commented out)
     /// AppE some arbitrary comment
     /// </code>
     /// </example>
-    /// </summary>
     public class ActivationFile : IEnumerable<string>
     {
         private static readonly Regex SpaceExp = new Regex(@"\s");

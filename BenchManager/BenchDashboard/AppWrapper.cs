@@ -25,7 +25,15 @@ namespace Mastersign.Bench.Dashboard
 
         public string Label { get { return app.Label; } }
 
-        public string Version { get { return app.Version; } }
+        public string Version
+        {
+            get
+            {
+                return app.IsInstalled && !app.IsVersionUpToDate
+                    ? app.InstalledVersion + " \u2192 " + app.Version
+                    : app.Version;
+            }
+        }
 
         public string Launcher { get { return app.Launcher; } }
 
@@ -49,6 +57,8 @@ namespace Mastersign.Bench.Dashboard
                         return "Python 2";
                     case AppTyps.Python3Package:
                         return "Python 3";
+                    case AppTyps.NuGetPackage:
+                        return "NuGet";
                     default:
                         return app.Typ;
                 }

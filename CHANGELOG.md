@@ -25,6 +25,60 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.13.0] - 2016-08-16
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.12.1...v0.13.0)
+
+### Added
+- Configuration property `UseRegistryIsolation` to provide a way
+  of suppressing the registry isolation when using Bench integrated
+  in the user profile with `RegisterInUserProfile`
+- Support for NuGet packages
+  ([#75](https://github.com/mastersign/bench/issues/75))
+- Erlang 19.0
+  ([#41](https://github.com/mastersign/bench/issues/41))
+- RabbitMQ 3.6.5
+  ([#41](https://github.com/mastersign/bench/issues/41))
+- NUnit 3 Test Runner (latest)
+- Auto Setup button in BenchDashboard
+
+### Changed
+- Update: ConEmu from 16.06.19 to 16.07.24
+- Update: Git from 2.9.0 to 2.9.2
+- Update: cURL from 7.48.0 to 7.50.1
+- Update: FileZilla from 3.18.0 to 3.20.1
+- Update: Pandoc from 1.17.1 to 1.17.2
+- Update: GraphicsMagick from 1.3.23 to 1.3.24
+- Update: Python 2 from 2.7.11 to 2.7.12
+- Update: Atom from 1.8.0 to 1.9.8
+- Update: FFmpeg from 20160512 to _latest_
+- Update: Gimp from 2.8.19 to 2.8.18
+- Update: Ruby from 2.2.4 to 2.3.1
+- Update: PHP 5 from 5.6.21 to 5.6.23
+- Update: PHP 7 from 7.0.6 to 7.0.8
+- Update: CMake from 3.5.2 to 3.6.1
+- Update: Clang from 3.8.0 to 3.8.1
+- Update: Eclipse from 4.5 mars to 4.6 neon
+- Update: MySQL from 5.7.12 to 5.7.14
+- Update: MySQL Workbench from 6.3.6 to 6.3.7
+- Update: Apache HTTP Server from 2.4.20 to 2.4.23
+- Introduced file system watcher to automatically update
+  the configuration of Bench Dashboard in case a configuration
+  file was changed.
+  ([#66](https://github.com/mastersign/bench/issues/66))
+- Improved _Auto Setup_ by adding upgrade capability
+- Improved Bench upgrading by _not_ deleting all apps,
+  but instead only deleting ConEmu and using the _Auto Setup_ to upgrade apps
+
+### Fixed
+- Tooltip for documentation button in BenchDashboard
+- Incorrect syntax in `config.md` template
+- Exception when clicking on header of icon column in the setup dialog
+- Fixed disabled entries in app context menu in setup dialog
+
+### Removed
+- Removed option for editing the config file during the initialization
+  ([#67](https://github.com/mastersign/bench/issues/67))
+
 ## [0.12.1] - 2016-07-29
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)
 

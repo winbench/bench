@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench
 {
-    public abstract class PageContentUrlResolver : IUrlResolver
+    internal abstract class PageContentUrlResolver : IUrlResolver
     {
         public UrlPattern UrlPattern { get; private set; }
 
@@ -16,12 +15,24 @@ namespace Mastersign.Bench
             UrlPattern = urlPattern;
         }
 
+        /// <summary>
+        /// Checks, whether this resolver recognizes this URL to be resolvable.
+        /// </summary>
+        /// <param name="url">The URL in question.</param>
+        /// <returns><c>true</c> if this URL can be resolved by this resolver; otherwise <c>false</c>.</returns>
         public bool Matches(Uri url)
         {
             if (UrlPattern == null) return true;
             return UrlPattern.IsMatch(url);
         }
 
+        /// <summary>
+        /// Resolves the given URL, potentially by using the given <see cref="WebClient"/>
+        /// to run additional HTTP(S) requests.
+        /// </summary>
+        /// <param name="url">The URL to resolve.</param>
+        /// <param name="wc">A <see cref="WebClient"/> to execute HTTP(S) requests.</param>
+        /// <returns></returns>
         public virtual Uri Resolve(Uri url, WebClient wc)
         {
             Debug.WriteLine("Downloading page " + url + " for URL resolution...");

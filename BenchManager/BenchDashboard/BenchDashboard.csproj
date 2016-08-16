@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -204,52 +204,59 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\properties_16.png" />
-    <Content Include="Resources\website_16.png" />
+    <None Include="Resources\about.ico" />
+    <None Include="Resources\bash.ico" />
+    <None Include="Resources\library_16.png" />
+    <None Include="Resources\Markdown.ico" />
+    <None Include="Resources\markdown_16.png" />
+    <None Include="Resources\refresh_16.png" />
+    <None Include="Resources\userconfig_16.png" />
+    <None Include="Resources\userlibrary_16.png" />
+    <None Include="Resources\website_16.png" />
     <None Include="acknowledgements.txt" />
     <None Include="licenses.txt" />
-    <Content Include="Resources\cached_16.png" />
+    <None Include="Resources\cached_16.png" />
     <None Include="Resources\cancelled_48.png" />
-    <Content Include="Resources\cleanup_16.png" />
-    <Content Include="Resources\clear_16.png" />
+    <None Include="Resources\cleanup_16.png" />
+    <None Include="Resources\clear_16.png" />
     <None Include="Resources\warning_36_animation.gif" />
     <None Include="Resources\warning_48.png" />
     <EmbeddedResource Include="Resources\ConEmu.xml" />
-    <Content Include="Resources\deletedownload_16.png" />
-    <Content Include="Resources\downloadall_16.png" />
-    <Content Include="Resources\download_16.png" />
-    <Content Include="Resources\do_16.png" />
-    <Content Include="Resources\do_32.png" />
+    <None Include="Resources\deletedownload_16.png" />
+    <None Include="Resources\downloadall_16.png" />
+    <None Include="Resources\download_16.png" />
+    <None Include="Resources\do_16.png" />
+    <None Include="Resources\do_32.png" />
     <None Include="Resources\error_48.png" />
-    <Content Include="Resources\install_16.png" />
-    <Content Include="Resources\logo_64.png" />
+    <None Include="Resources\install_16.png" />
+    <None Include="Resources\logo_64.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
-    <Content Include="Resources\doc_16.png" />
-    <Content Include="Resources\docs_16.png" />
-    <Content Include="Resources\none_16.png" />
+    <None Include="Resources\doc_16.png" />
+    <None Include="Resources\docs_16.png" />
+    <None Include="Resources\none_16.png" />
     <None Include="Resources\ok_48.png" />
     <None Include="Resources\progress_36_animation.gif" />
-    <Content Include="Resources\purge_16.png" />
-    <Content Include="Resources\reinstall_16.png" />
+    <None Include="Resources\purge_16.png" />
+    <None Include="Resources\reinstall_16.png" />
     <None Include="Resources\stop_32.png" />
     <None Include="Resources\stop_16.png" />
     <None Include="Resources\stop_36_animation.gif" />
     <Content Include="Resources\MarkdownViewerStyle.css" />
-    <Content Include="Resources\task_16.png" />
-    <Content Include="Resources\tolerated_16.png" />
-    <Content Include="Resources\uninstall_16.png" />
-    <Content Include="Resources\updateenv_16.png" />
-    <Content Include="Resources\upgrade_16.png" />
-    <Content Include="Resources\warning_16.png" />
+    <None Include="Resources\task_16.png" />
+    <None Include="Resources\tolerated_16.png" />
+    <None Include="Resources\uninstall_16.png" />
+    <None Include="Resources\updateenv_16.png" />
+    <None Include="Resources\upgrade_16.png" />
+    <None Include="Resources\warning_16.png" />
     <None Include="Resources\apps.png" />
-    <Content Include="Resources\bench.ico" />
+    <None Include="Resources\bench.ico" />
     <None Include="Resources\missing_app_16.png" />
-    <None Include="Resources\config.png" />
     <None Include="Resources\exclude.png" />
     <None Include="Resources\include.png" />
-    <Content Include="Resources\blocked_16.png" />
-    <Content Include="Resources\info_16.png" />
-    <Content Include="Resources\ok_16.png" />
-    <Content Include="Resources\setup.ico" />
+    <None Include="Resources\blocked_16.png" />
+    <None Include="Resources\info_16.png" />
+    <None Include="Resources\ok_16.png" />
+    <None Include="Resources\setup.ico" />
     <None Include="Resources\setup_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -257,10 +264,10 @@
     <PropertyGroup>
       <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\ConEmu.Core.16.6.19.0\build\ConEmu.Core.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ConEmu.Core.16.6.19.0\build\ConEmu.Core.Targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets'))" />
   </Target>
-  <Import Project="..\packages\ConEmu.Core.16.6.19.0\build\ConEmu.Core.Targets" Condition="Exists('..\packages\ConEmu.Core.16.6.19.0\build\ConEmu.Core.Targets')" />
+  <Import Project="..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets" Condition="Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

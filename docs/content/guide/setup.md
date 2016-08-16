@@ -21,13 +21,14 @@ The custom configuration is left untouched if it is already exists;
 otherwise it can be initialized from a template or from a Git repository.
 <!--more-->
 
-The full setup of the Bench system is performed in the following steps:
+The setup of a Bench installation is performed in the following steps:
 
 * Creating a directory as Bench root
 * Downloading the (latest) [bootstrap file][] in the Bench root
 * Running the [bootstrap file][] ...
     + Downloading the (latest) Bench archive (`Bench.zip`) from GitHub
-    + Deleting the following folders in the Bench root: `actions`, `auto`, `res`, `lib`, `tmp`
+    + Deleting the following folders in the Bench root: `actions`, `auto`, `res`, `tmp`,
+      and the folders of the required apps in `lib`
     + Extracting the Bench archive
 * Running the Bench CLI in [initialization mode][] ...
     + Initializing the [site configuration][]

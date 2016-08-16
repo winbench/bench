@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench
 {
-    public class HtmlLinkUrlResolver : PageContentUrlResolver
+    internal class HtmlLinkUrlResolver : PageContentUrlResolver
     {
         public UrlPattern HrefPattern { get; private set; }
 

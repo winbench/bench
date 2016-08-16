@@ -10,11 +10,11 @@ weight = 4
 Checkout the documentation of Bench.
 It is well organized and structured in practice-oriented levels of detail.
 There is the [Quickstart], a number of [Tutorials], [Tech Guides]
-and for the details the [API References].
+and for the details the [Reference Docs].
 If you still have a question feel free to [contact] the author.
 
 [Quickstart]: /start/
 [Tutorials]: /tutorial/
 [Tech Guides]: /guide/
-[API References]: /ref/
+[Reference Docs]: /ref/
 [contact]: /contact/

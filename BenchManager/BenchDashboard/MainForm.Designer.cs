@@ -36,6 +36,7 @@
             this.tsslAppCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslAppCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.btnAutoSetup = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnShellBash = new System.Windows.Forms.Button();
@@ -57,7 +58,7 @@
             this.tsslAppCount});
             this.statusStrip.Location = new System.Drawing.Point(0, 339);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(400, 22);
+            this.statusStrip.Size = new System.Drawing.Size(564, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -89,6 +90,7 @@
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.btnAutoSetup);
             this.panelTop.Controls.Add(this.btnDocs);
             this.panelTop.Controls.Add(this.btnAbout);
             this.panelTop.Controls.Add(this.btnShellBash);
@@ -98,26 +100,38 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(400, 29);
+            this.panelTop.Size = new System.Drawing.Size(564, 29);
             this.panelTop.TabIndex = 0;
+            // 
+            // btnAutoSetup
+            // 
+            this.btnAutoSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAutoSetup.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.do_16;
+            this.btnAutoSetup.Location = new System.Drawing.Point(466, 2);
+            this.btnAutoSetup.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAutoSetup.Name = "btnAutoSetup";
+            this.btnAutoSetup.Size = new System.Drawing.Size(29, 25);
+            this.btnAutoSetup.TabIndex = 6;
+            this.toolTip.SetToolTip(this.btnAutoSetup, "Bench Auto Setup");
+            this.btnAutoSetup.Click += new System.EventHandler(this.AutoSetupHandler);
             // 
             // btnDocs
             // 
             this.btnDocs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDocs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.docs_16;
-            this.btnDocs.Location = new System.Drawing.Point(302, 2);
+            this.btnDocs.Location = new System.Drawing.Point(433, 2);
             this.btnDocs.Margin = new System.Windows.Forms.Padding(2);
             this.btnDocs.Name = "btnDocs";
             this.btnDocs.Size = new System.Drawing.Size(29, 25);
             this.btnDocs.TabIndex = 3;
-            this.toolTip.SetToolTip(this.btnDocs, "Bench Setup and Configuration");
+            this.toolTip.SetToolTip(this.btnDocs, "Documentation and Online Resources");
             this.btnDocs.Click += new System.EventHandler(this.DocsHandler);
             // 
             // btnAbout
             // 
             this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAbout.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.info_16;
-            this.btnAbout.Location = new System.Drawing.Point(368, 2);
+            this.btnAbout.Location = new System.Drawing.Point(532, 2);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(29, 25);
@@ -162,7 +176,7 @@
             // 
             this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSetup.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.setup_16;
-            this.btnSetup.Location = new System.Drawing.Point(335, 2);
+            this.btnSetup.Location = new System.Drawing.Point(499, 2);
             this.btnSetup.Margin = new System.Windows.Forms.Padding(2);
             this.btnSetup.Name = "btnSetup";
             this.btnSetup.Size = new System.Drawing.Size(29, 25);
@@ -177,20 +191,20 @@
             this.appLauncherList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.appLauncherList.Location = new System.Drawing.Point(0, 29);
             this.appLauncherList.Name = "appLauncherList";
-            this.appLauncherList.Size = new System.Drawing.Size(400, 310);
+            this.appLauncherList.Size = new System.Drawing.Size(564, 310);
             this.appLauncherList.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 361);
+            this.ClientSize = new System.Drawing.Size(564, 361);
             this.Controls.Add(this.appLauncherList);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.statusStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(216, 128);
+            this.MinimumSize = new System.Drawing.Size(260, 128);
             this.Name = "MainForm";
             this.Text = "Bench";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -219,6 +233,7 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button btnDocs;
+        private System.Windows.Forms.Button btnAutoSetup;
     }
 }
 

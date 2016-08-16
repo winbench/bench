@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench.Markdown
 {
+    /// <summary>
+    /// This class parses Markdown files for configuration properties.
+    /// </summary>
     public class MarkdownPropertyParser
     {
         #region Static Members
@@ -88,24 +91,58 @@ namespace Mastersign.Bench.Markdown
 
         #endregion
 
+        /// <summary>
+        /// This regular expression is used to activate the property parsing.
+        /// If this property is not <c>null</c>, the recognition of properties
+        /// starts after a line matches this expression.
+        /// </summary>
         public Regex ActivationCue { get; set; }
 
+        /// <summary>
+        /// This regular expression is used to deactivate the property parsing.
+        /// If this property is not <c>null</c>, the recognition of properties
+        /// stops after a line matches this expression.
+        /// </summary>
         public Regex DeactivationCue { get; set; }
 
+        /// <summary>
+        /// This regular expression is used to detect the beginning of a group category
+        /// in the Markdown file.
+        /// If this property is not <c>null</c>, and a line matches this expression,
+        /// the current category is changed for all further property groups in the file.
+        /// </summary>
         /// <remarks>
-        /// The regular expression needs a named group with name <c>category</c>.
+        /// The regular expression needs a named capture group with name <c>category</c>.
         /// </remarks>
         public Regex CategoryCue { get; set; }
 
+        /// <summary>
+        /// This regular expression is used to detect the beginning of a property group.
+        /// Properties, which are detected before this expression matches a line,
+        /// are stored as ungrouped properties.
+        /// Properties, which are detected after this expression matches a line,
+        /// are stored as group properties.
+        /// </summary>
         /// <remarks>
-        /// The regular expression needs a named group with name <c>group</c>.
+        /// The regular expression needs a named capture group with name <c>group</c>.
         /// </remarks>
         public Regex GroupBeginCue { get; set; }
 
+        /// <summary>
+        /// This regular expression is used to detect the end of a property group.
+        /// Properties, which are recognized after this expression matches a line,
+        /// are stored as ungrouped properties.
+        /// </summary>
         public Regex GroupEndCue { get; set; }
 
+        /// <summary>
+        /// Gets or sets the property target, where recognized properties are stored in.
+        /// </summary>
         public IGroupedPropertyTarget Target { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="MarkdownPropertyParser"/>.
+        /// </summary>
         public MarkdownPropertyParser()
         {
             ActivationCue = null;
@@ -115,6 +152,10 @@ namespace Mastersign.Bench.Markdown
             GroupEndCue = DefaultGroupEndCue;
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="MarkdownPropertyParser"/>.
+        /// </summary>
+        /// <param name="target">The target for recognized properties.</param>
         public MarkdownPropertyParser(IGroupedPropertyTarget target)
             : this()
         {
@@ -139,11 +180,21 @@ namespace Mastersign.Bench.Markdown
 
         private MdContext Context;
 
+        /// <summary>
+        /// Parses the data in the given stream as UTF8 encoded Markdown text
+        /// and recognizes configuration properties.
+        /// </summary>
+        /// <param name="source">The source stream.</param>
         public void Parse(Stream source)
         {
             Parse(new StreamReader(source, Encoding.UTF8));
         }
 
+
+        /// <summary>
+        /// Parses the given text input and recognizes configuration properties.
+        /// </summary>
+        /// <param name="source">The text input.</param>
         public void Parse(TextReader source)
         {
             LineNo = 0;

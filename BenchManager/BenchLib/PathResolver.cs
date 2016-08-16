@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    public class PathResolver : IGroupedValueResolver
+    internal class PathResolver : IGroupedValueResolver
     {
         public PropertyCriteria Selector { get; set; }
 

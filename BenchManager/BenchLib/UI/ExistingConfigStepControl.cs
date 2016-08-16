@@ -8,7 +8,11 @@ using System.Windows.Forms;
 
 namespace Mastersign.Bench.UI
 {
-    public partial class ExistingConfigStepControl : WizzardStepControl
+    /// <summary>
+    /// A wizzard control, allowing the user to choose how the configuration
+    /// is going to be initialized.
+    /// </summary>
+    internal partial class ExistingConfigStepControl : WizzardStepControl
     {
         public ExistingConfigStepControl()
         {

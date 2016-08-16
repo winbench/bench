@@ -1,4 +1,4 @@
-﻿# Custom Configuration
+﻿# User Configuration
 
 ## Environment
 
@@ -8,10 +8,8 @@ With the following properties, the composition of the environment variables is c
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
 * RegisterInUserProfile: `false`
-* EnvironmentPath:
-    + ~~`$HomeDir$\bin`~~
-* Environment:
-    + ~~`MY_VAR`: `my custom value`~~
+* ~~EnvironmentPath: `$HomeDir$\bin`~~
+* ~~Environment: `MY_VAR=my custom value`~~
 
 ## Project Archive
 
@@ -25,5 +23,5 @@ With the following properties, the project archive is controlled.
 With the following properties, the appearance of the launchers for the three shells is controlled.
 
 * QuickAccessCmd: `true`
-* ~~QuickAccessPowerShell: `true`~~
-* ~~QuickAccessBash: `true`~~
+* QuickAccessPowerShell: `false`
+* QuickAccessBash: `false`

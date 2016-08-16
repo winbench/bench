@@ -29,7 +29,7 @@ weight = 1
 | ID | Name | Version | Website |
 |----|------|---------|---------|
 | `7z` | [7-Zip](#7z) | 16.02 | <http://www.7-zip.de/download.html> |
-| `ConEmu` | [ConEmu](#ConEmu) | 16.06.19 | <https://conemu.github.io/> |
+| `ConEmu` | [ConEmu](#ConEmu) | 16.07.24 | <https://conemu.github.io/> |
 | `InnoUnp` | [Inno Setup Unpacker](#InnoUnp) | 0.45 | <http://innounp.sourceforge.net/> |
 | `LessMsi` | [Less MSIerables](#LessMsi) | 1.3 | <http://lessmsi.activescott.com/> |
 
@@ -38,26 +38,27 @@ weight = 1
 | ID | Name | Version | Website |
 |----|------|---------|---------|
 | `AntRenamer` | [Ant Renamer](#AntRenamer) | latest | <http://antp.be/software/renamer> |
-| `Apache` | [Apache](#Apache) | 2.4.20 | <https://httpd.apache.org/> |
-| `Atom` | [Atom](#Atom) | 1.8.0 | <https://atom.io> |
+| `Apache` | [Apache](#Apache) | 2.4.23 | <https://httpd.apache.org/> |
+| `Atom` | [Atom](#Atom) | 1.9.8 | <https://atom.io> |
 | `Blender` | [Blender](#Blender) | 2.77 | <https://www.blender.org> |
 | `Bower` | [Bower](#Bower) | >=1.7.0 <2.0.0 | <https://bower.io/> |
-| `CMake` | [CMake](#CMake) | 3.5.2 | <https://cmake.org/> |
-| `cURL` | [cURL](#cURL) | 7.48.0 | <http://curl.haxx.se/> |
+| `CMake` | [CMake](#CMake) | 3.6.1 | <https://cmake.org/> |
+| `cURL` | [cURL](#cURL) | 7.50.1 | <http://curl.haxx.se/> |
 | `Dia` | [Dia](#Dia) | 0.97.2 | <https://wiki.gnome.org/Apps/Dia> |
-| `EclipseCpp` | [Eclipse for C++](#EclipseCpp) | 4.5 | <http://www.eclipse.org/> |
-| `EclipseJava` | [Eclipse for Java](#EclipseJava) | 4.5 | <http://www.eclipse.org/> |
-| `EclipsePHP` | [Eclipse for PHP](#EclipsePHP) | 4.5 | <http://www.eclipse.org/> |
+| `EclipseCpp` | [Eclipse for C++](#EclipseCpp) | 4.6 | <http://www.eclipse.org/> |
+| `EclipseJava` | [Eclipse for Java](#EclipseJava) | 4.6 | <http://www.eclipse.org/> |
+| `EclipsePHP` | [Eclipse for PHP](#EclipsePHP) | 4.6 | <http://www.eclipse.org/> |
 | `Emacs` | [Emacs](#Emacs) | 24.5 | <https://www.gnu.org/software/emacs/> |
-| `FFmpeg` | [FFmpeg](#FFmpeg) | 20160512-git-cd244fa | <https://www.ffmpeg.org/> |
-| `FileZilla` | [FileZilla](#FileZilla) | 3.18.0 | <https://filezilla-project.org/> |
-| `Gimp` | [GIMP](#Gimp) | 2.8.16 | <http://www.gimp.org/> |
-| `Git` | [Git](#Git) | 2.9.0 | <https://git-scm.com/download/win> |
+| `Erlang` | [Erlang](#Erlang) | 19.0 | <http://www.erlang.org/> |
+| `FFmpeg` | [FFmpeg](#FFmpeg) | latest | <https://www.ffmpeg.org/> |
+| `FileZilla` | [FileZilla](#FileZilla) | 3.20.1 | <https://filezilla-project.org/> |
+| `Gimp` | [GIMP](#Gimp) | 2.8.18 | <http://www.gimp.org/> |
+| `Git` | [Git](#Git) | 2.9.2 | <https://git-scm.com/download/win> |
 | `GitKraken` | [GitKraken](#GitKraken) | latest | <https://www.gitkraken.com/> |
 | `GnuTLS` | [GNU TLS](#GnuTLS) | 3.3.11 | <http://www.gnutls.org/> |
 | `GnuPG` | [GnuPG](#GnuPG) | 2.0.30 | <https://gnupg.org> |
 | `Go` | [Go](#Go) | 1.6 | <https://golang.org> |
-| `GraphicsMagick` | [Graphics Magick](#GraphicsMagick) | 1.3.23 | <http://www.graphicsmagick.org/> |
+| `GraphicsMagick` | [Graphics Magick](#GraphicsMagick) | 1.3.24 | <http://www.graphicsmagick.org/> |
 | `Graphviz` | [Graphviz](#Graphviz) | 2.38 | <http://www.graphviz.org/> |
 | `Grunt` | [Grunt](#Grunt) | >=0.4.5 <0.5.0 | <http://gruntjs.com> |
 | `Gulp` | [Gulp](#Gulp) | >=3.9.0 <4.0.0 | <http://gulpjs.com> |
@@ -65,37 +66,39 @@ weight = 1
 | `Inkscape` | [Inkscape](#Inkscape) | 0.91-1 | <https://inkscape.org/en/download/> |
 | `IPython2` | [IPython 2](#IPython2) | latest | <http://pypi.python.org/pypi/ipython> |
 | `IPython3` | [IPython 3](#IPython3) | latest | <http://pypi.python.org/pypi/ipython> |
-| `JabRef` | [JabRef](#JabRef) | 3.3 | <http://www.jabref.org> |
+| `JabRef` | [JabRef](#JabRef) | 3.5 | <http://www.jabref.org> |
 | `JDK7` | [Java Development Kit 7](#JDK7) | 7u80 | <https://www.oracle.com/java/> |
-| `JDK8` | [Java Development Kit 8](#JDK8) | 8u92 | <https://www.oracle.com/java/> |
+| `JDK8` | [Java Development Kit 8](#JDK8) | 8u102 | <https://www.oracle.com/java/> |
 | `JRE7` | [Java Runtime Environment 7](#JRE7) | 7u80 | <https://www.oracle.com/java/> |
-| `JRE8` | [Java Runtime Environment 8](#JRE8) | 8u92 | <https://www.oracle.com/java/> |
+| `JRE8` | [Java Runtime Environment 8](#JRE8) | 8u102 | <https://www.oracle.com/java/> |
 | `JSHint` | [JSHint](#JSHint) | >=2.8.0 <3.0.0 | <http://jshint.com/> |
 | `Leiningen` | [Leiningen](#Leiningen) | latest | <http://leiningen.org> |
 | `LightTable` | [LightTable](#LightTable) | 0.8.1 | <http://lighttable.com> |
-| `Clang` | [LLVM Clang](#Clang) | 3.8.0 | <http://clang.llvm.org/> |
+| `Clang` | [LLVM Clang](#Clang) | 3.8.1 | <http://clang.llvm.org/> |
 | `Maven` | [Maven](#Maven) | 3.3.9 | <https://maven.apache.org> |
 | `MeshLab` | [MeshLab](#MeshLab) | 1.3.3 | <http://meshlab.sourceforge.net/> |
 | `MiKTeX` | [MiKTeX](#MiKTeX) | 2.9.5987 | <http://miktex.org/portable> |
 | `MinGW` | [MinGW](#MinGW) | latest | <http://www.mingw.org/> |
 | `MinGwGet` | [MinGwGet](#MinGwGet) | 0.6.2 |  |
 | `MinGwGetGui` | [MinGwGetGui](#MinGwGetGui) | latest |  |
-| `MySQL` | [MySQL](#MySQL) | 5.7.12 | <http://www.mysql.com/> |
-| `MySQLWB` | [MySQL Workbench](#MySQLWB) | 6.3.6 | <http://dev.mysql.com/downloads/workbench/> |
-| `Node` | [Node.js](#Node) | 6.2.2 | <https://nodejs.org> |
+| `MySQL` | [MySQL](#MySQL) | 5.7.14 | <http://www.mysql.com/> |
+| `MySQLWB` | [MySQL Workbench](#MySQLWB) | 6.3.7 | <http://dev.mysql.com/downloads/workbench/> |
+| `Node` | [Node.js](#Node) | 6.3.1 | <https://nodejs.org> |
 | `Npm` | [NPM](#Npm) | >=3.7.0 <4.0.0 | <https://www.npmjs.com/package/npm> |
 | `NuGet` | [NuGet](#NuGet) | latest | <https://www.nuget.org> |
+| `NUnit.Runners` | [NUnit 3 Runners](#NUnit.Runners) | latest | <http://nunit.org/> |
 | `OpenSSL` | [OpenSSL](#OpenSSL) | 1.0.2h | <https://www.openssl.org/> |
-| `Pandoc` | [Pandoc](#Pandoc) | 1.17.1 | <https://github.com/jgm/pandoc/releases/latest> |
-| `PHP5` | [PHP 5](#PHP5) | 5.6.21 | <http://www.php.net> |
-| `PHP7` | [PHP 7](#PHP7) | 7.0.6 | <http://www.php.net> |
+| `Pandoc` | [Pandoc](#Pandoc) | 1.17.2 | <https://github.com/jgm/pandoc/releases/latest> |
+| `PHP5` | [PHP 5](#PHP5) | 5.6.23 | <http://www.php.net> |
+| `PHP7` | [PHP 7](#PHP7) | 7.0.8 | <http://www.php.net> |
 | `PostgreSQL` | [PostgreSQL](#PostgreSQL) | 9.5.3-1 | <http://www.postgresql.org> |
 | `Putty` | [Putty](#Putty) | latest | <http://www.putty.org> |
 | `PyReadline2` | [PyReadline (Python 2)](#PyReadline2) | latest | <https://pypi.python.org/pypi/pyreadline> |
 | `PyReadline3` | [PyReadline (Python 3)](#PyReadline3) | latest | <https://pypi.python.org/pypi/pyreadline> |
-| `Python2` | [Python 2](#Python2) | 2.7.11 | <https://www.python.org/> |
+| `Python2` | [Python 2](#Python2) | 2.7.12 | <https://www.python.org/> |
 | `Python3` | [Python 3](#Python3) | 3.4.4 | <https://www.python.org/> |
-| `Ruby` | [Ruby](#Ruby) | 2.2.4 | <https://www.ruby-lang.org/> |
+| `RabbitMQ` | [RabbitMQ](#RabbitMQ) | 3.6.5 | <http://www.rabbitmq.com> |
+| `Ruby` | [Ruby](#Ruby) | 2.3.1 | <https://www.ruby-lang.org/> |
 | `Sass` | [SASS](#Sass) | latest | <http://sass-lang.com/> |
 | `Sift` | [Sift](#Sift) | 0.8.0 | <https://sift-tool.org/> |
 | `Spacemacs` | [Spacemacs](#Spacemacs) | latest | <http://spacemacs.org/> |
@@ -208,7 +211,7 @@ weight = 1
 * ID: `ConEmu`
 * Typ: `default`
 * Website: <https://conemu.github.io/>
-* Version: 16.06.19
+* Version: 16.07.24
 
 ### Inno Setup Unpacker {#InnoUnp}
 
@@ -238,14 +241,14 @@ weight = 1
 * ID: `Apache`
 * Typ: `default`
 * Website: <https://httpd.apache.org/>
-* Version: 2.4.20
+* Version: 2.4.23
 
 ### Atom {#Atom}
 
 * ID: `Atom`
 * Typ: `default`
 * Website: <https://atom.io>
-* Version: 1.8.0
+* Version: 1.9.8
 
 ### Blender {#Blender}
 
@@ -267,14 +270,14 @@ weight = 1
 * ID: `CMake`
 * Typ: `default`
 * Website: <https://cmake.org/>
-* Version: 3.5.2
+* Version: 3.6.1
 
 ### cURL {#cURL}
 
 * ID: `cURL`
 * Typ: `default`
 * Website: <http://curl.haxx.se/>
-* Version: 7.48.0
+* Version: 7.50.1
 
 ### Dia {#Dia}
 
@@ -288,7 +291,7 @@ weight = 1
 * ID: `EclipseCpp`
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Version: 4.5
+* Version: 4.6
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Eclipse for Java {#EclipseJava}
@@ -296,7 +299,7 @@ weight = 1
 * ID: `EclipseJava`
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Version: 4.5
+* Version: 4.6
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Eclipse for PHP {#EclipsePHP}
@@ -304,7 +307,7 @@ weight = 1
 * ID: `EclipsePHP`
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Version: 4.5
+* Version: 4.6
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Emacs {#Emacs}
@@ -315,33 +318,40 @@ weight = 1
 * Version: 24.5
 * Dependencies: [GNU TLS](#GnuTLS)
 
+### Erlang {#Erlang}
+
+* ID: `Erlang`
+* Typ: `default`
+* Website: <http://www.erlang.org/>
+* Version: 19.0
+
 ### FFmpeg {#FFmpeg}
 
 * ID: `FFmpeg`
 * Typ: `default`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160512-git-cd244fa
+* Version: latest
 
 ### FileZilla {#FileZilla}
 
 * ID: `FileZilla`
 * Typ: `default`
 * Website: <https://filezilla-project.org/>
-* Version: 3.18.0
+* Version: 3.20.1
 
 ### GIMP {#Gimp}
 
 * ID: `Gimp`
 * Typ: `default`
 * Website: <http://www.gimp.org/>
-* Version: 2.8.16
+* Version: 2.8.18
 
 ### Git {#Git}
 
 * ID: `Git`
 * Typ: `default`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.9.0
+* Version: 2.9.2
 
 ### GitKraken {#GitKraken}
 
@@ -376,7 +386,7 @@ weight = 1
 * ID: `GraphicsMagick`
 * Typ: `default`
 * Website: <http://www.graphicsmagick.org/>
-* Version: 1.3.23
+* Version: 1.3.24
 
 ### Graphviz {#Graphviz}
 
@@ -436,7 +446,7 @@ weight = 1
 * ID: `JabRef`
 * Typ: `default`
 * Website: <http://www.jabref.org>
-* Version: 3.3
+* Version: 3.5
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Java Development Kit 7 {#JDK7}
@@ -451,7 +461,7 @@ weight = 1
 * ID: `JDK8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u92
+* Version: 8u102
 
 ### Java Runtime Environment 7 {#JRE7}
 
@@ -465,7 +475,7 @@ weight = 1
 * ID: `JRE8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u92
+* Version: 8u102
 
 ### JSHint {#JSHint}
 
@@ -495,7 +505,7 @@ weight = 1
 * ID: `Clang`
 * Typ: `default`
 * Website: <http://clang.llvm.org/>
-* Version: 3.8.0
+* Version: 3.8.1
 
 ### Maven {#Maven}
 
@@ -546,21 +556,21 @@ weight = 1
 * ID: `MySQL`
 * Typ: `default`
 * Website: <http://www.mysql.com/>
-* Version: 5.7.12
+* Version: 5.7.14
 
 ### MySQL Workbench {#MySQLWB}
 
 * ID: `MySQLWB`
 * Typ: `default`
 * Website: <http://dev.mysql.com/downloads/workbench/>
-* Version: 6.3.6
+* Version: 6.3.7
 
 ### Node.js {#Node}
 
 * ID: `Node`
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Version: 6.2.2
+* Version: 6.3.1
 
 ### NPM {#Npm}
 
@@ -577,6 +587,14 @@ weight = 1
 * Website: <https://www.nuget.org>
 * Version: latest
 
+### NUnit 3 Runners {#NUnit.Runners}
+
+* ID: `NUnit.Runners`
+* Typ: `nuget-package`
+* Website: <http://nunit.org/>
+* Version: latest
+* Dependencies: [NuGet](#NuGet)
+
 ### OpenSSL {#OpenSSL}
 
 * ID: `OpenSSL`
@@ -589,21 +607,21 @@ weight = 1
 * ID: `Pandoc`
 * Typ: `default`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.17.1
+* Version: 1.17.2
 
 ### PHP 5 {#PHP5}
 
 * ID: `PHP5`
 * Typ: `default`
 * Website: <http://www.php.net>
-* Version: 5.6.21
+* Version: 5.6.23
 
 ### PHP 7 {#PHP7}
 
 * ID: `PHP7`
 * Typ: `default`
 * Website: <http://www.php.net>
-* Version: 7.0.6
+* Version: 7.0.8
 
 ### PostgreSQL {#PostgreSQL}
 
@@ -640,7 +658,7 @@ weight = 1
 * ID: `Python2`
 * Typ: `default`
 * Website: <https://www.python.org/>
-* Version: 2.7.11
+* Version: 2.7.12
 
 ### Python 3 {#Python3}
 
@@ -649,12 +667,20 @@ weight = 1
 * Website: <https://www.python.org/>
 * Version: 3.4.4
 
+### RabbitMQ {#RabbitMQ}
+
+* ID: `RabbitMQ`
+* Typ: `default`
+* Website: <http://www.rabbitmq.com>
+* Version: 3.6.5
+* Dependencies: [Erlang](#Erlang)
+
 ### Ruby {#Ruby}
 
 * ID: `Ruby`
 * Typ: `default`
 * Website: <https://www.ruby-lang.org/>
-* Version: 2.2.4
+* Version: 2.3.1
 
 ### SASS {#Sass}
 

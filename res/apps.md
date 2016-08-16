@@ -70,8 +70,8 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 * Website: <https://conemu.github.io/>
 * Docs:
     + Documentation: <https://conemu.github.io/en/TableOfContents.html>
-* Version: 16.06.19
-* Release: 160619
+* Version: 16.07.24
+* Release: 160724
 * Url: `https://github.com/Maximus5/ConEmu/releases/download/v$:Version$/$:ArchiveName$`
 * ArchiveName: `ConEmuPack.$:Release$.7z`
 * Launcher: `ConEmu`
@@ -165,7 +165,7 @@ Git is a free and open source distributed version control system designed to han
 * Docs:
     + Reference: <https://git-scm.com/docs>
     + Pro Git Book: <https://git-scm.com/book/en/v2>
-* Version: 2.9.0
+* Version: 2.9.2
 * Release: $:Version$.windows.1
 * Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
 * ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
@@ -300,7 +300,7 @@ file transfer resume, proxy tunneling and more.
 * Docs:
     + Manual: <https://curl.haxx.se/docs/manual.html>
     + Man Page: <https://curl.haxx.se/docs/manpage.html>
-* Version: 7.48.0
+* Version: 7.50.1
 * Url: `https://bintray.com/artifact/download/vszakats/generic/$:ArchiveName$`
 * ArchiveName: `curl-$:Version$-win32-mingw.7z`
 * ArchivePath: `curl-$:Version$-win32-mingw`
@@ -317,7 +317,7 @@ FileZilla Client is a free, open source FTP client. It supports FTP, SFTP, and F
     + Documentation: <https://wiki.filezilla-project.org/Documentation>
     + Usage: <https://wiki.filezilla-project.org/Using>
     + Tutorial: <https://wiki.filezilla-project.org/FileZilla_Client_Tutorial_(en)>
-* Version: 3.18.0
+* Version: 3.20.1
 * Url: `https://sourceforge.net/projects/portableapps/files/FileZilla%20Portable/$:ArchiveName$`
 * ArchiveName: `FileZillaPortable_$:Version$.paf.exe`
 * ArchivePath: `App/filezilla`
@@ -383,8 +383,8 @@ Pandoc is a library and command-line tool for converting from one markup format 
 * Docs:
     + User's Guide: <http://pandoc.org/README.html>
     + FAQ: <http://pandoc.org/faqs.html>
-* Version: 1.17.1
-* Release: $:Version$-1
+* Version: 1.17.2
+* Release: $:Version$
 * Url: `https://github.com/jgm/pandoc/releases/download/$:Version$/$:ArchiveName$`
 * ArchiveName: `pandoc-$:Release$-windows.msi`
 * ArchivePath: `SourceDir\Pandoc`
@@ -422,7 +422,7 @@ The native file format used by JabRef is BibTeX, the standard LaTeX bibliography
     + Help: <http://help.jabref.org/en/>
     + FAQ: <http://www.jabref.org/faq/>
 * Version: 3.5
-* Url: `http://app.oldfoss.com/download/JabRef/$:ResourceName$`
+* Url: `https://github.com/JabRef/jabref/releases/download/v$:Version$/$:ResourceName$`
 * ResourceName: `JabRef-$:Version$.jar`
 * Exe: `$:ResourceName$`
 * Launcher: $:Label$
@@ -445,7 +445,7 @@ like DPX, GIF, JPEG, JPEG-2000, PNG, PDF, PNM, and TIFF.
     + APIs: <http://www.graphicsmagick.org/programming.html>
     + Supported Formats: <http://www.graphicsmagick.org/programming.html>
     + Color Reference: <http://www.graphicsmagick.org/color.html>
-* Version: 1.3.23
+* Version: 1.3.24
 * Url: `http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/$:Version$/$:ArchiveName$`
 * ArchiveName: `GraphicsMagick-$:Version$-Q16-win32-dll.exe`
 * ArchiveTyp: `inno`
@@ -469,7 +469,7 @@ No matter if they were designed by some standards committee, the community or a 
     + ffprobe Tool: <http://ffmpeg.org/ffprobe.html>
     + ffserver Tool: <http://ffmpeg.org/ffserver.html>
     + Wiki: <https://trac.ffmpeg.org/wiki>
-* Version: 20160512-git-cd244fa
+* Version: latest
 * Url: `http://ffmpeg.zeranoe.com/builds/win32/shared/$:ArchiveName$`
 * ArchiveName: `ffmpeg-$:Version$-win32-shared.7z`
 * ArchivePath: `ffmpeg-$:Version$-win32-shared`
@@ -573,7 +573,7 @@ GIMP provides you with sophisticated tools to get your job done.
 * Docs:
     + Manual: <http://docs.gimp.org/2.8/en/>
     + Tutorials: <http://www.gimp.org/tutorials/>
-* Version: 2.8.16
+* Version: 2.8.18
 * Url: `https://sourceforge.net/projects/portableapps/files/GIMP Portable/$:ArchiveName$`
 * ArchiveName: `GIMPPortable_$:Version$.paf.exe`
 * ArchivePath: `App/gimp`
@@ -791,7 +791,7 @@ Python is a programming language that lets you work quickly and integrate system
     + Documentation: <https://docs.python.org/2/>
     + Language Reference: <https://docs.python.org/2/reference/index.html>
     + Library Reference: <https://docs.python.org/2/library/index.html>
-* Version: 2.7.11
+* Version: 2.7.12
 * Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
 * ArchiveName: `python-$:Version$.msi`
 * ArchivePath: `SourceDir`
@@ -877,7 +877,7 @@ It has an elegant syntax that is natural to read and easy to write.
     + Documentation: <https://www.ruby-lang.org/en/documentation/>
     + Programming Ruby: <http://ruby-doc.com/docs/ProgrammingRuby/>
     + Libraries: <https://www.ruby-lang.org/en/libraries/>
-* Version: 2.2.4
+* Version: 2.3.1
 * Url: `http://dl.bintray.com/oneclick/rubyinstaller/$:ArchiveName$`
 * ArchiveName: `rubyinstaller-$:Version$.exe`
 * ArchiveTyp: `inno`
@@ -911,7 +911,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable][MS
 * Website: <http://www.php.net>
 * Docs:
     + PHP Manual: <http://php.net/manual/en/>
-* Version: 5.6.21
+* Version: 5.6.23
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC11-x86.zip`
 * Exe: `php.exe`
@@ -928,7 +928,7 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable][MS
 * Website: <http://www.php.net>
 * Docs:
     + PHP Manual: <http://php.net/manual/en/>
-* Version: 7.0.6
+* Version: 7.0.8
 * Url: `http://windows.php.net/downloads/releases/archives/$:ArchiveName$`
 * ArchiveName: `php-$:Version$-Win32-VC14-x86.zip`
 * Exe: `php.exe`
@@ -1144,8 +1144,8 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 
 * ID: `CMake`
 * Website: <https://cmake.org/>
-* MajorVersion: 3.5
-* Version: $:MajorVersion$.2
+* MajorVersion: 3.6
+* Version: $:MajorVersion$.1
 * Url: `https://cmake.org/files/v$:MajorVersion$/$:ArchiveName$`
 * ArchiveName: `cmake-$:Version$-win32-x86.zip`
 * ArchivePath: `cmake-$:Version$-win32-x86`
@@ -1166,7 +1166,7 @@ install the LLVM-Plugin for Eclipse CDT.
 
 * ID: `Clang`
 * Label: LLVM Clang
-* Version: 3.8.0
+* Version: 3.8.1
 * Website: <http://clang.llvm.org/>
 * Url: `http://llvm.org/releases/$:Version$/$:ArchiveName$`
 * ArchiveName: `LLVM-$:Version$-win32.exe`
@@ -1199,6 +1199,28 @@ to build simple, reliable, and efficient software.
 * Environment:
     + `GOROOT`: `$:Dir$`
 
+### Erlang
+
+Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance.
+
+* ID: `Erlang`
+* Website: <http://www.erlang.org/>
+* Docs:
+    + Documentation: `$:Dir$\doc\index.html`
+* VersionMajor: 19
+* VersionMinor: 0
+* ErtsVersion: 8.0
+* Version: $:VersionMajor$.$:VersionMinor$
+* Url: `http://erlang.org/download/$:ArchiveName$`
+* ArchiveName: `otp_win32_$:Version$.exe`
+* ArchiveType: `generic`
+* ErtsDir: `erts-$:ErtsVersion$`
+* Path: `$:ErtsDir$\bin`
+* Exe: `$:ErtsDir$\bin\erl.exe`
+* Environment: `ERLANG_HOME=$:ErtsDir$`
+* Launcher: $:Label$
+* LauncherExecutable: `$:ErtsDir$\bin\werl.exe`
+
 ### NuGet
 
 NuGet is the package manager for the Microsoft development platform including .NET.
@@ -1215,6 +1237,22 @@ The NuGet Gallery is the central package repository used by all package authors 
 * Version: latest
 * Url: <https://dist.nuget.org/win-x86-commandline/latest/nuget.exe>
 * ResourceName: `nuget.exe`
+
+### NUnit 3 Runner
+
+NUnit is a unit-testing framework for all .Net languages.
+The console runner `nunit3-console.exe` executes tests on the console.
+
+* ID: `NUnit.Runners`
+* Label: NUnit 3 Runners
+* Typ: nuget-package
+* Website: <http://nunit.org/>
+* Docs:
+    + Documentation: <https://github.com/nunit/docs/wiki>
+    + Console Runner: <https://github.com/nunit/docs/wiki/Console-Runner>
+    + Command Line: <https://github.com/nunit/docs/wiki/Console-Command-Line>
+* Path: `NUnit.ConsoleRunner\tools`
+* Exe: `$:Path$\nunit3-console.exe`
 
 ### Zeal
 
@@ -1234,6 +1272,9 @@ An offline documentation browser inspired by [Dash](https://kapeli.com/dash/).
 
 A hackable text editor for the 21st Century.
 
+_Hint: Install the `env-from-shell` package to make sure the Bench environment
+is picked up from Atom._
+
 * ID: `Atom`
 * Website: <https://atom.io>
 * Docs:
@@ -1241,9 +1282,9 @@ A hackable text editor for the 21st Century.
     + Themes: <https://atom.io/themes>
     + Flight Manual: <http://flight-manual.atom.io/>
     + API Reference: `https://atom.io/docs/api/v$:Version$/AtomEnvironment`
-* Version: 1.8.0
-* Url: `https://github.com/atom/atom/releases/download/v$:Version$/$:ArchiveName$`
-* ArchiveName: `atom-windows.zip`
+* Version: 1.9.8
+* Url: `https://github.com/atom/atom/releases/download/v$:Version$/atom-windows.zip`
+* ArchiveName: `atom-windows-$:Version$.zip`
 * ArchivePath: `Atom`
 * Environment:
     + ATOM_HOME: `$HomeDir$\.atom`
@@ -1400,9 +1441,9 @@ Eclipse for Java development:
 
 * ID: `EclipseJava`
 * Label: Eclipse for Java
-* Version: 4.5
-* CodeName: mars
-* Release: 1
+* Version: 4.6
+* CodeName: neon
+* Release: R
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
@@ -1417,9 +1458,9 @@ Eclipse for PHP development:
 
 * ID: `EclipsePHP`
 * Label: Eclipse for PHP
-* Version: 4.5
-* CodeName: mars
-* Release: 1
+* Version: 4.6
+* CodeName: neon
+* Release: R
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
@@ -1434,9 +1475,9 @@ Eclipse for C/C++ development:
 
 * ID: `EclipseCpp`
 * Label: Eclipse for C++
-* Version: 4.5
-* CodeName: mars
-* Release: 1
+* Version: 4.6
+* CodeName: neon
+* Release: R
 * Dependencies: `JRE8`
 * Website: <http://www.eclipse.org/>
 * Url: `http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/$:CodeName$/$:Release$/$:ArchiveName$`
@@ -1475,12 +1516,13 @@ The initial password for _root_ is `bench`.
 * ID: `MySQL`
 * Website: <http://www.mysql.com/>
 * Docs:
-    + Documentation: <http://dev.mysql.com/doc/refman/5.7/en/>
-    + SQL Syntax: <http://dev.mysql.com/doc/refman/5.7/en/sql-syntax.html>
-    + Data Types: <http://dev.mysql.com/doc/refman/5.7/en/data-types.html>
-    + Functions: <http://dev.mysql.com/doc/refman/5.7/en/functions.html>
-* Version: 5.7.12
-* Url: `http://dev.mysql.com/get/Downloads/MySQL-5.7/$:ArchiveName$`
+    + Documentation: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/`
+    + SQL Syntax: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/sql-syntax.html`
+    + Data Types: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/data-types.html`
+    + Functions: `http://dev.mysql.com/doc/refman/$:VersionMajor$/en/functions.html`
+* VersionMajor: 5.7
+* Version: $:VersionMajor$.14
+* Url: `http://dev.mysql.com/get/Downloads/MySQL-$:VersionMajor$/$:ArchiveName$`
 * ArchiveName: `mysql-$:Version$-win32.zip`
 * ArchivePath: `mysql-$:Version$-win32`
 * Path: `bin`
@@ -1495,15 +1537,18 @@ MySQL Workbench is a unified visual tool for database architects, developers, an
 MySQL Workbench provides data modeling, SQL development, and comprehensive administration
 tools for server configuration, user administration, backup, and much more.
 
+This application needs the x86 version of the [Visual C++ 12 Redistributable][MS VC12],
+and the [Microsoft.NET Framework 4.0 Client Profile][CLR40CP] installed.
+
 * ID: `MySQLWB`
 * Label: MySQL Workbench
 * Website: <http://dev.mysql.com/downloads/workbench/>
 * Docs:
     + Documentation: <http://dev.mysql.com/doc/workbench/en/>
-* Version: 6.3.6
+* Version: 6.3.7
 * Url: `http://dev.mysql.com/get/Downloads/MySQLGUITools/$:ArchiveName$`
 * ArchiveName: `mysql-workbench-community-$:Version$-win32-noinstall.zip`
-* ArchivePath: `MySQL Workbench 6.3.6 CE (win32)`
+* ArchivePath: `MySQL Workbench $:Version$ CE (win32)`
 * Exe: `MySQLWorkbench.exe`
 * Register: `false`
 * Launcher: $:Label$
@@ -1549,20 +1594,42 @@ The Apache HTTP Server is a secure, efficient and extensible server
 that provides HTTP services in sync with the current HTTP standards.
 The Apache HTTP Server is the most popular web server since over 20 years.
 
-This application needs the x86 version of the [Visual C++ 11 Redistributable][MS VC11] installed.
+This application needs the x86 version of the [Visual C++ 14 Redistributable][MS VC14] installed.
 
 * ID: `Apache`
 * Website: <https://httpd.apache.org/>
 * Docs:
     + Documentation: <http://httpd.apache.org/docs/2.4/en/>
-* Version: 2.4.20
-* Url: `http://www.apachelounge.com/download/VC11/binaries/$:ArchiveName$`
-* ArchiveName: `httpd-$:Version$-win32-VC11.zip`
+* Version: 2.4.23
+* Url: `http://www.apachelounge.com/download/VC14/binaries/$:ArchiveName$`
+* ArchiveName: `httpd-$:Version$-win32-VC14.zip`
 * ArchivePath: `Apache24`
 * Path: `bin`
 * Exe: `bin\httpd.exe`
 * HttpdDocumentRoot: `$HomeDir$\www`
 * HttpdListen: `127.0.0.1:80`
+
+### RabbitMQ
+
+RabbitMQ is ...  
+Robust messaging for applications,
+Easy to use,
+Runs on all major operating systems,
+Supports a huge number of developer platforms,
+Open source and commercially supported
+
+* ID: `RabbitMQ`
+* Website: <http://www.rabbitmq.com>
+* Docs:
+    + Documentation: <http://www.rabbitmq.com/documentation.html>
+    + Web Interface: <http://localhost:15672/>
+* Dependencies: `Erlang`
+* Version: 3.6.5
+* Url: `http://www.rabbitmq.com/releases/rabbitmq-server/v$:Version$/$:ArchiveName$`
+* ArchiveName: `rabbitmq-server-windows-$:Version$.zip`
+* ArchivePath: `rabbitmq_server-$:Version$`
+* Path: `sbin`
+* Exe: `sbin\rabbitmq-server.bat`
 
 ### Windows Sysinternals Suite
 
@@ -1584,5 +1651,7 @@ the Microsoft Windows operating systems and its processes.
 
 
 [MS VC11]: https://www.microsoft.com/download/details.aspx?id=30679 "Microsoft Visual C++ Redistributable for Visual Studio 2012"
+[MS VC12]: https://www.microsoft.com/download/details.aspx?id=40784 "Microsoft Visual C++ Redistributable for Visual Studio 2013"
 [MS VC14]: https://www.microsoft.com/download/details.aspx?id=48145 "Microsoft Visual C++ Redistributable for Visual Studio 2015"
 [MinGW]: http://www.mingw.org/
+[CLR40CP]: http://www.microsoft.com/download/details.aspx?id=17113 "Microsoft.NET Framework 4.0 CLient Profile"

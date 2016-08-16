@@ -11,6 +11,8 @@ weight = 8
 | [Label](#Label) | all | `false` |
 | [Typ](#Typ) | all | `false` |
 | [Dependencies](#Dependencies) | all | `false` |
+| [Website](#Website) | all | `false` |
+| [Docs](#Docs) | all | `false` |
 | [Force](#Force) | all | `false` |
 | [Dir](#Dir) | all | `false` |
 | [Path](#Path) | `meta`, `default` | `false` |
@@ -53,7 +55,14 @@ weight = 8
 
 * Description: The application typ
 * Data Type: string
-* Possible Values: `default`, `meta`, `node-package`, `python2-package`, `python3-package`, `ruby-package`
+* Possible Values:
+    + `default`
+    + `meta`
+    + `node-package`
+    + `python2-package`
+    + `python3-package`
+    + `ruby-package`
+    + `nuget-package`
 * Required: `false`
 * Default: `default`
 * App Types: all
@@ -68,6 +77,30 @@ The meaning of the different possible values is explained in [App Types](/ref/ap
 * Required: `false`
 * Default: empty
 * App Types: all
+
+## Website {#Website}
+
+* Description: A URL to the main website of this program
+* Data Type: URL
+* Required: `false`
+* Default: empty
+* App Types: all
+
+This URL is used to create an entry in the documentation menu in the
+main window of the Bench Dashboard.
+
+## Docs {#Docs}
+
+* Description: A dictionary with documentation URLs for this program
+* Data Type: dictionary of labels and URLs
+* Required: `false`
+* Default: empty
+* App Types: all
+
+This dictionary lists a number of documentation links for this program.
+Each entry is a key-value-pair of a label and a URL.
+This dictionary is used to create entries in the documentation menu in the
+main window of the Bench Dashbaord.
 
 ## Force {#Force}
 

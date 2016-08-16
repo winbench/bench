@@ -41,6 +41,9 @@ namespace Mastersign.Bench.Dashboard
                     MessageBoxIcon.Warning);
                 return 1;
             }
+
+            BenchTasks.UninstallBlacklist.Add(AppKeys.ConEmu);
+
             Core = new Core(rootPath);
             Core.SetupOnStartup = IsImmediateSetupRequested(args);
 

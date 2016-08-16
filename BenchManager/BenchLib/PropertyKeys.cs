@@ -4,8 +4,13 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// This class contains string constants for all configuration and app properties.
+    /// </summary>
     public static class PropertyKeys
     {
+#pragma warning disable CS1591 // warning for missing XML doc comment
+
         public const string Version = "Version";
         public const string VersionFile = "VersionFile";
         public const string Website = "Website";
@@ -32,8 +37,8 @@ namespace Mastersign.Bench
         public const string AppActivationTemplateFile = "AppActivationTemplateFile";
         public const string AppDeactivationFile = "AppDeactivationFile";
         public const string AppDeactivationTemplateFile = "AppDeactivationTemplateFile";
+        public const string AppVersionIndexDir = "AppVersionIndexDir";
 
-        public const string WizzardEditCustomConfigBeforeSetup = "WizzardEditCustomConfigBeforeSetup";
         public const string WizzardStartAutoSetup = "WizzardStartAutoSetup";
         public const string QuickAccessCmd = "QuickAccessCmd";
         public const string QuickAccessPowerShell = "QuickAccessPowerShell";
@@ -60,6 +65,7 @@ namespace Mastersign.Bench
         public const string OverrideTemp = "OverrideTemp";
         public const string IgnoreSystemPath = "IgnoreSystemPath";
         public const string RegisterInUserProfile = "RegisterInUserProfile";
+        public const string UseRegistryIsolation = "UseRegistryIsolation";
         public const string CustomPath = "EnvironmentPath";
         public const string CustomEnvironment = "Environment";
 
@@ -117,5 +123,7 @@ namespace Mastersign.Bench
         // Package App Properties
 
         public const string AppPackageName = "PackageName";
+
+#pragma warning restore CS1591 // warning for missing XML doc comment
     }
 }

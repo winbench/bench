@@ -1,11 +1,18 @@
-# Custom Bench Apps
+# User Apps
 
-This document is the registry for custom applications, used by _Bench_.
+This document is the registry for user defined applications in _Bench_.
 
-For the syntax of app definitions, take a look at the header of `res/apps.md`.
+[markup syntax]: http://mastersign.github.io/bench/ref/markup-syntax/
+[app properties]: http://mastersign.github.io/bench/ref/app-properties/
+[app types]: http://mastersign.github.io/bench/ref/app-types/
 
-Add the property `Activated: true` to your custom apps or add them to the list of activated apps in `apps-activated.txt`.
+For the syntax of app definitions, take a look at the
+documentation for the [markup syntax][] and the supported [app properties][].
+Learn about the different [app types][] you can define.
 
-## Custom Apps
+Activate your apps by adding them to the list of activated apps in `apps-activated.txt`,
+or activate them via the Bench Dashboard setup dialog.
+
+## App Definitions
 
 Place your app definitions here.

@@ -8,7 +8,11 @@ using System.Windows.Forms;
 
 namespace Mastersign.Bench.UI
 {
-    public partial class UserIdentificationStepControl : WizzardStepControl
+    /// <summary>
+    /// A wizzard control, which allows the user to identify himself
+    /// with name and email address.
+    /// </summary>
+    internal partial class UserIdentificationStepControl : WizzardStepControl
     {
         public UserIdentificationStepControl()
         {

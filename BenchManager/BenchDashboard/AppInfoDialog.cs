@@ -58,6 +58,7 @@ namespace Mastersign.Bench.Dashboard
             AddRow(gridResolved, PropertyKeys.AppWebsite, app.Website);
             AddRow(gridResolved, PropertyKeys.AppDocs, app.Docs);
             AddRow(gridResolved, PropertyKeys.AppVersion, app.Version);
+            AddRow(gridResolved, "Installed Version", app.InstalledVersion);
             AddRow(gridResolved, PropertyKeys.AppDependencies, app.Dependencies);
             AddRow(gridResolved, PropertyKeys.AppForce, app.Force);
             AddRow(gridResolved, PropertyKeys.AppSetupTestFile, app.SetupTestFile);

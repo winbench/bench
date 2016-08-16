@@ -4,13 +4,27 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Xml;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// This class is the default implementation of <see cref="IProcessExecutionHost"/>.
+    /// It starts processes invisible in the background
+    /// and allows no user interaction during the process execution.
+    /// </summary>
     public class DefaultExecutionHost : IProcessExecutionHost
     {
+        /// <summary>
+        /// Starts a Windows process in an asynchronous fashion.
+        /// </summary>
+        /// <param name="env">The environment variables of Bench.</param>
+        /// <param name="cwd">The working directory, to start the process in.</param>
+        /// <param name="exe">The path to the executable.</param>
+        /// <param name="arguments">The string with the command line arguments.</param>
+        /// <param name="cb">The handler method to call when the execution of the process finishes.</param>
+        /// <param name="monitoring">A flag to control the level of monitoring.</param>
+        /// <seealso cref="CommandLine.FormatArgumentList(string[])"/>
         public void StartProcess(BenchEnvironment env,
             string cwd, string exe, string arguments,
             ProcessExitCallback cb, ProcessMonitoring monitoring)
@@ -25,6 +39,17 @@ namespace Mastersign.Bench
             });
         }
 
+        /// <summary>
+        /// Starts a Windows process in a synchronous fashion.
+        /// </summary>
+        /// <param name="env">The environment variables of Bench.</param>
+        /// <param name="cwd">The working directory, to start the process in.</param>
+        /// <param name="exe">The path to the executable.</param>
+        /// <param name="arguments">The string with the command line arguments.</param>
+        /// <param name="monitoring">A flag to control the level of monitoring.</param>
+        /// <returns>An instance of <see cref="ProcessExecutionResult"/> with the exit code
+        /// and optionally the output of the process.</returns>
+        /// <seealso cref="CommandLine.FormatArgumentList(string[])"/>
         public ProcessExecutionResult RunProcess(BenchEnvironment env,
             string cwd, string exe, string arguments,
             ProcessMonitoring monitoring)
@@ -89,8 +114,14 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Checks, whether this instance was disposed, or not.
+        /// </summary>
         public bool IsDisposed { get; private set; }
 
+        /// <summary>
+        /// Disposes this instance and frees all ocupied resources.
+        /// </summary>
         public void Dispose()
         {
             if (IsDisposed) return;

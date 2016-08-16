@@ -79,7 +79,7 @@ if ($LastExitCode -ne 0)
 echo ""
 echo "Building Visual Studio solution $solutionFile ..."
 cd "$rootDir\$solutionDir"
-& $msbuild $solutionFile /v:$verbosity /tv:$toolsVersion /m /p:Configuration=$mode
+& $msbuild $solutionFile /v:$verbosity /tv:$toolsVersion /m /p:Configuration=$mode /nodereuse:false
 if ($LastExitCode -ne 0)
 {
     Write-Error "Building the solution failed."

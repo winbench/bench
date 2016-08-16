@@ -6,7 +6,7 @@ using Mastersign.Bench.Markdown;
 
 namespace Mastersign.Bench.UI
 {
-    class InitializeConfigTask : WizzardTask
+    internal class InitializeConfigTask : WizzardTask
     {
         private ProxyStepControl stepProxy;
         private UserIdentificationStepControl stepUserIdentification;
@@ -69,8 +69,6 @@ namespace Mastersign.Bench.UI
                 stepExistingConfig.IsConfigGitRepoExisting = false;
             }
             stepAdvanced = new AdvancedStepControl();
-            stepAdvanced.EditCustomConfigBeforeSetup = config.GetBooleanValue(
-                PropertyKeys.WizzardEditCustomConfigBeforeSetup, false);
             stepAdvanced.StartAutoSetup = config.GetBooleanValue(
                 PropertyKeys.WizzardStartAutoSetup, true);
         }
@@ -116,7 +114,6 @@ namespace Mastersign.Bench.UI
                     config.SetValue(PropertyKeys.CustomConfigRepository, (object)null);
                 }
             }
-            config.SetValue(PropertyKeys.WizzardEditCustomConfigBeforeSetup, stepAdvanced.EditCustomConfigBeforeSetup);
             config.SetValue(PropertyKeys.WizzardStartAutoSetup, stepAdvanced.StartAutoSetup);
 
             base.After();

@@ -6,8 +6,8 @@ Each level uses its own page type.
 1. Homepage `home`
 2. Quick Start `start`
 3. Tutorials `tutorial`
-4. Guides `guide`
-5. References `ref`
+4. Tech Guides `guide`
+5. Reference Docs `ref`
 
 Additionally there are the following top-level pages.
 
@@ -114,14 +114,14 @@ Guides should link primary to the references for _details_.
 * `project-initializer` Project initializers
 * `project-tasks` Project tasks
 
-## References `ref`
+## Reference Docs `ref`
 
-_Technical details_
+_What was it called again?_
 
 Icon: library  
 Color: violet
 
-References cover components or processes of Bench in detail.
+Reference Docs cover components or processes of Bench in detail.
 
 * `apps` Included apps and app groups
 * `bench-ctl` Command-line management tool `bench-ctl`

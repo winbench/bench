@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    internal class BenchProxyInfo : IConfigurationPart
+    internal class BenchProxyInfo
     {
         private const string DefaultExternalHttpTarget = "http://www.some-external-server-for-bench.com/";
 
@@ -23,16 +23,6 @@ namespace Mastersign.Bench
             UseProxy = true;
             HttpProxyAddress = httpProxyAddress;
             HttpsProxyAddress = httpsProxyAddress;
-        }
-
-        public void Transfer(IDictionary<string, string> dict)
-        {
-            dict[PropertyKeys.UseProxy] = UseProxy ? "true" : "false";
-            if (UseProxy)
-            {
-                dict[PropertyKeys.HttpProxy] = HttpProxyAddress;
-                dict[PropertyKeys.HttpsProxy] = HttpsProxyAddress;
-            }
         }
 
         public override string ToString()

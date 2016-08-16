@@ -38,5 +38,8 @@ namespace Mastersign.Bench
 
         /// <summary>The app ID of Python 3.</summary>
         public const string Python3 = "Python3";
+
+        /// <summary>The app ID of NuGet.</summary>
+        public const string NuGet = "NuGet";
     }
 }
