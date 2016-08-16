@@ -137,8 +137,27 @@ by a couple of configuration properties.
   [registry isolation](#registry-isolation) mechanism is activated, or not.
 
 ## Configuration Levels {#config-levels}
+Bench uses a hierarchy of configuration files to support flexibility for
+different scenarios &ndash; especially portable Bench environments.
+The hierarchy has three levels:
 
-TODO
+1. [Default configuration](/ref/file-structure/#res-config)  
+   The default configuration is predefined by Bench.
+   This level can not be modified by the user.
+   It contains system properties, which are not supposed to be changed at all.
+   And it contains default values for customizable configuration properties.
+2. [User configuration](/ref/file-structure/#config-config)  
+   The user or custom configuration is defined by the user in the
+   [user configuration directory](/ref/file-structure/#config-dir).
+   This level can be put under version control, to be shared with others.
+3. [Site configuration(s)](/ref/file-structure/#bench-site)  
+   The site configuration(s) act as a local override, to adapt
+   the configuration to a specific Windows installation or PC system,
+   or thumb drive.
+   Site configuration files can build a hierarchy of their own,
+   to granular configure multiple side-by-side Bench installations.
+
+All configuration files are written with the [Markdown list syntax](/ref/markup-syntax).
 
 ## Typical Configurations {#typical-configurations}
 To achieve the maximum isolation between Bench and the Windows system,
