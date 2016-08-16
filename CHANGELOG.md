@@ -56,7 +56,7 @@ Add a link to the GitHub diff like
 - Update: MySQL Workbench from 6.3.6 to 6.3.7
 - Update: Apache HTTP Server from 2.4.20 to 2.4.23
 - Introduced file system watcher to automatically update
-  the configuration of BenchDashboard incase a configuration
+  the configuration of Bench Dashboard in case a configuration
   file was changed.
   ([#66](https://github.com/mastersign/bench/issues/66))
 
