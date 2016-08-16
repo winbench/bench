@@ -70,9 +70,6 @@ Add a link to the GitHub diff like
 - Fixed disabled entries in app context menu in setup dialog
 
 ### Removed
-- Removed Bench tasks affecting all apps,
-  from then menu in the setup dialog of BenchDashboard,
-  because they where unsafe to execute while BenchDashboard is running
 - Removed option for editing the config file during the initialization
   ([#67](https://github.com/mastersign/bench/issues/67))
 
