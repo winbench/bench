@@ -28,8 +28,12 @@ ECHO.Running initialization script ...
 POPD
 EXIT /B 0
 
+REM ******* Procedures *******
+
 :DOWNLOAD
-REM 1: URL, 2: target file
+REM Arguments
+REM 1: URL
+REM 2: target file
 IF EXIST "%~2" GOTO:EOF
 ECHO.Downloading ZIP archive ...
 ECHO.  %~1
@@ -45,7 +49,10 @@ POPD
 GOTO:EOF
 
 :EXTRACT
-REM 1: ZIP file, 2: sub-folder, 3: target dir
+REM Arguments
+REM 1: ZIP file
+REM 2: sub-folder
+REM 3: target dir
 ECHO.Extracting ZIP archive ...
 ECHO.  %~1
 PUSHD "%~3"
