@@ -86,12 +86,12 @@ namespace Mastersign.Bench
                 var repo = man.Config.GetStringValue(PropertyKeys.CustomConfigRepository);
                 if (repo != null)
                 {
-                    // assure no config directoryx exist for git clone
+                    // asure no config directory exist for git clone
                     if (Directory.Exists(customConfigDir))
                     {
                         FileSystem.PurgeDir(customConfigDir);
                     }
-                    // assure the parent directory exists
+                    // asure the parent directory exists
                     if (!Directory.Exists(Path.GetDirectoryName(customConfigDir)))
                     {
                         Directory.CreateDirectory(Path.GetDirectoryName(customConfigDir));
