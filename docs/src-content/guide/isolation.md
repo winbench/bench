@@ -26,12 +26,7 @@ Windows registry isolation.
 
 **Overview**
 
-* [Environment Variables](#env-vars)
-* [Execution Adornment](#execution-adornment)
-* [Registry Isolation](#registry-isolation)
-* [Configuration Properties](#config-properties)
-* [Configuration Levels](#config-levels)
-* [Typical Configurations](#typical-configurations)
+<!-- #data-list /*/* -->
 
 ## Environment Variables {#env-vars}
 Bench provides isolation between the Bench apps and the Windows system
