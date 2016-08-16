@@ -65,6 +65,7 @@ namespace Mastersign.Bench
         public const string OverrideTemp = "OverrideTemp";
         public const string IgnoreSystemPath = "IgnoreSystemPath";
         public const string RegisterInUserProfile = "RegisterInUserProfile";
+        public const string UseRegistryIsolation = "UseRegistryIsolation";
         public const string CustomPath = "EnvironmentPath";
         public const string CustomEnvironment = "Environment";
 

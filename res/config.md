@@ -40,6 +40,7 @@
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
 * RegisterInUserProfile: `false`
+* UseRegistryIsolation: `true`
 * ProjectRootDir: `projects`
 * ProjectArchiveDir: `archive`
 * ProjectArchiveFormat: `zip`

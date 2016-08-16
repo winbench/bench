@@ -8,6 +8,7 @@ $Host.UI.RawUI.WindowTitle = "Bench - $([IO.Path]::GetFileNameWithoutExtension($
 $Script:scriptsLib = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$Script:scriptsLib\bench.lib.ps1"
 . "$Script:scriptsLib\reg.lib.ps1"
+$useRegistryIsolation = Get-ConfigBooleanValue UseRegistryIsolation
 
 trap {
     Write-TrapError $_
@@ -19,7 +20,10 @@ trap {
 # Pre-Execution Phase
 #
 
-Suspend-RegistryKeys $name
+if ($useRegistryIsolation)
+{
+	Suspend-RegistryKeys $name
+}
 
 $customPreFile = "$Script:scriptsLib\..\apps\$($name.ToLowerInvariant()).pre-run.ps1"
 if (Test-Path $customPreFile) {
@@ -57,6 +61,9 @@ if (Test-Path $customPostFile) {
     . $customPostFile
 }
 
-Restore-RegistryKeys $name
+if ($useRegistryIsolation)
+{
+	Restore-RegistryKeys $name
+}
 
 $Host.UI.RawUI.WindowTitle = $oldTitle

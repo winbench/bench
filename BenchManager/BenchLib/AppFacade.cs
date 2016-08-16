@@ -371,7 +371,7 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
-        /// Gets the path to the adornment wrapper script for a given executable fo this app.
+        /// Gets the path to the adornment wrapper script for a given executable of this app.
         /// </summary>
         /// <param name="exePath">The path to the executable.</param>
         /// <returns>The path to the adornment script.</returns>
@@ -379,6 +379,19 @@ namespace Mastersign.Bench
         {
             return IOPath.Combine(AdornmentProxyBasePath,
                 IOPath.GetFileNameWithoutExtension(exePath) + ".cmd");
+        }
+
+        /// <summary>
+        /// Checks, whether execution adornment proxies are required for this app, or not.
+        /// </summary>
+        public bool IsAdornmentRequired
+        {
+            get
+            {
+                return (RegistryKeys.Length > 0 && AppIndex.GetBooleanValue(PropertyKeys.UseRegistryIsolation))
+                    || File.Exists(GetCustomScriptFile("pre-run"))
+                    || File.Exists(GetCustomScriptFile("post-run"));
+            }
         }
 
         /// <summary>

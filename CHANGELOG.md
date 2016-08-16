@@ -26,6 +26,9 @@ Add a link to the GitHub diff like
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ### Added
+- Configuration property `UseRegistryIsolation` to provide a way
+  of suppressing the registry isolation when using Bench integrated
+  in the user profile with `RegisterInUserProfile`
 - Support for NuGet packages
   ([#75](https://github.com/mastersign/bench/issues/75))
 - Erlang 19.0

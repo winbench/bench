@@ -313,7 +313,7 @@ namespace Mastersign.Bench
         {
             var app = config.Apps[appId];
             var exe = app.LauncherExecutable;
-            var isAdorned = app.IsExecutableAdorned(exe);
+            var isAdorned = app.IsExecutableAdorned(exe) && app.IsAdornmentRequired;
             if (isAdorned) exe = app.GetLauncherScriptFile();
 
             if (string.IsNullOrEmpty(exe))
@@ -1029,7 +1029,7 @@ namespace Mastersign.Bench
         private static void CreateExecutionProxies(BenchConfiguration config, AppFacade app)
         {
             var adornedExePaths = app.AdornedExecutables;
-            if (adornedExePaths.Length > 0)
+            if (adornedExePaths.Length > 0 && app.IsAdornmentRequired)
             {
                 var proxyBaseDir = FileSystem.EmptyDir(app.AdornmentProxyBasePath);
                 foreach (var exePath in adornedExePaths)
@@ -1114,7 +1114,7 @@ namespace Mastersign.Bench
             code.AppendLine("@ECHO OFF");
             code.AppendLine($"ECHO.Launching {label} in Bench Context ...");
             code.AppendLine($"CALL \"{rootDir}\\env.cmd\"");
-            if (app.IsExecutableAdorned(executable))
+            if (app.IsExecutableAdorned(executable) && app.IsAdornmentRequired)
             {
                 code.AppendLine($"\"{autoDir}\\runps.cmd\" Run-Adorned {app.ID} \"{executable}\" {args}");
             }
