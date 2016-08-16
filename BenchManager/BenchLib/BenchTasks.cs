@@ -32,7 +32,7 @@ namespace Mastersign.Bench
             get { return ClrInfo.IsVersionSupported(new Version(4, 5)); }
         }
 
-        internal static BenchConfiguration InitializeSiteConfiguration(string benchRootDir)
+        public static BenchConfiguration InitializeSiteConfiguration(string benchRootDir)
         {
             var cfg = new BenchConfiguration(benchRootDir, false, false, false);
 
@@ -76,7 +76,7 @@ namespace Mastersign.Bench
         /// <remarks>
         /// Precondition: Git must be set up.
         /// </remarks>
-        internal static BenchConfiguration InitializeCustomConfiguration(IBenchManager man)
+        public static BenchConfiguration InitializeCustomConfiguration(IBenchManager man)
         {
             var customConfigDir = man.Config.GetStringValue(PropertyKeys.CustomConfigDir);
             var customConfigFile = man.Config.GetStringValue(PropertyKeys.CustomConfigFile);
