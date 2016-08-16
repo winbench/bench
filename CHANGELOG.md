@@ -62,6 +62,9 @@ Add a link to the GitHub diff like
   the configuration of Bench Dashboard in case a configuration
   file was changed.
   ([#66](https://github.com/mastersign/bench/issues/66))
+- Improved _Auto Setup_ by adding upgrade capability
+- Improved Bench upgrading by _not_ deleting all apps,
+  but instead only deleting ConEmu and using the _Auto Setup_ to upgrade apps
 
 ### Fixed
 - Tooltip for documentation button in BenchDashboard
