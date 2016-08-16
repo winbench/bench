@@ -10,7 +10,9 @@ using Microsoft.Win32;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// <para>The merged configuration and app library for a Bench environment.</para>
+    /// The merged configuration and app library for a Bench environment.
+    /// </summary>
+    /// <remarks>
     /// <para>
     /// The configuration is merged by loading the following files:
     /// </para>
@@ -41,7 +43,7 @@ namespace Mastersign.Bench
     ///         <description><c>config\apps.md</c></description>
     ///     </item>
     /// </list>
-    /// </summary>
+    /// </remarks>
     public class BenchConfiguration : ResolvingPropertyCollection
     {
         private const string AutoDir = @"auto";

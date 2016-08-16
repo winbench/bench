@@ -5,8 +5,13 @@ using System.Text;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// <para>
     /// This class represents an information about a Bench task.
+    /// It is a base class for specialized kinds of task information.
+    /// Every task information contains a timestamp and a message.
+    /// Optionally it can be associated with an app.
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// This class is the base class for a couple of specialized
     /// info types.
     /// </para>
@@ -14,7 +19,7 @@ namespace Mastersign.Bench
     ///     <item><see cref="TaskProgress"/></item>
     ///     <item><see cref="TaskError"/></item>
     /// </list>
-    /// </summary>
+    /// </remarks>
     public class TaskInfo
     {
         /// <summary>
