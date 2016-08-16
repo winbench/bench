@@ -159,14 +159,14 @@ weight = 1
 * ID: `Apache`
 * Typ: `default`
 * Website: <https://httpd.apache.org/>
-* Version: 2.4.20
+* Version: 2.4.23
 
 ### Atom {#Atom}
 
 * ID: `Atom`
 * Typ: `default`
 * Website: <https://atom.io>
-* Version: 1.8.0
+* Version: 1.9.8
 
 ### Blender {#Blender}
 
@@ -188,14 +188,14 @@ weight = 1
 * ID: `CMake`
 * Typ: `default`
 * Website: <https://cmake.org/>
-* Version: 3.5.2
+* Version: 3.6.1
 
 ### cURL {#cURL}
 
 * ID: `cURL`
 * Typ: `default`
 * Website: <http://curl.haxx.se/>
-* Version: 7.48.0
+* Version: 7.50.1
 
 ### Dia {#Dia}
 
@@ -209,7 +209,7 @@ weight = 1
 * ID: `EclipseCpp`
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Version: 4.5
+* Version: 4.6
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Eclipse for Java {#EclipseJava}
@@ -217,7 +217,7 @@ weight = 1
 * ID: `EclipseJava`
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Version: 4.5
+* Version: 4.6
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Eclipse for PHP {#EclipsePHP}
@@ -225,7 +225,7 @@ weight = 1
 * ID: `EclipsePHP`
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Version: 4.5
+* Version: 4.6
 * Dependencies: [Java Runtime Environment 8](#JRE8)
 
 ### Emacs {#Emacs}
@@ -248,28 +248,28 @@ weight = 1
 * ID: `FFmpeg`
 * Typ: `default`
 * Website: <https://www.ffmpeg.org/>
-* Version: 20160512-git-cd244fa
+* Version: latest
 
 ### FileZilla {#FileZilla}
 
 * ID: `FileZilla`
 * Typ: `default`
 * Website: <https://filezilla-project.org/>
-* Version: 3.18.0
+* Version: 3.20.1
 
 ### GIMP {#Gimp}
 
 * ID: `Gimp`
 * Typ: `default`
 * Website: <http://www.gimp.org/>
-* Version: 2.8.16
+* Version: 2.8.18
 
 ### Git {#Git}
 
 * ID: `Git`
 * Typ: `default`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.9.0
+* Version: 2.9.2
 
 ### GitKraken {#GitKraken}
 
@@ -304,7 +304,7 @@ weight = 1
 * ID: `GraphicsMagick`
 * Typ: `default`
 * Website: <http://www.graphicsmagick.org/>
-* Version: 1.3.23
+* Version: 1.3.24
 
 ### Graphviz {#Graphviz}
 
@@ -423,7 +423,7 @@ weight = 1
 * ID: `Clang`
 * Typ: `default`
 * Website: <http://clang.llvm.org/>
-* Version: 3.8.0
+* Version: 3.8.1
 
 ### Maven {#Maven}
 
@@ -474,14 +474,14 @@ weight = 1
 * ID: `MySQL`
 * Typ: `default`
 * Website: <http://www.mysql.com/>
-* Version: 5.7.12
+* Version: 5.7.14
 
 ### MySQL Workbench {#MySQLWB}
 
 * ID: `MySQLWB`
 * Typ: `default`
 * Website: <http://dev.mysql.com/downloads/workbench/>
-* Version: 6.3.6
+* Version: 6.3.7
 
 ### Node.js {#Node}
 
@@ -525,21 +525,21 @@ weight = 1
 * ID: `Pandoc`
 * Typ: `default`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
-* Version: 1.17.1
+* Version: 1.17.2
 
 ### PHP 5 {#PHP5}
 
 * ID: `PHP5`
 * Typ: `default`
 * Website: <http://www.php.net>
-* Version: 5.6.21
+* Version: 5.6.23
 
 ### PHP 7 {#PHP7}
 
 * ID: `PHP7`
 * Typ: `default`
 * Website: <http://www.php.net>
-* Version: 7.0.6
+* Version: 7.0.8
 
 ### PostgreSQL {#PostgreSQL}
 
@@ -576,7 +576,7 @@ weight = 1
 * ID: `Python2`
 * Typ: `default`
 * Website: <https://www.python.org/>
-* Version: 2.7.11
+* Version: 2.7.12
 
 ### Python 3 {#Python3}
 
@@ -590,7 +590,7 @@ weight = 1
 * ID: `RabbitMQ`
 * Typ: `default`
 * Website: <http://www.rabbitmq.com>
-* Version: 3.6.4
+* Version: 3.6.5
 * Dependencies: [Erlang](#Erlang)
 
 ### Ruby {#Ruby}
@@ -598,7 +598,7 @@ weight = 1
 * ID: `Ruby`
 * Typ: `default`
 * Website: <https://www.ruby-lang.org/>
-* Version: 2.2.4
+* Version: 2.3.1
 
 ### SASS {#Sass}
 
