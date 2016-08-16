@@ -33,12 +33,12 @@ and aim to answer the question:
 Every _Tech Guide_ covers a different component or aspect of the Bench system,
 and describes the concepts and interrelations.
 
-## [API References]
-The _API References_ build-up a systematic library of detail information
+## [Reference Docs]
+The _Reference Docs_ build-up a systematic library of detail information
 about file structures, markup syntax, and programming interfaces.
 They are referenced throughout the other parts of the documentation.
 
 [Quickstart]: /start/
 [Tutorials]: /tutorial/
 [Tech Guides]: /guide/
-[API References]: /ref/
+[Reference Docs]: /ref/

@@ -70,7 +70,7 @@ paginate = 10
     identifier = "guides"
     url = "/guide/"
   [[menu.main]]
-    name = "API Reference"
+    name = "Reference Docs"
     pre = "<i class='fa fa-book fa-fw'></i>"
     weight = 7
     identifier = "reference"
