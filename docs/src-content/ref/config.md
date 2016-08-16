@@ -400,6 +400,22 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Default: `true`
 * Type: Custom/Site
 
+### RegisterInUserProfile {#RegisterInUserProfile}
+
+* Description: A switch to control if the Bench apps are registered in the current
+  Windows user profile.
+* Data Type: boolean
+* Default: `false`
+* Type: Custom
+
+### UseRegistryIsolation {#UseRegistryIsolation}
+
+* Description: A switch to activate the registry isolation mechanism for
+  adorned executables.
+* Data Type: boolean
+* Default: `true`
+* Type: Custom
+
 ### ProjectRootDir {#ProjectRootDir}
 
 * Description: The path to the directory where projects are stored.
