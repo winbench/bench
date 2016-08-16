@@ -47,6 +47,8 @@ namespace Mastersign.Bench
             }
             if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
             {
+                set("USERNAME", Config.GetStringValue(PropertyKeys.UserName));
+                set("USEREMAIL", Config.GetStringValue(PropertyKeys.UserEmail));
                 var home = Config.GetStringValue(PropertyKeys.HomeDir);
                 set("USERPROFILE", home);
                 set("HOME", home);
