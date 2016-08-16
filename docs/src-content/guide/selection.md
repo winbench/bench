@@ -29,9 +29,7 @@ Only then it is necessary to use the feature for deactivating an app.
 
 **Overview**
 
-* [The List of Active Apps](#the-list-of-active-apps)
-* [App groups](#app-groups)
-* [Activation and Deactivation](#activation-and-deactivation)
+<!-- #data-list /*/* -->
 
 ## The List of Active Apps
 When Bench runs its tasks for download, app setup, environment setup,

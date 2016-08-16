@@ -34,10 +34,7 @@ Custom scripts can extend or override different steps of the setup process.
 
 **Overview**
 
-* [App Lifecycle](#app-lifecycle)
-* [Dependencies and Order](#dependencies-and-order)
-* [Custom Scripts and Hooks](#custom-scripts)
-* [Details for Different App Types](#details)
+<!-- #data-list /*/* -->
 
 ## App Lifecycle
 The lifecycle of an app generally breaks down into the following steps.
