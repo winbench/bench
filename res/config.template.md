@@ -9,7 +9,7 @@ With the following properties, the composition of the environment variables is c
 * IgnoreSystemPath: `true`
 * RegisterInUserProfile: `false`
 * ~~EnvironmentPath: `$HomeDir$\bin`~~
-* ~~Environment: `MY_VAR=my custom value`~~
+* ~~Environment: `MY_VAR: my custom value`~~
 
 ## Project Archive
 
