@@ -1082,6 +1082,19 @@ it gets out of your way and lets you focus on your code.
 * Environment:
     + `LEIN_JAR`: `$:Dir$\leiningen.jar`
 
+### .NET Core SDK
+
+* ID: `dotnet`
+* Label: .NET Core SDK
+* Website: <https://www.microsoft.com/net/core>
+* Docs:
+    + Docs: <https://docs.microsoft.com/dotnet/>
+    + Getting Started: <https://docs.microsoft.com/dotnet/articles/core/index>
+    + Welcome: <https://docs.microsoft.com/dotnet/articles/welcome>
+    + API Reference: <https://docs.microsoft.com/dotnet/core/api/index>
+* Url: `https://go.microsoft.com/fwlink/?LinkID=809127`
+* ArchiveName: `DotNetCore.SDK.zip`
+
 ### MinGW
 
 [MinGW] provides a GNU development environment for Windows, including compilers for C/C++, Objective-C, Fortran, Ada, ...

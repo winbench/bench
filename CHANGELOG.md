@@ -26,6 +26,8 @@ Add a link to the GitHub diff like
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ### Added
+- Added .NET Core SDK
+  ([#79](https://github.com/mastersign/bench/issues/79))
 - Added CoffeeScript
   ([#78](https://github.com/mastersign/bench/issues/78))
 
