@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Added CoffeeScript
+  ([#78](https://github.com/mastersign/bench/issues/78))
+
 ## [0.13.0] - 2016-08-16
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.1...v0.13.0)
 

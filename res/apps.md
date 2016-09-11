@@ -678,6 +678,19 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Dir: `$Node:Dir$`
 * Exe: `npm.cmd`
 
+### CoffeeScript
+
+* ID: `CoffeeScript`
+* Typ: `node-package`
+* Website: <http://coffeescript.org/>
+* Docs:
+    + Usage: <http://coffeescript.org/#usage>
+    + Language Reference: <http://coffeescript.org/#language>
+    + Resources: <http://coffeescript.org/#resources>
+* PackageName: `coffee-script`
+* Version: `>=1.10.0 <2.0.0`
+* Exe: `coffee.cmd`
+
 ### Gulp
 
 The streaming build system.
