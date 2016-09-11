@@ -578,6 +578,23 @@ GIMP provides you with sophisticated tools to get your job done.
 * ArchiveName: `GIMPPortable_$:Version$.paf.exe`
 * ArchivePath: `App/gimp`
 * Exe: `bin\gimp-2.8.exe`
+* Launcher: $:Label$
+
+### Scribus
+
+Scribus is a page layout program, available for a lot of operating systems.
+Since its humble beginning in the spring of 2001, Scribus has evolved into
+one of the premier Open Source desktop applications.
+
+* ID: `Scribus`
+* Website: <https://www.scribus.net/>
+* Docs:
+    + Wiki: <https://wiki.scribus.net/canvas/Scribus>
+    + Manual: <https://wiki.scribus.net/canvas/Help:TOC>
+    + HowTo: <https://wiki.scribus.net/canvas/Category:HOWTO>
+* Version: 1.4.6
+* Url: `https://sourceforge.net/projects/scribus/files/scribus/$:Version$/$:ArchiveName$`
+* ArchiveName: `scribus-$:Version$-windows.exe`
 * Register: `false`
 * Launcher: $:Label$
 
