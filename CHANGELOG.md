@@ -32,6 +32,7 @@ Add a link to the GitHub diff like
   ([#79](https://github.com/mastersign/bench/issues/79))
 - Added CoffeeScript
   ([#78](https://github.com/mastersign/bench/issues/78))
+- Added FreeCAD
 
 ### Changed
 - Update: Sublime Text 3 from 3114 to 3126

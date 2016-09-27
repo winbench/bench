@@ -96,7 +96,7 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 * ID: `Dev3D`
 * Label: 3D Modeling
 * Typ: `meta`
-* Dependencies: `Blender`, `MeshLab`, `Gimp`
+* Dependencies: `Blender`, `FreeCAD`, `MeshLab`, `Gimp`
 
 ### Group: Web Development with PHP7 and MySQL
 
@@ -633,6 +633,24 @@ Blender is the open source, cross platform suite of tools for 3D creation.
 * Url: `http://download.blender.org/release/Blender$:Version$/$:ArchiveName$`
 * ArchiveName: `blender-$:Version$$:VersionSuffix$-windows32.zip`
 * ArchivePath: `blender-$:Version$$:VersionSuffix$-windows32`
+* Launcher: $:Label$
+
+### FreeCAD
+
+* ID: `FreeCAD`
+* Version: 0.16
+* Build: 6704
+* Hash: oc449d7
+* Website: <http://www.freecadweb.org/>
+* Docs:
+    + Features: <http://www.freecadweb.org/wiki/index.php?title=Feature_list>
+    + Documentation: <http://www.freecadweb.org/wiki/>
+    + User: <http://www.freecadweb.org/wiki/index.php?title=User_hub>
+    + Power User: <http://www.freecadweb.org/wiki/index.php?title=Power_users_hub>
+    + Development: <http://www.freecadweb.org/wiki/index.php?title=Developer_hub>
+* Url: `https://github.com/FreeCAD/FreeCAD/releases/download/$:Version$/$:ArchiveName$`
+* ArchiveName: `FreeCAD.$:Version$.$:Build$.$:Hash$-WIN-x86_installer.exe`
+* Exe: `bin\freecad.exe`
 * Launcher: $:Label$
 
 ### Hugo
