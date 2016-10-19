@@ -37,7 +37,7 @@ It comes with a graphical file manager and supports a large range of compression
 * Docs:
     + Help: `7-zip.chm`
 * VersionYear: 16
-* VersionNo: 02
+* VersionNo: 04
 * Version: $:VersionYear$.$:VersionNo$
 * Release: $:VersionYear$$:VersionNo$
 * Url: `http://7-zip.org/a/$:ArchiveName$`
