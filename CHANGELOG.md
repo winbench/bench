@@ -36,6 +36,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: 7-Zip from 16.02 to 16.04
+- Update: ConEmu from 16.07.24 to 16.10.09a
 - Update: Git from 2.9.2 to 2.10.1
 - Update: Sublime Text 3 from 3114 to 3126
 - Update: Node.js from 6.3.1 to 6.9.0
