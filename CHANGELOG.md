@@ -39,6 +39,7 @@ Add a link to the GitHub diff like
 - Update: ConEmu from 16.07.24 to 16.10.09a
 - Update: Git from 2.9.2 to 2.10.1
 - Update: Sublime Text 3 from 3114 to 3126
+- Update: JRE8 / JDK8 from u102 to u112
 - Update: Node.js from 6.3.1 to 6.9.0
 - Update: Atom from 1.9.8 to 1.11.2
 - Update: Blender from 2.77a to 2.78

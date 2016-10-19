@@ -1014,12 +1014,12 @@ The runtime environment is required for a compiled Java program to get executed.
 * Website: <https://www.oracle.com/java/>
 * Docs:
     + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
-* Version: 8u102
-* Release: b14
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
+* Version: 112
+* Release: b15
+* Url: `http://download.oracle.com/otn-pub/java/jdk/8u$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
-* ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
-* ArchivePath: `jre1.8.0_102`
+* ArchiveName: `jre-8u$:Version$-windows-i586.tar.gz`
+* ArchivePath: `jre1.8.0_$:Version$`
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment:
@@ -1064,9 +1064,9 @@ The development kit is required for Java source code to get compiled.
     + Java SE 8 API: <http://docs.oracle.com/javase/8/docs/api/index.html>
 * Version: $JRE8:Version$
 * Release: $JRE8:Release$
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
+* Url: `http://download.oracle.com/otn-pub/java/jdk/8u$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
-* ArchiveName: `jdk-$:Version$-windows-i586.exe`
+* ArchiveName: `jdk-8u$:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
 * Environment:
