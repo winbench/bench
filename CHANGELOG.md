@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.13.1] - 2016-10-19
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.13.0...v0.13.1)
+
 ### Added
 - Added Scribus
   ([#80](https://github.com/mastersign/bench/issues/80))
