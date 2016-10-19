@@ -37,7 +37,7 @@ It comes with a graphical file manager and supports a large range of compression
 * Docs:
     + Help: `7-zip.chm`
 * VersionYear: 16
-* VersionNo: 02
+* VersionNo: 04
 * Version: $:VersionYear$.$:VersionNo$
 * Release: $:VersionYear$$:VersionNo$
 * Url: `http://7-zip.org/a/$:ArchiveName$`
@@ -70,8 +70,8 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 * Website: <https://conemu.github.io/>
 * Docs:
     + Documentation: <https://conemu.github.io/en/TableOfContents.html>
-* Version: 16.07.24
-* Release: 160724
+* Version: 16.10.09a
+* Release: 161009a
 * Url: `https://github.com/Maximus5/ConEmu/releases/download/v$:Version$/$:ArchiveName$`
 * ArchiveName: `ConEmuPack.$:Release$.7z`
 * Launcher: `ConEmu`
@@ -96,7 +96,7 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 * ID: `Dev3D`
 * Label: 3D Modeling
 * Typ: `meta`
-* Dependencies: `Blender`, `MeshLab`, `Gimp`
+* Dependencies: `Blender`, `FreeCAD`, `MeshLab`, `Gimp`
 
 ### Group: Web Development with PHP7 and MySQL
 
@@ -165,7 +165,7 @@ Git is a free and open source distributed version control system designed to han
 * Docs:
     + Reference: <https://git-scm.com/docs>
     + Pro Git Book: <https://git-scm.com/book/en/v2>
-* Version: 2.9.2
+* Version: 2.10.1
 * Release: $:Version$.windows.1
 * Url: `https://github.com/git-for-windows/git/releases/download/v$:Release$/$:ArchiveName$`
 * ArchiveName: `PortableGit-$:Version$-32-bit.7z.exe`
@@ -578,6 +578,23 @@ GIMP provides you with sophisticated tools to get your job done.
 * ArchiveName: `GIMPPortable_$:Version$.paf.exe`
 * ArchivePath: `App/gimp`
 * Exe: `bin\gimp-2.8.exe`
+* Launcher: $:Label$
+
+### Scribus
+
+Scribus is a page layout program, available for a lot of operating systems.
+Since its humble beginning in the spring of 2001, Scribus has evolved into
+one of the premier Open Source desktop applications.
+
+* ID: `Scribus`
+* Website: <https://www.scribus.net/>
+* Docs:
+    + Wiki: <https://wiki.scribus.net/canvas/Scribus>
+    + Manual: <https://wiki.scribus.net/canvas/Help:TOC>
+    + HowTo: <https://wiki.scribus.net/canvas/Category:HOWTO>
+* Version: 1.4.6
+* Url: `https://sourceforge.net/projects/scribus/files/scribus/$:Version$/$:ArchiveName$`
+* ArchiveName: `scribus-$:Version$-windows.exe`
 * Register: `false`
 * Launcher: $:Label$
 
@@ -610,12 +627,30 @@ Blender is the open source, cross platform suite of tools for 3D creation.
     + Features: <https://www.blender.org/features/>
     + Tutorials: <https://www.blender.org/support/tutorials/>
     + Manual: <https://www.blender.org/manual/>
-    + Python API: <https://www.blender.org/api/blender_python_api_2_77_1/>
-* Version: 2.77
-* VersionSuffix: a
+    + Python API: <https://www.blender.org/api/blender_python_api_2_78_1/>
+* Version: 2.78
+* VersionSuffix: ``
 * Url: `http://download.blender.org/release/Blender$:Version$/$:ArchiveName$`
 * ArchiveName: `blender-$:Version$$:VersionSuffix$-windows32.zip`
 * ArchivePath: `blender-$:Version$$:VersionSuffix$-windows32`
+* Launcher: $:Label$
+
+### FreeCAD
+
+* ID: `FreeCAD`
+* Version: 0.16
+* Build: 6704
+* Hash: oc449d7
+* Website: <http://www.freecadweb.org/>
+* Docs:
+    + Features: <http://www.freecadweb.org/wiki/index.php?title=Feature_list>
+    + Documentation: <http://www.freecadweb.org/wiki/>
+    + User: <http://www.freecadweb.org/wiki/index.php?title=User_hub>
+    + Power User: <http://www.freecadweb.org/wiki/index.php?title=Power_users_hub>
+    + Development: <http://www.freecadweb.org/wiki/index.php?title=Developer_hub>
+* Url: `https://github.com/FreeCAD/FreeCAD/releases/download/$:Version$/$:ArchiveName$`
+* ArchiveName: `FreeCAD.$:Version$.$:Build$.$:Hash$-WIN-x86_installer.exe`
+* Exe: `bin\freecad.exe`
 * Launcher: $:Label$
 
 ### Hugo
@@ -650,7 +685,7 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 * Docs:
     + API Documentation: <https://nodejs.org/dist/latest-v6.x/docs/api/>
     + Guides: <https://nodejs.org/en/docs/guides/>
-* Version: 6.3.1
+* Version: 6.9.0
 * Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
 * ResourceName: `node.exe`
 * Dir: `node`
@@ -677,6 +712,19 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * ArchiveName: `npm-1.4.12.zip`
 * Dir: `$Node:Dir$`
 * Exe: `npm.cmd`
+
+### CoffeeScript
+
+* ID: `CoffeeScript`
+* Typ: `node-package`
+* Website: <http://coffeescript.org/>
+* Docs:
+    + Usage: <http://coffeescript.org/#usage>
+    + Language Reference: <http://coffeescript.org/#language>
+    + Resources: <http://coffeescript.org/#resources>
+* PackageName: `coffee-script`
+* Version: `>=1.10.0 <2.0.0`
+* Exe: `coffee.cmd`
 
 ### Gulp
 
@@ -966,12 +1014,12 @@ The runtime environment is required for a compiled Java program to get executed.
 * Website: <https://www.oracle.com/java/>
 * Docs:
     + Downloads: <http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html>
-* Version: 8u102
-* Release: b14
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
+* Version: 112
+* Release: b15
+* Url: `http://download.oracle.com/otn-pub/java/jdk/8u$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
-* ArchiveName: `jre-$:Version$-windows-i586.tar.gz`
-* ArchivePath: `jre1.8.0_102`
+* ArchiveName: `jre-8u$:Version$-windows-i586.tar.gz`
+* ArchivePath: `jre1.8.0_$:Version$`
 * Path: `bin`
 * Exe: `bin\java.exe`
 * Environment:
@@ -1016,9 +1064,9 @@ The development kit is required for Java source code to get compiled.
     + Java SE 8 API: <http://docs.oracle.com/javase/8/docs/api/index.html>
 * Version: $JRE8:Version$
 * Release: $JRE8:Release$
-* Url: `http://download.oracle.com/otn-pub/java/jdk/$:Version$-$:Release$/$:ArchiveName$`
+* Url: `http://download.oracle.com/otn-pub/java/jdk/8u$:Version$-$:Release$/$:ArchiveName$`
 * DownloadCookies: `oraclelicense: accept-securebackup-cookie`
-* ArchiveName: `jdk-$:Version$-windows-i586.exe`
+* ArchiveName: `jdk-8u$:Version$-windows-i586.exe`
 * Path: `bin`
 * Exe: `bin\javac.exe`
 * Environment:
@@ -1068,6 +1116,19 @@ it gets out of your way and lets you focus on your code.
 * Exe: `lein.bat`
 * Environment:
     + `LEIN_JAR`: `$:Dir$\leiningen.jar`
+
+### .NET Core SDK
+
+* ID: `dotnet`
+* Label: .NET Core SDK
+* Website: <https://www.microsoft.com/net/core>
+* Docs:
+    + Docs: <https://docs.microsoft.com/dotnet/>
+    + Getting Started: <https://docs.microsoft.com/dotnet/articles/core/index>
+    + Welcome: <https://docs.microsoft.com/dotnet/articles/welcome>
+    + API Reference: <https://docs.microsoft.com/dotnet/core/api/index>
+* Url: `https://go.microsoft.com/fwlink/?LinkID=809127`
+* ArchiveName: `DotNetCore.SDK.zip`
 
 ### MinGW
 
@@ -1282,7 +1343,7 @@ is picked up from Atom._
     + Themes: <https://atom.io/themes>
     + Flight Manual: <http://flight-manual.atom.io/>
     + API Reference: `https://atom.io/docs/api/v$:Version$/AtomEnvironment`
-* Version: 1.9.8
+* Version: 1.11.2
 * Url: `https://github.com/atom/atom/releases/download/v$:Version$/atom-windows.zip`
 * ArchiveName: `atom-windows-$:Version$.zip`
 * ArchivePath: `Atom`
@@ -1334,7 +1395,7 @@ You'll love the slick user interface, extraordinary features and amazing perform
     + Documentation: <https://www.sublimetext.com/docs/3/>
     + Unofficial Documentation: <http://docs.sublimetext.info/en/latest/index.html>
     + Package Control: <https://packagecontrol.io/>
-* Version: Build 3114
+* Version: Build 3126
 * Url: `https://download.sublimetext.com/$:ArchiveName$`
 * ArchiveName: `Sublime Text $:Version$.zip`
 * Exe: `sublime_text.exe`

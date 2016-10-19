@@ -25,6 +25,28 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.13.1] - 2016-10-19
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.13.0...v0.13.1)
+
+### Added
+- Added Scribus
+  ([#80](https://github.com/mastersign/bench/issues/80))
+- Added .NET Core SDK
+  ([#79](https://github.com/mastersign/bench/issues/79))
+- Added CoffeeScript
+  ([#78](https://github.com/mastersign/bench/issues/78))
+- Added FreeCAD
+
+### Changed
+- Update: 7-Zip from 16.02 to 16.04
+- Update: ConEmu from 16.07.24 to 16.10.09a
+- Update: Git from 2.9.2 to 2.10.1
+- Update: Sublime Text 3 from 3114 to 3126
+- Update: JRE8 / JDK8 from u102 to u112
+- Update: Node.js from 6.3.1 to 6.9.0
+- Update: Atom from 1.9.8 to 1.11.2
+- Update: Blender from 2.77a to 2.78
+
 ## [0.13.0] - 2016-08-16
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.1...v0.13.0)
 
