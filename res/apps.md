@@ -627,9 +627,9 @@ Blender is the open source, cross platform suite of tools for 3D creation.
     + Features: <https://www.blender.org/features/>
     + Tutorials: <https://www.blender.org/support/tutorials/>
     + Manual: <https://www.blender.org/manual/>
-    + Python API: <https://www.blender.org/api/blender_python_api_2_77_1/>
-* Version: 2.77
-* VersionSuffix: a
+    + Python API: <https://www.blender.org/api/blender_python_api_2_78_1/>
+* Version: 2.78
+* VersionSuffix: ``
 * Url: `http://download.blender.org/release/Blender$:Version$/$:ArchiveName$`
 * ArchiveName: `blender-$:Version$$:VersionSuffix$-windows32.zip`
 * ArchivePath: `blender-$:Version$$:VersionSuffix$-windows32`

@@ -41,6 +41,7 @@ Add a link to the GitHub diff like
 - Update: Sublime Text 3 from 3114 to 3126
 - Update: Node.js from 6.3.1 to 6.9.0
 - Update: Atom from 1.9.8 to 1.11.2
+- Update: Blender from 2.77a to 2.78
 
 ## [0.13.0] - 2016-08-16
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.12.1...v0.13.0)
