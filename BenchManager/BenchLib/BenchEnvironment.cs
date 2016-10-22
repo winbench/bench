@@ -293,25 +293,14 @@ namespace Mastersign.Bench
 
             var version = Config.GetStringValue(PropertyKeys.Version);
             var libDir = Config.GetStringValue(PropertyKeys.LibDir);
-            SetEnvironmentVar("BENCH_VERSION", version, false);
-            SetEnvironmentVar("BENCH_HOME", Config.BenchRootDir, false);
-            SetEnvironmentVar("BENCH_APPS", libDir, false);
-
-            var useVars = (StringTransformer)(path =>
-            {
-                path = TryUseVar(path, "BENCH_APPS", libDir);
-                path = TryUseVar(path, "BENCH_HOME", Config.BenchRootDir);
-                return path;
-            });
+            SetEnvironmentVar("BENCH_VERSION", version);
+            SetEnvironmentVar("BENCH_HOME", Config.BenchRootDir);
+            SetEnvironmentVar("BENCH_APPS", libDir);
 
             var benchPath = new List<string>();
             benchPath.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
             benchPath.AddRange(Config.Apps.EnvironmentPath);
-            for (var i = 0; i < benchPath.Count; i++)
-            {
-                benchPath[i] = useVars(benchPath[i]);
-            }
-            SetEnvironmentVar("BENCH_PATH", PathList(benchPath.ToArray()), true);
+            SetEnvironmentVar("BENCH_PATH", PathList(benchPath.ToArray()));
 
             var paths = GetCurrentUserPaths();
             if (paths.Contains("%BENCH_PATH%")) paths.Remove("%BENCH_PATH%");
@@ -321,7 +310,7 @@ namespace Mastersign.Bench
             var env = Config.Apps.Environment;
             foreach (var k in env.Keys)
             {
-                SetEnvironmentVar(k, useVars(env[k]), true);
+                SetEnvironmentVar(k, env[k]);
             }
             var customEnv = Config.GetValue(PropertyKeys.CustomEnvironment) as IDictionary<string, string>;
             if (customEnv != null)
@@ -329,7 +318,7 @@ namespace Mastersign.Bench
                 foreach (var k in customEnv.Keys)
                 {
                     if ("PATH".Equals(k, StringComparison.InvariantCultureIgnoreCase)) continue;
-                    SetEnvironmentVar(k, useVars(customEnv[k]), true);
+                    SetEnvironmentVar(k, customEnv[k]);
                 }
             }
         }
@@ -457,12 +446,13 @@ namespace Mastersign.Bench
             }
         }
 
-        private static void SetEnvironmentVar(string name, string value, bool expand)
+        private static void SetEnvironmentVar(string name, string value, bool expand = false)
         {
             using (var key = Registry.CurrentUser.OpenSubKey("Environment", true))
             {
                 key.SetValue(name, value, expand ? RegistryValueKind.ExpandString : RegistryValueKind.String);
             }
+            NotifyWindowsAboutSettingChange();
         }
 
         private static void DeleteEnvironmentVar(string name)
@@ -479,14 +469,11 @@ namespace Mastersign.Bench
             IntPtr wParam, string lParam,
             uint fuFlags, uint uTimeout, IntPtr lpdwResult);
 
-        private static void NotfyWindowsAboutSettingChange()
+        private static void NotifyWindowsAboutSettingChange()
         {
             IntPtr HWND_BROADCAST = new IntPtr(0xffff);
             int WM_SETTINGCHANGE = 0x001A;
-            uint SMTO_ABORTIFHUNG = 0x0002;
-            SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE,
-                IntPtr.Zero, "Environment",
-                SMTO_ABORTIFHUNG, 1000, IntPtr.Zero);
+            SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, IntPtr.Zero, "Environment", 0, 1000, IntPtr.Zero);
         }
     }
 }

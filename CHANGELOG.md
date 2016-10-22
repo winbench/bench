@@ -25,6 +25,11 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Fixed
+- Switched from expanded strings to simple strings when setting
+  environment variables in registry.
+  ([#82](https://github.com/mastersign/bench/issues/82))
+
 ## [0.13.1] - 2016-10-19
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.13.0...v0.13.1)
 
