@@ -12,7 +12,7 @@ $constNodes = @(
     "BenchLib.dll"
 )
 $filter = @("*.bat", "*.cmd", "*.ps1")
-$exclude = @("runps.cmd")
+$exclude = @("runps.cmd", "env.cmd")
 $targetFile = "$rootDir\docs\src-static\graph\architecture.gw"
 $imageFile =  "$rootDir\docs\static\img\architecture.svg"
 $graphLabel = "Architecture"

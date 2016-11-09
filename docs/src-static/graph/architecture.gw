@@ -4,7 +4,6 @@ digraph "Architecture" {
   edge [shape=normal, color="#404040"];
   "BenchDashboard.exe" [fillcolor="#86AE1E", color="#86AE1E", style="filled", fontcolor="#FFFFFF"];
   "BenchLib.dll" [fillcolor="#86AE1E", color="#86AE1E", style="filled", fontcolor="#FFFFFF"];
-  "env.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
   "archive.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
   "editor.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
   "init.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
@@ -72,28 +71,17 @@ digraph "Architecture" {
   "Start-Editor.ps1" -> "bench.lib.ps1";
   "Watch-Project.ps1" -> "bench.lib.ps1";
   "Watch-Project.ps1" -> "Select-Project.ps1";
-  "bench-bash.cmd" -> "env.cmd";
-  "bench-cmd.cmd" -> "env.cmd";
-  "bench-ctl.cmd" -> "env.cmd";
   "bench-ctl.cmd" -> "init.cmd";
   "bench-ctl.cmd" -> "Initialize-Bench.ps1";
   "bench-ctl.cmd" -> "Setup-Bench.ps1";
   "bench-ctl.cmd" -> "Shell.ps1";
   "bench-ctl.cmd" -> "Upgrade-Bench.ps1";
-  "bench-ps.cmd" -> "env.cmd";
   "bench-ps.cmd" -> "Shell.ps1";
-  "clone-git-project.cmd" -> "env.cmd";
   "clone-git-project.cmd" -> "Clone-GitProject.ps1";
-  "new-project.cmd" -> "env.cmd";
   "new-project.cmd" -> "New-Project.ps1";
-  "open-editor.cmd" -> "env.cmd";
   "open-editor.cmd" -> "Start-Editor.ps1";
-  "project-backup.cmd" -> "env.cmd";
   "project-backup.cmd" -> "Archive-Project.ps1";
-  "project-editor.cmd" -> "env.cmd";
   "project-editor.cmd" -> "Edit-Project.ps1";
-  "project-ps.cmd" -> "env.cmd";
   "project-ps.cmd" -> "Shell-Project.ps1";
-  "project-watch.cmd" -> "env.cmd";
   "project-watch.cmd" -> "Watch-Project.ps1";
 }
