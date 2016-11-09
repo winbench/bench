@@ -1,3 +1,3 @@
 @ECHO OFF
 CALL "%~dp0\..\env.cmd"
-runps Archive-Project %*
+runps Archive-Project.ps1 %*

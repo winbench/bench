@@ -1,6 +1,6 @@
 @ECHO OFF
 Setlocal EnableDelayedExpansion
-SET SCRIPT=%~dp0lib\%1.ps1
+SET SCRIPT=%~dp0lib\%1
 
 SHIFT
 SET "args="
