@@ -14,11 +14,7 @@ this article contains only a brief description of the current state.
 
 **Overview**
 
-* [File System Layout](#filesystem)
-* [Interface Scripts](#interface-scripts)
-* [Power-Shell Scripts](#ps-scripts)
-* [Bench Core Binary](#core)
-* [Bench Dashboard](#dashboard)
+<!-- #data-list /*/* -->
 
 ## File System Layout {#filesystem}
 

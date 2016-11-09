@@ -12,10 +12,7 @@ or for individual apps, are written as items in unordered lists.
 
 **Overview**
 
-* [Basic Syntax](#basic-syntax)
-* [Lists and Dictionaries](#lists-and-dictionaries)
-* [Property Groups](#property-groups)
-* [Variable Expansion](#variable-expansion)
+<!-- #data-list /*/* -->
 
 ## Basic Syntax
 
