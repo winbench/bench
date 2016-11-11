@@ -13,9 +13,9 @@ $constNodes = @(
 )
 $filter = @("*.bat", "*.cmd", "*.ps1")
 $exclude = @("runps.cmd", "env.cmd")
-$targetFile = "$rootDir\docs\src-static\graph\architecture.gw"
-$imageFile =  "$rootDir\docs\static\img\architecture.svg"
-$graphLabel = "Architecture"
+$targetFile = "$rootDir\docs\src-static\graph\dependencies.gw"
+$imageFile =  "$rootDir\docs\static\img\dependencies.svg"
+$graphLabel = "Dependencies"
 
 $nodeStyles = @(
     @(@("*.bat"), @{ 

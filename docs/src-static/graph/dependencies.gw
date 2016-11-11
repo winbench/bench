@@ -1,4 +1,4 @@
-digraph "Architecture" {
+digraph "Dependencies" {
   graph [rankdir=LR];
   node [shape=box, color="#FF0000", fontname="Helvetica"];
   edge [shape=normal, color="#404040"];
