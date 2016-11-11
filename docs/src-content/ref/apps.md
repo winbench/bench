@@ -43,7 +43,7 @@ weight = 1
 * ID: `Dev3D`
 * Typ: `meta`
 * Version: latest
-* Dependencies: [Blender](#Blender), [MeshLab](#MeshLab), [GIMP](#Gimp)
+* Dependencies: [Blender](#Blender), [FreeCAD](#FreeCAD), [MeshLab](#MeshLab), [GIMP](#Gimp)
 
 ### C++ Development {#DevCpp}
 
@@ -122,14 +122,14 @@ weight = 1
 * ID: `7z`
 * Typ: `default`
 * Website: <http://www.7-zip.de/download.html>
-* Version: 16.02
+* Version: 16.04
 
 ### ConEmu {#ConEmu}
 
 * ID: `ConEmu`
 * Typ: `default`
 * Website: <https://conemu.github.io/>
-* Version: 16.07.24
+* Version: 16.10.09a
 
 ### Inno Setup Unpacker {#InnoUnp}
 
@@ -146,6 +146,13 @@ weight = 1
 * Version: 1.3
 
 ## Optional Apps {#apps-optional}
+
+### .NET Core SDK {#dotnet}
+
+* ID: `dotnet`
+* Typ: `default`
+* Website: <https://www.microsoft.com/net/core>
+* Version: latest
 
 ### Ant Renamer {#AntRenamer}
 
@@ -166,14 +173,14 @@ weight = 1
 * ID: `Atom`
 * Typ: `default`
 * Website: <https://atom.io>
-* Version: 1.9.8
+* Version: 1.11.2
 
 ### Blender {#Blender}
 
 * ID: `Blender`
 * Typ: `default`
 * Website: <https://www.blender.org>
-* Version: 2.77
+* Version: 2.78
 
 ### Bower {#Bower}
 
@@ -189,6 +196,14 @@ weight = 1
 * Typ: `default`
 * Website: <https://cmake.org/>
 * Version: 3.6.1
+
+### CoffeeScript {#CoffeeScript}
+
+* ID: `CoffeeScript`
+* Typ: `node-package`
+* Website: <http://coffeescript.org/>
+* Version: >=1.10.0 <2.0.0
+* Dependencies: [NPM](#Npm)
 
 ### cURL {#cURL}
 
@@ -257,6 +272,13 @@ weight = 1
 * Website: <https://filezilla-project.org/>
 * Version: 3.20.1
 
+### FreeCAD {#FreeCAD}
+
+* ID: `FreeCAD`
+* Typ: `default`
+* Website: <http://www.freecadweb.org/>
+* Version: 0.16
+
 ### GIMP {#Gimp}
 
 * ID: `Gimp`
@@ -269,7 +291,7 @@ weight = 1
 * ID: `Git`
 * Typ: `default`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.9.2
+* Version: 2.10.1
 
 ### GitKraken {#GitKraken}
 
@@ -379,7 +401,7 @@ weight = 1
 * ID: `JDK8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u102
+* Version: 112
 
 ### Java Runtime Environment 7 {#JRE7}
 
@@ -393,7 +415,7 @@ weight = 1
 * ID: `JRE8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u102
+* Version: 112
 
 ### JSHint {#JSHint}
 
@@ -488,7 +510,7 @@ weight = 1
 * ID: `Node`
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Version: 6.3.1
+* Version: 6.9.0
 
 ### NPM {#Npm}
 
@@ -608,6 +630,13 @@ weight = 1
 * Version: latest
 * Dependencies: [Ruby](#Ruby)
 
+### Scribus {#Scribus}
+
+* ID: `Scribus`
+* Typ: `default`
+* Website: <https://www.scribus.net/>
+* Version: 1.4.6
+
 ### Sift {#Sift}
 
 * ID: `Sift`
@@ -628,7 +657,7 @@ weight = 1
 * ID: `SublimeText3`
 * Typ: `default`
 * Website: <http://www.sublimetext.com/3>
-* Version: Build 3114
+* Version: Build 3126
 
 ### SWare Iron {#Iron}
 
