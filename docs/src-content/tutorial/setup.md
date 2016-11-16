@@ -19,12 +19,7 @@ and a graphical initialization wizzard.
 
 **Overview**
 
-* [Prerequisites](#prerequisites)
-* [Getting Bench](#download)
-* [Initializing the Configuration](#setup-wizzard)
-* [Setting Up Required Apps](#setting-up-required-apps)
-* [Next](#next)
-* [See Also](#see-also)
+<!-- #data-list /*/* -->
 
 A shortened version of this tutorial can be found in the
 [Quickstart](/start/install).
