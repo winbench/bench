@@ -21,7 +21,7 @@ FOR %%a IN (initialize, download, setup, reinstall, renew, upgrade, update-env) 
   SET /A i+=1
   SET arg[!i!]=%%a
 )
-FOR /L %%i IN (1,1,6) DO (
+FOR /L %%i IN (1,1,7) DO (
   IF /I "%1" == "!arg[%%i]!" (
     SET ACTION=!arg[%%i]!
     GOTO:silent
