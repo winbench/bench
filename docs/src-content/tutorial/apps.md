@@ -24,10 +24,7 @@ or by editing a text file and running a command at the shell.
 
 **Overview**
 
-* [Activating Apps by Mouse](#via-dashboard)
-* [Activating Apps by Keyboard](#via-shell)
-* [Next](#next)
-* [See Also](#see-also)
+<!-- #data-list /*/* -->
 
 A shortened version of this tutorial can be found in the
 [Quickstart](/start/apps).
