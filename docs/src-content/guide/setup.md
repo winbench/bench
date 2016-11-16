@@ -16,7 +16,7 @@ weight = 2
 
 Bench is installed and upgraded with a [bootstrap file][], which downloads
 the archive `Bench.zip` with the Bench system files, extracts its content in the Bench root directory,
-and starts the [Bench CLI][] with the [Initialization mode][] and the [setup mode][].
+and starts the [Bench CLI][] with the [initialization mode][] and the [setup mode][].
 The custom configuration is left untouched if it is already exists;
 otherwise it can be initialized from a template or from a Git repository.
 <!--more-->
