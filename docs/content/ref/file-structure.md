@@ -347,7 +347,8 @@ to manage and share Bench configurations.
 * Config Property: [CustomAppIndexFile](/ref/config/#CustomAppIndexFile)
 * Type: file
 
-The user app library file is written in [Markdown list syntax](/ref/markup-syntax).
+The app library file is written in [Markdown list syntax](/ref/markup-syntax).
+Every app is defined by a number of [App Properties](/ref/app-properties/).
 
 ### App Activation List {#config-apps-activated}
 
@@ -422,6 +423,16 @@ Inside of the _setup hook script_ is the [PowerShell API](/ref/ps-api/) availabl
 * Path: `res\apps`
 * Config Property: [AppResourceBaseDir](/ref/config/#AppResourceBaseDir)
 * Type: directory
+
+### Bench App Library {#res-apps}
+
+* Description: This file contains the libary with all apps included in Bench
+* Path: `res\apps.md`
+* Config Property: [AppIndexFile](/ref/config/#AppIndexFile)
+* Type: file
+
+The app library file is written in [Markdown list syntax](/ref/markup-syntax).
+Every app is defined by a number of [App Properties](/ref/app-properties/).
 
 ### Custom App Library Template {#res-apps-template}
 
