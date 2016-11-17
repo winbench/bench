@@ -20,9 +20,7 @@ files yourself and call a command on the shell to deinstall the app.
 
 **Overview**
 
-* [Deactivating Apps by Mouse](#dashboard)
-* [Deactivating Apps by Keyboard](#dashboard)
-* [See Also](#see-also)
+<!-- #data-list /*/* -->
 
 ## Deactivating Apps by Mouse {#dashboard}
 The easiest way to deactivate an app is to use the Bench Dashboard.
