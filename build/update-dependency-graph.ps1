@@ -1,5 +1,7 @@
 $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-$rootDir = Resolve-Path "$myDir\.."
+$rootDir = [IO.Path]::GetDirectoryName($myDir)
+$scriptsDir = Resolve-Path "$rootDir\auto\lib"
+$docsDir = Resolve-Path "$rootDir\docs"
 
 $sourceDirs = @(
     $rootDir,
@@ -13,8 +15,8 @@ $constNodes = @(
 )
 $filter = @("*.bat", "*.cmd", "*.ps1")
 $exclude = @("runps.cmd", "env.cmd")
-$targetFile = "$rootDir\docs\src-static\graph\dependencies.gw"
-$imageFile =  "$rootDir\docs\static\img\dependencies.svg"
+$targetFile = "$docsDir\src-static\graph\dependencies.gw"
+$imageFile =  "$docsDir\static\img\dependencies.svg"
 $graphLabel = "Dependencies"
 
 $nodeStyles = @(
@@ -118,5 +120,11 @@ foreach ($f in $files) {
 
 println "}"
 $s.Close()
+
+& "$scriptsDir\Load-ClrLibs.ps1"
+
+$cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $true)
+$benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($cfg)
+$benchEnv.Load()
 
 dot $targetFile "-o$imageFile" -Tsvg

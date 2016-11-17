@@ -19,7 +19,8 @@ $cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $
 $benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($cfg)
 $benchEnv.Load()
 
-function check-success() {
+function check-success()
+{
   if ($LastExitCode -ne 0)
   {
     popd
@@ -29,9 +30,13 @@ function check-success() {
 
 pushd $docsDir
 
-del .\public -Recurse -Force
+if (Test-Path .\public)
+{
+  del .\public -Recurse -Force
+}
 
 & "$myDir\update-app-list.ps1"
+& "$myDir\update-dependency-graph.ps1"
 
 if (!(Test-Path "$docsDir\node_modules"))
 {
