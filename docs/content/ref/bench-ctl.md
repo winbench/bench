@@ -37,16 +37,17 @@ This tasks performs the following steps:
 
 * Initializing the custom configuration, if there is none
 * Downloading missing app resources
-* Installing the apps in the _Bench_ environment
+* Deinstalling inactive but installed apps from the _Bench_ environment
+* Installing active but not installed apps in the _Bench_ environment
 * Updating the _Bench_ environment file `env.cmd`
 * Updating the launcher shortcuts
 
-Usually, you need an internet connection for this script.
-This script usally can be run repeatedly without any riscs.
+Usually, you need an internet connection for this task.
+This script can be run repeatedly without any riscs.
 
 ### `download`
 If you want to download missing application resources without installing
-any application in the _Bench_ environment, use this script.
+any application in the _Bench_ environment, use this task.
 It performs the following steps:
 
 * Initializing the custom configuration, if there is none
@@ -62,29 +63,29 @@ but downloaded by the package manager during installation.
 
 ### `reinstall`
 If your installed apps are corrupted, or you want to update
-NPM or PIP packages, you can run this script.
+NPM or PIP packages, you can run this action.
 It performs the following steps:
 
 * Removing all installed app files
 * Downloading missing app resources
-* Installing the apps in the _Bench_ environment
+* Installing all active apps in the _Bench_ environment
 * Updating the _Bench_ environment file `env.cmd`
 * Updating the launcher shortcuts
 
-Usually, you need an internet connection for this script.
+Usually, you need an internet connection for this task.
 
 ### `renew`
-If you want to start fresh with your app selection, you can run this task.
+If you want to start fresh with your app selection, you can run this action.
 It performs the following steps:
 
 * Removing all downloaded app resource
 * Removing all installed app files
 * Downloading missing app resources
-* Installing the apps in the _Bench_ environment
+* Installing all active apps in the _Bench_ environment
 * Updating the _Bench_ environment file `env.cmd`
 * Updating the launcher shortcuts
 
-You need an internet connection for this script.
+You need an internet connection for this task.
 
 ### `upgrade`
 If you want to upgrade the whole _Bench_ environment, you can run this task.
@@ -96,15 +97,16 @@ It performs the following steps:
     + Extracting the content of `Bench.zip`
     + Starting the app setup...
 * Downloading all required app resources
-* Installing the apps in the _Bench_ environment
+* Installing all active apps in the _Bench_ environment
 * Updating the _Bench_ environment file `env.cmd`
 * Updating the launcher shortcuts
 
 If the internet connection is not stable, or some of the app resources are not available,
-this script leaves you with a possible unusable environment.
-But you can allways run  the `setup` and `reinstall` tasks in an attempt to repair the missing apps.
+this task leaves you with a possible unusable environment.
+But you can allways run  the `setup` and `reinstall` tasks in an attempt
+to repair the missing apps.
 
-This script does not touch any user data in the _Bench_ home directory,
+This task does not touch any user data in the _Bench_ home directory,
 and it does not touch the custom configuration (`config.md`, `apps.md`, ...)
 in the `config` folder either.
 
