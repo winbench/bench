@@ -26,11 +26,7 @@ the user app library, if the Bench app library is outdated.
 
 **Overview**
 
-* [Just give me the latest and greatest](#bench-upgrade)
-* [Upgrade Default Apps without Version Number](#without-version)
-* [Upgrade Packaged Apps](#packages)
-* [Override an Apps Version](#override)
-* [See Also](#see-also)
+<!-- #data-list /*/* -->
 
 ## Just give me the latest and greatest {#bench-upgrade}
 If you just want to upgrade all apps to the latest versions known to Bench,
