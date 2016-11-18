@@ -20,9 +20,7 @@ But some support already exists.
 
 **Overview**
 
-* [Editor or IDE Based Approach](#ide-centric)
-* [Shell Based Approach](#shell-centric)
-* [See Also](#see-also)
+<!-- #data-list /*/* -->
 
 ## Editor or IDE Based Approach {#ide-centric}
 To open a project in a text editor or an IDE which was installed with Bench,
