@@ -27,9 +27,7 @@ have [activated and installed](/tutorial/apps) Yeoman in Bench.
 
 **Overview**
 
-* [Yeoman Generators](#yo-generators)
-* [Scaffolding a Project with Yeoman](#yo)
-* [See Also](#see-also)
+<!-- #data-list /*/* -->
 
 ## Yeoman Generators {#yo-generators}
 [Yeoman][] is a [Node.js][] package, which itself depends on [generators][],
