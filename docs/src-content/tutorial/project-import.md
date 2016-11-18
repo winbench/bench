@@ -23,10 +23,7 @@ But some support already exists.
 
 **Overview**
 
-* [Cloning a Git Repository](#git-clone)
-* [Creating a SSH Key Pair](#ssh-key)
-* [Importing a Project Manually](#manually)
-* [See Also](#see-also)
+<!-- #data-list /*/* -->
 
 ## Cloning a Git Repository {#git-clone}
 To clone a Git versioned project from a remote URL into the
