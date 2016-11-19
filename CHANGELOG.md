@@ -30,6 +30,7 @@ Add a link to the GitHub diff like
 
 ### Changed
 - Update: OpenSSL from 1.0.2h to 1.1.0c
+- Update: FreeCAD 0.16 from build 6704 to 6706
 
 ### Fixed
 - `bench-ctl update-env` was not working

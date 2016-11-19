@@ -639,8 +639,8 @@ Blender is the open source, cross platform suite of tools for 3D creation.
 
 * ID: `FreeCAD`
 * Version: 0.16
-* Build: 6704
-* Hash: oc449d7
+* Build: 6706
+* Hash: f86a4e4
 * Website: <http://www.freecadweb.org/>
 * Docs:
     + Features: <http://www.freecadweb.org/wiki/index.php?title=Feature_list>
@@ -649,7 +649,7 @@ Blender is the open source, cross platform suite of tools for 3D creation.
     + Power User: <http://www.freecadweb.org/wiki/index.php?title=Power_users_hub>
     + Development: <http://www.freecadweb.org/wiki/index.php?title=Developer_hub>
 * Url: `https://github.com/FreeCAD/FreeCAD/releases/download/$:Version$/$:ArchiveName$`
-* ArchiveName: `FreeCAD.$:Version$.$:Build$.$:Hash$-WIN-x86_installer.exe`
+* ArchiveName: `FreeCAD.$:Version$.$:Build$.$:Hash$-WIN-x86-installer.exe`
 * Exe: `bin\freecad.exe`
 * Launcher: $:Label$
 
