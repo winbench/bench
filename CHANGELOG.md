@@ -28,6 +28,9 @@ Add a link to the GitHub diff like
 ### Added
 - Support for second argument `verbose` in `bench-ctl`
 
+### Changed
+- Update: OpenSSL from 1.0.2h to 1.1.0c
+
 ### Fixed
 - `bench-ctl update-env` was not working
 - Broken RubyGems installer, because of changed certificate
