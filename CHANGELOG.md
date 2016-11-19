@@ -25,7 +25,11 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+### Added
+- Support for second argument `verbose` in `bench-ctl`
+
 ### Fixed
+- `bench-ctl update-env` was not working
 - Broken RubyGems installer, because of changed certificate
   ([#86](https://github.com/mastersign/bench/issues/86))
 
