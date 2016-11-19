@@ -90,7 +90,7 @@ weight = 1
 | `Npm` | [NPM](#Npm) | >=3.7.0 <4.0.0 | <https://www.npmjs.com/package/npm> |
 | `NuGet` | [NuGet](#NuGet) | latest | <https://www.nuget.org> |
 | `NUnit.Runners` | [NUnit 3 Runners](#NUnit.Runners) | latest | <http://nunit.org/> |
-| `OpenSSL` | [OpenSSL](#OpenSSL) | 1.0.2h | <https://www.openssl.org/> |
+| `OpenSSL` | [OpenSSL](#OpenSSL) | 1.1.0c | <https://www.openssl.org/> |
 | `Pandoc` | [Pandoc](#Pandoc) | 1.17.2 | <https://github.com/jgm/pandoc/releases/latest> |
 | `PHP5` | [PHP 5](#PHP5) | 5.6.23 | <http://www.php.net> |
 | `PHP7` | [PHP 7](#PHP7) | 7.0.8 | <http://www.php.net> |
@@ -102,6 +102,7 @@ weight = 1
 | `Python3` | [Python 3](#Python3) | 3.4.4 | <https://www.python.org/> |
 | `RabbitMQ` | [RabbitMQ](#RabbitMQ) | 3.6.5 | <http://www.rabbitmq.com> |
 | `Ruby` | [Ruby](#Ruby) | 2.3.1 | <https://www.ruby-lang.org/> |
+| `RubyGems` | [RubyGems](#RubyGems) | 2.6.8 | <https://rubygems.org/> |
 | `Sass` | [SASS](#Sass) | latest | <http://sass-lang.com/> |
 | `Scribus` | [Scribus](#Scribus) | 1.4.6 | <https://www.scribus.net/> |
 | `Sift` | [Sift](#Sift) | 0.8.0 | <https://sift-tool.org/> |
@@ -626,7 +627,7 @@ weight = 1
 * ID: `OpenSSL`
 * Typ: `default`
 * Website: <https://www.openssl.org/>
-* Version: 1.0.2h
+* Version: 1.1.0c
 
 ### Pandoc {#Pandoc}
 
@@ -708,13 +709,21 @@ weight = 1
 * Website: <https://www.ruby-lang.org/>
 * Version: 2.3.1
 
+### RubyGems {#RubyGems}
+
+* ID: `RubyGems`
+* Typ: `default`
+* Website: <https://rubygems.org/>
+* Version: 2.6.8
+* Dependencies: [Ruby](#Ruby)
+
 ### SASS {#Sass}
 
 * ID: `Sass`
 * Typ: `ruby-package`
 * Website: <http://sass-lang.com/>
 * Version: latest
-* Dependencies: [Ruby](#Ruby)
+* Dependencies: [RubyGems](#RubyGems)
 
 ### Scribus {#Scribus}
 
