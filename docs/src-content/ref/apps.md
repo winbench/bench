@@ -540,7 +540,7 @@ weight = 1
 * ID: `OpenSSL`
 * Typ: `default`
 * Website: <https://www.openssl.org/>
-* Version: 1.0.2h
+* Version: 1.1.0c
 
 ### Pandoc {#Pandoc}
 
@@ -622,13 +622,21 @@ weight = 1
 * Website: <https://www.ruby-lang.org/>
 * Version: 2.3.1
 
+### RubyGems {#RubyGems}
+
+* ID: `RubyGems`
+* Typ: `default`
+* Website: <https://rubygems.org/>
+* Version: 2.6.8
+* Dependencies: [Ruby](#Ruby)
+
 ### SASS {#Sass}
 
 * ID: `Sass`
 * Typ: `ruby-package`
 * Website: <http://sass-lang.com/>
 * Version: latest
-* Dependencies: [Ruby](#Ruby)
+* Dependencies: [RubyGems](#RubyGems)
 
 ### Scribus {#Scribus}
 
