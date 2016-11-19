@@ -935,6 +935,23 @@ It has an elegant syntax that is natural to read and easy to write.
 * Launcher: `Ruby`
 * LauncherArguments: `$:Dir$\bin\irb`
 
+### RubyGems
+
+RubyGems is a package management framework for Ruby.
+
+* ID: `RubyGems`
+* Website: <https://rubygems.org/>
+* Docs:
+	+ Gems: <https://rubygems.org/gems>
+	+ Documentation: <http://guides.rubygems.org/>
+* Dependencies: `Ruby`
+* Version: 2.6.8
+* Url: `https://rubygems.org/rubygems/$:ArchiveName$`
+* ArchiveName: `rubygems-$:Version$.zip`
+* Dir: `$Ruby:Dir$\tmp`
+* Register: false
+* SetupTestFile: `$:Dir$\rubygems-$:Version$\setup.rb`
+
 ### SASS
 
 Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.

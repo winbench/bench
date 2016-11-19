@@ -33,6 +33,9 @@ namespace Mastersign.Bench
         /// <summary>The app ID of Ruby.</summary>
         public const string Ruby = "Ruby";
 
+        /// <summary>The app ID of RubyGems.</summary>
+        public const string RubyGems = "RubyGems";
+
         /// <summary>The app ID of Python 2.</summary>
         public const string Python2 = "Python2";
 
