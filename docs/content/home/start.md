@@ -8,7 +8,7 @@ weight = 3
 +++
 
 1. Create a folder for Bench.
-2. Install Bench with the [install script][bootstrap-file].
+2. Install Bench with the [bootstrap script][bootstrap-file].
 3. Select some apps for your Bench environment.
 4. Spend your time working on the next project.
 

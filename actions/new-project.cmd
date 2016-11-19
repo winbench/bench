@@ -1,3 +1,3 @@
 @ECHO OFF
 CALL "%~dp0\..\env.cmd"
-runps New-Project %*
+runps New-Project.ps1 %*

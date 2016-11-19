@@ -1147,7 +1147,7 @@ namespace Mastersign.Bench
                     AddDependency(AppKeys.Npm);
                     break;
                 case AppTyps.RubyPackage:
-                    AddDependency(AppKeys.Ruby);
+                    AddDependency(AppKeys.RubyGems);
                     break;
                 case AppTyps.Python2Package:
                     AddDependency(AppKeys.Python2);

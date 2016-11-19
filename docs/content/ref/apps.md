@@ -28,8 +28,8 @@ weight = 1
 
 | ID | Name | Version | Website |
 |----|------|---------|---------|
-| `7z` | [7-Zip](#7z) | 16.02 | <http://www.7-zip.de/download.html> |
-| `ConEmu` | [ConEmu](#ConEmu) | 16.07.24 | <https://conemu.github.io/> |
+| `7z` | [7-Zip](#7z) | 16.04 | <http://www.7-zip.de/download.html> |
+| `ConEmu` | [ConEmu](#ConEmu) | 16.10.09a | <https://conemu.github.io/> |
 | `InnoUnp` | [Inno Setup Unpacker](#InnoUnp) | 0.45 | <http://innounp.sourceforge.net/> |
 | `LessMsi` | [Less MSIerables](#LessMsi) | 1.3 | <http://lessmsi.activescott.com/> |
 
@@ -37,12 +37,14 @@ weight = 1
 
 | ID | Name | Version | Website |
 |----|------|---------|---------|
+| `dotnet` | [.NET Core SDK](#dotnet) | latest | <https://www.microsoft.com/net/core> |
 | `AntRenamer` | [Ant Renamer](#AntRenamer) | latest | <http://antp.be/software/renamer> |
 | `Apache` | [Apache](#Apache) | 2.4.23 | <https://httpd.apache.org/> |
-| `Atom` | [Atom](#Atom) | 1.9.8 | <https://atom.io> |
-| `Blender` | [Blender](#Blender) | 2.77 | <https://www.blender.org> |
+| `Atom` | [Atom](#Atom) | 1.11.2 | <https://atom.io> |
+| `Blender` | [Blender](#Blender) | 2.78 | <https://www.blender.org> |
 | `Bower` | [Bower](#Bower) | >=1.7.0 <2.0.0 | <https://bower.io/> |
 | `CMake` | [CMake](#CMake) | 3.6.1 | <https://cmake.org/> |
+| `CoffeeScript` | [CoffeeScript](#CoffeeScript) | >=1.10.0 <2.0.0 | <http://coffeescript.org/> |
 | `cURL` | [cURL](#cURL) | 7.50.1 | <http://curl.haxx.se/> |
 | `Dia` | [Dia](#Dia) | 0.97.2 | <https://wiki.gnome.org/Apps/Dia> |
 | `EclipseCpp` | [Eclipse for C++](#EclipseCpp) | 4.6 | <http://www.eclipse.org/> |
@@ -52,8 +54,9 @@ weight = 1
 | `Erlang` | [Erlang](#Erlang) | 19.0 | <http://www.erlang.org/> |
 | `FFmpeg` | [FFmpeg](#FFmpeg) | latest | <https://www.ffmpeg.org/> |
 | `FileZilla` | [FileZilla](#FileZilla) | 3.20.1 | <https://filezilla-project.org/> |
+| `FreeCAD` | [FreeCAD](#FreeCAD) | 0.16 | <http://www.freecadweb.org/> |
 | `Gimp` | [GIMP](#Gimp) | 2.8.18 | <http://www.gimp.org/> |
-| `Git` | [Git](#Git) | 2.9.2 | <https://git-scm.com/download/win> |
+| `Git` | [Git](#Git) | 2.10.1 | <https://git-scm.com/download/win> |
 | `GitKraken` | [GitKraken](#GitKraken) | latest | <https://www.gitkraken.com/> |
 | `GnuTLS` | [GNU TLS](#GnuTLS) | 3.3.11 | <http://www.gnutls.org/> |
 | `GnuPG` | [GnuPG](#GnuPG) | 2.0.30 | <https://gnupg.org> |
@@ -68,9 +71,9 @@ weight = 1
 | `IPython3` | [IPython 3](#IPython3) | latest | <http://pypi.python.org/pypi/ipython> |
 | `JabRef` | [JabRef](#JabRef) | 3.5 | <http://www.jabref.org> |
 | `JDK7` | [Java Development Kit 7](#JDK7) | 7u80 | <https://www.oracle.com/java/> |
-| `JDK8` | [Java Development Kit 8](#JDK8) | 8u102 | <https://www.oracle.com/java/> |
+| `JDK8` | [Java Development Kit 8](#JDK8) | 112 | <https://www.oracle.com/java/> |
 | `JRE7` | [Java Runtime Environment 7](#JRE7) | 7u80 | <https://www.oracle.com/java/> |
-| `JRE8` | [Java Runtime Environment 8](#JRE8) | 8u102 | <https://www.oracle.com/java/> |
+| `JRE8` | [Java Runtime Environment 8](#JRE8) | 112 | <https://www.oracle.com/java/> |
 | `JSHint` | [JSHint](#JSHint) | >=2.8.0 <3.0.0 | <http://jshint.com/> |
 | `Leiningen` | [Leiningen](#Leiningen) | latest | <http://leiningen.org> |
 | `LightTable` | [LightTable](#LightTable) | 0.8.1 | <http://lighttable.com> |
@@ -83,7 +86,7 @@ weight = 1
 | `MinGwGetGui` | [MinGwGetGui](#MinGwGetGui) | latest |  |
 | `MySQL` | [MySQL](#MySQL) | 5.7.14 | <http://www.mysql.com/> |
 | `MySQLWB` | [MySQL Workbench](#MySQLWB) | 6.3.7 | <http://dev.mysql.com/downloads/workbench/> |
-| `Node` | [Node.js](#Node) | 6.3.1 | <https://nodejs.org> |
+| `Node` | [Node.js](#Node) | 6.9.0 | <https://nodejs.org> |
 | `Npm` | [NPM](#Npm) | >=3.7.0 <4.0.0 | <https://www.npmjs.com/package/npm> |
 | `NuGet` | [NuGet](#NuGet) | latest | <https://www.nuget.org> |
 | `NUnit.Runners` | [NUnit 3 Runners](#NUnit.Runners) | latest | <http://nunit.org/> |
@@ -100,9 +103,10 @@ weight = 1
 | `RabbitMQ` | [RabbitMQ](#RabbitMQ) | 3.6.5 | <http://www.rabbitmq.com> |
 | `Ruby` | [Ruby](#Ruby) | 2.3.1 | <https://www.ruby-lang.org/> |
 | `Sass` | [SASS](#Sass) | latest | <http://sass-lang.com/> |
+| `Scribus` | [Scribus](#Scribus) | 1.4.6 | <https://www.scribus.net/> |
 | `Sift` | [Sift](#Sift) | 0.8.0 | <https://sift-tool.org/> |
 | `Spacemacs` | [Spacemacs](#Spacemacs) | latest | <http://spacemacs.org/> |
-| `SublimeText3` | [Sublime Text 3](#SublimeText3) | Build 3114 | <http://www.sublimetext.com/3> |
+| `SublimeText3` | [Sublime Text 3](#SublimeText3) | Build 3126 | <http://www.sublimetext.com/3> |
 | `Iron` | [SWare Iron](#Iron) | latest | <http://www.chromium.org/Home> |
 | `SysInternals` | [SysInternals](#SysInternals) | latest | <https://technet.microsoft.com/de-de/sysinternals> |
 | `TeXnicCenter` | [TeXnicCenter](#TeXnicCenter) | 2.02 | <http://www.texniccenter.org> |
@@ -125,7 +129,7 @@ weight = 1
 * ID: `Dev3D`
 * Typ: `meta`
 * Version: latest
-* Dependencies: [Blender](#Blender), [MeshLab](#MeshLab), [GIMP](#Gimp)
+* Dependencies: [Blender](#Blender), [FreeCAD](#FreeCAD), [MeshLab](#MeshLab), [GIMP](#Gimp)
 
 ### C++ Development {#DevCpp}
 
@@ -204,14 +208,14 @@ weight = 1
 * ID: `7z`
 * Typ: `default`
 * Website: <http://www.7-zip.de/download.html>
-* Version: 16.02
+* Version: 16.04
 
 ### ConEmu {#ConEmu}
 
 * ID: `ConEmu`
 * Typ: `default`
 * Website: <https://conemu.github.io/>
-* Version: 16.07.24
+* Version: 16.10.09a
 
 ### Inno Setup Unpacker {#InnoUnp}
 
@@ -228,6 +232,13 @@ weight = 1
 * Version: 1.3
 
 ## Optional Apps {#apps-optional}
+
+### .NET Core SDK {#dotnet}
+
+* ID: `dotnet`
+* Typ: `default`
+* Website: <https://www.microsoft.com/net/core>
+* Version: latest
 
 ### Ant Renamer {#AntRenamer}
 
@@ -248,14 +259,14 @@ weight = 1
 * ID: `Atom`
 * Typ: `default`
 * Website: <https://atom.io>
-* Version: 1.9.8
+* Version: 1.11.2
 
 ### Blender {#Blender}
 
 * ID: `Blender`
 * Typ: `default`
 * Website: <https://www.blender.org>
-* Version: 2.77
+* Version: 2.78
 
 ### Bower {#Bower}
 
@@ -271,6 +282,14 @@ weight = 1
 * Typ: `default`
 * Website: <https://cmake.org/>
 * Version: 3.6.1
+
+### CoffeeScript {#CoffeeScript}
+
+* ID: `CoffeeScript`
+* Typ: `node-package`
+* Website: <http://coffeescript.org/>
+* Version: >=1.10.0 <2.0.0
+* Dependencies: [NPM](#Npm)
 
 ### cURL {#cURL}
 
@@ -339,6 +358,13 @@ weight = 1
 * Website: <https://filezilla-project.org/>
 * Version: 3.20.1
 
+### FreeCAD {#FreeCAD}
+
+* ID: `FreeCAD`
+* Typ: `default`
+* Website: <http://www.freecadweb.org/>
+* Version: 0.16
+
 ### GIMP {#Gimp}
 
 * ID: `Gimp`
@@ -351,7 +377,7 @@ weight = 1
 * ID: `Git`
 * Typ: `default`
 * Website: <https://git-scm.com/download/win>
-* Version: 2.9.2
+* Version: 2.10.1
 
 ### GitKraken {#GitKraken}
 
@@ -461,7 +487,7 @@ weight = 1
 * ID: `JDK8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u102
+* Version: 112
 
 ### Java Runtime Environment 7 {#JRE7}
 
@@ -475,7 +501,7 @@ weight = 1
 * ID: `JRE8`
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Version: 8u102
+* Version: 112
 
 ### JSHint {#JSHint}
 
@@ -570,7 +596,7 @@ weight = 1
 * ID: `Node`
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Version: 6.3.1
+* Version: 6.9.0
 
 ### NPM {#Npm}
 
@@ -690,6 +716,13 @@ weight = 1
 * Version: latest
 * Dependencies: [Ruby](#Ruby)
 
+### Scribus {#Scribus}
+
+* ID: `Scribus`
+* Typ: `default`
+* Website: <https://www.scribus.net/>
+* Version: 1.4.6
+
 ### Sift {#Sift}
 
 * ID: `Sift`
@@ -710,7 +743,7 @@ weight = 1
 * ID: `SublimeText3`
 * Typ: `default`
 * Website: <http://www.sublimetext.com/3>
-* Version: Build 3114
+* Version: Build 3126
 
 ### SWare Iron {#Iron}
 

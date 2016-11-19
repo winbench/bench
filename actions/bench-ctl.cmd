@@ -21,7 +21,7 @@ FOR %%a IN (initialize, download, setup, reinstall, renew, upgrade, update-env) 
   SET /A i+=1
   SET arg[!i!]=%%a
 )
-FOR /L %%i IN (1,1,6) DO (
+FOR /L %%i IN (1,1,7) DO (
   IF /I "%1" == "!arg[%%i]!" (
     SET ACTION=!arg[%%i]!
     GOTO:silent
@@ -101,7 +101,7 @@ GOTO:EOF
   2>NUL CALL :action_%ACTION% %*
   PAUSE
   IF %RUN_SHELL% == 1 (
-    runps Shell
+    runps Shell.ps1
   )
 GOTO:EOF
 
@@ -120,7 +120,7 @@ GOTO:EOF
     ECHO.
   )
   CALL "%AUTO_DIR%\init.cmd"
-  CALL :runps Initialize-Bench
+  CALL :runps Initialize-Bench.ps1
 GOTO:EOF
 
 :action_update-env
@@ -188,7 +188,7 @@ GOTO:EOF
 
 :action_upgrade
   IF %SILENT% == 0 (
-    ECHO.This will first upgrade Bench including the predefined app index, then download missing app resources, and finally uninstall and reinstall all active apps. 
+    ECHO.This will first upgrade Bench including the predefined app index, then download missing app resources, and finally uninstall and reinstall all active apps.
     CALL :reasure
     IF !SURE! == 0 GOTO:EOF
     ECHO.
@@ -197,18 +197,18 @@ GOTO:EOF
   )
   CALL "%AUTO_DIR%\init.cmd"
   IF %SILENT% == 0 (
-    CALL runps Upgrade-Bench
+    CALL runps Upgrade-Bench.ps1
   ) ELSE (
-    CALL runps Upgrade-Bench -Silent
+    CALL runps Upgrade-Bench.ps1 -Silent
   )
   CD /D "%ROOT_DIR%"
 GOTO:EOF
 
 :runsetup
   IF %VERBOSE% == 1 (
-    CALL runps Setup-Bench -Action %1 -WithInfo
+    CALL runps Setup-Bench.ps1 -Action %1 -WithInfo
   ) ELSE (
-    CALL runps Setup-Bench -Action %1
+    CALL runps Setup-Bench.ps1 -Action %1
   )
 GOTO:EOF
 

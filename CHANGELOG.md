@@ -25,6 +25,21 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 [App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
+## [0.13.3] - 2016-11-19
+[Full Changelog](https://github.com/mastersign/bench/compare/v0.13.2...v0.13.3)
+
+### Added
+- Support for second argument `verbose` in `bench-ctl`
+
+### Changed
+- Update: OpenSSL from 1.0.2h to 1.1.0c
+- Update: FreeCAD 0.16 from build 6704 to 6706
+
+### Fixed
+- `bench-ctl update-env` was not working
+- Broken RubyGems installer, because of changed certificate
+  ([#86](https://github.com/mastersign/bench/issues/86))
+
 ## [0.13.2] - 2016-10-22
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.13.1...v0.13.2)
 

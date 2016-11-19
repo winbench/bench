@@ -202,8 +202,8 @@ It is also a general-purpose cryptography library.
     + Overview: <https://www.openssl.org/docs/man1.0.2/apps/openssl.html>
     + Commands: <https://www.openssl.org/docs/man1.0.2/apps/>
     + Windows Build: <http://slproweb.com/products/Win32OpenSSL.html>
-* Version: 1.0.2h
-* Version2: `1_0_2h`
+* Version: 1.1.0c
+* Version2: 1_1_0c
 * Url: `http://slproweb.com/download/$:ArchiveName$`
 * ArchiveName: `Win32OpenSSL-$:Version2$.exe`
 * ArchiveTyp: `inno`
@@ -639,8 +639,8 @@ Blender is the open source, cross platform suite of tools for 3D creation.
 
 * ID: `FreeCAD`
 * Version: 0.16
-* Build: 6704
-* Hash: oc449d7
+* Build: 6706
+* Hash: f86a4e4
 * Website: <http://www.freecadweb.org/>
 * Docs:
     + Features: <http://www.freecadweb.org/wiki/index.php?title=Feature_list>
@@ -649,7 +649,7 @@ Blender is the open source, cross platform suite of tools for 3D creation.
     + Power User: <http://www.freecadweb.org/wiki/index.php?title=Power_users_hub>
     + Development: <http://www.freecadweb.org/wiki/index.php?title=Developer_hub>
 * Url: `https://github.com/FreeCAD/FreeCAD/releases/download/$:Version$/$:ArchiveName$`
-* ArchiveName: `FreeCAD.$:Version$.$:Build$.$:Hash$-WIN-x86_installer.exe`
+* ArchiveName: `FreeCAD.$:Version$.$:Build$.$:Hash$-WIN-x86-installer.exe`
 * Exe: `bin\freecad.exe`
 * Launcher: $:Label$
 
@@ -934,6 +934,23 @@ It has an elegant syntax that is natural to read and easy to write.
 * Exe: `bin\ruby.exe`
 * Launcher: `Ruby`
 * LauncherArguments: `$:Dir$\bin\irb`
+
+### RubyGems
+
+RubyGems is a package management framework for Ruby.
+
+* ID: `RubyGems`
+* Website: <https://rubygems.org/>
+* Docs:
+	+ Gems: <https://rubygems.org/gems>
+	+ Documentation: <http://guides.rubygems.org/>
+* Dependencies: `Ruby`
+* Version: 2.6.8
+* Url: `https://rubygems.org/rubygems/$:ArchiveName$`
+* ArchiveName: `rubygems-$:Version$.zip`
+* Dir: `$Ruby:Dir$\tmp`
+* Register: false
+* SetupTestFile: `$:Dir$\rubygems-$:Version$\setup.rb`
 
 ### SASS
 

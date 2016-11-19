@@ -8,6 +8,14 @@ weight = 5
 The most of the configuration files in Bench are actually [Markdown] files.
 The key-value-pairs of the configuration properties, for the whole Bench environment
 or for individual apps, are written as items in unordered lists.
+<!--more-->
+
+**Overview**
+
+* [Basic Syntax](#basic-syntax)
+* [Lists and Dictionaries](#lists-and-dictionaries)
+* [Property Groups](#property-groups)
+* [Variable Expansion](#variable-expansion)
 
 ## Basic Syntax
 

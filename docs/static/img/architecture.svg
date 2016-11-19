@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640"
+   height="280"
+   viewBox="0 0 640.00001 280.00001"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="architecture.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4606"
+       osb:paint="solid"
+       gradientTransform="matrix(3.6806828,0,0,1,5372.8227,2939.9972)">
+      <stop
+         style="stop-color:#424242;stop-opacity:1;"
+         offset="0"
+         id="stop4608" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4600"
+       osb:paint="solid"
+       gradientTransform="matrix(2.2500003,0,0,2.2500002,-122.00006,-1159.9533)">
+      <stop
+         style="stop-color:#86ae1e;stop-opacity:1;"
+         offset="0"
+         id="stop4602" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4594"
+       osb:paint="solid"
+       gradientTransform="matrix(2.2500005,0,0,2.2500001,-29.016312,-897.95309)">
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:1;"
+         offset="0"
+         id="stop4596" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4588"
+       osb:paint="solid"
+       gradientTransform="matrix(3.3750008,0,0,3.3750003,-257.66032,-1101.8611)">
+      <stop
+         style="stop-color:#1ba1e2;stop-opacity:1;"
+         offset="0"
+         id="stop4590" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4582"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4584" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4576"
+       osb:paint="solid"
+       gradientTransform="matrix(1.3125002,0,0,2.2500001,288.24446,-1122.9534)">
+      <stop
+         style="stop-color:#0072c6;stop-opacity:1;"
+         offset="0"
+         id="stop4578" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4570"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#267d41;stop-opacity:1;"
+         offset="0"
+         id="stop4572" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="304.29837"
+     inkscape:cy="171.17939"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:snap-to-guides="true"
+     objecttolerance="20"
+     gridtolerance="10000"
+     guidetolerance="20"
+     inkscape:snap-grids="true"
+     inkscape:snap-text-baseline="false"
+     inkscape:snap-page="false"
+     inkscape:snap-bbox="true"
+     inkscape:snap-global="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:bbox-paths="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:connector-spacing="2">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3336"
+       spacingx="10"
+       spacingy="10"
+       dotted="false"
+       snapvisiblegridlinesonly="false"
+       originx="10"
+       originy="10" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-772.36216)">
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 319.99998,842.36208 0,20 0,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4700" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 319.99998,881.24208 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4702" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
+       d="m 279.36618,842.36208 0,20 -138.68535,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4704" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 139.99998,881.24208 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4706" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
+       d="m 360.19554,842.36208 0,20 139.10894,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4708" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 499.99998,881.24208 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4710" />
+    <rect
+       style="fill:url(#linearGradient4588);stroke:none"
+       x="230"
+       y="782.36218"
+       width="180"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4712" />
+    <g
+       transform="translate(288.94049,806.41223)"
+       id="g4714">
+      <text
+         style="font-size:12px;line-height:125%;font-family:Helvetica;text-anchor:middle;fill:#000000"
+         x="31"
+         y="12"
+         font-size="12px"
+         id="text4718"
+         sodipodi:linespacing="125%">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:center;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;font-size:16.25px"
+           id="tspan4998">Dashboard</tspan>
+      </text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
+       d="m 360.67797,942.36209 0,20 138.74058,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4720" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 499.99998,981.2421 -3.5,-7.00001 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4722" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 229.99998,912.36208 -20,0 -13.63,0"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4724" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 191.11998,912.36208 7,-3.5 -1.75,3.5 1.75,3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4726" />
+    <rect
+       style="fill:url(#linearGradient4588);stroke:none"
+       x="230"
+       y="882.36218"
+       width="180"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4728" />
+    <g
+       transform="translate(287.78577,904.742)"
+       id="g4730">
+      <text
+         x="32"
+         y="12"
+         font-size="12px"
+         id="text4734"
+         style="font-size:12px;line-height:125%;font-family:Helvetica;text-anchor:middle;fill:#000000"
+         sodipodi:linespacing="125%">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:center;writing-mode:lr-tb;text-anchor:middle"
+           id="tspan5004">Core Binary</tspan>
+      </text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 99.999979,942.36209 0,20 0,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4736" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 99.999979,981.2421 -3.5,-7.00001 3.5,1.75 3.500001,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4738" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
+       d="m 140.67377,942.36209 0,20 178.76504,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4740" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 319.99998,981.2421 -3.5,-7.00001 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4742" />
+    <rect
+       style="fill:url(#linearGradient4594);stroke:none"
+       x="9.9999847"
+       y="882.36218"
+       width="180.00002"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4744" />
+    <g
+       transform="translate(86.234064,904.63489)"
+       id="g4746">
+      <text
+         style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000"
+         x="14"
+         y="12"
+         font-size="12px"
+         id="text4750">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+           id="tspan5002">Apps</tspan>
+      </text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 539.99998,842.36208 0,20 0,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4752" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 539.99998,881.24208 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4754" />
+    <rect
+       style="fill:url(#linearGradient4588);stroke:none"
+       x="450"
+       y="782.36218"
+       width="180.00002"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4756" />
+    <g
+       transform="translate(495.79371,804.94043)"
+       id="g4758">
+      <text
+         x="44"
+         y="12"
+         font-size="12px"
+         id="text4762"
+         style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+           id="tspan5000">Interface Scripts</tspan>
+      </text>
+    </g>
+    <rect
+       style="fill:url(#linearGradient4600);stroke:none"
+       x="9.9999924"
+       y="982.36218"
+       width="180"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4764" />
+    <g
+       transform="translate(69.138851,1004.9008)"
+       id="g4766">
+      <text
+         x="31"
+         y="12"
+         font-size="12px"
+         id="text4770"
+         style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+           id="tspan5008">App Library</tspan>
+      </text>
+    </g>
+    <rect
+       style="fill:url(#linearGradient4600);stroke:none"
+       x="230"
+       y="982.36218"
+       width="180"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4772" />
+    <g
+       transform="translate(273.53583,1004.9008)"
+       id="g4774">
+      <text
+         x="46"
+         y="12"
+         font-size="12px"
+         id="text4778"
+         style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+           id="tspan5010">User App Library</tspan>
+      </text>
+    </g>
+    <rect
+       style="fill:url(#linearGradient4600);stroke:none"
+       x="450"
+       y="982.36218"
+       width="180.00002"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4780" />
+    <g
+       transform="translate(503.24598,1004.8968)"
+       id="g4782">
+      <text
+         style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000"
+         x="37"
+         y="12"
+         font-size="12px"
+         id="text4786">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+           id="tspan5012">Configuration</tspan>
+      </text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 449.99998,912.36208 -20,0 -13.63,0"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4788" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 411.11998,912.36208 7,-3.5 -1.75,3.5 1.75,3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4790" />
+    <rect
+       style="fill:url(#linearGradient4588);stroke:none"
+       x="450"
+       y="882.36218"
+       width="180.00002"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4792" />
+    <g
+       transform="translate(487.54377,904.90076)"
+       id="g4794">
+      <text
+         x="52"
+         y="12"
+         font-size="12px"
+         id="text4798"
+         style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+           id="tspan5006">PowerShell Scripts</tspan>
+      </text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 99.999979,842.36208 0,20 0,0 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4800" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 99.999979,881.24208 -3.5,-7 3.5,1.75 3.500001,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path4802" />
+    <rect
+       style="fill:url(#linearGradient4594);stroke:none"
+       x="9.9999847"
+       y="782.36218"
+       width="180.00002"
+       height="60.000004"
+       pointer-events="none"
+       id="rect4804" />
+    <g
+       transform="translate(73.182734,806.41223)"
+       id="g4806">
+      <text
+         style="font-size:12px;line-height:125%;font-family:Helvetica;text-anchor:middle;fill:#000000"
+         x="25.999998"
+         y="12"
+         font-size="12px"
+         id="text4810"
+         sodipodi:linespacing="125%">
+        <tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+           id="tspan4996">Launcher</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
