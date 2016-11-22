@@ -6,7 +6,7 @@ namespace Mastersign.Bench.Cli
 {
     class ArgumentParser
     {
-        public ParserType ParserType { get; set; }
+        public ArgumentParserType ParserType { get; set; }
 
         public string[] HelpIndicators = new[] { "/?", "-?", "-h", "--help" };
 
@@ -14,7 +14,7 @@ namespace Mastersign.Bench.Cli
 
         public ArgumentParser(IEnumerable<Argument> arguments)
         {
-            ParserType = ParserType.CaseSensitive;
+            ParserType = ArgumentParserType.CaseSensitive;
             foreach (var arg in arguments)
             {
                 RegisterArgument(arg);
@@ -31,6 +31,35 @@ namespace Mastersign.Bench.Cli
             arguments.Add(arg);
         }
 
+        private Argument[] FilterArguments(ArgumentType type)
+        {
+            var res = new List<Argument>();
+            foreach (var a in arguments)
+            {
+                if (a.Type == type)
+                {
+                    res.Add(a);
+                }
+            }
+            res.Sort((a, b) => a.Name.CompareTo(b.Name));
+            return res.ToArray();
+        }
+
+        public Argument[] GetFlags()
+        {
+            return FilterArguments(ArgumentType.Flag);
+        }
+
+        public Argument[] GetOptions()
+        {
+            return FilterArguments(ArgumentType.Option);
+        }
+
+        public Argument[] GetCommands()
+        {
+            return FilterArguments(ArgumentType.Command);
+        }
+
         private bool IsHelpIndicator(string v)
         {
             foreach (var i in HelpIndicators)
@@ -43,9 +72,9 @@ namespace Mastersign.Bench.Cli
             return false;
         }
 
-        public ParsingResult Parse(string[] args)
+        public ArgumentParsingResult Parse(string[] args)
         {
-            var index = new ArgumentIndex(ParserType == ParserType.CaseSensitive, arguments);
+            var index = new ArgumentIndex(ParserType == ArgumentParserType.CaseSensitive, arguments);
             IDictionary<string, bool> flagValues = new Dictionary<string, bool>();
             IDictionary<string, string> optionValues = new Dictionary<string, string>();
             string command = null;
@@ -86,19 +115,19 @@ namespace Mastersign.Bench.Cli
             }
             if (help)
             {
-                return new ParsingResult(ParsingResultType.Help, null, null, null, null);
+                return new ArgumentParsingResult(ArgumentParsingResultType.Help, null, null, null, null, null);
             }
             if (invalid)
             {
-                return new ParsingResult(ParsingResultType.InvalidArgument, args[position], null, null, null);
+                return new ArgumentParsingResult(ArgumentParsingResultType.InvalidArgument, null, args[position], null, null, null);
             }
             var rest = new string[args.Length - position];
             Array.Copy(args, position, rest, 0, rest.Length);
             if (command != null)
             {
-                return new ParsingResult(ParsingResultType.Command, null, rest, optionValues, flagValues);
+                return new ArgumentParsingResult(ArgumentParsingResultType.Command, command, null, rest, optionValues, flagValues);
             }
-            return new ParsingResult(ParsingResultType.NoCommand, null, rest, optionValues, flagValues);
+            return new ArgumentParsingResult(ArgumentParsingResultType.NoCommand, null, null, rest, optionValues, flagValues);
         }
     }
 
@@ -109,6 +138,7 @@ namespace Mastersign.Bench.Cli
         private readonly Dictionary<string, Argument> options = new Dictionary<string, Argument>();
         private readonly Dictionary<string, Argument> optionMnemonics = new Dictionary<string, Argument>();
         private readonly Dictionary<string, Argument> commands = new Dictionary<string, Argument>();
+        private readonly Dictionary<string, Argument> commandMnemonics = new Dictionary<string, Argument>();
 
         private readonly bool CaseSensitive;
 
@@ -153,6 +183,7 @@ namespace Mastersign.Bench.Cli
                     {
                         commands[PrepareArgument(alias)] = arg;
                     }
+                    commandMnemonics[PrepareArgument(arg.Mnemonic)] = arg;
                     break;
                 default:
                     throw new NotSupportedException();
@@ -178,11 +209,12 @@ namespace Mastersign.Bench.Cli
                 return null;
             }
             if (commands.TryGetValue(v, out a)) return a;
+            if (commandMnemonics.TryGetValue(v, out a)) return a;
             return null;
         }
     }
 
-    enum ParserType
+    enum ArgumentParserType
     {
         CaseSensitive,
         CaseInsensitive
@@ -205,18 +237,46 @@ namespace Mastersign.Bench.Cli
 
         public string[] Aliases { get; private set; }
 
-        public Argument(ArgumentType type, string name, string mnemonic = null, params string[] aliases)
+        public string Description { get; private set; }
+
+        public Argument(ArgumentType type, string name, string mnemonic,
+            string description, params string[] aliases)
         {
             Type = type;
             Name = name;
             Mnemonic = mnemonic ?? name.Substring(0, 1);
             Aliases = aliases;
+            Description = description;
         }
     }
 
-    class ParsingResult
+    delegate bool OptionValuePredicate(string value);
+
+    class OptionArgument : Argument
     {
-        public ParsingResultType Type { get; private set; }
+        public string PossibleValueInfo { get; private set; }
+
+        public string DefaultValueInfo { get; private set; }
+
+        public OptionValuePredicate ValuePredicate { get; private set; }
+
+        public OptionArgument(string name, string mnemonic,
+            string description, string possibleValueInfo, string defaultValueInfo,
+            OptionValuePredicate valuePredicate,
+            params string[] aliases)
+            : base(ArgumentType.Option, name, mnemonic, description, aliases)
+        {
+            PossibleValueInfo = possibleValueInfo;
+            DefaultValueInfo = defaultValueInfo;
+            ValuePredicate = valuePredicate;
+        }
+    }
+
+    class ArgumentParsingResult
+    {
+        public ArgumentParsingResultType Type { get; private set; }
+
+        public string Command { get; private set; }
 
         public string InvalidArgument { get; private set; }
 
@@ -226,11 +286,12 @@ namespace Mastersign.Bench.Cli
 
         private readonly IDictionary<string, bool> flags = new Dictionary<string, bool>();
 
-        public ParsingResult(ParsingResultType type,
-            string invalidArgument, string[] rest,
+        public ArgumentParsingResult(ArgumentParsingResultType type,
+            string command, string invalidArgument, string[] rest,
             IDictionary<string, string> options, IDictionary<string, bool> flags)
         {
             Type = type;
+            Command = command;
             InvalidArgument = invalidArgument;
             Rest = rest;
             this.options = options;
@@ -256,12 +317,13 @@ namespace Mastersign.Bench.Cli
             sb.AppendLine("Result Type: " + Type);
             switch (Type)
             {
-                case ParsingResultType.InvalidArgument:
+                case ArgumentParsingResultType.InvalidArgument:
                     sb.AppendLine("Invalid Argument: " + InvalidArgument);
                     break;
-                case ParsingResultType.Command:
-                case ParsingResultType.NoCommand:
-                    if (flags.Count > 0) {
+                case ArgumentParsingResultType.Command:
+                case ArgumentParsingResultType.NoCommand:
+                    if (flags.Count > 0)
+                    {
                         var flagNames = new List<string>(flags.Keys);
                         sb.AppendLine("Flags: " + string.Join(", ", flagNames.ToArray()));
                     }
@@ -270,7 +332,7 @@ namespace Mastersign.Bench.Cli
                         sb.AppendLine("Options:");
                         var optionNames = new List<string>(options.Keys);
                         optionNames.Sort();
-                        foreach(var n in optionNames)
+                        foreach (var n in optionNames)
                         {
                             sb.AppendLine("  * " + n + " = " + options[n]);
                         }
@@ -287,7 +349,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    enum ParsingResultType
+    enum ArgumentParsingResultType
     {
         InvalidArgument,
         Help,
