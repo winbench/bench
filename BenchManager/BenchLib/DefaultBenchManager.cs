@@ -54,6 +54,35 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
+        /// Returns a value, indicating of this instance was already disposed.
+        /// </summary>
+        public bool IsDisposed { get; private set; }
+
+        /// <summary>
+        /// Disposes all disposable child objects.
+        /// </summary>
+        public void Dispose()
+        {
+            if (IsDisposed) return;
+            IsDisposed = true;
+            var d = Downloader;
+            if (d != null)
+            {
+                Downloader = null;
+                d.Dispose();
+            }
+            var peh = ProcessExecutionHost;
+            if (peh != null)
+            {
+                ProcessExecutionHost = null;
+                peh.Dispose();
+            }
+            Config = null;
+            Env = null;
+            UI = null;
+        }
+
+        /// <summary>
         /// A flag, controlling if non error messages should be displayed to the user.
         /// If it is set to <c>true</c>, all messages are displayed; otherwise only
         /// error messages are displayed.

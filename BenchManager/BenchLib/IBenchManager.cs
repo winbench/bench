@@ -7,7 +7,7 @@ namespace Mastersign.Bench
     /// <summary>
     /// A Bench manager is an object which knows the most important components of a Bench system.
     /// </summary>
-    public interface IBenchManager
+    public interface IBenchManager : IDisposable
     {
         /// <summary>
         /// The configuration of the Bench system.
