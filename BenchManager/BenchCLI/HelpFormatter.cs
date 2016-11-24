@@ -6,6 +6,9 @@ namespace Mastersign.Bench.Cli
 {
     static class HelpFormatter
     {
+        public const string INDENT = "  ";
+        public const string INDENT_2 = "      ";
+
         private static string FormatFlag(Argument a)
         {
             return "--" + a.Name
@@ -39,10 +42,13 @@ namespace Mastersign.Bench.Cli
             {
                 sb.AppendLine();
                 sb.AppendLine("Flags:");
-                foreach (var flag in flags)
+                foreach (FlagArgument flag in flags)
                 {
-                    sb.AppendLine("  " + FormatFlag(flag));
-                    sb.AppendLine("    " + flag.Description);
+                    sb.AppendLine(INDENT + FormatFlag(flag));
+                    if (flag.Description != null)
+                    {
+                        sb.AppendLine(INDENT_2 + flag.Description);
+                    }
                 }
             }
             var options = parser.GetOptions();
@@ -53,11 +59,23 @@ namespace Mastersign.Bench.Cli
                 foreach (OptionArgument option in options)
                 {
                     sb.AppendLine();
-                    sb.AppendLine(FormatOption(option));
-                    sb.AppendLine("    " + option.Description);
-                    sb.AppendLine();
-                    sb.AppendLine("    Expected:  " + option.PossibleValueInfo);
-                    sb.AppendLine("    Default:   " + option.DefaultValueInfo);
+                    sb.AppendLine(INDENT + FormatOption(option));
+                    if (option.Description != null)
+                    {
+                        sb.AppendLine(INDENT_2 + option.Description); 
+                    }
+                    if (option.PossibleValueInfo != null || option.DefaultValueInfo != null)
+                    {
+                        sb.AppendLine();
+                        if (option.PossibleValueInfo != null)
+                        {
+                            sb.AppendLine(INDENT_2 + "Expected:  " + option.PossibleValueInfo);
+                        }
+                        if (option.DefaultValueInfo != null)
+                        {
+                            sb.AppendLine(INDENT_2 + "Default:   " + option.DefaultValueInfo); 
+                        }
+                    }
                 }
             }
             var commands = parser.GetCommands();
@@ -65,11 +83,16 @@ namespace Mastersign.Bench.Cli
             {
                 sb.AppendLine();
                 sb.AppendLine("Commands:");
-                foreach (var cmd in parser.GetCommands())
+                foreach (CommandArgument cmd in parser.GetCommands())
                 {
                     sb.AppendLine();
-                    sb.AppendLine(FormatCommand(cmd));
-                    sb.AppendLine("    " + cmd.Description);
+                    sb.AppendLine(INDENT + FormatCommand(cmd));
+                    sb.AppendLine(INDENT_2 + cmd.Description);
+                    if (cmd.SyntaxInfo != null)
+                    {
+                        sb.AppendLine();
+                        sb.AppendLine(INDENT_2 + "Syntax: " + cmd.SyntaxInfo);
+                    }
                 }
             }
 

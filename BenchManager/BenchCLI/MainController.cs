@@ -18,55 +18,69 @@ namespace Mastersign.Bench.Cli
 
         private static bool IsValidPath(string v)
         {
-            return !ContainsOneOfChars(v, Path.GetInvalidFileNameChars())
-                && !ContainsOneOfChars(v, Path.GetInvalidPathChars());
+            return !ContainsOneOfChars(v, Path.GetInvalidPathChars());
         }
+
+        private const string FLAG_VERBOSE = "verbose";
+        private const string OPTION_LOGFILE = "logfile";
+        private const string OPTION_BENCH_ROOT = "root";
+        private const string COMMAND_INITIALIZE = "initialize";
+        private const string COMMAND_SETUP = "setup";
+        private const string COMMAND_UPDATE_ENV = "update-env";
+        private const string COMMAND_REINSTALL = "reinstall";
+        private const string COMMAND_RENEW = "renew";
+        private const string COMMAND_UPGRADE = "upgrade";
+        private const string COMMAND_CONFIG = "config";
+        private const string COMMAND_DOWNLOADS = "downloads";
+        private const string COMMAND_APP = "app";
+        private const string COMMAND_PROJECT = "project";
 
         private static ArgumentParser parser
             = new ArgumentParser(
-                new OptionArgument("verbosity", "v",
-                    "Controls the verbosity of the output.",
-                    "s(ilent), v(erbose", "silent",
-                    v => !string.IsNullOrEmpty(v) &&
-                        ("silent".StartsWith(v, StringComparison.OrdinalIgnoreCase) ||
-                         "verbose".StartsWith(v, StringComparison.OrdinalIgnoreCase)),
+                new FlagArgument(FLAG_VERBOSE, "v",
+                    "Activates verbose output.",
                     "verb"),
-                new OptionArgument("logfile", "l",
+
+                new OptionArgument(OPTION_LOGFILE, "l",
                     "Specifies a custom location for the log file.",
                     "A path to the log file.",
                     "Auto generated filename in <bench root>\\log\\.",
                     IsValidPath,
                     "log"),
-                new OptionArgument("root", "r",
+                new OptionArgument(OPTION_BENCH_ROOT, "r",
                     "Specifies the root directory of the Bench environment.",
                     "A path to a valid Bench root directory.",
                     "The root directory of the Bench environment, this Bench CLI belongs to.",
                     v => IsValidPath(v) && Directory.Exists(v),
                     "base"),
 
-                new Argument(ArgumentType.Command, "initialize", "i",
+                new CommandArgument(COMMAND_INITIALIZE, "i",
                     "Initialize the Bench configuration and start the setup process."),
-                new Argument(ArgumentType.Command, "setup", "s",
+                new CommandArgument(COMMAND_SETUP, "s",
                     "Run the auto-setup for the active Bench apps."),
-                new Argument(ArgumentType.Command, "update-env", "e",
+                new CommandArgument(COMMAND_UPDATE_ENV, "e",
                     "Update the paths in the Bench environment."),
-                new Argument(ArgumentType.Command, "reinstall", "r",
+                new CommandArgument(COMMAND_REINSTALL, "r",
                     "Remove all installed apps, then install all active apps."),
-                new Argument(ArgumentType.Command, "renew", "n",
+                new CommandArgument(COMMAND_RENEW, "n",
                     "Redownload all app resources, remove all installed apps, then install all active apps."),
-                new Argument(ArgumentType.Command, "upgrade", "u",
-                    "Download the latest Bench release and run the auto-setup."),
+                new CommandArgument(COMMAND_UPGRADE, "u",
+                    "Download and extract the latest Bench release, then run the auto-setup."),
 
-                new Argument(ArgumentType.Command, "config", "c",
+                new CommandArgument(COMMAND_CONFIG, "c",
                     "Read or write values from the user configuration.",
+                    "<sub-command> [<property name>]",
                     "cfg"),
-                new Argument(ArgumentType.Command, "downloads", "d",
+                new CommandArgument(COMMAND_DOWNLOADS, "d",
                     "Manage the app resource cache.",
+                    "<sub-command>",
                     "cache", "dl"),
-                new Argument(ArgumentType.Command, "app", "a",
-                    "Manage individual apps."),
-                new Argument(ArgumentType.Command, "project", "p",
+                new CommandArgument(COMMAND_APP, "a",
+                    "Manage individual apps.",
+                    "<sub-command> <app ID> [args*]"),
+                new CommandArgument(COMMAND_PROJECT, "p",
                     "Manage projects in the Bench environment.",
+                    "<sub-command> [<project name>] [args*]",
                     "prj"));
 
         public MainController(string[] args)
@@ -77,9 +91,7 @@ namespace Mastersign.Bench.Cli
 
         private static bool GetVerboseValue(ArgumentParsingResult arguments)
         {
-            return "verbose".StartsWith(
-                arguments.GetOptionValue("verbosity", "silent"),
-                StringComparison.OrdinalIgnoreCase);
+            return arguments.GetFlag(FLAG_VERBOSE);
         }
 
         private static string MyPath()
@@ -104,7 +116,7 @@ namespace Mastersign.Bench.Cli
         {
             get
             {
-                var p = Arguments.GetOptionValue("root", DefaultRootPath());
+                var p = Arguments.GetOptionValue(OPTION_BENCH_ROOT, DefaultRootPath());
                 return Path.IsPathRooted(p)
                     ? p : Path.Combine(Environment.CurrentDirectory, p);
             }
@@ -114,7 +126,7 @@ namespace Mastersign.Bench.Cli
         {
             get
             {
-                var p = Arguments.GetOptionValue("logfile");
+                var p = Arguments.GetOptionValue(OPTION_LOGFILE);
                 return p == null || Path.IsPathRooted(p)
                     ? p : Path.Combine(Environment.CurrentDirectory, p);
             }
@@ -126,11 +138,11 @@ namespace Mastersign.Bench.Cli
             Console.WriteLine("----------------------------------------");
             Console.WriteLine();
             Console.WriteLine("Usage:");
-            Console.WriteLine("  bench (/? | -? | -h | --help)");
-            Console.WriteLine("  bench (<flag> | <option>)*");
-            Console.WriteLine("  bench (<flag> | <option>)* <command>");
-            Console.WriteLine("  bench <command> (/? | -? | -h | --help)");
-            Console.WriteLine("  bench (<flag> | <option>)* <command> (<flag> | <option>)* arg*");
+            Console.WriteLine(HelpFormatter.INDENT + "bench (/? | -? | -h | --help)");
+            Console.WriteLine(HelpFormatter.INDENT + "bench (<flag> | <option>)*");
+            Console.WriteLine(HelpFormatter.INDENT + "bench (<flag> | <option>)* <command>");
+            Console.WriteLine(HelpFormatter.INDENT + "bench <command> (/? | -? | -h | --help)");
+            Console.WriteLine(HelpFormatter.INDENT + "bench (<flag> | <option>)* <command> (<flag> | <option>)* arg*");
             Console.WriteLine(HelpFormatter.GenerateHelp(parser));
         }
 
@@ -151,29 +163,29 @@ namespace Mastersign.Bench.Cli
             WriteDetail("");
             switch (command)
             {
-                case "initialize":
+                case COMMAND_INITIALIZE:
                     return TaskInitialize();
-                case "setup":
+                case COMMAND_SETUP:
                     return TaskAutoSetup();
-                case "update-env":
+                case COMMAND_UPDATE_ENV:
                     return TaskUpdateEnvironment();
-                case "reinstall":
+                case COMMAND_REINSTALL:
                     return TaskReinstallApps();
-                case "renew":
+                case COMMAND_RENEW:
                     return TaskUpgradeApps();
-                case "upgrade":
+                case COMMAND_UPGRADE:
                     WriteError("This command is not implemented yet.");
                     return false;
 
-                case "config":
+                case COMMAND_CONFIG:
                     WriteError("This command is not implemented yet.");
                     return false;
-                case "downloads":
+                case COMMAND_DOWNLOADS:
                     WriteError("This command is not implemented yet.");
                     return false;
-                case "app":
+                case COMMAND_APP:
                     return new AppController(this, args).Execute();
-                case "project":
+                case COMMAND_PROJECT:
                     WriteError("This command is not implemented yet.");
                     return false;
 

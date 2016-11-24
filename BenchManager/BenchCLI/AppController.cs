@@ -6,9 +6,11 @@ namespace Mastersign.Bench.Cli
 {
     class AppController : Controller
     {
+        private const string COMMAND_PROPERTY = "property";
+
         private readonly ArgumentParser parser =
             new ArgumentParser(
-                new Argument(ArgumentType.Command, "property", "p",
+                new CommandArgument(COMMAND_PROPERTY, "p",
                     "Reads an app property value.",
                     "prop"));
 
@@ -23,14 +25,14 @@ namespace Mastersign.Bench.Cli
 
         protected override void PrintHelp()
         {
-            Console.WriteLine("Bench CLI v" + Program.Version());
-            Console.WriteLine("Command: app");
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("Usage:");
-            Console.WriteLine("  bench app <command> arg*");
-            Console.WriteLine("  bench app (/? | -? | -h | --help)");
-            Console.WriteLine(HelpFormatter.GenerateHelp(parser));
+            WriteLine("Bench CLI v" + Program.Version() + " [app]");
+            WriteLine("----------------------------------------");
+            WriteLine("");
+            WriteLine("Usage:");
+            WriteLine("");
+            WriteLine(HelpFormatter.INDENT + "bench app <command> arg*");
+            WriteLine(HelpFormatter.INDENT + "bench app (/? | -? | -h | --help)");
+            WriteLine(HelpFormatter.GenerateHelp(parser));
         }
 
         protected override void PrintHelpHint()
@@ -44,7 +46,7 @@ namespace Mastersign.Bench.Cli
             WriteDetail("");
             switch (command)
             {
-                case "property":
+                case COMMAND_PROPERTY:
                     return TaskReadProperty(args);
 
                 default:

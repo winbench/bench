@@ -80,7 +80,7 @@ namespace Mastersign.Bench.Cli
             string command = null;
             var position = 0;
             var help = false;
-            var invalid = false;
+            string invalid = null;
 
             while (position < args.Length && command == null)
             {
@@ -93,7 +93,7 @@ namespace Mastersign.Bench.Cli
                 var a = index.LookUp(args[position]);
                 if (a == null)
                 {
-                    invalid = true;
+                    invalid = args[position];
                     break;
                 }
                 switch (a.Type)
@@ -103,6 +103,17 @@ namespace Mastersign.Bench.Cli
                         break;
                     case ArgumentType.Option:
                         position++;
+                        if (args.Length <= position)
+                        {
+                            invalid = args[position - 1] + " ???";
+                            break;
+                        }
+                        var opt = (OptionArgument)a;
+                        if (opt.ValuePredicate != null && !opt.ValuePredicate(args[position]))
+                        {
+                            invalid = args[position - 1] + " " + args[position];
+                            break;
+                        }
                         optionValues[a.Name] = args[position];
                         break;
                     case ArgumentType.Command:
@@ -111,23 +122,28 @@ namespace Mastersign.Bench.Cli
                     default:
                         throw new NotSupportedException();
                 }
+                if (invalid != null) break;
                 position++;
             }
             if (help)
             {
-                return new ArgumentParsingResult(ArgumentParsingResultType.Help, null, null, null, null, null);
+                return new ArgumentParsingResult(ArgumentParsingResultType.Help, 
+                    null, null, null, null, null);
             }
-            if (invalid)
+            if (invalid != null)
             {
-                return new ArgumentParsingResult(ArgumentParsingResultType.InvalidArgument, null, args[position], null, null, null);
+                return new ArgumentParsingResult(ArgumentParsingResultType.InvalidArgument,
+                    null, invalid, null, null, null);
             }
             var rest = new string[args.Length - position];
             Array.Copy(args, position, rest, 0, rest.Length);
             if (command != null)
             {
-                return new ArgumentParsingResult(ArgumentParsingResultType.Command, command, null, rest, optionValues, flagValues);
+                return new ArgumentParsingResult(ArgumentParsingResultType.Command, 
+                    command, null, rest, optionValues, flagValues);
             }
-            return new ArgumentParsingResult(ArgumentParsingResultType.NoCommand, null, null, rest, optionValues, flagValues);
+            return new ArgumentParsingResult(ArgumentParsingResultType.NoCommand, 
+                null, null, rest, optionValues, flagValues);
         }
     }
 
@@ -227,7 +243,7 @@ namespace Mastersign.Bench.Cli
         Command
     }
 
-    class Argument
+    abstract class Argument
     {
         public ArgumentType Type { get; private set; }
 
@@ -239,7 +255,7 @@ namespace Mastersign.Bench.Cli
 
         public string Description { get; private set; }
 
-        public Argument(ArgumentType type, string name, string mnemonic,
+        protected Argument(ArgumentType type, string name, string mnemonic,
             string description, params string[] aliases)
         {
             Type = type;
@@ -247,6 +263,15 @@ namespace Mastersign.Bench.Cli
             Mnemonic = mnemonic ?? name.Substring(0, 1);
             Aliases = aliases;
             Description = description;
+        }
+    }
+
+    class FlagArgument : Argument
+    {
+        public FlagArgument(string name, string mnemonic,
+            string description, params string[] aliases)
+            : base(ArgumentType.Flag, name, mnemonic, description, aliases)
+        {
         }
     }
 
@@ -272,6 +297,19 @@ namespace Mastersign.Bench.Cli
         }
     }
 
+    class CommandArgument : Argument
+    {
+        public string SyntaxInfo { get; private set; }
+
+        public CommandArgument(string name, string mnemonic,
+            string description, string syntaxInfo = null,
+            params string[] aliases)
+            : base(ArgumentType.Command, name, mnemonic, description, aliases)
+        {
+            SyntaxInfo = syntaxInfo;
+        }
+    }
+
     class ArgumentParsingResult
     {
         public ArgumentParsingResultType Type { get; private set; }
@@ -282,9 +320,9 @@ namespace Mastersign.Bench.Cli
 
         public string[] Rest { get; private set; }
 
-        private readonly IDictionary<string, string> options = new Dictionary<string, string>();
+        private readonly IDictionary<string, string> options;
 
-        private readonly IDictionary<string, bool> flags = new Dictionary<string, bool>();
+        private readonly IDictionary<string, bool> flags;
 
         public ArgumentParsingResult(ArgumentParsingResultType type,
             string command, string invalidArgument, string[] rest,
@@ -294,20 +332,18 @@ namespace Mastersign.Bench.Cli
             Command = command;
             InvalidArgument = invalidArgument;
             Rest = rest;
-            this.options = options;
-            this.flags = flags;
+            this.options = options ?? new Dictionary<string, string>();
+            this.flags = flags ?? new Dictionary<string, bool>();
         }
 
         public string GetOptionValue(string name, string def = null)
         {
-            if (options == null) throw new InvalidOperationException();
             string res;
             return options.TryGetValue(name, out res) ? res : def;
         }
 
         public bool GetFlag(string name)
         {
-            if (flags == null) throw new InvalidOperationException();
             return flags.ContainsKey(name);
         }
 
