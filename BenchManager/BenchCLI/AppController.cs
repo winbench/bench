@@ -8,10 +8,11 @@ namespace Mastersign.Bench.Cli
     {
         private const string COMMAND_PROPERTY = "property";
 
-        private readonly ArgumentParser parser =
-            new ArgumentParser(
+        public readonly ArgumentParser parser =
+            new ArgumentParser(MainController.Parser, MainController.COMMAND_APP,
                 new CommandArgument(COMMAND_PROPERTY, "p",
                     "Reads an app property value.",
+                    "<app ID> <property name>",
                     "prop"));
 
         private readonly MainController mainController;
@@ -23,21 +24,12 @@ namespace Mastersign.Bench.Cli
             Arguments = parser.Parse(args);
         }
 
-        protected override void PrintHelp()
+        protected override void PrintHelp(IDocumentWriter w)
         {
-            WriteLine("Bench CLI v" + Program.Version() + " [app]");
-            WriteLine("----------------------------------------");
-            WriteLine("");
-            WriteLine("Usage:");
-            WriteLine("");
-            WriteLine(HelpFormatter.INDENT + "bench app <command> arg*");
-            WriteLine(HelpFormatter.INDENT + "bench app (/? | -? | -h | --help)");
-            WriteLine(HelpFormatter.GenerateHelp(parser));
-        }
-
-        protected override void PrintHelpHint()
-        {
-            WriteLine("Use 'bench app -?' to display the help.");
+            w.StartDocument();
+            w.Title("Bench CLI v{0} - [{1}]", Program.Version(), "app");
+            HelpFormatter.WriteHelp(w, parser);
+            w.EndDocument();
         }
 
         protected override bool ExecuteCommand(string command, string[] args)

@@ -41,8 +41,10 @@
   <ItemGroup>
     <Compile Include="AppController.cs" />
     <Compile Include="ArgumentParser.cs" />
+    <Compile Include="PlainTextDocumentWriter.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="HelpFormatter.cs" />
+    <Compile Include="IDocumentWriter.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

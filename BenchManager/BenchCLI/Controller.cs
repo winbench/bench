@@ -62,9 +62,12 @@ namespace Mastersign.Bench.Cli
             }
         }
 
-        protected virtual void PrintHelpHint()
+        protected void PrintHelpHint()
         {
-            WriteLine("Use 'bench -?' to display the help.");
+            var commandChain = string.Join(" ",
+                HelpFormatter.GetCommandChain(Arguments.Parser));
+            WriteLine("Use '" + commandChain + " "
+                + ArgumentParser.MainHelpIndicator + "' to display the help.");
         }
 
         private void PrintInvalidArgumentWarning(string arg)
@@ -79,7 +82,13 @@ namespace Mastersign.Bench.Cli
             PrintHelpHint();
         }
 
-        protected abstract void PrintHelp();
+        private void PrintHelp()
+        {
+            var w = new PlainTextDocumentWriter(Console.Out);
+            PrintHelp(w);
+        }
+
+        protected abstract void PrintHelp(IDocumentWriter w);
 
         protected abstract bool ExecuteCommand(string command, string[] args);
     }

@@ -8,12 +8,20 @@ namespace Mastersign.Bench.Cli
     {
         public ArgumentParserType ParserType { get; set; }
 
-        public string[] HelpIndicators = new[] { "/?", "-?", "-h", "--help" };
+        public static string[] HelpIndicators = new[] { "/?", "-?", "-h", "--help" };
+
+        public static string MainHelpIndicator = "-?";
 
         private readonly List<Argument> arguments = new List<Argument>();
 
-        public ArgumentParser(IEnumerable<Argument> arguments)
+        public ArgumentParser Parent { get; private set; }
+
+        public string Name { get; private set; }
+
+        public ArgumentParser(ArgumentParser parent, string name, IEnumerable<Argument> arguments)
         {
+            Parent = parent;
+            Name = name;
             ParserType = ArgumentParserType.CaseSensitive;
             foreach (var arg in arguments)
             {
@@ -21,8 +29,8 @@ namespace Mastersign.Bench.Cli
             }
         }
 
-        public ArgumentParser(params Argument[] arguments)
-            : this((IEnumerable<Argument>)arguments)
+        public ArgumentParser(ArgumentParser parent, string name, params Argument[] arguments)
+            : this(parent, name, (IEnumerable<Argument>)arguments)
         {
         }
 
@@ -127,22 +135,22 @@ namespace Mastersign.Bench.Cli
             }
             if (help)
             {
-                return new ArgumentParsingResult(ArgumentParsingResultType.Help, 
+                return new ArgumentParsingResult(this, ArgumentParsingResultType.Help, 
                     null, null, null, null, null);
             }
             if (invalid != null)
             {
-                return new ArgumentParsingResult(ArgumentParsingResultType.InvalidArgument,
+                return new ArgumentParsingResult(this, ArgumentParsingResultType.InvalidArgument,
                     null, invalid, null, null, null);
             }
             var rest = new string[args.Length - position];
             Array.Copy(args, position, rest, 0, rest.Length);
             if (command != null)
             {
-                return new ArgumentParsingResult(ArgumentParsingResultType.Command, 
+                return new ArgumentParsingResult(this, ArgumentParsingResultType.Command, 
                     command, null, rest, optionValues, flagValues);
             }
-            return new ArgumentParsingResult(ArgumentParsingResultType.NoCommand, 
+            return new ArgumentParsingResult(this, ArgumentParsingResultType.NoCommand, 
                 null, null, rest, optionValues, flagValues);
         }
     }
@@ -312,6 +320,8 @@ namespace Mastersign.Bench.Cli
 
     class ArgumentParsingResult
     {
+        public ArgumentParser Parser { get; private set; }
+
         public ArgumentParsingResultType Type { get; private set; }
 
         public string Command { get; private set; }
@@ -324,10 +334,12 @@ namespace Mastersign.Bench.Cli
 
         private readonly IDictionary<string, bool> flags;
 
-        public ArgumentParsingResult(ArgumentParsingResultType type,
+        public ArgumentParsingResult(ArgumentParser parser,
+            ArgumentParsingResultType type,
             string command, string invalidArgument, string[] rest,
             IDictionary<string, string> options, IDictionary<string, bool> flags)
         {
+            Parser = parser;
             Type = type;
             Command = command;
             InvalidArgument = invalidArgument;

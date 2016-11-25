@@ -24,19 +24,19 @@ namespace Mastersign.Bench.Cli
         private const string FLAG_VERBOSE = "verbose";
         private const string OPTION_LOGFILE = "logfile";
         private const string OPTION_BENCH_ROOT = "root";
-        private const string COMMAND_INITIALIZE = "initialize";
-        private const string COMMAND_SETUP = "setup";
-        private const string COMMAND_UPDATE_ENV = "update-env";
-        private const string COMMAND_REINSTALL = "reinstall";
-        private const string COMMAND_RENEW = "renew";
-        private const string COMMAND_UPGRADE = "upgrade";
-        private const string COMMAND_CONFIG = "config";
-        private const string COMMAND_DOWNLOADS = "downloads";
-        private const string COMMAND_APP = "app";
-        private const string COMMAND_PROJECT = "project";
+        public const string COMMAND_INITIALIZE = "initialize";
+        public const string COMMAND_SETUP = "setup";
+        public const string COMMAND_UPDATE_ENV = "update-env";
+        public const string COMMAND_REINSTALL = "reinstall";
+        public const string COMMAND_RENEW = "renew";
+        public const string COMMAND_UPGRADE = "upgrade";
+        public const string COMMAND_CONFIG = "config";
+        public const string COMMAND_DOWNLOADS = "downloads";
+        public const string COMMAND_APP = "app";
+        public const string COMMAND_PROJECT = "project";
 
-        private static ArgumentParser parser
-            = new ArgumentParser(
+        public static ArgumentParser Parser
+            = new ArgumentParser(null, "bench",
                 new FlagArgument(FLAG_VERBOSE, "v",
                     "Activates verbose output.",
                     "verb"),
@@ -85,7 +85,7 @@ namespace Mastersign.Bench.Cli
 
         public MainController(string[] args)
         {
-            Arguments = parser.Parse(args);
+            Arguments = Parser.Parse(args);
             Verbose = GetVerboseValue(Arguments);
         }
 
@@ -117,8 +117,11 @@ namespace Mastersign.Bench.Cli
             get
             {
                 var p = Arguments.GetOptionValue(OPTION_BENCH_ROOT, DefaultRootPath());
-                return Path.IsPathRooted(p)
-                    ? p : Path.Combine(Environment.CurrentDirectory, p);
+                return p != null
+                    ? (Path.IsPathRooted(p)
+                        ? p
+                        : Path.Combine(Environment.CurrentDirectory, p))
+                    : null;
             }
         }
 
@@ -132,18 +135,12 @@ namespace Mastersign.Bench.Cli
             }
         }
 
-        protected override void PrintHelp()
+        protected override void PrintHelp(IDocumentWriter w)
         {
-            Console.WriteLine("Bench CLI v" + Program.Version());
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("Usage:");
-            Console.WriteLine(HelpFormatter.INDENT + "bench (/? | -? | -h | --help)");
-            Console.WriteLine(HelpFormatter.INDENT + "bench (<flag> | <option>)*");
-            Console.WriteLine(HelpFormatter.INDENT + "bench (<flag> | <option>)* <command>");
-            Console.WriteLine(HelpFormatter.INDENT + "bench <command> (/? | -? | -h | --help)");
-            Console.WriteLine(HelpFormatter.INDENT + "bench (<flag> | <option>)* <command> (<flag> | <option>)* arg*");
-            Console.WriteLine(HelpFormatter.GenerateHelp(parser));
+            w.StartDocument();
+            w.Title("Bench CLI v{0}", Program.Version());
+            HelpFormatter.WriteHelp(w, Parser);
+            w.EndDocument();
         }
 
         protected override bool ExecuteCommand(string command, string[] args)
@@ -151,13 +148,13 @@ namespace Mastersign.Bench.Cli
             WriteDetail("Bench CLI: " + Program.CliExecutable());
             if (BenchTasks.IsDashboardSupported)
             {
-                WriteDetail("Bench Dashboard: " + (DashboardExecutable() ?? "Not found."));
+                WriteDetail("Bench Dashboard: " + (DashboardExecutable() ?? "not found"));
             }
             else
             {
                 WriteDetail("Bench Dashboard: Not Supported. Microsoft .NET Framework 4.5 not installed.");
             }
-            WriteDetail("Bench Root: " + RootPath);
+            WriteDetail("Bench Root: " + (RootPath ?? "unknown"));
             WriteDetail("Log File: " + (LogFilePath ?? "automatic"));
             WriteDetail("Command: " + command);
             WriteDetail("");
