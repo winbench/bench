@@ -83,7 +83,7 @@ namespace Mastersign.Bench.Cli
             foreach (var i in indentStack) { W(i); }
         }
 
-        public void StartDocument() { }
+        public void BeginDocument() { }
 
         public void EndDocument() { }
 
@@ -138,12 +138,12 @@ namespace Mastersign.Bench.Cli
             WL();
         }
 
-        public void BeginSyntax()
+        public void BeginSyntaxListItem()
         {
             Indent();
         }
 
-        public void EndSyntax()
+        public void EndSyntaxListItem()
         {
             WL();
         }
@@ -220,9 +220,12 @@ namespace Mastersign.Bench.Cli
             WL();
         }
 
-        public void BeginDefinition(string key)
+        public void BeginDefinition(string format, params object[] args)
         {
-            definitionItems.Add(new DefinitionItem { Key = key });
+            definitionItems.Add(new DefinitionItem
+            {
+                Key = string.Format(format, args)
+            });
             writeMode = WriteMode.DefinitionItem;
         }
 

@@ -12,7 +12,7 @@ namespace Mastersign.Bench.Cli
 
         public static string MainHelpIndicator = "-?";
 
-        private readonly List<Argument> arguments = new List<Argument>();
+        private readonly Dictionary<string, Argument> arguments = new Dictionary<string, Argument>();
 
         public ArgumentParser Parent { get; private set; }
 
@@ -36,13 +36,13 @@ namespace Mastersign.Bench.Cli
 
         public void RegisterArgument(Argument arg)
         {
-            arguments.Add(arg);
+            arguments.Add(arg.Name, arg);
         }
 
         private Argument[] FilterArguments(ArgumentType type)
         {
             var res = new List<Argument>();
-            foreach (var a in arguments)
+            foreach (var a in arguments.Values)
             {
                 if (a.Type == type)
                 {
@@ -82,7 +82,9 @@ namespace Mastersign.Bench.Cli
 
         public ArgumentParsingResult Parse(string[] args)
         {
-            var index = new ArgumentIndex(ParserType == ArgumentParserType.CaseSensitive, arguments);
+            var index = new ArgumentIndex(
+                ParserType == ArgumentParserType.CaseSensitive, 
+                arguments.Values);
             IDictionary<string, bool> flagValues = new Dictionary<string, bool>();
             IDictionary<string, string> optionValues = new Dictionary<string, string>();
             string command = null;
@@ -261,24 +263,24 @@ namespace Mastersign.Bench.Cli
 
         public string[] Aliases { get; private set; }
 
-        public string Description { get; private set; }
+        public MemoryDocument Description { get; private set; }
 
         protected Argument(ArgumentType type, string name, string mnemonic,
-            string description, params string[] aliases)
+            params string[] aliases)
         {
             Type = type;
             Name = name;
             Mnemonic = mnemonic ?? name.Substring(0, 1);
             Aliases = aliases;
-            Description = description;
+            Description = new MemoryDocument();
         }
     }
 
     class FlagArgument : Argument
     {
         public FlagArgument(string name, string mnemonic,
-            string description, params string[] aliases)
-            : base(ArgumentType.Flag, name, mnemonic, description, aliases)
+            params string[] aliases)
+            : base(ArgumentType.Flag, name, mnemonic, aliases)
         {
         }
     }
@@ -287,34 +289,32 @@ namespace Mastersign.Bench.Cli
 
     class OptionArgument : Argument
     {
-        public string PossibleValueInfo { get; private set; }
+        public MemoryDocument PossibleValueInfo { get; private set; }
 
-        public string DefaultValueInfo { get; private set; }
+        public MemoryDocument DefaultValueInfo { get; private set; }
 
         public OptionValuePredicate ValuePredicate { get; private set; }
 
         public OptionArgument(string name, string mnemonic,
-            string description, string possibleValueInfo, string defaultValueInfo,
             OptionValuePredicate valuePredicate,
             params string[] aliases)
-            : base(ArgumentType.Option, name, mnemonic, description, aliases)
+            : base(ArgumentType.Option, name, mnemonic, aliases)
         {
-            PossibleValueInfo = possibleValueInfo;
-            DefaultValueInfo = defaultValueInfo;
+            PossibleValueInfo = new MemoryDocument();
+            DefaultValueInfo = new MemoryDocument();
             ValuePredicate = valuePredicate;
         }
     }
 
     class CommandArgument : Argument
     {
-        public string SyntaxInfo { get; private set; }
+        public MemoryDocument SyntaxInfo { get; private set; }
 
         public CommandArgument(string name, string mnemonic,
-            string description, string syntaxInfo = null,
             params string[] aliases)
-            : base(ArgumentType.Command, name, mnemonic, description, aliases)
+            : base(ArgumentType.Command, name, mnemonic, aliases)
         {
-            SyntaxInfo = syntaxInfo;
+            SyntaxInfo = new MemoryDocument();
         }
     }
 

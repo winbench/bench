@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench.Cli
 {
-    abstract class Controller
+    abstract class BaseController
     {
         protected ArgumentParsingResult Arguments { get; set; }
 

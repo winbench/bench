@@ -6,7 +6,7 @@ namespace Mastersign.Bench.Cli
 {
     interface IDocumentWriter
     {
-        void StartDocument();
+        void BeginDocument();
 
         void EndDocument();
 
@@ -26,28 +26,6 @@ namespace Mastersign.Bench.Cli
 
         void Line(string format, params object[] args);
 
-        void BeginSyntaxList(string format, params object[] args);
-
-        void EndSyntaxList();
-
-        void BeginSyntax();
-
-        void EndSyntax();
-
-        void BeginDetail();
-
-        void EndDetail();
-
-        void BeginDefinitionList();
-
-        void EndDefinitionList();
-
-        void BeginDefinition(string key);
-
-        void EndDefinition();
-
-        void Definition(string key, string format, params object[] args);
-
         void BeginList();
 
         void EndList();
@@ -57,6 +35,28 @@ namespace Mastersign.Bench.Cli
         void EndListItem();
 
         void ListItem(string format, params object[] args);
+
+        void BeginSyntaxList(string format, params object[] args);
+
+        void EndSyntaxList();
+
+        void BeginSyntaxListItem();
+
+        void EndSyntaxListItem();
+
+        void BeginDetail();
+
+        void EndDetail();
+
+        void BeginDefinitionList();
+
+        void EndDefinitionList();
+
+        void BeginDefinition(string format, params object[] args);
+
+        void EndDefinition();
+
+        void Definition(string key, string format, params object[] args);
 
         void Text(string format, params object[] arg);
 

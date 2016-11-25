@@ -2,18 +2,35 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.Bench.Cli.Controller
 {
-    class AppController : Controller
+    class AppController : BaseController
     {
+        private static ArgumentParser parser;
+
+        public static ArgumentParser Parser
+        {
+            get
+            {
+                if (parser == null) { parser = InitializeParser(); }
+                return parser;
+            }
+        }
+
         private const string COMMAND_PROPERTY = "property";
 
-        public readonly ArgumentParser parser =
-            new ArgumentParser(MainController.Parser, MainController.COMMAND_APP,
-                new CommandArgument(COMMAND_PROPERTY, "p",
-                    "Reads an app property value.",
-                    "<app ID> <property name>",
-                    "prop"));
+        private static ArgumentParser InitializeParser()
+        {
+            var commandProperty = new CommandArgument(COMMAND_PROPERTY, "p", "prop");
+            commandProperty.Description.Text(
+                    "Reads an app property value.");
+            commandProperty.SyntaxInfo.Variable("app ID");
+            commandProperty.SyntaxInfo.SyntaxElement(" ");
+            commandProperty.SyntaxInfo.Variable("property name");
+
+            return new ArgumentParser(MainController.Parser, MainController.COMMAND_APP,
+                commandProperty);
+        }
 
         private readonly MainController mainController;
 
@@ -21,14 +38,14 @@ namespace Mastersign.Bench.Cli
         {
             this.mainController = mainController;
             Verbose = mainController.Verbose;
-            Arguments = parser.Parse(args);
+            Arguments = Parser.Parse(args);
         }
 
         protected override void PrintHelp(IDocumentWriter w)
         {
-            w.StartDocument();
+            w.BeginDocument();
             w.Title("Bench CLI v{0} - [{1}]", Program.Version(), "app");
-            HelpFormatter.WriteHelp(w, parser);
+            HelpFormatter.WriteHelp(w, Parser);
             w.EndDocument();
         }
 

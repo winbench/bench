@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.Bench.Cli.Controller
 {
-    class MainController : Controller
+    class MainController : BaseController
     {
-        private static bool ContainsOneOfChars(string v, char[] chars)
-        {
-            foreach (var c in chars)
-            {
-                if (v.Contains(new string(new[] { c }))) return true;
-            }
-            return false;
-        }
+        private static ArgumentParser parser;
 
-        private static bool IsValidPath(string v)
+        public static ArgumentParser Parser
         {
-            return !ContainsOneOfChars(v, Path.GetInvalidPathChars());
+            get
+            {
+                if (parser == null) { parser = InitializeParser(); }
+                return parser;
+            }
         }
 
         private const string FLAG_VERBOSE = "verbose";
@@ -35,53 +33,100 @@ namespace Mastersign.Bench.Cli
         public const string COMMAND_APP = "app";
         public const string COMMAND_PROJECT = "project";
 
-        public static ArgumentParser Parser
-            = new ArgumentParser(null, "bench",
-                new FlagArgument(FLAG_VERBOSE, "v",
-                    "Activates verbose output.",
-                    "verb"),
+        private static ArgumentParser InitializeParser()
+        {
+            var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v", "verb");
+            flagVerbose.Description.Text("Activates verbose output.");
 
-                new OptionArgument(OPTION_LOGFILE, "l",
-                    "Specifies a custom location for the log file.",
-                    "A path to the log file.",
-                    "Auto generated filename in <bench root>\\log\\.",
-                    IsValidPath,
-                    "log"),
-                new OptionArgument(OPTION_BENCH_ROOT, "r",
-                    "Specifies the root directory of the Bench environment.",
-                    "A path to a valid Bench root directory.",
-                    "The root directory of the Bench environment, this Bench CLI belongs to.",
-                    v => IsValidPath(v) && Directory.Exists(v),
-                    "base"),
+            var optionLogFile = new OptionArgument(OPTION_LOGFILE, "l",
+                    ArgumentValidation.IsValidPath,
+                    "log");
+            optionLogFile.Description.Text("Specifies a custom location for the log file.");
+            optionLogFile.PossibleValueInfo.Text("A path to the log file.");
+            optionLogFile.DefaultValueInfo.Text("Auto generated filename in ");
+            optionLogFile.DefaultValueInfo.Variable("bench root");
+            optionLogFile.DefaultValueInfo.SyntaxElement("\\log\\");
+            optionLogFile.DefaultValueInfo.Text(".");
 
-                new CommandArgument(COMMAND_INITIALIZE, "i",
-                    "Initialize the Bench configuration and start the setup process."),
-                new CommandArgument(COMMAND_SETUP, "s",
-                    "Run the auto-setup for the active Bench apps."),
-                new CommandArgument(COMMAND_UPDATE_ENV, "e",
-                    "Update the paths in the Bench environment."),
-                new CommandArgument(COMMAND_REINSTALL, "r",
-                    "Remove all installed apps, then install all active apps."),
-                new CommandArgument(COMMAND_RENEW, "n",
-                    "Redownload all app resources, remove all installed apps, then install all active apps."),
-                new CommandArgument(COMMAND_UPGRADE, "u",
-                    "Download and extract the latest Bench release, then run the auto-setup."),
+            var optionBenchRoot = new OptionArgument(OPTION_BENCH_ROOT, "r",
+                    v => ArgumentValidation.IsValidPath(v) && Directory.Exists(v),
+                    "base");
+            optionBenchRoot.Description.Text("Specifies the root directory of the Bench environment.");
+            optionBenchRoot.PossibleValueInfo.Text("A path to a valid Bench root directory.");
+            optionBenchRoot.DefaultValueInfo.Text("The root directory of the Bench environment, this Bench CLI belongs to.");
 
-                new CommandArgument(COMMAND_CONFIG, "c",
-                    "Read or write values from the user configuration.",
-                    "<sub-command> [<property name>]",
-                    "cfg"),
-                new CommandArgument(COMMAND_DOWNLOADS, "d",
-                    "Manage the app resource cache.",
-                    "<sub-command>",
-                    "cache", "dl"),
-                new CommandArgument(COMMAND_APP, "a",
-                    "Manage individual apps.",
-                    "<sub-command> <app ID> [args*]"),
-                new CommandArgument(COMMAND_PROJECT, "p",
-                    "Manage projects in the Bench environment.",
-                    "<sub-command> [<project name>] [args*]",
-                    "prj"));
+            var commandInitialize = new CommandArgument(COMMAND_INITIALIZE, "i");
+            commandInitialize.Description.Text(
+                    "Initialize the Bench configuration and start the setup process.");
+
+            var commandSetup = new CommandArgument(COMMAND_SETUP, "s");
+            commandSetup.Description.Text(
+                    "Run the auto-setup for the active Bench apps.");
+
+            var commandUpdateEnv = new CommandArgument(COMMAND_UPDATE_ENV, "e");
+            commandUpdateEnv.Description.Text(
+                    "Update the paths in the Bench environment.");
+
+            var commandReinstall = new CommandArgument(COMMAND_REINSTALL, "r");
+            commandReinstall.Description.Text(
+                    "Remove all installed apps, then install all active apps.");
+
+            var commandRenew = new CommandArgument(COMMAND_RENEW, "n");
+            commandRenew.Description.Text(
+                    "Redownload all app resources, remove all installed apps, then install all active apps.");
+
+            var commandUpgrade = new CommandArgument(COMMAND_UPGRADE, "u");
+            commandUpgrade.Description.Text(
+                    "Download and extract the latest Bench release, then run the auto-setup.");
+
+            var commandConfig = new CommandArgument(COMMAND_CONFIG, "c", "cfg");
+            commandConfig.Description.Text(
+                    "Read or write values from the user configuration.");
+            commandConfig.SyntaxInfo.Variable("sub-command");
+            commandConfig.SyntaxInfo.SyntaxElement(" ");
+            commandConfig.SyntaxInfo.Variable("property name");
+
+            var commandDownloads = new CommandArgument(COMMAND_DOWNLOADS, "d", "cache", "dl");
+            commandDownloads.Description.Text(
+                "Manage the app resource cache.");
+            commandDownloads.SyntaxInfo.Variable("sub-command");
+
+            var commandApp = new CommandArgument(COMMAND_APP, "a");
+            commandApp.Description.Text("Manage individual apps.");
+            commandApp.SyntaxInfo.Variable("sub-command");
+            commandApp.SyntaxInfo.SyntaxElement(" ");
+            commandApp.SyntaxInfo.Variable("app ID");
+            commandApp.SyntaxInfo.SyntaxElement(" ...");
+
+            var commandProject = new CommandArgument(COMMAND_PROJECT, "p", "prj");
+            commandProject.Description.Text(
+                "Manage projects in the Bench environment.");
+            commandProject.SyntaxInfo.Variable("sub-command");
+            commandProject.SyntaxInfo.SyntaxElement(" ");
+            commandProject.SyntaxInfo.Variable("project name");
+            commandProject.SyntaxInfo.SyntaxElement(" ...");
+
+            var mainName = Assembly.GetExecutingAssembly()
+                .GetName().Name.ToLowerInvariant();
+
+            return new ArgumentParser(null, mainName,
+                flagVerbose,
+
+                optionLogFile,
+                optionBenchRoot,
+
+                commandInitialize,
+                commandSetup,
+                commandUpdateEnv,
+                commandReinstall,
+                commandRenew,
+                commandUpgrade,
+
+                commandConfig,
+                commandDownloads,
+                commandApp,
+                commandProject);
+        }
 
         public MainController(string[] args)
         {
@@ -137,7 +182,7 @@ namespace Mastersign.Bench.Cli
 
         protected override void PrintHelp(IDocumentWriter w)
         {
-            w.StartDocument();
+            w.BeginDocument();
             w.Title("Bench CLI v{0}", Program.Version());
             HelpFormatter.WriteHelp(w, Parser);
             w.EndDocument();

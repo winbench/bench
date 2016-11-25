@@ -141,10 +141,10 @@ namespace Mastersign.Bench.Cli
         public static void WriteHelp(IDocumentWriter w, ArgumentParser parser)
         {
             w.BeginSyntaxList("Usage");
-            w.BeginSyntax();
+            w.BeginSyntaxListItem();
             WriteFullCommandChain(w, parser);
-            w.EndSyntax();
-            w.BeginSyntax();
+            w.EndSyntaxListItem();
+            w.BeginSyntaxListItem();
             WriteFullCommandChain(w, parser);
             if (HasCommands(parser))
             {
@@ -152,22 +152,22 @@ namespace Mastersign.Bench.Cli
                 w.Variable("command");
                 w.SyntaxElement(" ...");
             }
-            w.EndSyntax();
+            w.EndSyntaxListItem();
             w.EndSyntaxList();
 
             w.BeginSyntaxList("Help");
-            w.BeginSyntax();
+            w.BeginSyntaxListItem();
             WriteSlimCommandChain(w, parser);
             WriteFullHelpIndicator(w);
-            w.EndSyntax();
+            w.EndSyntaxListItem();
             if (HasCommands(parser))
             {
-                w.BeginSyntax();
+                w.BeginSyntaxListItem();
                 WriteSlimCommandChain(w, parser);
                 w.SyntaxElement(" ");
                 w.Variable("command");
                 WriteFullHelpIndicator(w);
-                w.EndSyntax();
+                w.EndSyntaxListItem();
             }
             w.EndSyntaxList();
 
@@ -177,13 +177,15 @@ namespace Mastersign.Bench.Cli
                 w.BeginSyntaxList("Flags");
                 foreach (FlagArgument flag in flags)
                 {
-                    w.BeginSyntax();
+                    w.BeginSyntaxListItem();
                     FormatFlag(w, flag);
-                    w.EndSyntax();
+                    w.EndSyntaxListItem();
                     w.BeginDetail();
-                    if (flag.Description != null)
+                    if (!flag.Description.IsEmpty)
                     {
-                        w.Line(flag.Description);
+                        w.BeginLine();
+                        flag.Description.WriteTo(w);
+                        w.EndLine();
                     }
                     w.EndDetail();
                 }
@@ -196,32 +198,40 @@ namespace Mastersign.Bench.Cli
                 foreach (OptionArgument option in options)
                 {
                     var hasDefinitions = option.PossibleValueInfo != null || option.DefaultValueInfo != null;
-                    w.BeginSyntax();
+                    w.BeginSyntaxListItem();
                     FormatOption(w, option);
-                    w.EndSyntax();
+                    w.EndSyntaxListItem();
                     w.BeginDetail();
                     if (hasDefinitions)
                     {
-                        if (option.Description != null)
+                        if (!option.Description.IsEmpty)
                         {
                             w.BeginParagraph();
-                            w.Line(option.Description);
+                            w.BeginLine();
+                            option.Description.WriteTo(w); ;
+                            w.EndLine();
                             w.EndParagraph();
                         }
                         w.BeginDefinitionList();
-                        if (option.PossibleValueInfo != null)
+                        if (!option.PossibleValueInfo.IsEmpty)
                         {
-                            w.Definition("Expected", option.PossibleValueInfo);
+                            w.BeginDefinition("Expected");
+                            option.PossibleValueInfo.WriteTo(w);
+                            w.EndDefinition();
                         }
-                        if (option.DefaultValueInfo != null)
+                        if (!option.DefaultValueInfo.IsEmpty)
                         {
-                            w.Definition("Default", option.DefaultValueInfo);
+                            w.BeginDefinition("Default");
+                            option.DefaultValueInfo.WriteTo(w);
+                            w.EndDefinition();
                         }
                         w.EndDefinitionList();
                     }
-                    else if (option.Description != null)
+                    else if (!option.Description.IsEmpty)
                     {
-                        w.Line(option.Description);
+                        w.BeginLine();
+                        option.Description.WriteTo(w);
+                        w.EndLine();
                     }
                     w.EndDetail();
                 }
@@ -233,20 +243,24 @@ namespace Mastersign.Bench.Cli
                 w.BeginSyntaxList("Commands");
                 foreach (CommandArgument cmd in parser.GetCommands())
                 {
-                    w.BeginSyntax();
+                    w.BeginSyntaxListItem();
                     FormatCommand(w, cmd);
-                    w.EndSyntax();
+                    w.EndSyntaxListItem();
                     w.BeginDetail();
-                    if (cmd.Description != null)
+                    if (!cmd.Description.IsEmpty)
                     {
                         w.BeginParagraph();
-                        w.Line(cmd.Description);
+                        w.BeginLine();
+                        cmd.Description.WriteTo(w);
+                        w.EndLine();
                         w.EndParagraph();
                     }
-                    if (cmd.SyntaxInfo != null)
+                    if (!cmd.SyntaxInfo.IsEmpty)
                     {
                         w.BeginDefinitionList();
-                        w.Definition("Syntax", cmd.SyntaxInfo);
+                        w.BeginDefinition("Syntax");
+                        cmd.SyntaxInfo.WriteTo(w);
+                        w.EndDefinition();
                         w.EndDefinitionList();
                     }
                     w.EndDetail();
