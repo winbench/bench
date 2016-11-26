@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Controller
 {
@@ -22,11 +23,12 @@ namespace Mastersign.Bench.Cli.Controller
         private static ArgumentParser InitializeParser()
         {
             var commandProperty = new CommandArgument(COMMAND_PROPERTY, "p", "prop");
-            commandProperty.Description.Text(
-                    "Reads an app property value.");
-            commandProperty.SyntaxInfo.Variable("app ID");
-            commandProperty.SyntaxInfo.SyntaxElement(" ");
-            commandProperty.SyntaxInfo.Variable("property name");
+            commandProperty.Description
+                .Text("Reads an app property value.");
+            commandProperty.SyntaxInfo
+                .Variable("app ID")
+                .Syntactic(" ")
+                .Variable("property name");
 
             return new ArgumentParser(MainController.Parser, MainController.COMMAND_APP,
                 commandProperty);
@@ -41,12 +43,12 @@ namespace Mastersign.Bench.Cli.Controller
             Arguments = Parser.Parse(args);
         }
 
-        protected override void PrintHelp(IDocumentWriter w)
+        protected override void PrintHelp(DocumentWriter w)
         {
-            w.BeginDocument();
+            w.Begin(BlockType.Document);
             w.Title("Bench CLI v{0} - [{1}]", Program.Version(), "app");
             HelpFormatter.WriteHelp(w, Parser);
-            w.EndDocument();
+            w.End(BlockType.Document);
         }
 
         protected override bool ExecuteCommand(string command, string[] args)

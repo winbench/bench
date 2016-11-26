@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli
 {
@@ -263,7 +264,7 @@ namespace Mastersign.Bench.Cli
 
         public string[] Aliases { get; private set; }
 
-        public MemoryDocument Description { get; private set; }
+        public Document Description { get; private set; }
 
         protected Argument(ArgumentType type, string name, string mnemonic,
             params string[] aliases)
@@ -272,7 +273,7 @@ namespace Mastersign.Bench.Cli
             Name = name;
             Mnemonic = mnemonic ?? name.Substring(0, 1);
             Aliases = aliases;
-            Description = new MemoryDocument();
+            Description = new Document();
         }
     }
 
@@ -289,9 +290,9 @@ namespace Mastersign.Bench.Cli
 
     class OptionArgument : Argument
     {
-        public MemoryDocument PossibleValueInfo { get; private set; }
+        public Document PossibleValueInfo { get; private set; }
 
-        public MemoryDocument DefaultValueInfo { get; private set; }
+        public Document DefaultValueInfo { get; private set; }
 
         public OptionValuePredicate ValuePredicate { get; private set; }
 
@@ -300,21 +301,21 @@ namespace Mastersign.Bench.Cli
             params string[] aliases)
             : base(ArgumentType.Option, name, mnemonic, aliases)
         {
-            PossibleValueInfo = new MemoryDocument();
-            DefaultValueInfo = new MemoryDocument();
+            PossibleValueInfo = new Document();
+            DefaultValueInfo = new Document();
             ValuePredicate = valuePredicate;
         }
     }
 
     class CommandArgument : Argument
     {
-        public MemoryDocument SyntaxInfo { get; private set; }
+        public Document SyntaxInfo { get; private set; }
 
         public CommandArgument(string name, string mnemonic,
             params string[] aliases)
             : base(ArgumentType.Command, name, mnemonic, aliases)
         {
-            SyntaxInfo = new MemoryDocument();
+            SyntaxInfo = new Document();
         }
     }
 

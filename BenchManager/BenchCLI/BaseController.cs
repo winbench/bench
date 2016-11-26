@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli
 {
@@ -88,7 +89,7 @@ namespace Mastersign.Bench.Cli
             PrintHelp(w);
         }
 
-        protected abstract void PrintHelp(IDocumentWriter w);
+        protected abstract void PrintHelp(DocumentWriter w);
 
         protected abstract bool ExecuteCommand(string command, string[] args);
     }

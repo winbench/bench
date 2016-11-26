@@ -1,39 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli
 {
     static class HelpFormatter
     {
-        private static void FormatFlag(IDocumentWriter w, Argument a)
+        private static void FormatFlag(DocumentWriter w, Argument a)
         {
             w.Keyword("--" + a.Name);
             foreach (var alias in a.Aliases)
             {
-                w.SyntaxElement(" | ");
+                w.Syntactic(" | ");
                 w.Keyword("--" + alias);
             }
-            w.SyntaxElement(" | ");
+            w.Syntactic(" | ");
             w.Keyword("-" + a.Mnemonic);
         }
 
-        private static void FormatOption(IDocumentWriter w, Argument a)
+        private static void FormatOption(DocumentWriter w, Argument a)
         {
             FormatFlag(w, a);
-            w.SyntaxElement(" ");
+            w.Syntactic(" ");
             w.Variable("value");
         }
 
-        private static void FormatCommand(IDocumentWriter w, Argument a)
+        private static void FormatCommand(DocumentWriter w, Argument a)
         {
             w.Keyword(a.Name);
             foreach (var alias in a.Aliases)
             {
-                w.SyntaxElement(", ");
+                w.Syntactic(", ");
                 w.Keyword(alias);
             }
-            w.SyntaxElement(", ");
+            w.Syntactic(", ");
             w.Keyword(a.Mnemonic);
         }
 
@@ -74,198 +75,202 @@ namespace Mastersign.Bench.Cli
             return p.GetCommands().Length > 0;
         }
 
-        private static void WriteFlagsAndOptionsGeneric(IDocumentWriter w, ArgumentParser p)
+        private static void FlagsAndOptionsGeneric(DocumentWriter w, ArgumentParser p)
         {
             var hasFlags = HasFlags(p);
             var hasOptions = HasOptions(p);
             if (hasFlags && hasOptions)
             {
-                w.SyntaxElement(" (");
-                w.Variable("flag");
-                w.SyntaxElement(" | ");
-                w.Variable("option");
-                w.SyntaxElement(")*");
+                w.Syntactic(" (").Variable("flag").Syntactic(" | ")
+                    .Variable("option").Syntactic(")*");
             }
             else
             {
                 if (hasFlags)
                 {
-                    w.SyntaxElement(" ");
-                    w.Variable("flag");
-                    w.SyntaxElement("*");
+                    w.Syntactic(" ").Variable("flag").Syntactic("*");
                 }
                 if (hasOptions)
                 {
-                    w.SyntaxElement(" ");
-                    w.Variable("option");
-                    w.SyntaxElement("*");
+                    w.Syntactic(" ").Variable("option").Syntactic("*");
                 }
             }
         }
 
-        private static void WriteFullCommandChain(IDocumentWriter w, ArgumentParser parser)
+        private static void FullCommandChain(DocumentWriter w, ArgumentParser parser)
         {
             var parserChain = GetParserChain(parser);
             for (int i = 0; i < parserChain.Length; i++)
             {
-                if (i > 0) w.SyntaxElement(" ");
+                if (i > 0) w.Syntactic(" ");
                 var p = parserChain[i];
-                w.Keyword(p.Name);
-                WriteFlagsAndOptionsGeneric(w, p);
+                w.Keyword(p.Name).Append(FlagsAndOptionsGeneric, p);
             }
         }
 
-        private static void WriteSlimCommandChain(IDocumentWriter w, ArgumentParser parser)
+        private static void SlimCommandChain(DocumentWriter w, ArgumentParser parser)
         {
             var parserChain = GetParserChain(parser);
             for (int i = 0; i < parserChain.Length; i++)
             {
-                if (i > 0) w.SyntaxElement(" ");
+                if (i > 0) w.Syntactic(" ");
                 var p = parserChain[i];
                 w.Keyword(p.Name);
             }
         }
 
-        private static void WriteFullHelpIndicator(IDocumentWriter w)
+        private static Document fullHelpIndicator;
+        private static Document FullHelpIndicator
         {
-            w.SyntaxElement(" (");
-            var helpIndicators = ArgumentParser.HelpIndicators;
-            for (int i = 0; i < helpIndicators.Length; i++)
+            get
             {
-                if (i > 0) w.SyntaxElement(" | ");
-                w.Keyword(helpIndicators[i]);
+                if (fullHelpIndicator == null)
+                {
+                    var d = new Document();
+                    d.Syntactic(" (");
+                    var helpIndicators = ArgumentParser.HelpIndicators;
+                    for (int i = 0; i < helpIndicators.Length; i++)
+                    {
+                        if (i > 0) d.Syntactic(" | ");
+                        d.Keyword(helpIndicators[i]);
+                    }
+                    d.Syntactic(")");
+                    fullHelpIndicator = d;
+                }
+                return fullHelpIndicator;
             }
-            w.SyntaxElement(")");
         }
 
-        public static void WriteHelp(IDocumentWriter w, ArgumentParser parser)
+        public static void WriteHelp(DocumentWriter w, ArgumentParser parser)
         {
-            w.BeginSyntaxList("Usage");
-            w.BeginSyntaxListItem();
-            WriteFullCommandChain(w, parser);
-            w.EndSyntaxListItem();
-            w.BeginSyntaxListItem();
-            WriteFullCommandChain(w, parser);
+            WriteUsage(w, parser);
+            WriteHelpUsage(w, parser);
+            WriteFlags(w, parser);
+            WriteOptions(w, parser);
+            WriteCommands(w, parser);
+        }
+
+        private static void WriteUsage(DocumentWriter w, ArgumentParser parser)
+        {
+            w.Headline2("Usage");
+
+            w.Begin(BlockType.List);
+            w.ListItem(FullCommandChain, parser);
+            w.Begin(BlockType.ListItem);
+            w.Append(FullCommandChain, parser);
             if (HasCommands(parser))
             {
-                w.SyntaxElement(" ");
-                w.Variable("command");
-                w.SyntaxElement(" ...");
+                w.Syntactic(" ").Variable("command").Syntactic(" ...");
             }
-            w.EndSyntaxListItem();
-            w.EndSyntaxList();
+            w.End(BlockType.ListItem);
+            w.End(BlockType.List);
+        }
 
-            w.BeginSyntaxList("Help");
-            w.BeginSyntaxListItem();
-            WriteSlimCommandChain(w, parser);
-            WriteFullHelpIndicator(w);
-            w.EndSyntaxListItem();
+        private static void WriteHelpUsage(DocumentWriter w, ArgumentParser parser)
+        {
+            w.Headline2("Help");
+
+            w.Begin(BlockType.List);
+            w.Begin(BlockType.ListItem);
+            w.Append(SlimCommandChain, parser);
+            w.Append(FullHelpIndicator);
+            w.End(BlockType.ListItem);
             if (HasCommands(parser))
             {
-                w.BeginSyntaxListItem();
-                WriteSlimCommandChain(w, parser);
-                w.SyntaxElement(" ");
-                w.Variable("command");
-                WriteFullHelpIndicator(w);
-                w.EndSyntaxListItem();
+                w.Begin(BlockType.ListItem);
+                w.Append(SlimCommandChain, parser)
+                    .Syntactic(" ").Variable("command")
+                    .Append(FullHelpIndicator);
+                w.End(BlockType.ListItem);
             }
-            w.EndSyntaxList();
+            w.End(BlockType.List);
+        }
 
+        private static void WriteFlags(DocumentWriter w, ArgumentParser parser)
+        {
             var flags = parser.GetFlags();
             if (flags.Length > 0)
             {
-                w.BeginSyntaxList("Flags");
+                w.Headline2("Flags");
+                w.Begin(BlockType.DefinitionList);
                 foreach (FlagArgument flag in flags)
                 {
-                    w.BeginSyntaxListItem();
-                    FormatFlag(w, flag);
-                    w.EndSyntaxListItem();
-                    w.BeginDetail();
-                    if (!flag.Description.IsEmpty)
-                    {
-                        w.BeginLine();
-                        flag.Description.WriteTo(w);
-                        w.EndLine();
-                    }
-                    w.EndDetail();
+                    w.Begin(BlockType.Definition);
+                    w.DefinitionTopic(FormatFlag, flag);
+                    w.DefinitionContent(flag.Description);
+                    w.End(BlockType.Definition);
                 }
-                w.EndSyntaxList();
+                w.End(BlockType.DefinitionList);
             }
+        }
+
+        private static void WriteOptions(DocumentWriter w, ArgumentParser parser)
+        {
             var options = parser.GetOptions();
             if (options.Length > 0)
             {
-                w.BeginSyntaxList("Options");
+                w.Headline2("Options");
+                w.Begin(BlockType.DefinitionList);
                 foreach (OptionArgument option in options)
                 {
                     var hasDefinitions = option.PossibleValueInfo != null || option.DefaultValueInfo != null;
-                    w.BeginSyntaxListItem();
-                    FormatOption(w, option);
-                    w.EndSyntaxListItem();
-                    w.BeginDetail();
+                    w.Begin(BlockType.Definition);
+                    w.DefinitionTopic(FormatOption, option);
+                    w.Begin(BlockType.DefinitionContent);
                     if (hasDefinitions)
                     {
                         if (!option.Description.IsEmpty)
                         {
-                            w.BeginParagraph();
-                            w.BeginLine();
-                            option.Description.WriteTo(w); ;
-                            w.EndLine();
-                            w.EndParagraph();
+                            w.Paragraph(option.Description);
                         }
-                        w.BeginDefinitionList();
+                        w.Begin(BlockType.PropertyList);
                         if (!option.PossibleValueInfo.IsEmpty)
                         {
-                            w.BeginDefinition("Expected");
-                            option.PossibleValueInfo.WriteTo(w);
-                            w.EndDefinition();
+                            w.Property("Expected", option.PossibleValueInfo);
                         }
                         if (!option.DefaultValueInfo.IsEmpty)
                         {
-                            w.BeginDefinition("Default");
-                            option.DefaultValueInfo.WriteTo(w);
-                            w.EndDefinition();
+                            w.Property("Default", option.DefaultValueInfo);
                         }
-                        w.EndDefinitionList();
+                        w.End(BlockType.PropertyList);
                     }
                     else if (!option.Description.IsEmpty)
                     {
-                        w.BeginLine();
-                        option.Description.WriteTo(w);
-                        w.EndLine();
+                        w.Append(option.Description);
                     }
-                    w.EndDetail();
+                    w.End(BlockType.DefinitionContent);
+                    w.End(BlockType.Definition);
                 }
-                w.EndSyntaxList();
+                w.End(BlockType.DefinitionList);
             }
+        }
+
+        private static void WriteCommands(DocumentWriter w, ArgumentParser parser)
+        {
             var commands = parser.GetCommands();
             if (commands.Length > 0)
             {
-                w.BeginSyntaxList("Commands");
+                w.Headline2("Commands");
+                w.Begin(BlockType.DefinitionList);
                 foreach (CommandArgument cmd in parser.GetCommands())
                 {
-                    w.BeginSyntaxListItem();
-                    FormatCommand(w, cmd);
-                    w.EndSyntaxListItem();
-                    w.BeginDetail();
+                    w.Begin(BlockType.Definition);
+                    w.DefinitionTopic(FormatCommand, cmd);
+                    w.Begin(BlockType.DefinitionContent);
                     if (!cmd.Description.IsEmpty)
                     {
-                        w.BeginParagraph();
-                        w.BeginLine();
-                        cmd.Description.WriteTo(w);
-                        w.EndLine();
-                        w.EndParagraph();
+                        w.Paragraph(cmd.Description);
                     }
                     if (!cmd.SyntaxInfo.IsEmpty)
                     {
-                        w.BeginDefinitionList();
-                        w.BeginDefinition("Syntax");
-                        cmd.SyntaxInfo.WriteTo(w);
-                        w.EndDefinition();
-                        w.EndDefinitionList();
+                        w.Begin(BlockType.PropertyList);
+                        w.Property("Syntax", cmd.SyntaxInfo);
+                        w.End(BlockType.PropertyList);
                     }
-                    w.EndDetail();
+                    w.End(BlockType.DefinitionContent);
+                    w.End(BlockType.Definition);
                 }
-                w.EndSyntaxList();
+                w.End(BlockType.DefinitionList);
             }
         }
     }
