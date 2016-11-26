@@ -11,11 +11,13 @@ namespace Mastersign.Bench.Cli
 
         public bool Verbose { get; protected set; }
 
+        public bool NoAssurance { get; protected set; }
+
         protected void WriteError(string message)
         {
             var colorBackup = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(message);
+            Console.WriteLine("[ERROR] (cli) " + message);
             Console.ForegroundColor = colorBackup;
         }
 
@@ -29,7 +31,7 @@ namespace Mastersign.Bench.Cli
             if (!Verbose) return;
             var colorBackup = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(message);
+            Console.WriteLine("[INFO] (cli) " + message);
             Console.ForegroundColor = colorBackup;
         }
 
@@ -38,8 +40,49 @@ namespace Mastersign.Bench.Cli
             if (!Verbose) return;
             var colorBackup = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(message);
+            Console.WriteLine("[VERBOSE] (cli) " + message);
             Console.ForegroundColor = colorBackup;
+        }
+
+        private void Backspace(int l)
+        {
+            Console.Write("".PadRight(l, (char)0x08));
+        }
+
+        protected bool AskForAssurance(string question)
+        {
+            if (NoAssurance) return true;
+
+            var colorBackup = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            var extent = "(y/N)";
+            Console.Write(question + " " + extent);
+            bool? result = null;
+            while(result == null)
+            {
+                var key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter)
+                    result = false;
+                else if (key.Key == ConsoleKey.N)
+                    result = false;
+                else if (key.Key == ConsoleKey.Y)
+                    result = true;
+            }
+            Backspace(extent.Length);
+            Console.Write("<- ");
+            if (result.Value)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("Yes");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("No");
+            }
+            Console.ForegroundColor = colorBackup;
+            Console.WriteLine();
+            return result.Value;
         }
 
         public bool Execute()

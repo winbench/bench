@@ -40,6 +40,7 @@ namespace Mastersign.Bench.Cli.Controller
         {
             this.mainController = mainController;
             Verbose = mainController.Verbose;
+            NoAssurance = mainController.NoAssurance;
             Arguments = Parser.Parse(args);
         }
 

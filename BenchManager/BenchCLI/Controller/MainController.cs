@@ -21,6 +21,7 @@ namespace Mastersign.Bench.Cli.Controller
         }
 
         private const string FLAG_VERBOSE = "verbose";
+        private const string FLAG_YES = "yes";
         private const string OPTION_LOGFILE = "logfile";
         private const string OPTION_BENCH_ROOT = "root";
         public const string COMMAND_INITIALIZE = "initialize";
@@ -37,7 +38,12 @@ namespace Mastersign.Bench.Cli.Controller
         private static ArgumentParser InitializeParser()
         {
             var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v", "verb");
-            flagVerbose.Description.Text("Activates verbose output.");
+            flagVerbose.Description
+                .Text("Activates verbose output.");
+
+            var flagNoAssurance = new FlagArgument(FLAG_YES, "y");
+            flagNoAssurance.Description
+                .Text("Suppresses all assurance questions.");
 
             var optionLogFile = new OptionArgument(OPTION_LOGFILE, "l",
                     ArgumentValidation.IsValidPath,
@@ -123,6 +129,7 @@ namespace Mastersign.Bench.Cli.Controller
 
             return new ArgumentParser(null, mainName,
                 flagVerbose,
+                flagNoAssurance,
 
                 optionLogFile,
                 optionBenchRoot,
@@ -143,12 +150,8 @@ namespace Mastersign.Bench.Cli.Controller
         public MainController(string[] args)
         {
             Arguments = Parser.Parse(args);
-            Verbose = GetVerboseValue(Arguments);
-        }
-
-        private static bool GetVerboseValue(ArgumentParsingResult arguments)
-        {
-            return arguments.GetFlag(FLAG_VERBOSE);
+            Verbose = Arguments.GetFlag(FLAG_VERBOSE);
+            NoAssurance = Arguments.GetFlag(FLAG_YES);
         }
 
         private static string MyPath()
