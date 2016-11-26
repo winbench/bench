@@ -159,6 +159,12 @@ namespace Mastersign.Bench
         public bool DeleteAppResources() { return RunAction(BenchTasks.DoDeleteAppResources); }
 
         /// <summary>
+        /// Deletes all obsolete app resources from the cache.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool CleanUpAppResources() { return RunAction(BenchTasks.DoCleanUpAppResources); }
+
+        /// <summary>
         /// Installs all active apps, in case they are not already installed.
         /// This also downloads missing app resources.
         /// </summary>
