@@ -242,8 +242,7 @@ namespace Mastersign.Bench.Cli.Controller
                     return false;
 
                 case COMMAND_CONFIG:
-                    WriteError("This command is not implemented yet.");
-                    return false;
+                    return new ConfigController(this, args).Execute();
                 case COMMAND_DOWNLOADS:
                     WriteError("This command is not implemented yet.");
                     return false;
