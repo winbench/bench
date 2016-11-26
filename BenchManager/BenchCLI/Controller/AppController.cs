@@ -47,7 +47,7 @@ namespace Mastersign.Bench.Cli.Controller
         protected override void PrintHelp(DocumentWriter w)
         {
             w.Begin(BlockType.Document);
-            w.Title("Bench CLI v{0} - [{1}]", Program.Version(), "app");
+            w.Title("Bench CLI v{0} - [{1}]", Program.Version(), MainController.COMMAND_APP);
             HelpFormatter.WriteHelp(w, Parser);
             w.End(BlockType.Document);
         }
@@ -55,7 +55,6 @@ namespace Mastersign.Bench.Cli.Controller
         protected override bool ExecuteCommand(string command, string[] args)
         {
             WriteDetail("App Command: " + command);
-            WriteDetail("");
             switch (command)
             {
                 case COMMAND_PROPERTY:
@@ -71,7 +70,7 @@ namespace Mastersign.Bench.Cli.Controller
         {
             if (args.Length != 2)
             {
-                WriteError("Invalid arguments.");
+                WriteError("Invalid arguments after 'property'.");
                 WriteError("Expected: bench app property <app ID> <property name>");
                 return false;
             }

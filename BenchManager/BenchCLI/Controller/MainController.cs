@@ -217,7 +217,14 @@ namespace Mastersign.Bench.Cli.Controller
             WriteDetail("Bench Root: " + (RootPath ?? "unknown"));
             WriteDetail("Log File: " + (LogFilePath ?? "automatic"));
             WriteDetail("Command: " + command);
-            WriteDetail("");
+
+            if (RootPath == null)
+            {
+                WriteError("No valid Bench root path.");
+                WriteLine("Try specifying the Bench root directory with the --root option.");
+                return false;
+            }
+
             switch (command)
             {
                 case COMMAND_INITIALIZE:
@@ -331,30 +338,24 @@ namespace Mastersign.Bench.Cli.Controller
 
         private bool TaskUpdateEnvironment()
         {
-            var cfg = new BenchConfiguration(RootPath, true, true, true);
-            using (var mgr = new DefaultBenchManager(cfg))
+            using (var mgr = CreateManager())
             {
-                mgr.Verbose = Verbose;
                 return mgr.UpdateEnvironment();
             }
         }
 
         private bool TaskReinstallApps()
         {
-            var cfg = new BenchConfiguration(RootPath, true, true, true);
-            using (var mgr = new DefaultBenchManager(cfg))
+            using (var mgr = CreateManager())
             {
-                mgr.Verbose = Verbose;
                 return mgr.ReinstallApps();
             }
         }
 
         private bool TaskUpgradeApps()
         {
-            var cfg = new BenchConfiguration(RootPath, true, true, true);
-            using (var mgr = new DefaultBenchManager(cfg))
+            using (var mgr = CreateManager())
             {
-                mgr.Verbose = Verbose;
                 return mgr.UpgradeApps();
             }
         }
