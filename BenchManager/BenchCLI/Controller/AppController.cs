@@ -19,6 +19,7 @@ namespace Mastersign.Bench.Cli.Controller
         }
 
         private const string COMMAND_PROPERTY = "property";
+        private const string COMMAND_INFO = "info";
 
         private static ArgumentParser InitializeParser()
         {
@@ -30,8 +31,15 @@ namespace Mastersign.Bench.Cli.Controller
                 .Syntactic(" ")
                 .Variable("property name");
 
+            var commandInfo = new CommandArgument(COMMAND_INFO, "n");
+            commandInfo.Description
+                .Text("Shows a detailed info of an app.");
+            commandInfo.SyntaxInfo
+                .Variable("app ID");
+
             return new ArgumentParser(MainController.Parser, MainController.COMMAND_APP,
-                commandProperty);
+                commandProperty,
+                commandInfo);
         }
 
         private readonly MainController mainController;
@@ -59,6 +67,8 @@ namespace Mastersign.Bench.Cli.Controller
             {
                 case COMMAND_PROPERTY:
                     return TaskReadProperty(args);
+                case COMMAND_INFO:
+                    return TaskInfo(args);
 
                 default:
                     WriteError("Unsupported command: " + command + ".");
@@ -71,7 +81,7 @@ namespace Mastersign.Bench.Cli.Controller
             if (args.Length != 2)
             {
                 WriteError("Invalid arguments after 'property'.");
-                WriteError("Expected: bench app property <app ID> <property name>");
+                WriteLine("Expected: bench app property <app ID> <property name>");
                 return false;
             }
             var appId = args[0];
@@ -87,9 +97,38 @@ namespace Mastersign.Bench.Cli.Controller
             if (!cfg.ContainsGroupValue(appId, propertyName))
             {
                 WriteError("Unknown property: " + propertyName);
+                return false;
             }
             WriteDetail("Property: " + propertyName);
             Console.Write(cfg.GetGroupValue(appId, propertyName));
+            return true;
+        }
+
+        private bool TaskInfo(string[] args)
+        {
+            if (args.Length != 1)
+            {
+                WriteError("Invalid arguments after 'info'.");
+                WriteLine("Expected: bench app info <app ID>");
+                return false;
+            }
+
+            var appId = args[0];
+
+            var cfg = mainController.LoadConfiguration();
+            if (!cfg.Apps.Exists(appId))
+            {
+                WriteError("Unknown app ID: " + appId);
+                return false;
+            }
+
+            var properties = new List<string>(cfg.PropertyNames(appId));
+            properties.Sort();
+            WriteLine("[" + appId + "]");
+            foreach (var p in properties)
+            {
+                WriteLine(string.Format("{0} = {1}", p, cfg.GetGroupValue(appId, p)));
+            }
             return true;
         }
     }

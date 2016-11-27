@@ -36,7 +36,7 @@ namespace Mastersign.Bench.Cli.Controller
             commandDownload.Description
                 .Text("Downloads the app resources for all active apps.");
 
-            return new ArgumentParser(MainController.Parser, MainController.COMMAND_APP,
+            return new ArgumentParser(MainController.Parser, MainController.COMMAND_DOWNLOADS,
                 commandClean,
                 commandPurge,
                 commandDownload);

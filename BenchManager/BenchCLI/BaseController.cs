@@ -98,8 +98,7 @@ namespace Mastersign.Bench.Cli
                 case ArgumentParsingResultType.Command:
                     return ExecuteCommand(Arguments.Command, Arguments.Rest);
                 case ArgumentParsingResultType.NoCommand:
-                    PrintNoCommandWarning();
-                    return false;
+                    return ExecuteNoCommand(Arguments.Rest);
                 default:
                     WriteError("Argument parsing result not supported.");
                     return false;
@@ -120,12 +119,6 @@ namespace Mastersign.Bench.Cli
             PrintHelpHint();
         }
 
-        private void PrintNoCommandWarning()
-        {
-            WriteError("No command given.");
-            PrintHelpHint();
-        }
-
         private void PrintHelp()
         {
             var w = new PlainTextDocumentWriter(Console.Out);
@@ -135,5 +128,12 @@ namespace Mastersign.Bench.Cli
         protected abstract void PrintHelp(DocumentWriter w);
 
         protected abstract bool ExecuteCommand(string command, string[] args);
+
+        protected virtual bool ExecuteNoCommand(string[] args)
+        {
+            WriteError("No command given.");
+            PrintHelpHint();
+            return false;
+        }
     }
 }
