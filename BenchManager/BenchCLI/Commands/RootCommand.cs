@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
-namespace Mastersign.Bench.Cli.Controller
+namespace Mastersign.Bench.Cli.Commands
 {
     class RootCommand : BenchCommand
     {
@@ -22,7 +22,7 @@ namespace Mastersign.Bench.Cli.Controller
 
         protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
         {
-            var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v", "verb");
+            var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v");
             flagVerbose.Description
                 .Text("Activates verbose output.");
 

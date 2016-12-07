@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mastersign.Bench.Cli.Controller
+namespace Mastersign.Bench.Cli.Commands
 {
     class DownloadsCommand : BenchCommand
     {

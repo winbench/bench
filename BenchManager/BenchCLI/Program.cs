@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Mastersign.Bench.Cli.Controller;
+using Mastersign.Bench.Cli.Commands;
 
 namespace Mastersign.Bench.Cli
 {

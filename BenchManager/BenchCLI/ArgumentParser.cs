@@ -101,7 +101,10 @@ namespace Mastersign.Bench.Cli
                 var a = index.LookUp(args[position]);
                 if (a == null)
                 {
-                    invalid = args[position];
+                    if (GetCommands().Length > 0)
+                    {
+                        invalid = args[position];
+                    }
                     break;
                 }
                 switch (a.Type)

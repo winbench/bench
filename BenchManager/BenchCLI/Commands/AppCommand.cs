@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mastersign.Bench.Cli.Controller
+namespace Mastersign.Bench.Cli.Commands
 {
     class AppCommand : BenchCommand
     {
@@ -12,6 +12,11 @@ namespace Mastersign.Bench.Cli.Controller
         private const string COMMAND_INFO = "info";
 
         public override string Name => CMD_NAME;
+
+        public AppCommand()
+        {
+            RegisterSubCommand(new AppInfoCommand());
+        }
 
         protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
         {
@@ -90,12 +95,26 @@ namespace Mastersign.Bench.Cli.Controller
                 return false;
             }
 
-            var properties = new List<string>(cfg.PropertyNames(appId));
-            properties.Sort();
-            WriteLine("[" + appId + "]");
-            foreach (var p in properties)
+            var app = cfg.Apps[appId];
+            var knownProperties = app.KnownProperties;
+            var unknownProperties = app.UnknownProperties;
+            var lookup = new Dictionary<string, object>();
+            var names = new List<string>();
+            foreach (var kvp in knownProperties)
             {
-                WriteLine(string.Format("{0} = {1}", p, cfg.GetGroupValue(appId, p)));
+                lookup[kvp.Key] = kvp.Value;
+                if (!names.Contains(kvp.Key)) names.Add(kvp.Key);
+            }
+            foreach (var kvp in unknownProperties)
+            {
+                lookup[kvp.Key] = kvp.Value;
+                if (!names.Contains(kvp.Key)) names.Add(kvp.Key);
+            }
+            names.Sort();
+            WriteLine("[" + appId + "]");
+            foreach (var p in names)
+            {
+                WriteLine(string.Format("{0} = {1}", p, lookup[p]));
             }
             return true;
         }

@@ -23,7 +23,6 @@ Add a link to the GitHub diff like
 
 ## [Unreleased]
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
-[App Changes](https://github.com/mastersign/bench/compare/master...apps)
 
 ## [0.13.3] - 2016-11-19
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.13.2...v0.13.3)

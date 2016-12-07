@@ -166,7 +166,14 @@ namespace Mastersign.Bench
         /// Gets a dictionary with labels and URLs for help and documentation.
         /// If an URL is relative, it is considered to be relative to the apps <see cref="Dir"/>.
         /// </summary>
-        public IDictionary<string, string> Docs { get { return Value(PropertyKeys.AppDocs) as IDictionary<string, string>; } }
+        public IDictionary<string, string> Docs
+        {
+            get
+            {
+                return (Value(PropertyKeys.AppDocs) as IDictionary<string, string>)
+                  ?? new Dictionary<string, string>();
+            }
+        }
 
         /// <summary>
         /// An array with app IDs which are necessary to be installed for this app to work.
@@ -220,7 +227,11 @@ namespace Mastersign.Bench
         /// </summary>
         public IDictionary<string, string> DownloadHeaders
         {
-            get { return Value(PropertyKeys.AppDownloadHeaders) as IDictionary<string, string>; }
+            get
+            {
+                return (Value(PropertyKeys.AppDownloadHeaders) as IDictionary<string, string>)
+                  ?? new Dictionary<string, string>();
+            }
         }
 
         /// <summary>
@@ -228,7 +239,11 @@ namespace Mastersign.Bench
         /// </summary>
         public IDictionary<string, string> DownloadCookies
         {
-            get { return Value(PropertyKeys.AppDownloadCookies) as IDictionary<string, string>; }
+            get
+            {
+                return (Value(PropertyKeys.AppDownloadCookies) as IDictionary<string, string>)
+                  ?? new Dictionary<string, string>();
+            }
         }
 
         /// <summary>
@@ -313,7 +328,11 @@ namespace Mastersign.Bench
         /// </summary>
         public IDictionary<string, string> Environment
         {
-            get { return Value(PropertyKeys.AppEnvironment) as IDictionary<string, string>; }
+            get
+            {
+                return (Value(PropertyKeys.AppEnvironment) as IDictionary<string, string>)
+                  ?? new Dictionary<string, string>();
+            }
         }
 
         /// <summary>
@@ -1231,6 +1250,124 @@ namespace Mastersign.Bench
         }
 
         #endregion
+
+        #region PropertyListing
+
+        private static readonly string[] knownProperties = new[]
+            {
+                PropertyKeys.AppTyp,
+                PropertyKeys.AppWebsite,
+                PropertyKeys.AppDocs,
+                PropertyKeys.AppVersion,
+                PropertyKeys.AppIsActive,
+                PropertyKeys.AppIsRequired,
+                PropertyKeys.AppIsActivated,
+                PropertyKeys.AppIsDeactivated,
+                PropertyKeys.AppInstalledVersion,
+                PropertyKeys.AppDependencies,
+                PropertyKeys.AppIsDependency,
+                PropertyKeys.AppForce,
+                PropertyKeys.AppSetupTestFile,
+                PropertyKeys.AppPackageName,
+                PropertyKeys.AppUrl,
+                PropertyKeys.AppDownloadCookies,
+                PropertyKeys.AppDownloadHeaders,
+                PropertyKeys.AppResourceName,
+                PropertyKeys.AppArchiveName,
+                PropertyKeys.AppArchiveTyp,
+                PropertyKeys.AppArchivePath,
+                PropertyKeys.AppDir,
+                PropertyKeys.AppExe,
+                PropertyKeys.AppRegister,
+                PropertyKeys.AppPath,
+                PropertyKeys.AppEnvironment,
+                PropertyKeys.AppAdornedExecutables,
+                PropertyKeys.AppRegistryKeys,
+                PropertyKeys.AppLauncher,
+                PropertyKeys.AppLauncherExecutable,
+                PropertyKeys.AppLauncherArguments,
+                PropertyKeys.AppLauncherIcon,
+            };
+
+        /// <summary>
+        /// Checks whether a property name is known to the Bench system or not.
+        /// </summary>
+        /// <param name="propertyName">The name of the app property.</param>
+        /// <returns><c>true</c> if the property is known; otherwise <c>false</c>.</returns>
+        public static bool IsKnownProperty(string propertyName)
+        {
+            foreach (var name in knownProperties)
+            {
+                if (name.Equals(propertyName)) return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns all known properties.
+        /// </summary>
+        /// <returns>An array with key/value pairs. </returns>
+        public KeyValuePair<string, object>[] KnownProperties
+        {
+            get
+            {
+                var result = new List<KeyValuePair<string, object>>();
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppTyp, this.Typ));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppWebsite, this.Website));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDocs, this.Docs));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppVersion, this.Version));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsActive, this.IsActive));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsRequired, this.IsRequired));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsActivated, this.IsActivated));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsDeactivated, this.IsDeactivated));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppInstalledVersion, this.InstalledVersion));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDependencies, this.Dependencies));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsDependency, this.IsDependency));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppForce, this.Force));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppSetupTestFile, this.SetupTestFile));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppPackageName, this.PackageName));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppUrl, this.Url));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDownloadCookies, this.DownloadCookies));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDownloadHeaders, this.DownloadHeaders));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppResourceName, this.ResourceFileName));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppArchiveName, this.ResourceArchiveName));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppArchivePath, this.ResourceArchivePath));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDir, this.Dir));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppExe, this.Exe));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppRegister, this.Register));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppPath, this.Path));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppEnvironment, this.Environment));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppAdornedExecutables, this.AdornedExecutables));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppRegistryKeys, this.RegistryKeys));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncher, this.Launcher));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherExecutable, this.LauncherExecutable));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherArguments, this.LauncherArguments));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherIcon, this.LauncherIcon));
+                return result.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Returns all unknown properties.
+        /// </summary>
+        /// <returns>An array with key/value pairs.</returns>
+        public KeyValuePair<string, object>[] UnknownProperties
+        {
+            get
+            {
+                var result = new List<KeyValuePair<string, object>>();
+                foreach (var name in AppIndex.PropertyNames(ID))
+                {
+                    if (IsKnownProperty(name)) continue;
+                    result.Add(new KeyValuePair<string, object>(name, Value(name)));
+                }
+                return result.ToArray();
+            }
+        }
+
+        #endregion
+
+
 
         /// <summary>
         /// Returns a string, containing the apps typ and ID.
