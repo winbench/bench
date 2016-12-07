@@ -44,10 +44,10 @@
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
     <Compile Include="BenchCommand.cs" />
-    <Compile Include="Controller\AppCommand.cs" />
+    <Compile Include="Commands\AppCommand.cs" />
     <Compile Include="ArgumentParser.cs" />
-    <Compile Include="Controller\ConfigCommand.cs" />
-    <Compile Include="Controller\DownloadsCommand.cs" />
+    <Compile Include="Commands\ConfigCommand.cs" />
+    <Compile Include="Commands\DownloadsCommand.cs" />
     <Compile Include="Docs\BlockType.cs" />
     <Compile Include="Docs\DocumentContentGenerator.cs" />
     <Compile Include="Docs\DocumentWriter.cs" />
@@ -58,7 +58,7 @@
     <Compile Include="CommandBase.cs" />
     <Compile Include="HelpFormatter.cs" />
     <Compile Include="Docs\IDocumentWriter.cs" />
-    <Compile Include="Controller\RootCommand.cs" />
+    <Compile Include="Commands\RootCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyWriter.cs" />
