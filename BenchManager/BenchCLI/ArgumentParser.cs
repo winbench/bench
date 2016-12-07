@@ -54,10 +54,7 @@ namespace Mastersign.Bench.Cli
             return res.ToArray();
         }
 
-        public Argument[] GetFlags()
-        {
-            return FilterArguments(ArgumentType.Flag);
-        }
+        public Argument[] GetFlags() => FilterArguments(ArgumentType.Flag);
 
         public Argument[] GetOptions()
         {

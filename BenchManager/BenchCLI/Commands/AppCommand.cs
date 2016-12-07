@@ -1,27 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Controller
 {
-    class AppController : BaseController
+    class AppCommand : BenchCommand
     {
-        private static ArgumentParser parser;
-
-        public static ArgumentParser Parser
-        {
-            get
-            {
-                if (parser == null) { parser = InitializeParser(); }
-                return parser;
-            }
-        }
+        public const string CMD_NAME = "app";
 
         private const string COMMAND_PROPERTY = "property";
         private const string COMMAND_INFO = "info";
 
-        private static ArgumentParser InitializeParser()
+        public override string Name => CMD_NAME;
+
+        protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
         {
             var commandProperty = new CommandArgument(COMMAND_PROPERTY, "p", "prop");
             commandProperty.Description
@@ -37,32 +29,13 @@ namespace Mastersign.Bench.Cli.Controller
             commandInfo.SyntaxInfo
                 .Variable("app ID");
 
-            return new ArgumentParser(MainController.Parser, MainController.COMMAND_APP,
+            return new ArgumentParser(parent, Name,
                 commandProperty,
                 commandInfo);
         }
 
-        private readonly MainController mainController;
-
-        public AppController(MainController mainController, string[] args)
+        protected override bool ExecuteUnknownSubCommand(string command, string[] args)
         {
-            this.mainController = mainController;
-            Verbose = mainController.Verbose;
-            NoAssurance = mainController.NoAssurance;
-            Arguments = Parser.Parse(args);
-        }
-
-        protected override void PrintHelp(DocumentWriter w)
-        {
-            w.Begin(BlockType.Document);
-            w.Title("Bench CLI v{0} - [{1}]", Program.Version(), MainController.COMMAND_APP);
-            HelpFormatter.WriteHelp(w, Parser);
-            w.End(BlockType.Document);
-        }
-
-        protected override bool ExecuteCommand(string command, string[] args)
-        {
-            WriteDetail("App Command: " + command);
             switch (command)
             {
                 case COMMAND_PROPERTY:
@@ -87,20 +60,15 @@ namespace Mastersign.Bench.Cli.Controller
             var appId = args[0];
             var propertyName = args[1];
 
-            var cfg = mainController.LoadConfiguration();
+            var cfg = LoadConfiguration();
             if (!cfg.Apps.Exists(appId))
             {
                 WriteError("Unknown app ID: " + appId);
                 return false;
             }
             WriteDetail("App ID: " + appId);
-            if (!cfg.ContainsGroupValue(appId, propertyName))
-            {
-                WriteError("Unknown property: " + propertyName);
-                return false;
-            }
             WriteDetail("Property: " + propertyName);
-            Console.Write(cfg.GetGroupValue(appId, propertyName));
+            PropertyWriter.WritePropertyValue(cfg.GetGroupValue(appId, propertyName));
             return true;
         }
 
@@ -115,7 +83,7 @@ namespace Mastersign.Bench.Cli.Controller
 
             var appId = args[0];
 
-            var cfg = mainController.LoadConfiguration();
+            var cfg = LoadConfiguration();
             if (!cfg.Apps.Exists(appId))
             {
                 WriteError("Unknown app ID: " + appId);

@@ -3,23 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Controller
 {
-    class MainController : BaseController
+    class RootCommand : BenchCommand
     {
-        private static ArgumentParser parser;
-
-        public static ArgumentParser Parser
-        {
-            get
-            {
-                if (parser == null) { parser = InitializeParser(); }
-                return parser;
-            }
-        }
-
         private const string FLAG_VERBOSE = "verbose";
         private const string FLAG_YES = "yes";
         private const string OPTION_LOGFILE = "logfile";
@@ -30,12 +18,9 @@ namespace Mastersign.Bench.Cli.Controller
         public const string COMMAND_REINSTALL = "reinstall";
         public const string COMMAND_RENEW = "renew";
         public const string COMMAND_UPGRADE = "upgrade";
-        public const string COMMAND_CONFIG = "config";
-        public const string COMMAND_DOWNLOADS = "downloads";
-        public const string COMMAND_APP = "app";
         public const string COMMAND_PROJECT = "project";
 
-        private static ArgumentParser InitializeParser()
+        protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
         {
             var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v", "verb");
             flagVerbose.Description
@@ -92,7 +77,7 @@ namespace Mastersign.Bench.Cli.Controller
             commandUpgrade.Description
                 .Text("Download and extract the latest Bench release, then run the auto-setup.");
 
-            var commandConfig = new CommandArgument(COMMAND_CONFIG, "c", "cfg");
+            var commandConfig = new CommandArgument(ConfigCommand.CMD_NAME, "c", "cfg");
             commandConfig.Description
                 .Text("Read or write values from the user configuration.");
             commandConfig.SyntaxInfo
@@ -100,13 +85,13 @@ namespace Mastersign.Bench.Cli.Controller
                 .Syntactic(" ")
                 .Variable("property name");
 
-            var commandDownloads = new CommandArgument(COMMAND_DOWNLOADS, "d", "cache", "dl");
+            var commandDownloads = new CommandArgument(DownloadsCommand.CMD_NAME, "d", "cache", "dl");
             commandDownloads.Description
                 .Text("Manage the app resource cache.");
             commandDownloads.SyntaxInfo
                 .Variable("sub-command");
 
-            var commandApp = new CommandArgument(COMMAND_APP, "a");
+            var commandApp = new CommandArgument(AppCommand.CMD_NAME, "a");
             commandApp.Description
                 .Text("Manage individual apps.");
             commandApp.SyntaxInfo
@@ -124,10 +109,7 @@ namespace Mastersign.Bench.Cli.Controller
                 .Variable("project name")
                 .Syntactic(" ...");
 
-            var mainName = Assembly.GetExecutingAssembly()
-                .GetName().Name.ToLowerInvariant();
-
-            return new ArgumentParser(null, mainName,
+            return new ArgumentParser(parent, Name,
                 flagVerbose,
                 flagNoAssurance,
 
@@ -147,11 +129,17 @@ namespace Mastersign.Bench.Cli.Controller
                 commandProject);
         }
 
-        public MainController(string[] args)
+        public override string Name
+            => Assembly.GetExecutingAssembly()
+                .GetName().Name.ToLowerInvariant();
+
+        public RootCommand()
         {
-            Arguments = Parser.Parse(args);
-            Verbose = Arguments.GetFlag(FLAG_VERBOSE);
-            NoAssurance = Arguments.GetFlag(FLAG_YES);
+            ToolName = "Bench CLI";
+            ToolVersion = Program.Version();
+            RegisterSubCommand(new AppCommand());
+            RegisterSubCommand(new ConfigCommand());
+            RegisterSubCommand(new DownloadsCommand());
         }
 
         private static string MyPath()
@@ -172,19 +160,6 @@ namespace Mastersign.Bench.Cli.Controller
             return File.Exists(path) ? path : null;
         }
 
-        public string RootPath
-        {
-            get
-            {
-                var p = Arguments.GetOptionValue(OPTION_BENCH_ROOT, DefaultRootPath());
-                return p != null
-                    ? (Path.IsPathRooted(p)
-                        ? p
-                        : Path.Combine(Environment.CurrentDirectory, p))
-                    : null;
-            }
-        }
-
         public string LogFilePath
         {
             get
@@ -195,17 +170,13 @@ namespace Mastersign.Bench.Cli.Controller
             }
         }
 
-        protected override void PrintHelp(DocumentWriter w)
+        protected override bool ValidateArguments()
         {
-            w.Begin(BlockType.Document);
-            w.Title("Bench CLI v{0}", Program.Version());
-            HelpFormatter.WriteHelp(w, Parser);
-            w.End(BlockType.Document);
-        }
+            Verbose = Arguments.GetFlag(FLAG_VERBOSE);
+            NoAssurance = Arguments.GetFlag(FLAG_YES);
 
-        protected override bool ExecuteCommand(string command, string[] args)
-        {
-            WriteDetail("Bench CLI: " + Program.CliExecutable());
+            WriteDetail("{0} v{1}: {2}", ToolName, ToolVersion, Program.CliExecutable());
+
             if (BenchTasks.IsDashboardSupported)
             {
                 WriteDetail("Bench Dashboard: " + (DashboardExecutable() ?? "not found"));
@@ -214,16 +185,29 @@ namespace Mastersign.Bench.Cli.Controller
             {
                 WriteDetail("Bench Dashboard: Not Supported. Microsoft .NET Framework 4.5 not installed.");
             }
-            WriteDetail("Bench Root: " + (RootPath ?? "unknown"));
-            WriteDetail("Log File: " + (LogFilePath ?? "automatic"));
-            WriteDetail("Command: " + command);
 
-            if (RootPath == null)
+            var rp = Arguments.GetOptionValue(OPTION_BENCH_ROOT, DefaultRootPath());
+            if (rp != null)
+            {
+                RootPath = Path.IsPathRooted(rp)
+                    ? rp
+                    : Path.Combine(Environment.CurrentDirectory, rp);
+            }
+            else
             {
                 WriteError("No valid Bench root path.");
                 WriteLine("Try specifying the Bench root directory with the --root option.");
                 return false;
             }
+
+            WriteDetail("Bench Root: " + (RootPath ?? "unknown"));
+            WriteDetail("Log File: " + (LogFilePath ?? "automatic"));
+
+            return true;
+        }
+
+        protected override bool ExecuteUnknownSubCommand(string command, string[] args)
+        {
 
             switch (command)
             {
@@ -240,13 +224,6 @@ namespace Mastersign.Bench.Cli.Controller
                 case COMMAND_UPGRADE:
                     WriteError("This command is not implemented yet.");
                     return false;
-
-                case COMMAND_CONFIG:
-                    return new ConfigController(this, args).Execute();
-                case COMMAND_DOWNLOADS:
-                    return new DownloadsController(this, args).Execute();
-                case COMMAND_APP:
-                    return new AppController(this, args).Execute();
                 case COMMAND_PROJECT:
                     WriteError("This command is not implemented yet.");
                     return false;
@@ -300,62 +277,25 @@ namespace Mastersign.Bench.Cli.Controller
                     Arguments = arguments,
                     UseShellExecute = false
                 };
-                Process.Start(pi);
+                System.Diagnostics.Process.Start(pi);
                 return true;
             }
             else if (autoSetup)
-            {
                 return TaskAutoSetup();
-            }
             else
-            {
                 return true;
-            }
-        }
-
-        public BenchConfiguration LoadConfiguration()
-        {
-            return new BenchConfiguration(RootPath, true, true, true);
-        }
-
-        public DefaultBenchManager CreateManager()
-        {
-            return new DefaultBenchManager(LoadConfiguration())
-            {
-                Verbose = Verbose
-            };
         }
 
         private bool TaskAutoSetup()
-        {
-            using (var mgr = CreateManager())
-            {
-                return mgr.AutoSetup();
-            }
-        }
+            => RunManagerTask(mgr => mgr.AutoSetup());
 
         private bool TaskUpdateEnvironment()
-        {
-            using (var mgr = CreateManager())
-            {
-                return mgr.UpdateEnvironment();
-            }
-        }
+            => RunManagerTask(mgr => mgr.UpdateEnvironment());
 
         private bool TaskReinstallApps()
-        {
-            using (var mgr = CreateManager())
-            {
-                return mgr.ReinstallApps();
-            }
-        }
+            => RunManagerTask(mgr => mgr.ReinstallApps());
 
         private bool TaskUpgradeApps()
-        {
-            using (var mgr = CreateManager())
-            {
-                return mgr.UpgradeApps();
-            }
-        }
+            => RunManagerTask(mgr => mgr.UpgradeApps());
     }
 }
