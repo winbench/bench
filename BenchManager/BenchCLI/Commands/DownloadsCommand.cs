@@ -14,7 +14,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         public override string Name => CMD_NAME;
 
-        protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
+        protected override ArgumentParser InitializeArgumentParser()
         {
             var commandClean = new CommandArgument(COMMAND_CLEAN, "c", "cl");
             commandClean.Description
@@ -28,7 +28,7 @@ namespace Mastersign.Bench.Cli.Commands
             commandDownload.Description
                 .Text("Downloads the app resources for all active apps.");
 
-            return new ArgumentParser(parent, CMD_NAME,
+            return new ArgumentParser(CMD_NAME,
                 commandClean,
                 commandPurge,
                 commandDownload);

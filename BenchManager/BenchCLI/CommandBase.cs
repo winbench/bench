@@ -10,9 +10,9 @@ namespace Mastersign.Bench.Cli
         private ArgumentParser argParser;
 
         public ArgumentParser ArgumentParser
-            => argParser ?? (argParser = InitializeArgumentParser(Parent?.ArgumentParser));
+            => argParser ?? (argParser = InitializeArgumentParser());
 
-        protected abstract ArgumentParser InitializeArgumentParser(ArgumentParser parent);
+        protected abstract ArgumentParser InitializeArgumentParser();
 
         protected ArgumentParsingResult Arguments { get; set; }
 
@@ -159,21 +159,31 @@ namespace Mastersign.Bench.Cli
 
         #region Help
 
-        private string[] CommandChain(bool withRoot = true)
+        public CommandBase[] CommandChain(bool withRoot = true)
         {
-            var names = new List<string>();
+            var cmds = new List<CommandBase>();
             var cmd = this;
             while (cmd != null && (withRoot || cmd.Parent != null))
             {
-                names.Add(cmd.Name);
+                cmds.Add(cmd);
                 cmd = cmd.Parent;
             }
-            names.Reverse();
+            cmds.Reverse();
+            return cmds.ToArray();
+        }
+
+        private string[] CommandChainNames(bool withRoot = true)
+        {
+            var names = new List<string>();
+            foreach (var cmd in CommandChain(withRoot))
+            {
+                names.Add(cmd.Name);
+            }
             return names.ToArray();
         }
 
         private string CommandChain(string separator, bool withRoot = true)
-            => string.Join(separator, CommandChain(withRoot));
+            => string.Join(separator, CommandChainNames(withRoot));
 
         protected virtual void PrintHelpHint()
         {
@@ -201,7 +211,7 @@ namespace Mastersign.Bench.Cli
                 w.Title("{0} v{1}", ToolName, ToolVersion);
             else
                 w.Title("{0} v{1} - [{2}]", ToolName, ToolVersion, CommandChain(" ", false));
-            HelpFormatter.WriteHelp(w, ArgumentParser);
+            HelpFormatter.WriteHelp(w, this);
             w.End(BlockType.Document);
         }
 
@@ -223,8 +233,16 @@ namespace Mastersign.Bench.Cli
                 PrintInvalidArgumentWarning(Arguments.InvalidArgument);
                 return false;
             }
-            if (!ValidateArguments())
+            try
+            {
+                if (!ValidateArguments())
+                    return false;
+            }
+            catch (Exception e)
+            {
+                WriteError(e.Message);
                 return false;
+            }
             if (Arguments.Type == ArgumentParsingResultType.NoCommand)
             {
                 return ExecuteCommand(Arguments.Rest);

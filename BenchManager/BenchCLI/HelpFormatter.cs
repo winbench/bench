@@ -7,7 +7,7 @@ namespace Mastersign.Bench.Cli
 {
     static class HelpFormatter
     {
-        private static void FormatFlag(DocumentWriter w, Argument a)
+        private static void FormatFlag(DocumentWriter w, NamedArgument a)
         {
             w.Keyword("--" + a.Name);
             foreach (var alias in a.Aliases)
@@ -19,14 +19,19 @@ namespace Mastersign.Bench.Cli
             w.Keyword("-" + a.Mnemonic);
         }
 
-        private static void FormatOption(DocumentWriter w, Argument a)
+        private static void FormatOption(DocumentWriter w, OptionArgument a)
         {
             FormatFlag(w, a);
             w.Syntactic(" ");
             w.Variable("value");
         }
 
-        private static void FormatCommand(DocumentWriter w, Argument a)
+        private static void FormatPositional(DocumentWriter w, PositionalArgument a)
+        {
+            w.Variable(a.Name);
+        }
+
+        private static void FormatCommand(DocumentWriter w, CommandArgument a)
         {
             w.Keyword(a.Name);
             foreach (var alias in a.Aliases)
@@ -36,28 +41,6 @@ namespace Mastersign.Bench.Cli
             }
             w.Syntactic(", ");
             w.Keyword(a.Mnemonic);
-        }
-
-        public static ArgumentParser[] GetParserChain(ArgumentParser parser)
-        {
-            var list = new List<ArgumentParser>();
-            while (parser != null)
-            {
-                list.Add(parser);
-                parser = parser.Parent;
-            }
-            list.Reverse();
-            return list.ToArray();
-        }
-
-        public static string[] GetCommandChain(ArgumentParser parser)
-        {
-            var list = new List<string>();
-            foreach (var p in GetParserChain(parser))
-            {
-                list.Add(p.Name);
-            }
-            return list.ToArray();
         }
 
         private static bool HasFlags(ArgumentParser p)
@@ -75,7 +58,12 @@ namespace Mastersign.Bench.Cli
             return p.GetCommands().Length > 0;
         }
 
-        private static void FlagsAndOptionsGeneric(DocumentWriter w, ArgumentParser p)
+        private static bool HasPositionals(ArgumentParser p)
+        {
+            return p.GetPositionals().Length > 0;
+        }
+
+        public static void FlagsAndOptionsGeneric(DocumentWriter w, ArgumentParser p)
         {
             var hasFlags = HasFlags(p);
             var hasOptions = HasOptions(p);
@@ -95,27 +83,47 @@ namespace Mastersign.Bench.Cli
                     w.Syntactic(" ").Variable("option").Syntactic("*");
                 }
             }
-        }
-
-        private static void FullCommandChain(DocumentWriter w, ArgumentParser parser)
-        {
-            var parserChain = GetParserChain(parser);
-            for (int i = 0; i < parserChain.Length; i++)
+            foreach (var a in p.GetPositionals())
             {
-                if (i > 0) w.Syntactic(" ");
-                var p = parserChain[i];
-                w.Keyword(p.Name).Append(FlagsAndOptionsGeneric, p);
+                w.Syntactic(" ").Append(FormatPositional, a);
             }
         }
 
-        private static void SlimCommandChain(DocumentWriter w, ArgumentParser parser)
+        public static void FullCommandChain(DocumentWriter w, CommandBase cmd)
         {
-            var parserChain = GetParserChain(parser);
-            for (int i = 0; i < parserChain.Length; i++)
+            var cmdChain = cmd.CommandChain();
+            for (int i = 0; i < cmdChain.Length; i++)
             {
                 if (i > 0) w.Syntactic(" ");
-                var p = parserChain[i];
-                w.Keyword(p.Name);
+                var c = cmdChain[i];
+                w.Keyword(c.Name).Append(FlagsAndOptionsGeneric, c.ArgumentParser);
+            }
+        }
+
+        public static void CommandChain(DocumentWriter w, CommandBase cmd)
+        {
+            var cmdChain = cmd.CommandChain();
+            for (int i = 0; i < cmdChain.Length; i++)
+            {
+                if (i > 0) w.Syntactic(" ");
+                var c = cmdChain[i];
+                w.Keyword(c.Name);
+            }
+            if (cmdChain.Length > 0)
+            {
+                var p = cmdChain[cmdChain.Length - 1].ArgumentParser;
+                w.Append(FlagsAndOptionsGeneric, p);
+            }
+        }
+
+        public static void SlimCommandChain(DocumentWriter w, CommandBase cmd)
+        {
+            var cmdChain = cmd.CommandChain();
+            for (int i = 0; i < cmdChain.Length; i++)
+            {
+                if (i > 0) w.Syntactic(" ");
+                var c = cmdChain[i];
+                w.Keyword(c.Name);
             }
         }
 
@@ -141,44 +149,46 @@ namespace Mastersign.Bench.Cli
             }
         }
 
-        public static void WriteHelp(DocumentWriter w, ArgumentParser parser)
+        public static void WriteHelp(DocumentWriter w, CommandBase cmd)
         {
-            WriteUsage(w, parser);
-            WriteHelpUsage(w, parser);
+            var parser = cmd.ArgumentParser;
+            WriteUsage(w, cmd);
+            WriteHelpUsage(w, cmd);
             WriteFlags(w, parser);
             WriteOptions(w, parser);
+            WritePositionals(w, parser);
             WriteCommands(w, parser);
         }
 
-        private static void WriteUsage(DocumentWriter w, ArgumentParser parser)
+        private static void WriteUsage(DocumentWriter w, CommandBase cmd)
         {
             w.Headline2("Usage");
 
             w.Begin(BlockType.List);
-            w.ListItem(FullCommandChain, parser);
-            w.Begin(BlockType.ListItem);
-            w.Append(FullCommandChain, parser);
-            if (HasCommands(parser))
+            w.ListItem(FullCommandChain, cmd);
+            if (HasCommands(cmd.ArgumentParser))
             {
+                w.Begin(BlockType.ListItem);
+                w.Append(FullCommandChain, cmd);
                 w.Syntactic(" ").Variable("command").Syntactic(" ...");
+                w.End(BlockType.ListItem);
             }
-            w.End(BlockType.ListItem);
             w.End(BlockType.List);
         }
 
-        private static void WriteHelpUsage(DocumentWriter w, ArgumentParser parser)
+        private static void WriteHelpUsage(DocumentWriter w, CommandBase cmd)
         {
             w.Headline2("Help");
 
             w.Begin(BlockType.List);
             w.Begin(BlockType.ListItem);
-            w.Append(SlimCommandChain, parser);
+            w.Append(SlimCommandChain, cmd);
             w.Append(FullHelpIndicator);
             w.End(BlockType.ListItem);
-            if (HasCommands(parser))
+            if (HasCommands(cmd.ArgumentParser))
             {
                 w.Begin(BlockType.ListItem);
-                w.Append(SlimCommandChain, parser)
+                w.Append(SlimCommandChain, cmd)
                     .Syntactic(" ").Variable("command")
                     .Append(FullHelpIndicator);
                 w.End(BlockType.ListItem);
@@ -193,7 +203,7 @@ namespace Mastersign.Bench.Cli
             {
                 w.Headline2("Flags");
                 w.Begin(BlockType.DefinitionList);
-                foreach (FlagArgument flag in flags)
+                foreach (var flag in flags)
                 {
                     w.Begin(BlockType.Definition);
                     w.DefinitionTopic(FormatFlag, flag);
@@ -211,7 +221,7 @@ namespace Mastersign.Bench.Cli
             {
                 w.Headline2("Options");
                 w.Begin(BlockType.DefinitionList);
-                foreach (OptionArgument option in options)
+                foreach (var option in options)
                 {
                     var hasDefinitions = option.PossibleValueInfo != null || option.DefaultValueInfo != null;
                     w.Begin(BlockType.Definition);
@@ -245,6 +255,46 @@ namespace Mastersign.Bench.Cli
             }
         }
 
+        private static void WritePositionals(DocumentWriter w, ArgumentParser parser)
+        {
+            var positionals = parser.GetPositionals();
+            if (positionals.Length > 0)
+            {
+                w.Headline2("Positional Arguments");
+                w.Begin(BlockType.DefinitionList);
+                foreach (var pArg in positionals)
+                {
+                    var hasDefinitions = pArg.PossibleValueInfo != null;
+                    w.Begin(BlockType.Definition);
+                    w.Begin(BlockType.DefinitionTopic)
+                        .Text(pArg.OrderIndex.ToString().PadLeft(2) + ") ")
+                        .Append(FormatPositional, pArg)
+                        .End(BlockType.DefinitionTopic);
+                    w.Begin(BlockType.DefinitionContent);
+                    if (hasDefinitions)
+                    {
+                        if (!pArg.Description.IsEmpty)
+                        {
+                            w.Paragraph(pArg.Description);
+                        }
+                        w.Begin(BlockType.PropertyList);
+                        if (!pArg.PossibleValueInfo.IsEmpty)
+                        {
+                            w.Property("Expected", pArg.PossibleValueInfo);
+                        }
+                        w.End(BlockType.PropertyList);
+                    }
+                    else if (!pArg.Description.IsEmpty)
+                    {
+                        w.Append(pArg.Description);
+                    }
+                    w.End(BlockType.DefinitionContent);
+                    w.End(BlockType.Definition);
+                }
+                w.End(BlockType.DefinitionList);
+            }
+        }
+
         private static void WriteCommands(DocumentWriter w, ArgumentParser parser)
         {
             var commands = parser.GetCommands();
@@ -252,7 +302,7 @@ namespace Mastersign.Bench.Cli
             {
                 w.Headline2("Commands");
                 w.Begin(BlockType.DefinitionList);
-                foreach (CommandArgument cmd in parser.GetCommands())
+                foreach (var cmd in parser.GetCommands())
                 {
                     w.Begin(BlockType.Definition);
                     w.DefinitionTopic(FormatCommand, cmd);

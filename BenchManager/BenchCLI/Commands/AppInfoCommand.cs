@@ -12,11 +12,11 @@ namespace Mastersign.Bench.Cli.Commands
 
         public override string Name => CMD_NAME;
 
-        protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
+        protected override ArgumentParser InitializeArgumentParser()
         {
             var flagRaw = new FlagArgument(FLAG_RAW, "r");
 
-            return new ArgumentParser(parent, Name,
+            return new ArgumentParser(Name,
                 flagRaw);
         }
 

@@ -12,7 +12,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         public override string Name => CMD_NAME;
 
-        protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
+        protected override ArgumentParser InitializeArgumentParser()
         {
             var commandGet = new CommandArgument(COMMAND_GET, "g");
             commandGet.Description
@@ -20,7 +20,7 @@ namespace Mastersign.Bench.Cli.Commands
             commandGet.SyntaxInfo
                 .Variable("property name");
 
-            return new ArgumentParser(parent, Name,
+            return new ArgumentParser(Name,
                 commandGet);
         }
 

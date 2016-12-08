@@ -21,5 +21,17 @@ namespace Mastersign.Bench.Cli
             return !ContainsOneOfChars(v, Path.GetInvalidPathChars());
         }
 
+        public static bool IsEnumMember(string v, Type enumType)
+        {
+            try
+            {
+                Enum.Parse(enumType, v, true);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        }
     }
 }

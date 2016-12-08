@@ -45,12 +45,12 @@ namespace Mastersign.Bench.Cli
             {
                 items.Add(EscapeString(item));
             }
-            Console.WriteLine("[{0}]", string.Join(", ", items.ToArray()));
+            Console.WriteLine("{0} = [{1}]", key, string.Join(", ", items.ToArray()));
         }
 
         public void WriteValue(string key, string value)
         {
-            Console.WriteLine("{0} = {1}", EscapeString(value.ToString()));
+            Console.WriteLine("{0} = {1}", key, EscapeString(value.ToString()));
         }
 
         public void WriteValue(string key, bool value)

@@ -15,13 +15,10 @@ namespace Mastersign.Bench.Cli
 
         private readonly Dictionary<string, Argument> arguments = new Dictionary<string, Argument>();
 
-        public ArgumentParser Parent { get; private set; }
-
         public string Name { get; private set; }
 
-        public ArgumentParser(ArgumentParser parent, string name, IEnumerable<Argument> arguments)
+        public ArgumentParser(string name, IEnumerable<Argument> arguments)
         {
-            Parent = parent;
             Name = name;
             ParserType = ArgumentParserType.CaseSensitive;
             foreach (var arg in arguments)
@@ -30,8 +27,8 @@ namespace Mastersign.Bench.Cli
             }
         }
 
-        public ArgumentParser(ArgumentParser parent, string name, params Argument[] arguments)
-            : this(parent, name, (IEnumerable<Argument>)arguments)
+        public ArgumentParser(string name, params Argument[] arguments)
+            : this(name, (IEnumerable<Argument>)arguments)
         {
         }
 
@@ -40,31 +37,35 @@ namespace Mastersign.Bench.Cli
             arguments.Add(arg.Name, arg);
         }
 
-        private Argument[] FilterArguments(ArgumentType type)
+        private T[] FilterArguments<T>(ArgumentType type) where T : Argument
         {
-            var res = new List<Argument>();
+            var res = new List<T>();
             foreach (var a in arguments.Values)
             {
                 if (a.Type == type)
                 {
-                    res.Add(a);
+                    res.Add((T)a);
                 }
             }
             res.Sort((a, b) => a.Name.CompareTo(b.Name));
             return res.ToArray();
         }
 
-        public Argument[] GetFlags() => FilterArguments(ArgumentType.Flag);
+        public FlagArgument[] GetFlags()
+            => FilterArguments<FlagArgument>(ArgumentType.Flag);
 
-        public Argument[] GetOptions()
+        public OptionArgument[] GetOptions()
+            => FilterArguments<OptionArgument>(ArgumentType.Option);
+
+        public PositionalArgument[] GetPositionals()
         {
-            return FilterArguments(ArgumentType.Option);
+            var list = new List<PositionalArgument>(FilterArguments<PositionalArgument>(ArgumentType.Positional));
+            list.Sort((a1, a2) => a1.OrderIndex.CompareTo(a2.OrderIndex));
+            return list.ToArray();
         }
 
-        public Argument[] GetCommands()
-        {
-            return FilterArguments(ArgumentType.Command);
-        }
+        public CommandArgument[] GetCommands()
+            => FilterArguments<CommandArgument>(ArgumentType.Command);
 
         private bool IsHelpIndicator(string v)
         {
@@ -81,10 +82,11 @@ namespace Mastersign.Bench.Cli
         public ArgumentParsingResult Parse(string[] args)
         {
             var index = new ArgumentIndex(
-                ParserType == ArgumentParserType.CaseSensitive, 
+                ParserType == ArgumentParserType.CaseSensitive,
                 arguments.Values);
             IDictionary<string, bool> flagValues = new Dictionary<string, bool>();
             IDictionary<string, string> optionValues = new Dictionary<string, string>();
+            IDictionary<string, string> positionalValues = new Dictionary<string, string>();
             string command = null;
             var position = 0;
             var help = false;
@@ -98,13 +100,10 @@ namespace Mastersign.Bench.Cli
                     help = true;
                     break;
                 }
-                var a = index.LookUp(args[position]);
+                var a = index.LookUp(args[position], positionalValues.Count);
                 if (a == null)
                 {
-                    if (GetCommands().Length > 0)
-                    {
-                        invalid = args[position];
-                    }
+                    invalid = args[position];
                     break;
                 }
                 switch (a.Type)
@@ -127,6 +126,15 @@ namespace Mastersign.Bench.Cli
                         }
                         optionValues[a.Name] = args[position];
                         break;
+                    case ArgumentType.Positional:
+                        var pArg = (PositionalArgument)a;
+                        if (pArg.ValuePredicate != null && !pArg.ValuePredicate(args[position]))
+                        {
+                            invalid = pArg.Name + ": " + args[position];
+                            break;
+                        }
+                        positionalValues[a.Name] = args[position];
+                        break;
                     case ArgumentType.Command:
                         command = a.Name;
                         break;
@@ -138,23 +146,23 @@ namespace Mastersign.Bench.Cli
             }
             if (help)
             {
-                return new ArgumentParsingResult(this, ArgumentParsingResultType.Help, 
-                    null, null, null, null, null);
+                return new ArgumentParsingResult(this, ArgumentParsingResultType.Help,
+                    null, null, null, null, null, null);
             }
             if (invalid != null)
             {
                 return new ArgumentParsingResult(this, ArgumentParsingResultType.InvalidArgument,
-                    null, invalid, null, null, null);
+                    null, invalid, null, null, null, null);
             }
             var rest = new string[args.Length - position];
             Array.Copy(args, position, rest, 0, rest.Length);
             if (command != null)
             {
-                return new ArgumentParsingResult(this, ArgumentParsingResultType.Command, 
-                    command, null, rest, optionValues, flagValues);
+                return new ArgumentParsingResult(this, ArgumentParsingResultType.Command,
+                    command, null, rest, optionValues, flagValues, positionalValues);
             }
-            return new ArgumentParsingResult(this, ArgumentParsingResultType.NoCommand, 
-                null, null, rest, optionValues, flagValues);
+            return new ArgumentParsingResult(this, ArgumentParsingResultType.NoCommand,
+                null, null, rest, optionValues, flagValues, positionalValues);
         }
     }
 
@@ -166,6 +174,7 @@ namespace Mastersign.Bench.Cli
         private readonly Dictionary<string, Argument> optionMnemonics = new Dictionary<string, Argument>();
         private readonly Dictionary<string, Argument> commands = new Dictionary<string, Argument>();
         private readonly Dictionary<string, Argument> commandMnemonics = new Dictionary<string, Argument>();
+        private readonly List<Argument> positionals = new List<Argument>();
 
         private readonly bool CaseSensitive;
 
@@ -186,38 +195,44 @@ namespace Mastersign.Bench.Cli
 
         private void AddArgument(Argument arg)
         {
+            var namedArg = arg as NamedArgument;
             switch (arg.Type)
             {
                 case ArgumentType.Flag:
                     flags[PrepareArgument(arg.Name)] = arg;
-                    foreach (var alias in arg.Aliases)
+                    foreach (var alias in namedArg.Aliases)
                     {
                         flags[PrepareArgument(alias)] = arg;
                     }
-                    flagMnemonics[PrepareArgument(arg.Mnemonic)] = arg;
+                    flagMnemonics[PrepareArgument(namedArg.Mnemonic)] = arg;
                     break;
                 case ArgumentType.Option:
                     options[PrepareArgument(arg.Name)] = arg;
-                    foreach (var alias in arg.Aliases)
+                    foreach (var alias in namedArg.Aliases)
                     {
                         options[PrepareArgument(alias)] = arg;
                     }
-                    optionMnemonics[PrepareArgument(arg.Mnemonic)] = arg;
+                    optionMnemonics[PrepareArgument(namedArg.Mnemonic)] = arg;
                     break;
                 case ArgumentType.Command:
                     commands[PrepareArgument(arg.Name)] = arg;
-                    foreach (var alias in arg.Aliases)
+                    foreach (var alias in namedArg.Aliases)
                     {
                         commands[PrepareArgument(alias)] = arg;
                     }
-                    commandMnemonics[PrepareArgument(arg.Mnemonic)] = arg;
+                    commandMnemonics[PrepareArgument(namedArg.Mnemonic)] = arg;
+                    break;
+                case ArgumentType.Positional:
+                    positionals.Add(arg);
                     break;
                 default:
                     throw new NotSupportedException();
             }
+            positionals.Sort((a1, a2) =>
+                ((PositionalArgument)a1).OrderIndex.CompareTo(((PositionalArgument)a2).OrderIndex));
         }
 
-        public Argument LookUp(string v)
+        public Argument LookUp(string v, int consumedPositionals)
         {
             Argument a;
             v = PrepareArgument(v);
@@ -237,6 +252,9 @@ namespace Mastersign.Bench.Cli
             }
             if (commands.TryGetValue(v, out a)) return a;
             if (commandMnemonics.TryGetValue(v, out a)) return a;
+
+            if (consumedPositionals < positionals.Count) return positionals[consumedPositionals];
+
             return null;
         }
     }
@@ -251,6 +269,7 @@ namespace Mastersign.Bench.Cli
     {
         Flag,
         Option,
+        Positional,
         Command
     }
 
@@ -260,24 +279,33 @@ namespace Mastersign.Bench.Cli
 
         public string Name { get; private set; }
 
-        public string Mnemonic { get; private set; }
-
-        public string[] Aliases { get; private set; }
 
         public Document Description { get; private set; }
 
-        protected Argument(ArgumentType type, string name, string mnemonic,
-            params string[] aliases)
+        protected Argument(ArgumentType type, string name)
         {
             Type = type;
             Name = name;
-            Mnemonic = mnemonic ?? name.Substring(0, 1);
-            Aliases = aliases;
             Description = new Document();
         }
     }
 
-    class FlagArgument : Argument
+    abstract class NamedArgument : Argument
+    {
+        public string Mnemonic { get; private set; }
+
+        public string[] Aliases { get; private set; }
+
+        protected NamedArgument(ArgumentType type, string name, string mnemonic,
+            params string[] aliases)
+            : base(type, name)
+        {
+            Mnemonic = mnemonic ?? name.Substring(0, 1);
+            Aliases = aliases;
+        }
+    }
+
+    class FlagArgument : NamedArgument
     {
         public FlagArgument(string name, string mnemonic,
             params string[] aliases)
@@ -286,18 +314,18 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    delegate bool OptionValuePredicate(string value);
+    delegate bool ArgumentValuePredicate(string value);
 
-    class OptionArgument : Argument
+    class OptionArgument : NamedArgument
     {
         public Document PossibleValueInfo { get; private set; }
 
         public Document DefaultValueInfo { get; private set; }
 
-        public OptionValuePredicate ValuePredicate { get; private set; }
+        public ArgumentValuePredicate ValuePredicate { get; private set; }
 
         public OptionArgument(string name, string mnemonic,
-            OptionValuePredicate valuePredicate,
+            ArgumentValuePredicate valuePredicate,
             params string[] aliases)
             : base(ArgumentType.Option, name, mnemonic, aliases)
         {
@@ -307,7 +335,25 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    class CommandArgument : Argument
+    class PositionalArgument : Argument
+    {
+        public Document PossibleValueInfo { get; private set; }
+
+        public int OrderIndex { get; private set; }
+
+        public ArgumentValuePredicate ValuePredicate { get; private set; }
+
+        public PositionalArgument(string name,
+            ArgumentValuePredicate valuePredicate, int position)
+            : base(ArgumentType.Positional, name)
+        {
+            PossibleValueInfo = new Document();
+            OrderIndex = position;
+            ValuePredicate = valuePredicate;
+        }
+    }
+
+    class CommandArgument : NamedArgument
     {
         public Document SyntaxInfo { get; private set; }
 
@@ -335,10 +381,14 @@ namespace Mastersign.Bench.Cli
 
         private readonly IDictionary<string, bool> flags;
 
+        private readonly IDictionary<string, string> positionals;
+
         public ArgumentParsingResult(ArgumentParser parser,
             ArgumentParsingResultType type,
             string command, string invalidArgument, string[] rest,
-            IDictionary<string, string> options, IDictionary<string, bool> flags)
+            IDictionary<string, string> options,
+            IDictionary<string, bool> flags,
+            IDictionary<string, string> positionals)
         {
             Parser = parser;
             Type = type;
@@ -347,6 +397,7 @@ namespace Mastersign.Bench.Cli
             Rest = rest;
             this.options = options ?? new Dictionary<string, string>();
             this.flags = flags ?? new Dictionary<string, bool>();
+            this.positionals = positionals ?? new Dictionary<string, string>();
         }
 
         public string GetOptionValue(string name, string def = null)
@@ -358,6 +409,12 @@ namespace Mastersign.Bench.Cli
         public bool GetFlag(string name)
         {
             return flags.ContainsKey(name);
+        }
+
+        public string GetPositionalValue(string name, string def = null)
+        {
+            string res;
+            return positionals.TryGetValue(name, out res) ? res : def;
         }
 
         public override string ToString()
@@ -382,6 +439,16 @@ namespace Mastersign.Bench.Cli
                         var optionNames = new List<string>(options.Keys);
                         optionNames.Sort();
                         foreach (var n in optionNames)
+                        {
+                            sb.AppendLine("  * " + n + " = " + options[n]);
+                        }
+                    }
+                    if (positionals.Count > 0)
+                    {
+                        sb.AppendLine("Positionals:");
+                        var positionalNames = new List<string>(positionals.Keys);
+                        positionalNames.Sort();
+                        foreach (var n in positionalNames)
                         {
                             sb.AppendLine("  * " + n + " = " + options[n]);
                         }

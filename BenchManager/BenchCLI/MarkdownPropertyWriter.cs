@@ -11,7 +11,7 @@ namespace Mastersign.Bench.Cli
 
         public MarkdownPropertyWriter(Stream stream)
         {
-            writer = new StreamWriter(stream, Encoding.UTF8);
+            writer = new StreamWriter(stream, new UTF8Encoding(false));
         }
 
         public void Dispose()

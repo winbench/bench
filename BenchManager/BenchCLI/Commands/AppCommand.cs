@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
@@ -10,15 +11,20 @@ namespace Mastersign.Bench.Cli.Commands
 
         private const string COMMAND_PROPERTY = "property";
         private const string COMMAND_INFO = "info";
+        private const string COMMAND_LIST_PROPERTIES = "list-properties";
+
+        private readonly BenchCommand appInfoCommand = new AppInfoCommand();
+        private readonly BenchCommand appListPropertiesCommand = new AppListPropertiesCommand();
 
         public override string Name => CMD_NAME;
 
         public AppCommand()
         {
-            RegisterSubCommand(new AppInfoCommand());
+            RegisterSubCommand(appInfoCommand);
+            RegisterSubCommand(appListPropertiesCommand);
         }
 
-        protected override ArgumentParser InitializeArgumentParser(ArgumentParser parent)
+        protected override ArgumentParser InitializeArgumentParser()
         {
             var commandProperty = new CommandArgument(COMMAND_PROPERTY, "p", "prop");
             commandProperty.Description
@@ -30,13 +36,20 @@ namespace Mastersign.Bench.Cli.Commands
 
             var commandInfo = new CommandArgument(COMMAND_INFO, "n");
             commandInfo.Description
-                .Text("Shows a detailed info of an app.");
+                .Text("Shows a detailed, human readable info of an app.");
             commandInfo.SyntaxInfo
                 .Variable("app ID");
 
-            return new ArgumentParser(parent, Name,
+            var commandListProperties = new CommandArgument(AppListPropertiesCommand.CMD_NAME, "lp", "lst-p");
+            commandListProperties.Description
+                .Text("Lists the properties of an app.");
+            commandListProperties.SyntaxInfo
+                .Append(HelpFormatter.CommandChain, appListPropertiesCommand);
+
+            return new ArgumentParser(Name,
                 commandProperty,
-                commandInfo);
+                commandInfo,
+                commandListProperties);
         }
 
         protected override bool ExecuteUnknownSubCommand(string command, string[] args)
@@ -96,27 +109,30 @@ namespace Mastersign.Bench.Cli.Commands
             }
 
             var app = cfg.Apps[appId];
-            var knownProperties = app.KnownProperties;
-            var unknownProperties = app.UnknownProperties;
-            var lookup = new Dictionary<string, object>();
-            var names = new List<string>();
-            foreach (var kvp in knownProperties)
-            {
-                lookup[kvp.Key] = kvp.Value;
-                if (!names.Contains(kvp.Key)) names.Add(kvp.Key);
-            }
-            foreach (var kvp in unknownProperties)
-            {
-                lookup[kvp.Key] = kvp.Value;
-                if (!names.Contains(kvp.Key)) names.Add(kvp.Key);
-            }
-            names.Sort();
-            WriteLine("[" + appId + "]");
-            foreach (var p in names)
-            {
-                WriteLine(string.Format("{0} = {1}", p, lookup[p]));
-            }
+            var w = new PlainTextDocumentWriter(Console.Out);
+            WriteAppInfo(app, w);
+
             return true;
+        }
+
+        private void WriteAppInfo(AppFacade app, DocumentWriter writer)
+        {
+            writer.Begin(BlockType.Document);
+            writer.Title(app.Label);
+
+            writer.Begin(BlockType.List);
+            WriteProperty(writer, "ID", app.ID);
+            writer.End(BlockType.List);
+
+            writer.End(BlockType.Document);
+        }
+
+        private void WriteProperty(DocumentWriter writer, string key, string value)
+        {
+            writer
+                .Begin(BlockType.ListItem)
+                .Keyword(key).Text(": ").Syntactic(value)
+                .End(BlockType.ListItem);
         }
     }
 }
