@@ -5,7 +5,7 @@ using System.Text;
 namespace Mastersign.Docs
 {
 
-    public interface IDocumentWriter
+    public interface IDocumentWriter : IDisposable
     {
         void Begin(BlockType typ);
 

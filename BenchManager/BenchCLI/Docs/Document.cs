@@ -72,6 +72,11 @@ namespace Mastersign.Docs
             elements.WriteTo(this);
         }
 
+        public override void Dispose()
+        {
+            // nothing
+        }
+
         private readonly List<Element> elements = new List<Element>();
 
         private void Record(Element e)

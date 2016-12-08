@@ -9,11 +9,21 @@ namespace Mastersign.Docs
     {
         private const string INDENT_1 = "  ";
         private const string INDENT_2 = "    ";
-        public readonly TextWriter Target;
 
-        public PlainTextDocumentWriter(TextWriter target)
+        public TextWriter writer;
+
+        public PlainTextDocumentWriter(Stream target)
         {
-            Target = target;
+            writer = new StreamWriter(target, Encoding.Default);
+        }
+
+        public override void Dispose()
+        {
+            if (writer != null)
+            {
+                writer.Dispose();
+                writer = null;
+            }
         }
 
         private enum WriteMode
@@ -56,7 +66,7 @@ namespace Mastersign.Docs
                     break;
                 default:
                     breakCounter = 0;
-                    Target.Write(format, args);
+                    writer.Write(format, args);
                     break;
             }
         }
@@ -75,7 +85,7 @@ namespace Mastersign.Docs
                     if (breakCounter > 1) return;
                     breakCounter++;
                     indentFlag = false;
-                    Target.WriteLine();
+                    writer.WriteLine();
                     break;
             }
         }

@@ -198,10 +198,18 @@ namespace Mastersign.Bench.Cli
             PrintHelpHint();
         }
 
+        protected virtual void PrintMissingArgumentWarning(string arg)
+        {
+            WriteError("Missing Argument(s): " + arg);
+            PrintHelpHint();
+        }
+
         protected virtual void PrintHelp()
         {
-            var w = new PlainTextDocumentWriter(Console.Out);
-            PrintHelp(w);
+            using (var w = new PlainTextDocumentWriter(Console.OpenStandardOutput()))
+            {
+                PrintHelp(w);
+            }
         }
 
         protected virtual void PrintHelp(DocumentWriter w)
@@ -230,7 +238,12 @@ namespace Mastersign.Bench.Cli
             }
             if (Arguments.Type == ArgumentParsingResultType.InvalidArgument)
             {
-                PrintInvalidArgumentWarning(Arguments.InvalidArgument);
+                PrintInvalidArgumentWarning(Arguments.ErrorMessage);
+                return false;
+            }
+            if (Arguments.Type == ArgumentParsingResultType.MissingArgument)
+            {
+                PrintMissingArgumentWarning(Arguments.ErrorMessage);
                 return false;
             }
             try

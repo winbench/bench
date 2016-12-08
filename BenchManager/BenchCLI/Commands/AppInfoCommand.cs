@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
@@ -8,33 +9,55 @@ namespace Mastersign.Bench.Cli.Commands
     {
         public const string CMD_NAME = "info";
 
-        private const string FLAG_RAW = "raw";
+        private const string OPTION_FORMAT = "format";
+        private const string POSITIONAL_APP_ID = "App ID";
+
+        private const DocumentOutputFormat DEF_FORMAT = DocumentOutputFormat.Plain;
 
         public override string Name => CMD_NAME;
 
+        private DocumentOutputFormat Format = DEF_FORMAT;
+
         protected override ArgumentParser InitializeArgumentParser()
         {
-            var flagRaw = new FlagArgument(FLAG_RAW, "r");
+            var optionFormat = new OptionArgument(OPTION_FORMAT, "f",
+                v => ArgumentValidation.IsEnumMember(v, typeof(DocumentOutputFormat)),
+                "fmt");
+            optionFormat.Description
+                .Text("Specify the output format.");
+            optionFormat.PossibleValueInfo
+                .Syntactic(string.Join(" | ", Enum.GetNames(typeof(DocumentOutputFormat))));
+            optionFormat.DefaultValueInfo
+                .Syntactic(DEF_FORMAT.ToString());
 
-            return new ArgumentParser(Name,
-                flagRaw);
+            var positionalAppId = new PositionalArgument(POSITIONAL_APP_ID,
+                ArgumentValidation.IsIdString,
+                1);
+            positionalAppId.Description
+                .Text("Specifies the app to display the description for.");
+            positionalAppId.PossibleValueInfo
+                .Text("An app ID is an alphanumeric string without whitespace.");
+
+            var parser = new ArgumentParser(Name,
+                optionFormat,
+                positionalAppId);
+            parser.Description
+                .Paragraph("Displays a human readable description of an app.");
+
+            return parser;
         }
 
-        private bool ShowRaw => Arguments.GetFlag(FLAG_RAW);
+        protected override bool ValidateArguments()
+        {
+            Format = (DocumentOutputFormat)Enum.Parse(typeof(DocumentOutputFormat),
+                Arguments.GetOptionValue(OPTION_FORMAT, DEF_FORMAT.ToString()), true);
+
+            return true;
+        }
 
         protected override bool ExecuteCommand(string[] args)
         {
-            if (args.Length != 1)
-            {
-                WriteError("Invalid arguments after 'info'.");
-                if (ShowRaw)
-                    WriteLine("Expected: bench app info --raw <app ID>");
-                else
-                    WriteLine("Expected: bench app info <app ID>");
-                return false;
-            }
-
-            var appId = args[0];
+            var appId = Arguments.GetPositionalValue(POSITIONAL_APP_ID);
 
             var cfg = LoadConfiguration();
             if (!cfg.Apps.Exists(appId))
@@ -44,89 +67,32 @@ namespace Mastersign.Bench.Cli.Commands
             }
 
             var app = cfg.Apps[appId];
-            if (ShowRaw)
-                PrintRawProperties(cfg, appId);
-            else
-                PrintProperties(app);
+            using (var w = DocumentWriterFactory.Create(Format, Console.OpenStandardOutput()))
+            {
+                WriteAppInfo(app, w);
+            }
+
             return true;
         }
 
-        private void PrintProperties(AppFacade app)
+        private void WriteAppInfo(AppFacade app, DocumentWriter writer)
         {
-            var knownProperties = app.KnownProperties;
-            var unknownProperties = app.UnknownProperties;
-            var lookup = new Dictionary<string, object>();
-            var names = new List<string>();
-            foreach (var kvp in knownProperties)
-            {
-                lookup[kvp.Key] = kvp.Value;
-                if (!names.Contains(kvp.Key)) names.Add(kvp.Key);
-            }
-            foreach (var kvp in unknownProperties)
-            {
-                lookup[kvp.Key] = kvp.Value;
-                if (!names.Contains(kvp.Key)) names.Add(kvp.Key);
-            }
-            names.Sort();
-            foreach (var p in names)
-            {
-                PrintProperty(p, lookup[p]);
-            }
+            writer.Begin(BlockType.Document);
+            writer.Title(app.Label);
+
+            writer.Begin(BlockType.List);
+            WriteProperty(writer, "ID", app.ID);
+            writer.End(BlockType.List);
+
+            writer.End(BlockType.Document);
         }
 
-        private void PrintRawProperties(BenchConfiguration cfg, string appId)
+        private void WriteProperty(DocumentWriter writer, string key, string value)
         {
-            foreach (var name in cfg.PropertyNames(appId))
-            {
-                PrintProperty(name, cfg.GetRawGroupValue(appId, name));
-            }
-        }
-
-        private void PrintProperty(string name, object value)
-        {
-            if (value is bool)
-            {
-                value = (bool)value ? "True" : "False";
-            }
-            else if (value is string[])
-            {
-                var items = new List<string>();
-                foreach (var item in (string[])value)
-                {
-                    items.Add(EscapeString(item));
-                }
-                value = "[" + string.Join(", ", items.ToArray()) + "]";
-            }
-            else if (value is Dictionary<string, string>)
-            {
-                var pairs = new List<string>();
-                foreach (var kvp in (Dictionary<string, string>)value)
-                {
-                    pairs.Add(string.Format("{0}: {1}",
-                        EscapeString(kvp.Key), EscapeString(kvp.Value)));
-                }
-                value = "{" + string.Join(", ", pairs.ToArray()) + "}";
-            }
-            else if (value is string)
-            {
-                value = EscapeString(value.ToString());
-            }
-            else if (value == null)
-            {
-                value = "Null";
-            }
-            else
-            {
-                value = "Unsupported";
-            }
-            WriteLine(string.Format("{0} = {1}", name, value));
-        }
-
-        private string EscapeString(string value)
-        {
-            return value != null
-                ? "\"" + value.Replace(@"\", @"\\").Replace("\"", "\\\"") + "\""
-                : null;
+            writer
+                .Begin(BlockType.ListItem)
+                .Keyword(key).Text(": ").Syntactic(value)
+                .End(BlockType.ListItem);
         }
     }
 }

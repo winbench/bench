@@ -33,5 +33,10 @@ namespace Mastersign.Bench.Cli
                 return false;
             }
         }
+
+        public static bool IsIdString(string v)
+        {
+            return !string.IsNullOrEmpty(v) && !v.Contains(" ");
+        }
     }
 }

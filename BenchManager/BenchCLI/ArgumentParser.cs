@@ -17,6 +17,8 @@ namespace Mastersign.Bench.Cli
 
         public string Name { get; private set; }
 
+        public Document Description { get; private set; }
+
         public ArgumentParser(string name, IEnumerable<Argument> arguments)
         {
             Name = name;
@@ -25,6 +27,7 @@ namespace Mastersign.Bench.Cli
             {
                 RegisterArgument(arg);
             }
+            Description = new Document();
         }
 
         public ArgumentParser(string name, params Argument[] arguments)
@@ -77,6 +80,18 @@ namespace Mastersign.Bench.Cli
                 }
             }
             return false;
+        }
+
+        private string[] MissingPositinalArguments(int foundArgumentsCount)
+        {
+            var positionalArgs = GetPositionals();
+            var missingArgs = Math.Max(0, positionalArgs.Length - foundArgumentsCount);
+            var list = new string[missingArgs];
+            for (int i = 0; i < missingArgs; i++)
+            {
+                list[i] = positionalArgs[foundArgumentsCount + i].Name;
+            }
+            return list;
         }
 
         public ArgumentParsingResult Parse(string[] args)
@@ -153,6 +168,13 @@ namespace Mastersign.Bench.Cli
             {
                 return new ArgumentParsingResult(this, ArgumentParsingResultType.InvalidArgument,
                     null, invalid, null, null, null, null);
+            }
+            var missingPositionalArguments = MissingPositinalArguments(positionalValues.Count);
+            if (missingPositionalArguments.Length > 0)
+            {
+                return new ArgumentParsingResult(this, ArgumentParsingResultType.MissingArgument,
+                    null, string.Join(", ", missingPositionalArguments),
+                    null, null, null, null);
             }
             var rest = new string[args.Length - position];
             Array.Copy(args, position, rest, 0, rest.Length);
@@ -373,7 +395,7 @@ namespace Mastersign.Bench.Cli
 
         public string Command { get; private set; }
 
-        public string InvalidArgument { get; private set; }
+        public string ErrorMessage { get; private set; }
 
         public string[] Rest { get; private set; }
 
@@ -385,7 +407,7 @@ namespace Mastersign.Bench.Cli
 
         public ArgumentParsingResult(ArgumentParser parser,
             ArgumentParsingResultType type,
-            string command, string invalidArgument, string[] rest,
+            string command, string errorMessage, string[] rest,
             IDictionary<string, string> options,
             IDictionary<string, bool> flags,
             IDictionary<string, string> positionals)
@@ -393,7 +415,7 @@ namespace Mastersign.Bench.Cli
             Parser = parser;
             Type = type;
             Command = command;
-            InvalidArgument = invalidArgument;
+            ErrorMessage = errorMessage;
             Rest = rest;
             this.options = options ?? new Dictionary<string, string>();
             this.flags = flags ?? new Dictionary<string, bool>();
@@ -424,7 +446,10 @@ namespace Mastersign.Bench.Cli
             switch (Type)
             {
                 case ArgumentParsingResultType.InvalidArgument:
-                    sb.AppendLine("Invalid Argument: " + InvalidArgument);
+                    sb.AppendLine("Invalid Argument: " + ErrorMessage);
+                    break;
+                case ArgumentParsingResultType.MissingArgument:
+                    sb.AppendLine("Missing Argument(s): " + ErrorMessage);
                     break;
                 case ArgumentParsingResultType.Command:
                 case ArgumentParsingResultType.NoCommand:
@@ -468,6 +493,7 @@ namespace Mastersign.Bench.Cli
     enum ArgumentParsingResultType
     {
         InvalidArgument,
+        MissingArgument,
         Help,
         Command,
         NoCommand

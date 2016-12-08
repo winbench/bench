@@ -40,6 +40,8 @@ namespace Mastersign.Docs
 
         public abstract DocumentWriter LineBreak();
 
+        public abstract void Dispose();
+
         #endregion
 
         #region Convenience Methods

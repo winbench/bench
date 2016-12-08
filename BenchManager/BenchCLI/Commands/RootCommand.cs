@@ -98,19 +98,19 @@ namespace Mastersign.Bench.Cli.Commands
             commandConfig.Description
                 .Text("Read or write values from the user configuration.");
             commandConfig.SyntaxInfo
-                .Append(HelpFormatter.CommandChain, configCommand);
+                .Append(HelpFormatter.CommandSyntax, configCommand);
 
             var commandDownloads = new CommandArgument(DownloadsCommand.CMD_NAME, "d", "cache", "dl");
             commandDownloads.Description
                 .Text("Manage the app resource cache.");
             commandDownloads.SyntaxInfo
-                .Append(HelpFormatter.CommandChain, downloadsCommand);
+                .Append(HelpFormatter.CommandSyntax, downloadsCommand);
 
             var commandApp = new CommandArgument(AppCommand.CMD_NAME, "a");
             commandApp.Description
                 .Text("Manage individual apps.");
             commandApp.SyntaxInfo
-                .Append(HelpFormatter.CommandChain, appCommand);
+                .Append(HelpFormatter.CommandSyntax, appCommand);
 
             var commandProject = new CommandArgument(COMMAND_PROJECT, "p", "prj");
             commandProject.Description

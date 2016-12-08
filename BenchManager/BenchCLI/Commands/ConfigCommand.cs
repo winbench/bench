@@ -20,8 +20,13 @@ namespace Mastersign.Bench.Cli.Commands
             commandGet.SyntaxInfo
                 .Variable("property name");
 
-            return new ArgumentParser(Name,
+            var parser = new ArgumentParser(Name,
                 commandGet);
+
+            parser.Description
+                .Paragraph("Read and write the Bench configuration.");
+
+            return parser;
         }
 
         protected override bool ExecuteUnknownSubCommand(string command, string[] args)

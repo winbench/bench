@@ -100,7 +100,7 @@ namespace Mastersign.Bench.Cli
             }
         }
 
-        public static void CommandChain(DocumentWriter w, CommandBase cmd)
+        public static void CommandSyntax(DocumentWriter w, CommandBase cmd)
         {
             var cmdChain = cmd.CommandChain();
             for (int i = 0; i < cmdChain.Length; i++)
@@ -113,6 +113,10 @@ namespace Mastersign.Bench.Cli
             {
                 var p = cmdChain[cmdChain.Length - 1].ArgumentParser;
                 w.Append(FlagsAndOptionsGeneric, p);
+            }
+            if (cmd.ArgumentParser.GetCommands().Length > 0)
+            {
+                w.Syntactic(" ").Variable("sub-command");
             }
         }
 
@@ -152,6 +156,7 @@ namespace Mastersign.Bench.Cli
         public static void WriteHelp(DocumentWriter w, CommandBase cmd)
         {
             var parser = cmd.ArgumentParser;
+            w.Append(parser.Description);
             WriteUsage(w, cmd);
             WriteHelpUsage(w, cmd);
             WriteFlags(w, parser);

@@ -12,19 +12,13 @@ namespace Mastersign.Bench.Cli.Commands
         private const string OPTION_FORMAT = "format";
         private const string POSITIONAL_APP_ID = "App ID";
 
-        private enum OutputFormat
-        {
-            Plain,
-            Markdown,
-            //JSON,
-            //XML,
-        };
-
-        private const OutputFormat DEF_FORMAT = OutputFormat.Plain;
+        private const DataOutputFormat DEF_FORMAT = DataOutputFormat.Plain;
 
         public override string Name => CMD_NAME;
 
-        private OutputFormat Format = OutputFormat.Plain;
+        private bool ShowRaw => Arguments.GetFlag(FLAG_RAW);
+
+        private DataOutputFormat Format = DataOutputFormat.Plain;
 
         protected override ArgumentParser InitializeArgumentParser()
         {
@@ -33,34 +27,39 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("Shows the raw properties without expansion and default values.");
 
             var optionFormat = new OptionArgument(OPTION_FORMAT, "f",
-                v => ArgumentValidation.IsEnumMember(v, typeof(OutputFormat)),
+                v => ArgumentValidation.IsEnumMember(v, typeof(DataOutputFormat)),
                 "fmt");
             optionFormat.Description
                 .Text("Specify the output format.");
             optionFormat.PossibleValueInfo
-                .Syntactic(string.Join(" | ", Enum.GetNames(typeof(OutputFormat))));
+                .Syntactic(string.Join(" | ", Enum.GetNames(typeof(DataOutputFormat))));
             optionFormat.DefaultValueInfo
                 .Syntactic(DEF_FORMAT.ToString());
 
             var positionalAppId = new PositionalArgument(POSITIONAL_APP_ID,
-                v => !string.IsNullOrEmpty(v) && !v.Contains(" "),
+                ArgumentValidation.IsIdString,
                 1);
             positionalAppId.Description
                 .Text("Specifies the app of which the properties are to be listed.");
             positionalAppId.PossibleValueInfo
-                .Text("An app ID is an alphanumeric string without whitespace.");
+                .Text("The apps ID, an alphanumeric string without whitespace.");
 
-            return new ArgumentParser(Name,
+            var parser = new ArgumentParser(Name,
                 flagRaw,
                 optionFormat,
                 positionalAppId);
-        }
 
-        private bool ShowRaw => Arguments.GetFlag(FLAG_RAW);
+            parser.Description
+                .Paragraph("Displays the properties of an app.")
+                .Paragraph("This command supports different output formats. "
+                          + "And you can choose between the expanded or the raw properties.");
+
+            return parser;
+        }
 
         protected override bool ValidateArguments()
         {
-            Format = (OutputFormat)Enum.Parse(typeof(OutputFormat),
+            Format = (DataOutputFormat)Enum.Parse(typeof(DataOutputFormat),
                 Arguments.GetOptionValue(OPTION_FORMAT, DEF_FORMAT.ToString()), true);
 
             return true;
@@ -85,23 +84,6 @@ namespace Mastersign.Bench.Cli.Commands
             return true;
         }
 
-        private IPropertyWriter CreatePropertyWriter()
-        {
-            switch (Format)
-            {
-                case OutputFormat.Plain:
-                    return new ConsolePropertyWriter();
-                case OutputFormat.Markdown:
-                    return new MarkdownPropertyWriter(Console.OpenStandardOutput());
-                //case OutputFormat.JSON:
-                //    return new JsonPropertyWriter(Console.OpenStandardOutput());
-                //case OutputFormat.XML:
-                //    return new XmlPropertyWriter(Console.OpenStandardOutput());
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
         private void PrintProperties(AppFacade app)
         {
             var knownProperties = app.KnownProperties;
@@ -120,7 +102,7 @@ namespace Mastersign.Bench.Cli.Commands
             }
             names.Sort();
 
-            using (var w = CreatePropertyWriter())
+            using (var w = PropertyWriterFactory.Create(Format))
             {
                 w.Write("ID", app.ID);
                 foreach (var p in names)
@@ -132,7 +114,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         private void PrintRawProperties(BenchConfiguration cfg, string appId)
         {
-            using (var w = CreatePropertyWriter())
+            using (var w = PropertyWriterFactory.Create(Format))
             {
                 w.Write("ID", appId);
                 foreach (var name in cfg.PropertyNames(appId))
