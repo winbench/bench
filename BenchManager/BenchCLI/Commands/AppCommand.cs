@@ -30,7 +30,7 @@ namespace Mastersign.Bench.Cli.Commands
             commandProperty.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appPropertyCommand);
 
-            var commandInfo = new CommandArgument(AppInfoCommand.CMD_NAME, "n");
+            var commandInfo = new CommandArgument(AppInfoCommand.CMD_NAME, "i");
             commandInfo.Description
                 .Text("Shows a detailed, human readable info of an app.");
             commandInfo.SyntaxInfo
