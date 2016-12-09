@@ -21,11 +21,11 @@ namespace Mastersign.Bench.Cli.Commands
         public const string COMMAND_REINSTALL = "reinstall";
         public const string COMMAND_RENEW = "renew";
         public const string COMMAND_UPGRADE = "upgrade";
-        public const string COMMAND_PROJECT = "project";
 
         private readonly BenchCommand appCommand = new AppCommand();
         private readonly BenchCommand configCommand = new ConfigCommand();
         private readonly BenchCommand downloadsCommand = new DownloadsCommand();
+        private readonly BenchCommand projectCommand = new ProjectCommand();
 
         public override string Name
             => Assembly.GetExecutingAssembly()
@@ -40,6 +40,7 @@ namespace Mastersign.Bench.Cli.Commands
             RegisterSubCommand(appCommand);
             RegisterSubCommand(configCommand);
             RegisterSubCommand(downloadsCommand);
+            RegisterSubCommand(projectCommand);
         }
 
         protected override ArgumentParser InitializeArgumentParser()
@@ -122,14 +123,11 @@ namespace Mastersign.Bench.Cli.Commands
             commandApp.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appCommand);
 
-            var commandProject = new CommandArgument(COMMAND_PROJECT, "p", "prj");
+            var commandProject = new CommandArgument(ProjectCommand.CMD_NAME, "p", "prj");
             commandProject.Description
                 .Text("Manage projects in the Bench environment.");
             commandProject.SyntaxInfo
-                .Variable("sub-command")
-                .Syntactic(" ")
-                .Variable("project name")
-                .Syntactic(" ...");
+                .Append(HelpFormatter.CommandSyntax, projectCommand);
 
             var parser = new ArgumentParser(Name,
                 flagVerbose,
@@ -229,7 +227,6 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteUnknownSubCommand(string command, string[] args)
         {
-
             switch (command)
             {
                 case COMMAND_INITIALIZE:
@@ -243,9 +240,6 @@ namespace Mastersign.Bench.Cli.Commands
                 case COMMAND_RENEW:
                     return TaskUpgradeApps();
                 case COMMAND_UPGRADE:
-                    WriteError("This command is not implemented yet.");
-                    return false;
-                case COMMAND_PROJECT:
                     WriteError("This command is not implemented yet.");
                     return false;
 

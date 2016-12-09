@@ -53,6 +53,7 @@
     <Compile Include="Commands\DownloadsCommand.cs" />
     <Compile Include="CliTools\ConsolePropertyWriter.cs" />
     <Compile Include="CliTools\DataOutputFormat.cs" />
+    <Compile Include="Commands\ProjectCommand.cs" />
     <Compile Include="Docs\BlockType.cs" />
     <Compile Include="Docs\DocumentContentGenerator.cs" />
     <Compile Include="Docs\DocumentOutputFormat.cs" />
