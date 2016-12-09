@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.CliTools
 {
-    class ConsolePropertyWriter : IPropertyWriter
+    public class ConsolePropertyWriter : IPropertyWriter
     {
         public void Dispose()
         {

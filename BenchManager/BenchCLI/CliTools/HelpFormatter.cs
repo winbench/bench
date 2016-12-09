@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Mastersign.Docs;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.CliTools
 {
-    static class HelpFormatter
+    public static class HelpFormatter
     {
         private static void FormatFlag(DocumentWriter w, NamedArgument a)
         {

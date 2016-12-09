@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Mastersign.Docs;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.CliTools
 {
-    abstract class CommandBase
+    public abstract class CommandBase
     {
         private ArgumentParser argParser;
 

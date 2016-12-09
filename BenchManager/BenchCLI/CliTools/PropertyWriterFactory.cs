@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.CliTools
 {
-    static class PropertyWriterFactory
+    public static class PropertyWriterFactory
     {
         public static IPropertyWriter Create(DataOutputFormat format)
         {
@@ -22,6 +22,5 @@ namespace Mastersign.Bench.Cli
                     throw new NotSupportedException();
             }
         }
-
     }
 }

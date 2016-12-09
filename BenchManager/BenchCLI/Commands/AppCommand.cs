@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.CliTools;
 
 namespace Mastersign.Bench.Cli.Commands
 {

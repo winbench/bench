@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Mastersign.Docs;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.CliTools
 {
-    class ArgumentParser
+    public class ArgumentParser
     {
         public ArgumentParserType ParserType { get; set; }
 
@@ -188,7 +188,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    class ArgumentIndex
+    internal class ArgumentIndex
     {
         private readonly Dictionary<string, Argument> flags = new Dictionary<string, Argument>();
         private readonly Dictionary<string, Argument> flagMnemonics = new Dictionary<string, Argument>();
@@ -281,13 +281,13 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    enum ArgumentParserType
+    public enum ArgumentParserType
     {
         CaseSensitive,
         CaseInsensitive
     }
 
-    enum ArgumentType
+    public enum ArgumentType
     {
         Flag,
         Option,
@@ -295,7 +295,7 @@ namespace Mastersign.Bench.Cli
         Command
     }
 
-    abstract class Argument
+    public abstract class Argument
     {
         public ArgumentType Type { get; private set; }
 
@@ -312,7 +312,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    abstract class NamedArgument : Argument
+    public abstract class NamedArgument : Argument
     {
         public string Mnemonic { get; private set; }
 
@@ -327,7 +327,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    class FlagArgument : NamedArgument
+    public class FlagArgument : NamedArgument
     {
         public FlagArgument(string name, string mnemonic,
             params string[] aliases)
@@ -336,9 +336,9 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    delegate bool ArgumentValuePredicate(string value);
+    public delegate bool ArgumentValuePredicate(string value);
 
-    class OptionArgument : NamedArgument
+    public class OptionArgument : NamedArgument
     {
         public Document PossibleValueInfo { get; private set; }
 
@@ -357,7 +357,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    class PositionalArgument : Argument
+    public class PositionalArgument : Argument
     {
         public Document PossibleValueInfo { get; private set; }
 
@@ -375,7 +375,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    class CommandArgument : NamedArgument
+    public class CommandArgument : NamedArgument
     {
         public Document SyntaxInfo { get; private set; }
 
@@ -387,7 +387,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    class ArgumentParsingResult
+    public class ArgumentParsingResult
     {
         public ArgumentParser Parser { get; private set; }
 
@@ -490,7 +490,7 @@ namespace Mastersign.Bench.Cli
         }
     }
 
-    enum ArgumentParsingResultType
+    public enum ArgumentParsingResultType
     {
         InvalidArgument,
         MissingArgument,

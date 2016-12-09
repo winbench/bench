@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.Bench.Cli
 {
-    static class PropertyWriter
+    public static class PropertyWriter
     {
         public static void WritePropertyValue(object value)
         {

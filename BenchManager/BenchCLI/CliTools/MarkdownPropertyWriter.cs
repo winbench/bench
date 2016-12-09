@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.CliTools
 {
-    class MarkdownPropertyWriter : IPropertyWriter
+    public class MarkdownPropertyWriter : IPropertyWriter
     {
         private TextWriter writer;
 

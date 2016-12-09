@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.CliTools
 {
-    interface IPropertyWriter : IDisposable
+    public interface IPropertyWriter : IDisposable
     {
         void Write(string key, object value);
     }

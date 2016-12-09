@@ -45,14 +45,14 @@
     <Compile Include="ArgumentValidation.cs" />
     <Compile Include="BenchCommand.cs" />
     <Compile Include="Commands\AppCommand.cs" />
-    <Compile Include="ArgumentParser.cs" />
+    <Compile Include="CliTools\ArgumentParser.cs" />
     <Compile Include="Commands\AppListPropertiesCommand.cs" />
     <Compile Include="Commands\AppInfoCommand.cs" />
     <Compile Include="Commands\AppPropertyCommand.cs" />
     <Compile Include="Commands\ConfigCommand.cs" />
     <Compile Include="Commands\DownloadsCommand.cs" />
-    <Compile Include="ConsolePropertyWriter.cs" />
-    <Compile Include="DataOutputFormat.cs" />
+    <Compile Include="CliTools\ConsolePropertyWriter.cs" />
+    <Compile Include="CliTools\DataOutputFormat.cs" />
     <Compile Include="Docs\BlockType.cs" />
     <Compile Include="Docs\DocumentContentGenerator.cs" />
     <Compile Include="Docs\DocumentOutputFormat.cs" />
@@ -62,17 +62,17 @@
     <Compile Include="Docs\InlineType.cs" />
     <Compile Include="Docs\Document.cs" />
     <Compile Include="Docs\PlainTextDocumentWriter.cs" />
-    <Compile Include="CommandBase.cs" />
-    <Compile Include="HelpFormatter.cs" />
+    <Compile Include="CliTools\CommandBase.cs" />
+    <Compile Include="CliTools\HelpFormatter.cs" />
     <Compile Include="Docs\IDocumentWriter.cs" />
     <Compile Include="Commands\RootCommand.cs" />
-    <Compile Include="IPropertyWriter.cs" />
-    <Compile Include="MarkdownDataFormatter.cs" />
-    <Compile Include="MarkdownPropertyWriter.cs" />
+    <Compile Include="CliTools\IPropertyWriter.cs" />
+    <Compile Include="CliTools\MarkdownDataFormatter.cs" />
+    <Compile Include="CliTools\MarkdownPropertyWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyWriter.cs" />
-    <Compile Include="PropertyWriterFactory.cs" />
+    <Compile Include="CliTools\PropertyWriterFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BenchLib\BenchLib.csproj">
