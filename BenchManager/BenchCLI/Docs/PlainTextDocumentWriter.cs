@@ -10,6 +10,8 @@ namespace Mastersign.Docs
         private const string INDENT_1 = "  ";
         private const string INDENT_2 = "    ";
 
+        private int listDepth = 0;
+
         public TextWriter writer;
 
         public PlainTextDocumentWriter(Stream target)
@@ -67,6 +69,9 @@ namespace Mastersign.Docs
                 default:
                     breakCounter = 0;
                     writer.Write(format, args);
+#if DEBUG
+                    writer.Flush();
+#endif
                     break;
             }
         }
@@ -86,6 +91,9 @@ namespace Mastersign.Docs
                     breakCounter++;
                     indentFlag = false;
                     writer.WriteLine();
+#if DEBUG
+                    writer.Flush();
+#endif
                     break;
             }
         }
@@ -121,6 +129,13 @@ namespace Mastersign.Docs
             foreach (var i in indentStack) { W(i); }
         }
 
+        private string ListPrefix()
+        {
+            if (listDepth < 2) return " *  ";
+            if (listDepth < 3) return " +  ";
+            return " -  ";
+        }
+
         public override DocumentWriter Begin(BlockType type)
         {
             switch (type)
@@ -128,7 +143,6 @@ namespace Mastersign.Docs
                 // IGNORE
                 case BlockType.Document:
                 case BlockType.Section:
-                case BlockType.List:
                 case BlockType.Property:
                     break;
                 // INDENT
@@ -147,18 +161,23 @@ namespace Mastersign.Docs
                     PushIndent(INDENT_2);
                     Indent();
                     break;
-                // PREFIX
-                case BlockType.ListItem:
-                    Indent();
-                    W(" *  ");
-                    PushIndent("    ");
-                    break;
                 // BUFFER
                 case BlockType.Title:
                 case BlockType.Headline1:
                 case BlockType.PropertyName:
                 case BlockType.PropertyContent:
                     BeginBuffering();
+                    break;
+                // LIST
+                case BlockType.List:
+                    BR();
+                    listDepth++;
+                    break;
+                case BlockType.ListItem:
+                    Indent();
+                    var prefix = ListPrefix();
+                    W(prefix);
+                    PushIndent(string.Empty.PadRight(prefix.Length));
                     break;
                 // PROPERTY TABLE
                 case BlockType.PropertyList:
@@ -181,7 +200,6 @@ namespace Mastersign.Docs
                     break;
                 // NEWLINE
                 case BlockType.Section:
-                case BlockType.List:
                 case BlockType.Definition:
                 case BlockType.DefinitionTopic:
                 case BlockType.Property:
@@ -214,6 +232,15 @@ namespace Mastersign.Docs
                     BR();
                     BR();
                     break;
+                // LIST
+                case BlockType.List:
+                    listDepth--;
+                    if (listDepth == 0) BR();
+                    break;
+                case BlockType.ListItem:
+                    PopIndent();
+                    if (indentFlag) BR();
+                    break;
                 // PROPERTY TABLE
                 case BlockType.PropertyName:
                     PushProperty(EndBuffering());
@@ -244,7 +271,6 @@ namespace Mastersign.Docs
                     properties = null;
                     break;
                 // INDENT
-                case BlockType.ListItem:
                 case BlockType.DefinitionList:
                 case BlockType.DefinitionContent:
                 case BlockType.Detail:

@@ -7,9 +7,7 @@ namespace Mastersign.Docs
 {
     public class MarkdownDocumentWriter : DocumentWriter, IDocumentWriter
     {
-        //private const string INDENT_1 = "  ";
-        //private const string INDENT_2 = "    ";
-        private const string INDENT_SUBLIST = "    ";
+        private int listDepth = 0;
 
         public TextWriter writer;
 
@@ -131,6 +129,13 @@ namespace Mastersign.Docs
             foreach (var i in indentStack) { W(i); }
         }
 
+        private string ListPrefix()
+        {
+            if (listDepth < 2) return "* ";
+            if (listDepth < 3) return "+ ";
+            return "- ";
+        }
+
         public override DocumentWriter Begin(BlockType type)
         {
             switch (type)
@@ -147,7 +152,6 @@ namespace Mastersign.Docs
                     Indent();
                     break;
                 // CHANGE INDENT
-                case BlockType.List:
                 case BlockType.PropertyList:
                     break;
                 case BlockType.DefinitionContent:
@@ -168,10 +172,16 @@ namespace Mastersign.Docs
                 case BlockType.DefinitionTopic:
                     W("#### ");
                     break;
+                // LIST
+                case BlockType.List:
+                    BR();
+                    listDepth++;
+                    break;
                 case BlockType.ListItem:
                     Indent();
-                    W("* ");
-                    PushIndent("  ");
+                    var prefix = ListPrefix();
+                    W(prefix);
+                    PushIndent(string.Empty.PadRight(4));
                     break;
                 // BUFFER
                 case BlockType.PropertyName:
@@ -195,7 +205,6 @@ namespace Mastersign.Docs
                     break;
                 // NEWLINE
                 case BlockType.Section:
-                case BlockType.List:
                 case BlockType.Definition:
                 case BlockType.DefinitionTopic:
                     BR();
@@ -216,6 +225,15 @@ namespace Mastersign.Docs
                     BR();
                     BR();
                     break;
+                // LIST
+                case BlockType.List:
+                    listDepth--;
+                    if (listDepth == 0) BR();
+                    break;
+                case BlockType.ListItem:
+                    PopIndent();
+                    if (indentFlag) BR();
+                    break;
                 // PROPERTY TABLE
                 case BlockType.PropertyName:
                     W("{0}: ", EndBuffering());
@@ -231,7 +249,6 @@ namespace Mastersign.Docs
                     BR();
                     break;
                 // INDENT
-                case BlockType.ListItem:
                 case BlockType.DefinitionList:
                 case BlockType.DefinitionContent:
                 case BlockType.Detail:
