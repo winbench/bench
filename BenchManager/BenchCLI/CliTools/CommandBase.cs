@@ -69,6 +69,14 @@ namespace Mastersign.CliTools
             protected set { noAssurance = value; }
         }
 
+        private DocumentOutputFormat helpFormat;
+
+        public DocumentOutputFormat HelpFormat
+        {
+            get { return Parent != null ? Parent.HelpFormat : helpFormat; }
+            set { helpFormat = value; }
+        }
+
         #endregion
 
         #region Console Output
@@ -206,7 +214,7 @@ namespace Mastersign.CliTools
 
         protected virtual void PrintHelp()
         {
-            using (var w = new PlainTextDocumentWriter(Console.OpenStandardOutput()))
+            using (var w = DocumentWriterFactory.Create(HelpFormat, Console.OpenStandardOutput()))
             {
                 PrintHelp(w);
             }
@@ -215,10 +223,19 @@ namespace Mastersign.CliTools
         protected virtual void PrintHelp(DocumentWriter w)
         {
             w.Begin(BlockType.Document);
-            if (Parent == null)
-                w.Title("{0} v{1}", ToolName, ToolVersion);
-            else
-                w.Title("{0} v{1} - [{2}]", ToolName, ToolVersion, CommandChain(" ", false));
+            w.Title("{0} v{1}", ToolName, ToolVersion);
+            if (Parent != null)
+            {
+                w.Begin(BlockType.Paragraph);
+                    w.Text("Command: ");
+                var chain = CommandChainNames();
+                for (int i = 0; i < chain.Length; i++)
+                {
+                    if (i > 0) w.Syntactic(" ");
+                    w.Keyword(chain[i]);
+                }
+                w.End(BlockType.Paragraph);
+            }
             HelpFormatter.WriteHelp(w, this);
             w.End(BlockType.Document);
         }
@@ -231,6 +248,21 @@ namespace Mastersign.CliTools
         {
             WriteDetail("Arguments: {0}", string.Join(" ", args));
             Arguments = ArgumentParser.Parse(args);
+            if (Arguments.Type == ArgumentParsingResultType.Help ||
+                Arguments.Type == ArgumentParsingResultType.NoCommand ||
+                Arguments.Type == ArgumentParsingResultType.Command)
+            {
+                try
+                {
+                    if (!ValidateArguments())
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    WriteError(e.Message);
+                    return false;
+                }
+            }
             if (Arguments.Type == ArgumentParsingResultType.Help)
             {
                 PrintHelp();
@@ -244,16 +276,6 @@ namespace Mastersign.CliTools
             if (Arguments.Type == ArgumentParsingResultType.MissingArgument)
             {
                 PrintMissingArgumentWarning(Arguments.ErrorMessage);
-                return false;
-            }
-            try
-            {
-                if (!ValidateArguments())
-                    return false;
-            }
-            catch (Exception e)
-            {
-                WriteError(e.Message);
                 return false;
             }
             if (Arguments.Type == ArgumentParsingResultType.NoCommand)

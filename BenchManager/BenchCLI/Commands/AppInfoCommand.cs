@@ -21,15 +21,10 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override ArgumentParser InitializeArgumentParser()
         {
-            var optionFormat = new OptionArgument(OPTION_FORMAT, "f",
-                v => ArgumentValidation.IsEnumMember(v, typeof(DocumentOutputFormat)),
-                "fmt");
+            var optionFormat = new EnumOptionArgument<DocumentOutputFormat>(
+                OPTION_FORMAT, "f", DEF_FORMAT, "fmt");
             optionFormat.Description
                 .Text("Specify the output format.");
-            optionFormat.PossibleValueInfo
-                .Syntactic(string.Join(" | ", Enum.GetNames(typeof(DocumentOutputFormat))));
-            optionFormat.DefaultValueInfo
-                .Syntactic(DEF_FORMAT.ToString());
 
             var positionalAppId = new PositionalArgument(POSITIONAL_APP_ID,
                 ArgumentValidation.IsIdString,

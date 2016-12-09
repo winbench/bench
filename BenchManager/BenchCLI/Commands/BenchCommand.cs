@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Mastersign.CliTools;
+using Mastersign.Docs;
 
-namespace Mastersign.Bench.Cli
+namespace Mastersign.Bench.Cli.Commands
 {
     abstract class BenchCommand : CommandBase
     {

@@ -7,7 +7,7 @@ namespace Mastersign.Docs
     public enum DocumentOutputFormat
     {
         Plain,
-        // Markdown,
+        Markdown,
         // Html,
     }
 }

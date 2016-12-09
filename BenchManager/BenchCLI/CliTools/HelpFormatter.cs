@@ -272,8 +272,8 @@ namespace Mastersign.CliTools
                     var hasDefinitions = pArg.PossibleValueInfo != null;
                     w.Begin(BlockType.Definition);
                     w.Begin(BlockType.DefinitionTopic)
-                        .Text(pArg.OrderIndex.ToString().PadLeft(2) + ") ")
-                        .Append(FormatPositional, pArg)
+                        .Text(pArg.OrderIndex.ToString().PadLeft(2) + ". ")
+                        .Text(pArg.Name)
                         .End(BlockType.DefinitionTopic);
                     w.Begin(BlockType.DefinitionContent);
                     if (hasDefinitions)

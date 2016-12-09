@@ -27,15 +27,10 @@ namespace Mastersign.Bench.Cli.Commands
             flagRaw.Description
                 .Text("Shows the raw properties without expansion and default values.");
 
-            var optionFormat = new OptionArgument(OPTION_FORMAT, "f",
-                v => ArgumentValidation.IsEnumMember(v, typeof(DataOutputFormat)),
-                "fmt");
+            var optionFormat = new EnumOptionArgument<DataOutputFormat>(
+                OPTION_FORMAT, "f", DEF_FORMAT, "fmt");
             optionFormat.Description
                 .Text("Specify the output format.");
-            optionFormat.PossibleValueInfo
-                .Syntactic(string.Join(" | ", Enum.GetNames(typeof(DataOutputFormat))));
-            optionFormat.DefaultValueInfo
-                .Syntactic(DEF_FORMAT.ToString());
 
             var positionalAppId = new PositionalArgument(POSITIONAL_APP_ID,
                 ArgumentValidation.IsIdString,

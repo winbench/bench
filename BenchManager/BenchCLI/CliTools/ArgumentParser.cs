@@ -113,7 +113,8 @@ namespace Mastersign.CliTools
                 if (IsHelpIndicator(arg))
                 {
                     help = true;
-                    break;
+                    position++;
+                    continue;
                 }
                 var a = index.LookUp(args[position], positionalValues.Count);
                 if (a == null)
@@ -162,19 +163,19 @@ namespace Mastersign.CliTools
             if (help)
             {
                 return new ArgumentParsingResult(this, ArgumentParsingResultType.Help,
-                    null, null, null, null, null, null);
+                    null, null, null, optionValues, flagValues, positionalValues);
             }
             if (invalid != null)
             {
                 return new ArgumentParsingResult(this, ArgumentParsingResultType.InvalidArgument,
-                    null, invalid, null, null, null, null);
+                    null, invalid, null, optionValues, flagValues, positionalValues);
             }
             var missingPositionalArguments = MissingPositinalArguments(positionalValues.Count);
             if (missingPositionalArguments.Length > 0)
             {
                 return new ArgumentParsingResult(this, ArgumentParsingResultType.MissingArgument,
                     null, string.Join(", ", missingPositionalArguments),
-                    null, null, null, null);
+                    null, optionValues, flagValues, positionalValues);
             }
             var rest = new string[args.Length - position];
             Array.Copy(args, position, rest, 0, rest.Length);
@@ -354,6 +355,38 @@ namespace Mastersign.CliTools
             PossibleValueInfo = new Document();
             DefaultValueInfo = new Document();
             ValuePredicate = valuePredicate;
+        }
+    }
+
+    public class EnumOptionArgument<T> : OptionArgument
+    {
+        private static bool IsEnumMember(string v)
+        {
+            try
+            {
+                Enum.Parse(typeof(T), v, true);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        public T DefaultValue { get; private set; }
+
+        public EnumOptionArgument(string name, string mnemonic,
+            T defaultValue, params string[] aliases)
+            : base(name, mnemonic, IsEnumMember)
+        {
+            DefaultValue = defaultValue;
+            var enumNames = Enum.GetNames(typeof(T));
+            for (int i = 0; i < enumNames.Length; i++)
+            {
+                if (i > 0) PossibleValueInfo.Syntactic(" | ");
+                PossibleValueInfo.Keyword(enumNames[i]);
+            }
+            DefaultValueInfo.Keyword(defaultValue.ToString());
         }
     }
 

@@ -13,8 +13,8 @@ namespace Mastersign.Docs
             {
                 case DocumentOutputFormat.Plain:
                     return new PlainTextDocumentWriter(target);
-                // case DocumentOutputFormat.Markdown:
-                //    return new MarkdownDocumentWriter(target);
+                case DocumentOutputFormat.Markdown:
+                    return new MarkdownDocumentWriter(target);
                 // case DocumentOutputFormat.Html:
                 //    return new HtmlDocumentWriter(target);
                 default:

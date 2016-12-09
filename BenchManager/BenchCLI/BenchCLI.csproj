@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
-    <Compile Include="BenchCommand.cs" />
+    <Compile Include="Commands\BenchCommand.cs" />
     <Compile Include="Commands\AppCommand.cs" />
     <Compile Include="CliTools\ArgumentParser.cs" />
     <Compile Include="Commands\AppListPropertiesCommand.cs" />
@@ -61,13 +61,13 @@
     <Compile Include="Docs\IDocumentElements.cs" />
     <Compile Include="Docs\InlineType.cs" />
     <Compile Include="Docs\Document.cs" />
+    <Compile Include="Docs\MarkdownDocumentWriter.cs" />
     <Compile Include="Docs\PlainTextDocumentWriter.cs" />
     <Compile Include="CliTools\CommandBase.cs" />
     <Compile Include="CliTools\HelpFormatter.cs" />
     <Compile Include="Docs\IDocumentWriter.cs" />
     <Compile Include="Commands\RootCommand.cs" />
     <Compile Include="CliTools\IPropertyWriter.cs" />
-    <Compile Include="CliTools\MarkdownDataFormatter.cs" />
     <Compile Include="CliTools\MarkdownPropertyWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

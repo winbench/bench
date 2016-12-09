@@ -47,7 +47,9 @@ namespace Mastersign.Bench.Cli.Commands
                 commandInfo,
                 commandListProperties);
             parser.Description
-                .Paragraph("The app command allows interacting with Bench apps.")
+                .Begin(Docs.BlockType.Paragraph)
+                .Text("The ").Keyword("app").Text(" command allows interacting with Bench apps.")
+                .End(Docs.BlockType.Paragraph)
                 .Paragraph("Use the sub-commands to select the kind of interaction.");
 
             return parser;

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Mastersign.CliTools;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
@@ -11,6 +12,7 @@ namespace Mastersign.Bench.Cli.Commands
     {
         private const string FLAG_VERBOSE = "verbose";
         private const string FLAG_YES = "yes";
+        private const string OPTION_HELP_FORMAT = "help-format";
         private const string OPTION_LOGFILE = "logfile";
         private const string OPTION_BENCH_ROOT = "root";
         public const string COMMAND_INITIALIZE = "initialize";
@@ -28,6 +30,8 @@ namespace Mastersign.Bench.Cli.Commands
         public override string Name
             => Assembly.GetExecutingAssembly()
                 .GetName().Name.ToLowerInvariant();
+
+        private const DocumentOutputFormat DEF_HELP_FORMAT = DocumentOutputFormat.Plain;
 
         public RootCommand()
         {
@@ -48,9 +52,14 @@ namespace Mastersign.Bench.Cli.Commands
             flagNoAssurance.Description
                 .Text("Suppresses all assurance questions.");
 
+            var optionHelpFormat = new EnumOptionArgument<DocumentOutputFormat>(
+                OPTION_HELP_FORMAT, "hf", DEF_HELP_FORMAT);
+            optionHelpFormat.Description
+                .Text("Specifies the output format of help texts.");
+
             var optionLogFile = new OptionArgument(OPTION_LOGFILE, "l",
-                    ArgumentValidation.IsValidPath,
-                    "log");
+                ArgumentValidation.IsValidPath,
+                "log");
             optionLogFile.Description
                 .Text("Specifies a custom location for the log file.");
             optionLogFile.PossibleValueInfo
@@ -62,8 +71,8 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text(".");
 
             var optionBenchRoot = new OptionArgument(OPTION_BENCH_ROOT, "r",
-                    v => ArgumentValidation.IsValidPath(v) && Directory.Exists(v),
-                    "base");
+                v => ArgumentValidation.IsValidPath(v) && Directory.Exists(v),
+                "base");
             optionBenchRoot.Description
                 .Text("Specifies the root directory of the Bench environment.");
             optionBenchRoot.PossibleValueInfo
@@ -122,10 +131,11 @@ namespace Mastersign.Bench.Cli.Commands
                 .Variable("project name")
                 .Syntactic(" ...");
 
-            return new ArgumentParser(Name,
+            var parser = new ArgumentParser(Name,
                 flagVerbose,
                 flagNoAssurance,
 
+                optionHelpFormat,
                 optionLogFile,
                 optionBenchRoot,
 
@@ -140,6 +150,15 @@ namespace Mastersign.Bench.Cli.Commands
                 commandDownloads,
                 commandApp,
                 commandProject);
+
+            parser.Description
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword("bench").Text(" command is the command line interface")
+                .Text(" for the Bench system.")
+                .End(BlockType.Paragraph)
+                .Paragraph("Take a look at http://mastersign.github.io/bench for a description of Bench.");
+
+            return parser;
         }
 
         private static string MyPath()
@@ -174,6 +193,8 @@ namespace Mastersign.Bench.Cli.Commands
         {
             Verbose = Arguments.GetFlag(FLAG_VERBOSE);
             NoAssurance = Arguments.GetFlag(FLAG_YES);
+            HelpFormat = (DocumentOutputFormat)Enum.Parse(typeof(DocumentOutputFormat),
+                Arguments.GetOptionValue(OPTION_HELP_FORMAT, DEF_HELP_FORMAT.ToString()), true);
 
             WriteDetail("{0} v{1}: {2}", ToolName, ToolVersion, Program.CliExecutable());
 
