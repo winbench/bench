@@ -33,10 +33,18 @@ namespace Mastersign.Bench
             {
                 throw new ObjectDisposedException(nameof(DefaultExecutionHost));
             }
-            AsyncManager.StartTask(() =>
+            if (cb != null)
             {
-                cb(RunProcess(env, cwd, exe, arguments, monitoring));
-            });
+                AsyncManager.StartTask(() =>
+                {
+                    cb(RunProcess(env, cwd, exe, arguments, monitoring));
+                });
+            }
+            else
+            {
+                StringBuilder sbStd, sbErr;
+                StartProcess(env, cwd, exe, arguments, false, out sbStd, out sbErr);
+            }
         }
 
         /// <summary>
@@ -58,6 +66,34 @@ namespace Mastersign.Bench
             {
                 throw new ObjectDisposedException(nameof(DefaultExecutionHost));
             }
+            var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
+            StringBuilder sbStd, sbErr;
+            var p = StartProcess(env, cwd, exe, arguments, collectOutput, out sbStd, out sbErr);
+            p.WaitForExit();
+            if (collectOutput)
+            {
+                string output;
+                try
+                {
+                    output = FormatOutput(sbStd.ToString())
+                        + Environment.NewLine
+                        + FormatOutput(sbErr.ToString());
+                }
+                catch (Exception e)
+                {
+                    output = e.ToString();
+                }
+                return new ProcessExecutionResult(p.ExitCode, output);
+            }
+            else
+            {
+                return new ProcessExecutionResult(p.ExitCode);
+            }
+        }
+
+        private Process StartProcess(BenchEnvironment env, string cwd, string exe, string arguments, 
+            bool collectOutput, out StringBuilder stdOut, out StringBuilder errOut)
+        {
             var p = new Process();
             if (!File.Exists(exe))
             {
@@ -68,7 +104,6 @@ namespace Mastersign.Bench
                 throw new DirectoryNotFoundException("The working directory could not be found: " + cwd);
             }
             PreparePowerShellScriptExecution(ref exe, ref arguments);
-            var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
             StringBuilder sbStd = null;
             StringBuilder sbErr = null;
             var si = new ProcessStartInfo(exe, arguments);
@@ -92,26 +127,9 @@ namespace Mastersign.Bench
                 p.BeginOutputReadLine();
                 p.BeginErrorReadLine();
             }
-            p.WaitForExit();
-            if (collectOutput)
-            {
-                string output;
-                try
-                {
-                    output = FormatOutput(sbStd.ToString())
-                        + Environment.NewLine
-                        + FormatOutput(sbErr.ToString());
-                }
-                catch (Exception e)
-                {
-                    output = e.ToString();
-                }
-                return new ProcessExecutionResult(p.ExitCode, output);
-            }
-            else
-            {
-                return new ProcessExecutionResult(p.ExitCode);
-            }
+            stdOut = sbStd;
+            errOut = sbErr;
+            return p;
         }
 
         /// <summary>
