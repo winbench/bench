@@ -10,6 +10,8 @@ namespace Mastersign.Bench.Cli.Commands
         private readonly BenchCommand appInfoCommand = new AppInfoCommand();
         private readonly BenchCommand appPropertyCommand = new AppPropertyCommand();
         private readonly BenchCommand appListPropertiesCommand = new AppListPropertiesCommand();
+        private readonly BenchCommand appActivateCommand = new AppActivateCommand();
+        private readonly BenchCommand appDeactivateCommand = new AppDeactivateCommand();
         private readonly BenchCommand appDownloadCommand = new AppDownloadCommand();
         private readonly BenchCommand appInstallCommand = new AppInstallCommand();
         private readonly BenchCommand appReinstallCommand = new AppReinstallCommand();
@@ -24,6 +26,8 @@ namespace Mastersign.Bench.Cli.Commands
             RegisterSubCommand(appInfoCommand);
             RegisterSubCommand(appPropertyCommand);
             RegisterSubCommand(appListPropertiesCommand);
+            RegisterSubCommand(appActivateCommand);
+            RegisterSubCommand(appDeactivateCommand);
             RegisterSubCommand(appDownloadCommand);
             RegisterSubCommand(appInstallCommand);
             RegisterSubCommand(appReinstallCommand);
@@ -57,6 +61,18 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("Lists the properties of an app.");
             commandListProperties.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appListPropertiesCommand);
+
+            var commandActivate = new CommandArgument(appActivateCommand.Name, "a", "enable");
+            commandActivate.Description
+                .Text("Activates an app.");
+            commandActivate.SyntaxInfo
+                .Append(HelpFormatter.CommandSyntax, appActivateCommand);
+
+            var commandDeactivate = new CommandArgument(appDeactivateCommand.Name, "d", "disable");
+            commandDeactivate.Description
+                .Text("Deactivates an app.");
+            commandDeactivate.SyntaxInfo
+                .Append(HelpFormatter.CommandSyntax, appDeactivateCommand);
 
             var commandDownload = new CommandArgument(appDownloadCommand.Name, "c", "cache");
             commandDownload.Description
@@ -98,6 +114,8 @@ namespace Mastersign.Bench.Cli.Commands
                 commandProperty,
                 commandInfo,
                 commandListProperties,
+                commandActivate,
+                commandDeactivate,
                 commandDownload,
                 commandInstall,
                 commandReinstall,
