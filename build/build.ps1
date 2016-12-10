@@ -4,7 +4,8 @@ param (
     [switch]$NoRelease
 )
 
-$rootDir = [IO.Path]::GetDirectoryName([IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition))
+$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
 $projectName = "Bench"
@@ -13,6 +14,7 @@ $toolsVersion = "14.0"
 $mode = $Mode
 $verbosity = $MsBuildVerbosity
 $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
+$compilerPackageVersion = "1.3.2"
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $solutionDir = "BenchManager" # relative to root dir
 $solutionFile = "BenchManager.sln" # relative to solution dir
@@ -54,6 +56,9 @@ function Copy-Artifact($src, $trgDir)
 
 echo "Building Bench ($mode)"
 
+# Add Roslyn compiler to projects
+& "$myDir\prepare-project-compiler.ps1" -CompilerPackageVersion $compilerPackageVersion
+
 # Download NuGet
 $nugetPath = "$rootDir\$solutionDir\nuget.exe"
 if (!(Test-Path $nugetPath))
@@ -80,7 +85,13 @@ echo ""
 echo "Building Visual Studio solution $solutionFile ..."
 cd "$rootDir\$solutionDir"
 & $msbuild $solutionFile /v:$verbosity /tv:$toolsVersion /m /p:Configuration=$mode /nodereuse:false
-if ($LastExitCode -ne 0)
+$buildError = $LastExitCode
+
+# Remove Roslyn compiler from projects
+& "$myDir\prepare-project-compiler.ps1" -Remove
+
+# Canceling after failed build
+if ($buildError -ne 0)
 {
     Write-Error "Building the solution failed."
     popd
