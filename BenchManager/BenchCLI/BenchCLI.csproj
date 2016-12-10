@@ -43,6 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
+    <Compile Include="Commands\AppExecuteCommand.cs" />
+    <Compile Include="Commands\AppReinstallCommand.cs" />
+    <Compile Include="Commands\AppUpgradeCommand.cs" />
+    <Compile Include="Commands\AppDownloadCommand.cs" />
+    <Compile Include="Commands\AppInstallCommand.cs" />
+    <Compile Include="Commands\AppUninstallCommand.cs" />
     <Compile Include="Commands\BenchCommand.cs" />
     <Compile Include="Commands\AppCommand.cs" />
     <Compile Include="CliTools\ArgumentParser.cs" />
