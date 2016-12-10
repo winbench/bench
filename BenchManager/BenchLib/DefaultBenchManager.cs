@@ -122,71 +122,109 @@ namespace Mastersign.Bench
         }
 
         private bool RunAction(BenchTaskForAll action)
-        {
-            return action(this, NotificationHandler, new Cancelation()).Success;
-        }
+            => action(this, NotificationHandler, new Cancelation()).Success;
+
+        private bool RunAction(BenchTaskForOne action, string appId)
+            => action(this, appId, NotificationHandler, new Cancelation()).Success;
         
         /// <summary>
         /// Sets up only the apps required by Bench.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool SetupRequiredApps() { return RunAction(BenchTasks.DoSetupRequiredApps); }
+        public bool SetupRequiredApps() => RunAction(BenchTasks.DoSetupRequiredApps);
 
         /// <summary>
         /// Runs a full automatic setup, including app resource download, app installation of all active apps
         /// and setup of the environment.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool AutoSetup() { return RunAction(BenchTasks.DoAutoSetup); }
+        public bool AutoSetup() => RunAction(BenchTasks.DoAutoSetup);
 
         /// <summary>
         /// Sets up the environment, including the <c>env.cmd</c>, the launcher scripts and launcher shortcuts.
         /// It also runs all custom environment scripts.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool UpdateEnvironment() { return RunAction(BenchTasks.DoUpdateEnvironment); }
+        public bool UpdateEnvironment() => RunAction(BenchTasks.DoUpdateEnvironment);
 
         /// <summary>
         /// Downloads the app resources for all active apps, in case they are not already cached.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool DownloadAppResources() { return RunAction(BenchTasks.DoDownloadAppResources); }
+        public bool DownloadAppResources() => RunAction(BenchTasks.DoDownloadAppResources);
+
+        /// <summary>
+        /// Downloads the resource for the specified app, in case it is not already cached.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool DownloadAppResource(string appId) => RunAction(BenchTasks.DoDownloadAppResources, appId);
 
         /// <summary>
         /// Deletes all cached app resources.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool DeleteAppResources() { return RunAction(BenchTasks.DoDeleteAppResources); }
+        public bool DeleteAppResources() => RunAction(BenchTasks.DoDeleteAppResources);
+
+        /// <summary>
+        /// Deletes the cached resource of the specified app.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool DeleteAppResource(string appId) => RunAction(BenchTasks.DoDeleteAppResources, appId);
 
         /// <summary>
         /// Deletes all obsolete app resources from the cache.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool CleanUpAppResources() { return RunAction(BenchTasks.DoCleanUpAppResources); }
+        public bool CleanUpAppResources() => RunAction(BenchTasks.DoCleanUpAppResources);
 
         /// <summary>
         /// Installs all active apps, in case they are not already installed.
         /// This also downloads missing app resources.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool InstallApps() { return RunAction(BenchTasks.DoInstallApps); }
+        public bool InstallApps() => RunAction(BenchTasks.DoInstallApps);
+
+        /// <summary>
+        /// Installs the specified app, in case it is not already installed.
+        /// This also downloads missing app resources.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool InstallApp(string appId) => RunAction(BenchTasks.DoInstallApps, appId);
 
         /// <summary>
         /// Uninstalls all installed apps.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool UninstallApps() { return RunAction(BenchTasks.DoUninstallApps); }
+        public bool UninstallApps() => RunAction(BenchTasks.DoUninstallApps);
+
+        /// <summary>
+        /// Uninstalls the specified app, in case it is installed.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool UninstallApp(string appId) => RunAction(BenchTasks.DoUninstallApps, appId);
 
         /// <summary>
         /// Uninstalls all installed apps, and then installs all active apps again.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool ReinstallApps() { return RunAction(BenchTasks.DoReinstallApps); }
+        public bool ReinstallApps() => RunAction(BenchTasks.DoReinstallApps);
+
+        /// <summary>
+        /// Uninstalls the specified app, and then installs it again.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool ReinstallApp(string appId) => RunAction(BenchTasks.DoReinstallApps, appId);
 
         /// <summary>
         /// Upgrades all active apps, which can be upgraded.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
-        public bool UpgradeApps() { return RunAction(BenchTasks.DoUpgradeApps); }
+        public bool UpgradeApps() => RunAction(BenchTasks.DoUpgradeApps);
+
+        /// <summary>
+        /// Upgrades the specified app, if it can be upgraded.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool UpgradeApp(string appId) => RunAction(BenchTasks.DoUpgradeApps, appId);
     }
 }
