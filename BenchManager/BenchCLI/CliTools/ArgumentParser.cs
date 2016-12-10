@@ -127,7 +127,10 @@ namespace Mastersign.CliTools
                 var a = index.LookUp(args[position], positionalValues.Count);
                 if (a == null)
                 {
-                    invalid = args[position];
+                    if (GetCommands().Length > 0)
+                    {
+                        invalid = args[position];
+                    }
                     break;
                 }
                 switch (a.Type)
