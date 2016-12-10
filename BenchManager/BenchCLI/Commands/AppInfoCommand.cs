@@ -9,21 +9,24 @@ namespace Mastersign.Bench.Cli.Commands
 {
     class AppInfoCommand : BenchCommand
     {
-        public const string CMD_NAME = "info";
-
         private const string OPTION_FORMAT = "format";
         private const string POSITIONAL_APP_ID = "App ID";
 
         private const DocumentOutputFormat DEF_FORMAT = DocumentOutputFormat.Plain;
 
-        public override string Name => CMD_NAME;
+        public override string Name => "info";
 
         private DocumentOutputFormat Format = DEF_FORMAT;
 
         private BenchConfiguration config;
 
-        protected override ArgumentParser InitializeArgumentParser()
+        protected override void InitializeArgumentParser(ArgumentParser parser)
         {
+            parser.Description
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command displayes a detailed description for an app in human readable form.")
+                .End(BlockType.Paragraph);
+
             var optionFormat = new EnumOptionArgument<DocumentOutputFormat>(
                 OPTION_FORMAT, "f", DEF_FORMAT, "fmt");
             optionFormat.Description
@@ -37,13 +40,9 @@ namespace Mastersign.Bench.Cli.Commands
             positionalAppId.PossibleValueInfo
                 .Text("An app ID is an alphanumeric string without whitespace.");
 
-            var parser = new ArgumentParser(Name,
+            parser.RegisterArguments(
                 optionFormat,
                 positionalAppId);
-            parser.Description
-                .Paragraph("Displays a human readable description of an app.");
-
-            return parser;
         }
 
         protected override bool ValidateArguments()

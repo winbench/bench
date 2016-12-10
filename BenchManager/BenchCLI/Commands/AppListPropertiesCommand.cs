@@ -2,27 +2,33 @@
 using System.Collections.Generic;
 using System.Text;
 using Mastersign.CliTools;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
     class AppListPropertiesCommand : BenchCommand
     {
-        public const string CMD_NAME = "list-properties";
-
         private const string FLAG_RAW = "raw";
         private const string OPTION_FORMAT = "format";
         private const string POSITIONAL_APP_ID = "App ID";
 
         private const DataOutputFormat DEF_FORMAT = DataOutputFormat.Plain;
 
-        public override string Name => CMD_NAME;
+        public override string Name => "list-properties";
 
         private bool ShowRaw => Arguments.GetFlag(FLAG_RAW);
 
         private DataOutputFormat Format = DataOutputFormat.Plain;
 
-        protected override ArgumentParser InitializeArgumentParser()
+        protected override void InitializeArgumentParser(ArgumentParser parser)
         {
+            parser.Description
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command displayes the properties of an app.")
+                .End(BlockType.Paragraph)
+                .Paragraph("This command supports different output formats. "
+                          + "And you can choose between the expanded or the raw properties.");
+
             var flagRaw = new FlagArgument(FLAG_RAW, "r");
             flagRaw.Description
                 .Text("Shows the raw properties without expansion and default values.");
@@ -40,17 +46,10 @@ namespace Mastersign.Bench.Cli.Commands
             positionalAppId.PossibleValueInfo
                 .Text("The apps ID, an alphanumeric string without whitespace.");
 
-            var parser = new ArgumentParser(Name,
+            parser.RegisterArguments(
                 flagRaw,
                 optionFormat,
                 positionalAppId);
-
-            parser.Description
-                .Paragraph("Displays the properties of an app.")
-                .Paragraph("This command supports different output formats. "
-                          + "And you can choose between the expanded or the raw properties.");
-
-            return parser;
         }
 
         protected override bool ValidateArguments()

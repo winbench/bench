@@ -7,13 +7,11 @@ namespace Mastersign.Bench.Cli.Commands
 {
     class AppCommand : BenchCommand
     {
-        public const string CMD_NAME = "app";
-
         private readonly BenchCommand appInfoCommand = new AppInfoCommand();
         private readonly BenchCommand appPropertyCommand = new AppPropertyCommand();
         private readonly BenchCommand appListPropertiesCommand = new AppListPropertiesCommand();
 
-        public override string Name => CMD_NAME;
+        public override string Name => "app";
 
         public AppCommand()
         {
@@ -22,37 +20,36 @@ namespace Mastersign.Bench.Cli.Commands
             RegisterSubCommand(appListPropertiesCommand);
         }
 
-        protected override ArgumentParser InitializeArgumentParser()
+        protected override void InitializeArgumentParser(ArgumentParser parser)
         {
-            var commandProperty = new CommandArgument(AppPropertyCommand.CMD_NAME, "p", "prop");
+            parser.Description
+                .Begin(Docs.BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command allows interacting with Bench apps.")
+                .End(Docs.BlockType.Paragraph)
+                .Paragraph("Use the sub-commands to select the kind of interaction.");
+
+            var commandProperty = new CommandArgument(appPropertyCommand.Name, "p", "prop");
             commandProperty.Description
                 .Text("Reads an app property value.");
             commandProperty.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appPropertyCommand);
 
-            var commandInfo = new CommandArgument(AppInfoCommand.CMD_NAME, "i");
+            var commandInfo = new CommandArgument(appInfoCommand.Name, "i");
             commandInfo.Description
                 .Text("Shows a detailed, human readable info of an app.");
             commandInfo.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appInfoCommand);
 
-            var commandListProperties = new CommandArgument(AppListPropertiesCommand.CMD_NAME, "lp", "lst-p");
+            var commandListProperties = new CommandArgument(appListPropertiesCommand.Name, "lp", "lst-p");
             commandListProperties.Description
                 .Text("Lists the properties of an app.");
             commandListProperties.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appListPropertiesCommand);
 
-            var parser = new ArgumentParser(Name,
+            parser.RegisterArguments(
                 commandProperty,
                 commandInfo,
                 commandListProperties);
-            parser.Description
-                .Begin(Docs.BlockType.Paragraph)
-                .Text("The ").Keyword("app").Text(" command allows interacting with Bench apps.")
-                .End(Docs.BlockType.Paragraph)
-                .Paragraph("Use the sub-commands to select the kind of interaction.");
-
-            return parser;
         }
     }
 }

@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 using Mastersign.CliTools;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
     class DownloadsCommand : BenchCommand
     {
-        public const string CMD_NAME = "downloads";
-
         private const string COMMAND_CLEAN = "clean";
         private const string COMMAND_PURGE = "purge";
         private const string COMMAND_DOWNLOAD = "download";
 
-        public override string Name => CMD_NAME;
+        public override string Name => "downloads";
 
-        protected override ArgumentParser InitializeArgumentParser()
+        protected override void InitializeArgumentParser(ArgumentParser parser)
         {
+            parser.Description
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command manages the cached app resources.")
+                .End(BlockType.Paragraph);
+
             var commandClean = new CommandArgument(COMMAND_CLEAN, "c", "cl");
             commandClean.Description
                 .Text("Deletes obsolete app resources.");
@@ -29,7 +33,7 @@ namespace Mastersign.Bench.Cli.Commands
             commandDownload.Description
                 .Text("Downloads the app resources for all active apps.");
 
-            return new ArgumentParser(CMD_NAME,
+            parser.RegisterArguments(
                 commandClean,
                 commandPurge,
                 commandDownload);

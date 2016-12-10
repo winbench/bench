@@ -23,11 +23,11 @@ namespace Mastersign.CliTools
         {
             Name = name;
             ParserType = ArgumentParserType.CaseSensitive;
+            Description = new Document();
             foreach (var arg in arguments)
             {
                 RegisterArgument(arg);
             }
-            Description = new Document();
         }
 
         public ArgumentParser(string name, params Argument[] arguments)
@@ -38,6 +38,14 @@ namespace Mastersign.CliTools
         public void RegisterArgument(Argument arg)
         {
             arguments.Add(arg.Name, arg);
+        }
+
+        public void RegisterArguments(params Argument[] arguments)
+        {
+            foreach (var arg in arguments)
+            {
+                RegisterArgument(arg);
+            }
         }
 
         private T[] FilterArguments<T>(ArgumentType type) where T : Argument

@@ -43,8 +43,15 @@ namespace Mastersign.Bench.Cli.Commands
             RegisterSubCommand(projectCommand);
         }
 
-        protected override ArgumentParser InitializeArgumentParser()
+        protected override void InitializeArgumentParser(ArgumentParser parser)
         {
+            parser.Description
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command is the command line interface")
+                .Text(" for the Bench system.")
+                .End(BlockType.Paragraph)
+                .Paragraph("Take a look at http://mastersign.github.io/bench for a description of Bench.");
+
             var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v");
             flagVerbose.Description
                 .Text("Activates verbose output.");
@@ -105,31 +112,31 @@ namespace Mastersign.Bench.Cli.Commands
             commandUpgrade.Description
                 .Text("Download and extract the latest Bench release, then run the auto-setup.");
 
-            var commandConfig = new CommandArgument(ConfigCommand.CMD_NAME, "c", "cfg");
+            var commandConfig = new CommandArgument(configCommand.Name, "c", "cfg");
             commandConfig.Description
                 .Text("Read or write values from the user configuration.");
             commandConfig.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, configCommand);
 
-            var commandDownloads = new CommandArgument(DownloadsCommand.CMD_NAME, "d", "cache", "dl");
+            var commandDownloads = new CommandArgument(downloadsCommand.Name, "d", "cache", "dl");
             commandDownloads.Description
                 .Text("Manage the app resource cache.");
             commandDownloads.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, downloadsCommand);
 
-            var commandApp = new CommandArgument(AppCommand.CMD_NAME, "a");
+            var commandApp = new CommandArgument(appCommand.Name, "a");
             commandApp.Description
                 .Text("Manage individual apps.");
             commandApp.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appCommand);
 
-            var commandProject = new CommandArgument(ProjectCommand.CMD_NAME, "p", "prj");
+            var commandProject = new CommandArgument(projectCommand.Name, "p", "prj");
             commandProject.Description
                 .Text("Manage projects in the Bench environment.");
             commandProject.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, projectCommand);
 
-            var parser = new ArgumentParser(Name,
+            parser.RegisterArguments(
                 flagVerbose,
                 flagNoAssurance,
 
@@ -148,15 +155,6 @@ namespace Mastersign.Bench.Cli.Commands
                 commandDownloads,
                 commandApp,
                 commandProject);
-
-            parser.Description
-                .Begin(BlockType.Paragraph)
-                .Text("The ").Keyword("bench").Text(" command is the command line interface")
-                .Text(" for the Bench system.")
-                .End(BlockType.Paragraph)
-                .Paragraph("Take a look at http://mastersign.github.io/bench for a description of Bench.");
-
-            return parser;
         }
 
         private static string MyPath()

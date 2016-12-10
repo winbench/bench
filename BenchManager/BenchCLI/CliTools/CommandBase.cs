@@ -10,9 +10,19 @@ namespace Mastersign.CliTools
         private ArgumentParser argParser;
 
         public ArgumentParser ArgumentParser
-            => argParser ?? (argParser = InitializeArgumentParser());
+        {
+            get
+            {
+                if (argParser == null)
+                {
+                    argParser = new ArgumentParser(Name);
+                    InitializeArgumentParser(argParser);
+                }
+                return argParser;
+            }
+        }
 
-        protected abstract ArgumentParser InitializeArgumentParser();
+        protected abstract void InitializeArgumentParser(ArgumentParser parser);
 
         protected ArgumentParsingResult Arguments { get; set; }
 
@@ -227,7 +237,7 @@ namespace Mastersign.CliTools
             if (Parent != null)
             {
                 w.Begin(BlockType.Paragraph);
-                    w.Text("Command: ");
+                w.Text("Command: ");
                 var chain = CommandChainNames();
                 for (int i = 0; i < chain.Length; i++)
                 {

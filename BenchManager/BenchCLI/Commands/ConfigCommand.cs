@@ -2,32 +2,31 @@
 using System.Collections.Generic;
 using System.Text;
 using Mastersign.CliTools;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
     class ConfigCommand : BenchCommand
     {
-        public const string CMD_NAME = "config";
-
         private const string COMMAND_GET = "get";
 
-        public override string Name => CMD_NAME;
+        public override string Name => "config";
 
-        protected override ArgumentParser InitializeArgumentParser()
+        protected override void InitializeArgumentParser(ArgumentParser parser)
         {
+            parser.Description
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command gives access to the Bench user configuration.")
+                .End(BlockType.Paragraph);
+
             var commandGet = new CommandArgument(COMMAND_GET, "g");
             commandGet.Description
                 .Text("Reads a configuration value.");
             commandGet.SyntaxInfo
                 .Variable("property name");
 
-            var parser = new ArgumentParser(Name,
+            parser.RegisterArguments(
                 commandGet);
-
-            parser.Description
-                .Paragraph("Read and write the Bench configuration.");
-
-            return parser;
         }
 
         protected override bool ExecuteUnknownSubCommand(string command, string[] args)

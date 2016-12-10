@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 using Mastersign.CliTools;
+using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
     class AppPropertyCommand : BenchCommand
     {
-        public const string CMD_NAME = "property";
-
         private const string POSITIONAL_APP_ID = "App ID";
         private const string POSITIONAL_PROPERTY_NAME = "Property Name";
 
-        public override string Name => CMD_NAME;
+        public override string Name => "property";
 
-        protected override ArgumentParser InitializeArgumentParser()
+        protected override void InitializeArgumentParser(ArgumentParser parser)
         {
+            parser.Description
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command reads the value of an app property.")
+                .End(BlockType.Paragraph);
+
             var positionalAppId = new PositionalArgument(POSITIONAL_APP_ID,
                 ArgumentValidation.IsIdString,
                 1);
@@ -32,14 +36,9 @@ namespace Mastersign.Bench.Cli.Commands
             positionalPropertyName.PossibleValueInfo
                 .Text("The property name, an alphanumeric string without whitespace.");
 
-            var parser = new ArgumentParser(CMD_NAME,
+            parser.RegisterArguments(
                 positionalAppId,
                 positionalPropertyName);
-
-            parser.Description
-                .Paragraph("Reads the value of an app property.");
-
-            return parser;
         }
 
         protected override bool ExecuteCommand(string[] args)
