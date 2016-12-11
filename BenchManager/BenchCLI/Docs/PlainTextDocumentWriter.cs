@@ -19,6 +19,11 @@ namespace Mastersign.Docs
             writer = new StreamWriter(target, Encoding.Default);
         }
 
+        public PlainTextDocumentWriter(TextWriter target)
+        {
+            writer = target;
+        }
+
         public override void Dispose()
         {
             if (writer != null)
