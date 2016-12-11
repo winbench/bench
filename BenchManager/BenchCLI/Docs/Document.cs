@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Mastersign.Docs
@@ -118,6 +119,17 @@ namespace Mastersign.Docs
         {
             Record(new LineBreakElement());
             return this;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            using (var w = new StringWriter(sb))
+            using (var dw = new PlainTextDocumentWriter(w))
+            {
+                WriteTo(dw);
+            }
+            return sb.ToString();
         }
     }
 }
