@@ -250,6 +250,12 @@ namespace Mastersign.CliTools
             w.End(BlockType.Document);
         }
 
+        private ArgumentParsingResult CompleteInteractively(ArgumentParsingResult arguments)
+        {
+            var dialog = new ArgumentCompletionConsoleDialog(ArgumentParser);
+            return dialog.ShowFor(Arguments);
+        }
+
         #endregion
 
         #region Execution
@@ -257,7 +263,12 @@ namespace Mastersign.CliTools
         public virtual bool Process(string[] args)
         {
             WriteDetail("Arguments: {0}", string.Join(" ", args));
-            Arguments = ArgumentParser.Parse(args);
+            return Process(ArgumentParser.Parse(args));
+        }
+
+        protected bool Process(ArgumentParsingResult arguments)
+        {
+            Arguments = arguments;
             if (Arguments.Type == ArgumentParsingResultType.Help ||
                 Arguments.Type == ArgumentParsingResultType.NoCommand ||
                 Arguments.Type == ArgumentParsingResultType.Command)
@@ -285,8 +296,13 @@ namespace Mastersign.CliTools
             }
             if (Arguments.Type == ArgumentParsingResultType.MissingArgument)
             {
-                PrintMissingArgumentWarning(Arguments.ErrorMessage);
-                return false;
+                var arguments2 = CompleteInteractively(Arguments);
+                if (arguments2 == null)
+                {
+                    WriteDetail("Canceled by user.");
+                    return false;
+                }
+                return Process(arguments2);
             }
             if (Arguments.Type == ArgumentParsingResultType.NoCommand)
             {
@@ -325,9 +341,13 @@ namespace Mastersign.CliTools
 
         protected virtual bool ExecuteCommand(string[] args)
         {
-            WriteError("This command has no meaning on its own. Try specify a sub-command.");
-            PrintHelpHint();
-            return false;
+            var arguments2 = CompleteInteractively(Arguments);
+            if (arguments2 == null)
+            {
+                WriteDetail("Canceled by user.");
+                return false;
+            }
+            return Process(arguments2);
         }
 
         #endregion
