@@ -455,6 +455,8 @@ namespace Mastersign.CliTools
 
         public IDictionary<string, string> PositionalValues => positionals;
 
+        public bool CompletedInteractively { get; set; }
+
         public ArgumentParsingResult(ArgumentParser parser,
             ArgumentParsingResultType type,
             string command, string errorMessage, string[] rest,

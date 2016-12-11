@@ -19,5 +19,11 @@ namespace Mastersign.Bench.Cli.Commands
                 .End(BlockType.Paragraph)
                 .Paragraph("WARNING: This command is not implemented yet.");
         }
+
+        protected override bool ExecuteCommand(string[] args)
+        {
+            WriteError("This command is not implemented yet.");
+            return false;
+        }
     }
 }

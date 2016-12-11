@@ -296,6 +296,11 @@ namespace Mastersign.CliTools
             }
             if (Arguments.Type == ArgumentParsingResultType.MissingArgument)
             {
+                if (Arguments.CompletedInteractively)
+                {
+                    PrintMissingArgumentWarning(arguments.ErrorMessage);
+                    return false;
+                }
                 var arguments2 = CompleteInteractively(Arguments);
                 if (arguments2 == null)
                 {
@@ -341,6 +346,12 @@ namespace Mastersign.CliTools
 
         protected virtual bool ExecuteCommand(string[] args)
         {
+            if (Arguments.CompletedInteractively)
+            {
+                WriteError("This command has no meaning on its own. Try specifying a sub-command.");
+                PrintHelpHint();
+                return false;
+            }
             var arguments2 = CompleteInteractively(Arguments);
             if (arguments2 == null)
             {

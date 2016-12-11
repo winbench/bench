@@ -118,7 +118,8 @@ namespace Mastersign.CliTools
                     ? ArgumentParsingResultType.Command
                     : ArgumentParsingResultType.NoCommand,
                 selectedCommand, null, prelimResult.Rest,
-                prelimResult.OptionValues, prelimResult.Flags, prelimResult.PositionalValues);
+                prelimResult.OptionValues, prelimResult.Flags, prelimResult.PositionalValues)
+            { CompletedInteractively = true };
         }
     }
 }
