@@ -445,9 +445,15 @@ namespace Mastersign.CliTools
 
         private readonly IDictionary<string, string> options;
 
+        public IDictionary<string, string> OptionValues => options;
+
         private readonly IDictionary<string, bool> flags;
 
+        public IDictionary<string, bool> Flags => flags;
+
         private readonly IDictionary<string, string> positionals;
+
+        public IDictionary<string, string> PositionalValues => positionals;
 
         public ArgumentParsingResult(ArgumentParser parser,
             ArgumentParsingResultType type,
