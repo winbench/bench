@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
+    <Compile Include="CliTools\ArgumentCompletionConsoleDialog.cs" />
+    <Compile Include="CliTools\ConsoleDialog.cs" />
+    <Compile Include="CliTools\ConsoleOperation.cs" />
     <Compile Include="Commands\AppActivateCommand.cs" />
     <Compile Include="Commands\AppDeactivateCommand.cs" />
     <Compile Include="Commands\AppExecuteCommand.cs" />
