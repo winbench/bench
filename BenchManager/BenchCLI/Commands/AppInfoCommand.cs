@@ -65,7 +65,7 @@ namespace Mastersign.Bench.Cli.Commands
             }
 
             var app = config.Apps[appId];
-            using (var w = DocumentWriterFactory.Create(Format, Console.OpenStandardOutput()))
+            using (var w = DocumentWriterFactory.Create(Format))
             {
                 WriteAppInfo(app, w);
             }

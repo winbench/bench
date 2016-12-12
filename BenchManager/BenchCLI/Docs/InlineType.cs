@@ -7,8 +7,10 @@ namespace Mastersign.Docs
     public enum InlineType
     {
         Text,
+        Emphasized,
+        StronglyEmphasized,
+        Code,
         Keyword,
-        Syntactic,
         Variable,
     }
 }

@@ -272,11 +272,15 @@ namespace Mastersign.Docs
                     W(Escape(text));
                     break;
                 // ADORN
+                case InlineType.Emphasized:
+                    W(" _{0}_ ", Escape(text));
+                    break;
+                case InlineType.StronglyEmphasized:
+                    W(" **{0}** ", Escape(text));
+                    break;
+                case InlineType.Code:
                 case InlineType.Keyword:
                     W("`{0}`", Escape(text));
-                    break;
-                case InlineType.Syntactic:
-                    W("{0}", Escape(text));
                     break;
                 case InlineType.Variable:
                     W("_&lt;{0}&gt;_", Escape(text));

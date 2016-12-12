@@ -224,7 +224,7 @@ namespace Mastersign.CliTools
 
         protected virtual void PrintHelp()
         {
-            using (var w = DocumentWriterFactory.Create(HelpFormat, Console.OpenStandardOutput()))
+            using (var w = DocumentWriterFactory.Create(HelpFormat))
             {
                 PrintHelp(w);
             }
@@ -234,6 +234,12 @@ namespace Mastersign.CliTools
         {
             w.Begin(BlockType.Document);
             w.Title("{0} v{1}", ToolName, ToolVersion);
+            NewMethod(w);
+            w.End(BlockType.Document);
+        }
+
+        private void NewMethod(DocumentWriter w)
+        {
             if (Parent != null)
             {
                 w.Begin(BlockType.Paragraph);
@@ -241,13 +247,12 @@ namespace Mastersign.CliTools
                 var chain = CommandChainNames();
                 for (int i = 0; i < chain.Length; i++)
                 {
-                    if (i > 0) w.Syntactic(" ");
+                    if (i > 0) w.Text(" ");
                     w.Keyword(chain[i]);
                 }
                 w.End(BlockType.Paragraph);
             }
             HelpFormatter.WriteHelp(w, this);
-            w.End(BlockType.Document);
         }
 
         private ArgumentParsingResult CompleteInteractively(ArgumentParsingResult arguments)

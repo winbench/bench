@@ -263,25 +263,22 @@ namespace Mastersign.Docs
         }
 
         public DocumentWriter Text(string format, params object[] args)
-        {
-            return Inline(InlineType.Text, format, args);
-        }
+            => Inline(InlineType.Text, format, args);
 
-        public DocumentWriter Syntactic(string format, params object[] args)
-        {
-            return Inline(InlineType.Syntactic, format, args);
+        public DocumentWriter Emph(string format, params object[] args)
+            => Inline(InlineType.Emphasized, format, args);
 
-        }
+        public DocumentWriter Strong(string format, params object[] args)
+            => Inline(InlineType.StronglyEmphasized, format, args);
+
+        public DocumentWriter Code(string format, params object[] args)
+            => Inline(InlineType.Code, format, args);
 
         public DocumentWriter Keyword(string format, params object[] args)
-        {
-            return Inline(InlineType.Keyword, format, args);
-        }
+            => Inline(InlineType.Keyword, format, args);
 
         public DocumentWriter Variable(string format, params object[] args)
-        {
-            return Inline(InlineType.Variable, format, args);
-        }
+            => Inline(InlineType.Variable, format, args);
 
         #endregion
     }

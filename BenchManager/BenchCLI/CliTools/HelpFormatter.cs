@@ -12,17 +12,17 @@ namespace Mastersign.CliTools
             w.Keyword("--" + a.Name);
             foreach (var alias in a.Aliases)
             {
-                w.Syntactic(" | ");
+                w.Text(" | ");
                 w.Keyword("--" + alias);
             }
-            w.Syntactic(" | ");
+            w.Text(" | ");
             w.Keyword("-" + a.Mnemonic);
         }
 
         private static void FormatOption(DocumentWriter w, OptionArgument a)
         {
             FormatFlag(w, a);
-            w.Syntactic(" ");
+            w.Text(" ");
             w.Variable("value");
         }
 
@@ -36,10 +36,10 @@ namespace Mastersign.CliTools
             w.Keyword(a.Name);
             foreach (var alias in a.Aliases)
             {
-                w.Syntactic(", ");
+                w.Text(", ");
                 w.Keyword(alias);
             }
-            w.Syntactic(", ");
+            w.Text(", ");
             w.Keyword(a.Mnemonic);
         }
 
@@ -69,23 +69,23 @@ namespace Mastersign.CliTools
             var hasOptions = HasOptions(p);
             if (hasFlags && hasOptions)
             {
-                w.Syntactic(" (").Variable("flag").Syntactic(" | ")
-                    .Variable("option").Syntactic(")*");
+                w.Text(" (").Variable("flag").Text(" | ")
+                    .Variable("option").Text(")*");
             }
             else
             {
                 if (hasFlags)
                 {
-                    w.Syntactic(" ").Variable("flag").Syntactic("*");
+                    w.Text(" ").Variable("flag").Text("*");
                 }
                 if (hasOptions)
                 {
-                    w.Syntactic(" ").Variable("option").Syntactic("*");
+                    w.Text(" ").Variable("option").Text("*");
                 }
             }
             foreach (var a in p.GetPositionals())
             {
-                w.Syntactic(" ").Append(FormatPositional, a);
+                w.Text(" ").Append(FormatPositional, a);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Mastersign.CliTools
             var cmdChain = cmd.CommandChain();
             for (int i = 0; i < cmdChain.Length; i++)
             {
-                if (i > 0) w.Syntactic(" ");
+                if (i > 0) w.Text(" ");
                 var c = cmdChain[i];
                 w.Keyword(c.Name).Append(FlagsAndOptionsGeneric, c.ArgumentParser);
             }
@@ -105,7 +105,7 @@ namespace Mastersign.CliTools
             var cmdChain = cmd.CommandChain();
             for (int i = 0; i < cmdChain.Length; i++)
             {
-                if (i > 0) w.Syntactic(" ");
+                if (i > 0) w.Text(" ");
                 var c = cmdChain[i];
                 w.Keyword(c.Name);
             }
@@ -116,7 +116,7 @@ namespace Mastersign.CliTools
             }
             if (cmd.ArgumentParser.GetCommands().Length > 0)
             {
-                w.Syntactic(" ").Variable("sub-command");
+                w.Text(" ").Variable("sub-command");
             }
         }
 
@@ -125,7 +125,7 @@ namespace Mastersign.CliTools
             var cmdChain = cmd.CommandChain();
             for (int i = 0; i < cmdChain.Length; i++)
             {
-                if (i > 0) w.Syntactic(" ");
+                if (i > 0) w.Text(" ");
                 var c = cmdChain[i];
                 w.Keyword(c.Name);
             }
@@ -139,14 +139,14 @@ namespace Mastersign.CliTools
                 if (fullHelpIndicator == null)
                 {
                     var d = new Document();
-                    d.Syntactic(" (");
+                    d.Text(" (");
                     var helpIndicators = ArgumentParser.HelpIndicators;
                     for (int i = 0; i < helpIndicators.Length; i++)
                     {
-                        if (i > 0) d.Syntactic(" | ");
+                        if (i > 0) d.Text(" | ");
                         d.Keyword(helpIndicators[i]);
                     }
-                    d.Syntactic(")");
+                    d.Text(")");
                     fullHelpIndicator = d;
                 }
                 return fullHelpIndicator;
@@ -175,7 +175,7 @@ namespace Mastersign.CliTools
             {
                 w.Begin(BlockType.ListItem);
                 w.Append(FullCommandChain, cmd);
-                w.Syntactic(" ").Variable("command").Syntactic(" ...");
+                w.Text(" ").Variable("command").Text(" ...");
                 w.End(BlockType.ListItem);
             }
             w.End(BlockType.List);
@@ -194,7 +194,7 @@ namespace Mastersign.CliTools
             {
                 w.Begin(BlockType.ListItem);
                 w.Append(SlimCommandChain, cmd)
-                    .Syntactic(" ").Variable("command")
+                    .Text(" ").Variable("command")
                     .Append(FullHelpIndicator);
                 w.End(BlockType.ListItem);
             }

@@ -75,7 +75,7 @@ namespace Mastersign.Bench.Cli.Commands
             optionLogFile.DefaultValueInfo
                 .Text("Auto generated filename in ")
                 .Variable("bench root")
-                .Syntactic("\\log\\")
+                .Text("\\log\\")
                 .Text(".");
 
             var optionBenchRoot = new OptionArgument(OPTION_BENCH_ROOT, "r",

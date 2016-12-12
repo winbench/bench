@@ -394,7 +394,7 @@ namespace Mastersign.CliTools
             var enumNames = Enum.GetNames(typeof(T));
             for (int i = 0; i < enumNames.Length; i++)
             {
-                if (i > 0) PossibleValueInfo.Syntactic(" | ");
+                if (i > 0) PossibleValueInfo.Text(" | ");
                 PossibleValueInfo.Keyword(enumNames[i]);
             }
             DefaultValueInfo.Keyword(defaultValue.ToString());

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Mastersign.Docs
 {
@@ -14,14 +15,16 @@ namespace Mastersign.Docs
 
         public TextWriter writer;
 
+        public bool UseConsoleColor { get; set; }
+
         public PlainTextDocumentWriter(Stream target)
         {
             writer = new StreamWriter(target, Encoding.Default);
         }
 
-        public PlainTextDocumentWriter(TextWriter target)
+        public PlainTextDocumentWriter(TextWriter target = null)
         {
-            writer = target;
+            writer = target ?? Console.Out;
         }
 
         public override void Dispose()
@@ -63,6 +66,42 @@ namespace Mastersign.Docs
         private bool bufferIndentFlag = false;
         private int bufferBreakCounter = 0;
 
+        private const string ESCAPE = "\x12";
+        private const char COLOR_OFFSET = 'A';
+        private static Regex colorPattern = new Regex(ESCAPE + @"\w");
+
+        private static string EncodeColor(ConsoleColor color)
+        {
+            return ESCAPE + ((char)(COLOR_OFFSET + color));
+        }
+
+        private static ConsoleColor DecodeColor(string escapedColor)
+        {
+            if (escapedColor.Length != 2) throw new ArgumentException();
+            var colorNo = escapedColor[1] - COLOR_OFFSET;
+            if (Enum.IsDefined(typeof(ConsoleColor), colorNo))
+                return (ConsoleColor)colorNo;
+            else
+                return ConsoleColor.Gray;
+        }
+
+        private void WriteWithEscapedColors(string text)
+        {
+            var p = 0;
+            foreach (Match m in colorPattern.Matches(text))
+            {
+                writer.Write(text.Substring(p, m.Index - p));
+                if (UseConsoleColor) Console.ForegroundColor = DecodeColor(m.Value);
+                p = m.Index + m.Length;
+            }
+            writer.Write(text.Substring(p));
+        }
+
+        private void C(ConsoleColor color)
+        {
+            W(EncodeColor(color));
+        }
+
         private void W(string format, params object[] args)
         {
             switch (writeMode)
@@ -73,7 +112,7 @@ namespace Mastersign.Docs
                     break;
                 default:
                     breakCounter = 0;
-                    writer.Write(format, args);
+                    WriteWithEscapedColors(string.Format(format, args));
 #if DEBUG
                     writer.Flush();
 #endif
@@ -151,7 +190,6 @@ namespace Mastersign.Docs
                 case BlockType.Property:
                     break;
                 // INDENT
-                case BlockType.Headline2:
                 case BlockType.Paragraph:
                 case BlockType.Definition:
                 case BlockType.DefinitionTopic:
@@ -169,6 +207,7 @@ namespace Mastersign.Docs
                 // BUFFER
                 case BlockType.Title:
                 case BlockType.Headline1:
+                case BlockType.Headline2:
                 case BlockType.PropertyName:
                 case BlockType.PropertyContent:
                     BeginBuffering();
@@ -218,22 +257,30 @@ namespace Mastersign.Docs
                 // HEADLINES
                 case BlockType.Title:
                     text = EndBuffering();
+                    C(ConsoleColor.Yellow);
                     W(text);
                     BR();
                     W(string.Empty.PadRight(text.Length, '='));
+                    C(ConsoleColor.Gray);
                     BR();
                     BR();
                     break;
                 case BlockType.Headline1:
                     text = EndBuffering();
+                    C(ConsoleColor.Yellow);
                     W(text);
                     BR();
                     W(string.Empty.PadRight(text.Length, '-'));
+                    C(ConsoleColor.Gray);
                     BR();
                     BR();
                     break;
                 case BlockType.Headline2:
+                    text = EndBuffering();
+                    C(ConsoleColor.Yellow);
+                    W(text);
                     W(":");
+                    C(ConsoleColor.Gray);
                     BR();
                     BR();
                     break;
@@ -296,13 +343,34 @@ namespace Mastersign.Docs
             {
                 // PASS
                 case InlineType.Text:
-                case InlineType.Keyword:
-                case InlineType.Syntactic:
                     W(text);
+                    break;
+                // COLORED
+                case InlineType.Keyword:
+                    C(ConsoleColor.Cyan);
+                    W(text);
+                    C(ConsoleColor.Gray);
+                    break;
+                case InlineType.Emphasized:
+                    C(ConsoleColor.White);
+                    W(text);
+                    C(ConsoleColor.Gray);
+                    break;
+                case InlineType.StronglyEmphasized:
+                    C(ConsoleColor.Red);
+                    W(text);
+                    C(ConsoleColor.Gray);
+                    break;
+                case InlineType.Code:
+                    C(ConsoleColor.Green);
+                    W(text);
+                    C(ConsoleColor.Gray);
                     break;
                 // ADORN
                 case InlineType.Variable:
+                    C(ConsoleColor.Magenta);
                     W("<{0}>", text);
+                    C(ConsoleColor.Gray);
                     break;
                 // UNSUPPORTED
                 default:
