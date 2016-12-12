@@ -234,11 +234,21 @@ namespace Mastersign.CliTools
         {
             w.Begin(BlockType.Document);
             w.Title("{0} v{1}", ToolName, ToolVersion);
-            NewMethod(w);
+            PrintCommandHelp(w);
             w.End(BlockType.Document);
         }
 
-        private void NewMethod(DocumentWriter w)
+        public void PrintFullHelp(DocumentWriter w)
+        {
+            w.Begin(BlockType.Document);
+            w.Title("{0} v{1}", ToolName, ToolVersion);
+            w.Headline1(Name);
+            PrintCommandHelp(w);
+            throw new NotImplementedException();
+            w.End(BlockType.Document);
+        }
+
+        private void PrintCommandHelp(DocumentWriter w)
         {
             if (Parent != null)
             {
