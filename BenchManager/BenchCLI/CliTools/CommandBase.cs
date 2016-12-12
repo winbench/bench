@@ -296,7 +296,7 @@ namespace Mastersign.CliTools
             }
             if (Arguments.Type == ArgumentParsingResultType.MissingArgument)
             {
-                if (Arguments.CompletedInteractively)
+                if (Arguments.IsCompletedInteractively)
                 {
                     PrintMissingArgumentWarning(arguments.ErrorMessage);
                     return false;
@@ -346,7 +346,7 @@ namespace Mastersign.CliTools
 
         protected virtual bool ExecuteCommand(string[] args)
         {
-            if (Arguments.CompletedInteractively)
+            if (Arguments.IsCompletedInteractively)
             {
                 WriteError("This command has no meaning on its own. Try specifying a sub-command.");
                 PrintHelpHint();

@@ -119,7 +119,7 @@ namespace Mastersign.CliTools
                     : ArgumentParsingResultType.NoCommand,
                 selectedCommand, null, prelimResult.Rest,
                 prelimResult.OptionValues, prelimResult.Flags, prelimResult.PositionalValues)
-            { CompletedInteractively = true };
+            { IsCompletedInteractively = true };
         }
     }
 }
