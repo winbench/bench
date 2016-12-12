@@ -455,7 +455,7 @@ namespace Mastersign.CliTools
 
         public IDictionary<string, string> PositionalValues => positionals;
 
-        public bool IsCompletedInteractively { get; set; }
+        public bool IsCompletedInteractively { get; private set; }
 
         public ArgumentParsingResult(ArgumentParser parser,
             ArgumentParsingResultType type,
@@ -472,6 +472,23 @@ namespace Mastersign.CliTools
             this.options = options ?? new Dictionary<string, string>();
             this.flags = flags ?? new Dictionary<string, bool>();
             this.positionals = positionals ?? new Dictionary<string, string>();
+        }
+
+        public ArgumentParsingResult DeriveHelp()
+        {
+            return new ArgumentParsingResult(Parser, ArgumentParsingResultType.Help,
+                Command, null, Rest, options, flags, positionals);
+        }
+
+        public ArgumentParsingResult DeriveInteractivelyCompleted(
+            string command)
+        {
+            return new ArgumentParsingResult(Parser,
+                command != null
+                ? ArgumentParsingResultType.Command
+                : ArgumentParsingResultType.NoCommand,
+                command, null, Rest, options, flags, positionals)
+            { IsCompletedInteractively = true };
         }
 
         public string GetOptionValue(string name, string def = null)

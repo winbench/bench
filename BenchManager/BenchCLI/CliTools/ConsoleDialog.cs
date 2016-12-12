@@ -7,6 +7,7 @@ namespace Mastersign.CliTools
     public class ConsoleDialog : ConsoleOperation
     {
         protected const char ESC = (char)27;
+        protected const char ENTER = (char)13;
 
         private int lines;
 
@@ -19,6 +20,12 @@ namespace Mastersign.CliTools
         {
             Console.WriteLine(text ?? string.Empty);
             lines++;
+        }
+
+        protected string ReadLine()
+        {
+            lines++;
+            return Console.ReadLine();
         }
 
         protected void Write(string format, params object[] args)
