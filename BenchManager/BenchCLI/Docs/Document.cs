@@ -97,6 +97,12 @@ namespace Mastersign.Docs
             }
         }
 
+        public override DocumentWriter Begin(BlockType type)
+        {
+            Record(new BlockBeginElement(type));
+            return this;
+        }
+
         public override DocumentWriter End(BlockType type)
         {
             Record(new BlockEndElement(type));
@@ -106,12 +112,6 @@ namespace Mastersign.Docs
         public override DocumentWriter Inline(InlineType type, string format, params object[] args)
         {
             Record(new InlineElement(type, string.Format(format, args)));
-            return this;
-        }
-
-        public override DocumentWriter Begin(BlockType type)
-        {
-            Record(new BlockEndElement(type));
             return this;
         }
 
