@@ -212,8 +212,39 @@ namespace Mastersign.CliTools
             return names.ToArray();
         }
 
-        private string CommandChain(string separator, bool withRoot = true)
+        public string CommandChain(string separator, bool withRoot = true)
             => string.Join(separator, CommandChainNames(withRoot));
+
+        protected CommandBase[] CommandHierarchyDepthSearch()
+        {
+            var result = new List<CommandBase>();
+            CommandHierarchyDepthSearch(result);
+            return result.ToArray();
+        }
+
+        private void CommandHierarchyDepthSearch(ICollection<CommandBase> coll)
+        {
+            coll.Add(this);
+            if (SubCommands.Count > 0)
+            {
+                var children = new List<CommandBase>(SubCommands.Values);
+                children.Sort((c1, c2) => c1.Name.CompareTo(c2.Name));
+                foreach (var item in children)
+                {
+                    item.CommandHierarchyDepthSearch(coll);
+                }
+            }
+        }
+
+        public CommandBase RootCommand
+        {
+            get
+            {
+                var cmd = this;
+                while (cmd.Parent != null) cmd = cmd.Parent;
+                return cmd;
+            }
+        }
 
         protected virtual void PrintHelpHint()
         {
@@ -253,10 +284,31 @@ namespace Mastersign.CliTools
         public void PrintFullHelp(DocumentWriter w)
         {
             w.Begin(BlockType.Document);
-            w.Title("{0} v{1}", ToolName, ToolVersion);
-            w.Headline1(Name);
-            PrintCommandHelp(w);
-            throw new NotImplementedException();
+            w.Title(ToolName);
+            w.Paragraph("Version: {0}", ToolVersion);
+            w.Append(ToolDescription);
+
+            var commands = CommandHierarchyDepthSearch();
+            w.Headline2("index", "Commands");
+            w.Begin(BlockType.List);
+            foreach (var cmd in commands)
+            {
+                w.Begin(BlockType.ListItem)
+                    .Begin(BlockType.Link)
+                    .LinkTarget("#" + HelpFormatter.CommandAnchor(cmd))
+                    .Begin(BlockType.LinkContent)
+                    .Append(HelpFormatter.SlimCommandChain, cmd)
+                    .End(BlockType.LinkContent)
+                    .End(BlockType.Link)
+                    .End(BlockType.ListItem);
+            }
+            w.End(BlockType.List);
+            foreach (var cmd in commands)
+            {
+                w.Headline1(HelpFormatter.CommandAnchor(cmd), cmd.CommandChain(" ", true));
+                cmd.PrintCommandHelp(w);
+            }
+
             w.End(BlockType.Document);
         }
 
