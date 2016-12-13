@@ -37,6 +37,27 @@ namespace Mastersign.Bench.Cli.Commands
         {
             ToolName = "Bench CLI";
             ToolVersion = Program.Version();
+            ToolDescription
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Emph("Bench CLI")
+                .Text(" allows to interact with a Bench environment on the command line.")
+                .End(BlockType.Paragraph)
+                .Begin(BlockType.Paragraph)
+                .Text("It supports a hierarchy of sub-commands with flags and options,")
+                .Text(" which can be specified as command line arguments.").LineBreak()
+                .Text("Additionally it supports an ").Emph("interactive mode")
+                .Text(" when called without a sub-command specified.").LineBreak()
+                .Text("Help texts can be displayed for each sub-command")
+                .Text(" with the ").Keyword("-?").Text(" argument.")
+                .Text(" The help texts can be printed in ").Emph("different formats").Text(".")
+                .End(BlockType.Paragraph)
+                .Begin(BlockType.Paragraph)
+                .Link("about:blank", "TEST")
+                .Text("Take a look at ")
+                .Link("http://mastersign.github.io/bench", "the project website")
+                .Text(" for a description of Bench.")
+                .End(BlockType.Paragraph);
+
             RegisterSubCommand(appCommand);
             RegisterSubCommand(configCommand);
             RegisterSubCommand(downloadsCommand);
