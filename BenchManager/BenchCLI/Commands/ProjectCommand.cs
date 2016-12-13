@@ -14,10 +14,12 @@ namespace Mastersign.Bench.Cli.Commands
         {
             parser.Description
                 .Begin(BlockType.Paragraph)
-                .Text("The ").Keyword("project").Text(" command allows to you")
+                .Text("The ").Keyword("project").Text(" command allows you")
                 .Text(" to perform certain tasks on projects in the Bench environment.")
                 .End(BlockType.Paragraph)
-                .Paragraph("WARNING: This command is not implemented yet.");
+                .Begin(BlockType.Paragraph)
+                .Strong("WARNING: This command is not implemented yet.")
+                .End(BlockType.Paragraph);
         }
 
         protected override bool ExecuteCommand(string[] args)

@@ -77,7 +77,7 @@ namespace Mastersign.Bench.Cli.Commands
         {
             writer.Begin(BlockType.Document);
             writer.Title(app.Label);
-            writer.Headline2("Description");
+            writer.Headline2("app_" + app.ID + "_description", "Description");
             writer.Begin(BlockType.List);
             WriteProperty(writer, "ID", app.ID, InlineType.Keyword);
             WriteProperty(writer, "Label", app.Label);
@@ -88,13 +88,13 @@ namespace Mastersign.Bench.Cli.Commands
             WriteProperty(writer, "App Type", app.Typ, InlineType.Keyword);
             WriteProperty(writer, "Version", app.Version, InlineType.Keyword);
             writer.End(BlockType.List);
-            writer.Headline2("State");
+            writer.Headline2("app_" + app.ID + "_state", "State");
             writer.Paragraph(app.LongStatus);
             var dependencies = app.Dependencies;
             var responsibilities = app.Responsibilities;
             if (dependencies.Length > 0 || responsibilities.Length > 0)
             {
-                writer.Headline2("Relationships");
+                writer.Headline2("app_" + app.ID + "_relations", "Relationships");
                 writer.Begin(BlockType.List);
                 if (dependencies.Length > 0)
                 {
@@ -128,7 +128,7 @@ namespace Mastersign.Bench.Cli.Commands
                 }
                 writer.End(BlockType.List);
             }
-            writer.Headline2("Paths and Resources");
+            writer.Headline2("app_" + app.ID + "_paths", "Paths and Resources");
             writer.Begin(BlockType.List);
             if (app.IsInstalled)
             {
