@@ -63,6 +63,18 @@ namespace Mastersign.CliTools
             protected set { toolVersion = value; }
         }
 
+        private Document toolDescription;
+
+        public Document ToolDescription
+        {
+            get
+            {
+                if (Parent != null) return Parent.ToolDescription;
+                if (toolDescription == null) toolDescription = new Document();
+                return toolDescription;
+            }
+        }
+
         private bool verbose;
 
         public bool Verbose
