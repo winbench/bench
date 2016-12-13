@@ -22,6 +22,7 @@ namespace Mastersign.Bench.Cli.Commands
         public const string COMMAND_RENEW = "renew";
         public const string COMMAND_UPGRADE = "upgrade";
 
+        private readonly BenchCommand helpCommand = new HelpCommand();
         private readonly BenchCommand appCommand = new AppCommand();
         private readonly BenchCommand configCommand = new ConfigCommand();
         private readonly BenchCommand downloadsCommand = new DownloadsCommand();
@@ -58,6 +59,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text(" for a description of Bench.")
                 .End(BlockType.Paragraph);
 
+            RegisterSubCommand(helpCommand);
             RegisterSubCommand(appCommand);
             RegisterSubCommand(configCommand);
             RegisterSubCommand(downloadsCommand);
@@ -68,10 +70,11 @@ namespace Mastersign.Bench.Cli.Commands
         {
             parser.Description
                 .Begin(BlockType.Paragraph)
-                .Text("The ").Keyword(Name).Text(" command is the command line interface")
-                .Text(" for the Bench system.")
-                .End(BlockType.Paragraph)
-                .Paragraph("Take a look at http://mastersign.github.io/bench for a description of Bench.");
+                .Text("The ").Keyword(Name)
+                .Text(" command is the executable of the Bench CLI.").LineBreak()
+                .Text("You can call it without a sub-command to enter the ")
+                .Emph("interactive mode").Text(".")
+                .End(BlockType.Paragraph);
 
             var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v");
             flagVerbose.Description
@@ -108,6 +111,10 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("A path to a valid Bench root directory.");
             optionBenchRoot.DefaultValueInfo
                 .Text("The root directory of the Bench environment, this Bench CLI belongs to.");
+
+            var commandHelp = new CommandArgument(helpCommand.Name, "h");
+            commandHelp.Description
+                .Text("Displays the full help for all commands.");
 
             var commandInitialize = new CommandArgument(COMMAND_INITIALIZE, "i");
             commandInitialize.Description
@@ -164,6 +171,8 @@ namespace Mastersign.Bench.Cli.Commands
                 optionHelpFormat,
                 optionLogFile,
                 optionBenchRoot,
+
+                commandHelp,
 
                 commandInitialize,
                 commandSetup,
