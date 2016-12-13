@@ -97,34 +97,58 @@ namespace Mastersign.Docs
             return Block(BlockType.Title, generator, arg);
         }
 
-        public DocumentWriter Headline1(string format, params object[] args)
+        public DocumentWriter Headline1(string anchor, string format, params object[] args)
         {
-            return Block(BlockType.Headline1, format, args);
+            Begin(BlockType.Headline1);
+            Anchor(anchor);
+            Text(format, args);
+            End(BlockType.Headline1);
+            return this;
         }
 
-        public DocumentWriter Headline1(IDocumentElements e)
+        public DocumentWriter Headline1(string anchor, IDocumentElements e)
         {
-            return Block(BlockType.Headline1, e);
+            Begin(BlockType.Headline1);
+            Anchor(anchor);
+            Append(e);
+            End(BlockType.Headline1);
+            return this;
         }
 
-        public DocumentWriter Headline1<T>(DocumentContentGenerator<T> generator, T arg)
+        public DocumentWriter Headline1<T>(string anchor, DocumentContentGenerator<T> generator, T arg)
         {
-            return Block(BlockType.Headline1, generator, arg);
+            Begin(BlockType.Headline1);
+            Anchor(anchor);
+            Append(generator, arg);
+            End(BlockType.Headline1);
+            return this;
         }
 
-        public DocumentWriter Headline2(string format, params object[] args)
+        public DocumentWriter Headline2(string anchor, string format, params object[] args)
         {
-            return Block(BlockType.Headline2, format, args);
+            Begin(BlockType.Headline2);
+            Anchor(anchor);
+            Text(format, args);
+            End(BlockType.Headline2);
+            return this;
         }
 
-        public DocumentWriter Headline2(IDocumentElements content)
+        public DocumentWriter Headline2(string anchor, IDocumentElements e)
         {
-            return Block(BlockType.Headline2, content);
+            Begin(BlockType.Headline2);
+            Anchor(anchor);
+            Append(e);
+            End(BlockType.Headline2);
+            return this;
         }
 
-        public DocumentWriter Headline2<T>(DocumentContentGenerator<T> generator, T arg)
+        public DocumentWriter Headline2<T>(string anchor, DocumentContentGenerator<T> generator, T arg)
         {
-            return Block(BlockType.Headline2, generator, arg);
+            Begin(BlockType.Headline2);
+            Anchor(anchor);
+            Append(generator, arg);
+            End(BlockType.Headline2);
+            return this;
         }
 
         public DocumentWriter Paragraph(string format, params object[] args)
@@ -244,6 +268,15 @@ namespace Mastersign.Docs
             return Block(BlockType.PropertyContent, generator, arg);
         }
 
+        public DocumentWriter Property(string name, string format, params object[] args)
+        {
+            Begin(BlockType.Property);
+            PropertyName(name);
+            PropertyContent(format, args);
+            End(BlockType.Property);
+            return this;
+        }
+
         public DocumentWriter Property(string name, IDocumentElements content)
         {
             Begin(BlockType.Property);
@@ -259,6 +292,33 @@ namespace Mastersign.Docs
             PropertyName(name);
             PropertyContent(generator, arg);
             End(BlockType.Property);
+            return this;
+        }
+
+        public DocumentWriter Link(string href, string format, params object[] args)
+        {
+            Begin(BlockType.Link);
+            LinkTarget(href);
+            Block(BlockType.LinkContent, format, args);
+            End(BlockType.Link);
+            return this;
+        }
+
+        public DocumentWriter Link(string href, IDocumentElements content)
+        {
+            Begin(BlockType.Link);
+            LinkTarget(href);
+            Block(BlockType.LinkContent, content);
+            End(BlockType.Link);
+            return this;
+        }
+
+        public DocumentWriter Link<T>(string href, DocumentContentGenerator<T> generator, T arg)
+        {
+            Begin(BlockType.Link);
+            LinkTarget(href);
+            Block(BlockType.LinkContent, generator, arg);
+            End(BlockType.Link);
             return this;
         }
 
@@ -279,6 +339,12 @@ namespace Mastersign.Docs
 
         public DocumentWriter Variable(string format, params object[] args)
             => Inline(InlineType.Variable, format, args);
+
+        public DocumentWriter Anchor(string format, params object[] args)
+            => Inline(InlineType.Anchor, format, args);
+
+        public DocumentWriter LinkTarget(string format, params object[] args)
+            => Inline(InlineType.LinkTarget, format, args);
 
         #endregion
     }

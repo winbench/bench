@@ -12,5 +12,7 @@ namespace Mastersign.Docs
         Code,
         Keyword,
         Variable,
+        Anchor,
+        LinkTarget,
     }
 }

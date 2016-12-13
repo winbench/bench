@@ -131,6 +131,11 @@ namespace Mastersign.CliTools
             }
         }
 
+        public static string CommandAnchor(CommandBase cmd)
+        {
+            return "cmd_" + cmd.CommandChain("-");
+        }
+
         private static Document fullHelpIndicator;
         private static Document FullHelpIndicator
         {
@@ -159,15 +164,15 @@ namespace Mastersign.CliTools
             w.Append(parser.Description);
             WriteUsage(w, cmd);
             WriteHelpUsage(w, cmd);
-            WriteFlags(w, parser);
-            WriteOptions(w, parser);
-            WritePositionals(w, parser);
-            WriteCommands(w, parser);
+            WriteFlags(w, cmd);
+            WriteOptions(w, cmd);
+            WritePositionals(w, cmd);
+            WriteCommands(w, cmd);
         }
 
         private static void WriteUsage(DocumentWriter w, CommandBase cmd)
         {
-            w.Headline2("Usage");
+            w.Headline2(CommandAnchor(cmd) + "_usage", "Usage");
 
             w.Begin(BlockType.List);
             w.ListItem(FullCommandChain, cmd);
@@ -183,7 +188,7 @@ namespace Mastersign.CliTools
 
         private static void WriteHelpUsage(DocumentWriter w, CommandBase cmd)
         {
-            w.Headline2("Help");
+            w.Headline2(CommandAnchor(cmd) + "_help", "Help");
 
             w.Begin(BlockType.List);
             w.Begin(BlockType.ListItem);
@@ -201,12 +206,12 @@ namespace Mastersign.CliTools
             w.End(BlockType.List);
         }
 
-        private static void WriteFlags(DocumentWriter w, ArgumentParser parser)
+        private static void WriteFlags(DocumentWriter w, CommandBase cmd)
         {
-            var flags = parser.GetFlags();
+            var flags = cmd.ArgumentParser.GetFlags();
             if (flags.Length > 0)
             {
-                w.Headline2("Flags");
+                w.Headline2(CommandAnchor(cmd) + "_flags", "Flags");
                 w.Begin(BlockType.DefinitionList);
                 foreach (var flag in flags)
                 {
@@ -219,12 +224,12 @@ namespace Mastersign.CliTools
             }
         }
 
-        private static void WriteOptions(DocumentWriter w, ArgumentParser parser)
+        private static void WriteOptions(DocumentWriter w, CommandBase cmd)
         {
-            var options = parser.GetOptions();
+            var options = cmd.ArgumentParser.GetOptions();
             if (options.Length > 0)
             {
-                w.Headline2("Options");
+                w.Headline2(CommandAnchor(cmd) + "_options", "Options");
                 w.Begin(BlockType.DefinitionList);
                 foreach (var option in options)
                 {
@@ -260,12 +265,12 @@ namespace Mastersign.CliTools
             }
         }
 
-        private static void WritePositionals(DocumentWriter w, ArgumentParser parser)
+        private static void WritePositionals(DocumentWriter w, CommandBase cmd)
         {
-            var positionals = parser.GetPositionals();
+            var positionals = cmd.ArgumentParser.GetPositionals();
             if (positionals.Length > 0)
             {
-                w.Headline2("Positional Arguments");
+                w.Headline2(CommandAnchor(cmd) + "_positionals", "Positional Arguments");
                 w.Begin(BlockType.DefinitionList);
                 foreach (var pArg in positionals)
                 {
@@ -300,26 +305,26 @@ namespace Mastersign.CliTools
             }
         }
 
-        private static void WriteCommands(DocumentWriter w, ArgumentParser parser)
+        private static void WriteCommands(DocumentWriter w, CommandBase cmd)
         {
-            var commands = parser.GetCommands();
+            var commands = cmd.ArgumentParser.GetCommands();
             if (commands.Length > 0)
             {
-                w.Headline2("Commands");
+                w.Headline2(CommandAnchor(cmd) + "_commands", "Commands");
                 w.Begin(BlockType.DefinitionList);
-                foreach (var cmd in parser.GetCommands())
+                foreach (var cmdArg in commands)
                 {
                     w.Begin(BlockType.Definition);
-                    w.DefinitionTopic(FormatCommand, cmd);
+                    w.DefinitionTopic(FormatCommand, cmdArg);
                     w.Begin(BlockType.DefinitionContent);
-                    if (!cmd.Description.IsEmpty)
+                    if (!cmdArg.Description.IsEmpty)
                     {
-                        w.Paragraph(cmd.Description);
+                        w.Paragraph(cmdArg.Description);
                     }
-                    if (!cmd.SyntaxInfo.IsEmpty)
+                    if (!cmdArg.SyntaxInfo.IsEmpty)
                     {
                         w.Begin(BlockType.PropertyList);
-                        w.Property("Syntax", cmd.SyntaxInfo);
+                        w.Property("Syntax", cmdArg.SyntaxInfo);
                         w.End(BlockType.PropertyList);
                     }
                     w.End(BlockType.DefinitionContent);

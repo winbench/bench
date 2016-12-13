@@ -34,6 +34,8 @@ namespace Mastersign.Docs
         private WriteMode writeMode = WriteMode.Target;
 
         private StringBuilder buffer = new StringBuilder();
+        private string anchor = null;
+        private string linkTarget = null;
 
         private void BeginBuffering()
         {
@@ -143,34 +145,31 @@ namespace Mastersign.Docs
                 // IGNORE
                 case BlockType.Document:
                 case BlockType.Section:
-                case BlockType.DefinitionList:
-                case BlockType.Definition:
-                case BlockType.Property:
                     break;
-                // INDENT
+                // TEXT BLOCK
                 case BlockType.Paragraph:
-                    Indent();
-                    break;
-                // CHANGE INDENT
-                case BlockType.PropertyList:
-                    break;
-                case BlockType.DefinitionContent:
                 case BlockType.Detail:
                     Indent();
                     break;
-                // BUFFER
+                // TITLE
                 case BlockType.Title:
                     BeginBuffering();
                     break;
-                // PREFIX
+                // HEADLINE
                 case BlockType.Headline1:
                     W("## ");
+                    anchor = null;
                     break;
                 case BlockType.Headline2:
                     W("### ");
+                    anchor = null;
                     break;
-                case BlockType.DefinitionTopic:
-                    W("#### ");
+                // LINK
+                case BlockType.Link:
+                    linkTarget = null;
+                    break;
+                case BlockType.LinkContent:
+                    W("[");
                     break;
                 // LIST
                 case BlockType.List:
@@ -183,9 +182,22 @@ namespace Mastersign.Docs
                     W(prefix);
                     PushIndent(string.Empty.PadRight(4));
                     break;
-                // BUFFER
+                // PROPERTY TABLE
+                case BlockType.PropertyList:
+                case BlockType.Property:
+                    break;
                 case BlockType.PropertyName:
                 case BlockType.PropertyContent:
+                    BeginBuffering();
+                    break;
+                // DEFINITION LIST
+                case BlockType.DefinitionList:
+                    break;
+                case BlockType.Definition:
+                    break;
+                case BlockType.DefinitionContent:
+                    break;
+                case BlockType.DefinitionTopic:
                     BeginBuffering();
                     break;
                 // UNSUPPORTED
@@ -205,18 +217,14 @@ namespace Mastersign.Docs
                     break;
                 // NEWLINE
                 case BlockType.Section:
-                case BlockType.Definition:
-                case BlockType.DefinitionTopic:
                     BR();
                     break;
                 // EMPTY LINE
-                case BlockType.Headline1:
-                case BlockType.Headline2:
                 case BlockType.Paragraph:
                     BR();
                     BR();
                     break;
-                // Headline
+                // TITLE
                 case BlockType.Title:
                     text = EndBuffering();
                     W(text);
@@ -224,6 +232,20 @@ namespace Mastersign.Docs
                     W(string.Empty.PadRight(text.Length, '='));
                     BR();
                     BR();
+                    break;
+                // HEADLINE
+                case BlockType.Headline1:
+                case BlockType.Headline2:
+                    if (anchor != null) W(" {{#" + anchor + "}}");
+                    BR();
+                    BR();
+                    break;
+                // LINK
+                case BlockType.LinkContent:
+                    W("]");
+                    break;
+                case BlockType.Link:
+                    W("({0})", linkTarget);
                     break;
                 // LIST
                 case BlockType.List:
@@ -248,11 +270,23 @@ namespace Mastersign.Docs
                 case BlockType.PropertyList:
                     BR();
                     break;
-                // INDENT
+                // DEFINITION LIST
                 case BlockType.DefinitionList:
+                    break;
+                case BlockType.Definition:
+                    BR();
+                    break;
+                case BlockType.DefinitionTopic:
+                    text = EndBuffering();
+                    W("#### {0}", text);
+                    BR();
+                    BR();
+                    break;
                 case BlockType.DefinitionContent:
+                    BR();
+                    break;
+                // DETAIL
                 case BlockType.Detail:
-                    PopIndent();
                     BR();
                     break;
                 // UNSUPPORTED
@@ -284,6 +318,13 @@ namespace Mastersign.Docs
                     break;
                 case InlineType.Variable:
                     W("_&lt;{0}&gt;_", Escape(text));
+                    break;
+                // MOMORIZE
+                case InlineType.Anchor:
+                    anchor = text;
+                    break;
+                case InlineType.LinkTarget:
+                    linkTarget = text;
                     break;
                 // UNSUPPORTED
                 default:

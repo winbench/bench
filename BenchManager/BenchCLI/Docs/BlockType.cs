@@ -12,6 +12,8 @@ namespace Mastersign.Docs
         Title,
         Headline1,
         Headline2,
+        Link,
+        LinkContent,
         List,
         ListItem,
         DefinitionList,
