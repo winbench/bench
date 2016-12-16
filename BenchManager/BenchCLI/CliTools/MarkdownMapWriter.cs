@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Mastersign.CliTools
 {
-    public class MarkdownPropertyWriter : IPropertyWriter
+    public class MarkdownMapWriter : IMapWriter
     {
         private TextWriter writer;
 
-        public MarkdownPropertyWriter(Stream stream)
+        public MarkdownMapWriter(Stream stream)
         {
             writer = new StreamWriter(stream, new UTF8Encoding(false));
         }
@@ -49,7 +49,7 @@ namespace Mastersign.CliTools
             return "`" + (value ? "true" : "false") + "`";
         }
 
-        public void WriteValue(string key, IDictionary<string, string> value)
+        private void WriteValue(string key, IDictionary<string, string> value)
         {
             writer.WriteLine("* `{0}`:", key);
             foreach (var kvp in value)
@@ -58,7 +58,7 @@ namespace Mastersign.CliTools
             }
         }
 
-        public void WriteValue(string key, string[] value)
+        private void WriteValue(string key, string[] value)
         {
             var sum = 0;
             var list = new List<string>(value);
@@ -81,22 +81,22 @@ namespace Mastersign.CliTools
             }
         }
 
-        public void WriteValue(string key, string value)
+        private void WriteValue(string key, string value)
         {
             writer.WriteLine("* `{0}`: {1}", key, EscapeValue(value));
         }
 
-        public void WriteValue(string key, bool value)
+        private void WriteValue(string key, bool value)
         {
             writer.WriteLine("* `{0}`: {1}", key, EscapeValue(value));
         }
 
-        public void WriteNull(string key)
+        private void WriteNull(string key)
         {
             writer.WriteLine("* `{0}`:", key);
         }
 
-        public void WriteUnknown(string key)
+        private void WriteUnknown(string key)
         {
             writer.WriteLine("* `{0}`: _Unsupported Data Type_", key);
         }

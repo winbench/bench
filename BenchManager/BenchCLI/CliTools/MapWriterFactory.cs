@@ -4,16 +4,16 @@ using System.Text;
 
 namespace Mastersign.CliTools
 {
-    public static class PropertyWriterFactory
+    public static class MapWriterFactory
     {
-        public static IPropertyWriter Create(DataOutputFormat format)
+        public static IMapWriter Create(DataOutputFormat format)
         {
             switch (format)
             {
                 case DataOutputFormat.Plain:
-                    return new ConsolePropertyWriter();
+                    return new ConsoleMapWriter();
                 case DataOutputFormat.Markdown:
-                    return new MarkdownPropertyWriter(Console.OpenStandardOutput());
+                    return new MarkdownMapWriter(Console.OpenStandardOutput());
                 //case OutputFormat.JSON:
                 //    return new JsonPropertyWriter(Console.OpenStandardOutput());
                 //case OutputFormat.XML:

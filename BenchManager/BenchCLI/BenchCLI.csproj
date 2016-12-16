@@ -63,7 +63,7 @@
     <Compile Include="Commands\AppPropertyCommand.cs" />
     <Compile Include="Commands\ConfigCommand.cs" />
     <Compile Include="Commands\DownloadsCommand.cs" />
-    <Compile Include="CliTools\ConsolePropertyWriter.cs" />
+    <Compile Include="CliTools\ConsoleMapWriter.cs" />
     <Compile Include="CliTools\DataOutputFormat.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
@@ -86,12 +86,12 @@
     <Compile Include="CliTools\HelpFormatter.cs" />
     <Compile Include="Docs\IDocumentWriter.cs" />
     <Compile Include="Commands\RootCommand.cs" />
-    <Compile Include="CliTools\IPropertyWriter.cs" />
-    <Compile Include="CliTools\MarkdownPropertyWriter.cs" />
+    <Compile Include="CliTools\IMapWriter.cs" />
+    <Compile Include="CliTools\MarkdownMapWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyWriter.cs" />
-    <Compile Include="CliTools\PropertyWriterFactory.cs" />
+    <Compile Include="CliTools\MapWriterFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BenchLib\BenchLib.csproj">

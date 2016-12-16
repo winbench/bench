@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mastersign.CliTools
 {
-    public interface IPropertyWriter : IDisposable
+    public interface IMapWriter : IDisposable
     {
         void Write(string key, object value);
     }

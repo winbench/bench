@@ -97,7 +97,7 @@ namespace Mastersign.Bench.Cli.Commands
             }
             names.Sort();
 
-            using (var w = PropertyWriterFactory.Create(Format))
+            using (var w = MapWriterFactory.Create(Format))
             {
                 w.Write("ID", app.ID);
                 foreach (var p in names)
@@ -109,7 +109,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         private void PrintRawProperties(BenchConfiguration cfg, string appId)
         {
-            using (var w = PropertyWriterFactory.Create(Format))
+            using (var w = MapWriterFactory.Create(Format))
             {
                 w.Write("ID", appId);
                 foreach (var name in cfg.PropertyNames(appId))
