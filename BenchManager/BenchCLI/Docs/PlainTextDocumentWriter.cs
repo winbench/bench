@@ -61,11 +61,15 @@ namespace Mastersign.Docs
             return text;
         }
 
+        private readonly List<string> urls = new List<string>();
+        private int lastUrl = 0;
+
         private bool indentFlag = false;
         private int breakCounter = 0;
         private bool bufferIndentFlag = false;
         private int bufferBreakCounter = 0;
 
+        private const ConsoleColor RESET_COLOR = ConsoleColor.Gray;
         private const string ESCAPE = "\x12";
         private const char COLOR_OFFSET = 'A';
         private static Regex colorPattern = new Regex(ESCAPE + @"\w");
@@ -97,9 +101,21 @@ namespace Mastersign.Docs
             writer.Write(text.Substring(p));
         }
 
+        private readonly Stack<ConsoleColor> colors = new Stack<ConsoleColor>();
+
         private void C(ConsoleColor color)
         {
+            colors.Push(color);
             W(EncodeColor(color));
+        }
+
+        private void CR()
+        {
+            colors.Pop();
+            if (colors.Count > 0)
+                W(EncodeColor(colors.Peek()));
+            else
+                W(EncodeColor(RESET_COLOR));
         }
 
         private void W(string format, params object[] args)
@@ -185,9 +201,12 @@ namespace Mastersign.Docs
             switch (type)
             {
                 // IGNORE
-                case BlockType.Document:
                 case BlockType.Section:
                 case BlockType.Property:
+                    break;
+                // DOCUMENT
+                case BlockType.Document:
+                    urls.Clear();
                     break;
                 // INDENT
                 case BlockType.Paragraph:
@@ -211,6 +230,13 @@ namespace Mastersign.Docs
                 case BlockType.PropertyName:
                 case BlockType.PropertyContent:
                     BeginBuffering();
+                    break;
+                // LINK
+                case BlockType.Link:
+                    lastUrl = -1;
+                    C(ConsoleColor.White);
+                    break;
+                case BlockType.LinkContent:
                     break;
                 // LIST
                 case BlockType.List:
@@ -239,11 +265,27 @@ namespace Mastersign.Docs
             string text;
             switch (type)
             {
-                // IGNORE
+                // SECTION
                 case BlockType.Document:
+                case BlockType.Section:
+                    if (urls.Count > 0)
+                    {
+                        Begin(BlockType.Headline1);
+                        Text("References");
+                        End(BlockType.Headline1);
+                        for (int i = 0; i < urls.Count; i++)
+                        {
+                            C(ConsoleColor.White);
+                            W("{0,3})", i + 1);
+                            CR();
+                            W(" {0}", urls[i]);
+                            BR();
+                        }
+                        urls.Clear();
+                    }
+                    BR();
                     break;
                 // NEWLINE
-                case BlockType.Section:
                 case BlockType.Definition:
                 case BlockType.DefinitionTopic:
                 case BlockType.Property:
@@ -261,7 +303,7 @@ namespace Mastersign.Docs
                     W(text);
                     BR();
                     W(string.Empty.PadRight(text.Length, '='));
-                    C(ConsoleColor.Gray);
+                    CR();
                     BR();
                     BR();
                     break;
@@ -271,7 +313,7 @@ namespace Mastersign.Docs
                     W(text);
                     BR();
                     W(string.Empty.PadRight(text.Length, '-'));
-                    C(ConsoleColor.Gray);
+                    CR();
                     BR();
                     BR();
                     break;
@@ -280,9 +322,19 @@ namespace Mastersign.Docs
                     C(ConsoleColor.Yellow);
                     W(text);
                     W(":");
-                    C(ConsoleColor.Gray);
+                    CR();
                     BR();
                     BR();
+                    break;
+                // LINK
+                case BlockType.LinkContent:
+                    break;
+                case BlockType.Link:
+                    if (lastUrl >= 0)
+                    {
+                        W(" [{0}]", lastUrl + 1);
+                    }
+                    CR();
                     break;
                 // LIST
                 case BlockType.List:
@@ -341,36 +393,52 @@ namespace Mastersign.Docs
             var text = string.Format(format, args);
             switch (type)
             {
+                // IGNORE
+                case InlineType.Anchor:
+                    break;
                 // PASS
                 case InlineType.Text:
                     W(text);
+                    break;
+                // LINK TARGET
+                case InlineType.LinkTarget:
+                    if (!text.StartsWith("#"))
+                    {
+                        var i = urls.IndexOf(text);
+                        if (i < 0)
+                        {
+                            urls.Add(text);
+                            i = urls.Count - 1;
+                        }
+                        lastUrl = i;
+                    }
                     break;
                 // COLORED
                 case InlineType.Keyword:
                     C(ConsoleColor.Cyan);
                     W(text);
-                    C(ConsoleColor.Gray);
+                    CR();
                     break;
                 case InlineType.Emphasized:
                     C(ConsoleColor.White);
                     W(text);
-                    C(ConsoleColor.Gray);
+                    CR();
                     break;
                 case InlineType.StronglyEmphasized:
                     C(ConsoleColor.Red);
                     W(text);
-                    C(ConsoleColor.Gray);
+                    CR();
                     break;
                 case InlineType.Code:
                     C(ConsoleColor.Green);
                     W(text);
-                    C(ConsoleColor.Gray);
+                    CR();
                     break;
                 // ADORN
                 case InlineType.Variable:
                     C(ConsoleColor.Magenta);
                     W("<{0}>", text);
-                    C(ConsoleColor.Gray);
+                    CR();
                     break;
                 // UNSUPPORTED
                 default:
