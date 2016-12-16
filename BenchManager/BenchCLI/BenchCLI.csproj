@@ -54,6 +54,7 @@
     <Compile Include="Commands\AppDownloadCommand.cs" />
     <Compile Include="Commands\AppInstallCommand.cs" />
     <Compile Include="Commands\AppUninstallCommand.cs" />
+    <Compile Include="Commands\AutoSetupCommand.cs" />
     <Compile Include="Commands\BenchCommand.cs" />
     <Compile Include="Commands\AppCommand.cs" />
     <Compile Include="CliTools\ArgumentParser.cs" />
@@ -65,7 +66,12 @@
     <Compile Include="CliTools\ConsolePropertyWriter.cs" />
     <Compile Include="CliTools\DataOutputFormat.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Commands\InitializeCommand.cs" />
     <Compile Include="Commands\ProjectCommand.cs" />
+    <Compile Include="Commands\ReinstallCommand.cs" />
+    <Compile Include="Commands\RenewCommand.cs" />
+    <Compile Include="Commands\UpdateEnvironmentCommand.cs" />
+    <Compile Include="Commands\UpgradeCommand.cs" />
     <Compile Include="Docs\BlockType.cs" />
     <Compile Include="Docs\DocumentContentGenerator.cs" />
     <Compile Include="Docs\DocumentOutputFormat.cs" />

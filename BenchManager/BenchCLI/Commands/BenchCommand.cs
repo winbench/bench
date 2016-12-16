@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Mastersign.CliTools;
 using Mastersign.Docs;
@@ -19,6 +20,24 @@ namespace Mastersign.Bench.Cli.Commands
         }
 
         #endregion
+
+        protected static string BenchBinDirPath()
+        {
+            return Path.GetDirectoryName(Program.CliExecutable());
+        }
+
+        protected static string DefaultRootPath()
+        {
+            var rootPath = Path.GetFullPath(Path.Combine(Path.Combine(BenchBinDirPath(), ".."), ".."));
+            return File.Exists(Path.Combine(rootPath, @"res\apps.md")) ? rootPath : null;
+        }
+
+        protected static string DashboardExecutable()
+        {
+            if (!BenchTasks.IsDashboardSupported) return null;
+            var path = Path.Combine(BenchBinDirPath(), "BenchDashboard.exe");
+            return File.Exists(path) ? path : null;
+        }
 
         #region Task Helper
 

@@ -15,18 +15,21 @@ namespace Mastersign.Bench.Cli.Commands
         private const string OPTION_HELP_FORMAT = "help-format";
         private const string OPTION_LOGFILE = "logfile";
         private const string OPTION_BENCH_ROOT = "root";
-        public const string COMMAND_INITIALIZE = "initialize";
-        public const string COMMAND_SETUP = "setup";
-        public const string COMMAND_UPDATE_ENV = "update-env";
-        public const string COMMAND_REINSTALL = "reinstall";
-        public const string COMMAND_RENEW = "renew";
-        public const string COMMAND_UPGRADE = "upgrade";
 
         private readonly BenchCommand helpCommand = new HelpCommand();
+
+        private readonly BenchCommand initializeCommand = new InitializeCommand();
+        private readonly BenchCommand autoSetupCommand = new AutoSetupCommand();
+        private readonly BenchCommand updateEnvCommand = new UpdateEnvironmentCommand();
+        private readonly BenchCommand reinstallCommand = new ReinstallCommand();
+        private readonly BenchCommand renewCommand = new RenewCommand();
+        private readonly BenchCommand upgradeCommand = new UpgradeCommand();
+
         private readonly BenchCommand appCommand = new AppCommand();
         private readonly BenchCommand configCommand = new ConfigCommand();
         private readonly BenchCommand downloadsCommand = new DownloadsCommand();
         private readonly BenchCommand projectCommand = new ProjectCommand();
+
 
         public override string Name
             => Assembly.GetExecutingAssembly()
@@ -53,17 +56,25 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text(" The help texts can be printed in ").Emph("different formats").Text(".")
                 .End(BlockType.Paragraph)
                 .Begin(BlockType.Paragraph)
-                .Link("about:blank", "TEST")
                 .Text("Take a look at ")
                 .Link("http://mastersign.github.io/bench", "the project website")
                 .Text(" for a description of Bench.")
                 .End(BlockType.Paragraph);
 
             RegisterSubCommand(helpCommand);
+
+            RegisterSubCommand(initializeCommand);
+            RegisterSubCommand(autoSetupCommand);
+            RegisterSubCommand(updateEnvCommand);
+            RegisterSubCommand(reinstallCommand);
+            RegisterSubCommand(renewCommand);
+            RegisterSubCommand(upgradeCommand);
+
             RegisterSubCommand(appCommand);
             RegisterSubCommand(configCommand);
             RegisterSubCommand(downloadsCommand);
             RegisterSubCommand(projectCommand);
+
         }
 
         protected override void InitializeArgumentParser(ArgumentParser parser)
@@ -116,27 +127,27 @@ namespace Mastersign.Bench.Cli.Commands
             commandHelp.Description
                 .Text("Displays the full help for all commands.");
 
-            var commandInitialize = new CommandArgument(COMMAND_INITIALIZE, "i");
+            var commandInitialize = new CommandArgument(initializeCommand.Name, "i", "init");
             commandInitialize.Description
                 .Text("Initialize the Bench configuration and start the setup process.");
 
-            var commandSetup = new CommandArgument(COMMAND_SETUP, "s");
+            var commandSetup = new CommandArgument(autoSetupCommand.Name, "s");
             commandSetup.Description
                 .Text("Run the auto-setup for the active Bench apps.");
 
-            var commandUpdateEnv = new CommandArgument(COMMAND_UPDATE_ENV, "e");
+            var commandUpdateEnv = new CommandArgument(updateEnvCommand.Name, "e");
             commandUpdateEnv.Description
                 .Text("Update the paths in the Bench environment.");
 
-            var commandReinstall = new CommandArgument(COMMAND_REINSTALL, "r");
+            var commandReinstall = new CommandArgument(reinstallCommand.Name, "r");
             commandReinstall.Description
                 .Text("Remove all installed apps, then install all active apps.");
 
-            var commandRenew = new CommandArgument(COMMAND_RENEW, "n");
+            var commandRenew = new CommandArgument(renewCommand.Name, "n");
             commandRenew.Description
                 .Text("Redownload all app resources, remove all installed apps, then install all active apps.");
 
-            var commandUpgrade = new CommandArgument(COMMAND_UPGRADE, "u");
+            var commandUpgrade = new CommandArgument(upgradeCommand.Name, "u");
             commandUpgrade.Description
                 .Text("Download and extract the latest Bench release, then run the auto-setup.");
 
@@ -187,24 +198,6 @@ namespace Mastersign.Bench.Cli.Commands
                 commandProject);
         }
 
-        private static string MyPath()
-        {
-            return Path.GetDirectoryName(Program.CliExecutable());
-        }
-
-        private static string DefaultRootPath()
-        {
-            var rootPath = Path.GetFullPath(Path.Combine(Path.Combine(MyPath(), ".."), ".."));
-            return File.Exists(Path.Combine(rootPath, @"res\apps.md")) ? rootPath : null;
-        }
-
-        private string DashboardExecutable()
-        {
-            if (!BenchTasks.IsDashboardSupported) return null;
-            var path = Path.Combine(MyPath(), "BenchDashboard.exe");
-            return File.Exists(path) ? path : null;
-        }
-
         public string LogFilePath
         {
             get
@@ -252,93 +245,5 @@ namespace Mastersign.Bench.Cli.Commands
 
             return true;
         }
-
-        protected override bool ExecuteUnknownSubCommand(string command, string[] args)
-        {
-            switch (command)
-            {
-                case COMMAND_INITIALIZE:
-                    return TaskInitialize();
-                case COMMAND_SETUP:
-                    return TaskAutoSetup();
-                case COMMAND_UPDATE_ENV:
-                    return TaskUpdateEnvironment();
-                case COMMAND_REINSTALL:
-                    return TaskReinstallApps();
-                case COMMAND_RENEW:
-                    return TaskUpgradeApps();
-                case COMMAND_UPGRADE:
-                    WriteError("This command is not implemented yet.");
-                    return false;
-
-                default:
-                    WriteError("Unsupported command: " + command + ".");
-                    return false;
-            }
-        }
-
-        private bool TaskInitialize()
-        {
-            var cfg = BenchTasks.InitializeSiteConfiguration(RootPath);
-            if (cfg == null)
-            {
-                WriteInfo("Initialization canceled.");
-                return false;
-            }
-
-            var autoSetup = cfg.GetBooleanValue(PropertyKeys.WizzardStartAutoSetup, true);
-            var mgr = new DefaultBenchManager(cfg);
-            mgr.Verbose = Verbose;
-            cfg = null;
-
-            var success = mgr.SetupRequiredApps();
-            if (!success)
-            {
-                WriteError("Initial app setup failed.");
-                return false;
-            }
-
-            cfg = BenchTasks.InitializeCustomConfiguration(mgr);
-            if (cfg == null)
-            {
-                WriteInfo("Initialization canceled.");
-                return false;
-            }
-            mgr.Dispose();
-
-            var dashboardPath = DashboardExecutable();
-            if (dashboardPath != null)
-            {
-                var arguments = string.Format("-root \"{0}\"", RootPath);
-                if (autoSetup)
-                {
-                    arguments += " -setup";
-                }
-                var pi = new ProcessStartInfo()
-                {
-                    FileName = dashboardPath,
-                    Arguments = arguments,
-                    UseShellExecute = false
-                };
-                System.Diagnostics.Process.Start(pi);
-                return true;
-            }
-            else if (autoSetup)
-                return TaskAutoSetup();
-            else
-                return true;
-        }
-
-        private bool TaskAutoSetup()
-            => RunManagerTask(mgr => mgr.AutoSetup());
-
-        private bool TaskUpdateEnvironment()
-            => RunManagerTask(mgr => mgr.UpdateEnvironment());
-
-        private bool TaskReinstallApps()
-            => RunManagerTask(mgr => mgr.ReinstallApps());
-
-        private bool TaskUpgradeApps()
-            => RunManagerTask(mgr => mgr.UpgradeApps());
     }
 }
