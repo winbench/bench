@@ -46,6 +46,9 @@
     <Compile Include="CliTools\ArgumentCompletionConsoleDialog.cs" />
     <Compile Include="CliTools\ConsoleDialog.cs" />
     <Compile Include="CliTools\ConsoleOperation.cs" />
+    <Compile Include="CliTools\ITableWriter.cs" />
+    <Compile Include="CliTools\TableWriterFactory.cs" />
+    <Compile Include="CliTools\MarkdownTableWriter.cs" />
     <Compile Include="Commands\AppActivateCommand.cs" />
     <Compile Include="Commands\AppDeactivateCommand.cs" />
     <Compile Include="Commands\AppExecuteCommand.cs" />
@@ -98,6 +101,9 @@
       <Project>{3ff60d62-d733-40e8-b759-848fae5fea93}</Project>
       <Name>BenchLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CliTools\ConsoleTableWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
