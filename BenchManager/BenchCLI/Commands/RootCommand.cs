@@ -17,6 +17,7 @@ namespace Mastersign.Bench.Cli.Commands
         private const string OPTION_BENCH_ROOT = "root";
 
         private readonly BenchCommand helpCommand = new HelpCommand();
+        private readonly BenchCommand listCommand = new ListCommand();
 
         private readonly BenchCommand initializeCommand = new InitializeCommand();
         private readonly BenchCommand autoSetupCommand = new AutoSetupCommand();
@@ -62,6 +63,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .End(BlockType.Paragraph);
 
             RegisterSubCommand(helpCommand);
+            RegisterSubCommand(listCommand);
 
             RegisterSubCommand(initializeCommand);
             RegisterSubCommand(autoSetupCommand);
@@ -127,6 +129,10 @@ namespace Mastersign.Bench.Cli.Commands
             commandHelp.Description
                 .Text("Displays the full help for all commands.");
 
+            var commandList = new CommandArgument(listCommand.Name, "l");
+            commandList.Description
+                .Text("Lists different kinds of objects in the Bench environment.");
+
             var commandInitialize = new CommandArgument(initializeCommand.Name, "i", "init");
             commandInitialize.Description
                 .Text("Initialize the Bench configuration and start the setup process.");
@@ -184,6 +190,7 @@ namespace Mastersign.Bench.Cli.Commands
                 optionBenchRoot,
 
                 commandHelp,
+                commandList,
 
                 commandInitialize,
                 commandSetup,

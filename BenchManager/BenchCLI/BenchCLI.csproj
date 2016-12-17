@@ -70,6 +70,7 @@
     <Compile Include="CliTools\DataOutputFormat.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
+    <Compile Include="Commands\ListCommand.cs" />
     <Compile Include="Commands\ProjectCommand.cs" />
     <Compile Include="Commands\ReinstallCommand.cs" />
     <Compile Include="Commands\RenewCommand.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Commands\RootCommand.cs" />
     <Compile Include="CliTools\IMapWriter.cs" />
     <Compile Include="CliTools\MarkdownMapWriter.cs" />
+    <Compile Include="Commands\ListAppsCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyWriter.cs" />
