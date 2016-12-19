@@ -10,7 +10,9 @@ namespace Mastersign.Bench.Cli.Commands
     {
         public override string Name => "list";
 
+        private const string FLAG_TABLE = "table";
         private const string OPTION_FORMAT = "format";
+
         private const DataOutputFormat DEF_FORMAT = DataOutputFormat.Plain;
 
         private readonly BenchCommand listAppsCommand = new ListAppsCommand();
@@ -21,15 +23,12 @@ namespace Mastersign.Bench.Cli.Commands
         }
 
         public DataOutputFormat Format
-        {
-            get
-            {
-                return (DataOutputFormat)Enum.Parse(
+            => (DataOutputFormat)Enum.Parse(
                     typeof(DataOutputFormat),
-                    Arguments.GetOptionValue(OPTION_FORMAT, DEF_FORMAT.ToString()), 
+                    Arguments.GetOptionValue(OPTION_FORMAT, DEF_FORMAT.ToString()),
                     true);
-            }
-        }
+
+        public bool OutputAsTable => Arguments.GetFlag(FLAG_TABLE);
 
         protected override void InitializeArgumentParser(ArgumentParser parser)
         {
@@ -38,8 +37,13 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("The ").Keyword(Name).Text(" command lists different kinds of objects from the Bench environment.")
                 .End(BlockType.Paragraph)
                 .Begin(BlockType.Paragraph)
-                .Text("Choose a sub-command to specify the kind of obhect, you want to list.")
+                .Text("Choose a sub-command to specify the kind of object, you want to list.")
                 .End(BlockType.Paragraph);
+
+            var flagTable = new FlagArgument(FLAG_TABLE, "t");
+            flagTable.Description
+                .Text("Prints properties of the listed objects as a table.")
+                .Text(" Otherwise only the ID is printed.");
 
             var optionFormat = new EnumOptionArgument<DataOutputFormat>(OPTION_FORMAT, "f", DEF_FORMAT);
             optionFormat.Description
@@ -50,6 +54,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("List apps from the app library.");
 
             parser.RegisterArguments(
+                flagTable,
                 optionFormat,
                 commandListApps);
         }
