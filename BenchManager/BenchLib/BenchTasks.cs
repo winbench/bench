@@ -239,6 +239,85 @@ namespace Mastersign.Bench
                 }),
                 new Regex(@"\<span\s[^\>]*class=""direct-link""[^\>]*\>(.*?)\</span\>"));
 
+        private static WebClient InitializeWebClient(BenchConfiguration config)
+        {
+            var useProxy = config.GetBooleanValue(PropertyKeys.UseProxy);
+            var httpProxy = config.GetStringValue(PropertyKeys.HttpProxy);
+            var httpsProxy = config.GetStringValue(PropertyKeys.HttpsProxy);
+            var proxyBypass = config.GetStringListValue(PropertyKeys.ProxyBypass);
+            var webClient = new WebClient();
+            webClient.Proxy = useProxy
+                ? new SchemeDispatchProxy(new Dictionary<string, IWebProxy>
+                    {
+                        {"http", new WebProxy(httpProxy, true, proxyBypass)},
+                        {"https", new WebProxy(httpsProxy, true, proxyBypass)}
+                    })
+                : null;
+            return webClient;
+        }
+
+        /// <summary>
+        /// Downloads a string via HTTP(S) asynchronously.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <param name="resultHandler">The handler to process the download result.</param>
+        public static void DownloadStringAsync(BenchConfiguration config, Uri url, StringDownloadResultHandler resultHandler)
+        {
+            var wc = InitializeWebClient(config);
+            wc.DownloadStringCompleted += (sender, eventArgs) =>
+            {
+                resultHandler(eventArgs.Error == null && !eventArgs.Cancelled, eventArgs.Result);
+                wc.Dispose();
+            };
+            wc.DownloadStringAsync(url);
+        }
+
+        /// <summary>
+        /// Downloads a string via HTTP(S).
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <returns>The resources content or <c>null</c> if the download failed.</returns>
+        public static string DownloadString(BenchConfiguration config, Uri url)
+        {
+            using (var wc = InitializeWebClient(config))
+            {
+                try
+                {
+                    return wc.DownloadString(url);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Downloads the version number of the latest Bench release asynchronously.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="resultHandler">The handler for the download result.</param>
+        public static void GetLatestVersionAsync(BenchConfiguration config, StringDownloadResultHandler resultHandler)
+        {
+            var uri = new Uri(config.GetStringValue(PropertyKeys.VersionUrl));
+            DownloadStringAsync(config, uri,
+                (success, content) => resultHandler(success, content != null ? content.Trim() : null));
+        }
+
+        /// <summary>
+        /// Downloads the version number of the latest Bench release.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <returns>The version number or <c>null</c> if the download failed.</returns>
+        public static string GetLatestVersion(BenchConfiguration config)
+        {
+            var uri = new Uri(config.GetStringValue(PropertyKeys.VersionUrl));
+            var result = DownloadString(config, uri);
+            return result != null ? result.Trim() : null;
+        }
+
         private static string RunCustomScript(BenchConfiguration config, IProcessExecutionHost execHost,
             string appId, string path, params string[] args)
         {

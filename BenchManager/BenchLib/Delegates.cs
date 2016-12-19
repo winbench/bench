@@ -15,6 +15,13 @@ namespace Mastersign.Bench
     internal delegate void TextFileEditor(string prompt, string filePath);
 
     /// <summary>
+    /// The type for a handler, called when the download of string finished.
+    /// </summary>
+    /// <param name="success"><c>true</c> if the download was successful; otherwise false.</param>
+    /// <param name="content">The content of the download or <c>null</c> if the download failed.</param>
+    public delegate void StringDownloadResultHandler(bool success, string content);
+
+    /// <summary>
     /// The type for a method which is called, to process a key value pair of strings.
     /// </summary>
     /// <param name="key">The key to process.</param>
