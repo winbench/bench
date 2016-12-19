@@ -1253,9 +1253,13 @@ namespace Mastersign.Bench
 
         #region PropertyListing
 
-        private static readonly string[] knownProperties = new[]
+        /// <summary>
+        /// An array with all property keys, which are known by the Bench system.
+        /// </summary>
+        public static readonly string[] KnownPropertyKeys = new[]
             {
                 PropertyKeys.AppTyp,
+                PropertyKeys.AppLabel,
                 PropertyKeys.AppWebsite,
                 PropertyKeys.AppDocs,
                 PropertyKeys.AppVersion,
@@ -1263,6 +1267,8 @@ namespace Mastersign.Bench
                 PropertyKeys.AppIsRequired,
                 PropertyKeys.AppIsActivated,
                 PropertyKeys.AppIsDeactivated,
+                PropertyKeys.AppHasResource,
+                PropertyKeys.AppIsResourceCached,
                 PropertyKeys.AppInstalledVersion,
                 PropertyKeys.AppDependencies,
                 PropertyKeys.AppIsDependency,
@@ -1296,7 +1302,7 @@ namespace Mastersign.Bench
         /// <returns><c>true</c> if the property is known; otherwise <c>false</c>.</returns>
         public static bool IsKnownProperty(string propertyName)
         {
-            foreach (var name in knownProperties)
+            foreach (var name in KnownPropertyKeys)
             {
                 if (name.Equals(propertyName)) return true;
             }
@@ -1313,6 +1319,7 @@ namespace Mastersign.Bench
             {
                 var result = new List<KeyValuePair<string, object>>();
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppTyp, this.Typ));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLabel, this.Label));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppWebsite, this.Website));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDocs, this.Docs));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppVersion, this.Version));
@@ -1320,6 +1327,8 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsRequired, this.IsRequired));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsActivated, this.IsActivated));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsDeactivated, this.IsDeactivated));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppHasResource, this.HasResource));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsResourceCached, this.IsResourceCached));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppInstalledVersion, this.InstalledVersion));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDependencies, this.Dependencies));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsDependency, this.IsDependency));

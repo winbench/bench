@@ -89,7 +89,6 @@ namespace Mastersign.Bench
         public const string AppIsDeactivated = "IsDeactivated";
         public const string AppIsRequired = "IsRequired";
         public const string AppIsDependency = "IsDependency";
-
         public const string AppLabel = "Label";
         public const string AppTyp = "Typ";
         public const string AppVersion = "Version";
@@ -113,6 +112,8 @@ namespace Mastersign.Bench
 
         // Default App Properties
 
+        public const string AppHasResource = "HasResource";
+        public const string AppIsResourceCached = "IsResourceCached";
         public const string AppUrl = "Url";
         public const string AppDownloadHeaders = "DownloadHeaders";
         public const string AppDownloadCookies = "DownloadCookies";
