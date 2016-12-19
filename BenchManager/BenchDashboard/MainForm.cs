@@ -312,7 +312,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void AboutHandler(object sender, EventArgs e)
         {
-            new AboutDialog().ShowDialog(this);
+            new AboutDialog(core).ShowDialog(this);
         }
 
         private void DocsHandler(object sender, EventArgs e)

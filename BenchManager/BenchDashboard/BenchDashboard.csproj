@@ -203,6 +203,7 @@
     <None Include="Resources\missing_app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\progress_16_animation.gif" />
     <None Include="Resources\properties_16.png" />
     <None Include="Resources\about.ico" />
     <None Include="Resources\bash.ico" />

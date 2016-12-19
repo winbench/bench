@@ -33,17 +33,20 @@
             this.lblLicenses = new System.Windows.Forms.Label();
             this.lblAckLabel = new System.Windows.Forms.Label();
             this.panelHead = new System.Windows.Forms.Panel();
+            this.picVersionState = new System.Windows.Forms.PictureBox();
+            this.lblUpdate = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.lblSubtitle = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelFooter = new System.Windows.Forms.Panel();
+            this.linkAuthor = new System.Windows.Forms.LinkLabel();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblAcks = new System.Windows.Forms.Label();
             this.txtLicenses = new System.Windows.Forms.TextBox();
-            this.lblVersion = new System.Windows.Forms.Label();
-            this.linkAuthor = new System.Windows.Forms.LinkLabel();
             this.table.SuspendLayout();
             this.panelHead.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picVersionState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.panelFooter.SuspendLayout();
             this.SuspendLayout();
@@ -96,6 +99,8 @@
             // 
             this.panelHead.BackColor = System.Drawing.SystemColors.Control;
             this.table.SetColumnSpan(this.panelHead, 2);
+            this.panelHead.Controls.Add(this.picVersionState);
+            this.panelHead.Controls.Add(this.lblUpdate);
             this.panelHead.Controls.Add(this.lblVersion);
             this.panelHead.Controls.Add(this.picLogo);
             this.panelHead.Controls.Add(this.lblSubtitle);
@@ -106,6 +111,39 @@
             this.panelHead.Name = "panelHead";
             this.panelHead.Size = new System.Drawing.Size(624, 88);
             this.panelHead.TabIndex = 1;
+            // 
+            // picVersionState
+            // 
+            this.picVersionState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picVersionState.Location = new System.Drawing.Point(518, 15);
+            this.picVersionState.Name = "picVersionState";
+            this.picVersionState.Size = new System.Drawing.Size(16, 16);
+            this.picVersionState.TabIndex = 6;
+            this.picVersionState.TabStop = false;
+            this.picVersionState.DoubleClick += new System.EventHandler(this.VersionDoubleClickHandler);
+            // 
+            // lblUpdate
+            // 
+            this.lblUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUpdate.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lblUpdate.Location = new System.Drawing.Point(154, 36);
+            this.lblUpdate.Name = "lblUpdate";
+            this.lblUpdate.Size = new System.Drawing.Size(358, 13);
+            this.lblUpdate.TabIndex = 5;
+            this.lblUpdate.Text = "version of update";
+            this.lblUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblUpdate.DoubleClick += new System.EventHandler(this.VersionDoubleClickHandler);
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVersion.Location = new System.Drawing.Point(412, 16);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(100, 13);
+            this.lblVersion.TabIndex = 4;
+            this.lblVersion.Text = "v0.0.0";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblVersion.DoubleClick += new System.EventHandler(this.VersionDoubleClickHandler);
             // 
             // picLogo
             // 
@@ -150,6 +188,18 @@
             this.panelFooter.Size = new System.Drawing.Size(624, 60);
             this.panelFooter.TabIndex = 2;
             // 
+            // linkAuthor
+            // 
+            this.linkAuthor.AutoSize = true;
+            this.linkAuthor.LinkColor = System.Drawing.SystemColors.HotTrack;
+            this.linkAuthor.Location = new System.Drawing.Point(12, 24);
+            this.linkAuthor.Name = "linkAuthor";
+            this.linkAuthor.Size = new System.Drawing.Size(92, 13);
+            this.linkAuthor.TabIndex = 4;
+            this.linkAuthor.TabStop = true;
+            this.linkAuthor.Text = "Tobias Kiertscher";
+            this.linkAuthor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAuthor_LinkClicked);
+            // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -187,28 +237,6 @@
             this.txtLicenses.Size = new System.Drawing.Size(502, 288);
             this.txtLicenses.TabIndex = 5;
             // 
-            // lblVersion
-            // 
-            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVersion.Location = new System.Drawing.Point(440, 16);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(100, 13);
-            this.lblVersion.TabIndex = 4;
-            this.lblVersion.Text = "v0.0.0";
-            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // linkAuthor
-            // 
-            this.linkAuthor.AutoSize = true;
-            this.linkAuthor.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkAuthor.Location = new System.Drawing.Point(12, 24);
-            this.linkAuthor.Name = "linkAuthor";
-            this.linkAuthor.Size = new System.Drawing.Size(93, 13);
-            this.linkAuthor.TabIndex = 4;
-            this.linkAuthor.TabStop = true;
-            this.linkAuthor.Text = "Tobias Kiertscher";
-            this.linkAuthor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAuthor_LinkClicked);
-            // 
             // AboutDialog
             // 
             this.AcceptButton = this.btnClose;
@@ -229,6 +257,7 @@
             this.table.PerformLayout();
             this.panelHead.ResumeLayout(false);
             this.panelHead.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picVersionState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.panelFooter.ResumeLayout(false);
             this.panelFooter.PerformLayout();
@@ -251,5 +280,7 @@
         private System.Windows.Forms.TextBox txtLicenses;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.LinkLabel linkAuthor;
+        private System.Windows.Forms.Label lblUpdate;
+        private System.Windows.Forms.PictureBox picVersionState;
     }
 }
