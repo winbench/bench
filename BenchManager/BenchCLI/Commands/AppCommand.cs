@@ -104,7 +104,7 @@ namespace Mastersign.Bench.Cli.Commands
             commandUninstall.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appUninstallCommand);
 
-            var commandExecute = new CommandArgument(appExecuteCommand.Name, "e", "exec", "run");
+            var commandExecute = new CommandArgument(appExecuteCommand.Name, "e", "exec", "launch", "run");
             commandExecute.Description
                 .Text("Starts an apps main executable.");
             commandExecute.SyntaxInfo
