@@ -93,7 +93,7 @@ namespace Mastersign.Bench.Cli.Commands
             flagVerbose.Description
                 .Text("Activates verbose output.");
 
-            var flagNoAssurance = new FlagArgument(FLAG_YES, "y");
+            var flagNoAssurance = new FlagArgument(FLAG_YES, "y", "force");
             flagNoAssurance.Description
                 .Text("Suppresses all assurance questions.");
 
