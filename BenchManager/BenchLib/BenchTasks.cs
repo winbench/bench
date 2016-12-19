@@ -1953,7 +1953,7 @@ namespace Mastersign.Bench
         private static bool CanOmitUninstall(ICollection<AppFacade> selectedApps, AppFacade app)
         {
             var parentAppId = default(string);
-            switch(app.Typ)
+            switch (app.Typ)
             {
                 case AppTyps.NodePackage:
                     parentAppId = AppKeys.NodeJS;
@@ -1970,7 +1970,7 @@ namespace Mastersign.Bench
             }
             if (parentAppId != null)
             {
-                foreach(var selectedApp in selectedApps)
+                foreach (var selectedApp in selectedApps)
                 {
                     if (selectedApp.ID == parentAppId)
                     {
