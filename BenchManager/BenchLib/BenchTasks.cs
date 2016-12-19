@@ -832,6 +832,22 @@ namespace Mastersign.Bench
                 UpdateEnvironment);
         }
 
+        /// <summary>
+        /// Runs the Bench task of downloading the latest Bench binary and bootstrap file.
+        /// </summary>
+        /// <param name="man">The Bench manager.</param>
+        /// <param name="notify">The notification handler.</param>
+        /// <param name="cancelation">A cancelation token.</param>
+        /// <returns>The result of running the task, in shape of an <see cref="ActionResult"/> object.</returns>
+        public static ActionResult DoDownloadBenchUpdate(IBenchManager man,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            return RunTasks(man,
+                new AppFacade[0],
+                notify, cancelation,
+                DownloadBenchUpdate);
+        }
+
         #endregion
 
         #region Task Composition
@@ -1383,6 +1399,83 @@ namespace Mastersign.Bench
             if (!cancelation.IsCanceled)
             {
                 notify(new TaskProgress("Finished updating environment.", 1f));
+            }
+        }
+
+        private static void DownloadBenchUpdate(IBenchManager man,
+            ICollection<AppFacade> _,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            notify(new TaskInfo("Retrieving latest Bench version number..."));
+
+            var version = GetLatestVersion(man.Config);
+            if (version == null)
+            {
+                notify(new TaskError("Retrieving the latest Bench version number failed."));
+                return;
+            }
+            notify(new TaskInfo("Found Bench v" + version));
+
+            var taskCount = 2;
+            var finished = 0;
+            var errorCnt = 0;
+            var endEvent = new ManualResetEvent(false);
+
+            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            {
+                notify(new TaskProgress(
+                    string.Format("Started download for {0} ...", e.Task.Id),
+                    (float)finished / taskCount, e.Task.Id, e.Task.Url.ToString()));
+            };
+
+            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            {
+                finished++;
+                if (!e.Task.Success)
+                {
+                    errorCnt++;
+                    notify(new TaskError(e.Task.ErrorMessage, e.Task.Id));
+                }
+                else
+                {
+                    notify(new TaskProgress(
+                        string.Format("Finished download for {0}.", e.Task.Id),
+                        (float)finished / taskCount, e.Task.Id));
+                }
+            };
+
+            EventHandler workFinishedHandler = null;
+            workFinishedHandler = (EventHandler)((o, e) =>
+            {
+                man.Downloader.DownloadEnded -= downloadEndedHandler;
+                man.Downloader.WorkFinished -= workFinishedHandler;
+                endEvent.Set();
+            });
+            man.Downloader.DownloadStarted += downloadStartedHandler;
+            man.Downloader.DownloadEnded += downloadEndedHandler;
+            man.Downloader.WorkFinished += workFinishedHandler;
+
+            cancelation.Canceled += (s, e) =>
+            {
+                man.Downloader.CancelAll();
+            };
+
+            notify(new TaskProgress("Downloading Bench update...", 0f));
+
+            var binaryUrl = man.Config.GetStringValue(PropertyKeys.UpdateUrl)
+                .Replace("#VERSION#", version);
+            var binaryFile = Path.Combine(man.Config.BenchRootDir, "Bench.zip");
+            var bootstrapUrl = man.Config.GetStringValue(PropertyKeys.BootstrapUrl)
+                .Replace("#VERSION#", version);
+            var bootstrapFile = Path.Combine(man.Config.BenchRootDir, "bench-install.bat");
+
+            man.Downloader.Enqueue(new DownloadTask("Bench Binary", new Uri(binaryUrl), binaryFile));
+            man.Downloader.Enqueue(new DownloadTask("Bootstrap File", new Uri(bootstrapUrl), bootstrapFile));
+            endEvent.WaitOne();
+
+            if (!cancelation.IsCanceled)
+            {
+                notify(new TaskProgress("Finished downloading the Bench update.", 1f));
             }
         }
 

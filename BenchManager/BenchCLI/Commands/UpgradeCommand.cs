@@ -23,8 +23,8 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteCommand(string[] args)
         {
-            WriteError("This command is not implemented yet.");
-            return false;
+            WriteError("Starting the update is not implemented yet.");
+            return RunManagerTask(mgr => mgr.DownloadBenchUpdate());
         }
     }
 }

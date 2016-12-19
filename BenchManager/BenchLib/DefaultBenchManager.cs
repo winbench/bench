@@ -226,5 +226,11 @@ namespace Mastersign.Bench
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
         public bool UpgradeApp(string appId) => RunAction(BenchTasks.DoUpgradeApps, appId);
+
+        /// <summary>
+        /// Downloads the latest Bench binary and bootstrap file.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool DownloadBenchUpdate() => RunAction(BenchTasks.DoDownloadBenchUpdate);
     }
 }
