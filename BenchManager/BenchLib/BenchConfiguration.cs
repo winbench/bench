@@ -266,7 +266,7 @@ namespace Mastersign.Bench
             SetValue(PropertyKeys.BenchScripts, Path.Combine(BenchRootDir, ScriptsDir));
 
             var versionFile = GetValue(PropertyKeys.VersionFile) as string;
-            var version = File.Exists(versionFile) ? File.ReadAllText(versionFile, Encoding.UTF8) : "0.0.0";
+            var version = File.Exists(versionFile) ? File.ReadAllText(versionFile, Encoding.UTF8).Trim() : "0.0.0";
             SetValue(PropertyKeys.Version, version);
 
             if (!GetBooleanValue(PropertyKeys.OverrideHome))
