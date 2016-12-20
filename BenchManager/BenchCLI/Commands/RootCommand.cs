@@ -18,6 +18,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         private readonly BenchCommand helpCommand = new HelpCommand();
         private readonly BenchCommand listCommand = new ListCommand();
+        private readonly BenchCommand dashboardCommand = new DashboardCommand();
 
         private readonly BenchCommand initializeCommand = new InitializeCommand();
         private readonly BenchCommand autoSetupCommand = new AutoSetupCommand();
@@ -30,7 +31,6 @@ namespace Mastersign.Bench.Cli.Commands
         private readonly BenchCommand configCommand = new ConfigCommand();
         private readonly BenchCommand downloadsCommand = new DownloadsCommand();
         private readonly BenchCommand projectCommand = new ProjectCommand();
-
 
         public override string Name
             => Assembly.GetExecutingAssembly()
@@ -64,6 +64,7 @@ namespace Mastersign.Bench.Cli.Commands
 
             RegisterSubCommand(helpCommand);
             RegisterSubCommand(listCommand);
+            RegisterSubCommand(dashboardCommand);
 
             RegisterSubCommand(initializeCommand);
             RegisterSubCommand(autoSetupCommand);
@@ -133,6 +134,10 @@ namespace Mastersign.Bench.Cli.Commands
             commandList.Description
                 .Text("Lists different kinds of objects in the Bench environment.");
 
+            var commandDashboard = new CommandArgument(dashboardCommand.Name, "b", "gui");
+            commandDashboard.Description
+                .Text("Starts the ").Emph("Bench Dashboard").Text(".");
+
             var commandInitialize = new CommandArgument(initializeCommand.Name, "i", "init");
             commandInitialize.Description
                 .Text("Initialize the Bench configuration and start the setup process.");
@@ -191,6 +196,7 @@ namespace Mastersign.Bench.Cli.Commands
 
                 commandHelp,
                 commandList,
+                commandDashboard,
 
                 commandInitialize,
                 commandSetup,
