@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Mastersign.CliTools;
 using Mastersign.Docs;
@@ -23,8 +24,18 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteCommand(string[] args)
         {
-            WriteError("Starting the update is not implemented yet.");
-            return RunManagerTask(mgr => mgr.DownloadBenchUpdate());
+            if (!AskForAssurance("Are you sure you want to upgrade the Bench system?")) return false;
+
+            if (!RunManagerTask(mgr => mgr.DownloadBenchUpdate())) return false;
+
+            var si = new System.Diagnostics.ProcessStartInfo("cmd",
+                "/C \"@ECHO.Starting Bench Upgrade... && @ECHO. && @ECHO.Make sure, all programs in the Bench environment are closed. && @PAUSE && @CALL ^\""
+                    + Path.Combine(RootPath, "bench-install.bat") + "^\"\"");
+            si.UseShellExecute = true;
+            si.WorkingDirectory = RootPath;
+            System.Diagnostics.Process.Start(si);
+
+            return true;
         }
     }
 }
