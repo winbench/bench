@@ -224,21 +224,13 @@ namespace Mastersign.Bench.Cli.Commands
 
             WriteDetail("{0} v{1}: {2}", ToolName, ToolVersion, Program.CliExecutable());
 
-            if (BenchTasks.IsDashboardSupported)
-            {
-                WriteDetail("Bench Dashboard: " + (DashboardExecutable() ?? "not found"));
-            }
-            else
-            {
-                WriteDetail("Bench Dashboard: Not Supported. Microsoft .NET Framework 4.5 not installed.");
-            }
-
             var rp = Arguments.GetOptionValue(OPTION_BENCH_ROOT, DefaultRootPath());
             if (rp != null)
             {
                 RootPath = Path.IsPathRooted(rp)
                     ? rp
                     : Path.Combine(Environment.CurrentDirectory, rp);
+                WriteDetail("Bench Root: " + (RootPath ?? "unknown"));
             }
             else
             {
@@ -247,7 +239,15 @@ namespace Mastersign.Bench.Cli.Commands
                 return false;
             }
 
-            WriteDetail("Bench Root: " + (RootPath ?? "unknown"));
+            if (BenchTasks.IsDashboardSupported)
+            {
+                WriteDetail("Bench Dashboard: " + (DashboardExecutable(RootPath) ?? "not found"));
+            }
+            else
+            {
+                WriteDetail("Bench Dashboard: Not Supported. Microsoft .NET Framework 4.5 not installed.");
+            }
+
             WriteDetail("Log File: " + (LogFilePath ?? "automatic"));
 
             return true;

@@ -32,10 +32,12 @@ namespace Mastersign.Bench.Cli.Commands
             return File.Exists(Path.Combine(rootPath, @"res\apps.md")) ? rootPath : null;
         }
 
-        protected static string DashboardExecutable()
+        protected static string DashboardExecutable(string rootDir = null)
         {
             if (!BenchTasks.IsDashboardSupported) return null;
-            var path = Path.Combine(BenchBinDirPath(), "BenchDashboard.exe");
+            var path = rootDir != null
+                ? Path.Combine(Path.Combine(Path.Combine(rootDir, "auto"), "bin"), "BenchDashboard.exe")
+                : Path.Combine(BenchBinDirPath(), "BenchDashboard.exe");
             return File.Exists(path) ? path : null;
         }
 
