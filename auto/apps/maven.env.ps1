@@ -47,7 +47,7 @@ if (Test-Path $settingsFile) {
     }
     $proxiesE.RemoveAll()
 
-    if (Get-ConfigValue UseProxy) {
+    if (Get-ConfigBooleanValue UseProxy) {
         [Uri]$httpProxyUri = Get-ConfigValue HttpProxy
         if ($httpProxyUri) {
             AddProxy $proxiesE "http" $httpProxyUri
