@@ -607,6 +607,64 @@ namespace Mastersign.Bench.Dashboard
             return result;
         }
 
+        private class AsyncVersionNumberResult : IAsyncResult
+        {
+            public object AsyncState => null;
+
+            public bool Success { get; private set; }
+            public string VersionNumber { get; private set; }
+            private ManualResetEvent handle;
+
+            public AsyncVersionNumberResult()
+            {
+                handle = new ManualResetEvent(false);
+            }
+
+            public WaitHandle AsyncWaitHandle => handle;
+
+            public bool CompletedSynchronously => false;
+
+            public bool IsCompleted => handle == null;
+
+            public void NotifyResult(bool success, string versionNumber)
+            {
+                Success = success;
+                VersionNumber = versionNumber;
+                handle.Set();
+                handle = null;
+            }
+        }
+
+        public Task<string> GetLatestVersionNumber()
+        {
+            var asyncResult = new AsyncVersionNumberResult();
+            BenchTasks.GetLatestVersionAsync(Config, asyncResult.NotifyResult);
+            return Task<string>.Factory.FromAsync(asyncResult, r => {
+                var result = (AsyncVersionNumberResult)r;
+                return result.Success ? result.VersionNumber : null;
+            });
+        }
+
+        public async Task<ActionResult> DownloadBenchUpdateAsync(Action<TaskInfo> notify)
+        {
+            BeginAction();
+            var result = await RunTaskAsync(BenchTasks.DoDownloadBenchUpdate, notify, cancelation);
+            EndAction(result.Success);
+            if (result.Canceled)
+            {
+                UI.ShowWarning("Downloading Bench update", "Canceled");
+            }
+            else if (!result.Success)
+            {
+                UI.ShowWarning("Upgrading Bench System",
+                    BuildCombinedErrorMessage(
+                        "Downloading the latest Bench update failed.",
+                        "Downloading the latest Bench update failed.",
+                        null, 1));
+            }
+            return result;
+        }
+
         private static string BuildCombinedErrorMessage(string infoWithErrors, string infoWithoutErrors,
             IEnumerable<TaskInfo> errors, int maxLines)
         {
