@@ -24,12 +24,33 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteCommand(string[] args)
         {
-            if (!AskForAssurance("Are you sure you want to upgrade the Bench system?")) return false;
+            var cfg = LoadConfiguration();
+            var version = cfg.GetStringValue(PropertyKeys.Version);
+
+            WriteDetail("Retrieving the latest version number...");
+            var latestVersion = BenchTasks.GetLatestVersion(cfg);
+            if (latestVersion == null)
+            {
+                WriteError("Contacting the distribution site failed.");
+                return false;
+            }
+
+            WriteLine("Current version: " + version);
+            if (string.Equals(version, latestVersion))
+            {
+                WriteLine("No update available.");
+                if (!AskForAssurance("Do you want to reinstall the Bench system?")) return false;
+            }
+            else
+            {
+                WriteLine("Latest version:  " + latestVersion);
+                if (!AskForAssurance("Are you sure, you want to upgrade the Bench system?")) return false;
+            }
 
             if (!RunManagerTask(mgr => mgr.DownloadBenchUpdate())) return false;
 
             var si = new System.Diagnostics.ProcessStartInfo("cmd",
-                "/C \"@ECHO.Starting Bench Upgrade... && @ECHO. && @ECHO.Make sure, all programs in the Bench environment are closed. && @PAUSE && @CALL ^\""
+                "/C \"@ECHO.Starting Bench Installation... && @ECHO. && @ECHO.Make sure, all programs in the Bench environment are closed. && @PAUSE && @CALL ^\""
                     + Path.Combine(RootPath, "bench-install.bat") + "^\"\"");
             si.UseShellExecute = true;
             si.WorkingDirectory = RootPath;
