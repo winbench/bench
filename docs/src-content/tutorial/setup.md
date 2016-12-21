@@ -8,7 +8,7 @@ weight = 1
 [bench-install]: https://github.com/mastersign/bench/raw/master/res/bench-install.bat
 [config]: /ref/config
 [select-apps]: /tutorial/apps
-[Bench CLI]: /ref/bench-ctl
+[Bench CLI]: /ref/bench-cli
 [.NET45]: https://www.microsoft.com/download/details.aspx?id=30653
 
 Setting up Bench means downloading and extracting the Bench system files,
@@ -70,7 +70,7 @@ via the [Bench CLI][].
   <https://github.com/mastersign/bench/releases/latest>
 * Create a folder for Bench
 * Extract the content of `Bench.zip` into the created folder
-* Run `actions\bench-ctl.cmd initialize`
+* Run `auto\bin\bench.exe -v initialize`
 * Follow the [Initialization Wizzard](#setup-wizzard)
 
 ## Initializing the Configuration {#setup-wizzard}
@@ -133,7 +133,7 @@ Tech Guides
 
 Reference Docs
 
-* [Bench CLI](/ref/bench-ctl)
+* [Bench CLI](/ref/bench-cli)
 * [File Structure](/ref/file-structure)
 * [Configuration Markup Syntax](/ref/markup-syntax)
 * [Configuration Properties](/ref/config)

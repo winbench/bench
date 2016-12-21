@@ -714,6 +714,6 @@ The configuration files are loaded in the listed order.
 If a configuration value appears in multiple configuration files,
 the value from the file, loaded latest, wins.
 
-[Bench CLI]: /ref/bench-ctl
+[Bench CLI]: /ref/bench-cli
 [Bench Dashboard]: /ref/dashboard
 [Git]: /ref/apps#Git

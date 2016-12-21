@@ -11,7 +11,7 @@ weight = 2
 [App Activation List]: /ref/file-structure/#config-apps-activated
 [Bench App Library]: /ref/file-structure/#res-apps
 [User App Library]: /ref/file-structure/#config-apps
-[Bench CLI]: /ref/bench-ctl
+[Bench CLI]: /ref/bench-cli
 
 Apps are defined in the Bench app library or in your custom app library.
 An app definition contains an ID, a download URL or the identifier
@@ -76,20 +76,20 @@ If you do not know the IDs of the available apps, take a look at the
 [User App Library][] in `config\apps.md`.
 
 To kick-off the installation of the activated apps, run the [Bench CLI][]
-with the [setup action](/ref/bench-ctl/#setup).
+with the [setup action](/ref/bench-cli/#cmd_bench-setup).
 E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd
-cd C:\bench\actions
-bench-ctl setup
+cd C:\bench\auto\bin
+.\bench setup
 ```
 
 Do not be alarmed, if this process takes a while, because the activated
 apps must be downloaded and extracted.
 Depending on the bandwidth of your internet connection and your CPU speed,
 this can take a while.
-If you want more information during the setup process, add `verbose`
-as second command line argument: `bench-ctl setup verbose`.
+If you want more information during the setup process, add `--verbose`
+as flag to the command line: `.\bench --verbose setup`.
 
 ## Next {#next}
 Now you can [delete](/tutorial/apps-remove)

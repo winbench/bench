@@ -124,7 +124,7 @@ Color: violet
 Reference Docs cover components or processes of Bench in detail.
 
 * `apps` Included apps and app groups
-* `bench-ctl` Command-line management tool `bench-ctl`
+* `bench-cli` Command-line management tool `bench.exe`
 * `dashboard` Bench Dashboard
     + Main window
     + Setup dialog

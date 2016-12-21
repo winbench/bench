@@ -10,7 +10,7 @@ weight = 4
 [App List]: /ref/dashboard/#setup-applist
 [App Activation List]: /ref/file-structure/#config-apps-activated
 [App Deactivation List]: /ref/file-structure/#config-apps-deactivated
-[Bench CLI]: /ref/bench-ctl
+[Bench CLI]: /ref/bench-cli
 
 If you do not need an app anymore installed in your Bench environment,
 you can just deselect and remove it.
@@ -64,16 +64,16 @@ just locate them in the [download cache](/ref/file-structure/#cache-dir) directo
 `cache` and delete them.
 
 To kick-off the deinstallation of apps which are installed, but not activated,
-run the [Bench CLI][] with the [setup action](/ref/bench-ctl/#setup).
+run the [Bench CLI][] with the [setup action](/ref/bench-cli/#cmd_bench-setup).
 E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd
-cd C:\bench\actions
-bench-ctl setup
+cd C:\bench\auto\bin
+.\bench setup
 ```
 
-If you want more information during the setup process, add `verbose`
-as second command line argument: `bench-ctl setup verbose`.
+If you want more information during the setup process, add `--verbose`
+as flag to the command line: `.\bench --verbose setup`.
 
 ## See Also
 

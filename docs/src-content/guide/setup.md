@@ -8,11 +8,11 @@ weight = 2
 [bootstrap file]: /ref/file-structure/#res-bench-install
 [site configuration]: /ref/file-structure/#bench-site
 [custom configuration]: /ref/file-structure/#config-dir
-[Bench CLI]: /ref/bench-ctl
+[Bench CLI]: /ref/bench-cli
 [required apps]: /ref/apps/#apps-required
 [Bench environment file]: /ref/file-structure/#env
-[initialization mode]: /ref/bench-ctl/#initialize
-[setup mode]: /ref/bench-ctl/#setup
+[initialization mode]: /ref/bench-cli/#cmd_bench-initialize
+[setup mode]: /ref/bench-cli/#cmd_bench-setup
 
 Bench is installed and upgraded with a [bootstrap file][], which downloads
 the archive `Bench.zip` with the Bench system files, extracts its content in the Bench root directory,
@@ -30,16 +30,16 @@ The setup of a Bench installation is performed in the following steps:
     + Deleting the following folders in the Bench root: `actions`, `auto`, `res`, `tmp`,
       and the folders of the required apps in `lib`
     + Extracting the Bench archive
-* Running the Bench CLI in [initialization mode][] ...
+* Running the [Bench CLI][] in [initialization mode][] ...
     + Initializing the [site configuration][]
     + Downloading missing app resources for [required apps][]
     + Installing the [required apps][]
     + Initializing the [custom configuration][] from template or existing Git repository
-* Running the Bench CLI in [setup mode][] ...
+* Running the [Bench CLI][] in [setup mode][] ...
     + Downloading missing app resources for activated apps
     + Installing activated apps
     + Writing the [Bench environment file][]
     + Creating Launcher shortcuts
 
-Running the Bench CLI in [upgrade mode](/ref/bench-ctl/#upgrade)
+Running the [Bench CLI][] in [upgrade mode](/ref/bench-cli/#cmd_bench-upgrade)
 performs all steps listed above, except creating the Bench root directory.
