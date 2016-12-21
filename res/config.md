@@ -2,8 +2,8 @@
 
 * VersionFile: `res\version.txt`
 * VersionUrl: <https://raw.github.com/mastersign/bench/master/res/version.txt>
-* UpdateUrl: `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip`
-* BootstrapUrl: `https://github.com/mastersign/bench/blob/v#VERSION#/res/bench-install.bat`
+* UpdateUrlPattern: `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip`
+* BootstrapUrlPattern: `https://github.com/mastersign/bench/blob/v#VERSION#/res/bench-install.bat`
 * UseProxy: `false`
 * ProxyBypass: `localhost`
 * HttpProxy: `http://127.0.0.1:80`

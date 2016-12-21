@@ -1462,10 +1462,10 @@ namespace Mastersign.Bench
 
             notify(new TaskProgress("Downloading Bench update...", 0f));
 
-            var binaryUrl = man.Config.GetStringValue(PropertyKeys.UpdateUrl)
+            var binaryUrl = man.Config.GetStringValue(PropertyKeys.UpdateUrlTemplate)
                 .Replace("#VERSION#", version);
             var binaryFile = Path.Combine(man.Config.BenchRootDir, "Bench.zip");
-            var bootstrapUrl = man.Config.GetStringValue(PropertyKeys.BootstrapUrl)
+            var bootstrapUrl = man.Config.GetStringValue(PropertyKeys.BootstrapUrlTemplate)
                 .Replace("#VERSION#", version);
             var bootstrapFile = Path.Combine(man.Config.BenchRootDir, "bench-install.bat");
 
