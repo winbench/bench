@@ -15,10 +15,7 @@ namespace Mastersign.Bench.Cli.Commands
         {
             parser.Description
                 .Begin(BlockType.Paragraph)
-                .Text("The ").Keyword(Name).Text(" command checks if a new version of Bench is available, and incase installs it.")
-                .End(BlockType.Paragraph)
-                .Begin(BlockType.Paragraph)
-                .Strong("WARNING: This command ist not implemented yet.")
+                .Text("The ").Keyword(Name).Text(" command checks if a new version of Bench is available and installs it.")
                 .End(BlockType.Paragraph);
         }
 
