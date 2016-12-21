@@ -2,7 +2,7 @@
 
 ## Environment
 
-With the following properties, the composition of the environment variables is controlled.
+With the following properties you can control the composition of the environment variables.
 
 * OverrideHome: `true`
 * OverrideTemp: `true`
@@ -11,17 +11,23 @@ With the following properties, the composition of the environment variables is c
 * ~~EnvironmentPath: `$HomeDir$\bin`~~
 * ~~Environment: `MY_VAR: my custom value`~~
 
-## Project Archive
-
-With the following properties, the project archive is controlled.
-
-* ~~ProjectArchiveFormat: `7z`~~
-* ProjectArchiveDir: `archive`
-
 ## Quick Access
 
-With the following properties, the appearance of the launchers for the three shells is controlled.
+With the following properties you can control the appearance of the launchers for the three shells.
 
 * QuickAccessCmd: `true`
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
+
+## Dashboard
+
+With the following properties you can control certain behavior of the Bench Dashboard.
+
+* AutoUpdateCheck: `true`
+
+## Project Archive
+
+With the following properties you can control the project archive.
+
+* ~~ProjectArchiveFormat: `7z`~~
+* ProjectArchiveDir: `archive`
