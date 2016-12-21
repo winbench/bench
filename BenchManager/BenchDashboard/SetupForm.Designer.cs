@@ -32,6 +32,7 @@
             System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+            System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupForm));
             this.tsSeparatorDownloads = new System.Windows.Forms.ToolStripSeparator();
             this.splitterBottom = new System.Windows.Forms.Splitter();
@@ -74,6 +75,7 @@
             this.tsmSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAuto = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdateEnvironment = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpgradeBench = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReinstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,6 +97,7 @@
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.panelStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridApps)).BeginInit();
@@ -116,6 +119,11 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
             // 
             // tsSeparatorDownloads
             // 
@@ -514,6 +522,8 @@
             this.tsmSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAuto,
             this.tsmiUpdateEnvironment,
+            toolStripSeparator4,
+            this.tsmiUpgradeBench,
             toolStripSeparator2,
             this.tsmiInstallAll,
             this.tsmiReinstallAll,
@@ -542,7 +552,15 @@
             this.tsmiUpdateEnvironment.Name = "tsmiUpdateEnvironment";
             this.tsmiUpdateEnvironment.Size = new System.Drawing.Size(230, 22);
             this.tsmiUpdateEnvironment.Text = "Update &Environment";
-            this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironment);
+            this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironmentHandler);
+            // 
+            // tsmiUpgradeBench
+            // 
+            this.tsmiUpgradeBench.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_bench_16;
+            this.tsmiUpgradeBench.Name = "tsmiUpgradeBench";
+            this.tsmiUpgradeBench.Size = new System.Drawing.Size(230, 22);
+            this.tsmiUpgradeBench.Text = "Upgrade &Bench";
+            this.tsmiUpgradeBench.Click += new System.EventHandler(this.UpgradeBenchSystemHandler);
             // 
             // tsmiInstallAll
             // 
@@ -787,5 +805,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colVersion;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
         private System.Windows.Forms.ToolStripMenuItem miAppInfo;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpgradeBench;
     }
 }

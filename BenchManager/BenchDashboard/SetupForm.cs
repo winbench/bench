@@ -441,20 +441,56 @@ namespace Mastersign.Bench.Dashboard
             await core.UpgradeAppsAsync(TaskInfoHandler);
         }
 
-        private async void UpdateEnvironment(object sender, EventArgs e)
+        private async void UpdateEnvironmentHandler(object sender, EventArgs e)
         {
             AnnounceTask("Update Environment");
             await core.UpdateEnvironmentAsync(TaskInfoHandler);
         }
 
-        private async void UpgradeBenchSystem(object sender, EventArgs e)
+        private async void UpgradeBenchSystemHandler(object sender, EventArgs e)
         {
             AnnounceTask("Updating Bench System");
 
-
-
-            await core.DownloadBenchUpdateAsync(TaskInfoHandler);
-
+            var version = core.Config.GetStringValue(PropertyKeys.Version);
+            var latestVersion = await core.GetLatestVersionNumber();
+            if (latestVersion == null)
+            {
+                MessageBox.Show(this,
+                    "Retrieving the version number of the latest release failed."
+                    + Environment.NewLine + Environment.NewLine
+                    + "The update process was cancelled.",
+                    "Updating Bench System",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (string.Equals(version, latestVersion))
+            {
+                var res = MessageBox.Show(this,
+                    "There is no update available."
+                    + " You are already using the latest release of Bench (v" + version + ")." + Environment.NewLine
+                    + Environment.NewLine
+                    + "Do you want to reinstall the Bench system with a download of the latest release anyway?",
+                    "Updating Bench System",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res != DialogResult.Yes) return;
+            }
+            else
+            {
+                var res = MessageBox.Show(this,
+                    "Are you sure you want to update the Bench system?" + Environment.NewLine
+                    + Environment.NewLine
+                    + "Current version: " + version + Environment.NewLine
+                    + "Update version: " + latestVersion,
+                    "Updating Bench System",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (res != DialogResult.OK) return;
+            }
+            var result = await core.DownloadBenchUpdateAsync(TaskInfoHandler);
+            if (result.Success)
+            {
+                BenchTasks.InitiateInstallationBootstrap(core.Config);
+                Program.Core.Shutdown();
+            }
         }
 
         private void AppInfoHandler(object sender, EventArgs e)

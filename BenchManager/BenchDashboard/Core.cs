@@ -22,7 +22,7 @@ namespace Mastersign.Bench.Dashboard
 
         public Downloader Downloader { get; private set; }
 
-        public Control GuiContext { get; set; }
+        public Form GuiContext { get; set; }
 
         public bool SetupOnStartup { get; set; }
 
@@ -70,6 +70,11 @@ namespace Mastersign.Bench.Dashboard
             Downloader = BenchTasks.InitializeDownloader(Config);
             ProcessExecutionHost = new DefaultExecutionHost();
             SetupFileWatchers();
+        }
+
+        public void Shutdown()
+        {
+            GuiContext.Close();
         }
 
         public void SyncWithGui(ThreadStart task)
