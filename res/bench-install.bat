@@ -5,6 +5,7 @@ SET VERSION=0.13.3
 SET TAG=v%VERSION%
 SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
 SET BENCH_ZIPFILE=%ROOT%Bench.zip
+SET BENCH_BOOTSTRAP_FILE=%~f0
 SET BENCH_SUBFLDR=
 SET BENCH_DIR=%ROOT%
 
@@ -23,10 +24,11 @@ ECHO.Deleting ZIP files ...
 DEL "%BENCH_ZIPFILE%"
 
 ECHO.Running initialization script ...
-.\actions\bench-ctl.cmd initialize
+CALL .\actions\bench-ctl.cmd initialize
 
 POPD
-EXIT /B 0
+REM Trick to exit the script before deleting it
+(GOTO) 2>nul & DEL "%BENCH_BOOTSTRAP_FILE%"
 
 REM ******* Procedures *******
 
