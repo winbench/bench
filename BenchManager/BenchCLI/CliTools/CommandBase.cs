@@ -281,28 +281,31 @@ namespace Mastersign.CliTools
             w.End(BlockType.Document);
         }
 
-        public void PrintFullHelp(DocumentWriter w)
+        public void PrintFullHelp(DocumentWriter w, bool withTitle = true, bool withVersion = true, bool withIndex = true)
         {
             w.Begin(BlockType.Document);
-            w.Title(ToolName);
-            w.Paragraph("Version: {0}", ToolVersion);
+            if (withTitle) w.Title(ToolName);
+            if (withVersion) w.Paragraph("Version: {0}", ToolVersion);
             w.Append(ToolDescription);
 
             var commands = CommandHierarchyDepthSearch();
-            w.Headline2("index", "Commands");
-            w.Begin(BlockType.List);
-            foreach (var cmd in commands)
+            if (withIndex)
             {
-                w.Begin(BlockType.ListItem)
-                    .Begin(BlockType.Link)
-                    .LinkTarget("#" + HelpFormatter.CommandAnchor(cmd))
-                    .Begin(BlockType.LinkContent)
-                    .Append(HelpFormatter.SlimCommandChain, cmd)
-                    .End(BlockType.LinkContent)
-                    .End(BlockType.Link)
-                    .End(BlockType.ListItem);
+                w.Headline2("index", "Commands");
+                w.Begin(BlockType.List);
+                foreach (var cmd in commands)
+                {
+                    w.Begin(BlockType.ListItem)
+                        .Begin(BlockType.Link)
+                        .LinkTarget("#" + HelpFormatter.CommandAnchor(cmd))
+                        .Begin(BlockType.LinkContent)
+                        .Append(HelpFormatter.SlimCommandChain, cmd)
+                        .End(BlockType.LinkContent)
+                        .End(BlockType.Link)
+                        .End(BlockType.ListItem);
+                }
+                w.End(BlockType.List);
             }
-            w.End(BlockType.List);
             foreach (var cmd in commands)
             {
                 w.Headline1(HelpFormatter.CommandAnchor(cmd), cmd.CommandChain(" ", true));
