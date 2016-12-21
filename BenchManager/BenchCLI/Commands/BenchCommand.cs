@@ -19,6 +19,14 @@ namespace Mastersign.Bench.Cli.Commands
             set { rootPath = value; }
         }
 
+        private string logFile;
+
+        public string LogFile
+        {
+            get { return (Parent as BenchCommand)?.LogFile ?? logFile; }
+            set { logFile = value; }
+        }
+
         #endregion
 
         protected static string BenchBinDirPath()
@@ -45,7 +53,9 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected BenchConfiguration LoadConfiguration(bool withApps = true)
         {
-            return new BenchConfiguration(RootPath, withApps, true, true);
+            var cfg = new BenchConfiguration(RootPath, withApps, true, true);
+            if (LogFile != null) cfg.SetValue(PropertyKeys.LogFile, LogFile);
+            return cfg;
         }
 
         protected DefaultBenchManager CreateManager()

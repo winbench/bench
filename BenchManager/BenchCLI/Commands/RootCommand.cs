@@ -59,7 +59,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .Begin(BlockType.Paragraph)
                 .Text("Take a look at ")
                 .Link("http://mastersign.github.io/bench", "the project website")
-                .Text(" for a description of Bench.")
+                .Text(" for a description of the Bench system.")
                 .End(BlockType.Paragraph);
 
             RegisterSubCommand(helpCommand);
@@ -211,14 +211,11 @@ namespace Mastersign.Bench.Cli.Commands
                 commandProject);
         }
 
-        public string LogFilePath
+        private string LogFilePath()
         {
-            get
-            {
-                var p = Arguments.GetOptionValue(OPTION_LOGFILE);
-                return p == null || Path.IsPathRooted(p)
-                    ? p : Path.Combine(Environment.CurrentDirectory, p);
-            }
+            var p = Arguments.GetOptionValue(OPTION_LOGFILE);
+            return p == null || Path.IsPathRooted(p)
+                ? p : Path.Combine(Environment.CurrentDirectory, p);
         }
 
         protected override bool ValidateArguments()
@@ -254,7 +251,8 @@ namespace Mastersign.Bench.Cli.Commands
                 WriteDetail("Bench Dashboard: Not Supported. Microsoft .NET Framework 4.5 not installed.");
             }
 
-            WriteDetail("Log File: " + (LogFilePath ?? "automatic"));
+            LogFile = LogFilePath();
+            WriteDetail("Log File: " + (LogFile ?? "automatic"));
 
             return true;
         }

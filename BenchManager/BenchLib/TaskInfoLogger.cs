@@ -10,11 +10,9 @@ namespace Mastersign.Bench
         private bool onlyErrors;
         private TextWriter writer;
 
-        public TaskInfoLogger(string logDir, bool onlyErrors)
+        public TaskInfoLogger(string file, bool onlyErrors)
         {
             this.onlyErrors = onlyErrors;
-            FileSystem.AsureDir(logDir);
-            var file = Path.Combine(logDir, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.txt");
             writer = new StreamWriter(file, false, Encoding.UTF8);
         }
 

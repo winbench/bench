@@ -863,9 +863,15 @@ namespace Mastersign.Bench
             TaskInfoLogger logger = null;
             if (logLevel != LogLevels.None)
             {
-                logger = new TaskInfoLogger(
-                    man.Config.GetStringValue(PropertyKeys.LogDir),
-                    logLevel == LogLevels.Error);
+                var file = man.Config.GetStringValue(PropertyKeys.LogFile, 
+                    DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.txt");
+                if (!Path.IsPathRooted(file))
+                {
+                    var logDir = man.Config.GetStringValue(PropertyKeys.LogDir);
+                    FileSystem.AsureDir(logDir);
+                    file = Path.Combine(logDir, file);
+                }
+                logger = new TaskInfoLogger(file, logLevel == LogLevels.Error);
             }
 
             var infos = new List<TaskInfo>();
