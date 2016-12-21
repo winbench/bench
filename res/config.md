@@ -1,6 +1,7 @@
 ﻿# Default Configuration
 
 * VersionFile: `res\version.txt`
+* Website: <http://mastersign.github.io/bench>
 * VersionUrl: <https://raw.github.com/mastersign/bench/master/res/version.txt>
 * UpdateUrlPattern: `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip`
 * BootstrapUrlPattern: `https://github.com/mastersign/bench/blob/v#VERSION#/res/bench-install.bat`
@@ -54,4 +55,3 @@
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
 * EditorApp: `VSCode`
-* Website: <http://mastersign.github.io/bench>
