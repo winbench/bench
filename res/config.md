@@ -2,7 +2,7 @@
 
 * VersionFile: `res\version.txt`
 * Website: <http://mastersign.github.io/bench>
-* VersionUrl: <https://raw.github.com/mastersign/bench/master/res/version.txt>
+* VersionUrl: <https://github.com/mastersign/bench/raw/master/res/version.txt>
 * UpdateUrlTemplate: `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip`
 * BootstrapUrlTemplate: `https://github.com/mastersign/bench/raw/v#VERSION#/res/bench-install.bat`
 * AutoUpdateCheck: `true`
