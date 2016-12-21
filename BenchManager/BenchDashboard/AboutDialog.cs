@@ -30,7 +30,10 @@ namespace Mastersign.Bench.Dashboard
             }
             lblAcks.Text = string.Join(" / ", acks);
             lblUpdate.Text = string.Empty;
-            CheckForUpdate();
+            if (core.Config.GetBooleanValue(PropertyKeys.AutoUpdateCheck))
+            {
+                CheckForUpdate();
+            }
         }
 
         private void linkAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -43,38 +46,32 @@ namespace Mastersign.Bench.Dashboard
             CheckForUpdate();
         }
 
-        private void CheckForUpdate()
+        private async void CheckForUpdate()
         {
             var config = core.Config;
             lblUpdate.Text = "Checking for update...";
             picVersionState.Image = Resources.progress_16_animation;
-            BenchTasks.GetLatestVersionAsync(config, (success, version) =>
+            var version = await core.GetLatestVersionNumber();
+            if (IsDisposed) return;
+            if (version != null)
             {
-                if (IsDisposed) return;
-                Invoke((Action)(() =>
+                var currentVersion = config.GetStringValue(PropertyKeys.Version);
+                if (!string.Equals(currentVersion, version))
                 {
-                    if (IsDisposed) return;
-                    if (success)
-                    {
-                        var currentVersion = config.GetStringValue(PropertyKeys.Version);
-                        if (!string.Equals(currentVersion, version))
-                        {
-                            lblUpdate.Text = "Update available: v" + version;
-                            picVersionState.Image = Resources.info_16;
-                        }
-                        else
-                        {
-                            lblUpdate.Text = string.Empty;
-                            picVersionState.Image = Resources.ok_16;
-                        }
-                    }
-                    else
-                    {
-                        lblUpdate.Text = "Check for update failed.";
-                        picVersionState.Image = Resources.warning_16;
-                    }
-                }));
-            });
+                    lblUpdate.Text = "Update available: v" + version;
+                    picVersionState.Image = Resources.info_16;
+                }
+                else
+                {
+                    lblUpdate.Text = string.Empty;
+                    picVersionState.Image = Resources.ok_16;
+                }
+            }
+            else
+            {
+                lblUpdate.Text = "Check for update failed.";
+                picVersionState.Image = Resources.warning_16;
+            }
         }
     }
 }
