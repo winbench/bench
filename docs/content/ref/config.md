@@ -38,9 +38,9 @@ configuration, but _can_ be overridden in the user or site configuration.
 | Name | Data Type | Default |
 |------|-----------|---------|
 | [VersionFile](#VersionFile) | path | `res\version.txt` |
-| [VersionUrl](#VersionUrl) | url | <https://raw.github.com/mastersign/bench/master/res/version.txt> |
+| [VersionUrl](#VersionUrl) | url | <https://github.com/mastersign/bench/raw/master/res/version.txt> |
 | [UpdateUrlTemplate](#UpdateUrlTemplate) | string | `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip` |
-| [BootstrapUrlTemplate](#BootstrapUrlTemplate) | string | `https://github.com/mastersign/bench/blob/v#VERSION#/res/bench-install.bat` |
+| [BootstrapUrlTemplate](#BootstrapUrlTemplate) | string | `https://github.com/mastersign/bench/raw/v#VERSION#/res/bench-install.bat` |
 | [CustomConfigDir](#CustomConfigDir) | path | `config` |
 | [CustomConfigFile](#CustomConfigFile) | path | `$CustomConfigDir$\config.md` |
 | [CustomConfigTemplateFile](#CustomConfigTemplateFile) | path | `res\config.template.md` |
@@ -120,7 +120,7 @@ these changes.
 
 * Description: The URL to retrieve the version number of the latest Bench release.
 * Data Type: url
-* Default: <https://raw.github.com/mastersign/bench/master/res/version.txt>
+* Default: <https://github.com/mastersign/bench/raw/master/res/version.txt>
 * Type: System
 
 ### UpdateUrlTemplate {#UpdateUrlTemplate}
@@ -140,7 +140,7 @@ The update is expected to be a ZIP file, containing the Bench system files.
 
 * Description: The URL template to generate an URL for retrieveing the bootstrap script file.
 * Data Type: string
-* Default: `https://github.com/mastersign/bench/blob/v#VERSION#/res/bench-install.bat`
+* Default: `https://github.com/mastersign/bench/raw/v#VERSION#/res/bench-install.bat`
 * Type: System
 
 The placeholder `#VERSION#` in the URL template will be replaced
