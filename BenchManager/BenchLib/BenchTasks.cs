@@ -1479,6 +1479,23 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Starts the boostrap script for (re)installing the Bench system.
+        /// This requires the <c>bench-install.bat</c> and the <c>bench.zip</c>
+        /// to be stored in the Bench root directory.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        public static void InitiateInstallationBootstrap(BenchConfiguration config)
+        {
+            var rootPath = config.BenchRootDir;
+            var si = new ProcessStartInfo("cmd",
+                "/D \"@ECHO.Starting Bench Installation... && @ECHO. && @ECHO.Make sure, all programs in the Bench environment are closed. && @PAUSE && CALL ^\""
+                    + Path.Combine(rootPath, "bench-install.bat") + "^\"\"");
+            si.UseShellExecute = true;
+            si.WorkingDirectory = rootPath;
+            Process.Start(si);
+        }
+
         #endregion
 
         #region Install Apps

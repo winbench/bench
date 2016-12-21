@@ -49,13 +49,7 @@ namespace Mastersign.Bench.Cli.Commands
 
             if (!RunManagerTask(mgr => mgr.DownloadBenchUpdate())) return false;
 
-            var si = new System.Diagnostics.ProcessStartInfo("cmd",
-                "/C \"@ECHO.Starting Bench Installation... && @ECHO. && @ECHO.Make sure, all programs in the Bench environment are closed. && @PAUSE && @CALL ^\""
-                    + Path.Combine(RootPath, "bench-install.bat") + "^\"\"");
-            si.UseShellExecute = true;
-            si.WorkingDirectory = RootPath;
-            System.Diagnostics.Process.Start(si);
-
+            BenchTasks.InitiateInstallationBootstrap(cfg);
             return true;
         }
     }
