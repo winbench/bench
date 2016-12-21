@@ -69,6 +69,37 @@ these changes.
 * Default: `res\version.txt`
 * Type: System
 
+### VersionUrl {#VersionUrl}
+
+* Description: The URL to retrieve the version number of the latest Bench release.
+* Data Type: url
+* Default: <https://raw.github.com/mastersign/bench/master/res/version.txt>
+* Type: System
+
+### UpdateUrlTemplate {#UpdateUrlTemplate}
+
+* Description: The URL template to generate an URL for retrieving a Bench system update.
+* Data Type: string
+* Default: `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip`
+* Type: System
+
+The placeholder `#VERSION#` in the URL template will be replaced
+by the version number of the Bench system update,
+to generate the actual update URL.
+
+The update is expected to be a ZIP file, containing the Bench system files.
+
+### BootstrapUrlTemplate {#BootstrapUrlTemplate}
+
+* Description: The URL template to generate an URL for retrieveing the bootstrap script file.
+* Data Type: string
+* Default: `https://github.com/mastersign/bench/blob/v#VERSION#/res/bench-install.bat`
+* Type: System
+
+The placeholder `#VERSION#` in the URL template will be replaced
+by the version number of the targeted Bench release,
+to generate the actual URL.
+
 ### CustomConfigDir {#CustomConfigDir}
 
 * Description: The path to the directory with the user configuration (`config.md`, `apps-activated.txt`, ...) is stored.
@@ -243,6 +274,13 @@ Bench action scripts are typically `*.cmd` files.
 
 Properties in this group are customizable and can be set in
 `config/config.md` or in a `bench-site.md` file.
+
+### AutoUpdateCheck {#AutoUpdateCheck}
+
+* Description: A flag to control whether the Bench system is automatically checking for updates or not.
+* Data Type: boolean
+* Default: `true`
+* Type: User
 
 ### UseProxy {#UseProxy}
 
