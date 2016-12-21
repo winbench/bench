@@ -9,7 +9,7 @@ Configuration properties for Bench use the [list syntax in Markdown][syntax]
 and can be defined in the following files.
 
 * Default configuration file `res\config.md`
-* Custom configuration file `config\config.md`
+* User configuration file `config\config.md`
 * Site configuration files `bench-site.md`
   in the Bench root directory and all of its parents.
 
@@ -27,11 +27,11 @@ Properties of the data type `path` can be absolute, or relative to the Bench roo
 
 There are two groups of configuration properties:
 The first group contains properties, which are predefined by the default
-configuration, and can _not_ be set in the custom or site configuration.
+configuration, and can _not_ be set in the user or site configuration.
 These properties can not be overridden, because they are used during the
-Bench setup process when no custom or site configuration yet exists.
+Bench setup process when no user or site configuration yet exists.
 The second group contains properties, which are also predefined by the default
-configuration, but _can_ be overridden in the custom or site configuration.
+configuration, but _can_ be overridden in the user or site configuration.
 
 **System Properties**
 
@@ -55,7 +55,7 @@ configuration, but _can_ be overridden in the custom or site configuration.
 ## System Properties
 
 Properties in this group can not be customized, by overriding them in
-the custom or site configuration.
+the user or site configuration.
 
 If it is necessary to change them anyways, the default configuration
 in `res\config.md` must be edited before the initial Bench setup is executed,
@@ -71,16 +71,16 @@ these changes.
 
 ### CustomConfigDir {#CustomConfigDir}
 
-* Description: The path to the directory with the custom configuration (`config.md`, `apps-activated.txt`, ...) is stored.
+* Description: The path to the directory with the user configuration (`config.md`, `apps-activated.txt`, ...) is stored.
 * Data Type: path
 * Default: `config`
 * Type: System
 
-The custom configuration directory is designed in a way, that is can be easily put under version control.
+The user configuration directory is designed in a way, that is can be easily put under version control.
 
 ### CustomConfigFile {#CustomConfigFile}
 
-* Description: The path to the custom configuration file.
+* Description: The path to the user configuration file.
 * Data Type: path
 * Default: `$CustomConfigDir$\config.md`
 * Type: System
@@ -89,8 +89,8 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 
 ### CustomConfigTemplateFile {#CustomConfigTemplateFile}
 
-* Description: The path to the custom configuration template file,
-  which is copied during the Bench setup in case no custom configuration exists.
+* Description: The path to the user configuration template file,
+  which is copied during the Bench setup in case no user configuration exists.
 * Data Type: path
 * Default: `res\config.template.md`
 * Type: System
@@ -136,7 +136,7 @@ Only non-space characters, up to the first space or the end of a line, are consi
 ### AppActivationTemplateFile {#AppActivationTemplateFile}
 
 * Description: The path to the app activation template file,
-  which is copied during the Bench setup in case no custom configuration exists.
+  which is copied during the Bench setup in case no user configuration exists.
 * Data Type: path
 * Default: `res\apps-activated.template.txt`
 * Type: System
@@ -155,14 +155,14 @@ Only non-space characters, up to the first space or the end of a line, are consi
 ### AppDeactivationTemplateFile {#AppDeactivationTemplateFile}
 
 * Description: The path to the app deactivation template file,
-  which is copied during the Bench setup in case no custom configuration exists.
+  which is copied during the Bench setup in case no user configuration exists.
 * Data Type: path
 * Default: `res\apps-deactivated.template.txt`
 * Type: System
 
 ### CustomAppIndexFile {#CustomAppIndexFile}
 
-* Description: The path to a library file with custom program definitions.
+* Description: The path to a library file with custom program definitions from the user.
 * Data Type: path
 * Default: `$CustomConfigDir$\apps.md`
 * Type: System
@@ -171,8 +171,8 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 
 ### CustomAppIndexTemplateFile {#CustomAppIndexTemplateFile}
 
-* Description: The path to the custom app library template file,
-  which is copied during the Bench setup in case no custom configuration exists.
+* Description: The path to the user app library template file,
+  which is copied during the Bench setup in case no user configuration exists.
 * Data Type: path
 * Default: `res\apps.template.md`
 * Type: System
@@ -187,7 +187,7 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 ### ConEmuConfigTemplateFile {#ConEmuConfigTemplateFile}
 
 * Description: The path to the ConEmu configuration template file,
-  which is copied during the Bench setup in case no custom configuration exists.
+  which is copied during the Bench setup in case no user configuration exists.
 * Data Type: path
 * Default: `res\ConEmu.template.xml`
 * Type: System
@@ -297,7 +297,7 @@ The usage in the custom scripts for apps is not completely implemented yet.
 * Description: The name of the Bench user.
 * Data Type: string
 * Default: user
-* Type: Custom/Site
+* Type: User/Site
 
 This property is used to set the environment variable `USER_NAME`
 and in custom scripts e.g. from [Git](/ref/apps/#Git).
@@ -307,7 +307,7 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Description: The email address of the Bench user.
 * Data Type: string
 * Default: user@localhost
-* Type: Custom/Site
+* Type: User/Site
 
 This property is used to set the environment variable `USER_EMAIL`
 and in custom scripts e.g. from [Git](/ref/apps/#Git).
@@ -317,14 +317,14 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Description: The directory to store the currently installed version numbers of the apps.
 * Data Type: path
 * Default: `$LibDir$\_versions`
-* Type: Custom/Site
+* Type: User/Site
 
 ### DownloadDir {#DownloadDir}
 
 * Description: The path to the directory where downloaded app resources are cached.
 * Data Type: path
 * Default: `cache`
-* Type: Custom/Site
+* Type: User/Site
 
 ### AppAdornmentBaseDir {#AppAdornmentBaseDir}
 
@@ -332,7 +332,7 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
   which allow the adornment of an app execution.
 * Data Type: path
 * Default: `$LibDir$\_proxies`
-* Type: Custom
+* Type: User
 
 ### AppRegistryBaseDir {#AppRegistryBaseDir}
 
@@ -340,28 +340,28 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
   for the app isolation mechanism are stored.
 * Data Type: path
 * Default: `$HomeDir$\registry_isolation`
-* Type: Custom
+* Type: User
 
 ### TempDir {#TempDir}
 
 * Description: The path to the temporary directory of the Bench environment.
 * Data Type: path
 * Default: `tmp`
-* Type: Custom/Site
+* Type: User/Site
 
 ### LogDir {#LogDir}
 
 * Description: The path to the directory where Bench setup logs are stored.
 * Data Type: path
 * Default: `log`
-* Type: Custom
+* Type: User
 
 ### HomeDir {#HomeDir}
 
 * Description: The path to the user profile of the Bench environment.
 * Data Type: path
 * Default: `home`
-* Type: Custom/Site
+* Type: User/Site
 
 ### AppDataDir {#AppDataDir}
 
@@ -369,7 +369,7 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
   of the Bench environment.
 * Data Type: path
 * Default: `$HomeDir$\AppData\Roaming`
-* Type: Custom/Site
+* Type: User/Site
 
 ### LocalAppDataDir {#LocalAppDataDir}
 
@@ -377,28 +377,28 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
   of the Bench environment.
 * Data Type: path
 * Default: `$HomeDir$\AppData\Local`
-* Type: Custom/Site
+* Type: User/Site
 
 ### OverrideHome {#OverrideHome}
 
 * Description: A switch to control if the environment variables `HOME`, `HOMEPATH`, `HOMEDRIVE`, `USERPROFILE`, `APPDATA`, and `LOCALAPPDATA` are overridden in the Bench environment.
-* Data Type: boolen
+* Data Type: boolean
 * Default: `true`
-* Type: Custom/Site
+* Type: User/Site
 
 ### OverrideTemp {#OverrideTemp}
 
 * Description: A switch to control if the environment variables `TEMP` and `TMP` are overridden in the Bench environment.
 * Data Type: boolean
 * Default: `true`
-* Type: Custom/Site
+* Type: User/Site
 
 ### IgnoreSystemPath {#IgnoreSystemPath}
 
 * Description: A switch to control if only Bench tools are on the `PATH` in the Bench environment or if the `PATH` of the current Windows user is preserved.
 * Data Type: boolean
 * Default: `true`
-* Type: Custom/Site
+* Type: User/Site
 
 ### RegisterInUserProfile {#RegisterInUserProfile}
 
@@ -406,7 +406,7 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
   Windows user profile.
 * Data Type: boolean
 * Default: `false`
-* Type: Custom
+* Type: User
 
 ### UseRegistryIsolation {#UseRegistryIsolation}
 
@@ -414,21 +414,21 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
   adorned executables.
 * Data Type: boolean
 * Default: `true`
-* Type: Custom
+* Type: User
 
 ### ProjectRootDir {#ProjectRootDir}
 
 * Description: The path to the directory where projects are stored.
 * Data Type: path
 * Default: `projects`
-* Type: Custom/Site
+* Type: User/Site
 
 ### ProjectArchiveDir {#ProjectArchiveDir}
 
 * Description: The path to the directory where project backups are stored.
 * Data Type: path
 * Default: `archive`
-* Type: Custom/Site
+* Type: User/Site
 
 ### ProjectArchiveFormat {#ProjectArchiveFormat}
 
@@ -436,42 +436,42 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Data Type: string
 * Possible Values: `zip`, `7z`, `tar`, `wim`
 * Default: `zip`
-* Type: Custom/Site
+* Type: User/Site
 
 ### LauncherDir {#LauncherDir}
 
 * Description: The path to the directory where launcher shortcuts are stored.
 * Data Type: path
 * Default: `launcher`
-* Type: Custom
+* Type: User
 
 ### LauncherScriptDir {#LauncherScriptDir}
 
 * Description: The path to the directory where launcher wrapper scripts are stored.
 * Data Type: path
 * Default: `$LibDir$\_launcher`
-* Type: Custom
+* Type: User
 
 ### QuickAccessCmd {#QuickAccessCmd}
 
 * Description: A switch which controls if a launcher for the Windows command interpreter (CMD) is created.
 * Data Type: boolean
 * Default: `true`
-* Type: Custom/Site
+* Type: User/Site
 
 ### QuickAccessPowerShell {#QuickAccessPowerShell}
 
 * Description: A switch which controls if a launcher for the PowerShell is created.
 * Data Type: boolean
 * Default: `false`
-* Type: Custom/Site
+* Type: User/Site
 
 ### QuickAccessBash {#QuickAccessBash}
 
 * Description: A switch which controls if a launcher for the Git Bash is created.
 * Data Type: boolean
 * Default: `false`
-* Type: Custom/Site
+* Type: User/Site
 
 This switch only takes affect, if the [Git app](/ref/apps/#Git) is activated.
 
@@ -480,6 +480,6 @@ This switch only takes affect, if the [Git app](/ref/apps/#Git) is activated.
 * Description: The ID of an app which is used as the default text editor.
 * Data Type: string
 * Default: `VSCode`
-* Type: Custom/Site
+* Type: User/Site
 
 [syntax]: /ref/markup-syntax
