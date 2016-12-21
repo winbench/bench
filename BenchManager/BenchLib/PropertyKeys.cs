@@ -14,6 +14,7 @@ namespace Mastersign.Bench
         public const string Version = "Version";
         public const string VersionFile = "VersionFile";
         public const string VersionUrl = "VersionUrl";
+        public const string AutoUpdateCheck = "AutoUpdateCheck";
         public const string UpdateUrlTemplate = "UpdateUrlTemplate";
         public const string BootstrapUrlTemplate = "BootstrapUrlTemplate";
         public const string Website = "Website";
