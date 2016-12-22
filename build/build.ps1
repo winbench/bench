@@ -31,7 +31,10 @@ $buildArtifacts = @(
     "BenchCLI\bin\$mode\bench.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe.config",
-    "BenchDashboard\bin\$mode\ConEmu.WinForms.dll"
+    "BenchDashboard\bin\$mode\ConEmu.WinForms.dll",
+    "scripts\bench-cmd.cmd",
+    "scripts\bench-ps.cmd",
+    "scripts\bench-bash.cmd"
 )
 # Paths of release artifacts are relative to the root dir
 $releaseArtifacts = @(

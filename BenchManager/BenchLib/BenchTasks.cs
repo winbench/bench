@@ -863,7 +863,7 @@ namespace Mastersign.Bench
             TaskInfoLogger logger = null;
             if (logLevel != LogLevels.None)
             {
-                var file = man.Config.GetStringValue(PropertyKeys.LogFile, 
+                var file = man.Config.GetStringValue(PropertyKeys.LogFile,
                     DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.txt");
                 if (!Path.IsPathRooted(file))
                 {
@@ -1191,14 +1191,14 @@ namespace Mastersign.Bench
             File.Copy(benchDashboardShortcut, Path.Combine(config.BenchRootDir, Path.GetFileName(benchDashboardShortcut)), true);
         }
 
-        private static void CreateActionLauncher(BenchConfiguration config, string label, string action, string icon,
+        private static void CreateActionLauncher(BenchConfiguration config, string label, string binFile, string icon = null,
             string targetDir = null)
         {
             var launcherDir = targetDir ?? config.GetStringValue(PropertyKeys.LauncherDir);
-            var actionDir = config.GetStringValue(PropertyKeys.ActionDir);
+            var binDir = config.GetStringValue(PropertyKeys.BenchBin);
             var shortcut = Path.Combine(launcherDir, label + ".lnk");
-            var target = Path.Combine(actionDir, action + ".cmd");
-            FileSystem.CreateShortcut(shortcut, target, null, config.BenchRootDir, icon);
+            var target = Path.Combine(binDir, binFile);
+            FileSystem.CreateShortcut(shortcut, target, null, config.BenchRootDir, icon ?? target);
         }
 
         private static void CreateActionLaunchers(BenchConfiguration config)
@@ -1207,21 +1207,20 @@ namespace Mastersign.Bench
 
             if (!IsDashboardSupported)
             {
-                CreateActionLauncher(config, "Bench Control", "bench-ctl", @"%SystemRoot%\System32\imageres.dll,109");
-                CreateActionLauncher(config, "Bench Control", "bench-ctl", @"%SystemRoot%\System32\imageres.dll,109",
-                    config.BenchRootDir);
+                CreateActionLauncher(config, "Bench CLI", "bench.exe");
+                CreateActionLauncher(config, "Bench CLI", "bench.exe", null, config.BenchRootDir);
             }
             if (config.GetBooleanValue(PropertyKeys.QuickAccessCmd, true))
             {
-                CreateActionLauncher(config, "Command Line", "bench-cmd", @"%SystemRoot%\System32\cmd.exe");
+                CreateActionLauncher(config, "Command Line", "bench-cmd.cmd", @"%SystemRoot%\System32\cmd.exe");
             }
             if (config.GetBooleanValue(PropertyKeys.QuickAccessPowerShell, false))
             {
-                CreateActionLauncher(config, "PowerShell", "bench-ps", @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe");
+                CreateActionLauncher(config, "PowerShell", "bench-ps.cmd", @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe");
             }
             if (config.GetBooleanValue(PropertyKeys.QuickAccessBash, false))
             {
-                CreateActionLauncher(config, "Bash", "bench-bash", @"%SystemRoot%\System32\imageres.dll,95");
+                CreateActionLauncher(config, "Bash", "bench-bash.cmd", @"%SystemRoot%\System32\imageres.dll,95");
             }
         }
 

@@ -25,6 +25,7 @@ namespace Mastersign.Bench
         public const string BenchDrive = "BenchDrive";
         public const string BenchRoot = "BenchRoot";
         public const string BenchAuto = "BenchAuto";
+        public const string BenchBin = "BenchBin";
         public const string BenchScripts = "BenchScripts";
 
         public const string CustomConfigDir = "CustomConfigDir";
@@ -60,7 +61,6 @@ namespace Mastersign.Bench
         public const string AppResourceBaseDir = "AppResourceBaseDir";
         public const string AppAdornmentBaseDir = "AppAdornmentBaseDir";
         public const string AppRegistryBaseDir = "AppRegistryBaseDir";
-        public const string ActionDir = "ActionDir";
         public const string LauncherDir = "LauncherDir";
         public const string LauncherScriptDir = "LauncherScriptDir";
         public const string HomeDir = "HomeDir";

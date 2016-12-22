@@ -46,9 +46,10 @@ namespace Mastersign.Bench
     /// </remarks>
     public class BenchConfiguration : ResolvingPropertyCollection
     {
-        private const string AutoDir = @"auto";
-        private const string ScriptsDir = @"auto\lib";
-        private const string ConfigFile = @"res\config.md";
+        private const string AUTO_DIR = @"auto";
+        private const string BIN_DIR = AUTO_DIR + @"\bin";
+        private const string SCRIPTS_DIR = AUTO_DIR + @"\lib";
+        private const string CONFIG_FILE = @"res\config.md";
 
         /// <summary>
         /// The property group category, which contains app definitions of required apps.
@@ -114,7 +115,7 @@ namespace Mastersign.Bench
                 GroupEndCue = new Regex("^\\s*$"),
             };
 
-            var configFile = Path.Combine(benchRootDir, ConfigFile);
+            var configFile = Path.Combine(benchRootDir, CONFIG_FILE);
             Debug.WriteLine("Looking for default configuration: " + configFile);
             if (!File.Exists(configFile))
             {
@@ -203,7 +204,7 @@ namespace Mastersign.Bench
             get
             {
                 var paths = new List<string>();
-                paths.Add(Path.Combine(BenchRootDir, ConfigFile));
+                paths.Add(Path.Combine(BenchRootDir, CONFIG_FILE));
                 if (WithCustomConfiguration)
                 {
                     paths.Add(GetStringValue(PropertyKeys.CustomConfigFile));
@@ -262,8 +263,9 @@ namespace Mastersign.Bench
         {
             SetValue(PropertyKeys.BenchRoot, BenchRootDir);
             SetValue(PropertyKeys.BenchDrive, Path.GetPathRoot(BenchRootDir));
-            SetValue(PropertyKeys.BenchAuto, Path.Combine(BenchRootDir, AutoDir));
-            SetValue(PropertyKeys.BenchScripts, Path.Combine(BenchRootDir, ScriptsDir));
+            SetValue(PropertyKeys.BenchAuto, Path.Combine(BenchRootDir, AUTO_DIR));
+            SetValue(PropertyKeys.BenchBin, Path.Combine(BenchRootDir, BIN_DIR));
+            SetValue(PropertyKeys.BenchScripts, Path.Combine(BenchRootDir, SCRIPTS_DIR));
 
             var versionFile = GetValue(PropertyKeys.VersionFile) as string;
             var version = File.Exists(versionFile) ? File.ReadAllText(versionFile, Encoding.UTF8).Trim() : "0.0.0";

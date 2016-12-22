@@ -34,7 +34,6 @@
 * AppResourceBaseDir: `res\apps`
 * AppAdornmentBaseDir: `$LibDir$\_proxies`
 * AppRegistryBaseDir: `$HomeDir$\registry_isolation`
-* ActionDir: `actions`
 * TempDir: `tmp`
 * LibDir: `lib`
 * LogDir: `log`
