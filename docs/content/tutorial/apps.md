@@ -76,7 +76,7 @@ If you do not know the IDs of the available apps, take a look at the
 [User App Library][] in `config\apps.md`.
 
 To kick-off the installation of the activated apps, run the [Bench CLI][]
-with the [setup action](/ref/bench-cli/#cmd_bench-setup).
+with the [setup action](/ref/bench-cli/#cmd_bench-manage-setup).
 E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd

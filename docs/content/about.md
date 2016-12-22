@@ -56,4 +56,4 @@ but only changes files in its root folder, it can be easily moved
 and also used on a portable drive.
 
 The only thing you have to do, when the path to the Bench root folder changes,
-is run the [environment update action](/ref/bench-cli/#cmd_bench-update-env).
+is run the [environment update action](/ref/bench-cli/#cmd_bench-manage-update-env).

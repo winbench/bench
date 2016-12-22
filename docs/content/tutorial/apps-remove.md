@@ -66,7 +66,7 @@ just locate them in the [download cache](/ref/file-structure/#cache-dir) directo
 `cache` and delete them.
 
 To kick-off the deinstallation of apps which are installed, but not activated,
-run the [Bench CLI][] with the [setup action](/ref/bench-cli/#cmd_bench-setup).
+run the [Bench CLI][] with the [setup action](/ref/bench-cli/#cmd_bench-manage-setup).
 E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd

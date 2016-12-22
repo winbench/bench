@@ -64,7 +64,7 @@ Then find the apps resource in the download [`cache`](/ref/file-structure/#cache
 directory and delete it too.
 
 Now you just need to kick-off the automatic setup process with the
-[Bench CLI][] by executing the [setup action](/ref/bench-cli/#cmd_bench-setup).
+[Bench CLI][] by executing the [setup action](/ref/bench-cli/#cmd_bench-manage-setup).
 E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd
@@ -133,7 +133,7 @@ You can override any app property in this way.
 
 Now you can kick-off the auto setup via the
 [Auto Setup Button][] ![Auto Setup Button](/img/do_16.png) in the
-[Bench Dashboard][] or the [setup action](/ref/bench-cli/#cmd_bench-setup) of the [Bench CLI][],
+[Bench Dashboard][] or the [setup action](/ref/bench-cli/#cmd_bench-manage-setup) of the [Bench CLI][],
 to upgrade the app.
 
 **Pro Tip:**

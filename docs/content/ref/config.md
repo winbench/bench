@@ -56,7 +56,6 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [ConEmuConfigFile](#ConEmuConfigFile) | path | `$CustomConfigDir$\ConEmu.xml` |
 | [ConEmuConfigTemplateFile](#ConEmuConfigTemplateFile) | path | `res\ConEmu.template.xml` |
 | [AppResourceBaseDir](#AppResourceBaseDir) | path | `res\apps` |
-| [ActionDir](#ActionDir) | path | `actions` |
 | [LibDir](#LibDir) | path | `lib` |
 | [Website](#Website) | URL | <http://mastersign.github.io/bench> |
 | [WizzardEditCustomConfigBeforeSetup](#WizzardEditCustomConfigBeforeSetup) | boolean | `false` |
@@ -279,15 +278,6 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 * Type: System
 
 It is used from custom scripts to retrieve absolute paths to the additional resources.
-
-### ActionDir {#ActionDir}
-
-* Description: The path to a directory with Bench action scripts.
-* Data Type: path
-* Default: `actions`
-* Type: System
-
-Bench action scripts are typically `*.cmd` files.
 
 ### LibDir {#LibDir}
 

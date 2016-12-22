@@ -11,8 +11,8 @@ weight = 2
 [Bench CLI]: /ref/bench-cli
 [required apps]: /ref/apps/#apps-required
 [Bench environment file]: /ref/file-structure/#env
-[initialization mode]: /ref/bench-cli/#cmd_bench-initialize
-[setup mode]: /ref/bench-cli/#cmd_bench-setup
+[initialization mode]: /ref/bench-cli/#cmd_bench-manage-initialize
+[setup mode]: /ref/bench-cli/#cmd_bench-manage-setup
 
 Bench is installed and upgraded with a [bootstrap file][], which downloads
 the archive `Bench.zip` with the Bench system files, extracts its content in the Bench root directory,
@@ -41,5 +41,5 @@ The setup of a Bench installation is performed in the following steps:
     + Writing the [Bench environment file][]
     + Creating Launcher shortcuts
 
-Running the [Bench CLI][] in [upgrade mode](/ref/bench-cli/#cmd_bench-upgrade)
+Running the [Bench CLI][] in [upgrade mode](/ref/bench-cli/#cmd_bench-manage-upgrade)
 performs all steps listed above, except creating the Bench root directory.
