@@ -75,6 +75,7 @@
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
+    <Compile Include="Commands\ManageCommand.cs" />
     <Compile Include="Commands\ProjectCommand.cs" />
     <Compile Include="Commands\ReinstallCommand.cs" />
     <Compile Include="Commands\RenewCommand.cs" />

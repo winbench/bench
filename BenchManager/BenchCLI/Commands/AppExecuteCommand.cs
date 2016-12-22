@@ -20,7 +20,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("The ").Keyword(Name).Text(" command starts the main executable of the specified app.")
                 .End(BlockType.Paragraph);
 
-            var flagDetached = new FlagArgument(FLAG_DETACHED, "d", "async");
+            var flagDetached = new FlagArgument(FLAG_DETACHED, 'd', "async");
             flagDetached.Description
                 .Text("Do not wait for the end of the process.");
 

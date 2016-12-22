@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Mastersign.CliTools;
@@ -19,17 +18,8 @@ namespace Mastersign.Bench.Cli.Commands
         private readonly BenchCommand helpCommand = new HelpCommand();
         private readonly BenchCommand listCommand = new ListCommand();
         private readonly BenchCommand dashboardCommand = new DashboardCommand();
-
-        private readonly BenchCommand initializeCommand = new InitializeCommand();
-        private readonly BenchCommand autoSetupCommand = new AutoSetupCommand();
-        private readonly BenchCommand updateEnvCommand = new UpdateEnvironmentCommand();
-        private readonly BenchCommand reinstallCommand = new ReinstallCommand();
-        private readonly BenchCommand renewCommand = new RenewCommand();
-        private readonly BenchCommand upgradeCommand = new UpgradeCommand();
-
+        private readonly BenchCommand manageCommand = new ManageCommand();
         private readonly BenchCommand appCommand = new AppCommand();
-        private readonly BenchCommand configCommand = new ConfigCommand();
-        private readonly BenchCommand downloadsCommand = new DownloadsCommand();
         private readonly BenchCommand projectCommand = new ProjectCommand();
 
         public override string Name
@@ -65,19 +55,9 @@ namespace Mastersign.Bench.Cli.Commands
             RegisterSubCommand(helpCommand);
             RegisterSubCommand(listCommand);
             RegisterSubCommand(dashboardCommand);
-
-            RegisterSubCommand(initializeCommand);
-            RegisterSubCommand(autoSetupCommand);
-            RegisterSubCommand(updateEnvCommand);
-            RegisterSubCommand(reinstallCommand);
-            RegisterSubCommand(renewCommand);
-            RegisterSubCommand(upgradeCommand);
-
+            RegisterSubCommand(manageCommand);
             RegisterSubCommand(appCommand);
-            RegisterSubCommand(configCommand);
-            RegisterSubCommand(downloadsCommand);
             RegisterSubCommand(projectCommand);
-
         }
 
         protected override void InitializeArgumentParser(ArgumentParser parser)
@@ -90,20 +70,20 @@ namespace Mastersign.Bench.Cli.Commands
                 .Emph("interactive mode").Text(".")
                 .End(BlockType.Paragraph);
 
-            var flagVerbose = new FlagArgument(FLAG_VERBOSE, "v");
+            var flagVerbose = new FlagArgument(FLAG_VERBOSE, 'v');
             flagVerbose.Description
                 .Text("Activates verbose output.");
 
-            var flagNoAssurance = new FlagArgument(FLAG_YES, "y", "force");
+            var flagNoAssurance = new FlagArgument(FLAG_YES, 'y', "force");
             flagNoAssurance.Description
                 .Text("Suppresses all assurance questions.");
 
             var optionHelpFormat = new EnumOptionArgument<DocumentOutputFormat>(
-                OPTION_HELP_FORMAT, "hf", DEF_HELP_FORMAT);
+                OPTION_HELP_FORMAT, 'f', DEF_HELP_FORMAT);
             optionHelpFormat.Description
                 .Text("Specifies the output format of help texts.");
 
-            var optionLogFile = new OptionArgument(OPTION_LOGFILE, "l",
+            var optionLogFile = new OptionArgument(OPTION_LOGFILE, 'l',
                 ArgumentValidation.IsValidPath,
                 "log");
             optionLogFile.Description
@@ -116,7 +96,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("\\log\\")
                 .Text(".");
 
-            var optionBenchRoot = new OptionArgument(OPTION_BENCH_ROOT, "r",
+            var optionBenchRoot = new OptionArgument(OPTION_BENCH_ROOT, 'r',
                 v => ArgumentValidation.IsValidPath(v) && Directory.Exists(v),
                 "base");
             optionBenchRoot.Description
@@ -126,61 +106,29 @@ namespace Mastersign.Bench.Cli.Commands
             optionBenchRoot.DefaultValueInfo
                 .Text("The root directory of the Bench environment, this Bench CLI belongs to.");
 
-            var commandHelp = new CommandArgument(helpCommand.Name, "h");
+            var commandHelp = new CommandArgument(helpCommand.Name, 'h');
             commandHelp.Description
                 .Text("Displays the full help for all commands.");
 
-            var commandList = new CommandArgument(listCommand.Name, "l");
+            var commandList = new CommandArgument(listCommand.Name, 'l');
             commandList.Description
                 .Text("Lists different kinds of objects in the Bench environment.");
 
-            var commandDashboard = new CommandArgument(dashboardCommand.Name, "b", "gui");
+            var commandDashboard = new CommandArgument(dashboardCommand.Name, 'b', "gui");
             commandDashboard.Description
                 .Text("Starts the ").Emph("Bench Dashboard").Text(".");
 
-            var commandInitialize = new CommandArgument(initializeCommand.Name, "i", "init");
-            commandInitialize.Description
-                .Text("Initialize the Bench configuration and start the setup process.");
+            var commandManage = new CommandArgument(manageCommand.Name, 'm');
+            commandManage.Description
+                .Text("Manages the Bench environment and its configuration.");
 
-            var commandSetup = new CommandArgument(autoSetupCommand.Name, "s");
-            commandSetup.Description
-                .Text("Run the auto-setup for the active Bench apps.");
-
-            var commandUpdateEnv = new CommandArgument(updateEnvCommand.Name, "e");
-            commandUpdateEnv.Description
-                .Text("Update the paths in the Bench environment.");
-
-            var commandReinstall = new CommandArgument(reinstallCommand.Name, "r");
-            commandReinstall.Description
-                .Text("Remove all installed apps, then install all active apps.");
-
-            var commandRenew = new CommandArgument(renewCommand.Name, "n");
-            commandRenew.Description
-                .Text("Redownload all app resources, remove all installed apps, then install all active apps.");
-
-            var commandUpgrade = new CommandArgument(upgradeCommand.Name, "u");
-            commandUpgrade.Description
-                .Text("Download and extract the latest Bench release, then run the auto-setup.");
-
-            var commandConfig = new CommandArgument(configCommand.Name, "c", "cfg");
-            commandConfig.Description
-                .Text("Read or write values from the user configuration.");
-            commandConfig.SyntaxInfo
-                .Append(HelpFormatter.CommandSyntax, configCommand);
-
-            var commandDownloads = new CommandArgument(downloadsCommand.Name, "d", "cache", "dl");
-            commandDownloads.Description
-                .Text("Manage the app resource cache.");
-            commandDownloads.SyntaxInfo
-                .Append(HelpFormatter.CommandSyntax, downloadsCommand);
-
-            var commandApp = new CommandArgument(appCommand.Name, "a");
+            var commandApp = new CommandArgument(appCommand.Name, 'a');
             commandApp.Description
                 .Text("Manage individual apps.");
             commandApp.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, appCommand);
 
-            var commandProject = new CommandArgument(projectCommand.Name, "p", "prj");
+            var commandProject = new CommandArgument(projectCommand.Name, 'p', "prj");
             commandProject.Description
                 .Text("Manage projects in the Bench environment.");
             commandProject.SyntaxInfo
@@ -196,17 +144,8 @@ namespace Mastersign.Bench.Cli.Commands
 
                 commandHelp,
                 commandList,
+                commandManage,
                 commandDashboard,
-
-                commandInitialize,
-                commandSetup,
-                commandUpdateEnv,
-                commandReinstall,
-                commandRenew,
-                commandUpgrade,
-
-                commandConfig,
-                commandDownloads,
                 commandApp,
                 commandProject);
         }

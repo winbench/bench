@@ -19,7 +19,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("The ").Keyword(Name).Text(" command gives access to the Bench user configuration.")
                 .End(BlockType.Paragraph);
 
-            var commandGet = new CommandArgument(COMMAND_GET, "g");
+            var commandGet = new CommandArgument(COMMAND_GET, 'g');
             commandGet.Description
                 .Text("Reads a configuration value.");
             commandGet.SyntaxInfo

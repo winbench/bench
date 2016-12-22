@@ -40,16 +40,16 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("Choose a sub-command to specify the kind of object, you want to list.")
                 .End(BlockType.Paragraph);
 
-            var flagTable = new FlagArgument(FLAG_TABLE, "t");
+            var flagTable = new FlagArgument(FLAG_TABLE, 't');
             flagTable.Description
                 .Text("Prints properties of the listed objects as a table.")
                 .Text(" Otherwise only the ID is printed.");
 
-            var optionFormat = new EnumOptionArgument<DataOutputFormat>(OPTION_FORMAT, "f", DEF_FORMAT);
+            var optionFormat = new EnumOptionArgument<DataOutputFormat>(OPTION_FORMAT, 'f', DEF_FORMAT);
             optionFormat.Description
                 .Text("Specifies the output format of the listed data.");
 
-            var commandListApps = new CommandArgument(listAppsCommand.Name, "a");
+            var commandListApps = new CommandArgument(listAppsCommand.Name, 'a');
             commandListApps.Description
                 .Text("List apps from the app library.");
 

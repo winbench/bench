@@ -29,12 +29,12 @@ namespace Mastersign.Bench.Cli.Commands
                 .Paragraph("This command supports different output formats. "
                           + "And you can choose between the expanded or the raw properties.");
 
-            var flagRaw = new FlagArgument(FLAG_RAW, "r");
+            var flagRaw = new FlagArgument(FLAG_RAW, 'r');
             flagRaw.Description
                 .Text("Shows the raw properties without expansion and default values.");
 
             var optionFormat = new EnumOptionArgument<DataOutputFormat>(
-                OPTION_FORMAT, "f", DEF_FORMAT, "fmt");
+                OPTION_FORMAT, 'f', DEF_FORMAT, "fmt");
             optionFormat.Description
                 .Text("Specify the output format.");
 

@@ -63,11 +63,11 @@ namespace Mastersign.Bench.Cli.Commands
                 .End(BlockType.Paragraph)
                 .Paragraph("You can specify the base set of apps and filter the apps to list.");
 
-            var optionSet = new EnumOptionArgument<AppSet>(OPTION_SET, "s", DEF_SET);
+            var optionSet = new EnumOptionArgument<AppSet>(OPTION_SET, 's', DEF_SET);
             optionSet.Description
                 .Text("Specifies the set of apps to list.");
 
-            var optionProperties = new OptionArgument(OPTION_PROPERTIES, "p", null);
+            var optionProperties = new OptionArgument(OPTION_PROPERTIES, 'p', null);
             optionProperties.Description
                 .Text("Specifies the properties to display in the listed output.")
                 .Text(" This option only has an effect, if the flag ")
@@ -75,7 +75,7 @@ namespace Mastersign.Bench.Cli.Commands
             optionProperties.PossibleValueInfo
                 .Text("A comma separated list of property names.");
 
-            var optionFilter = new OptionArgument(OPTION_FILTER, "f", null);
+            var optionFilter = new OptionArgument(OPTION_FILTER, 'f', null);
             optionFilter.Description
                 .Text("Specifies a filter to reduce the number of listed apps.");
             optionFilter.PossibleValueInfo
@@ -84,7 +84,7 @@ namespace Mastersign.Bench.Cli.Commands
             optionFilter.DefaultValueInfo
                 .Text("no filter");
 
-            var optionSortBy = new OptionArgument(OPTION_SORT_BY, "o", null);
+            var optionSortBy = new OptionArgument(OPTION_SORT_BY, 'o', null);
             optionSortBy.Description
                 .Text("Specifies a property to sort the apps by.");
             optionSortBy.PossibleValueInfo

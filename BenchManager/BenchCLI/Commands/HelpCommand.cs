@@ -22,23 +22,23 @@ namespace Mastersign.Bench.Cli.Commands
             parser.Description
                 .Text("Displays the full help for all commands.");
 
-            var flagNoTitle = new FlagArgument(FLAG_NO_TITLE, "t");
+            var flagNoTitle = new FlagArgument(FLAG_NO_TITLE, 't');
             flagNoTitle.Description
                 .Text("Suppress the output of the tool name as the document title.");
 
-            var flagNoVersion = new FlagArgument(FLAG_NO_VERSION, "v");
+            var flagNoVersion = new FlagArgument(FLAG_NO_VERSION, 'v');
             flagNoVersion.Description
                 .Text("Suppress the output of the tool version number.");
 
-            var flagNoIndex = new FlagArgument(FLAG_NO_INDEX, "i");
+            var flagNoIndex = new FlagArgument(FLAG_NO_INDEX, 'i');
             flagNoIndex.Description
                 .Text("Suppress the index of the commands.");
 
-            var flagAppend = new FlagArgument(FLAG_APPEND, "a");
+            var flagAppend = new FlagArgument(FLAG_APPEND, 'a');
             flagAppend.Description
                 .Text("Append to an existing file, in case a target file is specified.");
 
-            var optionTargetFile = new OptionArgument(OPTION_TARGET_FILE, "o",
+            var optionTargetFile = new OptionArgument(OPTION_TARGET_FILE, 'o',
                 ArgumentValidation.IsValidPath,
                 "out");
             optionTargetFile.Description

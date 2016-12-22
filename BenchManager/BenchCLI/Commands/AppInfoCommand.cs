@@ -28,7 +28,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .End(BlockType.Paragraph);
 
             var optionFormat = new EnumOptionArgument<DocumentOutputFormat>(
-                OPTION_FORMAT, "f", DEF_FORMAT, "fmt");
+                OPTION_FORMAT, 'f', DEF_FORMAT, "fmt");
             optionFormat.Description
                 .Text("Specify the output format.");
 

@@ -40,7 +40,7 @@ namespace Mastersign.CliTools
                 w.Keyword(alias);
             }
             w.Text(", ");
-            w.Keyword(a.Mnemonic);
+            w.Keyword(new string(a.Mnemonic, 1));
         }
 
         private static bool HasFlags(ArgumentParser p)

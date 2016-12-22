@@ -157,7 +157,9 @@ namespace Mastersign.CliTools
             WriteLine("Choose one of the following commands:");
             WriteLine();
             var keyChars = new List<char>();
+            var quitMnemonic = ArgumentParser.MenuQuitMnemonic;
             keyChars.Add(ESC);
+            keyChars.Add(quitMnemonic);
             keyChars.Add(HELP_MNEMONIC);
             WriteMenuItem(HELP_MNEMONIC, "Display the help.");
             if (parser.GetFlags().Length > 0 || parser.GetOptions().Length > 0)
@@ -167,14 +169,14 @@ namespace Mastersign.CliTools
             }
             foreach (var arg in commandArgs)
             {
-                WriteMenuItem(arg.Mnemonic[0], arg.Description.ToString());
-                keyChars.Add(arg.Mnemonic[0]);
+                WriteMenuItem(arg.Mnemonic, arg.Description.ToString());
+                keyChars.Add(arg.Mnemonic);
             }
             WriteLine();
-            Write("Press a character key to choose a menu item or ESC to quit. ");
+            Write("Press a character key to choose a menu item or ESC/" + quitMnemonic + " to quit. ");
             var selectedMnemonic = ReadExpectedChar(keyChars);
             Close();
-            if (selectedMnemonic == ESC)
+            if (selectedMnemonic == ESC || selectedMnemonic == quitMnemonic)
             {
                 result = CommandMenuResult.Escape;
             }
@@ -190,7 +192,7 @@ namespace Mastersign.CliTools
             {
                 foreach (var cmd in commandArgs)
                 {
-                    if (cmd.Mnemonic[0] == selectedMnemonic)
+                    if (cmd.Mnemonic == selectedMnemonic)
                     {
                         selectedCommand = cmd.Name;
                         break;
@@ -234,8 +236,12 @@ namespace Mastersign.CliTools
                 WriteLine("Choose one of the following options:");
             WriteLine();
             var keyChars = new List<char>();
+            var quitMnemonic = ArgumentParser.MenuQuitMnemonic;
             if (followUp == MenuFollowUp.Return)
+            {
                 keyChars.Add(ESC);
+                keyChars.Add(quitMnemonic);
+            }
             else
                 keyChars.Add(ENTER);
             keyChars.Add(HELP_MNEMONIC);
@@ -244,8 +250,8 @@ namespace Mastersign.CliTools
                 WriteLine("Flags");
                 foreach (var arg in flagArgs)
                 {
-                    WriteMenuItem(arg.Mnemonic[0], arg.Description.ToString());
-                    keyChars.Add(arg.Mnemonic[0]);
+                    WriteMenuItem(arg.Mnemonic, arg.Description.ToString());
+                    keyChars.Add(arg.Mnemonic);
                 }
             }
             if (hasOptions)
@@ -253,8 +259,8 @@ namespace Mastersign.CliTools
                 WriteLine("Options");
                 foreach (var arg in optionArgs)
                 {
-                    WriteMenuItem(arg.Mnemonic[0], arg.Description.ToString());
-                    keyChars.Add(arg.Mnemonic[0]);
+                    WriteMenuItem(arg.Mnemonic, arg.Description.ToString());
+                    keyChars.Add(arg.Mnemonic);
                 }
             }
             WriteLine();
@@ -265,7 +271,7 @@ namespace Mastersign.CliTools
             var selectedMnemonic = ReadExpectedChar(keyChars);
             Close();
             selectedArgument = null;
-            if (selectedMnemonic == ESC || selectedMnemonic == ENTER)
+            if (selectedMnemonic == ESC || selectedMnemonic == quitMnemonic || selectedMnemonic == ENTER)
             {
                 result = FlagAndOptionMenuResult.Exit;
             }
@@ -277,7 +283,7 @@ namespace Mastersign.CliTools
             {
                 foreach (var arg in flagArgs)
                 {
-                    if (arg.Mnemonic[0] == selectedMnemonic)
+                    if (arg.Mnemonic == selectedMnemonic)
                     {
                         selectedArgument = arg;
                         if (flags.ContainsKey(arg.Name) && flags[arg.Name])
@@ -289,7 +295,7 @@ namespace Mastersign.CliTools
                 }
                 foreach (var arg in optionArgs)
                 {
-                    if (arg.Mnemonic[0] == selectedMnemonic)
+                    if (arg.Mnemonic == selectedMnemonic)
                     {
                         selectedArgument = arg;
                         optionValues[arg.Name] = ReadArgumentValue(arg.Name,
@@ -339,13 +345,7 @@ namespace Mastersign.CliTools
         private static void SortArgumentsByMnemonic<T>(T[] args)
             where T : NamedArgument
         {
-            Array.Sort(args, (c1, c2) =>
-            {
-                if (c1.Mnemonic == null && c2.Mnemonic == null) return 0;
-                if (c1.Mnemonic == null) return -1;
-                if (c2.Mnemonic == null) return 1;
-                return c1.Mnemonic.CompareTo(c2.Mnemonic);
-            });
+            Array.Sort(args, (c1, c2) => c1.Mnemonic.CompareTo(c2.Mnemonic));
         }
 
         private void WriteMenuItem(char mnemonic, string description)

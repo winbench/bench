@@ -21,15 +21,15 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("The ").Keyword(Name).Text(" command manages the cached app resources.")
                 .End(BlockType.Paragraph);
 
-            var commandClean = new CommandArgument(COMMAND_CLEAN, "c", "cl");
+            var commandClean = new CommandArgument(COMMAND_CLEAN, 'c', "cl");
             commandClean.Description
                 .Text("Deletes obsolete app resources.");
 
-            var commandPurge = new CommandArgument(COMMAND_PURGE, "x");
+            var commandPurge = new CommandArgument(COMMAND_PURGE, 'x');
             commandPurge.Description
                 .Text("Deletes all cached app resources.");
 
-            var commandDownload = new CommandArgument(COMMAND_DOWNLOAD, "d", "dl");
+            var commandDownload = new CommandArgument(COMMAND_DOWNLOAD, 'd', "dl");
             commandDownload.Description
                 .Text("Downloads the app resources for all active apps.");
 

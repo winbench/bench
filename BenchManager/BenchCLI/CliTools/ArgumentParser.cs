@@ -13,6 +13,8 @@ namespace Mastersign.CliTools
 
         public static string MainHelpIndicator = "-?";
 
+        public static char MenuQuitMnemonic = 'q';
+
         private readonly Dictionary<string, Argument> arguments = new Dictionary<string, Argument>();
 
         public string Name { get; private set; }
@@ -37,6 +39,33 @@ namespace Mastersign.CliTools
 
         public void RegisterArgument(Argument arg)
         {
+            switch (arg.Type)
+            {
+                case ArgumentType.Flag:
+                    if (!(arg is FlagArgument))
+                        throw new ArgumentException("Expected type " + nameof(FlagArgument) + ".");
+                    if (MnemonicExists((NamedArgument)arg))
+                        throw new ArgumentException("The arguments mnemonic is already in use.");
+                    break;
+                case ArgumentType.Option:
+                    if (!(arg is OptionArgument))
+                        throw new ArgumentException("Expected type " + nameof(OptionArgument) + ".");
+                    if (MnemonicExists((NamedArgument)arg))
+                        throw new ArgumentException("The arguments mnemonic is already in use.");
+                    break;
+                case ArgumentType.Command:
+                    if (!(arg is CommandArgument))
+                        throw new ArgumentException("Expected type " + nameof(CommandArgument) + ".");
+                    if (MnemonicExists((NamedArgument)arg))
+                        throw new ArgumentException("The arguments mnemonic is already in use.");
+                    break;
+                case ArgumentType.Positional:
+                    if (!(arg is PositionalArgument))
+                        throw new ArgumentException("Expected type " + nameof(PositionalArgument) + ".");
+                    break;
+                default:
+                    throw new ArgumentException("Argument type not supported.");
+            }
             arguments.Add(arg.Name, arg);
         }
 
@@ -60,6 +89,26 @@ namespace Mastersign.CliTools
             }
             res.Sort((a, b) => a.Name.CompareTo(b.Name));
             return res.ToArray();
+        }
+
+        private bool MnemonicExists(NamedArgument arg)
+        {
+            var m = arg.Mnemonic;
+            if (arg is CommandArgument)
+            {
+                foreach (var cmdArg in GetCommands())
+                    if (cmdArg.Mnemonic == m) return true;
+                return false;
+            }
+            if (arg is FlagArgument || arg is OptionArgument)
+            {
+                foreach (var flagArg in GetFlags())
+                    if (flagArg.Mnemonic == m) return true;
+                foreach (var optArg in GetOptions())
+                    if (optArg.Mnemonic == m) return true;
+                return false;
+            }
+            return false;
         }
 
         public FlagArgument[] GetFlags()
@@ -203,11 +252,11 @@ namespace Mastersign.CliTools
     internal class ArgumentIndex
     {
         private readonly Dictionary<string, Argument> flags = new Dictionary<string, Argument>();
-        private readonly Dictionary<string, Argument> flagMnemonics = new Dictionary<string, Argument>();
+        private readonly Dictionary<char, Argument> flagMnemonics = new Dictionary<char, Argument>();
         private readonly Dictionary<string, Argument> options = new Dictionary<string, Argument>();
-        private readonly Dictionary<string, Argument> optionMnemonics = new Dictionary<string, Argument>();
+        private readonly Dictionary<char, Argument> optionMnemonics = new Dictionary<char, Argument>();
         private readonly Dictionary<string, Argument> commands = new Dictionary<string, Argument>();
-        private readonly Dictionary<string, Argument> commandMnemonics = new Dictionary<string, Argument>();
+        private readonly Dictionary<char, Argument> commandMnemonics = new Dictionary<char, Argument>();
         private readonly List<Argument> positionals = new List<Argument>();
 
         private readonly bool CaseSensitive;
@@ -225,6 +274,11 @@ namespace Mastersign.CliTools
         {
             if (arg == null) throw new ArgumentNullException();
             return CaseSensitive ? arg : arg.ToLowerInvariant();
+        }
+
+        private char PrepareArgument(char arg)
+        {
+            return CaseSensitive ? arg : char.ToLowerInvariant(arg);
         }
 
         private void AddArgument(Argument arg)
@@ -277,15 +331,15 @@ namespace Mastersign.CliTools
                 if (options.TryGetValue(name, out a)) return a;
                 return null;
             }
-            if (v.StartsWith("-"))
+            if (v.Length == 2 && v.StartsWith("-"))
             {
-                var mnemonic = v.Substring(1);
+                var mnemonic = v[1];
                 if (flagMnemonics.TryGetValue(mnemonic, out a)) return a;
                 if (optionMnemonics.TryGetValue(mnemonic, out a)) return a;
                 return null;
             }
             if (commands.TryGetValue(v, out a)) return a;
-            if (commandMnemonics.TryGetValue(v, out a)) return a;
+            if (v.Length == 1 && commandMnemonics.TryGetValue(v[0], out a)) return a;
 
             if (consumedPositionals < positionals.Count) return positionals[consumedPositionals];
 
@@ -326,22 +380,26 @@ namespace Mastersign.CliTools
 
     public abstract class NamedArgument : Argument
     {
-        public string Mnemonic { get; private set; }
+        public char Mnemonic { get; private set; }
 
         public string[] Aliases { get; private set; }
 
-        protected NamedArgument(ArgumentType type, string name, string mnemonic,
+        protected NamedArgument(ArgumentType type, string name, char mnemonic,
             params string[] aliases)
             : base(type, name)
         {
-            Mnemonic = mnemonic ?? name.Substring(0, 1);
+            if (mnemonic == ArgumentParser.MenuQuitMnemonic)
+            {
+                throw new ArgumentException("The mnemonic equals the menu quit mnemonic.");
+            }
+            Mnemonic = mnemonic;
             Aliases = aliases;
         }
     }
 
     public class FlagArgument : NamedArgument
     {
-        public FlagArgument(string name, string mnemonic,
+        public FlagArgument(string name, char mnemonic,
             params string[] aliases)
             : base(ArgumentType.Flag, name, mnemonic, aliases)
         {
@@ -358,7 +416,7 @@ namespace Mastersign.CliTools
 
         public ArgumentValuePredicate ValuePredicate { get; private set; }
 
-        public OptionArgument(string name, string mnemonic,
+        public OptionArgument(string name, char mnemonic,
             ArgumentValuePredicate valuePredicate,
             params string[] aliases)
             : base(ArgumentType.Option, name, mnemonic, aliases)
@@ -386,7 +444,7 @@ namespace Mastersign.CliTools
 
         public T DefaultValue { get; private set; }
 
-        public EnumOptionArgument(string name, string mnemonic,
+        public EnumOptionArgument(string name, char mnemonic,
             T defaultValue, params string[] aliases)
             : base(name, mnemonic, IsEnumMember)
         {
@@ -423,7 +481,7 @@ namespace Mastersign.CliTools
     {
         public Document SyntaxInfo { get; private set; }
 
-        public CommandArgument(string name, string mnemonic,
+        public CommandArgument(string name, char mnemonic,
             params string[] aliases)
             : base(ArgumentType.Command, name, mnemonic, aliases)
         {
