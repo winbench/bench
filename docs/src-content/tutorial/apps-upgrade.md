@@ -65,7 +65,7 @@ E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd
 cd C:\bench\auto\bin
-.\bench setup
+.\bench manage setup
 ```
 
 ## Upgrade Packaged Apps {#packages}

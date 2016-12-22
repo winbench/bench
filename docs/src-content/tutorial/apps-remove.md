@@ -69,11 +69,11 @@ E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd
 cd C:\bench\auto\bin
-.\bench setup
+.\bench manage setup
 ```
 
 If you want more information during the setup process, add `--verbose`
-as flag to the command line: `.\bench --verbose setup`.
+as flag to the command line: `.\bench --verbose manage setup`.
 
 ## See Also
 

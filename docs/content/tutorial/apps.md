@@ -81,7 +81,7 @@ E.g. if your Bench root folder is `C:\bench`, then run:
 
 ```cmd
 cd C:\bench\auto\bin
-.\bench setup
+.\bench manage setup
 ```
 
 Do not be alarmed, if this process takes a while, because the activated
@@ -89,7 +89,7 @@ apps must be downloaded and extracted.
 Depending on the bandwidth of your internet connection and your CPU speed,
 this can take a while.
 If you want more information during the setup process, add `--verbose`
-as flag to the command line: `.\bench --verbose setup`.
+as flag to the command line: `.\bench --verbose manage setup`.
 
 ## Next {#next}
 Now you can [delete](/tutorial/apps-remove)

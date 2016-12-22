@@ -233,15 +233,6 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 
 It is used from custom scripts to retrieve absolute paths to the additional resources.
 
-### ActionDir {#ActionDir}
-
-* Description: The path to a directory with Bench action scripts.
-* Data Type: path
-* Default: `actions`
-* Type: System
-
-Bench action scripts are typically `*.cmd` files.
-
 ### LibDir {#LibDir}
 
 * Description: The path to the base directory where Bench apps are installed.

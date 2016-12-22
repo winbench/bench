@@ -1,5 +1,5 @@
 +++
-date = "2016-06-22T13:43:12+02:00"
+date = "2016-12-22T10:43:00+02:00"
 description = "The layout of the folders and files in the Bench environment"
 title = "File Structure"
 weight = 4
@@ -17,19 +17,6 @@ configuration property is mentioned.
 The core structure consists of directories and files, which are installed
 during the Bench setup, and _can not_ be moved via custom or site configuration.
 
-* [`actions`](#action-dir)
-  ([ActionDir](/ref/config/#ActionDir))
-    + [`bench-bash.cmd`](#action-bench-bash)
-    + [`bench-cmd.cmd`](#action-bench-cmd)
-    + [`bench-ctl.cmd`](#action-bench-ctl)
-    + [`bench-ps.cmd`](#action-bench-ps)
-    + `clone-git-project.cmd`
-    + `new-project.cmd`
-    + `open-editor.cmd`
-    + `project-backup.cmd`
-    + `project-editor.cmd`
-    + `project-ps.cmd`
-    + `project-watch.cmd`
 * [`auto`](#auto-dir) Bench Automation
     + [`apps`](#auto-apps-dir) Bench App Automation Directory
         - [`<app-id>.extract.ps1`](#custom-script-extract)
@@ -39,15 +26,16 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
         - [`<app-id>.pre-run.ps1`](#custom-script-pre-run)
         - [`<app-id>.post-run.ps1`](#custom-script-post-run)
     + [`bin`](#auto-bin-dir) Bench Binaries
+        - [`bench.exe`](/ref/bench-cli/)
         - [`BenchDashboard.exe`](/ref/dashboard/)
         - [`BenchLib.dll`](/ref/clr-api/)
+        - [`bench-cmd.cmd`](#auto-bin-bench-cmd)
+        - [`bench-ps.cmd`](#auto-bin-bench-ps)
+        - [`bench-bash.cmd`](#auto-bin-bench-bash)
+        - ...
     + [`lib`](#auto-lib-dir) Bench Scripts
         - `bench.lib.ps1`
         - ...
-    + `archive.cmd`
-    + `editor.cmd`
-    + `init.cmd`
-    + `runps.cmd`
 * [`config`](#config-dir) User Configuration
   ([CustomConfigDir](/ref/config/#CustomConfigDir))
     + [`apps`](#config-apps-dir) User App Automation Directory
@@ -138,45 +126,6 @@ and _can_ be moved via custom or site configuration.
   ([SiteConfigFileName](/ref/config/#SiteConfigFileName))
 
 ## Details {#details}
-
-### Action Directory {#action-dir}
-
-* Description: Script for task execution in the Bench environment.
-* Path: `actions`
-* Type: directory
-* Config Property: ([ActionDir](/ref/config/#ActionDir))
-
-This directory contains `*.cmd` scripts to run a couple of useful tasks
-in the Bench environment.
-They do load the `env.cmd` by them selfs if necessary.
-Therefore, they can be started directly from an arbitrary command prompt,
-via a Windows shortcut, or from the explorer.
-
-### Action `bench-bash` {#action-bench-bash}
-
-* Description: Starts a [Git][] shell in the Bench environment.
-* Path: `actions\bench-bash.cmd`
-* Type: file
-
-This action will fail if [Git][] is not installed
-
-### Action `bench-cmd` {#action-bench-cmd}
-
-* Description: Starts a Windows CMD console in the Bench environment.
-* Path: `actions\bench-cmd.cmd`
-* Type: file
-
-### Action `bench-ctl` {#action-bench-ctl}
-
-* Description: Starts the [command line interface][Bench CLI] of the Bench manager.
-* Path: `actions\bench-ctl.cmd`
-* Type: file
-
-### Action `bench-ps` {#action-bench-ps}
-
-* Description: Starts a PowerShell console in the Bench environment.
-* Path: `actions\bench-ps.cmd`
-* Type: file
 
 ### Bench Automation Directory {#auto-dir}
 
@@ -317,6 +266,26 @@ Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
 * Description: The directory with all binary executables and libraries of Bench.
 * Path: `auto\bin`
 * Type: directory
+
+### Action `bench-bash` {#auto-bin-bench-bash}
+
+* Description: Starts a [Git][] shell in the Bench environment.
+* Path: `actions\bench-bash.cmd`
+* Type: file
+
+This action will fail if [Git][] is not installed
+
+### Action `bench-cmd` {#auto-bin-bench-cmd}
+
+* Description: Starts a Windows CMD console in the Bench environment.
+* Path: `actions\bench-cmd.cmd`
+* Type: file
+
+### Action `bench-ps` {#auto-bin-bench-ps}
+
+* Description: Starts a PowerShell console in the Bench environment.
+* Path: `actions\bench-ps.cmd`
+* Type: file
 
 ### Bench Script Directory {#auto-lib-dir}
 

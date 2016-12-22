@@ -1,5 +1,5 @@
 ﻿+++
-date = "2016-12-21T15:48:39+01:00"
+date = "2016-12-22T16:35:10+01:00"
 description = "The command-line interface: bench.exe"
 title = "Bench CLI"
 weight = 2
@@ -30,19 +30,20 @@ Take a look at [the project website](http://mastersign.github.io/bench) for a de
 * [ `bench`  `app`  `reinstall`](#cmd_bench-app-reinstall)
 * [ `bench`  `app`  `uninstall`](#cmd_bench-app-uninstall)
 * [ `bench`  `app`  `upgrade`](#cmd_bench-app-upgrade)
-* [ `bench`  `config`](#cmd_bench-config)
 * [ `bench`  `dashboard`](#cmd_bench-dashboard)
-* [ `bench`  `downloads`](#cmd_bench-downloads)
 * [ `bench`  `help`](#cmd_bench-help)
-* [ `bench`  `initialize`](#cmd_bench-initialize)
 * [ `bench`  `list`](#cmd_bench-list)
 * [ `bench`  `list`  `apps`](#cmd_bench-list-apps)
+* [ `bench`  `manage`](#cmd_bench-manage)
+* [ `bench`  `manage`  `config`](#cmd_bench-manage-config)
+* [ `bench`  `manage`  `downloads`](#cmd_bench-manage-downloads)
+* [ `bench`  `manage`  `initialize`](#cmd_bench-manage-initialize)
+* [ `bench`  `manage`  `reinstall`](#cmd_bench-manage-reinstall)
+* [ `bench`  `manage`  `renew`](#cmd_bench-manage-renew)
+* [ `bench`  `manage`  `setup`](#cmd_bench-manage-setup)
+* [ `bench`  `manage`  `update-env`](#cmd_bench-manage-update-env)
+* [ `bench`  `manage`  `upgrade`](#cmd_bench-manage-upgrade)
 * [ `bench`  `project`](#cmd_bench-project)
-* [ `bench`  `reinstall`](#cmd_bench-reinstall)
-* [ `bench`  `renew`](#cmd_bench-renew)
-* [ `bench`  `setup`](#cmd_bench-setup)
-* [ `bench`  `update-env`](#cmd_bench-update-env)
-* [ `bench`  `upgrade`](#cmd_bench-upgrade)
 
 ## bench {#cmd_bench}
 
@@ -71,7 +72,7 @@ Suppresses all assurance questions.
 
 ### Options {#cmd_bench_options}
 
-####  `--help-format` |  `-hf`  _&lt;value&gt;_
+####  `--help-format` |  `-f`  _&lt;value&gt;_
 
 Specifies the output format of help texts.
 
@@ -100,59 +101,27 @@ Manage individual apps.
 
 Syntax:  `bench`  `app`  _&lt;sub-command&gt;_  
 
-####  `config`,  `cfg`,  `c`
-
-Read or write values from the user configuration.
-
-Syntax:  `bench`  `config`  _&lt;sub-command&gt;_  
-
 ####  `dashboard`,  `gui`,  `b`
 
 Starts the  _Bench Dashboard_.
-
-####  `downloads`,  `cache`,  `dl`,  `d`
-
-Manage the app resource cache.
-
-Syntax:  `bench`  `downloads`  _&lt;sub-command&gt;_  
 
 ####  `help`,  `h`
 
 Displays the full help for all commands.
 
-####  `initialize`,  `init`,  `i`
-
-Initialize the Bench configuration and start the setup process.
-
 ####  `list`,  `l`
 
 Lists different kinds of objects in the Bench environment.
+
+####  `manage`,  `m`
+
+Manages the Bench environment and its configuration.
 
 ####  `project`,  `prj`,  `p`
 
 Manage projects in the Bench environment.
 
 Syntax:  `bench`  `project`  
-
-####  `reinstall`,  `r`
-
-Remove all installed apps, then install all active apps.
-
-####  `renew`,  `n`
-
-Redownload all app resources, remove all installed apps, then install all active apps.
-
-####  `setup`,  `s`
-
-Run the auto-setup for the active Bench apps.
-
-####  `update-env`,  `e`
-
-Update the paths in the Bench environment.
-
-####  `upgrade`,  `u`
-
-Download and extract the latest Bench release, then run the auto-setup.
 
 ## bench app {#cmd_bench-app}
 
@@ -535,30 +504,6 @@ Specifies the app to upgrade.
 
 Expected: An app ID is an alphanumeric string without whitespace.  
 
-## bench config {#cmd_bench-config}
-
-Command:  `bench`  `config`
-
-The  `config` command gives access to the Bench user configuration.
-
-### Usage {#cmd_bench-config_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `config`
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `config`  _&lt;command&gt;_ ...
-
-### Help {#cmd_bench-config_help}
-
-*  `bench`  `config` ( `/?` |  `-?` |  `-h` |  `--help`)
-*  `bench`  `config`  _&lt;command&gt;_ ( `/?` |  `-?` |  `-h` |  `--help`)
-
-### Commands {#cmd_bench-config_commands}
-
-####  `get`,  `g`
-
-Reads a configuration value.
-
-Syntax:  _&lt;property name&gt;_  
-
 ## bench dashboard {#cmd_bench-dashboard}
 
 Command:  `bench`  `dashboard`
@@ -572,36 +517,6 @@ The  `dashboard` command starts the graphical user interface  _Bench Dashboard_.
 ### Help {#cmd_bench-dashboard_help}
 
 *  `bench`  `dashboard` ( `/?` |  `-?` |  `-h` |  `--help`)
-
-## bench downloads {#cmd_bench-downloads}
-
-Command:  `bench`  `downloads`
-
-The  `downloads` command manages the cached app resources.
-
-### Usage {#cmd_bench-downloads_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `downloads`
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `downloads`  _&lt;command&gt;_ ...
-
-### Help {#cmd_bench-downloads_help}
-
-*  `bench`  `downloads` ( `/?` |  `-?` |  `-h` |  `--help`)
-*  `bench`  `downloads`  _&lt;command&gt;_ ( `/?` |  `-?` |  `-h` |  `--help`)
-
-### Commands {#cmd_bench-downloads_commands}
-
-####  `clean`,  `cl`,  `c`
-
-Deletes obsolete app resources.
-
-####  `download`,  `dl`,  `d`
-
-Downloads the app resources for all active apps.
-
-####  `purge`,  `x`
-
-Deletes all cached app resources.
 
 ## bench help {#cmd_bench-help}
 
@@ -641,20 +556,6 @@ Specifies a target file to write the help content to.
 
 Expected: A path to a writable file. The target file will be created or overridden.  
 Default: None  
-
-## bench initialize {#cmd_bench-initialize}
-
-Command:  `bench`  `initialize`
-
-The  `initialize` command initializes the Bench configuration and starts the setup process.
-
-### Usage {#cmd_bench-initialize_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `initialize`
-
-### Help {#cmd_bench-initialize_help}
-
-*  `bench`  `initialize` ( `/?` |  `-?` |  `-h` |  `--help`)
 
 ## bench list {#cmd_bench-list}
 
@@ -740,6 +641,192 @@ Specifies a property to sort the apps by.
 Expected: The name of an app property.  
 Default: ID  
 
+## bench manage {#cmd_bench-manage}
+
+Command:  `bench`  `manage`
+
+The  `manage` command manages the Bench environment via a number of sub-commands.
+
+### Usage {#cmd_bench-manage_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  _&lt;command&gt;_ ...
+
+### Help {#cmd_bench-manage_help}
+
+*  `bench`  `manage` ( `/?` |  `-?` |  `-h` |  `--help`)
+*  `bench`  `manage`  _&lt;command&gt;_ ( `/?` |  `-?` |  `-h` |  `--help`)
+
+### Commands {#cmd_bench-manage_commands}
+
+####  `config`,  `cfg`,  `c`
+
+Read or write values from the user configuration.
+
+Syntax:  `bench`  `manage`  `config`  _&lt;sub-command&gt;_  
+
+####  `initialize`,  `init`,  `i`
+
+Initialize the Bench configuration and start the setup process.
+
+####  `reinstall`,  `r`
+
+Remove all installed apps, then install all active apps.
+
+####  `renew`,  `n`
+
+Redownload all app resources, remove all installed apps, then install all active apps.
+
+####  `setup`,  `s`
+
+Run the auto-setup for the active Bench apps.
+
+####  `update-env`,  `e`
+
+Update the paths in the Bench environment.
+
+####  `upgrade`,  `u`
+
+Download and extract the latest Bench release, then run the auto-setup.
+
+## bench manage config {#cmd_bench-manage-config}
+
+Command:  `bench`  `manage`  `config`
+
+The  `config` command gives access to the Bench user configuration.
+
+### Usage {#cmd_bench-manage-config_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `config`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `config`  _&lt;command&gt;_ ...
+
+### Help {#cmd_bench-manage-config_help}
+
+*  `bench`  `manage`  `config` ( `/?` |  `-?` |  `-h` |  `--help`)
+*  `bench`  `manage`  `config`  _&lt;command&gt;_ ( `/?` |  `-?` |  `-h` |  `--help`)
+
+### Commands {#cmd_bench-manage-config_commands}
+
+####  `get`,  `g`
+
+Reads a configuration value.
+
+Syntax:  _&lt;property name&gt;_  
+
+## bench manage downloads {#cmd_bench-manage-downloads}
+
+Command:  `bench`  `manage`  `downloads`
+
+The  `downloads` command manages the cached app resources.
+
+### Usage {#cmd_bench-manage-downloads_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `downloads`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `downloads`  _&lt;command&gt;_ ...
+
+### Help {#cmd_bench-manage-downloads_help}
+
+*  `bench`  `manage`  `downloads` ( `/?` |  `-?` |  `-h` |  `--help`)
+*  `bench`  `manage`  `downloads`  _&lt;command&gt;_ ( `/?` |  `-?` |  `-h` |  `--help`)
+
+### Commands {#cmd_bench-manage-downloads_commands}
+
+####  `clean`,  `cl`,  `c`
+
+Deletes obsolete app resources.
+
+####  `download`,  `dl`,  `d`
+
+Downloads the app resources for all active apps.
+
+####  `purge`,  `x`
+
+Deletes all cached app resources.
+
+## bench manage initialize {#cmd_bench-manage-initialize}
+
+Command:  `bench`  `manage`  `initialize`
+
+The  `initialize` command initializes the Bench configuration and starts the setup process.
+
+### Usage {#cmd_bench-manage-initialize_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `initialize`
+
+### Help {#cmd_bench-manage-initialize_help}
+
+*  `bench`  `manage`  `initialize` ( `/?` |  `-?` |  `-h` |  `--help`)
+
+## bench manage reinstall {#cmd_bench-manage-reinstall}
+
+Command:  `bench`  `manage`  `reinstall`
+
+The  `reinstall` command removes all installed apps, then installs all active apps.
+
+### Usage {#cmd_bench-manage-reinstall_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `reinstall`
+
+### Help {#cmd_bench-manage-reinstall_help}
+
+*  `bench`  `manage`  `reinstall` ( `/?` |  `-?` |  `-h` |  `--help`)
+
+## bench manage renew {#cmd_bench-manage-renew}
+
+Command:  `bench`  `manage`  `renew`
+
+The  `renew` command redownloads all app resources, removes all installed apps, then installs all active apps.
+
+### Usage {#cmd_bench-manage-renew_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `renew`
+
+### Help {#cmd_bench-manage-renew_help}
+
+*  `bench`  `manage`  `renew` ( `/?` |  `-?` |  `-h` |  `--help`)
+
+## bench manage setup {#cmd_bench-manage-setup}
+
+Command:  `bench`  `manage`  `setup`
+
+The  `setup` command runs the auto-setup for the active Bench apps.
+
+### Usage {#cmd_bench-manage-setup_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `setup`
+
+### Help {#cmd_bench-manage-setup_help}
+
+*  `bench`  `manage`  `setup` ( `/?` |  `-?` |  `-h` |  `--help`)
+
+## bench manage update-env {#cmd_bench-manage-update-env}
+
+Command:  `bench`  `manage`  `update-env`
+
+The  `update-env` command updates the paths in the Bench environment.
+
+### Usage {#cmd_bench-manage-update-env_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `update-env`
+
+### Help {#cmd_bench-manage-update-env_help}
+
+*  `bench`  `manage`  `update-env` ( `/?` |  `-?` |  `-h` |  `--help`)
+
+## bench manage upgrade {#cmd_bench-manage-upgrade}
+
+Command:  `bench`  `manage`  `upgrade`
+
+The  `upgrade` command checks if a new version of Bench is available and installs it.
+
+### Usage {#cmd_bench-manage-upgrade_usage}
+
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `upgrade`
+
+### Help {#cmd_bench-manage-upgrade_help}
+
+*  `bench`  `manage`  `upgrade` ( `/?` |  `-?` |  `-h` |  `--help`)
+
 ## bench project {#cmd_bench-project}
 
 Command:  `bench`  `project`
@@ -755,74 +842,4 @@ The  `project` command allows you to perform certain tasks on projects in the Be
 ### Help {#cmd_bench-project_help}
 
 *  `bench`  `project` ( `/?` |  `-?` |  `-h` |  `--help`)
-
-## bench reinstall {#cmd_bench-reinstall}
-
-Command:  `bench`  `reinstall`
-
-The  `reinstall` command removes all installed apps, then installs all active apps.
-
-### Usage {#cmd_bench-reinstall_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `reinstall`
-
-### Help {#cmd_bench-reinstall_help}
-
-*  `bench`  `reinstall` ( `/?` |  `-?` |  `-h` |  `--help`)
-
-## bench renew {#cmd_bench-renew}
-
-Command:  `bench`  `renew`
-
-The  `renew` command redownloads all app resources, removes all installed apps, then installs all active apps.
-
-### Usage {#cmd_bench-renew_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `renew`
-
-### Help {#cmd_bench-renew_help}
-
-*  `bench`  `renew` ( `/?` |  `-?` |  `-h` |  `--help`)
-
-## bench setup {#cmd_bench-setup}
-
-Command:  `bench`  `setup`
-
-The  `setup` command runs the auto-setup for the active Bench apps.
-
-### Usage {#cmd_bench-setup_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `setup`
-
-### Help {#cmd_bench-setup_help}
-
-*  `bench`  `setup` ( `/?` |  `-?` |  `-h` |  `--help`)
-
-## bench update-env {#cmd_bench-update-env}
-
-Command:  `bench`  `update-env`
-
-The  `update-env` command updates the paths in the Bench environment.
-
-### Usage {#cmd_bench-update-env_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `update-env`
-
-### Help {#cmd_bench-update-env_help}
-
-*  `bench`  `update-env` ( `/?` |  `-?` |  `-h` |  `--help`)
-
-## bench upgrade {#cmd_bench-upgrade}
-
-Command:  `bench`  `upgrade`
-
-The  `upgrade` command checks if a new version of Bench is available and installs it.
-
-### Usage {#cmd_bench-upgrade_usage}
-
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `upgrade`
-
-### Help {#cmd_bench-upgrade_help}
-
-*  `bench`  `upgrade` ( `/?` |  `-?` |  `-h` |  `--help`)
 
