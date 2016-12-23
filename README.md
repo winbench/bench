@@ -4,11 +4,11 @@
 
 > Portable Environment for Software Development on Windows
 
-[Bench Website][bench-website] (currently under construction)
+[**Bench Website**][bench-website]
 
-Take a look at the [**About Page**][About] if you want to know why Bench exists.
-Browse through the [**Usage Scenarios**][Scenarios] to learn what Bench can do for you.
-And if you want to dive right in, read the [**Quickstart**][Quickstart].
+Take a look at the [_About Page_][About] if you want to know why Bench exists.
+Browse through the [_Usage Scenarios_][Scenarios] to learn what Bench can do for you.
+And if you want to dive right in, read the [_Quickstart_][Quickstart].
 
 ![Bench Dashboard](docs/static/img/teaser.png)
 
