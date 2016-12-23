@@ -15,8 +15,8 @@ With the following properties you can control the composition of the environment
 
 With the following properties you can control the appearance of the launchers for the three shells.
 
-* QuickAccessCmd: `true`
-* QuickAccessPowerShell: `false`
+* QuickAccessCmd: `false`
+* QuickAccessPowerShell: `true`
 * QuickAccessBash: `false`
 
 ## Dashboard
