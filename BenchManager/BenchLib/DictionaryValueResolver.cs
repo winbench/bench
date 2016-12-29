@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    internal class AppIndexValueResolver : IGroupedValueResolver
+    internal class DictionaryValueResolver : IGroupedValueResolver
     {
         private static readonly char[] KeyValueSeparator = new char[] { ':' };
 
         public IGroupedPropertySource AppIndex { get; set; }
 
-        public AppIndexValueResolver()
+        public DictionaryValueResolver()
         {
         }
 
-        public AppIndexValueResolver(IGroupedPropertySource appIndex)
+        public DictionaryValueResolver(IGroupedPropertySource appIndex)
             : this()
         {
             AppIndex = appIndex;
@@ -76,11 +76,11 @@ namespace Mastersign.Bench
             return d;
         }
 
-        private KeyValuePair<string, string> ParseKeyValuePair(string header)
+        public static KeyValuePair<string, string> ParseKeyValuePair(string value)
         {
-            if (header != null && header.Contains(":"))
+            if (value != null && value.Contains(":"))
             {
-                var p = header.Split(KeyValueSeparator, 2);
+                var p = value.Split(KeyValueSeparator, 2);
                 return new KeyValuePair<string, string>(p[0].Trim(), p[1].Trim());
             }
             else

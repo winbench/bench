@@ -186,7 +186,7 @@ namespace Mastersign.Bench
                 }
             }
 
-            AddResolver(new AppIndexValueResolver(this));
+            AddResolver(new DictionaryValueResolver(this));
             GroupedDefaultValueSource = new AppIndexDefaultValueSource(this);
             appIndexFacade = new AppIndexFacade(this);
 
