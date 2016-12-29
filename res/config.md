@@ -36,6 +36,11 @@
 * AppRegistryBaseDir: `$HomeDir$\registry_isolation`
 * TempDir: `tmp`
 * LibDir: `lib`
+* AppLibs:
+    + `core`: `github:mastersign/bench-apps-core`
+* AppIndexFileName: `apps.md`
+* AppLibsDir: `$LibDir$\_applibs`
+* AppLibsDownloadDir: `$DownloadDir$\_applibs`
 * LogDir: `log`
 * HomeDir: `home`
 * AppDataDir: `$HomeDir$\AppData\Roaming`

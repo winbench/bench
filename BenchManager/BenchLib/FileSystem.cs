@@ -141,6 +141,50 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
+        /// Copies a directory with all its content to another location.
+        /// </summary>
+        /// <param name="sourceDir">A path to the source directory.</param>
+        /// <param name="targetDir">A path to the target directory.</param>
+        /// <param name="subDirs"><c>true</c> if subdirectories are copied recursively; otherwise <c>false</c>.</param>
+        public static void CopyDir(string sourceDir, string targetDir, bool subDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDir);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDir);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(targetDir))
+            {
+                Directory.CreateDirectory(targetDir);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(targetDir, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (subDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(targetDir, subdir.Name);
+                    CopyDir(subdir.FullName, temppath, subDirs);
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a Windows shortcut, or link respectively.
         /// </summary>
         /// <param name="file">A path to the shortcut file (<c>*.lnk</c>).</param>

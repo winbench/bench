@@ -55,6 +55,10 @@ namespace Mastersign.Bench
         public const string TempDir = "TempDir";
         public const string DownloadDir = "DownloadDir";
         public const string LibDir = "LibDir";
+        public const string AppLibs = "AppLibs";
+        public const string AppIndexFileName = "AppIndexFileName";
+        public const string AppLibsDir = "AppLibsDir";
+        public const string AppLibsDownloadDir = "AppLibsDownloadDir";
         public const string LogDir = "LogDir";
         public const string LogFile = "LogFile";
         public const string LogLevel = "LogLevel";

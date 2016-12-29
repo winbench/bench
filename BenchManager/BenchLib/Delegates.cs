@@ -22,6 +22,12 @@ namespace Mastersign.Bench
     public delegate void StringDownloadResultHandler(bool success, string content);
 
     /// <summary>
+    /// The type for a handler, called when the download of a file finished.
+    /// </summary>
+    /// <param name="success"><c>true</c> if the download was successfull; otherwise false.</param>
+    public delegate void FileDownloadResultHandler(bool success);
+
+    /// <summary>
     /// The type for a method which is called, to process a key value pair of strings.
     /// </summary>
     /// <param name="key">The key to process.</param>

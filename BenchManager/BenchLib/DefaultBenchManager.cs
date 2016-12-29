@@ -126,7 +126,13 @@ namespace Mastersign.Bench
 
         private bool RunAction(BenchTaskForOne action, string appId)
             => action(this, appId, NotificationHandler, new Cancelation()).Success;
-        
+
+        /// <summary>
+        /// Loads the app libraries, configured in the configuration.
+        /// </summary>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool LoadAppLibraries() => RunAction(BenchTasks.DoLoadAppLibraries);
+
         /// <summary>
         /// Sets up only the apps required by Bench.
         /// </summary>

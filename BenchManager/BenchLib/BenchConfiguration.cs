@@ -147,7 +147,7 @@ namespace Mastersign.Bench
             {
                 Debug.WriteLine("Looking for site config file(s): " + siteConfigFileName);
                 var siteConfigFiles = FindSiteConfigFiles(benchRootDir, siteConfigFileName);
-                foreach(var file in siteConfigFiles)
+                foreach (var file in siteConfigFiles)
                 {
                     using (var siteConfigStream = File.OpenRead(file))
                     {
@@ -328,7 +328,7 @@ namespace Mastersign.Bench
 
         private void RecordResponsibilities()
         {
-            foreach(var app in new List<AppFacade>(Apps))
+            foreach (var app in new List<AppFacade>(Apps))
             {
                 app.TrackResponsibilities();
             }
@@ -370,6 +370,55 @@ namespace Mastersign.Bench
         /// The merged definition of the Bench apps as a <see cref="AppIndexFacade"/>.
         /// </summary>
         public AppIndexFacade Apps { get { return appIndexFacade; } }
+
+        /// <summary>
+        /// The app libraries defined in the configuration property <c>AppLibs</c>.
+        /// </summary>
+        public AppLibraryFacade[] AppLibraries
+        {
+            get
+            {
+                var result = new List<AppLibraryFacade>();
+                foreach (var item in GetStringListValue(PropertyKeys.AppLibs))
+                {
+                    var kvp = DictionaryValueResolver.ParseKeyValuePair(item);
+                    if (string.IsNullOrEmpty(kvp.Key)) continue;
+                    var id = kvp.Key;
+                    Uri url;
+                    if (!Uri.TryCreate(ExpandAppLibraryUrl(kvp.Value), UriKind.Absolute, out url) ||
+                        (!string.Equals("http", url.Scheme, StringComparison.InvariantCultureIgnoreCase) &&
+                         !string.Equals("https", url.Scheme, StringComparison.InvariantCultureIgnoreCase) &&
+                         !string.Equals("file", url.Scheme, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        continue;
+                    }
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        if (string.Equals(result[i].ID, id))
+                        {
+                            result.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    result.Add(new AppLibraryFacade(this, id, url));
+                }
+                return result.ToArray();
+            }
+        }
+
+        private static readonly Regex GitHubUrlPattern = new Regex(@"^github:(?<ns>[\dA-Za-z-_]+)/(?<name>[\dA-Za-z-_]+)$");
+        private static readonly string GitHubUrlTemplate = "https://github.com/{0}/{1}/archive/master.zip";
+
+        private static string ExpandAppLibraryUrl(string url)
+        {
+            var m = GitHubUrlPattern.Match(url);
+            if (m.Success)
+            {
+                return string.Format(GitHubUrlTemplate,
+                    m.Groups["ns"].Value, m.Groups["name"].Value);
+            }
+            return url;
+        }
 
         /// <summary>
         /// Reloads the set of configuration files, specified during construction.

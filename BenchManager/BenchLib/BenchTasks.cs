@@ -273,6 +273,7 @@ namespace Mastersign.Bench
             wc.DownloadStringAsync(url);
         }
 
+
         /// <summary>
         /// Downloads a string via HTTP(S).
         /// </summary>
@@ -290,6 +291,48 @@ namespace Mastersign.Bench
                 catch (Exception)
                 {
                     return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Downloads a file via HTTP(S) asynchronously.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <param name="targetFile">A path to the target file.</param>
+        /// <param name="resultHandler">The handler to process the download result.</param>
+        public static void DownloadFileAsync(BenchConfiguration config, Uri url, string targetFile,
+            FileDownloadResultHandler resultHandler)
+        {
+            var wc = InitializeWebClient(config);
+            wc.DownloadFileCompleted += (sender, eventArgs) =>
+            {
+                resultHandler(eventArgs.Error == null && !eventArgs.Cancelled);
+                wc.Dispose();
+            };
+            wc.DownloadStringAsync(url);
+        }
+
+        /// <summary>
+        /// Downloads a file via HTTP(S).
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <param name="targetFile">A path to the target file.</param>
+        /// <returns><c>true</c> if the download was successful; otherwise <c>false</c>.</returns>
+        public static bool DownloadFile(BenchConfiguration config, Uri url, string targetFile)
+        {
+            using (var wc = InitializeWebClient(config))
+            {
+                try
+                {
+                    wc.DownloadFile(url, targetFile);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
                 }
             }
         }
@@ -463,6 +506,22 @@ namespace Mastersign.Bench
         }
 
         #region Higher Order Actions
+
+        /// <summary>
+        /// Runs the Bench task of downloading and extracting the app libraries.
+        /// </summary>
+        /// <param name="man">The Bench manager.</param>
+        /// <param name="notify">The notification handler.</param>
+        /// <param name="cancelation">A cancelation token.</param>
+        /// <returns>The result of running the task, in shape of an <see cref="ActionResult"/> object.</returns>
+        public static ActionResult DoLoadAppLibraries(IBenchManager man,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            return RunTasks(man,
+                new AppFacade[0],
+                notify, cancelation,
+                LoadAppLibraries);
+        }
 
         /// <summary>
         /// Runs the Bench task of setting up only the apps, required of the Bench system itself.
@@ -939,6 +998,185 @@ namespace Mastersign.Bench
             p = Math.Min(a.Length - 1, p);
             while (p > 0 && a[p] == null) p--;
             return a[p];
+        }
+
+        #endregion
+
+        #region Load App Libraries
+
+        private static void UnwrapSubDir(string targetDir)
+        {
+            var content = Directory.GetFileSystemEntries(targetDir);
+            // Check if the only content of the source folder is one directory
+            if (content != null && content.Length == 1 && Directory.Exists(content[0]))
+            {
+                // Then move all further content one directory up
+                // (helps with ZIP files which contain the whole app library in a sub-dir)
+                FileSystem.MoveContent(content[0], targetDir);
+                Directory.Delete(content[0]);
+            }
+        }
+
+        private static bool IsAppLibrary(BenchConfiguration config, string directory)
+        {
+            var appIndexFileName = config.GetStringValue(PropertyKeys.AppIndexFileName);
+            return File.Exists(Path.Combine(directory, appIndexFileName));
+        }
+
+        private static void ExtractAppLibrary(BenchConfiguration config, string source, string targetDir)
+        {
+            if (!ZipFile.IsZipFile(source)) throw new InvalidOperationException(
+                "The app library does not appear to be a ZIP file: " + source);
+            FileSystem.EmptyDir(targetDir);
+            using (var zf = new ZipFile(source))
+            {
+                zf.ExtractExistingFile = ExtractExistingFileAction.OverwriteSilently;
+                zf.FlattenFoldersOnExtract = false;
+                zf.ExtractAll(targetDir);
+            }
+            if (!IsAppLibrary(config, targetDir)) UnwrapSubDir(targetDir);
+        }
+
+        private static void CopyAppLibrary(BenchConfiguration config, string source, string targetDir)
+        {
+            if (File.Exists(source))
+            {
+                ExtractAppLibrary(config, source, targetDir);
+            }
+            else if (Directory.Exists(source))
+            {
+                FileSystem.CopyDir(source, targetDir, true);
+                if (!IsAppLibrary(config, targetDir)) UnwrapSubDir(targetDir);
+            }
+            else
+            {
+                throw new ArgumentException("Source of app library not found: " + source);
+            }
+        }
+
+        private static string AppLibDirectory(BenchConfiguration config, string appLibId)
+        {
+            return Path.Combine(config.GetStringValue(PropertyKeys.AppLibsDir), appLibId);
+        }
+
+        private static void LoadAppLibraries(IBenchManager man,
+            ICollection<AppFacade> _,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var appLibDir = man.Config.GetStringValue(PropertyKeys.AppLibsDir);
+            FileSystem.EmptyDir(appLibDir);
+            var cacheDir = man.Config.GetStringValue(PropertyKeys.AppLibsDownloadDir);
+            FileSystem.EmptyDir(cacheDir);
+
+            var appLibs = man.Config.AppLibraries;
+
+            var finished = 0;
+            var errorCnt = 0;
+            var taskCnt = appLibs.Length;
+            var tasks = new List<DownloadTask>();
+            var endEvent = new ManualResetEvent(false);
+
+            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            {
+                notify(new TaskProgress(
+                    string.Format("Started download for app library '{0}' ...", e.Task.Id),
+                    (float)finished / taskCnt, e.Task.Id, e.Task.Url.ToString()));
+            };
+
+            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            {
+                finished++;
+                if (!e.Task.Success)
+                {
+                    errorCnt++;
+                    notify(new TaskError(e.Task.ErrorMessage, e.Task.Id));
+                }
+                else
+                {
+                    try
+                    {
+                        ExtractAppLibrary(man.Config, e.Task.TargetFile, AppLibDirectory(man.Config, e.Task.Id));
+                        notify(new TaskProgress(
+                            string.Format("Finished download for app library '{0}'.", e.Task.Id),
+                            (float)finished / taskCnt, e.Task.Id));
+                    }
+                    catch (Exception exc)
+                    {
+                        errorCnt++;
+                        notify(new TaskError(
+                            string.Format("Extracting the archive of app library '{0}' failed.", e.Task.Id),
+                            exception: exc));
+                    }
+                }
+            };
+
+            EventHandler workFinishedHandler = null;
+            workFinishedHandler = (o, e) =>
+            {
+                man.Downloader.DownloadEnded -= downloadEndedHandler;
+                man.Downloader.WorkFinished -= workFinishedHandler;
+                endEvent.Set();
+            };
+            man.Downloader.DownloadStarted += downloadStartedHandler;
+            man.Downloader.DownloadEnded += downloadEndedHandler;
+            man.Downloader.WorkFinished += workFinishedHandler;
+
+            cancelation.Canceled += (s, e) => man.Downloader.CancelAll();
+
+            notify(new TaskProgress("Loading app libraries...", 0f));
+
+            foreach (var l in appLibs)
+            {
+                var appLibArchive = l.ID + ".zip";
+                var appLibArchivePath = Path.Combine(cacheDir, appLibArchive);
+
+                if ("file".Equals(l.Url.Scheme.ToLowerInvariant()))
+                {
+                    var sourcePath = l.Url.LocalPath;
+                    notify(new TaskInfo(
+                        string.Format("Loading app libary '{0}' from file system...", l.ID)));
+                    finished++;
+                    try
+                    {
+                        CopyAppLibrary(man.Config, sourcePath, AppLibDirectory(man.Config, l.ID));
+                        notify(new TaskProgress(
+                            string.Format("Successfully loaded app library '{0}'.", l.ID),
+                            (float)finished / taskCnt));
+                    }
+                    catch (Exception e)
+                    {
+                        errorCnt++;
+                        notify(new TaskError(
+                            string.Format("Loading app library '{0}' failed.", l.ID),
+                            exception: e));
+                    }
+                }
+                else
+                {
+                    var task = new DownloadTask(l.ID, l.Url, appLibArchivePath);
+                    tasks.Add(task);
+                    man.Downloader.Enqueue(task);
+                }
+            }
+
+            if (tasks.Count == 0)
+            {
+                man.Downloader.DownloadEnded -= downloadEndedHandler;
+                man.Downloader.WorkFinished -= workFinishedHandler;
+                notify(new TaskProgress("Nothing to download.", 1f));
+            }
+            else
+            {
+                notify(new TaskProgress(
+                    string.Format("Queued {0} downloads.", tasks.Count),
+                    0f));
+                endEvent.WaitOne();
+            }
+
+            if (!cancelation.IsCanceled)
+            {
+                notify(new TaskProgress("Finished loading app libraries.", 1f));
+            }
         }
 
         #endregion
