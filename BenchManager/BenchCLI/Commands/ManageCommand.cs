@@ -12,6 +12,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         private readonly BenchCommand configCommand = new ConfigCommand();
         private readonly BenchCommand initializeCommand = new InitializeCommand();
+        private readonly BenchCommand loadAppLibsCommand = new LoadAppLibraries();
         private readonly BenchCommand autoSetupCommand = new AutoSetupCommand();
         private readonly BenchCommand updateEnvCommand = new UpdateEnvironmentCommand();
         private readonly BenchCommand downloadsCommand = new DownloadsCommand();
@@ -35,6 +36,10 @@ namespace Mastersign.Bench.Cli.Commands
             var commandInitialize = new CommandArgument(initializeCommand.Name, 'i', "init");
             commandInitialize.Description
                 .Text("Initialize the Bench configuration and start the setup process.");
+
+            var commandLoadAppLibs = new CommandArgument(loadAppLibsCommand.Name, 'l');
+            commandLoadAppLibs.Description
+                .Text("Load the latest app libraries.");
 
             var commandSetup = new CommandArgument(autoSetupCommand.Name, 's');
             commandSetup.Description
@@ -65,6 +70,7 @@ namespace Mastersign.Bench.Cli.Commands
             parser.RegisterArguments(
                 commandInitialize,
                 commandSetup,
+                commandLoadAppLibs,
                 commandUpdateEnv,
                 commandReinstall,
                 commandRenew,
@@ -76,6 +82,7 @@ namespace Mastersign.Bench.Cli.Commands
         {
             RegisterSubCommand(configCommand);
             RegisterSubCommand(initializeCommand);
+            RegisterSubCommand(loadAppLibsCommand);
             RegisterSubCommand(autoSetupCommand);
             RegisterSubCommand(updateEnvCommand);
             RegisterSubCommand(downloadsCommand);
