@@ -43,6 +43,8 @@ function App-LauncherArguments([string]$name) { return $global:BenchConfig.Apps[
 function App-LauncherIcon([string]$name) { return $global:BenchConfig.Apps[$name].LauncherIcon }
 function App-SetupTestFile([string]$name) { return $global:BenchConfig.Apps[$name].SetupTestFile }
 function Check-App([string]$name) { return $global:BenchConfig.Apps[$name].IsInstalled }
+function App-CustomScript([string]$name, [string]$typ) { return $global:BenchConfig.Apps[$name].GetCustomScript($typ) }
+function App-SetupResource([string]$name, [string]$relPath) { return $global:BenchConfig.Apps[$name].GetSetupResource($relPath) }
 
 function App-Path([string]$name) {
     $path = $global:BenchConfig.Apps[$name].Path
