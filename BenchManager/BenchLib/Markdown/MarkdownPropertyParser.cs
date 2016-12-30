@@ -141,6 +141,12 @@ namespace Mastersign.Bench.Markdown
         public IGroupedPropertyTarget Target { get; set; }
 
         /// <summary>
+        /// Gets or sets a metadata object, which is going to be attached to every group,
+        /// properties are recognized for.
+        /// </summary>
+        public object CurrentGroupMetadata { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="MarkdownPropertyParser"/>.
         /// </summary>
         public MarkdownPropertyParser()
@@ -168,6 +174,10 @@ namespace Mastersign.Bench.Markdown
             if (target != null)
             {
                 target.SetGroupValue(CurrentGroup, name, value);
+                if (CurrentGroupMetadata != null)
+                {
+                    target.SetGroupMetadata(CurrentGroup, CurrentGroupMetadata);
+                }
             }
         }
 
