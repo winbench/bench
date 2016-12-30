@@ -160,7 +160,9 @@ namespace Mastersign.Bench
             FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.LibDir));
             FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.ProjectRootDir));
 
-            var customAppIndexFile = cfg.GetStringValue(PropertyKeys.CustomAppIndexFile);
+            var customAppIndexFile = Path.Combine(
+                cfg.GetStringValue(PropertyKeys.CustomConfigDir),
+                cfg.GetStringValue(PropertyKeys.AppLibIndexFileName));
             if (!File.Exists(customAppIndexFile))
             {
                 var customAppIndexTemplateFile = cfg.GetStringValue(PropertyKeys.CustomAppIndexTemplateFile);
@@ -1019,7 +1021,7 @@ namespace Mastersign.Bench
 
         private static bool IsAppLibrary(BenchConfiguration config, string directory)
         {
-            var appIndexFileName = config.GetStringValue(PropertyKeys.AppIndexFileName);
+            var appIndexFileName = config.GetStringValue(PropertyKeys.AppLibIndexFileName);
             return File.Exists(Path.Combine(directory, appIndexFileName));
         }
 
@@ -1589,7 +1591,7 @@ namespace Mastersign.Bench
                         app.ID, null, e));
                     continue;
                 }
-                var envScript = app.GetCustomScriptFile("env");
+                var envScript = app.GetCustomScript("env");
                 if (envScript != null)
                 {
                     notify(new TaskProgress(
@@ -1767,7 +1769,7 @@ namespace Mastersign.Bench
             var targetDir = Path.Combine(config.GetStringValue(PropertyKeys.LibDir), app.Dir);
             var extractDir = app.ResourceArchivePath != null ? tmpDir : targetDir;
             FileSystem.AsureDir(extractDir);
-            var customExtractScript = app.GetCustomScriptFile("extract");
+            var customExtractScript = app.GetCustomScript("extract");
             switch (app.ResourceArchiveTyp)
             {
                 case AppArchiveTyps.Auto:
@@ -2119,7 +2121,7 @@ namespace Mastersign.Bench
                 }
 
                 // 2. Custom Setup-Script
-                var customSetupScript = app.GetCustomScriptFile("setup");
+                var customSetupScript = app.GetCustomScript("setup");
                 if (customSetupScript != null)
                 {
                     notify(new TaskProgress(
@@ -2172,7 +2174,7 @@ namespace Mastersign.Bench
                 }
 
                 // 5. Run Custom Environment Script
-                var envScript = app.GetCustomScriptFile("env");
+                var envScript = app.GetCustomScript("env");
                 if (envScript != null)
                 {
                     notify(new TaskProgress(
@@ -2327,7 +2329,7 @@ namespace Mastersign.Bench
                 {
                     if (selectedApp.ID == parentAppId)
                     {
-                        return app.GetCustomScriptFile("remove") == null;
+                        return app.GetCustomScript("remove") == null;
                     }
                 }
             }
@@ -2361,7 +2363,7 @@ namespace Mastersign.Bench
                     string.Format("Uninstalling app {0}.", app.ID),
                     progress, app.ID));
 
-                var customScript = app.GetCustomScriptFile("remove");
+                var customScript = app.GetCustomScript("remove");
                 try
                 {
                     if (customScript != null)

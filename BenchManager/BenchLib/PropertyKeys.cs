@@ -35,8 +35,6 @@ namespace Mastersign.Bench
         public const string SiteConfigFileName = "SiteConfigFileName";
         public const string SiteConfigTemplateFile = "SiteConfigTemplateFile";
 
-        public const string AppIndexFile = "AppIndexFile";
-        public const string CustomAppIndexFile = "CustomAppIndexFile";
         public const string CustomAppIndexTemplateFile = "CustomAppIndexTemplateFile";
         public const string AppActivationFile = "AppActivationFile";
         public const string AppActivationTemplateFile = "AppActivationTemplateFile";
@@ -56,13 +54,14 @@ namespace Mastersign.Bench
         public const string DownloadDir = "DownloadDir";
         public const string LibDir = "LibDir";
         public const string AppLibs = "AppLibs";
-        public const string AppIndexFileName = "AppIndexFileName";
         public const string AppLibsDir = "AppLibsDir";
         public const string AppLibsDownloadDir = "AppLibsDownloadDir";
+        public const string AppLibIndexFileName = "AppLibIndexFileName";
+        public const string AppLibCustomScriptDirName = "AppLibCustomScriptDirName";
+        public const string AppLibResourceDirName = "AppLibResourceDirName";
         public const string LogDir = "LogDir";
         public const string LogFile = "LogFile";
         public const string LogLevel = "LogLevel";
-        public const string AppResourceBaseDir = "AppResourceBaseDir";
         public const string AppAdornmentBaseDir = "AppAdornmentBaseDir";
         public const string AppRegistryBaseDir = "AppRegistryBaseDir";
         public const string LauncherDir = "LauncherDir";

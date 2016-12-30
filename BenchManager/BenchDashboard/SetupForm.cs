@@ -332,14 +332,16 @@ namespace Mastersign.Bench.Dashboard
 
         private void EditCustomConfigHandler(object sender, EventArgs e)
         {
-            EditTextFile("Custom Configuration",
+            EditTextFile("User Configuration",
                 core.Config.GetStringValue(PropertyKeys.CustomConfigFile));
         }
 
         private void EditCustomAppsHandler(object sender, EventArgs e)
         {
-            EditTextFile("Custom App Index",
-                core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile));
+            EditTextFile("User App Library",
+                Path.Combine(
+                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)));
         }
 
         private void ActivationListHandler(object sender, EventArgs e)
@@ -663,15 +665,20 @@ namespace Mastersign.Bench.Dashboard
 
         private void ShowAppIndexHandler(object sender, EventArgs e)
         {
-            var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
-            viewer.Show();
+            //var viewer = new MarkdownViewer(core);
+            //viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
+            //viewer.Show();
+            throw new NotImplementedException();
         }
 
         private void ShowCustomAppIndexHandler(object sender, EventArgs e)
         {
             var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile), "User App Library");
+            viewer.LoadMarkdown(
+                Path.Combine(
+                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                "User App Library");
             viewer.Show();
         }
 

@@ -23,21 +23,26 @@ namespace Mastersign.Bench
             throw new NotSupportedException();
         }
 
-        public object GetGroupValue(string appName, string key)
+        public object GetGroupMetadata(string group)
+        {
+            throw new NotSupportedException();
+        }
+
+        public object GetGroupValue(string appId, string key)
         {
             string appTyp;
             switch (key)
             {
                 case PropertyKeys.AppLabel:
-                    return appName;
+                    return AppFacade.NameFromId(appId);
                 case PropertyKeys.AppTyp:
                     return AppTyps.Default;
                 case PropertyKeys.AppArchiveTyp:
                     return AppArchiveTyps.Auto;
                 case PropertyKeys.AppPackageName:
-                    return appName.ToLowerInvariant();
+                    return appId.ToLowerInvariant();
                 case PropertyKeys.AppDir:
-                    appTyp = AppIndex.GetGroupValue(appName, PropertyKeys.AppTyp) as string;
+                    appTyp = AppIndex.GetGroupValue(appId, PropertyKeys.AppTyp) as string;
                     switch (appTyp)
                     {
                         case AppTyps.NodePackage:
@@ -51,10 +56,10 @@ namespace Mastersign.Bench
                         case AppTyps.Meta:
                             return null;
                         default:
-                            return appName.ToLowerInvariant();
+                            return AppFacade.PathSegmentFromId(appId);
                     }
                 case PropertyKeys.AppPath:
-                    appTyp = AppIndex.GetGroupValue(appName, PropertyKeys.AppTyp) as string;
+                    appTyp = AppIndex.GetGroupValue(appId, PropertyKeys.AppTyp) as string;
                     switch (appTyp)
                     {
                         case AppTyps.NodePackage:
@@ -72,41 +77,41 @@ namespace Mastersign.Bench
                         case AppTyps.NuGetPackage:
                             return Path.Combine(
                                 Path.Combine(
-                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppDir) as string,
-                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppPackageName) as string),
+                                    AppIndex.GetGroupValue(appId, PropertyKeys.AppDir) as string,
+                                    AppIndex.GetGroupValue(appId, PropertyKeys.AppPackageName) as string),
                                 "tools");
                         default:
-                            return AppIndex.GetGroupValue(appName, PropertyKeys.AppDir);
+                            return AppIndex.GetGroupValue(appId, PropertyKeys.AppDir);
                     }
                 case PropertyKeys.AppExe:
-                    appTyp = AppIndex.GetGroupValue(appName, PropertyKeys.AppTyp) as string;
+                    appTyp = AppIndex.GetGroupValue(appId, PropertyKeys.AppTyp) as string;
                     if (appTyp == AppTyps.Default)
                     {
                         return Path.Combine(
-                            AppIndex.GetGroupValue(appName, PropertyKeys.AppDir) as string,
-                            appName.ToLowerInvariant() + ".exe");
+                            AppIndex.GetGroupValue(appId, PropertyKeys.AppDir) as string,
+                            AppFacade.NameFromId(appId).ToLowerInvariant() + ".exe");
                     }
                     return null;
                 case PropertyKeys.AppRegister:
                     return true;
                 case PropertyKeys.AppLauncherExecutable:
-                    return AppIndex.GetGroupValue(appName, PropertyKeys.AppExe);
+                    return AppIndex.GetGroupValue(appId, PropertyKeys.AppExe);
                 case PropertyKeys.AppLauncherArguments:
                     return new[] { "%*" };
                 case PropertyKeys.AppLauncherIcon:
-                    return AppIndex.GetGroupValue(appName, PropertyKeys.AppLauncherExecutable);
+                    return AppIndex.GetGroupValue(appId, PropertyKeys.AppLauncherExecutable);
                 case PropertyKeys.AppSetupTestFile:
-                    appTyp = AppIndex.GetGroupValue(appName, PropertyKeys.AppTyp) as string;
+                    appTyp = AppIndex.GetGroupValue(appId, PropertyKeys.AppTyp) as string;
                     switch (appTyp)
                     {
                         case AppTyps.NuGetPackage:
                             return Path.Combine(
                                 Path.Combine(
-                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppDir) as string,
-                                    AppIndex.GetGroupValue(appName, PropertyKeys.AppPackageName) as string),
-                                AppIndex.GetGroupValue(appName, PropertyKeys.AppPackageName) + ".nupkg");
+                                    AppIndex.GetGroupValue(appId, PropertyKeys.AppDir) as string,
+                                    AppIndex.GetGroupValue(appId, PropertyKeys.AppPackageName) as string),
+                                AppIndex.GetGroupValue(appId, PropertyKeys.AppPackageName) + ".nupkg");
                         default:
-                            return AppIndex.GetGroupValue(appName, PropertyKeys.AppExe);
+                            return AppIndex.GetGroupValue(appId, PropertyKeys.AppExe);
                     }
                 default:
                     throw new NotSupportedException();

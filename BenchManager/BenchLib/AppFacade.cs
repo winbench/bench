@@ -14,6 +14,11 @@ namespace Mastersign.Bench
     /// </summary>
     public class AppFacade
     {
+        /// <summary>
+        /// The namespace separator in an app ID.
+        /// </summary>
+        public const char NS_SEPARATOR = '.';
+
         private readonly IConfiguration AppIndex;
 
         private readonly string AppName;
@@ -90,6 +95,56 @@ namespace Mastersign.Bench
         /// Gets the ID of the app.
         /// </summary>
         public string ID { get { return AppName; } }
+
+        internal static string NamespaceFromId(string id)
+        {
+            var p = id.LastIndexOf(NS_SEPARATOR);
+            return p < 0 ? string.Empty : id.Substring(0, p);
+        }
+
+        /// <summary>
+        /// Gets the namespace part of the apps ID.
+        /// </summary>
+        public string Namespace => NamespaceFromId(ID);
+
+        internal static string PathSegmentFromId(string id)
+        {
+            return id.ToLowerInvariant().Replace(NS_SEPARATOR, IOPath.DirectorySeparatorChar);
+        }
+
+        /// <summary>
+        /// Gets a part for a filesystem path, which represents the id of this app.
+        /// </summary>
+        public string PathSegment => PathSegmentFromId(ID);
+
+        internal static string NamespacePathSegmentFromId(string id)
+        {
+            var ns = NamespaceFromId(id);
+            return string.IsNullOrEmpty(ns)
+                ? string.Empty
+                : ns.ToLowerInvariant().Replace(NS_SEPARATOR, IOPath.DirectorySeparatorChar);
+        }
+
+        /// <summary>
+        /// Gets a part for a filesystem path, which represents the namespace of this app.
+        /// </summary>
+        public string NamespacePathSegment => NamespacePathSegmentFromId(ID);
+
+        internal static string NameFromId(string id)
+        {
+            var p = id.LastIndexOf(NS_SEPARATOR);
+            return p < 0 ? id : id.Substring(p + 1);
+        }
+
+        /// <summary>
+        /// Gets the name part of the apps ID.
+        /// </summary>
+        public string Name => NameFromId(ID);
+
+        /// <summary>
+        /// Gets the app library, this app is defined in.
+        /// </summary>
+        public AppLibrary AppLibrary => AppIndex.GetGroupMetadata(AppName) as AppLibrary;
 
         /// <summary>
         /// Gets the label of the app.
@@ -408,8 +463,8 @@ namespace Mastersign.Bench
             get
             {
                 return (RegistryKeys.Length > 0 && AppIndex.GetBooleanValue(PropertyKeys.UseRegistryIsolation))
-                    || File.Exists(GetCustomScriptFile("pre-run"))
-                    || File.Exists(GetCustomScriptFile("post-run"));
+                    || File.Exists(GetCustomScript("pre-run"))
+                    || File.Exists(GetCustomScript("post-run"));
             }
         }
 
@@ -502,16 +557,58 @@ namespace Mastersign.Bench
                 ID.ToLowerInvariant() + ".cmd");
         }
 
-        internal string GetCustomScriptFile(string typ)
+        /// <summary>
+        /// Gets a path to a custom script file for this app.
+        /// </summary>
+        /// <param name="typ">The typ of the custom script (e.g. <c>setup</c>).</param>
+        /// <returns>A path to the script file or <c>null</c> if no custom script exists.</returns>
+        public string GetCustomScript(string typ)
         {
+            var relativePath = IOPath.Combine(
+                AppIndex.GetStringValue(PropertyKeys.AppLibCustomScriptDirName),
+                NamespacePathSegment);
+            var scriptName = string.Format("{0}.{1}.ps1", Name.ToLowerInvariant(), typ);
+
             var userPath = IOPath.Combine(
-                IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.CustomConfigDir), "apps"),
-                ID.ToLowerInvariant() + "." + typ + ".ps1");
+                IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.CustomConfigDir), relativePath),
+                scriptName);
             if (File.Exists(userPath)) return userPath;
-            var integratedPath = IOPath.Combine(
-                IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.BenchAuto), "apps"),
-                ID.ToLowerInvariant() + "." + typ + ".ps1");
-            if (File.Exists(integratedPath)) return integratedPath;
+
+            if (AppLibrary != null)
+            {
+                var libraryPath = IOPath.Combine(
+                        IOPath.Combine(AppLibrary.BaseDir, relativePath),
+                        scriptName);
+                if (File.Exists(libraryPath)) return libraryPath;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets a path to a setup resource file or directory.
+        /// </summary>
+        /// <param name="relativeResourcePath">A relative path to a setup resource.</param>
+        /// <returns>An absolute path to the resource or <c>null</c>, if the resource does not exists.</returns>
+        public string GetSetupResource(string relativeResourcePath)
+        {
+            var relativeDirPath = IOPath.Combine(
+                AppIndex.GetStringValue(PropertyKeys.AppLibResourceDirName),
+                NamespacePathSegment);
+
+            var userPath = IOPath.Combine(
+                IOPath.Combine(
+                    AppIndex.GetStringValue(PropertyKeys.CustomConfigDir),
+                    relativeDirPath),
+                relativeResourcePath);
+            if (File.Exists(relativeResourcePath) || Directory.Exists(relativeResourcePath)) return userPath;
+
+            if (AppLibrary != null)
+            {
+                var libraryPath = IOPath.Combine(
+                        IOPath.Combine(AppLibrary.BaseDir, relativeDirPath),
+                        relativeResourcePath);
+                if (File.Exists(libraryPath)) return libraryPath;
+            }
             return null;
         }
 
@@ -1020,7 +1117,7 @@ namespace Mastersign.Bench
             get
             {
                 return CanCheckInstallation && (!IsInstalled || Force)
-                    || !CanCheckInstallation && GetCustomScriptFile("setup") != null;
+                    || !CanCheckInstallation && GetCustomScript("setup") != null;
             }
         }
 
@@ -1032,7 +1129,7 @@ namespace Mastersign.Bench
             get
             {
                 return CanCheckInstallation && IsInstalled
-                    || !CanCheckInstallation && GetCustomScriptFile("remove") != null;
+                    || !CanCheckInstallation && GetCustomScript("remove") != null;
             }
         }
 
@@ -1047,8 +1144,8 @@ namespace Mastersign.Bench
                         && (!HasResource || IsResourceCached)
                         && !IsManagedPackage
                     || !CanCheckInstallation
-                        && GetCustomScriptFile("remove") != null
-                        && GetCustomScriptFile("setup") != null;
+                        && GetCustomScript("remove") != null
+                        && GetCustomScript("setup") != null;
             }
         }
 
@@ -1070,8 +1167,8 @@ namespace Mastersign.Bench
                     // Default app with custom setup and remove
                     || !CanCheckInstallation
                         && !IsManagedPackage
-                        && GetCustomScriptFile("remove") != null
-                        && GetCustomScriptFile("setup") != null;
+                        && GetCustomScript("remove") != null
+                        && GetCustomScript("setup") != null;
             }
         }
 
@@ -1084,7 +1181,7 @@ namespace Mastersign.Bench
             {
                 return IsActive
                   && (CanCheckInstallation && !IsInstalled
-                    || !CanCheckInstallation && GetCustomScriptFile("setup") != null);
+                    || !CanCheckInstallation && GetCustomScript("setup") != null);
             }
         }
 
@@ -1097,7 +1194,7 @@ namespace Mastersign.Bench
             {
                 return !IsActive
                     && (CanCheckInstallation && IsInstalled
-                        || !CanCheckInstallation && GetCustomScriptFile("remove") != null);
+                        || !CanCheckInstallation && GetCustomScript("remove") != null);
             }
         }
 

@@ -589,46 +589,6 @@ and much more. Hugo’s speed fosters creativity and makes building a website fu
 * Url: `https://github.com/spf13/hugo/releases/download/v$:Version$/$:ArchiveName$`
 * ArchiveName: `hugo_$:Version$_windows-32bit.zip`
 
-### Node.js
-
-Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
-Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
-
-* ID: `Node`
-* Label: Node.js
-* Website: <https://nodejs.org>
-* Docs:
-    + API Documentation: <https://nodejs.org/dist/latest-v6.x/docs/api/>
-    + Guides: <https://nodejs.org/en/docs/guides/>
-* Version: 6.9.0
-* Url: `https://nodejs.org/dist/v$:Version$/win-x86/node.exe`
-* ResourceName: `node.exe`
-* Dir: `node`
-* Exe: `node.exe`
-* Launcher: $:Label$
-
-### NPM
-
-npm is the package manager for JavaScript.
-Find, share, and reuse packages of code from hundreds of thousands of
-developers — and assemble them in powerful new ways.
-
-Because _Node.js_ is downloaded as bare executable, _NPM_ must be installed seperately.
-But NPM, in its latest versions, is only distributed as part of the _Node.js_ setup.
-_NPM_ 1.4.12 is the last version of _NPM_ which was released seperately.
-Therefore, the latest version of _NPM_ is installed afterwards via the setup script `auto\apps\npm.setup.ps1`.
-
-* ID: `Npm`
-* Label: NPM
-* Dependencies: `Node`
-* Website: <https://www.npmjs.com/package/npm>
-* Version: `>=3.7.0 <4.0.0`
-* Url: <https://nodejs.org/dist/npm/npm-1.4.12.zip>
-* ArchiveName: `npm-1.4.12.zip`
-* Dir: `$Node:Dir$`
-* Exe: `npm.cmd`
-
 ### CoffeeScript
 
 * ID: `CoffeeScript`
@@ -744,42 +704,6 @@ JSHint is a tool that helps to detect errors and potential problems in your Java
 * Version: `>=2.8.0 <3.0.0`
 * Exe: `jshint.cmd`
 
-### Python 2
-
-Python is a programming language that lets you work quickly and integrate systems more effectively.
-
-* ID: `Python2`
-* Label: Python 2
-* Website: <https://www.python.org/>
-* Docs:
-    + Documentation: <https://docs.python.org/2/>
-    + Language Reference: <https://docs.python.org/2/reference/index.html>
-    + Library Reference: <https://docs.python.org/2/library/index.html>
-* Version: 2.7.12
-* Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
-* ArchiveName: `python-$:Version$.msi`
-* ArchivePath: `SourceDir`
-* Path: `.`, `Scripts`
-* Exe: `python.exe`
-
-### Python 3
-
-Python is a programming language that lets you work quickly and integrate systems more effectively.
-
-* ID: `Python3`
-* Label: Python 3
-* Website: <https://www.python.org/>
-* Docs:
-    + Documentation: <https://docs.python.org/3/>
-    + Language Reference: <https://docs.python.org/3/reference/index.html>
-    + Library Reference: <https://docs.python.org/3/library/index.html>
-* Version: 3.4.4
-* Url: `https://www.python.org/ftp/python/$:Version$/$:ArchiveName$`
-* ArchiveName: `python-$:Version$.msi`
-* ArchivePath: `SourceDir`
-* Path: `.`, `Scripts`
-* Exe: `python.exe`
-
 ### PyReadline
 
 Required for colors in IPython.
@@ -829,44 +753,6 @@ for Python 3:
     + Documentation: <http://ipython.readthedocs.io/en/stable/>
 * Exe: `Scripts\ipython3.exe`
 * Launcher: $:Label$
-
-### Ruby
-
-A dynamic, open source programming language with a focus on simplicity and productivity.
-It has an elegant syntax that is natural to read and easy to write.
-
-* ID: `Ruby`
-* Website: <https://www.ruby-lang.org/>
-* Docs:
-    + Documentation: <https://www.ruby-lang.org/en/documentation/>
-    + Programming Ruby: <http://ruby-doc.com/docs/ProgrammingRuby/>
-    + Libraries: <https://www.ruby-lang.org/en/libraries/>
-* Version: 2.3.1
-* Url: `http://dl.bintray.com/oneclick/rubyinstaller/$:ArchiveName$`
-* ArchiveName: `rubyinstaller-$:Version$.exe`
-* ArchiveTyp: `inno`
-* ArchivePath: `{app}`
-* Path: `bin`
-* Exe: `bin\ruby.exe`
-* Launcher: `Ruby`
-* LauncherArguments: `$:Dir$\bin\irb`
-
-### RubyGems
-
-RubyGems is a package management framework for Ruby.
-
-* ID: `RubyGems`
-* Website: <https://rubygems.org/>
-* Docs:
-	+ Gems: <https://rubygems.org/gems>
-	+ Documentation: <http://guides.rubygems.org/>
-* Dependencies: `Ruby`
-* Version: 2.6.8
-* Url: `https://rubygems.org/rubygems/$:ArchiveName$`
-* ArchiveName: `rubygems-$:Version$.zip`
-* Dir: `$Ruby:Dir$\tmp`
-* Register: false
-* SetupTestFile: `$:Dir$\rubygems-$:Version$\setup.rb`
 
 ### SASS
 
@@ -1214,23 +1100,6 @@ Erlang is a programming language used to build massively scalable soft real-time
 * Environment: `ERLANG_HOME=$:ErtsDir$`
 * Launcher: $:Label$
 * LauncherExecutable: `$:ErtsDir$\bin\werl.exe`
-
-### NuGet
-
-NuGet is the package manager for the Microsoft development platform including .NET.
-The NuGet client tools provide the ability to produce and consume packages.
-The NuGet Gallery is the central package repository used by all package authors and consumers.
-
-* ID: `NuGet`
-* Website: <https://www.nuget.org>
-* Docs:
-    + Consume: <https://docs.nuget.org/consume>
-    + Create: <https://docs.nuget.org/create>
-    + Command-Line: <https://docs.nuget.org/Consume/Command-Line-Reference>
-    + Configuration File: <https://docs.nuget.org/Consume/NuGet-Config-File>
-* Version: latest
-* Url: <https://dist.nuget.org/win-x86-commandline/latest/nuget.exe>
-* ResourceName: `nuget.exe`
 
 ### NUnit 3 Runner
 

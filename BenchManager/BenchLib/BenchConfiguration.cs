@@ -159,27 +159,36 @@ namespace Mastersign.Bench
 
             if (loadAppIndex)
             {
-                var appIndexFile = GetStringValue(PropertyKeys.AppIndexFile);
-                Debug.WriteLine("Looking for application index: " + appIndexFile);
-                if (!File.Exists(appIndexFile))
+                foreach (var l in AppLibraries)
                 {
-                    throw new FileNotFoundException("The default app index for Bench was not found.", appIndexFile);
-                }
-                using (var appIndexStream = File.OpenRead(appIndexFile))
-                {
-                    Debug.WriteLine("Reading default application index ...");
-                    parser.Parse(appIndexStream);
+                    var appIndexFile = Path.Combine(l.BaseDir, GetStringValue(PropertyKeys.AppLibIndexFileName));
+                    Debug.WriteLine("Looking for app library index: " + appIndexFile);
+                    if (!File.Exists(appIndexFile))
+                    {
+                        throw new FileNotFoundException(
+                            string.Format("The index of the app library '{0}' was not found.", l.ID),
+                            appIndexFile);
+                    }
+                    parser.CurrentGroupMetadata = l;
+                    using (var appIndexStream = File.OpenRead(appIndexFile))
+                    {
+                        Debug.WriteLine("Reading index of app library '{0}' ...", l.ID);
+                        parser.Parse(appIndexStream);
+                    }
+                    parser.CurrentGroupMetadata = null;
                 }
 
                 if (loadCustomConfiguration)
                 {
-                    var customAppIndexFile = GetStringValue(PropertyKeys.CustomAppIndexFile);
-                    Debug.WriteLine("Looking for custom application index: " + customAppIndexFile);
+                    var customAppIndexFile = Path.Combine(
+                        GetStringValue(PropertyKeys.CustomConfigDir),
+                        GetStringValue(PropertyKeys.AppLibIndexFileName));
+                    Debug.WriteLine("Looking for custom app library index: " + customAppIndexFile);
                     if (File.Exists(customAppIndexFile))
                     {
                         using (var customAppIndexStream = File.OpenRead(customAppIndexFile))
                         {
-                            Debug.WriteLine("Reading custom application index ...");
+                            Debug.WriteLine("Reading custom app library index ...");
                             parser.Parse(customAppIndexStream);
                         }
                     }
@@ -215,10 +224,12 @@ namespace Mastersign.Bench
                 }
                 if (WithAppIndex)
                 {
-                    paths.Add(GetStringValue(PropertyKeys.AppIndexFile));
+                    // TODO paths.Add(GetStringValue(PropertyKeys.AppIndexFile));
                     if (WithCustomConfiguration)
                     {
-                        paths.Add(GetStringValue(PropertyKeys.CustomAppIndexFile));
+                        paths.Add(Path.Combine(
+                            GetStringValue(PropertyKeys.CustomConfigDir),
+                            GetStringValue(PropertyKeys.AppLibIndexFileName)));
                         paths.Add(GetStringValue(PropertyKeys.AppActivationFile));
                         paths.Add(GetStringValue(PropertyKeys.AppDeactivationFile));
                     }
@@ -374,11 +385,11 @@ namespace Mastersign.Bench
         /// <summary>
         /// The app libraries defined in the configuration property <c>AppLibs</c>.
         /// </summary>
-        public AppLibraryFacade[] AppLibraries
+        public AppLibrary[] AppLibraries
         {
             get
             {
-                var result = new List<AppLibraryFacade>();
+                var result = new List<AppLibrary>();
                 foreach (var item in GetStringListValue(PropertyKeys.AppLibs))
                 {
                     var kvp = DictionaryValueResolver.ParseKeyValuePair(item);
@@ -400,10 +411,24 @@ namespace Mastersign.Bench
                             break;
                         }
                     }
-                    result.Add(new AppLibraryFacade(this, id, url));
+                    result.Add(new AppLibrary(this, id, url));
                 }
                 return result.ToArray();
             }
+        }
+
+        /// <summary>
+        /// Gets an app library by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the app library.</param>
+        /// <returns>An <see cref="AppLibrary"/> object or <c>null</c> if the ID was not found.</returns>
+        public AppLibrary GetAppLibrary(string id)
+        {
+            foreach (var l in AppLibraries)
+            {
+                if (l.ID == id) return l;
+            }
+            return null;
         }
 
         private static readonly Regex GitHubUrlPattern = new Regex(@"^github:(?<ns>[\dA-Za-z-_]+)/(?<name>[\dA-Za-z-_]+)$");

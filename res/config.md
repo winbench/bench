@@ -38,9 +38,11 @@
 * LibDir: `lib`
 * AppLibs:
     + `core`: `github:mastersign/bench-apps-core`
-* AppIndexFileName: `apps.md`
 * AppLibsDir: `$LibDir$\_applibs`
 * AppLibsDownloadDir: `$DownloadDir$\_applibs`
+* AppLibIndexFileName: `apps.md`
+* AppLibCustomScriptDirName: `scripts`
+* AppLibResourceDirName: `res`
 * LogDir: `log`
 * HomeDir: `home`
 * AppDataDir: `$HomeDir$\AppData\Roaming`

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// This class is a facade to an app library.
+    /// This class represents an app library.
     /// It is initialized with an ID and an URL, and holds a reference to the <see cref="BenchConfiguration"/>.
     /// </summary>
-    public class AppLibraryFacade
+    public class AppLibrary
     {
         private readonly BenchConfiguration config;
 
@@ -27,12 +28,12 @@ namespace Mastersign.Bench
         public Uri Url { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="AppLibraryFacade"/>.
+        /// Initializes a new instance of <see cref="AppLibrary"/>.
         /// </summary>
         /// <param name="config">The Bench configuration.</param>
         /// <param name="id">The uniqe ID of the app library.</param>
         /// <param name="url">The URL of the app library.</param>
-        public AppLibraryFacade(BenchConfiguration config, string id, Uri url)
+        public AppLibrary(BenchConfiguration config, string id, Uri url)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
             if (id == null) throw new ArgumentNullException(nameof(id));
@@ -47,5 +48,12 @@ namespace Mastersign.Bench
             ID = id;
             Url = url;
         }
+
+        /// <summary>
+        /// Gets an absolute path to the base directory of the app library.
+        /// </summary>
+        public string BaseDir => Path.Combine(
+            config.GetStringValue(PropertyKeys.AppLibsDir),
+            ID.ToLowerInvariant());
     }
 }
