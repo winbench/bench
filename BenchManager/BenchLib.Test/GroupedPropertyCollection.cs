@@ -7,15 +7,18 @@ namespace Mastersign.Bench.Test
     {
         private IDictionary<string, IDictionary<string, object>> groups;
         private IDictionary<string, string> groupCategories;
+        private IDictionary<string, object> groupMetadata;
 
         public GroupedPropertyCollection(
             IDictionary<string, IDictionary<string, object>> groups = null,
             IDictionary<string, string> groupCategories = null,
+            IDictionary<string, object> groupMetadata = null,
             IDictionary<string, object> properties = null)
             : base(properties)
         {
             this.groups = groups ?? new Dictionary<string, IDictionary<string, object>>();
             this.groupCategories = groupCategories ?? new Dictionary<string, string>();
+            this.groupMetadata = groupMetadata ?? new Dictionary<string, object>();
         }
 
         public bool CanGetGroupValue(string group, string name)
@@ -40,6 +43,13 @@ namespace Mastersign.Bench.Test
             string category;
             return groupCategories.TryGetValue(group, out category)
                 ? category : null;
+        }
+
+        public object GetGroupMetadata(string group)
+        {
+            object metadata;
+            return groupMetadata.TryGetValue(group, out metadata)
+                ? metadata : null;
         }
 
         public object GetGroupValue(string group, string name)
@@ -84,6 +94,11 @@ namespace Mastersign.Bench.Test
         public void SetGroupCategory(string group, string category)
         {
             groupCategories[group] = category;
+        }
+
+        public void SetGroupMetadata(string group, object metadata)
+        {
+            groupMetadata[group] = metadata;
         }
 
         public void SetGroupValue(string group, string name, object value)

@@ -18,6 +18,14 @@ namespace Mastersign.Bench
         string GetGroupCategory(string group);
 
         /// <summary>
+        /// Gets the metadata object, attached to the specified group, 
+        /// or <c>null</c> if the group has no metadata attached.
+        /// </summary>
+        /// <param name="group">The group in question.</param>
+        /// <returns>The metadata object attached to the given group, or <c>null</c>.</returns>
+        object GetGroupMetadata(string group);
+
+        /// <summary>
         /// Gets the value of the specified property.
         /// </summary>
         /// <param name="group">The group of the property.</param>

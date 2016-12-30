@@ -16,6 +16,7 @@ namespace Mastersign.Bench
     {
         private readonly List<string> groupNames = new List<string>(); // ordered list for group names
         private readonly Dictionary<string, string> groupCategories = new Dictionary<string, string>();
+        private readonly Dictionary<string, object> groupMetadata = new Dictionary<string, object>();
         private readonly Dictionary<string, List<string>> groupKeys = new Dictionary<string, List<string>>(); // ordered lists for property names
         private readonly Dictionary<string, Dictionary<string, object>> groups = new Dictionary<string, Dictionary<string, object>>();
 
@@ -60,6 +61,29 @@ namespace Mastersign.Bench
         {
             string category;
             return groupCategories.TryGetValue(group, out category) ? category : null;
+        }
+
+        /// <summary>
+        /// Attaches a metadata object to a group.
+        /// </summary>
+        /// <param name="group">The group to attach the metadata to.</param>
+        /// <param name="metadata">The metadata object.</param>
+        public void SetGroupMetadata(string group, object metadata)
+        {
+            group = group ?? string.Empty;
+            groupMetadata[group] = metadata;
+        }
+
+        /// <summary>
+        /// Gets the metadata object, attached to the specified group, 
+        /// or <c>null</c> if the group has no metadata attached.
+        /// </summary>
+        /// <param name="group">The group in question.</param>
+        /// <returns>The metadata object attached to the given group, or <c>null</c>.</returns>
+        public object GetGroupMetadata(string group)
+        {
+            object metadata;
+            return groupMetadata.TryGetValue(group, out metadata) ? metadata : null;
         }
 
         /// <summary>
