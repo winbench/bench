@@ -15,10 +15,12 @@ namespace Mastersign.Bench.Cli.Commands
 
         private const DataOutputFormat DEF_FORMAT = DataOutputFormat.Plain;
 
+        private readonly BenchCommand listConfigFilesCommand = new ListConfigFilesCommand();
         private readonly BenchCommand listAppsCommand = new ListAppsCommand();
 
         public ListCommand()
         {
+            RegisterSubCommand(listConfigFilesCommand);
             RegisterSubCommand(listAppsCommand);
         }
 
@@ -49,6 +51,10 @@ namespace Mastersign.Bench.Cli.Commands
             optionFormat.Description
                 .Text("Specifies the output format of the listed data.");
 
+            var commandListFiles = new CommandArgument(listConfigFilesCommand.Name, 'f');
+            commandListFiles.Description
+                .Text("List configuration and app library index files.");
+
             var commandListApps = new CommandArgument(listAppsCommand.Name, 'a');
             commandListApps.Description
                 .Text("List apps from the app library.");
@@ -56,6 +62,7 @@ namespace Mastersign.Bench.Cli.Commands
             parser.RegisterArguments(
                 flagTable,
                 optionFormat,
+                commandListFiles,
                 commandListApps);
         }
     }
