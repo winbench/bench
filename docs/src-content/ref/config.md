@@ -16,7 +16,7 @@ and can be defined in the following files.
 The configuration files are applied in the order they are listed above.
 The site configuration files are applied with the files near the file system root first
 and the one in the Bench root directory last.
-Configuration files applied later override values from files applied earlier.
+Configuration files applied later, override values from files applied earlier.
 
 Therefore, the site configuration file in the Bench root directory has the highest priority
 and the default configuration has the lowest.
@@ -144,14 +144,67 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 * Default: `res\bench-site.template.md`
 * Type: System
 
-### AppIndexFile {#AppIndexFile}
+### AppLibs {#AppLibs}
 
-* Description: The path to a library file for all program definitions, included in Bench.
+* Description: A table with URLs of app libraries to load in the Bench environment.
+* Data Type: dictionary
+* Default: ...
+    + `core`: `github:mastersign/bench-apps-core`
+    + `default`: `github:mastersign/bench-apps-default`
+* Type: User
+
+The table consists of key/value pairs.
+Where the key is a unique ID for the app library inside the Bench environment,
+and the value is an URL to a ZIP file with the app library.
+The order of the table entries dictates the order in which the app libraries are loaded.
+
+The URL can use one of the following protocols: `http`, `https`, `file`.
+If the protocol `file` is used, the URL can refer to a ZIP file
+or just a directory containing the app library.
+If the app library is hosted as a GitHub repository, a short form for the URL
+can be used: `github:<user or organization>/<repository name>`;
+which is automatically expanded to an URL with the `https` protocol.
+
+### AppLibsDir {#AppLibsDir}
+
+* Description: The path of the directory, where to load the app libraries.
 * Data Type: path
-* Default: `res\apps.md`
+* Default: `$LibDir$\_applibs`
+* Type: System
+
+### AppLibsDownloadDir {#AppLibsDownloadDir}
+
+* Description: The path of the directory, downloaded app libraries are cached.
+* Data Type: path
+* Default: `$DownloadDir$\_applibs`
+* Type: System
+
+### AppLibIndexFileName {#AppLibIndexFileName}
+
+* Description: The name of the index file in an app library.
+* Data Type: string
+* Default: `apps.md`
 * Type: System
 
 The specified file must be a Markdown file and follow the [Markdown list syntax][syntax].
+
+### AppLibCustomScriptDirName {#AppLibCustomScriptDirName}
+
+* Description: The name of the directory with the custom scripts in an app library.
+* Data Type: string
+* Default: `res`
+* Type: System
+
+It is used from custom scripts to retrieve paths to app resources during the setup.
+
+### AppLibResourceDirName {#AppLibResourceDirName}
+
+* Description: The name of the directory with additional setup resources in an app library.
+* Data Type: string
+* Default: `res`
+* Type: System
+
+It is used from custom scripts to retrieve paths to resources, e.g. during the app setup.
 
 ### AppActivationFile {#AppActivationFile}
 
@@ -191,15 +244,6 @@ Only non-space characters, up to the first space or the end of a line, are consi
 * Default: `res\apps-deactivated.template.txt`
 * Type: System
 
-### CustomAppIndexFile {#CustomAppIndexFile}
-
-* Description: The path to a library file with custom program definitions from the user.
-* Data Type: path
-* Default: `$CustomConfigDir$\apps.md`
-* Type: System
-
-The specified file must be a Markdown file and follow the [Markdown list syntax][syntax].
-
 ### CustomAppIndexTemplateFile {#CustomAppIndexTemplateFile}
 
 * Description: The path to the user app library template file,
@@ -222,16 +266,6 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 * Data Type: path
 * Default: `res\ConEmu.template.xml`
 * Type: System
-
-### AppResourceBaseDir {#AppResourceBaseDir}
-
-* Description: The path to a directory, containing additional resource files,
-  which are used during the execution of custom setup scripts.
-* Data Type: path
-* Default: `res\apps`
-* Type: System
-
-It is used from custom scripts to retrieve absolute paths to the additional resources.
 
 ### LibDir {#LibDir}
 
