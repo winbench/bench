@@ -72,22 +72,22 @@ namespace Mastersign.Bench.Cli.Commands
 
             var flagVerbose = new FlagArgument(FLAG_VERBOSE, 'v');
             flagVerbose.Description
-                .Text("Activates verbose output.");
+                .Text("Activate verbose output.");
 
             var flagNoAssurance = new FlagArgument(FLAG_YES, 'y', "force");
             flagNoAssurance.Description
-                .Text("Suppresses all assurance questions.");
+                .Text("Suppress all assurance questions.");
 
             var optionHelpFormat = new EnumOptionArgument<DocumentOutputFormat>(
                 OPTION_HELP_FORMAT, 'f', DEF_HELP_FORMAT);
             optionHelpFormat.Description
-                .Text("Specifies the output format of help texts.");
+                .Text("Specify the output format of help texts.");
 
             var optionLogFile = new OptionArgument(OPTION_LOGFILE, 'l',
                 ArgumentValidation.IsValidPath,
                 "log");
             optionLogFile.Description
-                .Text("Specifies a custom location for the log file.");
+                .Text("Specify a custom location for the log file.");
             optionLogFile.PossibleValueInfo
                 .Text("A path to the log file.");
             optionLogFile.DefaultValueInfo
@@ -100,7 +100,7 @@ namespace Mastersign.Bench.Cli.Commands
                 v => ArgumentValidation.IsValidPath(v) && Directory.Exists(v),
                 "base");
             optionBenchRoot.Description
-                .Text("Specifies the root directory of the Bench environment.");
+                .Text("Specify the root directory of the Bench environment.");
             optionBenchRoot.PossibleValueInfo
                 .Text("A path to a valid Bench root directory.");
             optionBenchRoot.DefaultValueInfo
@@ -108,19 +108,19 @@ namespace Mastersign.Bench.Cli.Commands
 
             var commandHelp = new CommandArgument(helpCommand.Name, 'h');
             commandHelp.Description
-                .Text("Displays the full help for all commands.");
+                .Text("Display the full help for all commands.");
 
             var commandList = new CommandArgument(listCommand.Name, 'l');
             commandList.Description
-                .Text("Lists different kinds of objects in the Bench environment.");
+                .Text("List different kinds of objects in the Bench environment.");
 
             var commandDashboard = new CommandArgument(dashboardCommand.Name, 'b', "gui");
             commandDashboard.Description
-                .Text("Starts the ").Emph("Bench Dashboard").Text(".");
+                .Text("Start the ").Emph("Bench Dashboard").Text(".");
 
             var commandManage = new CommandArgument(manageCommand.Name, 'm');
             commandManage.Description
-                .Text("Manages the Bench environment and its configuration.");
+                .Text("Manage the Bench environment and its configuration.");
 
             var commandApp = new CommandArgument(appCommand.Name, 'a');
             commandApp.Description
