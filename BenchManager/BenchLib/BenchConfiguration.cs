@@ -49,7 +49,11 @@ namespace Mastersign.Bench
         private const string AUTO_DIR = @"auto";
         private const string BIN_DIR = AUTO_DIR + @"\bin";
         private const string SCRIPTS_DIR = AUTO_DIR + @"\lib";
-        private const string CONFIG_FILE = @"res\config.md";
+
+        /// <summary>
+        /// The relative path of the Bench configuration file.
+        /// </summary>
+        public const string CONFIG_FILE = @"res\config.md";
 
         /// <summary>
         /// The property group category, which contains app definitions of required apps.
@@ -163,19 +167,20 @@ namespace Mastersign.Bench
                 {
                     var appIndexFile = Path.Combine(l.BaseDir, GetStringValue(PropertyKeys.AppLibIndexFileName));
                     Debug.WriteLine("Looking for app library index: " + appIndexFile);
-                    if (!File.Exists(appIndexFile))
+                    if (File.Exists(appIndexFile))
                     {
-                        throw new FileNotFoundException(
-                            string.Format("The index of the app library '{0}' was not found.", l.ID),
-                            appIndexFile);
+                        parser.CurrentGroupMetadata = l;
+                        using (var appIndexStream = File.OpenRead(appIndexFile))
+                        {
+                            Debug.WriteLine("Reading index of app library '{0}' ...", l.ID);
+                            parser.Parse(appIndexStream);
+                        }
+                        parser.CurrentGroupMetadata = null;
                     }
-                    parser.CurrentGroupMetadata = l;
-                    using (var appIndexStream = File.OpenRead(appIndexFile))
+                    else
                     {
-                        Debug.WriteLine("Reading index of app library '{0}' ...", l.ID);
-                        parser.Parse(appIndexStream);
+                        Debug.WriteLine("Index file of app library '{0}' not found.", l.ID);
                     }
-                    parser.CurrentGroupMetadata = null;
                 }
 
                 if (loadCustomConfiguration)
@@ -224,14 +229,16 @@ namespace Mastersign.Bench
                 }
                 if (WithAppIndex)
                 {
-                    // TODO paths.Add(GetStringValue(PropertyKeys.AppIndexFile));
+                    foreach (var l in AppLibraries)
+                    {
+                        var appIndexFile = Path.Combine(l.BaseDir, GetStringValue(PropertyKeys.AppLibIndexFileName));
+                        if (File.Exists(appIndexFile)) paths.Add(appIndexFile);
+                    }
                     if (WithCustomConfiguration)
                     {
                         paths.Add(Path.Combine(
                             GetStringValue(PropertyKeys.CustomConfigDir),
                             GetStringValue(PropertyKeys.AppLibIndexFileName)));
-                        paths.Add(GetStringValue(PropertyKeys.AppActivationFile));
-                        paths.Add(GetStringValue(PropertyKeys.AppDeactivationFile));
                     }
                 }
                 return paths.ToArray();
