@@ -25,11 +25,45 @@ Add a link to the GitHub diff like
 [Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
 
 ### Added
-- Update check in the About dialog of BenchDashboard
+- Bench CLI
+  ([#87](https://github.com/mastersign/bench/issues/87))
+- Update check in the About dialog of _BenchDashboard_
+- Config properties
+    + `VersionUrl`
+    + `UpdateUrlTemplate`
+    + `BootstrapUrlTemplate`
+    + `AutoUpdateCheck`
+- Support for multiple app libraries
+  ([#90](https://github.com/mastersign/bench/issues/90))
+- Namespaces for app IDs
+- Config properties:
+    + `AppLibs`
+    + `AppLibsDownloadDir`
+    + `AppLibsDir`
+    + `AppLibIndexFileName`
+    + `AppLibCustomScriptDirName`
+    + `AppLibResourceDirName`
+
+### Changed
+- Upgrade process is using the _Bench CLI_ now
+  ([#84](https://github.com/mastersign/bench/issues/84))
+- Directory for custom scripts in the user app library
+  was moved from `config\apps` to `config\scripts`
+- Moved app definitions into their own Git repositories
+    + <https://github.com/mastersign/bench-apps-core>
+    + <https://github.com/mastersign/bench-apps-default>
 
 ### Fixed
 - Proxy setup for Maven
   ([#89](https://github.com/mastersign/bench/issues/89))
+
+### Removed
+- Script based actions
+- Config properties
+    + `ActionDir`
+    + `AppIndexFile`
+    + `CustomAppIndexFile`
+    + `AppResourceBaseDir`
 
 ## [0.13.3] - 2016-11-19
 [Full Changelog](https://github.com/mastersign/bench/compare/v0.13.2...v0.13.3)
