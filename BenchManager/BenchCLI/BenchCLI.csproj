@@ -68,6 +68,7 @@
     <Compile Include="Commands\AppInfoCommand.cs" />
     <Compile Include="Commands\AppPropertyCommand.cs" />
     <Compile Include="Commands\ConfigCommand.cs" />
+    <Compile Include="Commands\ListAppLibrariesCommand.cs" />
     <Compile Include="Commands\ListConfigFilesCommand.cs" />
     <Compile Include="Commands\DashboardCommand.cs" />
     <Compile Include="Commands\DownloadsCommand.cs" />
