@@ -47,7 +47,7 @@ namespace Mastersign.Bench.Cli.Commands
             var flagTable = new FlagArgument(FLAG_TABLE, 't');
             flagTable.Description
                 .Text("Prints properties of the listed objects as a table.")
-                .Text(" Otherwise only the ID is printed.");
+                .Text(" Otherwise only a short form is printed.");
 
             var optionFormat = new EnumOptionArgument<DataOutputFormat>(OPTION_FORMAT, 'f', DEF_FORMAT);
             optionFormat.Description
