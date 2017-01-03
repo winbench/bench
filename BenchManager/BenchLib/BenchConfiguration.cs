@@ -209,42 +209,6 @@ namespace Mastersign.Bench
             RecordResponsibilities();
         }
 
-        /// <summary>
-        /// Gets an array with absolute paths for all configuration files
-        /// used to compile this configuration.
-        /// </summary>
-        public string[] Sources
-        {
-            get
-            {
-                var paths = new List<string>();
-                paths.Add(Path.Combine(BenchRootDir, CONFIG_FILE));
-                if (WithCustomConfiguration)
-                {
-                    paths.Add(GetStringValue(PropertyKeys.CustomConfigFile));
-                }
-                if (WithSiteConfiguration)
-                {
-                    paths.AddRange(FindSiteConfigFiles(BenchRootDir, siteConfigFileName));
-                }
-                if (WithAppIndex)
-                {
-                    foreach (var l in AppLibraries)
-                    {
-                        var appIndexFile = Path.Combine(l.BaseDir, GetStringValue(PropertyKeys.AppLibIndexFileName));
-                        if (File.Exists(appIndexFile)) paths.Add(appIndexFile);
-                    }
-                    if (WithCustomConfiguration)
-                    {
-                        paths.Add(Path.Combine(
-                            GetStringValue(PropertyKeys.CustomConfigDir),
-                            GetStringValue(PropertyKeys.AppLibIndexFileName)));
-                    }
-                }
-                return paths.ToArray();
-            }
-        }
-
         private static string[] FindSiteConfigFiles(string benchRootDir, string fileName)
         {
             var results = new List<string>();
@@ -267,6 +231,121 @@ namespace Mastersign.Bench
         public string[] FindSiteConfigFiles()
         {
             return FindSiteConfigFiles(BenchRootDir, siteConfigFileName);
+        }
+
+        /// <summary>
+        /// Lists the configuration files of the Bench environment.
+        /// </summary>
+        /// <param name="type">The kind of files to list.</param>
+        /// <param name="actuallyLoaded">If <c>true</c>, only files which are actually loaded
+        /// by this instance are listed.</param>
+        /// <param name="mustExist">If <c>true</c>, only existing files are listed;
+        /// otherwise optional and non existing files are listed to.</param>
+        /// <returns>A list with configuration file descriptors.</returns>
+        public ConfigurationFile[] GetConfigurationFiles(
+            ConfigurationFileType type = ConfigurationFileType.All, 
+            bool actuallyLoaded = false, bool mustExist = true)
+        {
+            if (actuallyLoaded) mustExist = true;
+            var files = new List<ConfigurationFile>();
+            if ((type & ConfigurationFileType.BenchConfig) == ConfigurationFileType.BenchConfig)
+            {
+                files.Add(new ConfigurationFile(ConfigurationFileType.BenchConfig, 0,
+                    Path.Combine(BenchRootDir, CONFIG_FILE)));
+            }
+            if (!actuallyLoaded || WithCustomConfiguration)
+            {
+                if ((type & ConfigurationFileType.UserConfig) == ConfigurationFileType.UserConfig)
+                {
+
+                    var userConfigFile = GetStringValue(PropertyKeys.CustomConfigFile);
+                    if (!mustExist || File.Exists(userConfigFile))
+                    {
+                        files.Add(new ConfigurationFile(ConfigurationFileType.UserConfig, 1,
+                            userConfigFile));
+                    }
+                }
+            }
+            if (!actuallyLoaded || WithSiteConfiguration)
+            {
+                if ((type & ConfigurationFileType.SiteConfig) == ConfigurationFileType.SiteConfig)
+                {
+                    var siteConfigFiles = FindSiteConfigFiles();
+                    for (int i = 0; i < siteConfigFiles.Length; i++)
+                    {
+                        files.Add(new ConfigurationFile(ConfigurationFileType.SiteConfig, 10 + i,
+                            siteConfigFiles[i]));
+                    }
+                }
+            }
+            if (!actuallyLoaded || WithAppIndex)
+            {
+                if ((type & ConfigurationFileType.BenchAppLib) == ConfigurationFileType.BenchAppLib)
+                {
+                    var appLibraries = AppLibraries;
+                    for (var i = 0; i < appLibraries.Length; i++)
+                    {
+                        files.Add(new ConfigurationFile(ConfigurationFileType.BenchAppLib, 100 + i,
+                            Path.Combine(
+                                appLibraries[i].BaseDir,
+                                GetStringValue(PropertyKeys.AppLibIndexFileName))));
+                    }
+                }
+            }
+            if (!actuallyLoaded || (WithAppIndex && WithCustomConfiguration))
+            {
+                if ((type & ConfigurationFileType.UserAppLib) == ConfigurationFileType.UserAppLib)
+                {
+                    var userAppLib = Path.Combine(
+                        GetStringValue(PropertyKeys.CustomConfigDir),
+                        GetStringValue(PropertyKeys.AppLibIndexFileName));
+                    if (!mustExist || File.Exists(userAppLib))
+                    {
+                        files.Add(new ConfigurationFile(ConfigurationFileType.UserAppLib, 999,
+                            userAppLib));
+                    }
+                }
+            }
+            if (!actuallyLoaded || (WithAppIndex && WithCustomConfiguration))
+            {
+                if ((type & ConfigurationFileType.Activation) == ConfigurationFileType.Activation)
+                {
+                    var activationFile = GetStringValue(PropertyKeys.AppActivationFile);
+                    if (!mustExist || File.Exists(activationFile))
+                    {
+                        files.Add(new ConfigurationFile(ConfigurationFileType.Activation, 1000,
+                            activationFile));
+                    }
+                }
+                if ((type & ConfigurationFileType.Deactivation) == ConfigurationFileType.Deactivation)
+                {
+                    var deactivationFile = GetStringValue(PropertyKeys.AppDeactivationFile);
+                    if (!mustExist || File.Exists(deactivationFile))
+                    {
+                        files.Add(new ConfigurationFile(ConfigurationFileType.Deactivation, 1001,
+                            deactivationFile));
+                    }
+                }
+            }
+            return files.ToArray();
+        }
+
+        /// <summary>
+        /// Gets an array with absolute paths for all configuration files
+        /// used to compile this configuration.
+        /// </summary>
+        public string[] Sources
+        {
+            get
+            {
+                var files = GetConfigurationFiles(actuallyLoaded: true, mustExist: true);
+                var result = new string[files.Length];
+                for (int i = 0; i < files.Length; i++)
+                {
+                    result[i] = files[i].Path;
+                }
+                return result;
+            }
         }
 
         private string GetVolatileEnvironmentVariable(string name)

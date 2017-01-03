@@ -12,39 +12,7 @@ namespace Mastersign.Bench.Cli.Commands
         public override string Name => "files";
 
         private const string OPTION_TYPE = "type";
-        private const FileType DEF_TYPE = FileType.All;
-
-        [Flags]
-        public enum FileType : int
-        {
-            All = 0xFFFF,
-            Config = 0x000F,
-            AppLib = 0x00F0,
-            AppSelection = 0x0F00,
-            BenchConfig = 0x0001,
-            UserConfig = 0x0002,
-            SiteConfig = 0x0004,
-            BenchAppLib = 0x0010,
-            UserAppLib = 0x0020,
-            Activation = 0x0100,
-            Deactivation = 0x0200,
-        }
-
-        public class ConfigurationFile
-        {
-            public FileType Type { get; private set; }
-
-            public int OrderIndex { get; private set; }
-
-            public string Path { get; private set; }
-
-            public ConfigurationFile(FileType type, int orderIndex, string path)
-            {
-                Type = type;
-                OrderIndex = orderIndex;
-                Path = path;
-            }
-        }
+        private const ConfigurationFileType DEF_TYPE = ConfigurationFileType.All;
 
         protected override void InitializeArgumentParser(ArgumentParser parser)
         {
@@ -53,7 +21,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("The ").Keyword(Name).Text(" command lists the paths of all loaded configuration files.")
                 .End(BlockType.Paragraph);
 
-            var optionType = new EnumOptionArgument<FileType>(OPTION_TYPE, 't', FileType.All);
+            var optionType = new EnumOptionArgument<ConfigurationFileType>(OPTION_TYPE, 't', ConfigurationFileType.All);
             optionType.Description
                 .Text("Specify the type of files to show.");
 
@@ -61,7 +29,7 @@ namespace Mastersign.Bench.Cli.Commands
                 optionType);
         }
 
-        private FileType Type => (FileType)Enum.Parse(typeof(FileType),
+        private ConfigurationFileType Type => (ConfigurationFileType)Enum.Parse(typeof(ConfigurationFileType),
             Arguments.GetOptionValue(OPTION_TYPE, DEF_TYPE.ToString()));
 
         private DataOutputFormat Format => ((ListCommand)Parent).Format;
@@ -70,7 +38,8 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteCommand(string[] args)
         {
-            List<ConfigurationFile> files = GetPaths(Type);
+            var cfg = LoadConfiguration(withApps: true);
+            var files = cfg.GetConfigurationFiles(Type, actuallyLoaded: true);
             if (OutputAsTable)
             {
                 using (var w = TableWriterFactory.Create(Format))
@@ -90,79 +59,6 @@ namespace Mastersign.Bench.Cli.Commands
                 }
             }
             return true;
-        }
-
-        private List<ConfigurationFile> GetPaths(FileType type)
-        {
-            var cfg = LoadConfiguration(true);
-            var files = new List<ConfigurationFile>();
-            if ((type & FileType.BenchConfig) == FileType.BenchConfig)
-            {
-                files.Add(new ConfigurationFile(FileType.BenchConfig, 0,
-                    Path.Combine(
-                        cfg.BenchRootDir,
-                        BenchConfiguration.CONFIG_FILE)));
-            }
-            if ((type & FileType.UserConfig) == FileType.UserConfig)
-            {
-
-                var userConfigFile = cfg.GetStringValue(PropertyKeys.CustomConfigFile);
-                if (File.Exists(userConfigFile))
-                {
-                    files.Add(new ConfigurationFile(FileType.UserConfig, 1,
-                        userConfigFile));
-                }
-            }
-            if ((type & FileType.SiteConfig) == FileType.SiteConfig)
-            {
-                var siteConfigFiles = cfg.FindSiteConfigFiles();
-                for (int i = 0; i < siteConfigFiles.Length; i++)
-                {
-                    files.Add(new ConfigurationFile(FileType.SiteConfig, 10 + i,
-                        siteConfigFiles[i]));
-                }
-            }
-            if ((type & FileType.BenchAppLib) == FileType.BenchAppLib)
-            {
-                var appLibraries = cfg.AppLibraries;
-                for (var i = 0; i < appLibraries.Length; i++)
-                {
-                    files.Add(new ConfigurationFile(FileType.BenchAppLib, 100 + i,
-                        Path.Combine(
-                            appLibraries[i].BaseDir,
-                            cfg.GetStringValue(PropertyKeys.AppLibIndexFileName))));
-                }
-            }
-            if ((type & FileType.UserAppLib) == FileType.UserAppLib)
-            {
-                var userAppLib = Path.Combine(
-                    cfg.GetStringValue(PropertyKeys.CustomConfigDir),
-                    cfg.GetStringValue(PropertyKeys.AppLibIndexFileName));
-                if (File.Exists(userAppLib))
-                {
-                    files.Add(new ConfigurationFile(FileType.UserAppLib, 999,
-                        userAppLib));
-                }
-            }
-            if ((type & FileType.Activation) == FileType.Activation)
-            {
-                var activationFile = cfg.GetStringValue(PropertyKeys.AppActivationFile);
-                if (File.Exists(activationFile))
-                {
-                    files.Add(new ConfigurationFile(FileType.Activation, 1000,
-                        activationFile));
-                }
-            }
-            if ((type & FileType.Deactivation) == FileType.Deactivation)
-            {
-                var deactivationFile = cfg.GetStringValue(PropertyKeys.AppDeactivationFile);
-                if (File.Exists(deactivationFile))
-                {
-                    files.Add(new ConfigurationFile(FileType.Deactivation, 1001,
-                        deactivationFile));
-                }
-            }
-            return files;
         }
     }
 }

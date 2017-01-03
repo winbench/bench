@@ -56,6 +56,8 @@
     <Compile Include="AppIndexDefaultValueSource.cs" />
     <Compile Include="AppIndexFacade.cs" />
     <Compile Include="AppLibrary.cs" />
+    <Compile Include="ConfigurationFile.cs" />
+    <Compile Include="ConfigurationFileType.cs" />
     <Compile Include="DictionaryValueResolver.cs" />
     <Compile Include="AppKeys.cs" />
     <Compile Include="AppStatusIcon.cs" />
