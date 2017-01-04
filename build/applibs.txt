@@ -1,0 +1,2 @@
+core=https://github.com/mastersign/bench-apps-core.git
+default=https://github.com/mastersign/bench-apps-default.git
