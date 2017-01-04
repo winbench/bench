@@ -39,6 +39,12 @@ namespace Mastersign.Bench
                     return AppTyps.Default;
                 case PropertyKeys.AppArchiveTyp:
                     return AppArchiveTyps.Auto;
+                case PropertyKeys.AppArchivePath:
+                    return string.Equals(
+                        AppIndex.GetGroupValue(appId, PropertyKeys.AppArchiveTyp) as string,
+                        AppArchiveTyps.InnoSetup, 
+                        StringComparison.InvariantCultureIgnoreCase)
+                        ? "{app}" : null;
                 case PropertyKeys.AppPackageName:
                     return AppFacade.NameFromId(appId).ToLowerInvariant();
                 case PropertyKeys.AppDir:
@@ -123,6 +129,7 @@ namespace Mastersign.Bench
             return name == PropertyKeys.AppTyp
                 || name == PropertyKeys.AppLabel
                 || name == PropertyKeys.AppArchiveTyp
+                || name == PropertyKeys.AppArchivePath
                 || name == PropertyKeys.AppPackageName
                 || name == PropertyKeys.AppDir
                 || name == PropertyKeys.AppPath
