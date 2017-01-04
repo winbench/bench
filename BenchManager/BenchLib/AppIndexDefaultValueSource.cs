@@ -40,7 +40,7 @@ namespace Mastersign.Bench
                 case PropertyKeys.AppArchiveTyp:
                     return AppArchiveTyps.Auto;
                 case PropertyKeys.AppPackageName:
-                    return appId.ToLowerInvariant();
+                    return AppFacade.NameFromId(appId).ToLowerInvariant();
                 case PropertyKeys.AppDir:
                     appTyp = AppIndex.GetGroupValue(appId, PropertyKeys.AppTyp) as string;
                     switch (appTyp)
