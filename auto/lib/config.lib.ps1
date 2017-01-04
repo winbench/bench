@@ -1,8 +1,8 @@
-﻿$Script:myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$Script:myDir\common.lib.ps1"
-& "$Script:myDir\Load-ClrLibs.ps1"
+﻿$Script:scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$Script:scriptsDir\common.lib.ps1"
+& "$Script:scriptsDir\Load-ClrLibs.ps1"
 
-[string]$Script:autoDir = Resolve-Path ([IO.Path]::Combine($myDir, ".."))
+[string]$Script:autoDir = Resolve-Path ([IO.Path]::Combine($scriptsDir, ".."))
 [string]$Script:rootDir = Resolve-Path ([IO.Path]::Combine($autoDir, ".."))
 $Script:pathBackup = $env:PATH
 
