@@ -3,7 +3,7 @@ param ($Token = "Bench.Default")
 $scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = Resolve-Path "$scriptsDir\..\.."
 . "$scriptsDir\bench.lib.ps1"
-. "$scriptsLib\reg.lib.ps1"
+. "$scriptsDir\reg.lib.ps1"
 
 $Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
 
