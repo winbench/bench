@@ -1,2 +1,0 @@
-@ECHO OFF
-START notepad "%MYSQL_DATA%\%COMPUTERNAME%.err"
