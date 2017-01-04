@@ -593,21 +593,21 @@ namespace Mastersign.Bench
         {
             var relativeDirPath = IOPath.Combine(
                 AppIndex.GetStringValue(PropertyKeys.AppLibResourceDirName),
-                NamespacePathSegment);
+                PathSegment);
 
             var userPath = IOPath.Combine(
                 IOPath.Combine(
                     AppIndex.GetStringValue(PropertyKeys.CustomConfigDir),
                     relativeDirPath),
                 relativeResourcePath);
-            if (File.Exists(relativeResourcePath) || Directory.Exists(relativeResourcePath)) return userPath;
+            if (File.Exists(userPath) || Directory.Exists(userPath)) return userPath;
 
             if (AppLibrary != null)
             {
                 var libraryPath = IOPath.Combine(
                         IOPath.Combine(AppLibrary.BaseDir, relativeDirPath),
                         relativeResourcePath);
-                if (File.Exists(libraryPath)) return libraryPath;
+                if (File.Exists(libraryPath) || Directory.Exists(libraryPath)) return libraryPath;
             }
             return null;
         }
