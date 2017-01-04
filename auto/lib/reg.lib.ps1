@@ -1,6 +1,7 @@
 function Get-AppRegistryFileName([string]$name, [string]$typ, [int]$no = 0) {
     $regBaseDir = Get-ConfigValue AppRegistryBaseDir
-    $resDir = Safe-Dir ([IO.Path]::Combine($regBaseDir, $name.ToLowerInvariant()))
+    $path = $global:BenchConfig.Apps[$name].PathSegment
+    $resDir = Safe-Dir ([IO.Path]::Combine($regBaseDir, $path))
     if ($no -gt 0) {
         $noPart = "_" + $no.ToString("00")
     } else {
