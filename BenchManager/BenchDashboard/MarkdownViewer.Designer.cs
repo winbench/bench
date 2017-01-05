@@ -29,20 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MarkdownViewer));
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.treeView = new System.Windows.Forms.TreeView();
             this.splitter = new System.Windows.Forms.Splitter();
+            this.markdownControl = new Mastersign.Bench.Dashboard.MarkdownControl();
             this.SuspendLayout();
-            // 
-            // webBrowser
-            // 
-            this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser.Location = new System.Drawing.Point(206, 0);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(418, 441);
-            this.webBrowser.TabIndex = 0;
-            this.webBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser_Navigating);
             // 
             // treeView
             // 
@@ -62,12 +52,20 @@
             this.splitter.TabIndex = 2;
             this.splitter.TabStop = false;
             // 
+            // markdownControl
+            // 
+            this.markdownControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.markdownControl.Location = new System.Drawing.Point(206, 0);
+            this.markdownControl.Name = "markdownControl";
+            this.markdownControl.Size = new System.Drawing.Size(418, 441);
+            this.markdownControl.TabIndex = 3;
+            // 
             // MarkdownViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 441);
-            this.Controls.Add(this.webBrowser);
+            this.Controls.Add(this.markdownControl);
             this.Controls.Add(this.splitter);
             this.Controls.Add(this.treeView);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -81,9 +79,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Splitter splitter;
+        private MarkdownControl markdownControl;
     }
 }
