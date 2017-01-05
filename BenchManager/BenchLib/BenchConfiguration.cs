@@ -117,6 +117,7 @@ namespace Mastersign.Bench
                 Target = this,
                 GroupBeginCue = new Regex("^[\\*\\+-]\\s+ID:\\s*(`?)(?<group>\\S+?)\\1$"),
                 GroupEndCue = new Regex("^\\s*$"),
+                CollectGroupDocs = true,
             };
 
             var configFile = Path.Combine(benchRootDir, CONFIG_FILE);

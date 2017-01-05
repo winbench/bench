@@ -147,6 +147,11 @@ namespace Mastersign.Bench
         public AppLibrary AppLibrary => AppIndex.GetGroupMetadata(AppName) as AppLibrary;
 
         /// <summary>
+        /// Gets the documentation text of this app in Markdown syntax.
+        /// </summary>
+        public string MarkdownDocumentation => AppIndex.GetGroupDocumentation(AppName);
+
+        /// <summary>
         /// Gets the label of the app.
         /// </summary>
         public string Label { get { return StringValue(PropertyKeys.AppLabel); } }

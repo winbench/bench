@@ -26,6 +26,14 @@ namespace Mastersign.Bench
         object GetGroupMetadata(string group);
 
         /// <summary>
+        /// Gets the documentation text, attached to the specified group,
+        /// or <c>null</c> if the group has no documentation attached.
+        /// </summary>
+        /// <param name="group">The group in question.</param>
+        /// <returns>A string with the Markdown documentation text, or <c>null</c>.</returns>
+        string GetGroupDocumentation(string group);
+
+        /// <summary>
         /// Gets the value of the specified property.
         /// </summary>
         /// <param name="group">The group of the property.</param>

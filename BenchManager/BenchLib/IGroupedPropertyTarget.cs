@@ -25,6 +25,13 @@ namespace Mastersign.Bench
         void SetGroupMetadata(string group, object metadata);
 
         /// <summary>
+        /// attaches documentation to a group.
+        /// </summary>
+        /// <param name="group">The group to attach the documentation to.</param>
+        /// <param name="docs">The documentation text.</param>
+        void SetGroupDocumentation(string group, string docs);
+
+        /// <summary>
         /// Sets the value of the specified property.
         /// If the property did exist until now, it is created.
         /// </summary>

@@ -28,6 +28,11 @@ namespace Mastersign.Bench
             throw new NotSupportedException();
         }
 
+        public string GetGroupDocumentation(string group)
+        {
+            throw new NotSupportedException();
+        }
+
         public object GetGroupValue(string appId, string key)
         {
             string appTyp;

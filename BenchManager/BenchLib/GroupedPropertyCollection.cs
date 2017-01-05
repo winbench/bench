@@ -17,6 +17,7 @@ namespace Mastersign.Bench
         private readonly List<string> groupNames = new List<string>(); // ordered list for group names
         private readonly Dictionary<string, string> groupCategories = new Dictionary<string, string>();
         private readonly Dictionary<string, object> groupMetadata = new Dictionary<string, object>();
+        private readonly Dictionary<string, string> groupDocumentation = new Dictionary<string, string>();
         private readonly Dictionary<string, List<string>> groupKeys = new Dictionary<string, List<string>>(); // ordered lists for property names
         private readonly Dictionary<string, Dictionary<string, object>> groups = new Dictionary<string, Dictionary<string, object>>();
 
@@ -60,7 +61,7 @@ namespace Mastersign.Bench
         public string GetGroupCategory(string group)
         {
             string category;
-            return groupCategories.TryGetValue(group, out category) ? category : null;
+            return groupCategories.TryGetValue(group ?? string.Empty, out category) ? category : null;
         }
 
         /// <summary>
@@ -83,7 +84,30 @@ namespace Mastersign.Bench
         public object GetGroupMetadata(string group)
         {
             object metadata;
-            return groupMetadata.TryGetValue(group, out metadata) ? metadata : null;
+            return groupMetadata.TryGetValue(group ?? string.Empty, out metadata) ? metadata : null;
+        }
+
+        /// <summary>
+        /// attaches documentation to a group.
+        /// </summary>
+        /// <param name="group">The group to attach the documentation to.</param>
+        /// <param name="docs">The documentation text.</param>
+        public void SetGroupDocumentation(string group, string docs)
+        {
+            group = group ?? string.Empty;
+            groupDocumentation[group] = docs;
+        }
+
+        /// <summary>
+        /// Gets the documentation text, attached to the specified group,
+        /// or <c>null</c> if the group has no documentation attached.
+        /// </summary>
+        /// <param name="group">The group in question.</param>
+        /// <returns>A string with the Markdown documentation text, or <c>null</c>.</returns>
+        public string GetGroupDocumentation(string group)
+        {
+            string docs;
+            return groupDocumentation.TryGetValue(group ?? string.Empty, out docs) ? docs : null;
         }
 
         /// <summary>

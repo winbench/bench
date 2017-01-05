@@ -24,6 +24,8 @@ namespace Mastersign.Bench.Markdown
         private static readonly Regex ListElementExp = new Regex("^(?:\t|  +)[\\*\\+-]\\s+(?<value>.*?)\\s*$");
         private static readonly string ListElementFormat = "`{0}`";
 
+        private static readonly Regex DefaultGroupDocsBeginCue = new Regex("^###\\s+\\S");
+        private static readonly Regex DefaultGroupDocsEndCue = new Regex("^###\\s+\\S");
         private static readonly Regex DefaultGroupBeginCue = new Regex("^###\\s+(?<category>.+?)\\s*(?:\\{.*?\\})?\\s*(?:###)?$");
         private static readonly Regex DefaultGroupEndCue = new Regex("^\\s*$");
 
@@ -129,11 +131,26 @@ namespace Mastersign.Bench.Markdown
         public Regex GroupBeginCue { get; set; }
 
         /// <summary>
+        /// This regular expression is used to detect the beginning of the documentation
+        /// of a group. All lines, which are not recognized as properties or another cue,
+        /// are collected as the documentation for the group.
+        /// </summary>
+        public Regex GroupDocsBeginCue { get; set; }
+
+        /// <summary>
         /// This regular expression is used to detect the end of a property group.
         /// Properties, which are recognized after this expression matches a line,
         /// are stored as ungrouped properties.
         /// </summary>
         public Regex GroupEndCue { get; set; }
+
+        /// <summary>
+        /// This regular expression is used to detect the end of the documentation
+        /// of a group. When this cue is triggered, the collected documentation
+        /// is attached to all groups, which where detected by <see cref="GroupBeginCue"/>
+        /// since the last <see cref="GroupDocsBeginCue"/>.
+        /// </summary>
+        public Regex GroupDocsEndCue { get; set; }
 
         /// <summary>
         /// Gets or sets the property target, where recognized properties are stored in.
@@ -146,6 +163,15 @@ namespace Mastersign.Bench.Markdown
         /// </summary>
         public object CurrentGroupMetadata { get; set; }
 
+        private readonly List<string> collectedGroupDocs = new List<string>();
+        private readonly List<string> docGroups = new List<string>();
+
+        /// <summary>
+        /// A switch to control, whether non-property lines are collected
+        /// as the documentation for a group.
+        /// </summary>
+        public bool CollectGroupDocs { get; set; }
+
         /// <summary>
         /// Initializes a new instance of <see cref="MarkdownPropertyParser"/>.
         /// </summary>
@@ -156,6 +182,8 @@ namespace Mastersign.Bench.Markdown
             CategoryCue = DefaultCategoryCue;
             GroupBeginCue = DefaultGroupBeginCue;
             GroupEndCue = DefaultGroupEndCue;
+            GroupDocsBeginCue = DefaultGroupDocsBeginCue;
+            GroupDocsEndCue = DefaultGroupDocsEndCue;
         }
 
         /// <summary>
@@ -189,6 +217,7 @@ namespace Mastersign.Bench.Markdown
         private List<string> ListItems = new List<string>();
 
         private MdContext Context;
+        private bool collectingGroupDocsActive;
 
         /// <summary>
         /// Parses the data in the given stream as UTF8 encoded Markdown text
@@ -241,24 +270,40 @@ namespace Mastersign.Bench.Markdown
                 case MdContext.HtmlComment:
                     if (MdSyntax.IsHtmlCommentEnd(line))
                         Context = MdContext.Text;
+                    ProcessPossibleGroupDocsLine(line);
+                    ProcessPossibleGroupDocsSwitchLine(line);
                     break;
                 case MdContext.CodeBlock:
                     if (MdSyntax.IsCodeBlockEnd(line, ref CodePreamble))
                         Context = MdContext.Text;
+                    ProcessPossibleGroupDocsLine(line);
+                    ProcessPossibleGroupDocsSwitchLine(line);
                     break;
                 case MdContext.Text:
+                    ProcessPossibleGroupDocsSwitchLine(line);
                     if (MdSyntax.IsYamlHeaderStart(LineNo, line))
                         Context = MdContext.YamlHeader;
                     else if (MdSyntax.IsHtmlCommentStart(line))
+                    {
                         Context = MdContext.HtmlComment;
+                        ProcessPossibleGroupDocsLine(line);
+                        ProcessPossibleGroupDocsSwitchLine(line);
+                    }
                     else if (MdSyntax.IsCodeBlockStart(line, ref CodePreamble))
+                    {
                         Context = MdContext.CodeBlock;
+                        ProcessPossibleGroupDocsLine(line);
+                        ProcessPossibleGroupDocsSwitchLine(line);
+                    }
                     else if (IsDeactivationCue(line))
                         Context = MdContext.Inactive;
                     else if (IsListStart(line, ref ListKey))
                         Context = MdContext.List;
                     else
+                    {
                         ProcessTextLine(line);
+                        ProcessPossibleGroupDocsSwitchLine(line);
+                    }
                     break;
                 case MdContext.List:
                     if (!IsListElement(line, ListItems))
@@ -307,6 +352,10 @@ namespace Mastersign.Bench.Markdown
                     {
                         Target.SetGroupCategory(CurrentGroup, CurrentCategory);
                     }
+                    if (collectingGroupDocsActive)
+                    {
+                        docGroups.Add(CurrentGroup);
+                    }
                     return;
                 }
             }
@@ -339,6 +388,38 @@ namespace Mastersign.Bench.Markdown
                     OnPropertyValue(key, value);
                 }
             }
+            else
+            {
+                ProcessPossibleGroupDocsLine(line);
+            }
         }
+
+        private void ProcessPossibleGroupDocsSwitchLine(string line)
+        {
+            if (CollectGroupDocs && GroupDocsEndCue.IsMatch(line))
+            {
+                var docText = string.Join(Environment.NewLine, collectedGroupDocs.ToArray()).Trim();
+                foreach (var g in docGroups)
+                {
+                    Target.SetGroupDocumentation(g, docText);
+                }
+                collectedGroupDocs.Clear();
+                docGroups.Clear();
+                collectingGroupDocsActive = false;
+            }
+            if (CollectGroupDocs && GroupDocsBeginCue.IsMatch(line))
+            {
+                collectingGroupDocsActive = true;
+            }
+        }
+
+        private void ProcessPossibleGroupDocsLine(string line)
+        {
+            if (collectingGroupDocsActive)
+            {
+                collectedGroupDocs.Add(line);
+            }
+        }
+
     }
 }
