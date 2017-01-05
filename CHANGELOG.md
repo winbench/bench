@@ -43,6 +43,7 @@ Add a link to the GitHub diff like
     + `AppLibIndexFileName`
     + `AppLibCustomScriptDirName`
     + `AppLibResourceDirName`
+- Markdown info text in the app info dialog
 
 ### Changed
 - Upgrade process is using the _Bench CLI_ now

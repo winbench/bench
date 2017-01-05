@@ -49,6 +49,7 @@ namespace Mastersign.Bench.Dashboard
             gridResolved.DoubleBuffered(true);
             lblAppId.Text = app.Label;
             LoadProperties(config, app);
+            LoadDocumentation(app);
         }
 
         private void LoadProperties(BenchConfiguration config, AppFacade app)
@@ -66,7 +67,7 @@ namespace Mastersign.Bench.Dashboard
 
             gridRaw.Rows.Clear();
             AddRow(gridRaw, "ID", app.ID);
-            foreach(var key in config.PropertyNames(app.ID))
+            foreach (var key in config.PropertyNames(app.ID))
             {
                 AddRow(gridRaw, key, config.GetRawGroupValue(app.ID, key));
             }
@@ -105,6 +106,19 @@ namespace Mastersign.Bench.Dashboard
         private void AddRow(DataGridView grid, string name, string value)
         {
             grid.Rows.Add(name, value);
+        }
+
+        private void LoadDocumentation(AppFacade app)
+        {
+            var docText = app.MarkdownDocumentation;
+            if (!string.IsNullOrWhiteSpace(docText))
+            {
+                mdDocumentation.ShowMarkdownText(docText, app.Label);
+            }
+            else
+            {
+                tabControl.TabPages.Remove(tabDocumentation);
+            }
         }
     }
 }

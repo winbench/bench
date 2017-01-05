@@ -39,11 +39,14 @@
             this.gridRaw = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabDocumentation = new System.Windows.Forms.TabPage();
+            this.mdDocumentation = new Mastersign.Bench.Dashboard.MarkdownControl();
             this.tabControl.SuspendLayout();
             this.tabResolved.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridResolved)).BeginInit();
             this.tabRaw.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridRaw)).BeginInit();
+            this.tabDocumentation.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblAppId
@@ -59,6 +62,7 @@
             // 
             // tabControl
             // 
+            this.tabControl.Controls.Add(this.tabDocumentation);
             this.tabControl.Controls.Add(this.tabResolved);
             this.tabControl.Controls.Add(this.tabRaw);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -76,7 +80,7 @@
             this.tabResolved.Padding = new System.Windows.Forms.Padding(3);
             this.tabResolved.Size = new System.Drawing.Size(425, 439);
             this.tabResolved.TabIndex = 0;
-            this.tabResolved.Text = "Effective";
+            this.tabResolved.Text = "Properties";
             this.tabResolved.UseVisualStyleBackColor = true;
             // 
             // gridResolved
@@ -124,7 +128,7 @@
             this.tabRaw.Padding = new System.Windows.Forms.Padding(3);
             this.tabRaw.Size = new System.Drawing.Size(425, 439);
             this.tabRaw.TabIndex = 1;
-            this.tabRaw.Text = "Raw";
+            this.tabRaw.Text = "Raw Properties";
             this.tabRaw.UseVisualStyleBackColor = true;
             // 
             // gridRaw
@@ -164,6 +168,25 @@
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
+            // tabDocumentation
+            // 
+            this.tabDocumentation.Controls.Add(this.mdDocumentation);
+            this.tabDocumentation.Location = new System.Drawing.Point(4, 22);
+            this.tabDocumentation.Name = "tabDocumentation";
+            this.tabDocumentation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDocumentation.Size = new System.Drawing.Size(425, 439);
+            this.tabDocumentation.TabIndex = 2;
+            this.tabDocumentation.Text = "Documentation";
+            this.tabDocumentation.UseVisualStyleBackColor = true;
+            // 
+            // mdDocumentation
+            // 
+            this.mdDocumentation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mdDocumentation.Location = new System.Drawing.Point(3, 3);
+            this.mdDocumentation.Name = "mdDocumentation";
+            this.mdDocumentation.Size = new System.Drawing.Size(419, 433);
+            this.mdDocumentation.TabIndex = 0;
+            // 
             // AppInfoDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,6 +204,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridResolved)).EndInit();
             this.tabRaw.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridRaw)).EndInit();
+            this.tabDocumentation.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -196,5 +220,7 @@
         private System.Windows.Forms.DataGridView gridRaw;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.TabPage tabDocumentation;
+        private MarkdownControl mdDocumentation;
     }
 }
