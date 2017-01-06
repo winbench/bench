@@ -1,0 +1,36 @@
+﻿+++
+date = "2017-01-06T16:00:11+01:00"
+title = "cURL"
+weight = 64
+app_lib = "default"
+app_category = "Network"
+app_ns = "Bench"
+app_id = "Bench.cURL"
+app_version = "7.50.1"
++++
+
+**ID:** `Bench.cURL`  
+**Version:** 7.50.1  
+<!--more-->
+
+## Description
+curl is an open source command line tool and library for transferring data with URL syntax,
+supporting DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S,
+RTMP, RTSP, SCP, SFTP, SMB, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates,
+HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies,
+user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos),
+file transfer resume, proxy tunneling and more.
+
+## Source
+
+* Library: `default`
+* Category: Network
+* Order Index: 64
+
+## Properties
+
+* Namespace: Bench
+* Name: cURL
+* Typ: `default`
+* Website: <http://curl.haxx.se/>
+
