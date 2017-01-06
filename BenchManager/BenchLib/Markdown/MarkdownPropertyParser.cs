@@ -24,8 +24,8 @@ namespace Mastersign.Bench.Markdown
         private static readonly Regex ListElementExp = new Regex("^(?:\t|  +)[\\*\\+-]\\s+(?<value>.*?)\\s*$");
         private static readonly string ListElementFormat = "`{0}`";
 
-        private static readonly Regex DefaultGroupDocsBeginCue = new Regex("^###\\s+\\S");
-        private static readonly Regex DefaultGroupDocsEndCue = new Regex("^###\\s+\\S");
+        private static readonly Regex DefaultGroupDocsBeginCue = new Regex("^#{3}\\s+\\S");
+        private static readonly Regex DefaultGroupDocsEndCue = new Regex("^#{1,3}\\s+\\S");
         private static readonly Regex DefaultGroupBeginCue = new Regex("^###\\s+(?<category>.+?)\\s*(?:\\{.*?\\})?\\s*(?:###)?$");
         private static readonly Regex DefaultGroupEndCue = new Regex("^\\s*$");
 
@@ -271,29 +271,24 @@ namespace Mastersign.Bench.Markdown
                     if (MdSyntax.IsHtmlCommentEnd(line))
                         Context = MdContext.Text;
                     ProcessPossibleGroupDocsLine(line);
-                    ProcessPossibleGroupDocsSwitchLine(line);
                     break;
                 case MdContext.CodeBlock:
                     if (MdSyntax.IsCodeBlockEnd(line, ref CodePreamble))
                         Context = MdContext.Text;
                     ProcessPossibleGroupDocsLine(line);
-                    ProcessPossibleGroupDocsSwitchLine(line);
                     break;
                 case MdContext.Text:
-                    ProcessPossibleGroupDocsSwitchLine(line);
                     if (MdSyntax.IsYamlHeaderStart(LineNo, line))
                         Context = MdContext.YamlHeader;
                     else if (MdSyntax.IsHtmlCommentStart(line))
                     {
                         Context = MdContext.HtmlComment;
                         ProcessPossibleGroupDocsLine(line);
-                        ProcessPossibleGroupDocsSwitchLine(line);
                     }
                     else if (MdSyntax.IsCodeBlockStart(line, ref CodePreamble))
                     {
                         Context = MdContext.CodeBlock;
                         ProcessPossibleGroupDocsLine(line);
-                        ProcessPossibleGroupDocsSwitchLine(line);
                     }
                     else if (IsDeactivationCue(line))
                         Context = MdContext.Inactive;
@@ -302,7 +297,6 @@ namespace Mastersign.Bench.Markdown
                     else
                     {
                         ProcessTextLine(line);
-                        ProcessPossibleGroupDocsSwitchLine(line);
                     }
                     break;
                 case MdContext.List:
@@ -342,6 +336,14 @@ namespace Mastersign.Bench.Markdown
                     return;
                 }
             }
+            if (GroupEndCue != null)
+            {
+                var gm = GroupEndCue.Match(line);
+                if (gm.Success)
+                {
+                    CurrentGroup = null;
+                }
+            }
             if (GroupBeginCue != null)
             {
                 var gm = GroupBeginCue.Match(line);
@@ -356,15 +358,6 @@ namespace Mastersign.Bench.Markdown
                     {
                         docGroups.Add(CurrentGroup);
                     }
-                    return;
-                }
-            }
-            if (GroupEndCue != null)
-            {
-                var gm = GroupEndCue.Match(line);
-                if (gm.Success)
-                {
-                    CurrentGroup = null;
                     return;
                 }
             }
@@ -394,7 +387,15 @@ namespace Mastersign.Bench.Markdown
             }
         }
 
-        private void ProcessPossibleGroupDocsSwitchLine(string line)
+        private void CheckForGroupDocsBegin(string line)
+        {
+            if (CollectGroupDocs && GroupDocsBeginCue.IsMatch(line))
+            {
+                collectingGroupDocsActive = true;
+            }
+        }
+
+        private void CheckForGroupDocsEnd(string line)
         {
             if (CollectGroupDocs && GroupDocsEndCue.IsMatch(line))
             {
@@ -407,18 +408,16 @@ namespace Mastersign.Bench.Markdown
                 docGroups.Clear();
                 collectingGroupDocsActive = false;
             }
-            if (CollectGroupDocs && GroupDocsBeginCue.IsMatch(line))
-            {
-                collectingGroupDocsActive = true;
-            }
         }
 
         private void ProcessPossibleGroupDocsLine(string line)
         {
+            CheckForGroupDocsEnd(line);
             if (collectingGroupDocsActive)
             {
                 collectedGroupDocs.Add(line);
             }
+            CheckForGroupDocsBegin(line);
         }
 
     }
