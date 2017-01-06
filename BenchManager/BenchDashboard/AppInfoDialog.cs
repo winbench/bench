@@ -12,37 +12,6 @@ namespace Mastersign.Bench.Dashboard
 {
     internal partial class AppInfoDialog : Form
     {
-        private static readonly string[] KnownProperties = new[]
-            {
-                PropertyKeys.AppTyp,
-                PropertyKeys.AppWebsite,
-                PropertyKeys.AppDocs,
-                PropertyKeys.AppVersion,
-                PropertyKeys.AppInstalledVersion,
-                PropertyKeys.AppDependencies,
-                PropertyKeys.AppForce,
-                PropertyKeys.AppSetupTestFile,
-                PropertyKeys.AppPackageName,
-                PropertyKeys.AppUrl,
-                PropertyKeys.AppDownloadCookies,
-                PropertyKeys.AppDownloadHeaders,
-                PropertyKeys.AppResourceName,
-                PropertyKeys.AppArchiveName,
-                PropertyKeys.AppArchiveTyp,
-                PropertyKeys.AppArchivePath,
-                PropertyKeys.AppDir,
-                PropertyKeys.AppExe,
-                PropertyKeys.AppRegister,
-                PropertyKeys.AppPath,
-                PropertyKeys.AppEnvironment,
-                PropertyKeys.AppAdornedExecutables,
-                PropertyKeys.AppRegistryKeys,
-                PropertyKeys.AppLauncher,
-                PropertyKeys.AppLauncherExecutable,
-                PropertyKeys.AppLauncherArguments,
-                PropertyKeys.AppLauncherIcon,
-            };
-
         public AppInfoDialog(BenchConfiguration config, AppFacade app)
         {
             InitializeComponent();
@@ -55,7 +24,6 @@ namespace Mastersign.Bench.Dashboard
         private void LoadProperties(BenchConfiguration config, AppFacade app)
         {
             gridResolved.Rows.Clear();
-            AddRow(gridResolved, "ID", app.ID);
             foreach (var kvp in app.KnownProperties)
             {
                 AddRow(gridResolved, kvp.Key, kvp.Value);
@@ -66,7 +34,6 @@ namespace Mastersign.Bench.Dashboard
             }
 
             gridRaw.Rows.Clear();
-            AddRow(gridRaw, "ID", app.ID);
             foreach (var key in config.PropertyNames(app.ID))
             {
                 AddRow(gridRaw, key, config.GetRawGroupValue(app.ID, key));
