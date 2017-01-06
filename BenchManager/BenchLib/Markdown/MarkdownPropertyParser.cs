@@ -333,7 +333,6 @@ namespace Mastersign.Bench.Markdown
                 if (cm.Success)
                 {
                     CurrentCategory = cm.Groups["category"].Value;
-                    return;
                 }
             }
             if (GroupEndCue != null)
@@ -358,7 +357,6 @@ namespace Mastersign.Bench.Markdown
                     {
                         docGroups.Add(CurrentGroup);
                     }
-                    return;
                 }
             }
             var m = MdListExp.Match(line);

@@ -1360,6 +1360,7 @@ namespace Mastersign.Bench
         /// </summary>
         public static readonly string[] KnownPropertyKeys = new[]
             {
+                "ID",
                 PropertyKeys.AppTyp,
                 PropertyKeys.AppLabel,
                 PropertyKeys.AppWebsite,
@@ -1420,6 +1421,7 @@ namespace Mastersign.Bench
             get
             {
                 var result = new List<KeyValuePair<string, object>>();
+                result.Add(new KeyValuePair<string, object>("ID", this.ID));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppTyp, this.Typ));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLabel, this.Label));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppWebsite, this.Website));
