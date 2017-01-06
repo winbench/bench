@@ -10,9 +10,14 @@ canonifyurls = true
 relativeurls = false
 paginate = 10
 
-[indexes]
+preserveTaxonomyNames = true
+
+[taxonomies]
   tag = "tags"
   topic = "topics"
+  app_library = "app_libraries"
+  app_category = "app_categories"
+  app_typ = "app_types"
 
 [params]
   # Shown in the home page
@@ -52,27 +57,33 @@ paginate = 10
     identifier = "start"
     url = "/start/"
   [[menu.main]]
+    name = "Apps"
+    pre = "<i class='fa fa-database fa-fw'></i>"
+    weight = 4
+    indentifier = "apps"
+    url = "/apps/"
+  [[menu.main]]
     name = "Overview"
     pre = "<i class='fa fa-sitemap fa-fw'></i>"
-    weight = 4
+    weight = 5
     identifier = "overview"
     url = "/overview/"
   [[menu.main]]
     name = "Tutorials"
     pre = "<i class='fa fa-graduation-cap fa-fw'></i>"
-    weight = 5
+    weight = 6
     identifier = "tutorials"
     url = "/tutorial/"
   [[menu.main]]
     name = "Tech Guides"
     pre = "<i class='fa fa-lightbulb-o fa-fw'></i>"
-    weight = 6
+    weight = 7
     identifier = "guides"
     url = "/guide/"
   [[menu.main]]
     name = "Reference Docs"
     pre = "<i class='fa fa-book fa-fw'></i>"
-    weight = 7
+    weight = 8
     identifier = "reference"
     url = "/ref/"
   [[menu.main]]

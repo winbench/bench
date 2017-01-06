@@ -4,14 +4,14 @@ description = "Where do I find more info?"
 title = "Documentation"
 icon = "question-circle"
 follow_up_url = "/overview/"
-weight = 4
+weight = 5
 +++
 
 Checkout the documentation of Bench.
 It is well organized and structured in practice-oriented levels of detail.
-There is the [Quickstart], a number of [Tutorials], [Tech Guides]
-and for the details the [Reference Docs].
-If you still have a question feel free to [contact] the author.
+There is the [Quickstart][], a number of [Tutorials][], [Tech Guides][]
+and for the details the [Reference Docs][].
+If you still have a question feel free to [contact][] the author.
 
 [Quickstart]: /start/
 [Tutorials]: /tutorial/

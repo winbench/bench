@@ -685,4 +685,4 @@ the value from the file, loaded latest, wins.
 
 [Bench CLI]: /ref/bench-cli
 [Bench Dashboard]: /ref/dashboard
-[Git]: /ref/apps#Git
+[Git]: /apps/Bench.Git

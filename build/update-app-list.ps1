@@ -7,33 +7,7 @@ $cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $false, 
 $apps = $cfg.Apps
 
 $targetFile = "$docsDir\content\ref\apps.md"
-$targetDir = Empty-Dir "$docsDir\content\app"
-
-function GetFrontMatter($file)
-{
-	$sourceLines = [IO.File]::ReadAllLines($file, [Text.Encoding]::UTF8)
-	$hits = 0
-	$lastHit = -1
-	for ($i = 0; $i -lt $sourceLines.Length; $i++)
-	{
-		if ($sourceLines[$i] -eq "+++")
-		{
-			$hits++
-			$lastHit = $i
-		}
-		if ($hits -eq 2) { break; }
-	}
-	if ($hits -eq 2)
-	{
-		$sb = New-Object System.Text.StringBuilder
-		for ($i = 0; $i -le $lastHit; $i++)
-		{
-			$_ = $sb.AppendLine($sourceLines[$i])
-		}
-		return $sb.ToString()
-	}
-	return ""
-}
+$targetDir = Empty-Dir "$docsDir\content\apps"
 
 function WriteAppFile($app, $no)
 {
@@ -49,16 +23,24 @@ function WriteAppFile($app, $no)
     $w.WriteLine("+++")
     $w.WriteLine("title = `"$($app.Label)`"")
     $w.WriteLine("weight = $no")
-    $w.WriteLine("app_lib = `"$($app.AppLibrary.ID)`"")
+    # Custom page params
+    $w.WriteLine("app_library = `"$($app.AppLibrary.ID)`"")
     $w.WriteLine("app_category = `"$($app.Category)`"")
+    $w.WriteLine("app_typ = `"$($app.Typ)`"")
     $w.WriteLine("app_ns = `"$ns`"")
     $w.WriteLine("app_id = `"$($app.ID)`"")
     $w.WriteLine("app_version = `"$version`"")
+    # Taxonomies
+    $w.WriteLine("app_categories = [`"$($app.Category)`"]")
+    $w.WriteLine("app_libraries = [`"$($app.AppLibrary.ID)`"]")
+    $w.WriteLine("app_types = [`"$($app.Typ)`"]")
     $w.WriteLine("+++")
     $w.WriteLine()
     $w.WriteLine("**ID:** ``$($app.ID)``  ")
     $w.WriteLine("**Version:** $version  ")
     $w.WriteLine("<!--more-->")
+    $w.WriteLine()
+    $w.WriteLine("[Back to all apps](/apps/)")
     if ($app.MarkdownDocumentation)
     {
         $w.WriteLine()
@@ -101,23 +83,6 @@ function WriteAppFile($app, $no)
     $w.Close()
 }
 
-function WriteAppTableHeader($sb)
-{
-    $_ = $sb.AppendLine("| Label | Version | Library | Category |")
-    $_ = $sb.AppendLine("|-------|---------|---------|----------|")
-}
-
-function WriteAppTableRow($sb, $app)
-{
-    $id = $app.ID
-    $label = $app.Label
-    $version = $app.Version
-    if (!$version) { $version = "latest" }
-    $appLib = $app.AppLibrary.ID
-    $category = $app.Category
-    $_ = $sb.AppendLine("| [${label}](/app/${id}) | $version | ``$appLib`` | $category |")
-}
-
 $no = 0
 foreach ($app in $apps)
 {
@@ -125,16 +90,3 @@ foreach ($app in $apps)
     Write-Host "$($no.ToString("0000")) $($app.ID)"
     WriteAppFile $app $no
 }
-
-$sortedApps = $apps | sort { $_.Label }
-
-$sb = New-Object System.Text.StringBuilder
-$_ = $sb.Append((GetFrontMatter $targetFile))
-$_ = $sb.AppendLine()
-WriteAppTableHeader $sb
-foreach ($app in $sortedApps)
-{
-    WriteAppTableRow $sb $app
-}
-$_ = $sb.AppendLine()
-[IO.File]::WriteAllText($targetFile, $sb.ToString(), [Text.Encoding]::UTF8)

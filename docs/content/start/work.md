@@ -8,7 +8,7 @@ weight = 4
 [Working in a Project]: /tutorial/project-work/
 [Launcher]: /guide/launcher
 [Bench Shell]: /guide/shell
-[App List]: /ref/apps
+[App List]: /apps
 
 The only important thing, when working on a project in the Bench environment,
 is to start the IDE or text editor through its [Launcher][],

@@ -1,0 +1,44 @@
+{{ partial "header.html" . }}
+
+<div class="header">
+  <h1>Apps</h1>
+  <h2>Apps and app groups in the included app libraries</h2>
+</div>
+
+<div class="content">
+  <h2>App Libraries</h2>
+  <ul>
+    {{ range $name, $taxonomy := .Site.Taxonomies.app_libraries }}
+    <li><a href="/app_libraries/{{ $name | urlize }}/"><code>{{ $name }}</code></a></li>
+    {{ end }}
+  </ul>
+  <h2>App Categories</h2>
+  <ul>
+    {{ range $name, $taxonomy := .Site.Taxonomies.app_categories }}
+    <li><a href="/app_categories/{{ $name | urlize }}/">{{ $name }}</a></li>
+    {{ end }}
+  </ul>
+  <h2>App Types</h2>
+  <ul>
+    {{ range $name, $taxonomy := .Site.Taxonomies.app_types }}
+    <li><a href="/app_types/{{ $name | urlize }}/"><code>{{ $name }}</code></a></li>
+    {{ end }}
+  </ul>
+  <h2>All Apps</h2>
+  <table>
+    <thead>
+      <tr><td>Label</td><td>Version</td><td>Typ</td><td>Library</td><td>Category</td></tr>
+    </thead>
+    {{ range .Data.Pages.ByTitle }}
+      <tr>
+        <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
+        <td>{{ .Params.app_version }}</td>
+        <td>{{ range .Params.app_types }}<a href="/app_types/{{ . | urlize }}/"><code>{{ . }}</code></a>{{ end }}</td>
+        <td>{{ range .Params.app_libraries }}<a href="/app_libraries/{{ . | urlize }}/"><code>{{ . }}</code></a>{{ end }}</td>
+        <td>{{ range .Params.app_categories }}<a href="/app_categories/{{ . | urlize }}/">{{ . }}</a>{{ end }}</td>
+      </tr>
+    {{ end }}
+  </table>
+</div>
+
+{{ partial "footer.html" . }}

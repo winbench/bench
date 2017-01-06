@@ -1,0 +1,27 @@
+{{ partial "header.html" . }}
+
+<div class="header">
+  <h1>App Category &ndash; {{ .Title }}</h1>
+  <h2>Apps and app groups in the category {{ .Title }}</h2>
+</div>
+
+<div class="content">
+  <p>
+    <a href="/apps/">Back to all apps</a>
+  </p>
+  <table>
+    <thead>
+      <tr><td>Label</td><td>Version</td><td>Typ</td><td>Library</td></tr>
+    </thead>
+    {{ range .Data.Pages }}
+      <tr>
+        <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
+        <td>{{ .Params.app_version }}</td>
+        <td>{{ range .Params.app_types }}<a href="/app_types/{{ . | urlize }}/"><code>{{ . }}</code></a>{{ end }}</td>
+        <td>{{ range .Params.app_libraries }}<a href="/app_libraries/{{ . | urlize }}/"><code>{{ . }}</code></a>{{ end }}</td>
+      </tr>
+    {{ end }}
+  </table>
+</div>
+
+{{ partial "footer.html" . }}

@@ -107,6 +107,6 @@ Tech Guides
 
 Reference Docs
 
-* [App Library](/ref/apps)
+* [App Library](/apps)
 * [File Structure](/ref/file-structure)
 * [Bench Dashboard](/ref/dashboard)

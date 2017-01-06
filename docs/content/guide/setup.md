@@ -9,7 +9,7 @@ weight = 2
 [site configuration]: /ref/file-structure/#bench-site
 [custom configuration]: /ref/file-structure/#config-dir
 [Bench CLI]: /ref/bench-cli
-[required apps]: /ref/apps/#apps-required
+[required apps]: /app_categories/required
 [Bench environment file]: /ref/file-structure/#env
 [initialization mode]: /ref/bench-cli/#cmd_bench-manage-initialize
 [setup mode]: /ref/bench-cli/#cmd_bench-manage-setup
@@ -28,7 +28,7 @@ The setup of a Bench installation is performed in the following steps:
 * Running the [bootstrap file][] ...
     + Downloading the (latest) Bench archive (`Bench.zip`) from GitHub
     + Deleting the following folders in the Bench root: `actions`, `auto`, `res`, `tmp`,
-      and the folders of the required apps in `lib`
+      and the folders of the [required apps][] in `lib`
     + Extracting the Bench archive
 * Running the [Bench CLI][] in [initialization mode][] ...
     + Initializing the [site configuration][]

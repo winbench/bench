@@ -412,7 +412,7 @@ The usage in the custom scripts for apps is not completely implemented yet.
 * Type: User/Site
 
 This property is used to set the environment variable `USER_NAME`
-and in custom scripts e.g. from [Git](/ref/apps/#Git).
+and in custom scripts e.g. from [Git](/apps/Bench.Git).
 
 ### UserEmail {#UserEmail}
 
@@ -422,7 +422,7 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Type: User/Site
 
 This property is used to set the environment variable `USER_EMAIL`
-and in custom scripts e.g. from [Git](/ref/apps/#Git).
+and in custom scripts e.g. from [Git](/apps/Bench.Git).
 
 ### AppVersionIndexDir {#AppVersionIndexDir}
 
@@ -585,7 +585,7 @@ and in custom scripts e.g. from [Git](/ref/apps/#Git).
 * Default: `false`
 * Type: User/Site
 
-This switch only takes affect, if the [Git app](/ref/apps/#Git) is activated.
+This switch only takes affect, if the [Git app](/apps/Bench.Git) is activated.
 
 ### EditorApp {#EditorApp}
 
