@@ -74,6 +74,22 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
+        /// Gets an array with facades for all apps.
+        /// </summary>
+        public AppFacade[] All
+        {
+            get
+            {
+                var result = new List<AppFacade>();
+                foreach (var appName in AppIndex.Groups())
+                {
+                    result.Add(GetAppFacade(appName));
+                }
+                return result.ToArray();
+            }
+        }
+
+        /// <summary>
         /// Gets all apps of a given category.
         /// </summary>
         /// <param name="category">The app category.</param>
