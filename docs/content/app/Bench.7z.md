@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:10+01:00"
 title = "7-Zip"
 weight = 2
 app_lib = "core"

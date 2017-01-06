@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:11+01:00"
 title = "PyReadline (Python 3)"
 weight = 56
 app_lib = "default"

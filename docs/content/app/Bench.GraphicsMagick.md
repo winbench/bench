@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:11+01:00"
 title = "Graphics Magick"
 weight = 79
 app_lib = "default"

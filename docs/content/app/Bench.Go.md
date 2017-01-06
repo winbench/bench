@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:10+01:00"
 title = "Go"
 weight = 32
 app_lib = "default"

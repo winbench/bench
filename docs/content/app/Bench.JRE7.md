@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:10+01:00"
 title = "Java Runtime Environment 7"
 weight = 22
 app_lib = "default"

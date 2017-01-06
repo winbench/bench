@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:10+01:00"
 title = "Sublime Text 3"
 weight = 37
 app_lib = "default"

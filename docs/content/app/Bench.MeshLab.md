@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:12+01:00"
 title = "MeshLab"
 weight = 86
 app_lib = "default"

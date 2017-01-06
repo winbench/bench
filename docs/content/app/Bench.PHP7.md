@@ -1,5 +1,4 @@
 ﻿+++
-date = "2017-01-06T16:00:10+01:00"
 title = "PHP 7"
 weight = 21
 app_lib = "default"
