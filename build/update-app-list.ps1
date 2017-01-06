@@ -131,8 +131,6 @@ $sortedApps = $apps | sort { $_.Label }
 $sb = New-Object System.Text.StringBuilder
 $_ = $sb.Append((GetFrontMatter $targetFile))
 $_ = $sb.AppendLine()
-$_ = $sb.AppendLine("## Overview")
-$_ = $sb.AppendLine()
 WriteAppTableHeader $sb
 foreach ($app in $sortedApps)
 {

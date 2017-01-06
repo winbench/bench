@@ -6,8 +6,6 @@ title = "App Library"
 weight = 1
 +++
 
-## Overview
-
 | Label | Version | Library | Category |
 |-------|---------|---------|----------|
 | [.NET Core SDK](/app/Bench.DotNetCore) | latest | `default` | Platforms and Programming Languages |
