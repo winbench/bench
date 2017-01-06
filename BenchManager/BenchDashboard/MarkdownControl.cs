@@ -36,7 +36,12 @@ namespace Mastersign.Bench.Dashboard
 
         private void WebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
-            // force opening URLs in System browser
+            var url = e.Url;
+            if (url.IsAbsoluteUri && !url.IsFile)
+            {
+                e.Cancel = true;
+                Process.Start(url.AbsoluteUri);
+            }
         }
 
         private void MarkdownControl_Disposed(object sender, EventArgs e)
