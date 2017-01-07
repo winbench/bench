@@ -54,6 +54,7 @@ Add a link to the GitHub diff like
 - Moved app definitions into their own Git repositories
     + <https://github.com/mastersign/bench-apps-core>
     + <https://github.com/mastersign/bench-apps-default>
+- In the future, all app related issues are attended at the app library repositories on GitHub
 
 ### Fixed
 - Proxy setup for Maven
