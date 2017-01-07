@@ -28,6 +28,7 @@ Add a link to the GitHub diff like
 - Bench CLI
   ([#87](https://github.com/mastersign/bench/issues/87))
 - Update check in the About dialog of _BenchDashboard_
+- Configurable columns to the Setup dialog of _BenchDashboard_
 - Config properties
     + `VersionUrl`
     + `UpdateUrlTemplate`
