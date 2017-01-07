@@ -47,6 +47,8 @@ namespace Mastersign.Bench
         public const string QuickAccessPowerShell = "QuickAccessPowerShell";
         public const string QuickAccessBash = "QuickAccessBash";
 
+        public const string DashboardSetupAppListColumns = "DashboardSetupAppListColumns";
+
         public const string ConEmuConfigFile = "ConEmuConfigFile";
         public const string ConEmuConfigTemplateFile = "ConEmuConfigTemplateFile";
 

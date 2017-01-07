@@ -25,6 +25,14 @@ namespace Mastersign.Bench.Dashboard
 
         public string Label { get { return app.Label; } }
 
+        public string Name => app.Name;
+
+        public string Namespace => app.Namespace ?? "(default)";
+
+        public string AppLibrary => app.AppLibrary?.ID ?? "user";
+
+        public string Category => app.Category;
+
         public string Version
         {
             get

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using ConEmu.WinForms;
 using Mastersign.Bench.Dashboard.Properties;
+using Mastersign.Bench.Markdown;
 
 namespace Mastersign.Bench.Dashboard
 {
@@ -21,10 +22,18 @@ namespace Mastersign.Bench.Dashboard
         private ListSortDirection sortDirection;
         private AppFacade contextApp;
 
-        private readonly Dictionary<string, AppWrapper> appLookup = new Dictionary<string, AppWrapper>();
+        private readonly Dictionary<string, AppWrapper> appLookup
+            = new Dictionary<string, AppWrapper>();
 
         private ConEmuExecutionHost conHost;
         private ConEmuControl conControl;
+
+        private readonly List<string> appListColumnLabels = new List<string>();
+        private readonly Dictionary<string, DataGridViewColumn> appListColumns
+            = new Dictionary<string, DataGridViewColumn>();
+        private static string[] defaulAppListColumnLabels
+            = new[] { "Order", "ID", "Version", "Active", "Deactivated", "Status" };
+        private DataGridViewColumn iconColumn;
 
         public SetupForm(Core core)
         {
@@ -38,6 +47,13 @@ namespace Mastersign.Bench.Dashboard
             gridApps.DoubleBuffered(true);
             InitializeConsole();
             gridApps.AutoGenerateColumns = false;
+            iconColumn = gridApps.Columns[0];
+            foreach (DataGridViewColumn col in gridApps.Columns)
+            {
+                if (string.IsNullOrEmpty(col.HeaderText)) continue;
+                appListColumnLabels.Add(col.HeaderText);
+                appListColumns.Add(col.HeaderText, col);
+            }
         }
 
         private void SetupForm_Load(object sender, EventArgs e)
@@ -45,6 +61,8 @@ namespace Mastersign.Bench.Dashboard
             InitializeDownloadList();
             InitializeBounds();
             InitializeAppIndexMenu();
+            InitializeAppListColumnsMenu();
+            InitializeAppListColumns();
             InitializeAppList();
             UpdatePendingCounts();
 
@@ -86,9 +104,73 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        private void InitializeAppListColumnsMenu()
+        {
+            var colLabels = core.Config.GetStringListValue(
+                PropertyKeys.DashboardSetupAppListColumns,
+                defaulAppListColumnLabels);
+            foreach (var colLabel in appListColumnLabels)
+            {
+                ToolStripMenuItem item = null;
+                if (tsmiColumns.DropDownItems.Count > 0)
+                {
+                    foreach (ToolStripMenuItem i in tsmiColumns.DropDownItems)
+                        if (i.Text == colLabel)
+                            item = i;
+                }
+                if (item == null)
+                {
+                    item = new ToolStripMenuItem(colLabel);
+                    item.Click += AppListColumnToggleHandler;
+                    tsmiColumns.DropDownItems.Add(item);
+                }
+                item.Checked = colLabels.Contains(colLabel);
+            }
+        }
+
+        private void AppListColumnToggleHandler(object sender, EventArgs e)
+        {
+            var newColLabels = new List<string>();
+            foreach (ToolStripMenuItem item in tsmiColumns.DropDownItems)
+            {
+                if (item == sender) item.Checked = !item.Checked;
+                if (item.Checked)
+                {
+                    newColLabels.Add(string.Format("`{0}`", item.Text));
+                }
+            }
+            var configFile = core.Config.GetStringValue(PropertyKeys.CustomConfigFile);
+            MarkdownPropertyEditor.UpdateFile(configFile, new Dictionary<string, string>
+                { { PropertyKeys.DashboardSetupAppListColumns, string.Join(", ", newColLabels) } });
+        }
+
+        private void InitializeAppListColumns()
+        {
+            gridApps.SuspendLayout();
+            gridApps.Columns.Clear();
+            var colLabels = core.Config.GetStringListValue(
+                PropertyKeys.DashboardSetupAppListColumns,
+                defaulAppListColumnLabels);
+            iconColumn.DisplayIndex = 0;
+            gridApps.Columns.Add(iconColumn);
+            var pos = 1;
+            foreach (var colLabel in colLabels)
+            {
+                DataGridViewColumn col;
+                if (appListColumns.TryGetValue(colLabel, out col))
+                {
+                    col.DisplayIndex = pos++;
+                    gridApps.Columns.Add(col);
+                }
+            }
+            gridApps.ResumeLayout();
+        }
+
         private void CoreConfigReloadedHandler(object sender, EventArgs e)
         {
             InitializeAppIndexMenu();
+            InitializeAppListColumnsMenu();
+            InitializeAppListColumns();
             InitializeAppList();
             UpdatePendingCounts();
         }

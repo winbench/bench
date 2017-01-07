@@ -6,12 +6,20 @@ using System.Text.RegularExpressions;
 
 namespace Mastersign.Bench.Markdown
 {
-    internal static class MarkdownPropertyEditor
+    /// <summary>
+    /// A class with the capability to update a Markdown property file.
+    /// </summary>
+    public static class MarkdownPropertyEditor
     {
         private const string PatternTemplate = @"^{0}\s+((?:~~)?)\s*{1}\s*:\s*{2}\s*\1\s*$";
         private const string PropertyTemplate = @"* {0}: `{1}`";
         private const string UnquotedPropertyTemplate = @"* {0}: {1}";
 
+        /// <summary>
+        /// Sets a property value in a Markdown property file.
+        /// </summary>
+        /// <param name="file">The target file.</param>
+        /// <param name="dict">The dictionary with the properties to set.</param>
         public static void UpdateFile(string file, IDictionary<string, string> dict)
         {
             var lines = new List<string>(File.ReadAllLines(file, Encoding.UTF8));

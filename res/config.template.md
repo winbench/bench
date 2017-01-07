@@ -32,6 +32,7 @@ With the following properties you can control the appearance of the launchers fo
 With the following properties you can control certain behavior of the Bench Dashboard.
 
 * AutoUpdateCheck: `true`
+* DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
 
 ## Project Archive
 
@@ -39,3 +40,9 @@ With the following properties you can control the project archive.
 
 * ~~ProjectArchiveFormat: `7z`~~
 * ProjectArchiveDir: `archive`
+
+## Properties added by the Bench CLI
+
+If the Bench CLI sets properties, which are not already listed in this file,
+it appends them to the end of the file.
+

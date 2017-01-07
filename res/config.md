@@ -59,3 +59,4 @@
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
 * EditorApp: `VSCode`
+* DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
