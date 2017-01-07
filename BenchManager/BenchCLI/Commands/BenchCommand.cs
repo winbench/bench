@@ -37,7 +37,7 @@ namespace Mastersign.Bench.Cli.Commands
         protected static string DefaultRootPath()
         {
             var rootPath = Path.GetFullPath(Path.Combine(Path.Combine(BenchBinDirPath(), ".."), ".."));
-            return File.Exists(Path.Combine(rootPath, @"res\apps.md")) ? rootPath : null;
+            return File.Exists(Path.Combine(rootPath, @"auto\lib\bench.lib.ps1")) ? rootPath : null;
         }
 
         protected static string DashboardExecutable(string rootDir = null)
