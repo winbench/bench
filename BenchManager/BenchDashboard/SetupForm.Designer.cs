@@ -686,8 +686,7 @@
             this.tsmiShowAppIndex.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.library_16;
             this.tsmiShowAppIndex.Name = "tsmiShowAppIndex";
             this.tsmiShowAppIndex.Size = new System.Drawing.Size(205, 22);
-            this.tsmiShowAppIndex.Text = "Bench App &Library";
-            this.tsmiShowAppIndex.Click += new System.EventHandler(this.ShowAppIndexHandler);
+            this.tsmiShowAppIndex.Text = "Bench App &Libraries";
             // 
             // tsmiShowCustomAppIndex
             // 

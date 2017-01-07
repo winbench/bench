@@ -44,6 +44,7 @@ namespace Mastersign.Bench.Dashboard
         {
             InitializeDownloadList();
             InitializeBounds();
+            InitializeAppIndexMenu();
             InitializeAppList();
             UpdatePendingCounts();
 
@@ -72,8 +73,22 @@ namespace Mastersign.Bench.Dashboard
             SetBounds(x, y, w, h);
         }
 
+        private void InitializeAppIndexMenu()
+        {
+            tsmiShowAppIndex.DropDownItems.Clear();
+            foreach (var lib in core.Config.AppLibraries)
+            {
+                var appLibItem = new ToolStripMenuItem("App Library '" + lib.ID + "'");
+                appLibItem.Image = Resources.books_16;
+                appLibItem.Tag = lib;
+                appLibItem.Click += ShowAppIndexHandler;
+                tsmiShowAppIndex.DropDownItems.Add(appLibItem);
+            }
+        }
+
         private void CoreConfigReloadedHandler(object sender, EventArgs e)
         {
+            InitializeAppIndexMenu();
             InitializeAppList();
             UpdatePendingCounts();
         }
@@ -665,10 +680,15 @@ namespace Mastersign.Bench.Dashboard
 
         private void ShowAppIndexHandler(object sender, EventArgs e)
         {
-            //var viewer = new MarkdownViewer(core);
-            //viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
-            //viewer.Show();
-            throw new NotImplementedException();
+            var lib = (sender as ToolStripItem)?.Tag as AppLibrary;
+            if (lib != null)
+            {
+                var viewer = new MarkdownViewer(core);
+                viewer.LoadMarkdown(Path.Combine(lib.BaseDir,
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    "App Library '" + lib.ID + "'");
+                viewer.Show();
+            }
         }
 
         private void ShowCustomAppIndexHandler(object sender, EventArgs e)

@@ -86,16 +86,24 @@ namespace Mastersign.Bench.Dashboard
         {
             var ctxm = new ContextMenuStrip();
 
-            var benchItem = new ToolStripMenuItem("Bench");
+            var benchItem = new ToolStripMenuItem("Bench Website");
             benchItem.Image = new Icon(Icon, new Size(16, 16)).ToBitmap();
             benchItem.Tag = core.Config.GetStringValue(PropertyKeys.Website);
             benchItem.Click += LinkHandler;
             ctxm.Items.Add(benchItem);
 
-            var appLibItem = new ToolStripMenuItem("Bench App Library");
-            appLibItem.Image = Resources.library_16;
-            appLibItem.Click += AppIndexHandler;
-            ctxm.Items.Add(appLibItem);
+            var appLibsItem = new ToolStripMenuItem("App Libraries");
+            appLibsItem.Image = Resources.library_16;
+            ctxm.Items.Add(appLibsItem);
+            foreach (var lib in core.Config.AppLibraries)
+            {
+                var appLibItem = new ToolStripMenuItem("App Library '" + lib.ID + "'");
+                appLibItem.Image = Resources.books_16;
+                appLibItem.Tag = lib;
+                appLibItem.Click += AppIndexHandler;
+                appLibsItem.DropDownItems.Add(appLibItem);
+            }
+
             var userAppLibItem = new ToolStripMenuItem("User App Library");
             userAppLibItem.Image = Resources.userlibrary_16;
             userAppLibItem.Click += CustomAppIndexHandler;
@@ -138,10 +146,15 @@ namespace Mastersign.Bench.Dashboard
 
         private void AppIndexHandler(object sender, EventArgs e)
         {
-            //var viewer = new MarkdownViewer(core);
-            //viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
-            //viewer.Show();
-            throw new NotImplementedException();
+            var lib = (sender as ToolStripItem)?.Tag as AppLibrary;
+            if (lib != null)
+            {
+                var viewer = new MarkdownViewer(core);
+                viewer.LoadMarkdown(Path.Combine(lib.BaseDir,
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    "App Library '" + lib.ID + "'");
+                viewer.Show();
+            }
         }
 
         private void CustomAppIndexHandler(object sender, EventArgs e)

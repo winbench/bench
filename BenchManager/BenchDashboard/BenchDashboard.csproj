@@ -209,6 +209,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\books_16.png" />
+    <None Include="Resources\library_16.png" />
     <None Include="Resources\missing_app.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -217,7 +219,6 @@
     <None Include="Resources\properties_16.png" />
     <None Include="Resources\about.ico" />
     <None Include="Resources\bash.ico" />
-    <None Include="Resources\library_16.png" />
     <None Include="Resources\Markdown.ico" />
     <None Include="Resources\markdown_16.png" />
     <None Include="Resources\refresh_16.png" />
@@ -241,6 +242,7 @@
     <None Include="Resources\error_48.png" />
     <None Include="Resources\install_16.png" />
     <None Include="Resources\logo_64.png" />
+    <None Include="Resources\book_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />
     <None Include="Resources\docs_16.png" />
