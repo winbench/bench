@@ -1,4 +1,4 @@
-# User Apps
+# User App Library
 
 This document is the registry for user defined applications in _Bench_.
 
@@ -14,6 +14,6 @@ Activate your apps by adding them to the list of activated apps in `apps-activat
 or activate them via the _Bench Dashboard_ setup dialog,
 or activate them by calling `bench app activate <App ID>`.
 
-## App Definitions
+## User
 
-Place your app definitions here.
+Place your own app definitions here.
