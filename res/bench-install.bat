@@ -23,8 +23,8 @@ CALL :EXTRACT "%BENCH_ZIPFILE%" "%BENCH_SUBFLDR%" "%BENCH_DIR%"
 ECHO.Deleting ZIP files ...
 DEL "%BENCH_ZIPFILE%"
 
-ECHO.Running initialization script ...
-CALL .\actions\bench-ctl.cmd initialize
+ECHO.Running initialization command ...
+CALL .\auto\bin\bench.exe --verbose manage initialize
 
 POPD
 REM Trick to exit the script before deleting it
