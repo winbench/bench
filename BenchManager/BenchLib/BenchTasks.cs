@@ -63,29 +63,14 @@ namespace Mastersign.Bench
                 }
             }
 
-            var resultCfg = new BenchConfiguration(benchRootDir, true, false, true);
-
-            // transfer intermediate results from wizzard to following initialization steps
-            foreach (var key in new[]
-                {
-                    PropertyKeys.CustomConfigRepository,
-                    PropertyKeys.WizzardStartAutoSetup
-                })
-            {
-                resultCfg.SetValue(key, cfg.GetValue(key));
-            }
-
-            if (resultCfg.GetValue(PropertyKeys.CustomConfigRepository) != null)
-            {
-                resultCfg.SetGroupCategory(AppKeys.Git, BenchConfiguration.DefaultAppCategory);
-                resultCfg.Apps[AppKeys.Git].ActivateAsRequired();
-            }
+            var resultCfg = new BenchConfiguration(benchRootDir, false, false, true);
+            cfg.InjectBenchInitializationProperties(resultCfg);
 
             return resultCfg;
         }
 
         /// <summary>
-        /// This method is the second step for initializing or upgrading a Bench installation.
+        /// This method is the last fourth for initializing or upgrading a Bench installation.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -148,6 +133,7 @@ namespace Mastersign.Bench
             }
 
             var cfg = new BenchConfiguration(man.Config.BenchRootDir, false, true, true);
+            man.Config.InjectBenchInitializationProperties(cfg);
 
             var homeDir = cfg.GetStringValue(PropertyKeys.HomeDir);
             FileSystem.AsureDir(homeDir);
@@ -187,7 +173,9 @@ namespace Mastersign.Bench
                 File.Copy(conEmuConfigTemplateFile, conEmuConfigFile, false);
             }
 
-            return new BenchConfiguration(man.Config.BenchRootDir, true, true, true);
+            var resultCfg = new BenchConfiguration(man.Config.BenchRootDir, true, true, true);
+            cfg.InjectBenchInitializationProperties(resultCfg);
+            return resultCfg;
         }
 
         /// <summary>
@@ -580,7 +568,6 @@ namespace Mastersign.Bench
                     man.Config.Apps.ActiveApps
                 },
                 notify, cancelation,
-
                 UninstallApps,
                 DownloadAppResources,
                 InstallApps,

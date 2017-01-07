@@ -11,6 +11,14 @@ With the following properties you can control the composition of the environment
 * ~~EnvironmentPath: `$HomeDir$\bin`~~
 * ~~Environment: `MY_VAR: my custom value`~~
 
+## App Libraries
+
+Here you list all app libraries you want to use in this Bench environment.
+
+* AppLibs:
+    + `core`: `github:mastersign/bench-apps-core`
+    + `default`: `github:mastersign/bench-apps-default`
+
 ## Quick Access
 
 With the following properties you can control the appearance of the launchers for the three shells.

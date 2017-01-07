@@ -37,7 +37,8 @@ Add a link to the GitHub diff like
   ([#90](https://github.com/mastersign/bench/issues/90))
 - Namespaces for app IDs
 - Config properties:
-    + `AppLibs`
+    + `AppLibs`  
+      (this property must be overriden in the user or site config, to load more than the core app library)
     + `AppLibsDownloadDir`
     + `AppLibsDir`
     + `AppLibIndexFileName`
@@ -60,6 +61,8 @@ Add a link to the GitHub diff like
 
 ### Removed
 - Script based actions
+- Embedded app library  
+  **(the `AppLibs` property must be overriden in the user or site config now, to load more than the core app library)**
 - Config properties
     + `ActionDir`
     + `AppIndexFile`

@@ -148,12 +148,10 @@ The specified file must be a Markdown file and follow the [Markdown list syntax]
 
 * Description: A table with URLs of app libraries to load in the Bench environment.
 * Data Type: dictionary
-* Default: ...
-    + `core`: `github:mastersign/bench-apps-core`
-    + `default`: `github:mastersign/bench-apps-default`
+* Default: `core: github:mastersign/bench-apps-core`
 * Type: User
 
-The table consists of key/value pairs.
+The table consists of [key/value pairs](/ref/markup-syntax/#lists-and-dictionaries).
 Where the key is a unique ID for the app library inside the Bench environment,
 and the value is an URL to a ZIP file with the app library.
 The order of the table entries dictates the order in which the app libraries are loaded.
@@ -164,6 +162,18 @@ or just a directory containing the app library.
 If the app library is hosted as a GitHub repository, a short form for the URL
 can be used: `github:<user or organization>/<repository name>`;
 which is automatically expanded to an URL with the `https` protocol.
+
+The default value of the base configuration contains only apps, which
+are required or directly known by Bench. This value should be overridden
+in the user or site configuration, to include more app libraries.
+
+For starters the following list of app libraries is advised:
+
+```Markdown
+* `AppLibs`:
+    + `core`: `github:mastersign/bench-apps-core`
+    + `default`: `github:mastersign/bench-apps-default`
+```
 
 ### AppLibsDir {#AppLibsDir}
 

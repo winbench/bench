@@ -35,7 +35,6 @@
 * LibDir: `lib`
 * AppLibs:
     + `core`: `github:mastersign/bench-apps-core`
-    + `default`: `github:mastersign/bench-apps-default`
 * AppLibsDir: `$LibDir$\_applibs`
 * AppLibsDownloadDir: `$DownloadDir$\_applibs`
 * AppLibIndexFileName: `apps.md`

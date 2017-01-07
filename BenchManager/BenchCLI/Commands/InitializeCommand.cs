@@ -21,36 +21,73 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteCommand(string[] args)
         {
-            var cfg = BenchTasks.InitializeSiteConfiguration(RootPath);
-            if (cfg == null)
+            BenchConfiguration cfgWithSite, cfgWithCoreApps, cfgWithCustom;
+
+            // 1. Initialize the site configuration, possibly with HTTP(S) proxy
+            cfgWithSite = BenchTasks.InitializeSiteConfiguration(RootPath);
+            if (cfgWithSite == null)
             {
                 WriteInfo("Initialization canceled.");
                 return false;
             }
 
-            var autoSetup = cfg.GetBooleanValue(PropertyKeys.WizzardStartAutoSetup, true);
-            var mgr = new DefaultBenchManager(cfg);
-            mgr.Verbose = Verbose;
-            cfg = null;
-
-            var success = mgr.SetupRequiredApps();
-            if (!success)
+            // Create a manager object to get a download manager
+            using (var mgrWithSite = new DefaultBenchManager(cfgWithSite))
             {
-                WriteError("Initial app setup failed.");
-                return false;
+                mgrWithSite.Verbose = Verbose;
+                // 2. Download the app libraries, listed in the Bench system and site configuration
+                if (!mgrWithSite.LoadAppLibraries())
+                {
+                    WriteError("Loading the core app libraries failed.");
+                    return false;
+                }
+            } // dispose the manager object
+
+            // Reload the configuration with the core app libraries
+            cfgWithCoreApps = new BenchConfiguration(RootPath, true, false, true);
+            cfgWithSite.InjectBenchInitializationProperties(cfgWithCoreApps);
+            cfgWithSite = null;
+
+            // Create a manager object to get an execution host
+            using (var mgrWithCoreApps = new DefaultBenchManager(cfgWithCoreApps))
+            {
+                cfgWithCoreApps = null;
+                mgrWithCoreApps.Verbose = Verbose;
+                // 3. Download and install required apps from the core app library
+                if (!mgrWithCoreApps.SetupRequiredApps())
+                {
+                    WriteError("Initial app setup failed.");
+                    return false;
+                }
+
+                // 4. Initialize the user configuration and reload the Bench configuration
+                cfgWithCustom = BenchTasks.InitializeCustomConfiguration(mgrWithCoreApps);
+                if (cfgWithCustom == null)
+                {
+                    WriteInfo("Initialization canceled.");
+                    return false;
+                }
+            } // dispose the manager object
+
+            // Create a manager object to get a download manager
+            using (var mgrWithCustom = new DefaultBenchManager(cfgWithCustom))
+            {
+                mgrWithCustom.Verbose = Verbose;
+                // 5. Download the app libraries, listed in the custom configuration
+                if (!mgrWithCustom.LoadAppLibraries())
+                {
+                    WriteError("Loading the app libraries failed.");
+                    return false;
+                }
             }
 
-            cfg = BenchTasks.InitializeCustomConfiguration(mgr);
-            if (cfg == null)
-            {
-                WriteInfo("Initialization canceled.");
-                return false;
-            }
-            mgr.Dispose();
+            // Check if the auto setup should be started right now
+            var autoSetup = cfgWithCustom.GetBooleanValue(PropertyKeys.WizzardStartAutoSetup, true);
 
             var dashboardPath = DashboardExecutable();
             if (dashboardPath != null)
             {
+                // Kick-off the auto setup with the GUI
                 var arguments = string.Format("-root \"{0}\"", RootPath);
                 if (autoSetup)
                 {
@@ -67,6 +104,7 @@ namespace Mastersign.Bench.Cli.Commands
             }
             else if (autoSetup)
             {
+                // Kick-off the auto setup with the CLI
                 return RunManagerTask(m => m.AutoSetup());
             }
             else

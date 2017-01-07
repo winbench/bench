@@ -465,6 +465,29 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
+        /// Transfers a couple of temporary properties, needed during the initialization
+        /// of a Bench environment, to a new instance of the configuration.
+        /// </summary>
+        /// <param name="targetCfg">The new configuration instance.</param>
+        public void InjectBenchInitializationProperties(BenchConfiguration targetCfg)
+        {
+            foreach (var key in new[]
+                {
+                    PropertyKeys.CustomConfigRepository,
+                    PropertyKeys.WizzardStartAutoSetup
+                })
+            {
+                targetCfg.SetValue(key, this.GetValue(key));
+            }
+
+            if (targetCfg.GetValue(PropertyKeys.CustomConfigRepository) != null)
+            {
+                targetCfg.SetGroupCategory(AppKeys.Git, BenchConfiguration.DefaultAppCategory);
+                targetCfg.Apps[AppKeys.Git].ActivateAsRequired();
+            }
+        }
+
+        /// <summary>
         /// The merged definition of the Bench apps as a <see cref="AppIndexFacade"/>.
         /// </summary>
         public AppIndexFacade Apps { get { return appIndexFacade; } }
