@@ -27,7 +27,7 @@ namespace Mastersign.Bench
     ///     </item>
     ///     <item>
     ///         <term>site</term>
-    ///         <description><c>bench-site.md</c> files (filename can be changed via default/custom config)</description>
+    ///         <description><c>bench-site.md</c> files (filename can be changed via custom config)</description>
     ///     </item>
     /// </list>
     /// <para>
@@ -35,8 +35,8 @@ namespace Mastersign.Bench
     /// </para>
     /// <list type="bullet">
     ///     <item>
-    ///       <term>default</term>
-    ///       <description><c>res\apps.md</c></description>
+    ///       <term>external</term>
+    ///       <description><c>lib\_applibs\*\apps.md</c></description>
     ///     </item>
     ///     <item>
     ///         <term>custom</term>
