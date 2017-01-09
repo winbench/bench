@@ -469,7 +469,7 @@ namespace Mastersign.Bench
         /// of a Bench environment, to a new instance of the configuration.
         /// </summary>
         /// <param name="targetCfg">The new configuration instance.</param>
-        internal void InjectBenchInitializationProperties(BenchConfiguration targetCfg)
+        public void InjectBenchInitializationProperties(BenchConfiguration targetCfg)
         {
             foreach (var key in new[]
                 {
