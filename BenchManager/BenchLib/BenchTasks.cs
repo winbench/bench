@@ -1048,16 +1048,48 @@ namespace Mastersign.Bench
             return Path.Combine(config.GetStringValue(PropertyKeys.AppLibsDir), appLibId);
         }
 
+        /// <summary>
+        /// Deletes the loaded and cached app libraries
+        /// in preparation for re-loading them for an update or a repair.
+        /// </summary>
+        /// <param name="cfg">The Bench configuration</param>
+        public static void DeleteAppLibraries(BenchConfiguration cfg)
+        {
+            var appLibDir = cfg.GetStringValue(PropertyKeys.AppLibsDir);
+            FileSystem.EmptyDir(appLibDir);
+            var cacheDir = cfg.GetStringValue(PropertyKeys.AppLibsDownloadDir);
+            FileSystem.EmptyDir(cacheDir);
+        }
+
         private static void LoadAppLibraries(IBenchManager man,
             ICollection<AppFacade> _,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            var appLibDir = man.Config.GetStringValue(PropertyKeys.AppLibsDir);
-            FileSystem.EmptyDir(appLibDir);
+            var appLibsDir = man.Config.GetStringValue(PropertyKeys.AppLibsDir);
+            FileSystem.AsureDir(appLibsDir);
             var cacheDir = man.Config.GetStringValue(PropertyKeys.AppLibsDownloadDir);
-            FileSystem.EmptyDir(cacheDir);
+            FileSystem.AsureDir(cacheDir);
 
             var appLibs = man.Config.AppLibraries;
+
+            // Clean unconfigured app library directories
+            foreach (var d in Directory.GetDirectories(appLibsDir))
+            {
+                var n = Path.GetFileName(d);
+                var found = false;
+                foreach (var l in appLibs)
+                {
+                    if (string.Equals(l.ID, n, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    FileSystem.PurgeDir(d);
+                    notify(new TaskInfo(string.Format("Deleted unknown app library '{0}'.", n)));
+                }
+            }
 
             var finished = 0;
             var errorCnt = 0;
@@ -1069,7 +1101,8 @@ namespace Mastersign.Bench
             {
                 notify(new TaskProgress(
                     string.Format("Started download for app library '{0}' ...", e.Task.Id),
-                    (float)finished / taskCnt, e.Task.Id, e.Task.Url.ToString()));
+                    progress: (float)finished / taskCnt,
+                    detailedMessage: e.Task.Url.ToString()));
             };
 
             EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
@@ -1078,7 +1111,7 @@ namespace Mastersign.Bench
                 if (!e.Task.Success)
                 {
                     errorCnt++;
-                    notify(new TaskError(e.Task.ErrorMessage, e.Task.Id));
+                    notify(new TaskError(e.Task.ErrorMessage));
                 }
                 else
                 {
@@ -1087,7 +1120,7 @@ namespace Mastersign.Bench
                         ExtractAppLibrary(man.Config, e.Task.TargetFile, AppLibDirectory(man.Config, e.Task.Id));
                         notify(new TaskProgress(
                             string.Format("Finished download for app library '{0}'.", e.Task.Id),
-                            (float)finished / taskCnt, e.Task.Id));
+                            progress: (float)finished / taskCnt));
                     }
                     catch (Exception exc)
                     {
@@ -1112,12 +1145,31 @@ namespace Mastersign.Bench
 
             cancelation.Canceled += (s, e) => man.Downloader.CancelAll();
 
-            notify(new TaskProgress("Loading app libraries...", 0f));
+            notify(new TaskProgress("Loading app libraries...",
+                progress: 0f));
 
             foreach (var l in appLibs)
             {
+                var appLibDir = AppLibDirectory(man.Config, l.ID);
+
+                // Skip app library if is already loaded
+                if (File.Exists(Path.Combine(appLibDir,
+                    man.Config.GetStringValue(PropertyKeys.AppLibIndexFileName))))
+                {
+                    notify(new TaskProgress(
+                        string.Format("App library '{0}' already loaded.", l.ID),
+                        progress: (float)finished / taskCnt));
+                    continue;
+                }
+                else
+                {
+                    // Clean the app library directory, if the directory is not valid
+                    notify(new TaskInfo(
+                        string.Format("Cleaning invalid app library '{0}'.", l.ID)));
+                    FileSystem.PurgeDir(appLibDir);
+                }
+
                 var appLibArchive = l.ID + ".zip";
-                var appLibArchivePath = Path.Combine(cacheDir, appLibArchive);
 
                 if ("file".Equals(l.Url.Scheme.ToLowerInvariant()))
                 {
@@ -1127,10 +1179,10 @@ namespace Mastersign.Bench
                     finished++;
                     try
                     {
-                        CopyAppLibrary(man.Config, sourcePath, AppLibDirectory(man.Config, l.ID));
+                        CopyAppLibrary(man.Config, sourcePath, appLibDir);
                         notify(new TaskProgress(
                             string.Format("Successfully loaded app library '{0}'.", l.ID),
-                            (float)finished / taskCnt));
+                            progress: (float)finished / taskCnt));
                     }
                     catch (Exception e)
                     {
@@ -1142,9 +1194,34 @@ namespace Mastersign.Bench
                 }
                 else
                 {
-                    var task = new DownloadTask(l.ID, l.Url, appLibArchivePath);
-                    tasks.Add(task);
-                    man.Downloader.Enqueue(task);
+                    var appLibArchivePath = Path.Combine(cacheDir, appLibArchive);
+                    // Check if app library is cached
+                    if (File.Exists(appLibArchivePath))
+                    {
+                        finished++;
+                        // Extract if it is cached
+                        try
+                        {
+                            ExtractAppLibrary(man.Config, appLibArchivePath, appLibDir);
+                            notify(new TaskProgress(
+                                string.Format("Extracted app library '{0}' from cache.", l.ID),
+                                progress: (float)finished / taskCnt));
+                        }
+                        catch (Exception exc)
+                        {
+                            errorCnt++;
+                            notify(new TaskError(
+                                string.Format("Extracting the archive of app library '{0}' failed.", l.ID),
+                                exception: exc));
+                        }
+                    }
+                    else
+                    {
+                        // Queue download task if not
+                        var task = new DownloadTask(l.ID, l.Url, appLibArchivePath);
+                        tasks.Add(task);
+                        man.Downloader.Enqueue(task);
+                    }
                 }
             }
 
@@ -1152,19 +1229,20 @@ namespace Mastersign.Bench
             {
                 man.Downloader.DownloadEnded -= downloadEndedHandler;
                 man.Downloader.WorkFinished -= workFinishedHandler;
-                notify(new TaskProgress("Nothing to download.", 1f));
+                notify(new TaskProgress("Nothing to download.",
+                    progress: 1f));
             }
             else
             {
-                notify(new TaskProgress(
-                    string.Format("Queued {0} downloads.", tasks.Count),
-                    0f));
+                notify(new TaskProgress(string.Format("Queued {0} downloads.", tasks.Count),
+                    progress: 0f));
                 endEvent.WaitOne();
             }
 
             if (!cancelation.IsCanceled)
             {
-                notify(new TaskProgress("Finished loading app libraries.", 1f));
+                notify(new TaskProgress("Finished loading app libraries.",
+                    progress: 1f));
             }
         }
 
