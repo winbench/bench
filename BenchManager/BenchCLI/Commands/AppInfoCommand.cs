@@ -86,7 +86,7 @@ namespace Mastersign.Bench.Cli.Commands
                 WriteProperty(writer, "Launcher", app.Launcher);
             }
             WriteProperty(writer, "App Type", app.Typ, InlineType.Keyword);
-            WriteProperty(writer, "Version", app.Version, InlineType.Keyword);
+            WriteProperty(writer, "Version", app.Version ?? "latest", InlineType.Keyword);
             writer.End(BlockType.List);
             writer.Headline2("app_" + app.ID + "_state", "State");
             writer.Paragraph(app.LongStatus);
