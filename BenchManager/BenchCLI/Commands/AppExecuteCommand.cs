@@ -60,23 +60,24 @@ namespace Mastersign.Bench.Cli.Commands
             var detached = Arguments.GetFlag(FLAG_DETACHED);
             WriteDetail("Starting app '{0}' {1} ...", app.Label, detached ? "detached" : "synchronously");
 
-            var mgr = new DefaultBenchManager(cfg);
-            if (detached)
+            using (var mgr = new DefaultBenchManager(cfg))
             {
-                mgr.ProcessExecutionHost.StartProcess(mgr.Env, 
-                    cfg.BenchRootDir, app.Exe, CommandLine.FormatArgumentList(args),
-                    null, ProcessMonitoring.ExitCode);
-                mgr.Dispose();
-                return true;
-            }
-            else
-            {
-                var r = mgr.ProcessExecutionHost.RunProcess(mgr.Env,
-                    cfg.BenchRootDir, app.Exe, CommandLine.FormatArgumentList(args),
-                    ProcessMonitoring.ExitCodeAndOutput);
-                mgr.Dispose();
-                Console.Write(r.Output);
-                return r.ExitCode == 0;
+                mgr.Verbose = Verbose;
+                if (detached)
+                {
+                    mgr.ProcessExecutionHost.StartProcess(mgr.Env,
+                        cfg.BenchRootDir, app.Exe, CommandLine.FormatArgumentList(args),
+                        null, ProcessMonitoring.ExitCode);
+                    return true;
+                }
+                else
+                {
+                    var r = mgr.ProcessExecutionHost.RunProcess(mgr.Env,
+                        cfg.BenchRootDir, app.Exe, CommandLine.FormatArgumentList(args),
+                        ProcessMonitoring.ExitCodeAndOutput);
+                    Console.Write(r.Output);
+                    return r.ExitCode == 0;
+                }
             }
         }
     }
