@@ -14,7 +14,7 @@ PUSHD "%ROOT%"
 CALL :DOWNLOAD "%BENCH_ZIPURL%" "%BENCH_ZIPFILE%"
 
 ECHO Removing old Bench files ...
-FOR %%d IN (actions, auto, res, tmp, lib\conemu) DO (
+FOR %%d IN (actions, auto, res, tmp, lib\conemu, lib\_applibs, cache\_applibs) DO (
   IF EXIST "%ROOT%\%%d\" RMDIR /S /Q "%ROOT%\%%d"
 )
 
