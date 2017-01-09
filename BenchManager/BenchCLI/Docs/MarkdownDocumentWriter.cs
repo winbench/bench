@@ -298,6 +298,7 @@ namespace Mastersign.Docs
 
         public override DocumentWriter Inline(InlineType type, string format, params object[] args)
         {
+            if (format == null) return this;
             var text = string.Format(format, args);
             switch (type)
             {
