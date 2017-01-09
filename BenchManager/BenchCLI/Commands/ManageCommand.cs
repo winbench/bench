@@ -18,6 +18,7 @@ namespace Mastersign.Bench.Cli.Commands
         private readonly BenchCommand downloadsCommand = new DownloadsCommand();
         private readonly BenchCommand reinstallCommand = new ReinstallCommand();
         private readonly BenchCommand renewCommand = new RenewCommand();
+        private readonly BenchCommand updateCommand = new UpdateCommand();
         private readonly BenchCommand upgradeCommand = new UpgradeCommand();
 
         protected override void InitializeArgumentParser(ArgumentParser parser)
@@ -63,19 +64,24 @@ namespace Mastersign.Bench.Cli.Commands
             commandRenew.Description
                 .Text("Redownload all app resources, remove all installed apps, then install all active apps.");
 
-            var commandUpgrade = new CommandArgument(upgradeCommand.Name, 'u');
+            var commandUpdate = new CommandArgument(updateCommand.Name, 'u');
+            commandUpdate.Description
+                .Text("Update the app libraries and upgrades all apps.");
+
+            var commandUpgrade = new CommandArgument(upgradeCommand.Name, 'g');
             commandUpgrade.Description
                 .Text("Download and extract the latest Bench release, then run the auto-setup.");
 
             parser.RegisterArguments(
+                commandConfig,
                 commandInitialize,
                 commandSetup,
                 commandLoadAppLibs,
                 commandUpdateEnv,
                 commandReinstall,
                 commandRenew,
-                commandUpgrade,
-                commandConfig);
+                commandUpdate,
+                commandUpgrade);
         }
 
         public ManageCommand()
@@ -88,6 +94,7 @@ namespace Mastersign.Bench.Cli.Commands
             RegisterSubCommand(downloadsCommand);
             RegisterSubCommand(reinstallCommand);
             RegisterSubCommand(renewCommand);
+            RegisterSubCommand(updateCommand);
             RegisterSubCommand(upgradeCommand);
         }
     }

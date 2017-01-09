@@ -81,6 +81,7 @@
     <Compile Include="Commands\ProjectCommand.cs" />
     <Compile Include="Commands\ReinstallCommand.cs" />
     <Compile Include="Commands\RenewCommand.cs" />
+    <Compile Include="Commands\UpdateCommand.cs" />
     <Compile Include="Commands\UpdateEnvironmentCommand.cs" />
     <Compile Include="Commands\LoadAppLibrariesCommand.cs" />
     <Compile Include="Commands\UpgradeCommand.cs" />
