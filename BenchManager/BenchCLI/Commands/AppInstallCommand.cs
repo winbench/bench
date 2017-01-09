@@ -34,8 +34,14 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteCommand(string[] args)
         {
-            return RunManagerTask(mgr => mgr.InstallApp(
-                Arguments.GetPositionalValue(POSITIONAL_APP_ID)));
+            var appId = Arguments.GetPositionalValue(POSITIONAL_APP_ID);
+            var cfg = LoadConfiguration();
+            if (!cfg.Apps.Exists(appId))
+            {
+                WriteError("Unknown app ID: " + appId);
+                return false;
+            }
+            return RunManagerTask(mgr => mgr.InstallApp(appId));
         }
     }
 }
