@@ -612,6 +612,44 @@ namespace Mastersign.Bench.Dashboard
             return result;
         }
 
+        public async Task<ActionResult> UpdateAppsAsync(Action<TaskInfo> notify)
+        {
+            BeginAction();
+            BenchTasks.DeleteAppLibraries(Config);
+            var result = await RunTaskAsync(BenchTasks.DoLoadAppLibraries, notify, cancelation);
+            if (result.Canceled)
+            {
+                UI.ShowWarning("Loading App Libraries", "Canceled");
+                EndAction(result.Success);
+                return result;
+            }
+            else if (!result.Success)
+            {
+                UI.ShowWarning("Loading App Libraries",
+                    "Loading the app libraries failed.");
+                EndAction(false);
+                return result;
+            }
+
+            result = await RunTaskAsync(BenchTasks.DoUpgradeApps, notify, cancelation);
+            EndAction(result.Success);
+            if (result.Canceled)
+            {
+                UI.ShowWarning("Upgrading Apps", "Canceled");
+            }
+            else if (!result.Success)
+            {
+                UI.ShowWarning("Upgrading Apps",
+                    BuildCombinedErrorMessage(
+                        "Upgrading the following apps failed:",
+                        "Upgrading apps failed.",
+                        result.Errors, 10));
+                EndAction(false);
+                return result;
+            }
+            return result;
+        }
+
         private class AsyncVersionNumberResult : IAsyncResult
         {
             public object AsyncState => null;

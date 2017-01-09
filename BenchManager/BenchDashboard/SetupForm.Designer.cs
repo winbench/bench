@@ -50,6 +50,18 @@
             this.lblTask = new System.Windows.Forms.Label();
             this.lblTaskLabel = new System.Windows.Forms.Label();
             this.gridApps = new System.Windows.Forms.DataGridView();
+            this.colIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.colIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLibrary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActivated = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colExcluded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTyp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ctxmAppActions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.miAppInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.miWebsite = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +80,7 @@
             this.tsmSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAuto = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdateEnvironment = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdateBench = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeBench = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReinstallAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,18 +101,6 @@
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
-            this.colIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.colIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLibrary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActivated = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colExcluded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTyp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -110,6 +111,26 @@
             this.ctxmAppActions.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
             // 
             // tsSeparatorDownloads
             // 
@@ -283,6 +304,138 @@
             this.gridApps.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridApps_ColumnHeaderMouseClick);
             this.gridApps.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.gridApps_RowContextMenuStripNeeded);
             // 
+            // colIcon
+            // 
+            this.colIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colIcon.DataPropertyName = "StatusIcon";
+            this.colIcon.Frozen = true;
+            this.colIcon.HeaderText = "";
+            this.colIcon.Name = "colIcon";
+            this.colIcon.ReadOnly = true;
+            this.colIcon.Width = 32;
+            // 
+            // colIndex
+            // 
+            this.colIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colIndex.DataPropertyName = "Index";
+            this.colIndex.Frozen = true;
+            this.colIndex.HeaderText = "Order";
+            this.colIndex.Name = "colIndex";
+            this.colIndex.ReadOnly = true;
+            this.colIndex.ToolTipText = "The index number from the app registry.";
+            this.colIndex.Width = 62;
+            // 
+            // colLibrary
+            // 
+            this.colLibrary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colLibrary.DataPropertyName = "AppLibrary";
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colLibrary.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colLibrary.HeaderText = "Library";
+            this.colLibrary.Name = "colLibrary";
+            this.colLibrary.ReadOnly = true;
+            this.colLibrary.ToolTipText = "The ID of the library, this app is defined in.";
+            this.colLibrary.Width = 66;
+            // 
+            // colID
+            // 
+            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colID.DataPropertyName = "ID";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colID.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colID.HeaderText = "ID";
+            this.colID.Name = "colID";
+            this.colID.ReadOnly = true;
+            this.colID.ToolTipText = "The full ID of the app including the namespace.";
+            this.colID.Width = 43;
+            // 
+            // colCategory
+            // 
+            this.colCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colCategory.DataPropertyName = "Category";
+            this.colCategory.HeaderText = "Category";
+            this.colCategory.Name = "colCategory";
+            this.colCategory.ReadOnly = true;
+            this.colCategory.ToolTipText = "The category of the app.";
+            this.colCategory.Width = 78;
+            // 
+            // colLabel
+            // 
+            this.colLabel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colLabel.DataPropertyName = "Label";
+            this.colLabel.HeaderText = "Label";
+            this.colLabel.Name = "colLabel";
+            this.colLabel.ReadOnly = true;
+            this.colLabel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colLabel.ToolTipText = "The user friendly name of the app.";
+            this.colLabel.Width = 59;
+            // 
+            // colVersion
+            // 
+            this.colVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colVersion.DataPropertyName = "Version";
+            this.colVersion.HeaderText = "Version";
+            this.colVersion.Name = "colVersion";
+            this.colVersion.ReadOnly = true;
+            this.colVersion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colVersion.ToolTipText = "The version number of the app.";
+            this.colVersion.Width = 70;
+            // 
+            // colActivated
+            // 
+            this.colActivated.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colActivated.DataPropertyName = "IsActive";
+            this.colActivated.FalseValue = "inactive";
+            this.colActivated.HeaderText = "Active";
+            this.colActivated.IndeterminateValue = "implicit";
+            this.colActivated.Name = "colActivated";
+            this.colActivated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colActivated.ThreeState = true;
+            this.colActivated.ToolTipText = "States whether the app is activated by the user or not.";
+            this.colActivated.TrueValue = "active";
+            this.colActivated.Width = 62;
+            // 
+            // colExcluded
+            // 
+            this.colExcluded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colExcluded.DataPropertyName = "IsDeactivated";
+            this.colExcluded.HeaderText = "Deactivated";
+            this.colExcluded.Name = "colExcluded";
+            this.colExcluded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colExcluded.ToolTipText = "States whether the app is deactivated by the user.";
+            this.colExcluded.Width = 92;
+            // 
+            // colStatus
+            // 
+            this.colStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colStatus.DataPropertyName = "ShortStatus";
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.ToolTipText = "A brief description of the apps status.";
+            this.colStatus.Width = 64;
+            // 
+            // colTyp
+            // 
+            this.colTyp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colTyp.DataPropertyName = "Typ";
+            this.colTyp.HeaderText = "Typ";
+            this.colTyp.Name = "colTyp";
+            this.colTyp.ReadOnly = true;
+            this.colTyp.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colTyp.ToolTipText = "The typ of the app.";
+            this.colTyp.Width = 48;
+            // 
+            // colComment
+            // 
+            this.colComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colComment.DataPropertyName = "LongStatus";
+            this.colComment.HeaderText = "Comment";
+            this.colComment.MinimumWidth = 100;
+            this.colComment.Name = "colComment";
+            this.colComment.ReadOnly = true;
+            this.colComment.ToolTipText = "A more detailed description of the apps status.";
+            // 
             // ctxmAppActions
             // 
             this.ctxmAppActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -420,6 +573,7 @@
             this.tsmiAuto,
             this.tsmiUpdateEnvironment,
             toolStripSeparator4,
+            this.tsmiUpdateBench,
             this.tsmiUpgradeBench,
             toolStripSeparator2,
             this.tsmiInstallAll,
@@ -439,7 +593,7 @@
             // 
             this.tsmiAuto.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.do_16;
             this.tsmiAuto.Name = "tsmiAuto";
-            this.tsmiAuto.Size = new System.Drawing.Size(230, 22);
+            this.tsmiAuto.Size = new System.Drawing.Size(237, 22);
             this.tsmiAuto.Text = "&Automatic Setup";
             this.tsmiAuto.Click += new System.EventHandler(this.AutoHandler);
             // 
@@ -447,33 +601,32 @@
             // 
             this.tsmiUpdateEnvironment.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.updateenv_16;
             this.tsmiUpdateEnvironment.Name = "tsmiUpdateEnvironment";
-            this.tsmiUpdateEnvironment.Size = new System.Drawing.Size(230, 22);
+            this.tsmiUpdateEnvironment.Size = new System.Drawing.Size(237, 22);
             this.tsmiUpdateEnvironment.Text = "Update &Environment";
             this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironmentHandler);
             // 
-            // toolStripSeparator4
+            // tsmiUpdateBench
             // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
+            this.tsmiUpdateBench.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
+            this.tsmiUpdateBench.Name = "tsmiUpdateBench";
+            this.tsmiUpdateBench.Size = new System.Drawing.Size(237, 22);
+            this.tsmiUpdateBench.Text = "&Update App Libraries and Apps";
+            this.tsmiUpdateBench.Click += new System.EventHandler(this.UpdateAppsHandler);
             // 
             // tsmiUpgradeBench
             // 
             this.tsmiUpgradeBench.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_bench_16;
             this.tsmiUpgradeBench.Name = "tsmiUpgradeBench";
-            this.tsmiUpgradeBench.Size = new System.Drawing.Size(230, 22);
+            this.tsmiUpgradeBench.Size = new System.Drawing.Size(237, 22);
             this.tsmiUpgradeBench.Text = "Upgrade &Bench";
+            this.tsmiUpgradeBench.ToolTipText = "Update the Bench system.";
             this.tsmiUpgradeBench.Click += new System.EventHandler(this.UpgradeBenchSystemHandler);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
             // 
             // tsmiInstallAll
             // 
             this.tsmiInstallAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.install_16;
             this.tsmiInstallAll.Name = "tsmiInstallAll";
-            this.tsmiInstallAll.Size = new System.Drawing.Size(230, 22);
+            this.tsmiInstallAll.Size = new System.Drawing.Size(237, 22);
             this.tsmiInstallAll.Text = "&Install Apps";
             this.tsmiInstallAll.Click += new System.EventHandler(this.InstallAllHandler);
             // 
@@ -481,7 +634,7 @@
             // 
             this.tsmiReinstallAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.reinstall_16;
             this.tsmiReinstallAll.Name = "tsmiReinstallAll";
-            this.tsmiReinstallAll.Size = new System.Drawing.Size(230, 22);
+            this.tsmiReinstallAll.Size = new System.Drawing.Size(237, 22);
             this.tsmiReinstallAll.Text = "&Reinstall Apps";
             this.tsmiReinstallAll.Click += new System.EventHandler(this.ReinstallAllHandler);
             // 
@@ -489,28 +642,23 @@
             // 
             this.tsmiUpgradeAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.upgrade_16;
             this.tsmiUpgradeAll.Name = "tsmiUpgradeAll";
-            this.tsmiUpgradeAll.Size = new System.Drawing.Size(230, 22);
-            this.tsmiUpgradeAll.Text = "&Upgrade Apps";
+            this.tsmiUpgradeAll.Size = new System.Drawing.Size(237, 22);
+            this.tsmiUpgradeAll.Text = "Up&grade Apps";
             this.tsmiUpgradeAll.Click += new System.EventHandler(this.UpgradeAllHandler);
             // 
             // tsmiUninstallAll
             // 
             this.tsmiUninstallAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.uninstall_16;
             this.tsmiUninstallAll.Name = "tsmiUninstallAll";
-            this.tsmiUninstallAll.Size = new System.Drawing.Size(230, 22);
+            this.tsmiUninstallAll.Size = new System.Drawing.Size(237, 22);
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
             // 
             // tsmiCleanUpObsoleteResources
             // 
             this.tsmiCleanUpObsoleteResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.cleanup_16;
             this.tsmiCleanUpObsoleteResources.Name = "tsmiCleanUpObsoleteResources";
-            this.tsmiCleanUpObsoleteResources.Size = new System.Drawing.Size(230, 22);
+            this.tsmiCleanUpObsoleteResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiCleanUpObsoleteResources.Text = "&Clean-Up Obsolete Resources";
             this.tsmiCleanUpObsoleteResources.Click += new System.EventHandler(this.CleanUpResourcesHandler);
             // 
@@ -518,7 +666,7 @@
             // 
             this.tsmiDownloadAllResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.download_16;
             this.tsmiDownloadAllResources.Name = "tsmiDownloadAllResources";
-            this.tsmiDownloadAllResources.Size = new System.Drawing.Size(230, 22);
+            this.tsmiDownloadAllResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiDownloadAllResources.Text = "Do&wnload Active Resources";
             this.tsmiDownloadAllResources.Click += new System.EventHandler(this.DownloadActiveHandler);
             // 
@@ -526,7 +674,7 @@
             // 
             this.tsmiDownloadAllAppResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.downloadall_16;
             this.tsmiDownloadAllAppResources.Name = "tsmiDownloadAllAppResources";
-            this.tsmiDownloadAllAppResources.Size = new System.Drawing.Size(230, 22);
+            this.tsmiDownloadAllAppResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiDownloadAllAppResources.Text = "Down&load All Resources";
             this.tsmiDownloadAllAppResources.Click += new System.EventHandler(this.DownloadAllHandler);
             // 
@@ -534,7 +682,7 @@
             // 
             this.tsmiDeleteAllResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.deletedownload_16;
             this.tsmiDeleteAllResources.Name = "tsmiDeleteAllResources";
-            this.tsmiDeleteAllResources.Size = new System.Drawing.Size(230, 22);
+            this.tsmiDeleteAllResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiDeleteAllResources.Text = "&Delete All Resources";
             this.tsmiDeleteAllResources.Click += new System.EventHandler(this.DeleteAllResourcesHandler);
             // 
@@ -614,11 +762,6 @@
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
             // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
-            // 
             // tsmiAlwaysShowDownloads
             // 
             this.tsmiAlwaysShowDownloads.CheckOnClick = true;
@@ -634,138 +777,6 @@
             this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
-            // 
-            // colIcon
-            // 
-            this.colIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colIcon.DataPropertyName = "StatusIcon";
-            this.colIcon.Frozen = true;
-            this.colIcon.HeaderText = "";
-            this.colIcon.Name = "colIcon";
-            this.colIcon.ReadOnly = true;
-            this.colIcon.Width = 32;
-            // 
-            // colIndex
-            // 
-            this.colIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colIndex.DataPropertyName = "Index";
-            this.colIndex.Frozen = true;
-            this.colIndex.HeaderText = "Order";
-            this.colIndex.Name = "colIndex";
-            this.colIndex.ReadOnly = true;
-            this.colIndex.ToolTipText = "The index number from the app registry.";
-            this.colIndex.Width = 62;
-            // 
-            // colLibrary
-            // 
-            this.colLibrary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colLibrary.DataPropertyName = "AppLibrary";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colLibrary.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colLibrary.HeaderText = "Library";
-            this.colLibrary.Name = "colLibrary";
-            this.colLibrary.ReadOnly = true;
-            this.colLibrary.ToolTipText = "The ID of the library, this app is defined in.";
-            this.colLibrary.Width = 66;
-            // 
-            // colID
-            // 
-            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colID.DataPropertyName = "ID";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colID.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colID.HeaderText = "ID";
-            this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
-            this.colID.ToolTipText = "The full ID of the app including the namespace.";
-            this.colID.Width = 43;
-            // 
-            // colCategory
-            // 
-            this.colCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colCategory.DataPropertyName = "Category";
-            this.colCategory.HeaderText = "Category";
-            this.colCategory.Name = "colCategory";
-            this.colCategory.ReadOnly = true;
-            this.colCategory.ToolTipText = "The category of the app.";
-            this.colCategory.Width = 78;
-            // 
-            // colLabel
-            // 
-            this.colLabel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colLabel.DataPropertyName = "Label";
-            this.colLabel.HeaderText = "Label";
-            this.colLabel.Name = "colLabel";
-            this.colLabel.ReadOnly = true;
-            this.colLabel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colLabel.ToolTipText = "The user friendly name of the app.";
-            this.colLabel.Width = 59;
-            // 
-            // colVersion
-            // 
-            this.colVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colVersion.DataPropertyName = "Version";
-            this.colVersion.HeaderText = "Version";
-            this.colVersion.Name = "colVersion";
-            this.colVersion.ReadOnly = true;
-            this.colVersion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colVersion.ToolTipText = "The version number of the app.";
-            this.colVersion.Width = 70;
-            // 
-            // colActivated
-            // 
-            this.colActivated.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colActivated.DataPropertyName = "IsActive";
-            this.colActivated.FalseValue = "inactive";
-            this.colActivated.HeaderText = "Active";
-            this.colActivated.IndeterminateValue = "implicit";
-            this.colActivated.Name = "colActivated";
-            this.colActivated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colActivated.ThreeState = true;
-            this.colActivated.ToolTipText = "States whether the app is activated by the user or not.";
-            this.colActivated.TrueValue = "active";
-            this.colActivated.Width = 62;
-            // 
-            // colExcluded
-            // 
-            this.colExcluded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colExcluded.DataPropertyName = "IsDeactivated";
-            this.colExcluded.HeaderText = "Deactivated";
-            this.colExcluded.Name = "colExcluded";
-            this.colExcluded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colExcluded.ToolTipText = "States whether the app is deactivated by the user.";
-            this.colExcluded.Width = 92;
-            // 
-            // colStatus
-            // 
-            this.colStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colStatus.DataPropertyName = "ShortStatus";
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.ToolTipText = "A brief description of the apps status.";
-            this.colStatus.Width = 64;
-            // 
-            // colTyp
-            // 
-            this.colTyp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colTyp.DataPropertyName = "Typ";
-            this.colTyp.HeaderText = "Typ";
-            this.colTyp.Name = "colTyp";
-            this.colTyp.ReadOnly = true;
-            this.colTyp.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colTyp.ToolTipText = "The typ of the app.";
-            this.colTyp.Width = 48;
-            // 
-            // colComment
-            // 
-            this.colComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colComment.DataPropertyName = "LongStatus";
-            this.colComment.HeaderText = "Comment";
-            this.colComment.MinimumWidth = 100;
-            this.colComment.Name = "colComment";
-            this.colComment.ReadOnly = true;
-            this.colComment.ToolTipText = "A more detailed description of the apps status.";
             // 
             // SetupForm
             // 
@@ -864,5 +875,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTyp;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdateBench;
     }
 }
