@@ -27,8 +27,9 @@ The setup of a Bench installation is performed in the following steps:
 * Creating a directory as Bench root
 * Downloading the (latest) [bootstrap file][] in the Bench root
 * Running the [bootstrap file][] ...
-    + Downloading the (latest) Bench archive (`Bench.zip`) from GitHub
-    + Deleting the following folders in the Bench root: `actions`, `auto`, `res`, `tmp`,
+    + Downloading the (latest) Bench archive (`Bench.zip`)
+    + Deleting the following folders in the Bench root:
+      `actions`, `auto`, `res`, `tmp`, `cache\_applibs`, `lib\_applibs`,
       and the folders of the [required apps][] in `lib`
     + Extracting the Bench archive
 * Running the [Bench CLI][] in [initialization mode][] ...
