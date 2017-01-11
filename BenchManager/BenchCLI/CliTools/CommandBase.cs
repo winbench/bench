@@ -277,11 +277,12 @@ namespace Mastersign.CliTools
         {
             w.Begin(BlockType.Document);
             w.Title("{0} v{1}", ToolName, ToolVersion);
-            PrintCommandHelp(w);
+            PrintCommandHelp(w, withHelpSection: true, withCommandLinks: false);
             w.End(BlockType.Document);
         }
 
-        public void PrintFullHelp(DocumentWriter w, bool withTitle = true, bool withVersion = true, bool withIndex = true)
+        public void PrintFullHelp(DocumentWriter w, 
+            bool withTitle = true, bool withVersion = true, bool withIndex = true)
         {
             w.Begin(BlockType.Document);
             if (withTitle) w.Title(ToolName);
@@ -309,13 +310,14 @@ namespace Mastersign.CliTools
             foreach (var cmd in commands)
             {
                 w.Headline1(HelpFormatter.CommandAnchor(cmd), cmd.CommandChain(" ", true));
-                cmd.PrintCommandHelp(w);
+                cmd.PrintCommandHelp(w, withHelpSection: cmd == this, withCommandLinks: true);
             }
 
             w.End(BlockType.Document);
         }
 
-        private void PrintCommandHelp(DocumentWriter w)
+        private void PrintCommandHelp(DocumentWriter w, 
+            bool withHelpSection = true, bool withCommandLinks = false)
         {
             if (Parent != null)
             {
@@ -329,7 +331,7 @@ namespace Mastersign.CliTools
                 }
                 w.End(BlockType.Paragraph);
             }
-            HelpFormatter.WriteHelp(w, this);
+            HelpFormatter.WriteHelp(w, this, withHelpSection, withCommandLinks);
         }
 
         private ArgumentParsingResult CompleteInteractively(ArgumentParsingResult arguments)

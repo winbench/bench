@@ -136,51 +136,63 @@ namespace Mastersign.CliTools
             return "cmd_" + cmd.CommandChain("-");
         }
 
-        private static Document fullHelpIndicator;
-        private static Document FullHelpIndicator
+        public static string CommandAnchor(CommandBase cmd, string subCmd)
+        {
+            return CommandAnchor(cmd) + "-" + subCmd;
+        }
+
+        private static Document allHelpIndicators;
+        private static Document AllHelpIndicators
         {
             get
             {
-                if (fullHelpIndicator == null)
+                if (allHelpIndicators == null)
                 {
                     var d = new Document();
-                    d.Text(" (");
                     var helpIndicators = ArgumentParser.HelpIndicators;
                     for (int i = 0; i < helpIndicators.Length; i++)
                     {
-                        if (i > 0) d.Text(" | ");
+                        if (i > 0) d.Text(", ");
                         d.Keyword(helpIndicators[i]);
                     }
-                    d.Text(")");
-                    fullHelpIndicator = d;
+                    allHelpIndicators = d;
                 }
-                return fullHelpIndicator;
+                return allHelpIndicators;
             }
         }
 
-        public static void WriteHelp(DocumentWriter w, CommandBase cmd)
+        public static void WriteHelp(DocumentWriter w, CommandBase cmd,
+            bool withHelpSection = true, bool withCommandLinks = false)
         {
             var parser = cmd.ArgumentParser;
             w.Append(parser.Description);
-            WriteUsage(w, cmd);
-            WriteHelpUsage(w, cmd);
+            WriteUsage(w, cmd, withHelp: !withHelpSection);
+            if (withHelpSection) WriteHelpUsage(w, cmd);
             WriteFlags(w, cmd);
             WriteOptions(w, cmd);
             WritePositionals(w, cmd);
-            WriteCommands(w, cmd);
+            WriteCommands(w, cmd, withCommandLinks);
         }
 
-        private static void WriteUsage(DocumentWriter w, CommandBase cmd)
+        private static void WriteUsage(DocumentWriter w, CommandBase cmd,
+            bool withHelp = false)
         {
             w.Headline2(CommandAnchor(cmd) + "_usage", "Usage");
 
             w.Begin(BlockType.List);
+            if (withHelp)
+            {
+                w.Begin(BlockType.ListItem)
+                    .Append(SlimCommandChain, cmd).Text(" ")
+                    .Keyword(ArgumentParser.MainHelpIndicator);
+                w.End(BlockType.ListItem);
+            }
             w.ListItem(FullCommandChain, cmd);
             if (HasCommands(cmd.ArgumentParser))
             {
-                w.Begin(BlockType.ListItem);
-                w.Append(FullCommandChain, cmd);
-                w.Text(" ").Variable("command").Text(" ...");
+                w.Begin(BlockType.ListItem)
+                    .Append(FullCommandChain, cmd)
+                    .Text(" ").Variable("command").Text(" ...");
                 w.End(BlockType.ListItem);
             }
             w.End(BlockType.List);
@@ -189,18 +201,22 @@ namespace Mastersign.CliTools
         private static void WriteHelpUsage(DocumentWriter w, CommandBase cmd)
         {
             w.Headline2(CommandAnchor(cmd) + "_help", "Help");
-
+            w.Begin(BlockType.Paragraph)
+                .Text("Showing the help can be triggered by one of the following flags: ")
+                .Append(AllHelpIndicators)
+                .Text(".");
+            w.End(BlockType.Paragraph);
             w.Begin(BlockType.List);
-            w.Begin(BlockType.ListItem);
-            w.Append(SlimCommandChain, cmd);
-            w.Append(FullHelpIndicator);
+            w.Begin(BlockType.ListItem)
+                .Append(SlimCommandChain, cmd).Text(" ")
+                .Keyword(ArgumentParser.MainHelpIndicator);
             w.End(BlockType.ListItem);
             if (HasCommands(cmd.ArgumentParser))
             {
-                w.Begin(BlockType.ListItem);
-                w.Append(SlimCommandChain, cmd)
-                    .Text(" ").Variable("command")
-                    .Append(FullHelpIndicator);
+                w.Begin(BlockType.ListItem)
+                    .Append(SlimCommandChain, cmd)
+                    .Text(" ").Variable("command").Text(" ")
+                    .Keyword(ArgumentParser.MainHelpIndicator);
                 w.End(BlockType.ListItem);
             }
             w.End(BlockType.List);
@@ -305,7 +321,7 @@ namespace Mastersign.CliTools
             }
         }
 
-        private static void WriteCommands(DocumentWriter w, CommandBase cmd)
+        private static void WriteCommands(DocumentWriter w, CommandBase cmd, bool withLinks = false)
         {
             var commands = cmd.ArgumentParser.GetCommands();
             if (commands.Length > 0)
@@ -315,7 +331,20 @@ namespace Mastersign.CliTools
                 foreach (var cmdArg in commands)
                 {
                     w.Begin(BlockType.Definition);
-                    w.DefinitionTopic(FormatCommand, cmdArg);
+                    w.Begin(BlockType.DefinitionTopic);
+                    if (withLinks)
+                    {
+                        w.Begin(BlockType.Link);
+                        w.LinkTarget("#" + CommandAnchor(cmd, cmdArg.Name));
+                        w.Begin(BlockType.LinkContent);
+                    }
+                    w.Append(FormatCommand, cmdArg);
+                    if (withLinks)
+                    {
+                        w.End(BlockType.LinkContent);
+                        w.End(BlockType.Link);
+                    }
+                    w.End(BlockType.DefinitionTopic);
                     w.Begin(BlockType.DefinitionContent);
                     if (!cmdArg.Description.IsEmpty)
                     {
