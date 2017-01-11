@@ -9,13 +9,13 @@ weight = 7
 
 There are currently the following types of apps:
 
-* Typ `meta`: app groups or apps with a fully customized setup process
-* Typ `default`: Windows executables from a downloaded file, archive, or setup
-* Typ `node-package`: Node.js packages, installable with NPM
-* Typ `python2-package`: Python packages for Python 2 from PyPI, installable with PIP
-* Typ `python3-package`: Python packages for Python 3 from PyPI, installable with PIP
-* Typ `ruby-package`: Ruby packages, installable with Gem
-* Typ `nuget-package`: NuGet packages, installable with NuGet
+* Typ [`meta`](#meta): app groups or apps with a fully customized setup process
+* Typ [`default`](#default): Windows executables from a downloaded file, archive, or setup
+* Typ [`node-package`](#node-package): Node.js packages, installable with NPM
+* Typ [`python2-package`](#python-package): Python packages for Python 2 from PyPI, installable with PIP
+* Typ [`python3-package`](#python-package): Python packages for Python 3 from PyPI, installable with PIP
+* Typ [`ruby-package`](#ruby-package): Ruby packages, installable with Gem
+* Typ [`nuget-package`](#nuget-package): NuGet packages, installable with NuGet
 
 ## Meta App {#meta}
 An app is a _Meta App_ if its [`Typ`][] is set to `meta`.
