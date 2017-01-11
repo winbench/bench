@@ -320,7 +320,7 @@ namespace Mastersign.Docs
                     break;
                 case InlineType.Code:
                 case InlineType.Keyword:
-                    W(" `{0}`", Escape(text));
+                    W(" `{0}`", text);
                     break;
                 case InlineType.Variable:
                     W(" _&lt;{0}&gt;_", Escape(text));
