@@ -2,7 +2,7 @@
 date = "2017-01-02T16:30:00+02:00"
 description = "The layout of the folders and files in the Bench environment"
 title = "File Structure"
-weight = 4
+weight = 3
 +++
 
 The file structure of Bench is divided in two groups, the core and the extended file structure.
