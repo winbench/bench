@@ -41,6 +41,8 @@ namespace Mastersign.Bench.Cli.Commands
             var commandLoadAppLibs = new CommandArgument(loadAppLibsCommand.Name, 'l');
             commandLoadAppLibs.Description
                 .Text("Load the latest app libraries.");
+            commandLoadAppLibs.SyntaxInfo
+                .Append(HelpFormatter.CommandSyntax, loadAppLibsCommand);
 
             var commandSetup = new CommandArgument(autoSetupCommand.Name, 's');
             commandSetup.Description
