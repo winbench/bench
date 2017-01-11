@@ -20,7 +20,9 @@ namespace Mastersign.Bench.Cli.Commands
         protected override void InitializeArgumentParser(ArgumentParser parser)
         {
             parser.Description
-                .Text("Displays the full help for all commands.");
+                .Begin(BlockType.Paragraph)
+                .Text("The ").Keyword(Name).Text(" command displays the full help for all commands.")
+                .End(BlockType.Paragraph);
 
             var flagNoTitle = new FlagArgument(FLAG_NO_TITLE, 't');
             flagNoTitle.Description
