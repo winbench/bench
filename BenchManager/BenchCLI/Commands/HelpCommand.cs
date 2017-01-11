@@ -72,7 +72,7 @@ namespace Mastersign.Bench.Cli.Commands
             {
                 try
                 {
-                    s = File.Open(targetFile, Append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.None);
+                    s = File.Open(targetFile, Append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.Read);
                 }
                 catch (IOException exc)
                 {
