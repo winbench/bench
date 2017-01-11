@@ -817,5 +817,10 @@ namespace Mastersign.Bench.Dashboard
             core.BusyChanged -= CoreBusyChangedHandler;
             core.ActionStateChanged -= CoreActionStateChangedHandler;
         }
+
+        private void CloseHandler(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

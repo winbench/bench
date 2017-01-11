@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupForm));
             this.tsSeparatorDownloads = new System.Windows.Forms.ToolStripSeparator();
             this.splitterBottom = new System.Windows.Forms.Splitter();
@@ -80,6 +80,7 @@
             this.tsmSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAuto = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdateEnvironment = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdateAppLibs = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdateBench = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeBench = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInstallAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,7 +102,8 @@
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiUpdateAppLibs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiClose = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -112,26 +114,6 @@
             this.ctxmAppActions.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
             // 
             // tsSeparatorDownloads
             // 
@@ -586,7 +568,9 @@
             this.tsmiCleanUpObsoleteResources,
             this.tsmiDownloadAllResources,
             this.tsmiDownloadAllAppResources,
-            this.tsmiDeleteAllResources});
+            this.tsmiDeleteAllResources,
+            this.toolStripSeparator5,
+            this.tsmiClose});
             this.tsmSetup.Name = "tsmSetup";
             this.tsmSetup.Size = new System.Drawing.Size(49, 20);
             this.tsmSetup.Text = "&Setup";
@@ -597,6 +581,8 @@
             this.tsmiAuto.Name = "tsmiAuto";
             this.tsmiAuto.Size = new System.Drawing.Size(237, 22);
             this.tsmiAuto.Text = "&Automatic Setup";
+            this.tsmiAuto.ToolTipText = "Uninstalls incactive apps, downloades missing resources, installs active but not " +
+    "installed apps.";
             this.tsmiAuto.Click += new System.EventHandler(this.AutoHandler);
             // 
             // tsmiUpdateEnvironment
@@ -605,7 +591,22 @@
             this.tsmiUpdateEnvironment.Name = "tsmiUpdateEnvironment";
             this.tsmiUpdateEnvironment.Size = new System.Drawing.Size(237, 22);
             this.tsmiUpdateEnvironment.Text = "Update &Environment";
+            this.tsmiUpdateEnvironment.ToolTipText = "Updates the Bench environment file(s) and launchers.";
             this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironmentHandler);
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
+            // 
+            // tsmiUpdateAppLibs
+            // 
+            this.tsmiUpdateAppLibs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
+            this.tsmiUpdateAppLibs.Name = "tsmiUpdateAppLibs";
+            this.tsmiUpdateAppLibs.Size = new System.Drawing.Size(237, 22);
+            this.tsmiUpdateAppLibs.Text = "Update App &Libraries";
+            this.tsmiUpdateAppLibs.ToolTipText = "Clears the app library cache and re-loads all app libraries.";
+            this.tsmiUpdateAppLibs.Click += new System.EventHandler(this.UpdateAppLibsHandler);
             // 
             // tsmiUpdateBench
             // 
@@ -613,6 +614,7 @@
             this.tsmiUpdateBench.Name = "tsmiUpdateBench";
             this.tsmiUpdateBench.Size = new System.Drawing.Size(237, 22);
             this.tsmiUpdateBench.Text = "&Update App Libraries and Apps";
+            this.tsmiUpdateBench.ToolTipText = "Updates the libraries and upgrades all upgradable apps.";
             this.tsmiUpdateBench.Click += new System.EventHandler(this.UpdateBenchHandler);
             // 
             // tsmiUpgradeBench
@@ -621,8 +623,13 @@
             this.tsmiUpgradeBench.Name = "tsmiUpgradeBench";
             this.tsmiUpgradeBench.Size = new System.Drawing.Size(237, 22);
             this.tsmiUpgradeBench.Text = "Upgrade &Bench";
-            this.tsmiUpgradeBench.ToolTipText = "Update the Bench system.";
+            this.tsmiUpgradeBench.ToolTipText = "Upgrades the Bench system.";
             this.tsmiUpgradeBench.Click += new System.EventHandler(this.UpgradeBenchSystemHandler);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
             // 
             // tsmiInstallAll
             // 
@@ -630,6 +637,7 @@
             this.tsmiInstallAll.Name = "tsmiInstallAll";
             this.tsmiInstallAll.Size = new System.Drawing.Size(237, 22);
             this.tsmiInstallAll.Text = "&Install Apps";
+            this.tsmiInstallAll.ToolTipText = "Installes all active but not installed apps.";
             this.tsmiInstallAll.Click += new System.EventHandler(this.InstallAllHandler);
             // 
             // tsmiReinstallAll
@@ -638,6 +646,7 @@
             this.tsmiReinstallAll.Name = "tsmiReinstallAll";
             this.tsmiReinstallAll.Size = new System.Drawing.Size(237, 22);
             this.tsmiReinstallAll.Text = "&Reinstall Apps";
+            this.tsmiReinstallAll.ToolTipText = "Uninstalles all installed apps and reinstalls all active apps.";
             this.tsmiReinstallAll.Click += new System.EventHandler(this.ReinstallAllHandler);
             // 
             // tsmiUpgradeAll
@@ -646,6 +655,7 @@
             this.tsmiUpgradeAll.Name = "tsmiUpgradeAll";
             this.tsmiUpgradeAll.Size = new System.Drawing.Size(237, 22);
             this.tsmiUpgradeAll.Text = "Up&grade Apps";
+            this.tsmiUpgradeAll.ToolTipText = "Upgrades all upgradable apps.";
             this.tsmiUpgradeAll.Click += new System.EventHandler(this.UpgradeAllHandler);
             // 
             // tsmiUninstallAll
@@ -654,7 +664,13 @@
             this.tsmiUninstallAll.Name = "tsmiUninstallAll";
             this.tsmiUninstallAll.Size = new System.Drawing.Size(237, 22);
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
+            this.tsmiUninstallAll.ToolTipText = "Uninstalls all apps.";
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
             // 
             // tsmiCleanUpObsoleteResources
             // 
@@ -662,6 +678,7 @@
             this.tsmiCleanUpObsoleteResources.Name = "tsmiCleanUpObsoleteResources";
             this.tsmiCleanUpObsoleteResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiCleanUpObsoleteResources.Text = "&Clean-Up Obsolete Resources";
+            this.tsmiCleanUpObsoleteResources.ToolTipText = "Deletes app resources, which are no longer referenced by any app.";
             this.tsmiCleanUpObsoleteResources.Click += new System.EventHandler(this.CleanUpResourcesHandler);
             // 
             // tsmiDownloadAllResources
@@ -670,6 +687,7 @@
             this.tsmiDownloadAllResources.Name = "tsmiDownloadAllResources";
             this.tsmiDownloadAllResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiDownloadAllResources.Text = "Do&wnload Active Resources";
+            this.tsmiDownloadAllResources.ToolTipText = "Download missing app resources of all active apps.";
             this.tsmiDownloadAllResources.Click += new System.EventHandler(this.DownloadActiveHandler);
             // 
             // tsmiDownloadAllAppResources
@@ -678,6 +696,7 @@
             this.tsmiDownloadAllAppResources.Name = "tsmiDownloadAllAppResources";
             this.tsmiDownloadAllAppResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiDownloadAllAppResources.Text = "D&ownload All Resources";
+            this.tsmiDownloadAllAppResources.ToolTipText = "Downloads missing app resources of all apps.";
             this.tsmiDownloadAllAppResources.Click += new System.EventHandler(this.DownloadAllHandler);
             // 
             // tsmiDeleteAllResources
@@ -686,6 +705,7 @@
             this.tsmiDeleteAllResources.Name = "tsmiDeleteAllResources";
             this.tsmiDeleteAllResources.Size = new System.Drawing.Size(237, 22);
             this.tsmiDeleteAllResources.Text = "&Delete All Resources";
+            this.tsmiDeleteAllResources.ToolTipText = "Clears the app resource cache.";
             this.tsmiDeleteAllResources.Click += new System.EventHandler(this.DeleteAllResourcesHandler);
             // 
             // tsmEdit
@@ -764,6 +784,11 @@
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
+            // 
             // tsmiAlwaysShowDownloads
             // 
             this.tsmiAlwaysShowDownloads.CheckOnClick = true;
@@ -780,13 +805,17 @@
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
             // 
-            // tsmiUpdateAppLibs
+            // toolStripSeparator5
             // 
-            this.tsmiUpdateAppLibs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
-            this.tsmiUpdateAppLibs.Name = "tsmiUpdateAppLibs";
-            this.tsmiUpdateAppLibs.Size = new System.Drawing.Size(237, 22);
-            this.tsmiUpdateAppLibs.Text = "Update App &Libraries";
-            this.tsmiUpdateAppLibs.Click += new System.EventHandler(this.UpdateAppLibsHandler);
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(234, 6);
+            // 
+            // tsmiClose
+            // 
+            this.tsmiClose.Name = "tsmiClose";
+            this.tsmiClose.Size = new System.Drawing.Size(237, 22);
+            this.tsmiClose.Text = "Clo&se";
+            this.tsmiClose.Click += new System.EventHandler(this.CloseHandler);
             // 
             // SetupForm
             // 
@@ -887,5 +916,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdateBench;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdateAppLibs;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem tsmiClose;
     }
 }
