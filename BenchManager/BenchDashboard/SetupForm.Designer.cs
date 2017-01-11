@@ -101,6 +101,7 @@
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdateAppLibs = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -573,6 +574,7 @@
             this.tsmiAuto,
             this.tsmiUpdateEnvironment,
             toolStripSeparator4,
+            this.tsmiUpdateAppLibs,
             this.tsmiUpdateBench,
             this.tsmiUpgradeBench,
             toolStripSeparator2,
@@ -611,7 +613,7 @@
             this.tsmiUpdateBench.Name = "tsmiUpdateBench";
             this.tsmiUpdateBench.Size = new System.Drawing.Size(237, 22);
             this.tsmiUpdateBench.Text = "&Update App Libraries and Apps";
-            this.tsmiUpdateBench.Click += new System.EventHandler(this.UpdateAppsHandler);
+            this.tsmiUpdateBench.Click += new System.EventHandler(this.UpdateBenchHandler);
             // 
             // tsmiUpgradeBench
             // 
@@ -675,7 +677,7 @@
             this.tsmiDownloadAllAppResources.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.downloadall_16;
             this.tsmiDownloadAllAppResources.Name = "tsmiDownloadAllAppResources";
             this.tsmiDownloadAllAppResources.Size = new System.Drawing.Size(237, 22);
-            this.tsmiDownloadAllAppResources.Text = "Down&load All Resources";
+            this.tsmiDownloadAllAppResources.Text = "D&ownload All Resources";
             this.tsmiDownloadAllAppResources.Click += new System.EventHandler(this.DownloadAllHandler);
             // 
             // tsmiDeleteAllResources
@@ -778,6 +780,14 @@
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
             // 
+            // tsmiUpdateAppLibs
+            // 
+            this.tsmiUpdateAppLibs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
+            this.tsmiUpdateAppLibs.Name = "tsmiUpdateAppLibs";
+            this.tsmiUpdateAppLibs.Size = new System.Drawing.Size(237, 22);
+            this.tsmiUpdateAppLibs.Text = "Update App &Libraries";
+            this.tsmiUpdateAppLibs.Click += new System.EventHandler(this.UpdateAppLibsHandler);
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -876,5 +886,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTyp;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdateBench;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdateAppLibs;
     }
 }

@@ -546,7 +546,13 @@ namespace Mastersign.Bench.Dashboard
             await core.UpdateEnvironmentAsync(TaskInfoHandler);
         }
 
-        private async void UpdateAppsHandler(object sender, EventArgs e)
+        private async void UpdateAppLibsHandler(object sender, EventArgs e)
+        {
+            AnnounceTask("Update App Libraries");
+            await core.UpdateAppLibrariesAsync(TaskInfoHandler);
+        }
+
+        private async void UpdateBenchHandler(object sender, EventArgs e)
         {
             AnnounceTask("Update App Libraries and Apps");
             await core.UpdateAppsAsync(TaskInfoHandler);
