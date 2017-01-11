@@ -67,13 +67,24 @@ namespace Mastersign.Bench.Cli.Commands
         protected override bool ExecuteCommand(string[] args)
         {
             var targetFile = TargetFile;
-            using (var s = targetFile != null
-                ? File.Open(targetFile, Append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.None)
-                : Console.OpenStandardOutput())
+            Stream s = null;
+            if (targetFile != null)
+            {
+                try
+                {
+                    s = File.Open(targetFile, Append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.None);
+                }
+                catch (IOException exc)
+                {
+                    WriteError("Failed to open the target file: " + exc.Message);
+                    return false;
+                }
+            }
             using (var w = DocumentWriterFactory.Create(HelpFormat, s))
             {
                 RootCommand.PrintFullHelp(w, !NoTitle, !NoVersion, !NoIndex);
             }
+            if (s != null) s.Close();
             return true;
         }
     }
