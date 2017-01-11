@@ -4,7 +4,7 @@ description = "What apps can I use with Bench?"
 title = "Apps"
 icon = "database"
 follow_up_url = "/apps/"
-weight = 4
+weight = 5
 +++
 
 Bench comes with libraries, which contain descriptions of Windows applications.

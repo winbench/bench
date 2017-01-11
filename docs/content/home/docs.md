@@ -4,7 +4,7 @@ description = "Where do I find more info?"
 title = "Documentation"
 icon = "question-circle"
 follow_up_url = "/overview/"
-weight = 5
+weight = 4
 +++
 
 Checkout the documentation of Bench.
