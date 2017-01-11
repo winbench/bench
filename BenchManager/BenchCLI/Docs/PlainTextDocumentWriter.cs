@@ -309,6 +309,8 @@ namespace Mastersign.Docs
                     break;
                 case BlockType.Headline1:
                     text = EndBuffering();
+                    BR();
+                    BR();
                     C(ConsoleColor.Yellow);
                     W(text);
                     BR();
@@ -319,6 +321,8 @@ namespace Mastersign.Docs
                     break;
                 case BlockType.Headline2:
                     text = EndBuffering();
+                    BR();
+                    BR();
                     C(ConsoleColor.Yellow);
                     W(text);
                     W(":");

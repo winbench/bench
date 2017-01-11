@@ -157,10 +157,14 @@ namespace Mastersign.Docs
                     break;
                 // HEADLINE
                 case BlockType.Headline1:
+                    BR();
+                    BR();
                     W("## ");
                     anchor = null;
                     break;
                 case BlockType.Headline2:
+                    BR();
+                    BR();
                     W("### ");
                     anchor = null;
                     break;
@@ -174,6 +178,7 @@ namespace Mastersign.Docs
                 // LIST
                 case BlockType.List:
                     BR();
+                    if (listDepth == 0) BR();
                     listDepth++;
                     break;
                 case BlockType.ListItem:
@@ -238,7 +243,6 @@ namespace Mastersign.Docs
                 case BlockType.Headline2:
                     if (anchor != null) W(" {{#" + anchor + "}}");
                     BR();
-                    BR();
                     break;
                 // LINK
                 case BlockType.LinkContent:
@@ -278,8 +282,9 @@ namespace Mastersign.Docs
                     break;
                 case BlockType.DefinitionTopic:
                     text = EndBuffering();
-                    W("#### {0}", text);
                     BR();
+                    BR();
+                    W("#### {0}", text);
                     BR();
                     break;
                 case BlockType.DefinitionContent:
