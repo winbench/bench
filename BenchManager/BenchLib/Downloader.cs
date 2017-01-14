@@ -175,11 +175,11 @@ namespace Mastersign.Bench
                     notify = true;
                 }
             }
-            availableTasks.Release();
             if (notify)
             {
                 OnIsWorkingChanged();
             }
+            availableTasks.Release();
         }
 
         private void Worker(int no)
