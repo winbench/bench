@@ -35,6 +35,7 @@ Add a link to the GitHub diff like
     + `UpdateUrlTemplate`
     + `BootstrapUrlTemplate`
     + `AutoUpdateCheck`
+    + `KnownLicenses`
 - Support for multiple app libraries
   ([#90](https://github.com/mastersign/bench/issues/90))
 - Namespaces for app IDs
@@ -46,8 +47,15 @@ Add a link to the GitHub diff like
     + `AppLibIndexFileName`
     + `AppLibCustomScriptDirName`
     + `AppLibResourceDirName`
+    + `License`
+    + `LicenseUrl`
 - _Update App Libraries and Apps_ entry in the _Setup_ menu of the setup dialog of _BenchDashboard_
 - Markdown info text in the app info dialog
+- License link to the app info dialog
+- Additional columns to the setup dialog
+    + Category
+    + Library
+    + License
 
 ### Changed
 - Upgrade process is using the _Bench CLI_ now
