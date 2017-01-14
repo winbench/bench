@@ -328,7 +328,7 @@ namespace Mastersign.Bench.Dashboard
         {
             downloadList.Downloader = core.Downloader;
             core.Downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
-            IsDownloadListVisible = false;
+            UpdateDownloadListVisibility();
         }
 
         private void InitializeAppList()
