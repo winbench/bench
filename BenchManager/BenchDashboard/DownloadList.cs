@@ -11,13 +11,14 @@ namespace Mastersign.Bench.Dashboard
 {
     public partial class DownloadList : UserControl
     {
+        private readonly Dictionary<DownloadTask, DownloadControl> downloadControls
+            = new Dictionary<DownloadTask, DownloadControl>();
+
         public DownloadList()
         {
             InitializeComponent();
         }
 
-        private readonly Dictionary<DownloadTask, DownloadControl> downloadControls
-            = new Dictionary<DownloadTask, DownloadControl>();
 
         private Downloader downloader;
 
@@ -28,19 +29,39 @@ namespace Mastersign.Bench.Dashboard
             {
                 if (downloader != null)
                 {
-                    downloader.DownloadStarted -= DownloadStartedHandler;
-                    downloader.DownloadProgress -= DownloadProgressHandler;
-                    downloader.DownloadEnded -= DownloadEndedHandler;
-                    downloadControls.Clear();
-                    Controls.Clear();
+                    BindDownloader();
                 }
                 downloader = value;
                 if (downloader != null)
                 {
-                    downloader.DownloadStarted += DownloadStartedHandler;
-                    downloader.DownloadProgress += DownloadProgressHandler;
-                    downloader.DownloadEnded += DownloadEndedHandler;
+                    UnbindDownloader();
                 }
+            }
+        }
+
+        private void BindDownloader()
+        {
+            downloader.IsWorkingChanged -= DownloaderIsWorkingChangedHandler;
+            downloader.DownloadStarted -= DownloadStartedHandler;
+            downloader.DownloadProgress -= DownloadProgressHandler;
+            downloader.DownloadEnded -= DownloadEndedHandler;
+            ClearDownloadTasks();
+            // Potential inconsitency ... add already running download tasks
+        }
+
+        private void UnbindDownloader()
+        {
+            downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
+            downloader.DownloadStarted += DownloadStartedHandler;
+            downloader.DownloadProgress += DownloadProgressHandler;
+            downloader.DownloadEnded += DownloadEndedHandler;
+        }
+
+        private void DownloaderIsWorkingChangedHandler(object sender, EventArgs e)
+        {
+            if (downloader.IsWorking)
+            {
+                ClearDownloadTasks();
             }
         }
 
@@ -51,15 +72,7 @@ namespace Mastersign.Bench.Dashboard
                 Invoke((EventHandler<DownloadEventArgs>)DownloadStartedHandler, sender, e);
                 return;
             }
-            var control = new DownloadControl();
-            control.Visible = false;
-            control.Left = ClientRectangle.Left;
-            control.Width = ClientSize.Width;
-            control.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-            control.FileName = Path.GetFileName(e.Task.TargetFile);
-            downloadControls.Add(e.Task, control);
-            Controls.Add(control);
-            UpdateLayout();
+            AddDownloadTask(e.Task);
         }
 
         private void DownloadProgressHandler(object sender, DownloadProgressEventArgs e)
@@ -87,14 +100,38 @@ namespace Mastersign.Bench.Dashboard
             }
             if (e.Task.Success)
             {
-                Controls.Remove(downloadControls[e.Task]);
-                downloadControls.Remove(e.Task);
-                UpdateLayout();
+                RemoveDownloadTask(e.Task);
             }
             else
             {
                 downloadControls[e.Task].ErrorMessage = e.Task.ErrorMessage;
             }
+        }
+
+        private void AddDownloadTask(DownloadTask t)
+        {
+            var control = new DownloadControl();
+            control.Visible = false;
+            control.Left = ClientRectangle.Left;
+            control.Width = ClientSize.Width;
+            control.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
+            control.FileName = Path.GetFileName(t.TargetFile);
+            downloadControls.Add(t, control);
+            Controls.Add(control);
+            UpdateLayout();
+        }
+
+        private void RemoveDownloadTask(DownloadTask t)
+        {
+            Controls.Remove(downloadControls[t]);
+            downloadControls.Remove(t);
+            UpdateLayout();
+        }
+
+        private void ClearDownloadTasks()
+        {
+            downloadControls.Clear();
+            Controls.Clear();
         }
 
         private void UpdateLayout()
