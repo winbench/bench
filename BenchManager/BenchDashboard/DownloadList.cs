@@ -17,8 +17,13 @@ namespace Mastersign.Bench.Dashboard
         public DownloadList()
         {
             InitializeComponent();
+            Disposed += DisposedHandler;
         }
 
+        private void DisposedHandler(object sender, EventArgs e)
+        {
+            Downloader = null;
+        }
 
         private Downloader downloader;
 
