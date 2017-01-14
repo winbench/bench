@@ -759,6 +759,16 @@ namespace Mastersign.Bench.Dashboard
                     core.SetAppDeactivated(appWrapper.ID, !appWrapper.App.IsDeactivated);
                 }
             }
+            if (col == colLicense)
+            {
+                var row = gridApps.Rows[e.RowIndex];
+                var appWrapper = row.DataBoundItem as AppWrapper;
+                var url = appWrapper.LicenseUrl;
+                if (url != null)
+                {
+                    System.Diagnostics.Process.Start(url.AbsoluteUri);
+                }
+            }
         }
 
         private void gridApps_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

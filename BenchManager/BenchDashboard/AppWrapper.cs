@@ -43,6 +43,10 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        public string License => app.License;
+
+        public Uri LicenseUrl => app.LicenseUrl;
+
         public string Launcher { get { return app.Launcher; } }
 
         public int Index { get { return no; } }
