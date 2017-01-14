@@ -385,6 +385,16 @@ and in custom scripts e.g. from [Git](/apps/Bench.Git).
 This property is used to set the environment variable `USER_EMAIL`
 and in custom scripts e.g. from [Git](/apps/Bench.Git).
 
+### KnownLicenses {#KnownLicenses}
+
+* Description: A dictionary with SPDX license identifiers associated with a URL.
+* Data Type: dictionary
+* Default: A selection from <https://spdx.org/licenses/>
+* Type: User/Site
+
+If the app property `License` is set to an SPDX identifier listed in this
+dictionary, the app property `LicenseUrl` defaults to the associated URL.
+
 ### AppVersionIndexDir {#AppVersionIndexDir}
 
 * Description: The directory to store the currently installed version numbers of the apps.

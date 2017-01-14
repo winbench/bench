@@ -224,6 +224,31 @@ namespace Mastersign.Bench
                   ?? new Dictionary<string, string>();
 
         /// <summary>
+        /// Gets the short name of the apps license.
+        /// </summary>
+        public string License => StringValue(PropertyKeys.AppLicense);
+
+        /// <summary>
+        /// Gets the absolute URL of the apps license document.
+        /// </summary>
+        public Uri LicenseUrl
+        {
+            get
+            {
+                Uri result;
+                var licenseUrl = StringValue(PropertyKeys.AppLicenseUrl);
+                if (!Uri.TryCreate(licenseUrl, UriKind.RelativeOrAbsolute, out result))
+                {
+                    return null;
+                }
+                if (!result.IsAbsoluteUri)
+                    return new Uri(new Uri(Dir), result);
+                else
+                    return result;
+            }
+        }
+
+        /// <summary>
         /// An array with app IDs which are necessary to be installed for this app to work.
         /// </summary>
         public string[] Dependencies
@@ -1295,6 +1320,8 @@ namespace Mastersign.Bench
                 PropertyKeys.AppWebsite,
                 PropertyKeys.AppDocs,
                 PropertyKeys.AppVersion,
+                PropertyKeys.AppLicense,
+                PropertyKeys.AppLicenseUrl,
                 PropertyKeys.AppIsActive,
                 PropertyKeys.AppIsRequired,
                 PropertyKeys.AppIsActivated,
@@ -1356,6 +1383,8 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppWebsite, this.Website));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDocs, this.Docs));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppVersion, this.Version));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLicense, this.License));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLicenseUrl, this.LicenseUrl?.AbsoluteUri));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsActive, this.IsActive));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsRequired, this.IsRequired));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsActivated, this.IsActivated));
@@ -1408,8 +1437,6 @@ namespace Mastersign.Bench
         }
 
         #endregion
-
-
 
         /// <summary>
         /// Returns a string, containing the apps typ and ID.

@@ -66,6 +66,26 @@ The meaning of the different possible values is explained in [App Types](/ref/ap
 This URL is used to create an entry in the documentation menu in the
 main window of the Bench Dashboard.
 
+## License {#License}
+
+* Description: A SPDX license identifier or `unknown` or `commercial`.
+* Data Type: string
+* Required: `false`
+* Default: `unknown`
+* App Types: all
+
+If this value is set to a SPDX identifier listed in the config property
+[`KnownLicenses`](/ref/config/#KnownLicenses),
+the [`LicenseUrl`](/ref/app-properties/#LicenseUrl) defaults to the associated URL.
+
+## LicenseUrl {#LicenseUrl}
+
+* Description: A URL or a relative path to a document with the license text.
+* Data Type: URL
+* Required: `false`
+* Default: empty or SPDX license URL
+* App Types: all
+
 ## Docs {#Docs}
 
 * Description: A dictionary with documentation URLs for this program

@@ -42,6 +42,15 @@ namespace Mastersign.Bench
                     return AppFacade.NameFromId(appId);
                 case PropertyKeys.AppTyp:
                     return AppTyps.Default;
+                case PropertyKeys.AppLicense:
+                    return "unknown";
+                case PropertyKeys.AppLicenseUrl:
+                    var knownUrls = AppIndex.GetGroupValue(null, PropertyKeys.KnownLicenses) as IDictionary<string, string>;
+                    if (knownUrls == null) return null;
+                    var license = AppIndex.GetGroupValue(appId, PropertyKeys.AppLicense) as string;
+                    if (string.IsNullOrEmpty(license)) return null;
+                    string knownUrl;
+                    return knownUrls.TryGetValue(license, out knownUrl) ? knownUrl : null;
                 case PropertyKeys.AppArchiveTyp:
                     return AppArchiveTyps.Auto;
                 case PropertyKeys.AppArchivePath:
@@ -133,6 +142,8 @@ namespace Mastersign.Bench
         {
             return name == PropertyKeys.AppTyp
                 || name == PropertyKeys.AppLabel
+                || name == PropertyKeys.AppLicense
+                || name == PropertyKeys.AppLicenseUrl
                 || name == PropertyKeys.AppArchiveTyp
                 || name == PropertyKeys.AppArchivePath
                 || name == PropertyKeys.AppPackageName

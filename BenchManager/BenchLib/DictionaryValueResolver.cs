@@ -26,6 +26,8 @@ namespace Mastersign.Bench
             {
                 switch (name)
                 {
+                    case PropertyKeys.KnownLicenses:
+                        return ParseKeyValuePairs(value);
                     case PropertyKeys.CustomEnvironment:
                         return ParseKeyValuePairs(value);
                     default:

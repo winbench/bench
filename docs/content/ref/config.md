@@ -77,6 +77,7 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [ParallelDownloads](#ParallelDownloads) | Site | integer | 4 |
 | [UserName](#UserName) | User/Site | string | user |
 | [UserEmail](#UserEmail) | User/Site | string | user@localhost |
+| [KnownLicenses](#KnownLicenses) | User/Site | dictionary | A selection from <https://spdx.org/licenses/> |
 | [AppVersionIndexDir](#AppVersionIndexDir) | User/Site | path | `$LibDir$\_versions` |
 | [DownloadDir](#DownloadDir) | User/Site | path | `cache` |
 | [AppAdornmentBaseDir](#AppAdornmentBaseDir) | User | path | `$LibDir$\_proxies` |
@@ -99,6 +100,7 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [QuickAccessCmd](#QuickAccessCmd) | User/Site | boolean | `true` |
 | [QuickAccessPowerShell](#QuickAccessPowerShell) | User/Site | boolean | `false` |
 | [QuickAccessBash](#QuickAccessBash) | User/Site | boolean | `false` |
+| [DashboardSetupAppListColumns](#DashboardSetupAppListColumns) | User/Site | string list | `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment` |
 | [EditorApp](#EditorApp) | User/Site | string | `VSCode` |
 
 ## System Properties
@@ -434,6 +436,16 @@ and in custom scripts e.g. from [Git](/apps/Bench.Git).
 This property is used to set the environment variable `USER_EMAIL`
 and in custom scripts e.g. from [Git](/apps/Bench.Git).
 
+### KnownLicenses {#KnownLicenses}
+
+* Description: A dictionary with SPDX license identifiers associated with a URL.
+* Data Type: dictionary
+* Default: A selection from <https://spdx.org/licenses/>
+* Type: User/Site
+
+If the app property `License` is set to an SPDX identifier listed in this
+dictionary, the app property `LicenseUrl` defaults to the associated URL.
+
 ### AppVersionIndexDir {#AppVersionIndexDir}
 
 * Description: The directory to store the currently installed version numbers of the apps.
@@ -596,6 +608,13 @@ and in custom scripts e.g. from [Git](/apps/Bench.Git).
 * Type: User/Site
 
 This switch only takes affect, if the [Git app](/apps/Bench.Git) is activated.
+
+### DashboardSetupAppListColumns {#DashboardSetupAppListColumns}
+
+* Description: A list with the columns to display in the setup dialog of the _BenchDashboard_.
+* Data Type: string list
+* Default: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
+* Type: User/Site
 
 ### EditorApp {#EditorApp}
 

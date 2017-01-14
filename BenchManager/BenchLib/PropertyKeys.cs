@@ -61,6 +61,7 @@ namespace Mastersign.Bench
         public const string AppLibIndexFileName = "AppLibIndexFileName";
         public const string AppLibCustomScriptDirName = "AppLibCustomScriptDirName";
         public const string AppLibResourceDirName = "AppLibResourceDirName";
+        public const string KnownLicenses = "KnownLicenses";
         public const string LogDir = "LogDir";
         public const string LogFile = "LogFile";
         public const string LogLevel = "LogLevel";
@@ -105,6 +106,8 @@ namespace Mastersign.Bench
         public const string AppInstalledVersion = "InstalledVersion";
         public const string AppWebsite = "Website";
         public const string AppDocs = "Docs";
+        public const string AppLicense = "License";
+        public const string AppLicenseUrl = "LicenseUrl";
         public const string AppDependencies = "Dependencies";
         public const string AppResponsibilities = "Responsibilities";
         public const string AppForce = "Force";
