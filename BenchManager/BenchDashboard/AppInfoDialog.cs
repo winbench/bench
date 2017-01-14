@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Mastersign.Bench.Dashboard
             gridResolved.DoubleBuffered(true);
             lblAppId.Text = app.Label;
             LoadProperties(config, app);
+            LoadLicense(app);
             LoadDocumentation(app);
         }
 
@@ -75,6 +77,12 @@ namespace Mastersign.Bench.Dashboard
             grid.Rows.Add(name, value);
         }
 
+        private void LoadLicense(AppFacade app)
+        {
+            llblLicense.Tag = app.LicenseUrl;
+            llblLicense.Visible = llblLicense.Tag != null;
+        }
+
         private void LoadDocumentation(AppFacade app)
         {
             var docText = app.MarkdownDocumentation;
@@ -85,6 +93,15 @@ namespace Mastersign.Bench.Dashboard
             else
             {
                 tabControl.TabPages.Remove(tabDocumentation);
+            }
+        }
+
+        private void LicenseHandler(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var url = ((Control)sender).Tag as Uri;
+            if (url != null)
+            {
+                Process.Start(url.AbsoluteUri);
             }
         }
     }
