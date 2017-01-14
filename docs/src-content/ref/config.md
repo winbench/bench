@@ -548,6 +548,13 @@ and in custom scripts e.g. from [Git](/apps/Bench.Git).
 
 This switch only takes affect, if the [Git app](/apps/Bench.Git) is activated.
 
+### DashboardSetupAppListColumns {#DashboardSetupAppListColumns}
+
+* Description: A list with the columns to display in the setup dialog of the _BenchDashboard_.
+* Data Type: string list
+* Default: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
+* Type: User/Site
+
 ### EditorApp {#EditorApp}
 
 * Description: The ID of an app which is used as the default text editor.
