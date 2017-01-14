@@ -124,50 +124,30 @@ namespace Mastersign.Bench
         private void OnDownloadStarted(DownloadTask task)
         {
             Debug.WriteLine("Raising event DownloadStarted for " + task.Id + ", Url=" + task.Url);
-            var handler = DownloadStarted;
-            if (handler != null)
-            {
-                handler(this, new DownloadEventArgs(task));
-            }
+            DownloadStarted?.Invoke(this, new DownloadEventArgs(task));
         }
 
         private void OnDownloadProgress(DownloadTask task, long bytesDownloaded, long totalBytes, int percentage)
         {
-            var handler = DownloadProgress;
-            if (handler != null)
-            {
-                handler(this, new DownloadProgressEventArgs(task, bytesDownloaded, totalBytes, percentage));
-            }
+            DownloadProgress?.Invoke(this, new DownloadProgressEventArgs(task, bytesDownloaded, totalBytes, percentage));
         }
 
         private void OnDownloadEnded(DownloadTask task)
         {
             Debug.WriteLine("Raising event DownloadEnded for " + task.Id + ", Error=" + task.ErrorMessage ?? "None");
-            var handler = DownloadEnded;
-            if (handler != null)
-            {
-                handler(this, new DownloadEventArgs(task));
-            }
+            DownloadEnded?.Invoke(this, new DownloadEventArgs(task));
         }
 
         private void OnIsWorkingChanged()
         {
             Debug.WriteLine("Raising event IsWorkingChanged");
-            var handler = IsWorkingChanged;
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-            }
+            IsWorkingChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnWorkFinished()
         {
             Debug.WriteLine("Raising event WorkFinished");
-            var handler = WorkFinished;
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-            }
+            WorkFinished?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
