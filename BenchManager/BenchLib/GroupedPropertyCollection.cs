@@ -703,47 +703,6 @@ namespace Mastersign.Bench
             return groupKeys.TryGetValue(group, out keys) ? keys : (IEnumerable<string>)new string[0];
         }
 
-        private string FormatValue(string group, string name, object val, bool resolve = true)
-        {
-            if (resolve)
-            {
-                val = ResolveGroupValue(group, name, val);
-            }
-            if (val == null)
-            {
-                return "null";
-            }
-            if (val is bool)
-            {
-                return (bool)val ? "`true`" : "`false`";
-            }
-            if (val is string)
-            {
-                return string.Format("`{0}`", val);
-            }
-            if (val.GetType().IsArray)
-            {
-                var a = (Array)val;
-                var f = new string[a.Length];
-                for (int i = 0; i < a.Length; i++)
-                {
-                    f[i] = FormatValue(group, name, a.GetValue(i), false);
-                }
-                return "List( " + string.Join(", ", f) + " )";
-            }
-            if (val is IDictionary)
-            {
-                var d = (IDictionary)val;
-                var l = new List<string>(d.Count);
-                foreach (var k in d.Keys)
-                {
-                    l.Add(string.Format("`{0}: {1}`", k, d[k]));
-                }
-                return "Dict( " + string.Join(", ", l.ToArray()) + " )";
-            }
-            return "Object( " + val.ToString() + " )";
-        }
-
         /// <summary>
         /// Returns a string represenation of this property collection.
         /// </summary>
@@ -788,6 +747,47 @@ namespace Mastersign.Bench
                 }
             }
             return sb.ToString().TrimStart();
+        }
+
+        private string FormatValue(string group, string name, object val, bool resolve = true)
+        {
+            if (resolve)
+            {
+                val = ResolveGroupValue(group, name, val);
+            }
+            if (val == null)
+            {
+                return "null";
+            }
+            if (val is bool)
+            {
+                return (bool)val ? "`true`" : "`false`";
+            }
+            if (val is string)
+            {
+                return string.Format("`{0}`", val);
+            }
+            if (val.GetType().IsArray)
+            {
+                var a = (Array)val;
+                var f = new string[a.Length];
+                for (int i = 0; i < a.Length; i++)
+                {
+                    f[i] = FormatValue(group, name, a.GetValue(i), false);
+                }
+                return "List( " + string.Join(", ", f) + " )";
+            }
+            if (val is IDictionary)
+            {
+                var d = (IDictionary)val;
+                var l = new List<string>(d.Count);
+                foreach (var k in d.Keys)
+                {
+                    l.Add(string.Format("`{0}: {1}`", k, d[k]));
+                }
+                return "Dict( " + string.Join(", ", l.ToArray()) + " )";
+            }
+            return "Object( " + val.ToString() + " )";
         }
     }
 }
