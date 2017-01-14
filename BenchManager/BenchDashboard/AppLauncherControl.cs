@@ -16,6 +16,17 @@ namespace Mastersign.Bench.Dashboard
         public AppLauncherControl()
         {
             InitializeComponent();
+            VisibleChanged += VisibleChangedHandler;
+        }
+
+        private void VisibleChangedHandler(object sender, EventArgs e)
+        {
+            if (!Visible) return;
+            if (listView.Items.Count > 0 && icons32.Images.Count == 0)
+            {
+                Application.DoEvents();
+                LoadIconImages();
+            }
         }
 
         public Core Core { get; set; }
@@ -32,10 +43,20 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
-        private async void BindAppIndex()
+        private void BindAppIndex()
         {
             icons16.Images.Clear();
             icons32.Images.Clear();
+            listView.Items.Clear();
+            var items = from app in appIndex.ActiveApps
+                        where app.Launcher != null
+                        select AppItem(app);
+            listView.Items.AddRange(items.ToArray());
+            if (Visible) LoadIconImages();
+        }
+
+        private async void LoadIconImages()
+        {
             foreach (var app in appIndex.ActiveApps)
             {
                 if (app.Launcher != null)
@@ -45,11 +66,6 @@ namespace Mastersign.Bench.Dashboard
                     icons32.Images.Add(app.ID, icons.Item2);
                 }
             }
-            listView.Items.Clear();
-            var items = from app in appIndex.ActiveApps
-                        where app.Launcher != null
-                        select AppItem(app);
-            listView.Items.AddRange(items.ToArray());
         }
 
         private ListViewItem AppItem(AppFacade app)
