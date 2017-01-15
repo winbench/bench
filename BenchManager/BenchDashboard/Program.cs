@@ -80,7 +80,7 @@ namespace Mastersign.Bench.Dashboard
             var assemblyName = Assembly.GetExecutingAssembly().GetName();
             var codeBase = new Uri(assemblyName.CodeBase).LocalPath;
             var rootPath = Path.GetFullPath(Path.Combine(Path.Combine(Path.GetDirectoryName(codeBase), ".."), ".."));
-            return File.Exists(Path.Combine(rootPath, @"res\apps.md")) ? rootPath : null;
+            return BenchConfiguration.IsValidBenchRoot(rootPath) ? rootPath : null;
         }
 
         private static bool IsImmediateSetupRequested(string[] args)

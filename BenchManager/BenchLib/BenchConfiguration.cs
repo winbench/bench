@@ -56,6 +56,38 @@ namespace Mastersign.Bench
         public const string CONFIG_FILE = @"res\config.md";
 
         /// <summary>
+        /// The relative path of the PowerShell API library file.
+        /// </summary>
+        public const string MAIN_PS_LIB_FILE = @"auto\lib\bench.lib.ps1";
+
+        private static readonly string[] BENCH_CHECK_FILES = new[]
+        {
+            CONFIG_FILE,
+            MAIN_PS_LIB_FILE,
+        };
+
+        /// <summary>
+        /// Checks if the given path is a valid root path of a Bench environment.
+        /// </summary>
+        /// <param name="possibleBenchRootPath">The absolute path to a possible Bench environment.</param>
+        /// <returns><c>true</c> if the given path is a path to a valid Bench environment.</returns>
+        public static bool IsValidBenchRoot(string possibleBenchRootPath)
+        {
+            if (possibleBenchRootPath == null)
+                throw new ArgumentNullException(nameof(possibleBenchRootPath));
+            if (!Path.IsPathRooted(possibleBenchRootPath))
+                throw new ArgumentException("The given path is not absolute.");
+            if (!Directory.Exists(possibleBenchRootPath))
+                return false;
+            foreach (var path in BENCH_CHECK_FILES)
+            {
+                var absolutePath = Path.Combine(possibleBenchRootPath, path);
+                if (!File.Exists(absolutePath)) return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// The property group category, which contains app definitions of required apps.
         /// </summary>
         public const string DefaultAppCategory = "Required";
@@ -244,7 +276,7 @@ namespace Mastersign.Bench
         /// otherwise optional and non existing files are listed to.</param>
         /// <returns>A list with configuration file descriptors.</returns>
         public ConfigurationFile[] GetConfigurationFiles(
-            ConfigurationFileType type = ConfigurationFileType.All, 
+            ConfigurationFileType type = ConfigurationFileType.All,
             bool actuallyLoaded = false, bool mustExist = true)
         {
             if (actuallyLoaded) mustExist = true;
