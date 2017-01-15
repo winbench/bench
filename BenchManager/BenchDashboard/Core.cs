@@ -138,8 +138,11 @@ namespace Mastersign.Bench.Dashboard
         private void SetupFileWatchers()
         {
             DisposeFileWatchers();
-            var paths = Config.Sources;
+            var paths = Config.GetConfigurationFiles(
+                ConfigurationFileType.UserConfig | ConfigurationFileType.SiteConfig,
+                true, true);
             fsWatchers = paths
+                .Select(p => p.Path)
                 .Select(p => new FileSystemWatcher(Path.GetDirectoryName(p))
                 {
                     Filter = Path.GetFileName(p),
