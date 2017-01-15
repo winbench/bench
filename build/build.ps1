@@ -28,6 +28,7 @@ $buildArtifacts = @(
     "BenchLib\bin\$mode\BenchLib.dll",
     "BenchLib\bin\$mode\Interop.IWshRuntimeLibrary.dll",
     "BenchLib\bin\$mode\DotNetZip.dll",
+    "BenchLib\bin\$mode\Mastersign.Sequence.dll",
     "BenchCLI\bin\$mode\bench.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe.config",

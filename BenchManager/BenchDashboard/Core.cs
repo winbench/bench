@@ -139,7 +139,10 @@ namespace Mastersign.Bench.Dashboard
         {
             DisposeFileWatchers();
             var paths = Config.GetConfigurationFiles(
-                ConfigurationFileType.UserConfig | ConfigurationFileType.SiteConfig,
+                ConfigurationFileType.UserConfig
+                | ConfigurationFileType.SiteConfig
+                | ConfigurationFileType.UserAppLib
+                | ConfigurationFileType.AppSelection,
                 true, true);
             fsWatchers = paths
                 .Select(p => p.Path)
