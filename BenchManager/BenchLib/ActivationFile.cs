@@ -42,6 +42,8 @@ namespace Mastersign.Bench
 
         private static readonly Regex DisabledExp = new Regex(@"^#\s*(?<id>\S+)(?<comment>\s+.+?)?\s*$");
 
+        private static readonly Regex EnabledExp = new Regex(@"^\s*(?<id>\S+)(?<comment>\s+.+?)?\s*$");
+
         private readonly string FilePath;
 
         /// <summary>
@@ -91,16 +93,22 @@ namespace Mastersign.Bench
             var found = false;
             foreach (var l in lines)
             {
-                var m = DisabledExp.Match(l);
+                var line = l.Trim();
+                var m = DisabledExp.Match(line);
                 if (m.Success && m.Groups["id"].Value == id)
                 {
+                    if (found) continue;
                     yield return id + m.Groups["comment"].Value;
                     found = true;
+                    continue;
                 }
-                else
+                m = EnabledExp.Match(line);
+                if (m.Success && m.Groups["id"].Value == id)
                 {
-                    yield return l;
+                    if (found) continue;
+                    found = true;
                 }
+                yield return l;
             }
             if (!found)
             {
@@ -110,17 +118,25 @@ namespace Mastersign.Bench
 
         private static IEnumerable<string> Deactivator(IEnumerable<string> lines, string id)
         {
+            var found = false;
             foreach (var l in lines)
             {
                 var line = l.Trim();
-                if (IsValidLine(line) && CleanLine(line) == id)
+                var m = EnabledExp.Match(l);
+                if (m.Success && m.Groups["id"].Value == id)
                 {
-                    yield return "# " + l;
+                    if (found) continue;
+                    yield return "# " + line;
+                    found = true;
+                    continue;
                 }
-                else
+                m = DisabledExp.Match(line);
+                if (m.Success && m.Groups["id"].Value == id)
                 {
-                    yield return l;
+                    if (found) continue;
+                    found = true;
                 }
+                yield return l;
             }
         }
 
