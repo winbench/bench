@@ -339,6 +339,13 @@ namespace Mastersign.Bench
         /// </remarks>
         public void UnregisterFromUserProfile()
         {
+            var currentEnvRootPath = Environment.GetEnvironmentVariable("BENCH_HOME");
+            if (!string.Equals(currentEnvRootPath, Config.BenchRootDir,
+                StringComparison.InvariantCultureIgnoreCase))
+            {
+                return;
+            }
+
             DeleteEnvironmentVar("BENCH_VERSION");
             DeleteEnvironmentVar("BENCH_HOME");
             DeleteEnvironmentVar("BENCH_APPS");
