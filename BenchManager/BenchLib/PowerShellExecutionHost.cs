@@ -1,49 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Xml;
-using System.IO.Pipes;
 using System.Diagnostics;
-using System.Windows.Forms;
-using ConEmu.WinForms;
 using Mastersign.Bench.RemoteExecHost;
 
-namespace Mastersign.Bench.Dashboard
+namespace Mastersign.Bench
 {
-    class ConEmuExecutionHost : IProcessExecutionHost
+    /// <summary>
+    /// This <see cref="IProcessExecutionHost"/> launches a PowerShell process
+    /// with the <c>PsExecHost.ps1</c> script and uses <see cref="RemoteExecHostClient"/>
+    /// to request process executions.
+    /// </summary>
+    public class PowerShellExecutionHost : IProcessExecutionHost
     {
         private const string PowerShellHostScript = "PsExecHost.ps1";
 
-        private readonly ConEmuControl control;
-
-        private readonly Core core;
-
-        private readonly string conEmuExe;
-
         private readonly Semaphore hostSemaphore = new Semaphore(1, 1);
 
-        private XmlDocument config;
-
-        private string currentToken;
-        private ConEmuSession currentSession;
+        private BenchConfiguration config;
 
         private IProcessExecutionHost backupHost;
 
+        private string currentToken;
+
+        private Process currentPsProcess;
+
         private bool reloadConfigBeforeNextExecution = false;
 
-        public ConEmuExecutionHost(Core core, ConEmuControl control, string conEmuExe)
+        /// <summary>
+        /// Initializes a new instance of <see cref="PowerShellExecutionHost"/>.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        public PowerShellExecutionHost(BenchConfiguration config)
         {
-            this.core = core;
-            this.control = control;
-            this.conEmuExe = conEmuExe;
+            this.config = config;
             backupHost = new DefaultExecutionHost();
-            config = LoadConfigFromResource();
             StartPowerShellExecutionHost();
-            this.core.ConfigReloaded += CoreConfigReloadedHandler;
         }
 
         private void CoreConfigReloadedHandler(object sender, EventArgs e)
@@ -51,54 +45,24 @@ namespace Mastersign.Bench.Dashboard
             reloadConfigBeforeNextExecution = true;
         }
 
-        private XmlDocument LoadConfigFromResource()
+        private ProcessStartInfo BuildStartInfo(string cwd, string executable, string arguments)
         {
-            var doc = new XmlDocument();
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "Resources.ConEmu.xml";
-            using (var s = assembly.GetManifestResourceStream(GetType(), resourceName))
-            {
-                doc.Load(s);
-            }
-            return doc;
-        }
-
-        private bool IsConEmuInstalled => File.Exists(conEmuExe);
-
-        private ConEmuStartInfo BuildStartInfo(string cwd, string executable, string arguments)
-        {
-            // http://www.windowsinspired.com/understanding-the-command-line-string-and-arguments-received-by-a-windows-program/
-
-            var cmdLine = (arguments.Contains("\"") ? "\"" : "")
-                + CommandLine.EscapeArgument(executable) + " " + arguments;
-            var si = new ConEmuStartInfo();
-            si.ConEmuExecutablePath = conEmuExe;
-            si.ConsoleProcessCommandLine = cmdLine;
-            si.BaseConfiguration = config;
-            si.StartupDirectory = cwd;
-            si.IsReadingAnsiStream = false;
-            si.WhenConsoleProcessExits = WhenConsoleProcessExits.CloseConsoleEmulator;
+            var cmdLine = CommandLine.EscapeArgument(executable) + " " + arguments;
+            var si = new ProcessStartInfo();
+            si.FileName = PowerShell.Executable;
+            si.Arguments = arguments;
+            si.WorkingDirectory = cwd;
+            si.UseShellExecute = false;
             return si;
         }
 
-        private ConEmuSession StartProcess(ConEmuStartInfo startInfo)
+        private Process StartProcess(ProcessStartInfo startInfo)
         {
-            if (control.InvokeRequired)
-            {
-                return (ConEmuSession)control.Invoke(
-                    (ConEmuStarter)(si => { return control.Start(si); }),
-                    startInfo);
-            }
-            return control.Start(startInfo);
+            return Process.Start(startInfo);
         }
 
         private void StartPowerShellExecutionHost()
         {
-            if (!IsConEmuInstalled)
-            {
-                return;
-            }
-            var config = core.Config;
             var hostScript = Path.Combine(config.GetStringValue(PropertyKeys.BenchScripts), PowerShellHostScript);
             if (!File.Exists(hostScript))
             {
@@ -107,33 +71,28 @@ namespace Mastersign.Bench.Dashboard
             currentToken = Guid.NewGuid().ToString("D");
             var cwd = config.GetStringValue(PropertyKeys.BenchRoot);
             var startInfo = BuildStartInfo(cwd, PowerShell.Executable,
-                "\"" + string.Join(" ", "-NoProfile", "-NoLogo",
+                string.Join(" ", new[] {
+                    "-NoProfile", "-NoLogo",
                     "-ExecutionPolicy", "Unrestricted",
                     "-File", "\"" + hostScript + "\"",
-                    "-Token", currentToken));
-            currentSession = StartProcess(startInfo);
-            currentSession.ConsoleEmulatorClosed += (s, o) =>
+                    "-Token", currentToken, "-WaitMessage", "\"\"" }));
+            currentPsProcess = StartProcess(startInfo);
+            currentPsProcess.Exited += (s, o) =>
             {
                 currentToken = null;
-                currentSession = null;
+                currentPsProcess = null;
             };
+            //Thread.Sleep(1000);
         }
 
         private bool IsPowerShellExecutionHostRunning =>
-            currentSession != null;
+            currentPsProcess != null;
 
         private void WaitForSessionToEnd()
         {
-            while (currentSession != null)
+            while (!currentPsProcess.HasExited)
             {
-                if (control.InvokeRequired)
-                {
-                    Thread.Sleep(100);
-                }
-                else
-                {
-                    Application.DoEvents();
-                }
+                currentPsProcess.WaitForExit();
             }
         }
 
@@ -168,13 +127,24 @@ namespace Mastersign.Bench.Dashboard
             WaitForSessionToEnd();
         }
 
+        /// <summary>
+        /// Starts a Windows process in a synchronous fashion.
+        /// </summary>
+        /// <param name="env">The environment variables of Bench.</param>
+        /// <param name="cwd">The working directory, to start the process in.</param>
+        /// <param name="executable">The path to the executable.</param>
+        /// <param name="arguments">The string with the command line arguments.</param>
+        /// <param name="monitoring">A flag to control the level of monitoring.</param>
+        /// <returns>An instance of <see cref="ProcessExecutionResult"/> with the exit code
+        /// and optionally the output of the process.</returns>
+        /// <seealso cref="CommandLine.FormatArgumentList(string[])"/>
         public ProcessExecutionResult RunProcess(BenchEnvironment env,
             string cwd, string executable, string arguments,
             ProcessMonitoring monitoring)
         {
             if (IsDisposed)
             {
-                throw new ObjectDisposedException(nameof(ConEmuExecutionHost));
+                throw new ObjectDisposedException(nameof(PowerShellExecutionHost));
             }
             if (!IsPowerShellExecutionHostRunning)
             {
@@ -184,6 +154,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 ReloadConfiguration();
             }
+
             ExecutionResult result = null;
             RemoteCall(h => result = h.Execute(new ExecutionRequest(cwd, executable, arguments)));
 
@@ -205,13 +176,23 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        /// <summary>
+        /// Starts a Windows process in an asynchronous fashion.
+        /// </summary>
+        /// <param name="env">The environment variables of Bench.</param>
+        /// <param name="cwd">The working directory, to start the process in.</param>
+        /// <param name="executable">The path to the executable.</param>
+        /// <param name="arguments">The string with the command line arguments.</param>
+        /// <param name="cb">The handler method to call when the execution of the process finishes.</param>
+        /// <param name="monitoring">A flag to control the level of monitoring.</param>
+        /// <seealso cref="CommandLine.FormatArgumentList(string[])"/>
         public void StartProcess(BenchEnvironment env,
             string cwd, string executable, string arguments,
             ProcessExitCallback cb, ProcessMonitoring monitoring)
         {
             if (IsDisposed)
             {
-                throw new ObjectDisposedException(nameof(ConEmuExecutionHost));
+                throw new ObjectDisposedException(nameof(PowerShellExecutionHost));
             }
             if (!IsPowerShellExecutionHostRunning)
             {
@@ -248,18 +229,21 @@ namespace Mastersign.Bench.Dashboard
             });
         }
 
+        /// <summary>
+        /// Checks if this instance of already disposed.
+        /// </summary>
         public bool IsDisposed { get; private set; }
 
+        /// <summary>
+        /// Shuts down this execution host and kills the attached PowerShell process.
+        /// </summary>
         public void Dispose()
         {
             if (IsDisposed) return;
             IsDisposed = true;
-            core.ConfigReloaded -= CoreConfigReloadedHandler;
             StopPowerShellExecutionHost();
             backupHost.Dispose();
             backupHost = null;
         }
-
-        private delegate ConEmuSession ConEmuStarter(ConEmuStartInfo si);
     }
 }

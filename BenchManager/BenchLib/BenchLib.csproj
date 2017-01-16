@@ -50,6 +50,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -92,6 +93,14 @@
     <Compile Include="Markdown\MdSyntax.cs" />
     <Compile Include="PowerShell.cs" />
     <Compile Include="ProcessExecutionFailedException.cs" />
+    <Compile Include="RemoteExecHost\ExecutionRequest.cs" />
+    <Compile Include="PowerShellExecutionHost.cs" />
+    <Compile Include="RemoteExecHost\ExecutionResult.cs" />
+    <Compile Include="RemoteExecHost\IRemoteExecHost.cs" />
+    <Compile Include="RemoteExecHost\RemoteExecHostClient.cs" />
+    <Compile Include="RemoteExecHost\RemoteExecHostServer.cs" />
+    <Compile Include="RemoteExecHost\RemoteCommand.cs" />
+    <Compile Include="RemoteExecHost\RemoteExecutionFacade.cs" />
     <Compile Include="PythonVersion.cs" />
     <Compile Include="SchemeDispatchProxy.cs" />
     <Compile Include="SurroundedHtmlLinkUrlResolver.cs" />

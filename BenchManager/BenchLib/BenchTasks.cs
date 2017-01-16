@@ -1671,14 +1671,8 @@ namespace Mastersign.Bench
                     {
                         notify(new TaskError(
                             string.Format("Running custom environment script for {0} failed: {1}", app.ID, e.Message),
-                            app.ID, e.ProcessOutput, e));
+                            appId: app.ID, exception: e));
                         continue;
-                    }
-                    if (!string.IsNullOrEmpty(scriptOutput))
-                    {
-                        notify(new TaskInfo(
-                            string.Format("Running custom environment script for {0} finished.", app.ID),
-                            app.ID, scriptOutput));
                     }
                 }
                 notify(new TaskProgress(
@@ -1699,10 +1693,6 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError("Executing global environment script failed.",
                         null, e.ProcessOutput, e));
-                }
-                if (!string.IsNullOrEmpty(scriptOutput))
-                {
-                    notify(new TaskInfo("Executing global environment script finished.", null, scriptOutput));
                 }
             }
 

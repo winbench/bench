@@ -1,4 +1,4 @@
-param ($Token = "Bench.Default")
+param ($Token = "Bench.Default", $WaitMessage = ">>>>")
 
 $scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = Resolve-Path "$scriptsDir\..\.."
@@ -7,21 +7,11 @@ $rootDir = Resolve-Path "$scriptsDir\..\.."
 
 $Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
 
-function _WaitForClient([IO.Pipes.NamedPipeServerStream]$pipe)
+function _PrintWaitingMessage()
 {
-	Write-Host ">>>>"
-	while ($true)
+	if ($WaitMessage) 
 	{
-		try
-		{
-			$pipe.WaitForConnection()
-			break
-		}
-		catch
-		{
-			Write-Warning $_.Exception.Message
-			$pipe.Disconnect()
-		}
+		Write-Host $WaitMessage
 	}
 }
 
@@ -73,20 +63,9 @@ function _ParsePsArguments([string]$argStr)
 	return $ExecutionContext.InvokeCommand.InvokeScript($argStr)
 }
 
-function _HandleExecutionRequest([IO.TextReader]$reader, [IO.TextWriter]$writer)
+$Script:executionResult = $null
+function _ExecutionHandler([string]$cwd, [string]$cmd, [string]$cmdArgs)
 {
-	try
-	{
-		$cwd = $reader.ReadLine()
-		$cmd = $reader.ReadLine()
-		$cmdArgs = $reader.ReadLine()
-	}
-	catch
-	{
-		Write-Warning "Bench: Could not read execution arguments from named pipe."
-		return
-	}
-
 	$Script:BenchEnv.Load()
 	pushd $cwd
 	$exitCode = 0
@@ -112,45 +91,46 @@ function _HandleExecutionRequest([IO.TextReader]$reader, [IO.TextWriter]$writer)
 		if ($_.Exception.Message)
 		{
 			Write-Warning $_.Exception.Message
-			$writer.WriteLine($_.Exception.Message)
 		}
 		if ($exitCode -eq 0) { $exitCode = -1 }
 	}
 	Stop-Transcript | Out-Null
 	popd
-	$writer.WriteLine("EXITCODE $Token $exitCode")
-	$writer.WriteLine("TRANSCRIPT $Token $transcriptPath")
+	$Script:executionResult = New-Object Mastersign.Bench.RemoteExecHost.ExecutionResult @($exitCode, $transcriptPath)
 }
 
-function _ReloadBenchConfig([IO.TextReader]$reader, [IO.TextWriter]$writer)
+function _ReloadHandler()
 {
-    Write-Host "Reloading Bench configuration..."
-    $rootDir = $global:BenchConfig.BenchRootDir
-    $global:BenchConfig = New-Object Mastersign.Bench.BenchConfiguration ($rootDir)
-    $Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
-    $writer.WriteLine("OK")
+	Write-Host "Reloading Bench configuration..."
+	$rootDir = $global:BenchConfig.BenchRootDir
+	$global:BenchConfig = New-Object Mastersign.Bench.BenchConfiguration ($rootDir)
+	$Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
 }
 
-$server = New-Object System.IO.Pipes.NamedPipeServerStream($Token, [IO.Pipes.PipeDirection]::InOut)
+$server = New-Object Mastersign.Bench.RemoteExecHost.RemoteExecHostServer @($token)
+Write-Host "PowerShell execution host started."
 
-$closed = $false
-while (!$closed)
+while($server) 
 {
-	$reader = New-Object System.IO.StreamReader ($server, [Text.Encoding]::UTF8, $true, 4, $true)
-	_WaitForClient $server
-	$writer = New-Object System.IO.StreamWriter ($server, [Text.Encoding]::UTF8, 4, $true)
-	$cmd = $reader.ReadLine()
-	switch ($cmd)
+	_PrintWaitingMessage
+	$rcmd = [Mastersign.Bench.RemoteExecHost.RemoteExecutionFacade]::WaitForCommand()
+	switch ($rcmd.Type)
 	{
-		"exec" { _HandleExecutionRequest $reader $writer | Out-Default }
-		"reload" { _ReloadBenchConfig $reader $writer | Out-Default }
-		"close" { $closed = $true }
+	    "Execution"
+		{
+			$cwd = $rcmd.Parameter.WorkingDirectory
+			$exe = $rcmd.Parameter.Executable
+			$exeArgs = $rcmd.Parameter.Arguments
+			_ExecutionHandler $cwd $exe $exeArgs
+			$rcmd.NotifyResult($Script:executionResult)
+		}
+		"Reload" { _ReloadHandler }
+		"Shutdown"
+		{
+			$server.Dispose()
+			$server = $null
+			Write-Host "PowerShell execution host shut down."
+			exit
+		}
 	}
-	$writer.Flush()
-	$server.WaitForPipeDrain()
-	$writer.Dispose()
-	$reader.Dispose()
-	$server.Disconnect()
 }
-$server.Dispose()
-Write-Host "<<<<"

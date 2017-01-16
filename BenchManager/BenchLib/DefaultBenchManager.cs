@@ -49,7 +49,8 @@ namespace Mastersign.Bench
             Config = config;
             Downloader = BenchTasks.InitializeDownloader(config);
             Env = new BenchEnvironment(Config);
-            ProcessExecutionHost = new DefaultExecutionHost();
+            //ProcessExecutionHost = new DefaultExecutionHost();
+            ProcessExecutionHost = new PowerShellExecutionHost(config);
             UI = new ConsoleUserInterface();
         }
 
