@@ -180,6 +180,34 @@ namespace Mastersign.Bench.Dashboard
             reachedAtLeastOnce = available;
         }
 
+        private static string CleanUpPowerShellTranscript(string transcript)
+        {
+            transcript = transcript.Trim();
+            var lines = transcript.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            if (lines.Length == 0) return transcript;
+            // check if first line contains a sequence of the same character
+            if (lines[0].Length > 2 && lines[0] == new string(lines[0][0], lines[0].Length))
+            {
+                var separator = lines[0];
+                var outputLines = new List<string>();
+                var p = 1;
+                // search for the end of the header
+                for (int i = p; i < lines.Length; i++)
+                {
+                    p++;
+                    if (lines[i] == separator) break;
+                }
+                // collect lines until the start of the footer
+                for (int i = p; i < lines.Length; i++)
+                {
+                    if (lines[i] == separator) break;
+                    outputLines.Add(lines[i]);
+                }
+                return string.Join(Environment.NewLine, outputLines.ToArray()).Trim();
+            }
+            return transcript;
+        }
+
         private void ReloadConfiguration()
         {
             if (!IsPowerShellExecutionHostRunning) return;
@@ -224,6 +252,7 @@ namespace Mastersign.Bench.Dashboard
                 if (collectOutput && transcriptPath != null && File.Exists(transcriptPath))
                 {
                     output = File.ReadAllText(transcriptPath, Encoding.Default);
+                    output = CleanUpPowerShellTranscript(output);
                     File.Delete(transcriptPath);
                 }
                 return new ProcessExecutionResult(result.ExitCode, output);
@@ -265,6 +294,7 @@ namespace Mastersign.Bench.Dashboard
                     if (collectOutput && transcriptPath != null && File.Exists(transcriptPath))
                     {
                         output = File.ReadAllText(transcriptPath, Encoding.Default);
+                        output = CleanUpPowerShellTranscript(output);
                         File.Delete(transcriptPath);
                     }
                     result = new ProcessExecutionResult(remoteExecResult.ExitCode, output);

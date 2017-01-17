@@ -1379,7 +1379,7 @@ namespace Mastersign.Bench
                 }
                 catch (Exception e)
                 {
-                    notify(new TaskError(e.Message, app.ID, null, e));
+                    notify(new TaskError(e.Message, appId: app.ID, exception: e));
                     continue;
                 }
                 notify(new TaskProgress(
@@ -1434,7 +1434,7 @@ namespace Mastersign.Bench
                 }
                 catch (Exception e)
                 {
-                    notify(new TaskError(e.Message, null, null, e));
+                    notify(new TaskError(e.Message, exception: e));
                     continue;
                 }
                 notify(new TaskProgress(
@@ -1571,7 +1571,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Writing the environment file failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1589,7 +1589,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Registering the environment in the user profile failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1600,7 +1600,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Cleaning execution proxies failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1611,7 +1611,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Cleaning launchers failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1622,7 +1622,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Creating bench action launchers failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             var selectedApps = man.Config.Apps.ActiveApps;
@@ -1642,7 +1642,7 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Creating execution proxy for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
                 try
@@ -1653,15 +1653,15 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Creating launcher for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
                 var envScript = app.GetCustomScript("env");
                 if (envScript != null)
                 {
                     notify(new TaskProgress(
-                       string.Format("Running custom environment script for {0}.", app.ID),
-                       progress, app.ID));
+                       string.Format("Running custom environment script for {0}.", app.ID), progress, 
+                       appId: app.ID));
                     string scriptOutput = null;
                     try
                     {
@@ -1674,6 +1674,12 @@ namespace Mastersign.Bench
                             appId: app.ID, exception: e));
                         continue;
                     }
+                    if (!string.IsNullOrEmpty(scriptOutput))
+                    {
+                        notify(new TaskInfo(
+                            string.Format("Running custom environment script for {0} finished.", app.ID),
+                            appId: app.ID, consoleOutput: scriptOutput));
+                    }
                 }
                 notify(new TaskProgress(
                     string.Format("Set up environment for {0}.", app.ID),
@@ -1683,7 +1689,7 @@ namespace Mastersign.Bench
             var globalEnvScript = GetGlobalCustomScriptFile(man.Config, "env");
             if (globalEnvScript != null)
             {
-                notify(new TaskProgress("Executing global environment script.", 0.9f));
+                notify(new TaskProgress("Running global environment script.", 0.9f));
                 string scriptOutput = null;
                 try
                 {
@@ -1691,8 +1697,14 @@ namespace Mastersign.Bench
                 }
                 catch (ProcessExecutionFailedException e)
                 {
-                    notify(new TaskError("Executing global environment script failed.",
-                        null, e.ProcessOutput, e));
+                    notify(new TaskError("Running global environment script failed.",
+                        consoleOutput: e.ProcessOutput, exception: e));
+                }
+                if (!string.IsNullOrEmpty(scriptOutput))
+                {
+                    notify(new TaskInfo(
+                        "Running global environment script finished.",
+                        consoleOutput: scriptOutput));
                 }
             }
 
@@ -1701,6 +1713,10 @@ namespace Mastersign.Bench
                 notify(new TaskProgress("Finished updating environment.", 1f));
             }
         }
+
+        #endregion
+
+        #region Bench Update
 
         private static void DownloadBenchUpdate(IBenchManager man,
             ICollection<AppFacade> _,
@@ -2111,7 +2127,8 @@ namespace Mastersign.Bench
             }
             catch (Exception e)
             {
-                notify(new TaskError("Preparing directories failed.", null, null, e));
+                notify(new TaskError("Preparing directories failed.", 
+                    exception: e));
                 return;
             }
 
@@ -2164,14 +2181,14 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
-                        app.ID, e.ProcessOutput, e));
+                        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
                     continue;
                 }
                 catch (Exception e)
                 {
                     notify(new TaskError(
                         string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
 
@@ -2180,8 +2197,8 @@ namespace Mastersign.Bench
                 if (customSetupScript != null)
                 {
                     notify(new TaskProgress(
-                        string.Format("Executing custom setup script for {0}.", app.ID),
-                        progress, app.ID));
+                        string.Format("Executing custom setup script for {0}.", app.ID), progress, 
+                        appId: app.ID));
                     string scriptOutput = null;
                     try
                     {
@@ -2191,14 +2208,14 @@ namespace Mastersign.Bench
                     {
                         notify(new TaskError(
                             string.Format("Execution of custom setup script for {0} failed.", app.ID),
-                            app.ID, e.ProcessOutput, e));
+                            appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
                         continue;
                     }
                     if (!string.IsNullOrEmpty(scriptOutput))
                     {
                         notify(new TaskInfo(
                             string.Format("Execution custom setup script for {0} finished.", app.ID),
-                            app.ID, scriptOutput));
+                            appId: app.ID, consoleOutput: scriptOutput));
                     }
                 }
 
@@ -2211,7 +2228,7 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Creating the execution proxy for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
 
@@ -2224,7 +2241,7 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Creating the launcher for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
 
@@ -2244,21 +2261,22 @@ namespace Mastersign.Bench
                     {
                         notify(new TaskError(
                             string.Format("Running the custom environment script for {0} failed.", app.ID),
-                            app.ID, e.ProcessOutput, e));
+                            appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
                         continue;
                     }
                     if (!string.IsNullOrEmpty(scriptOutput))
                     {
                         notify(new TaskInfo(
                             string.Format("Running custom environment script for {0} finished.", app.ID),
-                            app.ID, scriptOutput));
+                            appId: app.ID, consoleOutput: scriptOutput));
                     }
                 }
 
                 // 6. Store installed version
                 app.InstalledVersion = app.Version;
 
-                notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress, app.ID));
+                notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress, 
+                    appId: app.ID));
                 app.DiscardCachedValues();
             }
 
@@ -2275,11 +2293,12 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         "Execution of global custom setup script failed.",
-                        null, e.ProcessOutput, e));
+                        consoleOutput: e.ProcessOutput, exception: e));
                 }
                 if (!string.IsNullOrEmpty(scriptOutput))
                 {
-                    notify(new TaskInfo("Executing global custom setup script finished.", null, scriptOutput));
+                    notify(new TaskInfo("Executing global custom setup script finished.", 
+                        consoleOutput: scriptOutput));
                 }
             }
 
@@ -2424,14 +2443,14 @@ namespace Mastersign.Bench
                     if (customScript != null)
                     {
                         notify(new TaskProgress(
-                            string.Format("Executing custom uninstall script for {0}.", app.ID),
-                            progress, app.ID));
+                            string.Format("Running custom uninstall script for {0}.", app.ID), progress, 
+                            appId: app.ID));
                         var scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customScript).Trim();
                         if (!string.IsNullOrEmpty(scriptOutput))
                         {
                             notify(new TaskInfo(
-                                string.Format("Execution of custom uninstall script for {0} finished.", app.ID),
-                                app.ID, scriptOutput));
+                                string.Format("Running of custom uninstall script for {0} finished.", app.ID),
+                                appId: app.ID, consoleOutput: scriptOutput));
                         }
                     }
                     else
@@ -2470,7 +2489,7 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Uninstalling the app {0} failed.", app.ID),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
 
@@ -2499,7 +2518,7 @@ namespace Mastersign.Bench
                 }
                 catch (Exception e)
                 {
-                    notify(new TaskError("Uninstalling apps failed.", null, null, e));
+                    notify(new TaskError("Uninstalling apps failed.", exception: e));
                 }
                 if (success)
                 {

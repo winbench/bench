@@ -108,7 +108,7 @@ namespace Mastersign.Bench
                     info.AppId ?? "global",
                     info.Message);
 
-                if (info.DetailedMessage != null)
+                if (!string.IsNullOrEmpty(info.DetailedMessage))
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine(info.DetailedMessage);

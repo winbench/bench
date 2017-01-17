@@ -34,11 +34,17 @@ namespace Mastersign.Bench
                 info is TaskError ? "ERROR" : "INFO",
                 info.AppId ?? "global",
                 info.Message);
-            if (info.DetailedMessage != null)
+            if (!string.IsNullOrEmpty(info.DetailedMessage))
             {
                 writer.WriteLine("[{0}] DETAIL:",
                     info.Timestamp.ToString("yyyy-MM-dd HH-mm-ss"));
                 writer.WriteLine(info.DetailedMessage);
+            }
+            if (!string.IsNullOrEmpty(info.ConsoleOutput))
+            {
+                writer.WriteLine("[{0}] CONSOLE:",
+                    info.Timestamp.ToString("yyyy-MM-dd HH-mm-ss"));
+                writer.WriteLine(info.ConsoleOutput);
             }
             var err = info as TaskError;
             if (err != null)
