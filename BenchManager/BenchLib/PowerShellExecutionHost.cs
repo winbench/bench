@@ -17,6 +17,9 @@ namespace Mastersign.Bench
     {
         private const string PowerShellHostScript = "PsExecHost.ps1";
 
+        private const int START_UP_TIMEOUT = 10000;
+        private const int RETRY_INTERVAL = 250;
+
         private readonly Semaphore hostSemaphore = new Semaphore(1, 1);
 
         private BenchConfiguration config;
@@ -38,6 +41,7 @@ namespace Mastersign.Bench
             this.config = config;
             backupHost = new DefaultExecutionHost();
             StartPowerShellExecutionHost();
+            WaitForPowerShellExecutionHost(START_UP_TIMEOUT);
         }
 
         private void CoreConfigReloadedHandler(object sender, EventArgs e)
@@ -82,7 +86,6 @@ namespace Mastersign.Bench
                 currentToken = null;
                 currentPsProcess = null;
             };
-            //Thread.Sleep(1000);
         }
 
         private bool IsPowerShellExecutionHostRunning =>
@@ -110,6 +113,25 @@ namespace Mastersign.Bench
             finally
             {
                 hostSemaphore.Release();
+            }
+        }
+
+        private void WaitForPowerShellExecutionHost(int timeout)
+        {
+            var available = false;
+            var t0 = DateTime.Now;
+            while(!available && (DateTime.Now - t0).TotalMilliseconds < timeout)
+            {
+                try
+                {
+                    string response = null;
+                    RemoteCall(h => response = h.Ping());
+                    available = response != null;
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(RETRY_INTERVAL);
+                }
             }
         }
 

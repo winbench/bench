@@ -26,6 +26,45 @@ namespace Mastersign.Bench.RemoteExecHost
     }
 
     /// <summary>
+    /// A class to represent a remotely requested test message.
+    /// </summary>
+    public class PingRequest : RemoteCommand
+    {
+        private string message;
+
+        private ManualResetEvent e = new ManualResetEvent(false);
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="PingRequest"/>.
+        /// </summary>
+        public PingRequest()
+            : base(RemoteCommandType.Ping)
+        {
+        }
+
+        /// <summary>
+        /// Hands the response message to who ever calls <see cref="WaitForResult"/>.
+        /// </summary>
+        /// <param name="message">The response message.</param>
+        public void NotifyResult(string message)
+        {
+            this.message = message;
+            e.Set();
+        }
+
+        /// <summary>
+        /// Gets the response message.
+        /// Blocks until the response was notified with <see cref="NotifyResult(string)"/>.
+        /// </summary>
+        /// <returns>The notified message.</returns>
+        public string WaitForResult()
+        {
+            e.WaitOne();
+            return message;
+        }
+    }
+
+    /// <summary>
     /// A class to represent a remotely requested process execution .
     /// </summary>
     public class RemoteExecutionRequest : RemoteCommand
@@ -76,6 +115,11 @@ namespace Mastersign.Bench.RemoteExecHost
     /// </summary>
     public enum RemoteCommandType
     {
+        /// <summary>
+        /// A check request to test the communication (<see cref="IRemoteExecHost.Ping"/>).
+        /// </summary>
+        Ping,
+
         /// <summary>
         /// A process execution request (<see cref="IRemoteExecHost.Execute(ExecutionRequest)"/>).
         /// </summary>

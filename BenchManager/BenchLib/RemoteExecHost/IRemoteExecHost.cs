@@ -10,6 +10,12 @@ namespace Mastersign.Bench.RemoteExecHost
     public interface IRemoteExecHost
     {
         /// <summary>
+        /// Does nothing but checking the communication roundtrip.
+        /// </summary>
+        /// <returns>Some string, not <c>null</c>.</returns>
+        string Ping();
+
+        /// <summary>
         /// Requests the execution of a program.
         /// </summary>
         /// <param name="requ">The request parameter.</param>

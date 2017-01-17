@@ -116,6 +116,11 @@ while($server)
 	$rcmd = [Mastersign.Bench.RemoteExecHost.RemoteExecutionFacade]::WaitForCommand()
 	switch ($rcmd.Type)
 	{
+		"Ping"
+		{
+			Write-Host "Remoting interface available."
+			$rcmd.NotifyResult("OK")
+		}
 	    "Execution"
 		{
 			$cwd = $rcmd.Parameter.WorkingDirectory
@@ -124,7 +129,10 @@ while($server)
 			_ExecutionHandler $cwd $exe $exeArgs
 			$rcmd.NotifyResult($Script:executionResult)
 		}
-		"Reload" { _ReloadHandler }
+		"Reload" 
+		{ 
+			_ReloadHandler 
+		}
 		"Shutdown"
 		{
 			$server.Dispose()

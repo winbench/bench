@@ -51,6 +51,17 @@ namespace Mastersign.Bench.RemoteExecHost
         }
 
         /// <summary>
+        /// Does nothing but checking the communication roundtrip.
+        /// </summary>
+        /// <returns>Some string, not <c>null</c>.</returns>
+        public string Ping()
+        {
+            var cmd = new PingRequest();
+            EnqueueCommand(cmd);
+            return cmd.WaitForResult();
+        }
+
+        /// <summary>
         /// Requests the execution of a program.
         /// </summary>
         /// <param name="requ">The request parameter.</param>

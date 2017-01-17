@@ -18,6 +18,9 @@ namespace Mastersign.Bench.Dashboard
     {
         private const string PowerShellHostScript = "PsExecHost.ps1";
 
+        private const int START_UP_TIMEOUT = 10000;
+        private const int RETRY_INTERVAL = 250;
+
         private readonly ConEmuControl control;
 
         private readonly Core core;
@@ -31,6 +34,7 @@ namespace Mastersign.Bench.Dashboard
         private string currentToken;
         private ConEmuSession currentSession;
 
+        private bool reachedAtLeastOnce = false;
         private IProcessExecutionHost backupHost;
 
         private bool reloadConfigBeforeNextExecution = false;
@@ -154,9 +158,32 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        private void WaitForPowerShellExecutionHost()
+        {
+            if (reachedAtLeastOnce) return;
+            var available = false;
+            var t0 = DateTime.Now;
+            while (!available && (DateTime.Now - t0).TotalMilliseconds < START_UP_TIMEOUT)
+            {
+                try
+                {
+                    string response = null;
+                    RemoteCall(h => response = h.Ping());
+                    available = response != null;
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Attempt to reach the remote execution host failed.");
+                    Thread.Sleep(RETRY_INTERVAL);
+                }
+            }
+            reachedAtLeastOnce = available;
+        }
+
         private void ReloadConfiguration()
         {
             if (!IsPowerShellExecutionHostRunning) return;
+            WaitForPowerShellExecutionHost();
             RemoteCall(h => h.Reload());
             reloadConfigBeforeNextExecution = false;
         }
@@ -164,6 +191,7 @@ namespace Mastersign.Bench.Dashboard
         private void StopPowerShellExecutionHost()
         {
             if (!IsPowerShellExecutionHostRunning) return;
+            WaitForPowerShellExecutionHost();
             RemoteCall(h => h.Shutdown());
             WaitForSessionToEnd();
         }
@@ -180,6 +208,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 return backupHost.RunProcess(env, cwd, executable, arguments, monitoring);
             }
+            WaitForPowerShellExecutionHost();
             if (reloadConfigBeforeNextExecution)
             {
                 ReloadConfiguration();
