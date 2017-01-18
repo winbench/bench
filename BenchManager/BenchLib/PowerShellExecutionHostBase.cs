@@ -51,7 +51,7 @@ namespace Mastersign.Bench
         public void StartHost()
         {
             if (CurrentToken != null) throw new InvalidOperationException("Host is already started.");
-            backupHost = new DefaultExecutionHost();
+            backupHost = new SimpleExecutionHost();
             CurrentToken = Guid.NewGuid().ToString("D");
             StartPowerShellExecutionHost();
         }

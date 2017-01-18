@@ -68,7 +68,7 @@ namespace Mastersign.Bench.Dashboard
             Config = new BenchConfiguration(benchRoot, true, true, true);
             Env = new BenchEnvironment(Config);
             Downloader = BenchTasks.InitializeDownloader(Config);
-            ProcessExecutionHost = new DefaultExecutionHost();
+            ProcessExecutionHost = new SimpleExecutionHost();
             SetupFileWatchers();
         }
 

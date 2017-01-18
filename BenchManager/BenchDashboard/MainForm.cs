@@ -262,14 +262,14 @@ namespace Mastersign.Bench.Dashboard
 
         private void ShellCmdHandler(object sender, EventArgs e)
         {
-            new DefaultExecutionHost().StartProcess(core.Env,
+            new SimpleExecutionHost().StartProcess(core.Env,
                 core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
                 core.CmdPath, "", result => { }, ProcessMonitoring.ExitCode);
         }
 
         private void ShellPowerShellHandler(object sender, EventArgs e)
         {
-            new DefaultExecutionHost().StartProcess(core.Env,
+            new SimpleExecutionHost().StartProcess(core.Env,
                 core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
                 core.PowerShellPath, "", result => { }, ProcessMonitoring.ExitCode);
         }
@@ -279,7 +279,7 @@ namespace Mastersign.Bench.Dashboard
             var bashPath = core.BashPath;
             if (File.Exists(bashPath))
             {
-                new DefaultExecutionHost().StartProcess(core.Env,
+                new SimpleExecutionHost().StartProcess(core.Env,
                     core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
                     bashPath, "", result => { }, ProcessMonitoring.ExitCode);
             }

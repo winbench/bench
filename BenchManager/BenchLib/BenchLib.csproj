@@ -75,7 +75,7 @@
     <Compile Include="Cancelation.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="DefaultBenchManager.cs" />
-    <Compile Include="DefaultExecutionHost.cs" />
+    <Compile Include="SimpleExecutionHost.cs" />
     <Compile Include="ConsoleUI.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="Downloader.cs" />

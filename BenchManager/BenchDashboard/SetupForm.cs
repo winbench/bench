@@ -321,7 +321,7 @@ namespace Mastersign.Bench.Dashboard
         private void DisposeConsole()
         {
             var oldHost = core.ProcessExecutionHost;
-            core.ProcessExecutionHost = new DefaultExecutionHost();
+            core.ProcessExecutionHost = new SimpleExecutionHost();
             oldHost.Dispose();
         }
 

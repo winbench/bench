@@ -41,7 +41,7 @@ namespace Mastersign.Bench
 
         /// <summary>
         /// Initializes a new instance of <see cref="DefaultBenchManager"/>
-        /// with a <see cref="DefaultExecutionHost"/> and a <see cref="ConsoleUserInterface"/>.
+        /// with a <see cref="SimpleExecutionHost"/> and a <see cref="ConsoleUserInterface"/>.
         /// </summary>
         /// <param name="config">The Bench configuration.</param>
         public DefaultBenchManager(BenchConfiguration config)

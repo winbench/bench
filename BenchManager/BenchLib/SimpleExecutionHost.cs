@@ -9,11 +9,11 @@ using System.Xml;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// This class is the default implementation of <see cref="IProcessExecutionHost"/>.
+    /// This class is a simple implementation of <see cref="IProcessExecutionHost"/>.
     /// It starts processes invisible in the background
     /// and allows no user interaction during the process execution.
     /// </summary>
-    public class DefaultExecutionHost : IProcessExecutionHost
+    public class SimpleExecutionHost : IProcessExecutionHost
     {
         /// <summary>
         /// Starts a Windows process in an asynchronous fashion.
@@ -31,7 +31,7 @@ namespace Mastersign.Bench
         {
             if (IsDisposed)
             {
-                throw new ObjectDisposedException(nameof(DefaultExecutionHost));
+                throw new ObjectDisposedException(nameof(SimpleExecutionHost));
             }
             if (cb != null)
             {
@@ -64,7 +64,7 @@ namespace Mastersign.Bench
         {
             if (IsDisposed)
             {
-                throw new ObjectDisposedException(nameof(DefaultExecutionHost));
+                throw new ObjectDisposedException(nameof(SimpleExecutionHost));
             }
             var collectOutput = (monitoring & ProcessMonitoring.Output) == ProcessMonitoring.Output;
             StringBuilder sbStd, sbErr;
