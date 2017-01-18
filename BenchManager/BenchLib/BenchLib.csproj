@@ -92,6 +92,7 @@
     <Compile Include="Markdown\MdHeadline.cs" />
     <Compile Include="Markdown\MdSyntax.cs" />
     <Compile Include="PowerShell.cs" />
+    <Compile Include="PowerShellExecutionHostBase.cs" />
     <Compile Include="ProcessExecutionFailedException.cs" />
     <Compile Include="RemoteExecHost\ExecutionRequest.cs" />
     <Compile Include="PowerShellExecutionHost.cs" />
