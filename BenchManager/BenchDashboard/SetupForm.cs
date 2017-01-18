@@ -314,6 +314,7 @@ namespace Mastersign.Bench.Dashboard
             Controls.Add(c);
             conControl = c;
             conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
+            conHost.StartHost();
             core.ProcessExecutionHost = conHost;
         }
 

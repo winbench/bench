@@ -43,10 +43,23 @@ namespace Mastersign.Bench
             {
                 throw new FileNotFoundException("The PowerShell host script was not found.");
             }
-            this.backupHost = new DefaultExecutionHost();
+        }
+
+        /// <summary>
+        /// Starts the remote host and prepares for first execution request.
+        /// </summary>
+        public void StartHost()
+        {
+            if (CurrentToken != null) throw new InvalidOperationException("Host is already started.");
+            backupHost = new DefaultExecutionHost();
             CurrentToken = Guid.NewGuid().ToString("D");
             StartPowerShellExecutionHost();
         }
+
+        /// <summary>
+        /// Checks whether the host is started, or not.
+        /// </summary>
+        public bool IsStarted => CurrentToken != null;
 
         /// <summary>
         /// The root directory of the Bench environment.
@@ -193,6 +206,10 @@ namespace Mastersign.Bench
             {
                 throw new ObjectDisposedException(nameof(PowerShellExecutionHost));
             }
+            if (!IsStarted)
+            {
+                throw new InvalidOperationException("The host is not started yet.");
+            }
             if (!IsPowerShellExecutionHostRunning)
             {
                 return backupHost.RunProcess(env, cwd, executable, arguments, monitoring);
@@ -243,6 +260,10 @@ namespace Mastersign.Bench
             {
                 throw new ObjectDisposedException(nameof(PowerShellExecutionHost));
             }
+            if (!IsStarted)
+            {
+                throw new InvalidOperationException("The host is not started yet.");
+            }
             if (!IsPowerShellExecutionHostRunning)
             {
                 backupHost.StartProcess(env, cwd, executable, arguments, cb, monitoring);
@@ -292,9 +313,15 @@ namespace Mastersign.Bench
         {
             if (IsDisposed) return;
             IsDisposed = true;
+            OnDispose();
             StopPowerShellExecutionHost();
             backupHost.Dispose();
             backupHost = null;
         }
+
+        /// <summary>
+        /// Is called when this instance is disposed.
+        /// </summary>
+        protected virtual void OnDispose() { }
     }
 }
