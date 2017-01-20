@@ -5,6 +5,8 @@ title = "Configuration Properties"
 weight = 6
 +++
 
+[syntax]: /ref/markup-syntax
+
 Configuration properties for Bench use the [list syntax in Markdown][syntax]
 and can be defined in the following files.
 
@@ -623,4 +625,3 @@ This switch only takes affect, if the [Git app](/apps/Bench.Git) is activated.
 * Default: `VSCode`
 * Type: User/Site
 
-[syntax]: /ref/markup-syntax
