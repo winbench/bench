@@ -168,6 +168,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void CoreConfigReloadedHandler(object sender, EventArgs e)
         {
+            InitializeDownloadList();
             InitializeAppIndexMenu();
             InitializeAppListColumnsMenu();
             InitializeAppListColumns();
@@ -327,8 +328,12 @@ namespace Mastersign.Bench.Dashboard
 
         private void InitializeDownloadList()
         {
+            if (downloadList.Downloader != null)
+            {
+                downloadList.Downloader.IsWorkingChanged -= DownloaderIsWorkingChangedHandler;
+            }
             downloadList.Downloader = core.Downloader;
-            core.Downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
+            downloadList.Downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
             UpdateDownloadListVisibility();
         }
 
