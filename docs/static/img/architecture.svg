@@ -22,7 +22,7 @@
     <linearGradient
        id="linearGradient4606"
        osb:paint="solid"
-       gradientTransform="matrix(3.6806828,0,0,1,5372.8227,2939.9972)">
+       gradientTransform="matrix(3.8295501,0,0,0.9998698,5375.4845,2869.5773)">
       <stop
          style="stop-color:#424242;stop-opacity:1;"
          offset="0"
@@ -88,15 +88,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="304.29837"
-     inkscape:cy="171.17939"
+     inkscape:zoom="2.3787514"
+     inkscape:cx="308.30751"
+     inkscape:cy="197.07252"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
-     inkscape:window-width="1366"
-     inkscape:window-height="715"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -139,6 +139,26 @@
     </rdf:RDF>
   </metadata>
   <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Hilfen"
+     style="display:none">
+    <rect
+       style="fill:#ffaaaa;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3412"
+       width="620"
+       height="40"
+       x="9.9999952"
+       y="210" />
+    <rect
+       style="fill:#eeaaff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3422"
+       width="620"
+       height="30"
+       x="9.9999905"
+       y="239.99997" />
+  </g>
+  <g
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
@@ -159,29 +179,8 @@
        id="path4702" />
     <path
        inkscape:connector-curvature="0"
-       style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
-       d="m 279.36618,842.36208 0,20 -138.68535,0 0,13.63"
-       stroke-miterlimit="10"
-       pointer-events="none"
-       id="path4704" />
-    <path
-       inkscape:connector-curvature="0"
        style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
-       d="m 139.99998,881.24208 -3.5,-7 3.5,1.75 3.5,-1.75 z"
-       stroke-miterlimit="10"
-       pointer-events="none"
-       id="path4706" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
-       d="m 360.19554,842.36208 0,20 139.10894,0 0,13.63"
-       stroke-miterlimit="10"
-       pointer-events="none"
-       id="path4708" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
-       d="m 499.99998,881.24208 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       d="m 359.99999,881.24413 -3.5,-7 3.5,1.75 3.5,-1.75 z"
        stroke-miterlimit="10"
        pointer-events="none"
        id="path4710" />
@@ -194,7 +193,7 @@
        pointer-events="none"
        id="rect4712" />
     <g
-       transform="translate(288.94049,806.41223)"
+       transform="translate(288.94049,806.41229)"
        id="g4714">
       <text
          style="font-size:12px;line-height:125%;font-family:Helvetica;text-anchor:middle;fill:#000000"
@@ -204,17 +203,18 @@
          id="text4718"
          sodipodi:linespacing="125%">
         <tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:center;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;font-size:16.25px"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:center;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:middle"
            id="tspan4998">Dashboard</tspan>
       </text>
     </g>
     <path
        inkscape:connector-curvature="0"
        style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
-       d="m 360.67797,942.36209 0,20 138.74058,0 0,13.63"
+       d="m 359.99999,942.36216 0,20 140,0 0,14.99312"
        stroke-miterlimit="10"
        pointer-events="none"
-       id="path4720" />
+       id="path4720"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:connector-curvature="0"
        style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
@@ -245,7 +245,7 @@
        pointer-events="none"
        id="rect4728" />
     <g
-       transform="translate(287.78577,904.742)"
+       transform="translate(287.78577,906.09491)"
        id="g4730">
       <text
          x="32"
@@ -262,10 +262,11 @@
     <path
        inkscape:connector-curvature="0"
        style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
-       d="m 99.999979,942.36209 0,20 0,0 0,13.63"
+       d="m 320,942.36216 0,10 0,10 0,15.14976"
        stroke-miterlimit="10"
        pointer-events="none"
-       id="path4736" />
+       id="path4736"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:connector-curvature="0"
        style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
@@ -276,10 +277,11 @@
     <path
        inkscape:connector-curvature="0"
        style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
-       d="m 140.67377,942.36209 0,20 178.76504,0 0,13.63"
+       d="m 280,942.36216 0,20 -180.000002,0 0,14.62427"
        stroke-miterlimit="10"
        pointer-events="none"
-       id="path4740" />
+       id="path4740"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:connector-curvature="0"
        style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
@@ -296,12 +298,12 @@
        pointer-events="none"
        id="rect4744" />
     <g
-       transform="translate(86.234064,904.63489)"
+       transform="translate(86.234064,903.10746)"
        id="g4746">
       <text
          style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000"
          x="14"
-         y="12"
+         y="14.773219"
          font-size="12px"
          id="text4750">
         <tspan
@@ -309,20 +311,6 @@
            id="tspan5002">Apps</tspan>
       </text>
     </g>
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
-       d="m 539.99998,842.36208 0,20 0,0 0,13.63"
-       stroke-miterlimit="10"
-       pointer-events="none"
-       id="path4752" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
-       d="m 539.99998,881.24208 -3.5,-7 3.5,1.75 3.5,-1.75 z"
-       stroke-miterlimit="10"
-       pointer-events="none"
-       id="path4754" />
     <rect
        style="fill:url(#linearGradient4588);stroke:none"
        x="450"
@@ -332,7 +320,7 @@
        pointer-events="none"
        id="rect4756" />
     <g
-       transform="translate(495.79371,804.94043)"
+       transform="translate(495.79371,806.26947)"
        id="g4758">
       <text
          x="44"
@@ -342,7 +330,7 @@
          style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
         <tspan
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-           id="tspan5000">Interface Scripts</tspan>
+           id="tspan5000">CLI</tspan>
       </text>
     </g>
     <rect
@@ -354,17 +342,17 @@
        pointer-events="none"
        id="rect4764" />
     <g
-       transform="translate(69.138851,1004.9008)"
+       transform="translate(69.138851,1014.8612)"
        id="g4766">
       <text
          x="31"
-         y="12"
+         y="3.5114706"
          font-size="12px"
          id="text4770"
          style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
         <tspan
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-           id="tspan5008">App Library</tspan>
+           id="tspan5008">User App Library</tspan>
       </text>
     </g>
     <rect
@@ -376,17 +364,17 @@
        pointer-events="none"
        id="rect4772" />
     <g
-       transform="translate(273.53583,1004.9008)"
+       transform="translate(273.53583,1014.8612)"
        id="g4774">
       <text
          x="46"
-         y="12"
+         y="3.5114706"
          font-size="12px"
          id="text4778"
          style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
         <tspan
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25000191px;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-           id="tspan5010">User App Library</tspan>
+           id="tspan5010">App Libraries</tspan>
       </text>
     </g>
     <rect
@@ -403,7 +391,7 @@
       <text
          style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000"
          x="37"
-         y="12"
+         y="13.555168"
          font-size="12px"
          id="text4786">
         <tspan
@@ -413,15 +401,16 @@
     </g>
     <path
        inkscape:connector-curvature="0"
-       style="fill:none;stroke:url(#linearGradient4606);stroke-miterlimit:10"
-       d="m 449.99998,912.36208 -20,0 -13.63,0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-width:0.94448286;stroke-miterlimit:10"
+       d="m 450.00004,922.45149 -22.84123,-8e-5 -12.15881,0"
        stroke-miterlimit="10"
        pointer-events="none"
-       id="path4788" />
+       id="path4788"
+       sodipodi:nodetypes="ccc" />
     <path
        inkscape:connector-curvature="0"
        style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
-       d="m 411.11998,912.36208 7,-3.5 -1.75,3.5 1.75,3.5 z"
+       d="m 411.11803,922.45141 7,-3.5 -1.75,3.5 1.75,3.5 z"
        stroke-miterlimit="10"
        pointer-events="none"
        id="path4790" />
@@ -438,7 +427,7 @@
        id="g4794">
       <text
          x="52"
-         y="12"
+         y="13.511535"
          font-size="12px"
          id="text4798"
          style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
@@ -470,7 +459,7 @@
        pointer-events="none"
        id="rect4804" />
     <g
-       transform="translate(73.182734,806.41223)"
+       transform="translate(73.182734,806.4123)"
        id="g4806">
       <text
          style="font-size:12px;line-height:125%;font-family:Helvetica;text-anchor:middle;fill:#000000"
@@ -484,5 +473,28 @@
            id="tspan4996">Launcher</tspan>
       </text>
     </g>
+    <path
+       sodipodi:nodetypes="cccc"
+       id="path3434"
+       pointer-events="none"
+       stroke-miterlimit="10"
+       d="m 539.99999,842.36217 0,20 -180,0 0,14.86762"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-width:1;stroke-miterlimit:10"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:nodetypes="ccc"
+       id="path3476"
+       pointer-events="none"
+       stroke-miterlimit="10"
+       d="m 445.06044,902.36225 -22.88068,-8e-5 -12.17982,0"
+       style="fill:none;stroke:url(#linearGradient4606);stroke-width:0.9452976;stroke-miterlimit:10"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4606);stroke:url(#linearGradient4606);stroke-miterlimit:10"
+       d="m 448.88197,902.36217 -7,-3.5 1.75,3.5 -1.75,3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path3480" />
   </g>
 </svg>
