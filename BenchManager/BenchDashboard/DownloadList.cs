@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace Mastersign.Bench.Dashboard
 {
@@ -34,32 +35,32 @@ namespace Mastersign.Bench.Dashboard
             {
                 if (downloader != null)
                 {
-                    BindDownloader();
+                    UnbindDownloader();
                 }
                 downloader = value;
                 if (downloader != null)
                 {
-                    UnbindDownloader();
+                    BindDownloader();
                 }
             }
         }
 
         private void BindDownloader()
         {
-            downloader.IsWorkingChanged -= DownloaderIsWorkingChangedHandler;
-            downloader.DownloadStarted -= DownloadStartedHandler;
-            downloader.DownloadProgress -= DownloadProgressHandler;
-            downloader.DownloadEnded -= DownloadEndedHandler;
+            downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
+            downloader.DownloadStarted += DownloadStartedHandler;
+            downloader.DownloadProgress += DownloadProgressHandler;
+            downloader.DownloadEnded += DownloadEndedHandler;
             ClearDownloadTasks();
             // Potential inconsitency ... add already running download tasks
         }
 
         private void UnbindDownloader()
         {
-            downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
-            downloader.DownloadStarted += DownloadStartedHandler;
-            downloader.DownloadProgress += DownloadProgressHandler;
-            downloader.DownloadEnded += DownloadEndedHandler;
+            downloader.IsWorkingChanged -= DownloaderIsWorkingChangedHandler;
+            downloader.DownloadStarted -= DownloadStartedHandler;
+            downloader.DownloadProgress -= DownloadProgressHandler;
+            downloader.DownloadEnded -= DownloadEndedHandler;
         }
 
         private void DownloaderIsWorkingChangedHandler(object sender, EventArgs e)
