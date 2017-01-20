@@ -242,7 +242,7 @@ namespace Mastersign.Bench
                     return null;
                 }
                 if (!result.IsAbsoluteUri)
-                    return new Uri(new Uri(Dir), result);
+                    return new Uri(new Uri(Dir + "/"), result);
                 else
                     return result;
             }
