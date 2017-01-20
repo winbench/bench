@@ -103,7 +103,8 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [QuickAccessPowerShell](#QuickAccessPowerShell) | User/Site | boolean | `false` |
 | [QuickAccessBash](#QuickAccessBash) | User/Site | boolean | `false` |
 | [DashboardSetupAppListColumns](#DashboardSetupAppListColumns) | User/Site | string list | `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment` |
-| [EditorApp](#EditorApp) | User/Site | string | `VSCode` |
+| [TextEditorApp](#TextEditorApp) | User/Site | string | `Bench.Notepad2` |
+| [MarkdownEditorApp](#MarkdownEditorApp) | User/Site | string | `Bench.MarkdownEdit` |
 
 ## System Properties
 
@@ -618,10 +619,20 @@ This switch only takes affect, if the [Git app](/apps/Bench.Git) is activated.
 * Default: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
 * Type: User/Site
 
-### EditorApp {#EditorApp}
+### TextEditorApp {#TextEditorApp}
 
 * Description: The ID of an app which is used as the default text editor.
 * Data Type: string
-* Default: `VSCode`
+* Default: `Bench.Notepad2`
 * Type: User/Site
 
+The default text editor is used to edit the app activation list.
+
+### MarkdownEditorApp {#MarkdownEditorApp}
+
+* Description: The ID of an app which is used as the default Markdown editor.
+* Data Type: string
+* Default: `Bench.MarkdownEdit`
+* Type: User/Site
+
+The default Markdown editor is used to edit configuration files.

@@ -412,7 +412,7 @@ namespace Mastersign.Bench.Dashboard
             UpdateDownloadListVisibility();
         }
 
-        private void EditTextFile(string name, string path)
+        private void EditFile(string name, string path, string appId)
         {
             if (!File.Exists(path))
             {
@@ -425,18 +425,32 @@ namespace Mastersign.Bench.Dashboard
                     MessageBoxIcon.Error);
                 return;
             }
-            System.Diagnostics.Process.Start(path);
+            var editorApp = core.Config.Apps[appId];
+            if (editorApp.IsInstalled)
+            {
+                core.LaunchApp(appId, path);
+            }
+            else
+            {
+                System.Diagnostics.Process.Start(path);
+            }
         }
+
+        private void EditTextFile(string name, string path)
+            => EditFile(name, path, core.Config.GetStringValue(PropertyKeys.TextEditorApp));
+
+        private void EditMarkdownFile(string name, string path)
+            => EditFile(name, path, core.Config.GetStringValue(PropertyKeys.MarkdownEditorApp));
 
         private void EditCustomConfigHandler(object sender, EventArgs e)
         {
-            EditTextFile("User Configuration",
+            EditMarkdownFile("User Configuration",
                 core.Config.GetStringValue(PropertyKeys.CustomConfigFile));
         }
 
         private void EditCustomAppsHandler(object sender, EventArgs e)
         {
-            EditTextFile("User App Library",
+            EditMarkdownFile("User App Library",
                 Path.Combine(
                     core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
                     core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)));

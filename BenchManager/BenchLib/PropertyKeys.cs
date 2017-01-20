@@ -91,7 +91,8 @@ namespace Mastersign.Bench
         public const string DownloadAttempts = "DownloadAttempts";
         public const string ParallelDownloads = "ParallelDownloads";
 
-        public const string EditorApp = "EditorApp";
+        public const string TextEditorApp = "TextEditorApp";
+        public const string MarkdownEditorApp = "MarkdownEditorApp";
 
         // Common App Properties
 

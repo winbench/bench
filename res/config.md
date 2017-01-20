@@ -91,5 +91,6 @@
 * QuickAccessCmd: `true`
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
-* EditorApp: `VSCode`
+* TextEditorApp: `Bench.Notepad2`
+* MarkdownEditorApp: `Bench.MarkdownEdit`
 * DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
