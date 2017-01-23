@@ -35,7 +35,8 @@ $buildArtifacts = @(
     "BenchDashboard\bin\$mode\ConEmu.WinForms.dll",
     "scripts\bench-cmd.cmd",
     "scripts\bench-ps.cmd",
-    "scripts\bench-bash.cmd"
+    "scripts\bench-bash.cmd",
+    "scripts\runps.cmd"
 )
 # Paths of release artifacts are relative to the root dir
 $releaseArtifacts = @(

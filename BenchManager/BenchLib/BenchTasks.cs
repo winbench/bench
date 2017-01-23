@@ -1546,7 +1546,7 @@ namespace Mastersign.Bench
             code.AppendLine($"CALL \"{rootDir}\\env.cmd\"");
             if (app.IsExecutableAdorned(executable) && app.IsAdornmentRequired)
             {
-                code.AppendLine($"\"{autoDir}\\runps.cmd\" Run-Adorned {app.ID} \"{executable}\" {args}");
+                code.AppendLine($"\"{autoDir}\\bin\\runps.cmd\" Run-Adorned {app.ID} \"{executable}\" {args}");
             }
             else
             {
