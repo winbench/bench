@@ -688,13 +688,13 @@ namespace Mastersign.Bench
                     var pip2PackageDir = IOPath.Combine(
                         IOPath.Combine(python2Dir, "lib"),
                         IOPath.Combine("site-packages", PackageName));
-                    return Directory.Exists(pip2PackageDir);
+                    return Directory.Exists(pip2PackageDir) || File.Exists(SetupTestFile);
                 case AppTyps.Python3Package:
                     var python3Dir = AppIndex.GetStringGroupValue(AppKeys.Python3, PropertyKeys.AppDir);
                     var pip3PackageDir = IOPath.Combine(
                         IOPath.Combine(python3Dir, "lib"),
                         IOPath.Combine("site-packages", PackageName));
-                    return Directory.Exists(pip3PackageDir);
+                    return Directory.Exists(pip3PackageDir) || File.Exists(SetupTestFile);
                 default:
                     return File.Exists(SetupTestFile);
             }
