@@ -506,7 +506,8 @@ namespace Mastersign.Bench
             foreach (var key in new[]
                 {
                     PropertyKeys.CustomConfigRepository,
-                    PropertyKeys.WizzardStartAutoSetup
+                    PropertyKeys.WizzardStartAutoSetup,
+                    PropertyKeys.WizzardSelectedApps,
                 })
             {
                 targetCfg.SetValue(key, this.GetValue(key));

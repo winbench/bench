@@ -43,6 +43,8 @@ namespace Mastersign.Bench
         public const string AppVersionIndexDir = "AppVersionIndexDir";
 
         public const string WizzardStartAutoSetup = "WizzardStartAutoSetup";
+        public const string WizzardApps = "WizzardApps";
+        public const string WizzardSelectedApps = "WizzardSelectedApps";
         public const string QuickAccessCmd = "QuickAccessCmd";
         public const string QuickAccessPowerShell = "QuickAccessPowerShell";
         public const string QuickAccessBash = "QuickAccessBash";

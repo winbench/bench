@@ -173,6 +173,13 @@ namespace Mastersign.Bench
                 File.Copy(conEmuConfigTemplateFile, conEmuConfigFile, false);
             }
 
+            var selectedApps = cfg.GetStringListValue(PropertyKeys.WizzardSelectedApps);
+            var activationFileEditor = new ActivationFile(activationFile);
+            foreach (var appId in selectedApps)
+            {
+                activationFileEditor.SignIn(appId);
+            }
+
             var resultCfg = new BenchConfiguration(man.Config.BenchRootDir, true, true, true);
             cfg.InjectBenchInitializationProperties(resultCfg);
             return resultCfg;

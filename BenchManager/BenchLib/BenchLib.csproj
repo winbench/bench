@@ -109,6 +109,12 @@
     <Compile Include="TaskInfo.cs" />
     <Compile Include="TaskInfoLogger.cs" />
     <Compile Include="TaskResult.cs" />
+    <Compile Include="UI\AppSelectionStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AppSelectionStepControl.Designer.cs">
+      <DependentUpon>AppSelectionStepControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AdvancedStepControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -186,6 +192,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\AppSelectionStepControl.resx">
+      <DependentUpon>AppSelectionStepControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AdvancedStepControl.resx">
       <DependentUpon>AdvancedStepControl.cs</DependentUpon>
     </EmbeddedResource>

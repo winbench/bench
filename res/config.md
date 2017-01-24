@@ -88,6 +88,15 @@
 * LauncherDir: `launcher`
 * LauncherScriptDir: `$LibDir$\_launcher`
 * WizzardStartAutoSetup: `true`
+* WizzardApps:
+    + Web: `Bench.Group.WebDevelopment`
+    + JavaScript: `Bench.Group.JavaScriptDevelopment`
+    + Java: `Bench.Group.JavaDevelopment`
+    + Clojure: `Bench.Group.ClojureDevelopment`
+    + PHP: `Bench.Group.PHPDevelopment`
+    + Python 2: `Bench.Group.Python2Development`
+    + Python 3: `Bench.Group.Python3Development`
+    + C/C++: `Bench.Group.CppDevelopment`
 * QuickAccessCmd: `true`
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
