@@ -300,6 +300,29 @@ Only non-space characters, up to the first space or the end of a line, are consi
 * Default: `false`
 * Type: Temporary
 
+### WizzardApps {#WizzardApps}
+
+* Description: A list of apps and groups to offer for activation during the user configuration initialization.
+* Data Type: dictionary
+* Default: groups from the default app library
+* Type: System
+
+The items of the dictionary must have the format `<Label>: <App ID>`.
+The following Markdown would be a proper setting for this property:
+
+```Markdown
+* WizzardApps:
+    + `Group A`: `Bench.Group.A`
+    + `Group B`: `Bench.Group.B`
+```
+
+### WizzardSelectedApps {#WizzardSelectedApps}
+
+* Description: A list with app IDs selected for activation, when initializing a new user configuration.
+* Data Type: list
+* Default: empty
+* Type: Temporary
+
 ### WizzardStartAutoSetup {#WizzardStartAutoSetup}
 
 * Description: A temporary switch which is used during the Bench setup process.
