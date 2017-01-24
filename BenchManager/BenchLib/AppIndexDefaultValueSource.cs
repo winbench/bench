@@ -112,6 +112,8 @@ namespace Mastersign.Bench
                             AppFacade.NameFromId(appId).ToLowerInvariant() + ".exe");
                     }
                     return null;
+                case PropertyKeys.AppExeTest:
+                    return true;
                 case PropertyKeys.AppRegister:
                     return true;
                 case PropertyKeys.AppLauncherExecutable:
@@ -150,6 +152,7 @@ namespace Mastersign.Bench
                 || name == PropertyKeys.AppDir
                 || name == PropertyKeys.AppPath
                 || name == PropertyKeys.AppExe
+                || name == PropertyKeys.AppExeTest
                 || name == PropertyKeys.AppRegister
                 || name == PropertyKeys.AppLauncherExecutable
                 || name == PropertyKeys.AppLauncherArguments

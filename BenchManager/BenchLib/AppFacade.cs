@@ -362,6 +362,17 @@ namespace Mastersign.Bench
         public string Exe => StringValue(PropertyKeys.AppExe);
 
         /// <summary>
+        /// A flag to control whether the main executable of this app can be tested
+        /// by executing it with the <see cref="ExeTestArguments"/> and checking the exit code for <c>0</c>.
+        /// </summary>
+        public bool ExeTest => BoolValue(PropertyKeys.AppExeTest);
+
+        /// <summary>
+        /// A command line argument string to pass to the main executable, when testing it for propery installation.
+        /// </summary>
+        public string ExeTestArguments => StringValue(PropertyKeys.AppExeTestArguments) ?? string.Empty;
+
+        /// <summary>
         /// The relative path to a file, which existence can be used to check if the app is installed,
         /// or <c>null</c> e.g. in case the app is a package managed by a package manager.
         /// The path is relative to the target <see cref="Dir"/> of this app.
@@ -1132,15 +1143,25 @@ namespace Mastersign.Bench
         /// This method does not check if there really is a more recent version of this app.
         /// </remarks>
         public bool CanUpgrade =>
-            // Default app with no version or version difference
+            // App with no version or version difference
             CanCheckInstallation && IsInstalled
                 && !IsManagedPackage
                 && (!IsVersioned || !IsVersionUpToDate)
-            // Default app with custom setup and remove
+            // App with custom setup and remove
             || !CanCheckInstallation
                 && !IsManagedPackage
                 && GetCustomScript("remove") != null
                 && GetCustomScript("setup") != null;
+
+        /// <summary>
+        /// Checks, whether this app can be tested or not.
+        /// </summary>
+        public bool CanTest =>
+            IsManagedPackage
+            || Typ == AppTyps.Default
+            || Exe != null
+            || GetCustomScript("setup") != null && GetCustomScript("remove") != null
+            || GetCustomScript("test") != null;
 
         /// <summary>
         /// Checks, whether this app is active (activated or required) but not installed.
@@ -1348,6 +1369,8 @@ namespace Mastersign.Bench
                 PropertyKeys.AppEnvironment,
                 PropertyKeys.AppAdornedExecutables,
                 PropertyKeys.AppRegistryKeys,
+                PropertyKeys.AppExeTest,
+                PropertyKeys.AppExeTestArguments,
                 PropertyKeys.AppLauncher,
                 PropertyKeys.AppLauncherExecutable,
                 PropertyKeys.AppLauncherArguments,
@@ -1410,6 +1433,8 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppEnvironment, this.Environment));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppAdornedExecutables, this.AdornedExecutables));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppRegistryKeys, this.RegistryKeys));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppExeTest, this.ExeTest));
+                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppExeTestArguments, this.ExeTestArguments));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncher, this.Launcher));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherExecutable, this.LauncherExecutable));
                 result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherArguments, this.LauncherArguments));

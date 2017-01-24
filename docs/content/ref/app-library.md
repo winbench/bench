@@ -99,10 +99,11 @@ The following types of custom scripts are supported:
 * [`remove`](#custom-script-remove)
 * [`pre-run`](#custom-script-pre-run)
 * [`post-run`](#custom-script-post-run)
+* [`test`](#custom-script-test)
 
 If the file format of the downloadable setup program for an app is not supported
 by Bench, then the file extraction can be implemented in the custom script
-for the _extract_ setp.
+for the _extract_ setup.
 
 If the original setup program of a Windows application performs some necessary
 actions to prepare the program files for execution, these actions
@@ -116,6 +117,9 @@ in the custom script for the _env_ step.
 
 To perform some tasks every time before or after a program is executed,
 they can be implemented in the custom scripts for the _pre-run_ and _post-run_ steps.
+
+When the app is tested for proper definition, the _test_ step is performed
+after the installation.
 
 ### App Custom Script Directory {#scripts-dir}
 
@@ -250,6 +254,18 @@ The [main executable](/ref/app-properties/#Exe) of an app is automatically
 included in the list of adorned executables
 if the [registry isolation](/ref/app-properties/#RegistryKeys) is used.
 Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
+
+### App Custom Script `test` {#custom-script-test}
+
+* Description: Test hook for testing the installation of an app.
+* Path: `<app lib>\scripts\<app ns>\<app-id>.test.ps1`
+* Type: file
+
+The _custom test script_ is executed, when an app definition is tested.
+It is executed after a successful installation, after the existence of the
+main executable was checked.
+The test script fails when it writes an error or throws an exception;
+otherwise it will count as a successful test.
 
 ## App Setup Resources {#res}
 

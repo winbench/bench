@@ -1667,7 +1667,7 @@ namespace Mastersign.Bench
                 if (envScript != null)
                 {
                     notify(new TaskProgress(
-                       string.Format("Running custom environment script for {0}.", app.ID), progress, 
+                       string.Format("Running custom environment script for {0}.", app.ID), progress,
                        appId: app.ID));
                     string scriptOutput = null;
                     try
@@ -2111,16 +2111,8 @@ namespace Mastersign.Bench
             }
         }
 
-        private static void InstallApps(IBenchManager man,
-            ICollection<AppFacade> apps,
-            Action<TaskInfo> notify, Cancelation cancelation)
+        private static bool PrepareDirectories(IBenchManager man, Action<TaskInfo> notify)
         {
-            var selectedApps = new List<AppFacade>();
-            foreach (var app in apps)
-            {
-                if (app.CanInstall) selectedApps.Add(app);
-            }
-
             try
             {
                 FileSystem.AsureDir(
@@ -2134,10 +2126,166 @@ namespace Mastersign.Bench
             }
             catch (Exception e)
             {
-                notify(new TaskError("Preparing directories failed.", 
+                notify(new TaskError("Preparing directories failed.",
                     exception: e));
-                return;
+                return false;
             }
+            return true;
+        }
+
+        private static bool InstallApp(IBenchManager man, AppFacade app, Action<TaskInfo> notify)
+        {
+            // 1. Extraction / Installation
+            try
+            {
+                switch (app.Typ)
+                {
+                    case AppTyps.Meta:
+                        // no resource extraction
+                        break;
+                    case AppTyps.Default:
+                        if (app.ResourceFileName != null)
+                        {
+                            CopyAppResourceFile(man.Config, app);
+                        }
+                        else if (app.ResourceArchiveName != null)
+                        {
+                            ExtractAppArchive(man.Config, man.ProcessExecutionHost, app);
+                        }
+                        break;
+                    case AppTyps.NodePackage:
+                        InstallNodePackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    case AppTyps.RubyPackage:
+                        InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    case AppTyps.Python2Package:
+                        InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
+                        break;
+                    case AppTyps.Python3Package:
+                        InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                        break;
+                    case AppTyps.NuGetPackage:
+                        InstallNuGetPackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Invalid app typ '" + app.Typ + "' for app " + app.ID + ".");
+                }
+            }
+            catch (ProcessExecutionFailedException e)
+            {
+                notify(new TaskError(
+                    string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                return false;
+            }
+            catch (Exception e)
+            {
+                notify(new TaskError(
+                    string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, exception: e));
+                return false;
+            }
+
+            // 2. Custom Setup-Script
+            var customSetupScript = app.GetCustomScript("setup");
+            if (customSetupScript != null)
+            {
+                notify(new TaskInfo(
+                    string.Format("Executing custom setup script for {0}.", app.ID),
+                    appId: app.ID));
+                string scriptOutput = null;
+                try
+                {
+                    scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customSetupScript).Trim();
+                }
+                catch (ProcessExecutionFailedException e)
+                {
+                    notify(new TaskError(
+                        string.Format("Execution of custom setup script for {0} failed.", app.ID),
+                        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(scriptOutput))
+                {
+                    notify(new TaskInfo(
+                        string.Format("Execution custom setup script for {0} finished.", app.ID),
+                        appId: app.ID, consoleOutput: scriptOutput));
+                }
+            }
+
+            // 3. Create Execution Proxy
+            try
+            {
+                CreateExecutionProxies(man.Config, app);
+            }
+            catch (Exception e)
+            {
+                notify(new TaskError(
+                    string.Format("Creating the execution proxy for {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, exception: e));
+                return false;
+            }
+
+            // 4. Create Launcher
+            try
+            {
+                CreateLauncher(man.Config, app);
+            }
+            catch (Exception e)
+            {
+                notify(new TaskError(
+                    string.Format("Creating the launcher for {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, exception: e));
+                return false;
+            }
+
+            // 5. Run Custom Environment Script
+            var envScript = app.GetCustomScript("env");
+            if (envScript != null)
+            {
+                notify(new TaskInfo(
+                   string.Format("Running custom environment script for {0}.", app.ID),
+                   appId: app.ID));
+                string scriptOutput = null;
+                try
+                {
+                    scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, envScript).Trim();
+                }
+                catch (ProcessExecutionFailedException e)
+                {
+                    notify(new TaskError(
+                        string.Format("Running the custom environment script for {0} failed.", app.ID),
+                        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(scriptOutput))
+                {
+                    notify(new TaskInfo(
+                        string.Format("Running custom environment script for {0} finished.", app.ID),
+                        appId: app.ID, consoleOutput: scriptOutput));
+                }
+            }
+
+            // 6. Store installed version
+            app.InstalledVersion = app.Version;
+
+            app.DiscardCachedValues();
+
+            return true;
+        }
+
+        private static void InstallApps(IBenchManager man,
+            ICollection<AppFacade> apps,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var selectedApps = new List<AppFacade>();
+            foreach (var app in apps)
+            {
+                if (app.CanInstall) selectedApps.Add(app);
+            }
+
+            if (!PrepareDirectories(man, notify)) return;
 
             var cnt = 0;
             foreach (var app in selectedApps)
@@ -2145,146 +2293,13 @@ namespace Mastersign.Bench
                 if (cancelation.IsCanceled) break;
                 cnt++;
                 var progress = 0.9f * cnt / selectedApps.Count;
-
-                // 1. Extraction / Installation
                 notify(new TaskProgress(string.Format("Installing app {0}.", app.ID), progress, app.ID));
-                try
-                {
-                    switch (app.Typ)
-                    {
-                        case AppTyps.Meta:
-                            // no resource extraction
-                            break;
-                        case AppTyps.Default:
-                            if (app.ResourceFileName != null)
-                            {
-                                CopyAppResourceFile(man.Config, app);
-                            }
-                            else if (app.ResourceArchiveName != null)
-                            {
-                                ExtractAppArchive(man.Config, man.ProcessExecutionHost, app);
-                            }
-                            break;
-                        case AppTyps.NodePackage:
-                            InstallNodePackage(man.Config, man.ProcessExecutionHost, app);
-                            break;
-                        case AppTyps.RubyPackage:
-                            InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
-                            break;
-                        case AppTyps.Python2Package:
-                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
-                            break;
-                        case AppTyps.Python3Package:
-                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
-                            break;
-                        case AppTyps.NuGetPackage:
-                            InstallNuGetPackage(man.Config, man.ProcessExecutionHost, app);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException("Invalid app typ '" + app.Typ + "' for app " + app.ID + ".");
-                    }
-                }
-                catch (ProcessExecutionFailedException e)
-                {
-                    notify(new TaskError(
-                        string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
-                        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
-                    continue;
-                }
-                catch (Exception e)
-                {
-                    notify(new TaskError(
-                        string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
-                        appId: app.ID, exception: e));
-                    continue;
-                }
 
-                // 2. Custom Setup-Script
-                var customSetupScript = app.GetCustomScript("setup");
-                if (customSetupScript != null)
+                if (InstallApp(man, app, notify))
                 {
-                    notify(new TaskProgress(
-                        string.Format("Executing custom setup script for {0}.", app.ID), progress, 
+                    notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress,
                         appId: app.ID));
-                    string scriptOutput = null;
-                    try
-                    {
-                        scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customSetupScript).Trim();
-                    }
-                    catch (ProcessExecutionFailedException e)
-                    {
-                        notify(new TaskError(
-                            string.Format("Execution of custom setup script for {0} failed.", app.ID),
-                            appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
-                        continue;
-                    }
-                    if (!string.IsNullOrEmpty(scriptOutput))
-                    {
-                        notify(new TaskInfo(
-                            string.Format("Execution custom setup script for {0} finished.", app.ID),
-                            appId: app.ID, consoleOutput: scriptOutput));
-                    }
                 }
-
-                // 3. Create Execution Proxy
-                try
-                {
-                    CreateExecutionProxies(man.Config, app);
-                }
-                catch (Exception e)
-                {
-                    notify(new TaskError(
-                        string.Format("Creating the execution proxy for {0} failed: {1}", app.ID, e.Message),
-                        appId: app.ID, exception: e));
-                    continue;
-                }
-
-                // 4. Create Launcher
-                try
-                {
-                    CreateLauncher(man.Config, app);
-                }
-                catch (Exception e)
-                {
-                    notify(new TaskError(
-                        string.Format("Creating the launcher for {0} failed: {1}", app.ID, e.Message),
-                        appId: app.ID, exception: e));
-                    continue;
-                }
-
-                // 5. Run Custom Environment Script
-                var envScript = app.GetCustomScript("env");
-                if (envScript != null)
-                {
-                    notify(new TaskProgress(
-                       string.Format("Running custom environment script for {0}.", app.ID),
-                       progress, app.ID));
-                    string scriptOutput = null;
-                    try
-                    {
-                        scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, envScript).Trim();
-                    }
-                    catch (ProcessExecutionFailedException e)
-                    {
-                        notify(new TaskError(
-                            string.Format("Running the custom environment script for {0} failed.", app.ID),
-                            appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
-                        continue;
-                    }
-                    if (!string.IsNullOrEmpty(scriptOutput))
-                    {
-                        notify(new TaskInfo(
-                            string.Format("Running custom environment script for {0} finished.", app.ID),
-                            appId: app.ID, consoleOutput: scriptOutput));
-                    }
-                }
-
-                // 6. Store installed version
-                app.InstalledVersion = app.Version;
-
-                notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress, 
-                    appId: app.ID));
-                app.DiscardCachedValues();
             }
 
             var globalCustomSetupScript = GetGlobalCustomScriptFile(man.Config, "setup");
@@ -2304,7 +2319,7 @@ namespace Mastersign.Bench
                 }
                 if (!string.IsNullOrEmpty(scriptOutput))
                 {
-                    notify(new TaskInfo("Executing global custom setup script finished.", 
+                    notify(new TaskInfo("Executing global custom setup script finished.",
                         consoleOutput: scriptOutput));
                 }
             }
@@ -2312,6 +2327,106 @@ namespace Mastersign.Bench
             if (!cancelation.IsCanceled)
             {
                 notify(new TaskProgress("Finished installing apps.", 1f));
+            }
+        }
+
+        #endregion
+
+        #region Test Apps
+
+        private static bool InstallAppsDependencies(IBenchManager man, AppFacade app, 
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var dependencyIds = app.FindAllDependencies();
+            if (dependencyIds.Contains(app.ID)) dependencyIds.Remove(app.ID);
+
+            var dependencies = man.Config.Apps.GetApps(dependencyIds);
+            var result = RunTasks(man,
+                dependencies,
+                notify, cancelation,
+                DownloadAppResources,
+                InstallApps);
+            return result.Success;
+        }
+
+        private static void TestApps(IBenchManager man,
+            ICollection<AppFacade> apps,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var selectedApps = new List<AppFacade>();
+            foreach (var app in apps)
+            {
+                if (app.CanTest) selectedApps.Add(app);
+            }
+
+            if (!PrepareDirectories(man, notify)) return;
+
+            var cnt = 0;
+            foreach (var app in selectedApps)
+            {
+                if (cancelation.IsCanceled) break;
+                cnt++;
+                var progress = 0.9f * cnt / selectedApps.Count;
+
+                // TODO Property checks
+
+                // Installing dependencies
+                notify(new TaskInfo(
+                    string.Format("Installing dependencies for app {0}", app.ID),
+                    appId: app.ID));
+                if (!InstallAppsDependencies(man, app, notify, cancelation))
+                {
+                    notify(new TaskError(
+                        string.Format("Installing dependencies for app {0} failed.", app.ID),
+                        appId: app.ID));
+                    continue;
+                }
+
+                // TODO Download check
+
+                // TODO Install check
+
+                // TODO Post install check
+
+                // TODO ExeTest check
+
+                // TOTO Custom test script check
+
+                //notify(new TaskProgress(string.Format("Testing app {0}.", app.ID), progress, app.ID));
+                //try
+                //{
+                //    switch (app.Typ)
+                //    {
+                //        case AppTyps.Meta:
+                //            break;
+                //        case AppTyps.Default:
+                //            break;
+                //        case AppTyps.NodePackage:
+                //            break;
+                //        case AppTyps.RubyPackage:
+                //            break;
+                //        case AppTyps.Python2Package:
+                //            break;
+                //        case AppTyps.Python3Package:
+                //            break;
+                //        case AppTyps.NuGetPackage:
+                //            break;
+                //    }
+                //}
+                //catch (ProcessExecutionFailedException e)
+                //{
+                //    notify(new TaskError(
+                //        string.Format("Testing app {0} failed: {1}", app.ID, e.Message),
+                //        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                //    continue;
+                //}
+                //catch (Exception e)
+                //{
+                //    notify(new TaskError(
+                //        string.Format("Testing app {0} failed: {1}", app.ID, e.Message),
+                //        appId: app.ID, exception: e));
+                //    continue;
+                //}
             }
         }
 
@@ -2450,7 +2565,7 @@ namespace Mastersign.Bench
                     if (customScript != null)
                     {
                         notify(new TaskProgress(
-                            string.Format("Running custom uninstall script for {0}.", app.ID), progress, 
+                            string.Format("Running custom uninstall script for {0}.", app.ID), progress,
                             appId: app.ID));
                         var scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customScript).Trim();
                         if (!string.IsNullOrEmpty(scriptOutput))

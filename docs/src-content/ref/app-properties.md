@@ -163,6 +163,27 @@ For package apps like `node-package` or `python3-package`,
 the path can be just the name of CLI wrapper script,
 given the package provides a CLI.
 
+## ExeTestArguments {#ExeTestArguments}
+
+* Description: A string to pass as command line arguments when the executable is tested.
+* Data Type: string
+* Default: empty
+* App Types: all
+
+To test if an app was installed successfully,
+the main executable is run with these arguments.
+If the process exit code is `0` the test was successful.
+
+## ExeTest {#ExeTest}
+
+* Description: A flag to prevent the test of the main executable.
+* Data Type: boolean
+* Default: `true`
+* App Types: all
+
+If the main executable of an app can not be tested by executing it with the
+[`ExeTestArguments`](#ExeTestArguments), this property must be set to `false`.
+
 ## AdornedExecutables {#AdornedExecutables}
 
 * Description: A list of executables, which must be adorned with pre- and post-execution scripts
@@ -254,7 +275,7 @@ The path can be absolute or relative to the target directory of the app.
 * Required: `true`*
 * App Types: `default`
 
-*) Only one of `ResourceName` or `ArchiveName` must be set.
+\*) Only one of `ResourceName` or `ArchiveName` must be set.
 
 ## ArchiveName {#ArchiveName}
 
@@ -265,7 +286,7 @@ The path can be absolute or relative to the target directory of the app.
 * Required: `true`*
 * App Types: `default`
 
-*) Only one of `ResourceName` or `ArchiveName` must be set.
+\*) Only one of `ResourceName` or `ArchiveName` must be set.
 
 ## ArchiveTyp {#ArchiveTyp}
 

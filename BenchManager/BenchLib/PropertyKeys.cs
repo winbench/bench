@@ -121,6 +121,8 @@ namespace Mastersign.Bench
         public const string AppExe = "Exe";
         public const string AppAdornedExecutables = "AdornedExecutables";
         public const string AppRegistryKeys = "RegistryKeys";
+        public const string AppExeTest = "ExeTest";
+        public const string AppExeTestArguments = "ExeTestArguments";
         public const string AppLauncher = "Launcher";
         public const string AppLauncherExecutable = "LauncherExecutable";
         public const string AppLauncherArguments = "LauncherArguments";
