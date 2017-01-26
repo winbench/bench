@@ -39,5 +39,12 @@ namespace Mastersign.Bench
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The new value for the property.</param>
         void SetGroupValue(string group, string name, object value);
+
+        /// <summary>
+        /// Resets the specified group property.
+        /// </summary>
+        /// <param name="group">The group of the property.</param>
+        /// <param name="name">The name of the property.</param>
+        void ResetGroupValue(string group, string name);
     }
 }

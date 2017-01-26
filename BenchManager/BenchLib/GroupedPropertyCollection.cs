@@ -218,6 +218,12 @@ namespace Mastersign.Bench
         public void SetValue(string name, object value) { SetGroupValue(null, name, value); }
 
         /// <summary>
+        /// Resets the specified property.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        public void ResetValue(string name) { ResetGroupValue(null, name); }
+
+        /// <summary>
         /// Sets a string value for the specified group property.
         /// </summary>
         /// <param name="group">The group of the property.</param>
@@ -259,6 +265,35 @@ namespace Mastersign.Bench
         public void SetGroupValue(string group, string name, object value)
         {
             InternalSetValue(group, name, value);
+        }
+
+        /// <summary>
+        /// Resets the specified group property.
+        /// </summary>
+        /// <param name="group">The group of the property.</param>
+        /// <param name="name">The name of the property.</param>
+        public void ResetGroupValue(string group, string name)
+        {
+            group = group ?? string.Empty;
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentOutOfRangeException("propertyName", "The property name must not be null or empty.");
+            }
+            List<string> keys;
+            Dictionary<string, object> groupDict;
+            if (groups.ContainsKey(group))
+            {
+                keys = groupKeys[group];
+                groupDict = groups[group];
+            }
+            else
+            {
+                return;
+            }
+            if (groupDict.ContainsKey(name))
+            {
+                groupDict.Remove(name);
+            }
         }
 
         private void InternalSetValue(string groupName, string propertyName, object value)

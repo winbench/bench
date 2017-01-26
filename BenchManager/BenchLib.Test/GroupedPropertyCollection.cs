@@ -131,5 +131,22 @@ namespace Mastersign.Bench.Test
                 properties[name] = value;
             }
         }
+
+        public void ResetGroupValue(string group, string name)
+        {
+            if (group == null)
+            {
+                ResetValue(name);
+            }
+            else
+            {
+                IDictionary<string, object> properties;
+                if (!groups.TryGetValue(group, out properties))
+                {
+                    properties.Add(group, properties = new Dictionary<string, object>());
+                }
+                if (properties.ContainsKey(name)) properties.Remove(name);
+            }
+        }
     }
 }

@@ -17,5 +17,11 @@ namespace Mastersign.Bench
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The new value of the property.</param>
         void SetValue(string name, object value);
+
+        /// <summary>
+        /// Resets the specified property.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        void ResetValue(string name);
     }
 }
