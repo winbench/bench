@@ -30,15 +30,25 @@ namespace Mastersign.Bench.Dashboard
 
         private bool configReloadNecessary;
 
+        private bool activationReloadNecessary;
+
         private readonly object configReloadLockHandle = new object();
 
-        private FileSystemWatcher[] fsWatchers;
+        private FileSystemWatcher[] configFileWatchers;
+
+        private FileSystemWatcher[] activationFileWatchers;
+
+        private readonly Dictionary<string, DateTime> fileWriteTimeCache = new Dictionary<string, DateTime>();
+
+        private readonly TimeSpan FILE_CHANGE_TIME_FILTER_DELTA = new TimeSpan(0, 0, 0, 0, 100);
 
         private ActionState actionState;
 
         private Cancelation cancelation;
 
         public event EventHandler ConfigReloaded;
+
+        public event EventHandler AppActivationChanged;
 
         public event EventHandler AllAppStateChanged;
 
@@ -97,9 +107,12 @@ namespace Mastersign.Bench.Dashboard
                 if (value == busy) return;
                 busy = value;
                 OnBusyChanged();
-                if (!busy && configReloadNecessary)
+                if (!busy)
                 {
-                    Reload();
+                    if (configReloadNecessary)
+                        Reload();
+                    else if (activationReloadNecessary)
+                        ReloadAppActivation();
                 }
             }
         }
@@ -138,43 +151,75 @@ namespace Mastersign.Bench.Dashboard
         private void SetupFileWatchers()
         {
             DisposeFileWatchers();
-            var paths = Config.GetConfigurationFiles(
-                ConfigurationFileType.UserConfig
+
+            var configFileSet = ConfigurationFileType.UserConfig
                 | ConfigurationFileType.SiteConfig
-                | ConfigurationFileType.UserAppLib
-                | ConfigurationFileType.AppSelection,
-                true, true);
-            fsWatchers = paths
-                .Select(p => p.Path)
-                .Select(p => new FileSystemWatcher(Path.GetDirectoryName(p))
-                {
-                    Filter = Path.GetFileName(p),
-                    //NotifyFilter = NotifyFilters.LastWrite,
-                    IncludeSubdirectories = false,
-                    EnableRaisingEvents = true,
-                })
+                | ConfigurationFileType.UserAppLib;
+            configFileWatchers = Config
+                .GetConfigurationFiles(configFileSet, actuallyLoaded: true, mustExist: true)
+                .Select(p => CreateFileWatcher(p.Path, ConfigFileChangedHandler))
                 .ToArray();
-            foreach (var w in fsWatchers)
+
+            var activationFileSet = ConfigurationFileType.AppSelection;
+            configFileWatchers = Config
+                .GetConfigurationFiles(activationFileSet, actuallyLoaded: true, mustExist: true)
+                .Select(p => CreateFileWatcher(p.Path, ActivationFileChangedHandler))
+                .ToArray();
+        }
+
+        private FileSystemWatcher CreateFileWatcher(string path, FileSystemEventHandler handler)
+        {
+            var watcher = new FileSystemWatcher(Path.GetDirectoryName(path))
             {
-                w.Changed += SourceFileChangedHandler;
-            }
+                Filter = Path.GetFileName(path),
+                IncludeSubdirectories = false,
+                EnableRaisingEvents = true,
+            };
+            watcher.Changed += handler;
+            return watcher;
         }
 
         private void DisposeFileWatchers()
         {
-            if (fsWatchers != null)
+            if (configFileWatchers != null)
             {
-                foreach (var w in fsWatchers)
+                foreach (var w in configFileWatchers)
                 {
-                    w.Changed -= SourceFileChangedHandler;
+                    w.Changed -= ConfigFileChangedHandler;
                     w.Dispose();
                 }
-                fsWatchers = null;
+                configFileWatchers = null;
+            }
+            if (activationFileWatchers != null)
+            {
+                foreach (var w in activationFileWatchers)
+                {
+                    w.Changed -= ActivationFileChangedHandler;
+                    w.Dispose();
+                }
+                activationFileWatchers = null;
             }
         }
 
-        private void SourceFileChangedHandler(object sender, FileSystemEventArgs e)
+        private bool CheckFileEvent(string path)
         {
+            lock (fileWriteTimeCache)
+            {
+                var t = File.GetLastWriteTime(path);
+                DateTime lastT;
+                if (fileWriteTimeCache.TryGetValue(path, out lastT) &&
+                    (lastT - t).Duration() < FILE_CHANGE_TIME_FILTER_DELTA)
+                {
+                    return false;
+                }
+                fileWriteTimeCache[path] = t;
+                return true;
+            }
+        }
+
+        private void ConfigFileChangedHandler(object sender, FileSystemEventArgs e)
+        {
+            if (!CheckFileEvent(e.FullPath)) return;
             if (busy)
             {
                 configReloadNecessary = true;
@@ -185,45 +230,43 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        private void ActivationFileChangedHandler(object sender, FileSystemEventArgs e)
+        {
+            if (!CheckFileEvent(e.FullPath)) return;
+            if (busy)
+            {
+                activationReloadNecessary = true;
+            }
+            else
+            {
+                Task.Run(() => ReloadAppActivation());
+            }
+        }
+
         private void OnConfigReloaded()
         {
-            SyncWithGui(() =>
-            {
-                var handler = ConfigReloaded;
-                if (handler != null)
-                {
-                    handler(this, EventArgs.Empty);
-                }
-            });
+            SyncWithGui(() => ConfigReloaded?.Invoke(this, EventArgs.Empty));
         }
 
         private void OnAllAppStateChanged()
         {
-            SyncWithGui(() =>
-            {
-                var handler = AllAppStateChanged;
-                if (handler != null)
-                {
-                    handler(this, EventArgs.Empty);
-                }
-            });
+            SyncWithGui(() => AllAppStateChanged?.Invoke(this, EventArgs.Empty));
+        }
+
+        private void OnAppActivationChanged()
+        {
+            SyncWithGui(() => AppActivationChanged?.Invoke(this, EventArgs.Empty));
         }
 
         private void OnAppStateChanged(string appId)
         {
-            SyncWithGui(() =>
-            {
-                var handler = AppStateChanged;
-                if (handler != null)
-                {
-                    handler(this, new AppEventArgs(appId));
-                }
-            });
+            SyncWithGui(() => AppStateChanged?.Invoke(this, new AppEventArgs(appId)));
         }
 
         public void Reload(bool configChanged = false)
         {
             configReloadNecessary = false;
+            activationReloadNecessary = false;
             lock (configReloadLockHandle)
             {
                 Config = Config.Reload();
@@ -235,6 +278,16 @@ namespace Mastersign.Bench.Dashboard
                 }
             }
             OnConfigReloaded();
+        }
+
+        public void ReloadAppActivation()
+        {
+            activationReloadNecessary = false;
+            lock (configReloadLockHandle)
+            {
+                Config.ReloadAppActivation();
+            }
+            OnAppActivationChanged();
         }
 
         public void SetAppActivated(string appId, bool value)
