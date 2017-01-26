@@ -40,6 +40,7 @@ namespace Mastersign.Bench.Dashboard
             this.core = core;
             core.ConfigReloaded += CoreConfigReloadedHandler;
             core.AllAppStateChanged += CoreAllAppStateChangedHandler;
+            core.AppActivationChanged += CoreAppActivationChangedHandler;
             core.AppStateChanged += CoreAppStateChangedHandler;
             core.BusyChanged += CoreBusyChangedHandler;
             core.ActionStateChanged += CoreActionStateChangedHandler;
@@ -185,6 +186,12 @@ namespace Mastersign.Bench.Dashboard
             UpdatePendingCounts();
         }
 
+        private void CoreAppActivationChangedHandler(object sender, EventArgs e)
+        {
+            var l = (SortedBindingList<AppWrapper>)gridApps.DataSource;
+            l.NotifyListChanged();
+        }
+
         private void CoreAppStateChangedHandler(object sender, AppEventArgs e)
         {
             NotifyAppStateChange(e.ID);
@@ -193,11 +200,17 @@ namespace Mastersign.Bench.Dashboard
 
         private void NotifyAppStateChange(string appId)
         {
+            ForAppWrapper(appId, w => w.App.DiscardCachedValues());
+            var l = (SortedBindingList<AppWrapper>)gridApps.DataSource;
+            l.NotifyListChanged();
+        }
+
+        private void ForAppWrapper(string appId, Action<AppWrapper> action)
+        {
             AppWrapper wrapper;
             if (appLookup.TryGetValue(appId, out wrapper))
             {
-                wrapper.App.DiscardCachedValues();
-                wrapper.NotifyChanges();
+                action(wrapper);
             }
         }
 

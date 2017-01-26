@@ -26,6 +26,7 @@ namespace Mastersign.Bench.Dashboard
             this.core = core;
             core.ConfigReloaded += ConfigReloadedHandler;
             core.AllAppStateChanged += AppStateChangedHandler;
+            core.AppActivationChanged += AppStateChangedHandler;
             core.AppStateChanged += AppStateChangedHandler;
             core.BusyChanged += CoreBusyChangedHandler;
             InitializeComponent();
