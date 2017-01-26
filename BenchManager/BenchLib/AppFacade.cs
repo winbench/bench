@@ -1271,6 +1271,31 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// <para>Resets the following properties:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description>IsActivated</description>
+        ///     </item>
+        ///     <item>
+        ///         <description>IsDeactivated</description>
+        ///     </item>
+        ///     <item>
+        ///         <description>IsRequired</description>
+        ///     </item>
+        ///     <item>
+        ///         <description>IsDependency</description>
+        ///     </item>
+        /// </list>
+        /// </summary>
+        internal void ResetActivation()
+        {
+            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsActivated);
+            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsDeactivated);
+            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsRequired);
+            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsDependency);
+        }
+
         private void SetupAdornmentForRegistryIsolation()
         {
             if (RegistryKeys.Length > 0 && AdornedExecutables.Length == 0)

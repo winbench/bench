@@ -238,8 +238,8 @@ namespace Mastersign.Bench
             appIndexFacade = new AppIndexFacade(this);
 
             AutomaticConfiguration();
-            AutomaticActivation(loadCustomConfiguration);
-            RecordResponsibilities();
+            RecordAppResponsibilities();
+            LoadAppActivation();
         }
 
         private static string[] FindSiteConfigFiles(string benchRootDir, string fileName)
@@ -418,7 +418,15 @@ namespace Mastersign.Bench
             }
         }
 
-        private void AutomaticActivation(bool withCustomConfiguration)
+        private void RecordAppResponsibilities()
+        {
+            foreach (var app in new List<AppFacade>(Apps))
+            {
+                app.TrackResponsibilities();
+            }
+        }
+
+        private void LoadAppActivation()
         {
             // activate required apps
 
@@ -428,7 +436,7 @@ namespace Mastersign.Bench
                 app.ActivateAsRequired();
             }
 
-            if (withCustomConfiguration)
+            if (WithCustomConfiguration)
             {
                 // activate manually activated apps
 
@@ -456,12 +464,22 @@ namespace Mastersign.Bench
             }
         }
 
-        private void RecordResponsibilities()
+        private void ResetAppActivation()
         {
-            foreach (var app in new List<AppFacade>(Apps))
+            foreach (var app in Apps)
             {
-                app.TrackResponsibilities();
+                app.ResetActivation();
             }
+        }
+
+        /// <summary>
+        /// Reads the activation and deactivation files,
+        /// and reloads the app activation and dependency structure.
+        /// </summary>
+        public void ReloadAppActivation()
+        {
+            ResetAppActivation();
+            LoadAppActivation();
         }
 
         private bool IsPathProperty(string app, string property)
