@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.14.0] - 2017-01-27
+
+[0.14.0]: https://github.com/mastersign/bench/compare/v0.13.3...v0.14.0
+
 ### Added
 - Bench CLI
   ([#87](https://github.com/mastersign/bench/issues/87))
