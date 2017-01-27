@@ -376,10 +376,7 @@ namespace Mastersign.Bench.Dashboard
                 {
                     var selectedRow = gridApps.SelectedRows.Count > 0 ? gridApps.SelectedRows[0].Index : -10;
                     gridApps.SuspendLayout();
-                    if (gridApps.DataSource == null)
-                    {
-                        gridApps.DataSource = bindingList;
-                    }
+                    gridApps.DataSource = bindingList;
                     if (sortedColumn != null)
                     {
                         gridApps.Sort(sortedColumn, sortDirection);
