@@ -38,10 +38,6 @@ namespace Mastersign.Bench.Dashboard
 
         private FileSystemWatcher[] activationFileWatchers;
 
-        private readonly Dictionary<string, DateTime> fileWriteTimeCache = new Dictionary<string, DateTime>();
-
-        private readonly TimeSpan FILE_CHANGE_TIME_FILTER_DELTA = new TimeSpan(0, 0, 0, 0, 100);
-
         private ActionState actionState;
 
         private Cancelation cancelation;
@@ -201,25 +197,8 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
-        private bool CheckFileEvent(string path)
-        {
-            lock (fileWriteTimeCache)
-            {
-                var t = File.GetLastWriteTime(path);
-                DateTime lastT;
-                if (fileWriteTimeCache.TryGetValue(path, out lastT) &&
-                    (lastT - t).Duration() < FILE_CHANGE_TIME_FILTER_DELTA)
-                {
-                    return false;
-                }
-                fileWriteTimeCache[path] = t;
-                return true;
-            }
-        }
-
         private void ConfigFileChangedHandler(object sender, FileSystemEventArgs e)
         {
-            if (!CheckFileEvent(e.FullPath)) return;
             if (busy)
             {
                 configReloadNecessary = true;
@@ -232,7 +211,6 @@ namespace Mastersign.Bench.Dashboard
 
         private void ActivationFileChangedHandler(object sender, FileSystemEventArgs e)
         {
-            if (!CheckFileEvent(e.FullPath)) return;
             if (busy)
             {
                 activationReloadNecessary = true;
