@@ -39,6 +39,8 @@ Add a link to the GitHub diff like
     + `KnownLicenses`
 - Support for multiple app libraries
   ([#90](https://github.com/mastersign/bench/issues/90))
+  Support for license infos
+  ([#91](https://github.com/mastersign/bench/issues/91))
 - Namespaces for app IDs
 - Config properties:
     + `AppLibs`  
@@ -67,10 +69,13 @@ Add a link to the GitHub diff like
     + <https://github.com/mastersign/bench-apps-core>
     + <https://github.com/mastersign/bench-apps-default>
 - In the future, all app related issues are attended at the app library repositories on GitHub
+- Improved performance for app selection in the Setup Dialog of BenchDashboard
 
 ### Fixed
 - Proxy setup for Maven
   ([#89](https://github.com/mastersign/bench/issues/89))
+- Download view in the Setup Dialog of the BenchDashboard
+  ([#81](https://github.com/mastersign/bench/issues/81))
 
 ### Removed
 - Script based actions
