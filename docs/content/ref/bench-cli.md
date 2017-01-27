@@ -1,5 +1,5 @@
 ﻿+++
-date = "2017-01-11T11:20:19+01:00"
+date = "2017-01-27T16:09:03+01:00"
 description = "The command-line interface: bench.exe"
 title = "Bench CLI"
 weight = 2
@@ -590,7 +590,7 @@ Initialize the Bench configuration and start the setup process.
 #### [ `load-app-libs`,  `l`](#cmd_bench-manage-load-app-libs)
 Load the latest app libraries.
 
-Syntax:  `bench`  `manage`  `load-app-libs`  
+Syntax:  `bench`  `manage`  `load-app-libs`  _&lt;flag&gt;_\*  
 
 #### [ `reinstall`,  `r`](#cmd_bench-manage-reinstall)
 Remove all installed apps, then install all active apps.
@@ -678,12 +678,17 @@ The  `initialize` command initializes the Bench configuration and starts the set
 ## bench manage load-app-libs {#cmd_bench-manage-load-app-libs}
 Command:  `bench`  `manage`  `load-app-libs`
 
-The  `load-app-libs` command loads the latest app libraries.
+The  `load-app-libs` command loads missing app libraries.
 
 ### Usage {#cmd_bench-manage-load-app-libs_usage}
 
 *  `bench`  `manage`  `load-app-libs`  `-?`
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `load-app-libs`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `load-app-libs`  _&lt;flag&gt;_\*
+
+### Flags {#cmd_bench-manage-load-app-libs_flags}
+
+####  `--update` |  `-u`
+Clears the cache and loads the latest version of all app libraries.
 
 ## bench manage reinstall {#cmd_bench-manage-reinstall}
 Command:  `bench`  `manage`  `reinstall`
