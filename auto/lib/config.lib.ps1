@@ -32,7 +32,7 @@ function App-Force([string]$name) { return $global:BenchConfig.Apps[$name].Force
 function App-PackageName([string]$name) { return $global:BenchConfig.Apps[$name].PackageName }
 function App-Dir([string]$name) { return $global:BenchConfig.Apps[$name].Dir }
 function App-Paths([string]$name) { return $global:BenchConfig.Apps[$name].Path }
-function App-Exe([string]$name, [bool]$checkExist = $true) { return $global:BenchConfig.Apps[$name].Exe }
+
 function App-Register([string]$name) { return $global:BenchConfig.Apps[$name].Register }
 function App-Environment([string]$name) { return $global:BenchConfig.Apps[$name].Environment }
 function App-AdornedExecutables([string]$name) { return $global:BenchConfig.Apps[$name].AdornedExecutables }
@@ -46,7 +46,21 @@ function Check-App([string]$name) { return $global:BenchConfig.Apps[$name].IsIns
 function App-CustomScript([string]$name, [string]$typ) { return $global:BenchConfig.Apps[$name].GetCustomScript($typ) }
 function App-SetupResource([string]$name, [string]$relPath) { return $global:BenchConfig.Apps[$name].GetSetupResource($relPath) }
 
-function App-Path([string]$name) {
+function App-Exe([string]$name, [bool]$checkExist = $true)
+{
+    $p = $global:BenchConfig.Apps[$name].Exe
+    if (!$checkExist -or [IO.File]::Exists($p))
+    {
+        return $p
+    }
+    else
+    {
+        return $null
+    }
+}
+
+function App-Path([string]$name)
+{
     $path = $global:BenchConfig.Apps[$name].Path
     if ($path.Length -gt 0)
     {
