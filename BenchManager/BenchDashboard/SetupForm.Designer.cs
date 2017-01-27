@@ -50,6 +50,19 @@
             this.lblTask = new System.Windows.Forms.Label();
             this.lblTaskLabel = new System.Windows.Forms.Label();
             this.gridApps = new System.Windows.Forms.DataGridView();
+            this.colIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.colIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLibrary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActivated = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colExcluded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTyp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLicense = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.colComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ctxmAppActions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.miAppInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.miWebsite = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,19 +105,6 @@
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
-            this.colIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.colIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLibrary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActivated = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colExcluded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTyp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLicense = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.colComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -308,6 +308,156 @@
             this.gridApps.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridApps_CellDoubleClick);
             this.gridApps.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridApps_ColumnHeaderMouseClick);
             this.gridApps.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.gridApps_RowContextMenuStripNeeded);
+            // 
+            // colIcon
+            // 
+            this.colIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colIcon.DataPropertyName = "StatusIcon";
+            this.colIcon.Frozen = true;
+            this.colIcon.HeaderText = "";
+            this.colIcon.Name = "colIcon";
+            this.colIcon.ReadOnly = true;
+            this.colIcon.Width = 32;
+            // 
+            // colIndex
+            // 
+            this.colIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colIndex.DataPropertyName = "Index";
+            this.colIndex.Frozen = true;
+            this.colIndex.HeaderText = "Order";
+            this.colIndex.Name = "colIndex";
+            this.colIndex.ReadOnly = true;
+            this.colIndex.ToolTipText = "The index number from the app registry.";
+            this.colIndex.Width = 62;
+            // 
+            // colLibrary
+            // 
+            this.colLibrary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colLibrary.DataPropertyName = "AppLibrary";
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colLibrary.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colLibrary.Frozen = true;
+            this.colLibrary.HeaderText = "Library";
+            this.colLibrary.Name = "colLibrary";
+            this.colLibrary.ReadOnly = true;
+            this.colLibrary.ToolTipText = "The ID of the library, this app is defined in.";
+            this.colLibrary.Width = 66;
+            // 
+            // colID
+            // 
+            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colID.DataPropertyName = "ID";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colID.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colID.Frozen = true;
+            this.colID.HeaderText = "ID";
+            this.colID.Name = "colID";
+            this.colID.ReadOnly = true;
+            this.colID.ToolTipText = "The full ID of the app including the namespace.";
+            this.colID.Width = 43;
+            // 
+            // colCategory
+            // 
+            this.colCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colCategory.DataPropertyName = "Category";
+            this.colCategory.Frozen = true;
+            this.colCategory.HeaderText = "Category";
+            this.colCategory.Name = "colCategory";
+            this.colCategory.ReadOnly = true;
+            this.colCategory.ToolTipText = "The category of the app.";
+            this.colCategory.Width = 78;
+            // 
+            // colLabel
+            // 
+            this.colLabel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colLabel.DataPropertyName = "Label";
+            this.colLabel.Frozen = true;
+            this.colLabel.HeaderText = "Label";
+            this.colLabel.Name = "colLabel";
+            this.colLabel.ReadOnly = true;
+            this.colLabel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colLabel.ToolTipText = "The user friendly name of the app.";
+            this.colLabel.Width = 59;
+            // 
+            // colVersion
+            // 
+            this.colVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colVersion.DataPropertyName = "Version";
+            this.colVersion.Frozen = true;
+            this.colVersion.HeaderText = "Version";
+            this.colVersion.Name = "colVersion";
+            this.colVersion.ReadOnly = true;
+            this.colVersion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colVersion.ToolTipText = "The version number of the app.";
+            this.colVersion.Width = 70;
+            // 
+            // colActivated
+            // 
+            this.colActivated.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colActivated.DataPropertyName = "IsActive";
+            this.colActivated.FalseValue = "inactive";
+            this.colActivated.Frozen = true;
+            this.colActivated.HeaderText = "Active";
+            this.colActivated.IndeterminateValue = "implicit";
+            this.colActivated.Name = "colActivated";
+            this.colActivated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colActivated.ThreeState = true;
+            this.colActivated.ToolTipText = "States whether the app is activated by the user or not.";
+            this.colActivated.TrueValue = "active";
+            this.colActivated.Width = 62;
+            // 
+            // colExcluded
+            // 
+            this.colExcluded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colExcluded.DataPropertyName = "IsDeactivated";
+            this.colExcluded.Frozen = true;
+            this.colExcluded.HeaderText = "Deactivated";
+            this.colExcluded.Name = "colExcluded";
+            this.colExcluded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colExcluded.ToolTipText = "States whether the app is deactivated by the user.";
+            this.colExcluded.Width = 92;
+            // 
+            // colStatus
+            // 
+            this.colStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colStatus.DataPropertyName = "ShortStatus";
+            this.colStatus.Frozen = true;
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.ToolTipText = "A brief description of the apps status.";
+            this.colStatus.Width = 64;
+            // 
+            // colTyp
+            // 
+            this.colTyp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colTyp.DataPropertyName = "Typ";
+            this.colTyp.Frozen = true;
+            this.colTyp.HeaderText = "Typ";
+            this.colTyp.Name = "colTyp";
+            this.colTyp.ReadOnly = true;
+            this.colTyp.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colTyp.ToolTipText = "The typ of the app.";
+            this.colTyp.Width = 48;
+            // 
+            // colLicense
+            // 
+            this.colLicense.DataPropertyName = "License";
+            this.colLicense.Frozen = true;
+            this.colLicense.HeaderText = "License";
+            this.colLicense.Name = "colLicense";
+            this.colLicense.ReadOnly = true;
+            this.colLicense.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colComment
+            // 
+            this.colComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colComment.DataPropertyName = "LongStatus";
+            this.colComment.HeaderText = "Comment";
+            this.colComment.MinimumWidth = 100;
+            this.colComment.Name = "colComment";
+            this.colComment.ReadOnly = true;
+            this.colComment.ToolTipText = "A more detailed description of the apps status.";
             // 
             // ctxmAppActions
             // 
@@ -686,156 +836,6 @@
             this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
-            // 
-            // colIcon
-            // 
-            this.colIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colIcon.DataPropertyName = "StatusIcon";
-            this.colIcon.Frozen = true;
-            this.colIcon.HeaderText = "";
-            this.colIcon.Name = "colIcon";
-            this.colIcon.ReadOnly = true;
-            this.colIcon.Width = 32;
-            // 
-            // colIndex
-            // 
-            this.colIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colIndex.DataPropertyName = "Index";
-            this.colIndex.Frozen = true;
-            this.colIndex.HeaderText = "Order";
-            this.colIndex.Name = "colIndex";
-            this.colIndex.ReadOnly = true;
-            this.colIndex.ToolTipText = "The index number from the app registry.";
-            this.colIndex.Width = 62;
-            // 
-            // colLibrary
-            // 
-            this.colLibrary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colLibrary.DataPropertyName = "AppLibrary";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colLibrary.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colLibrary.Frozen = true;
-            this.colLibrary.HeaderText = "Library";
-            this.colLibrary.Name = "colLibrary";
-            this.colLibrary.ReadOnly = true;
-            this.colLibrary.ToolTipText = "The ID of the library, this app is defined in.";
-            this.colLibrary.Width = 66;
-            // 
-            // colID
-            // 
-            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colID.DataPropertyName = "ID";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colID.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colID.Frozen = true;
-            this.colID.HeaderText = "ID";
-            this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
-            this.colID.ToolTipText = "The full ID of the app including the namespace.";
-            this.colID.Width = 43;
-            // 
-            // colCategory
-            // 
-            this.colCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colCategory.DataPropertyName = "Category";
-            this.colCategory.Frozen = true;
-            this.colCategory.HeaderText = "Category";
-            this.colCategory.Name = "colCategory";
-            this.colCategory.ReadOnly = true;
-            this.colCategory.ToolTipText = "The category of the app.";
-            this.colCategory.Width = 78;
-            // 
-            // colLabel
-            // 
-            this.colLabel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colLabel.DataPropertyName = "Label";
-            this.colLabel.Frozen = true;
-            this.colLabel.HeaderText = "Label";
-            this.colLabel.Name = "colLabel";
-            this.colLabel.ReadOnly = true;
-            this.colLabel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colLabel.ToolTipText = "The user friendly name of the app.";
-            this.colLabel.Width = 59;
-            // 
-            // colVersion
-            // 
-            this.colVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colVersion.DataPropertyName = "Version";
-            this.colVersion.Frozen = true;
-            this.colVersion.HeaderText = "Version";
-            this.colVersion.Name = "colVersion";
-            this.colVersion.ReadOnly = true;
-            this.colVersion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colVersion.ToolTipText = "The version number of the app.";
-            this.colVersion.Width = 70;
-            // 
-            // colActivated
-            // 
-            this.colActivated.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colActivated.DataPropertyName = "IsActive";
-            this.colActivated.FalseValue = "inactive";
-            this.colActivated.Frozen = true;
-            this.colActivated.HeaderText = "Active";
-            this.colActivated.IndeterminateValue = "implicit";
-            this.colActivated.Name = "colActivated";
-            this.colActivated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colActivated.ThreeState = true;
-            this.colActivated.ToolTipText = "States whether the app is activated by the user or not.";
-            this.colActivated.TrueValue = "active";
-            this.colActivated.Width = 62;
-            // 
-            // colExcluded
-            // 
-            this.colExcluded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colExcluded.DataPropertyName = "IsDeactivated";
-            this.colExcluded.Frozen = true;
-            this.colExcluded.HeaderText = "Deactivated";
-            this.colExcluded.Name = "colExcluded";
-            this.colExcluded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colExcluded.ToolTipText = "States whether the app is deactivated by the user.";
-            this.colExcluded.Width = 92;
-            // 
-            // colStatus
-            // 
-            this.colStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colStatus.DataPropertyName = "ShortStatus";
-            this.colStatus.Frozen = true;
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.ToolTipText = "A brief description of the apps status.";
-            this.colStatus.Width = 64;
-            // 
-            // colTyp
-            // 
-            this.colTyp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colTyp.DataPropertyName = "Typ";
-            this.colTyp.Frozen = true;
-            this.colTyp.HeaderText = "Typ";
-            this.colTyp.Name = "colTyp";
-            this.colTyp.ReadOnly = true;
-            this.colTyp.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colTyp.ToolTipText = "The typ of the app.";
-            this.colTyp.Width = 48;
-            // 
-            // colLicense
-            // 
-            this.colLicense.DataPropertyName = "License";
-            this.colLicense.Frozen = true;
-            this.colLicense.HeaderText = "License";
-            this.colLicense.Name = "colLicense";
-            this.colLicense.ReadOnly = true;
-            this.colLicense.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colComment
-            // 
-            this.colComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colComment.DataPropertyName = "LongStatus";
-            this.colComment.HeaderText = "Comment";
-            this.colComment.MinimumWidth = 100;
-            this.colComment.Name = "colComment";
-            this.colComment.ReadOnly = true;
-            this.colComment.ToolTipText = "A more detailed description of the apps status.";
             // 
             // SetupForm
             // 

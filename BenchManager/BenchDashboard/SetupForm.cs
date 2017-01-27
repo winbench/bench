@@ -24,6 +24,7 @@ namespace Mastersign.Bench.Dashboard
 
         private readonly Dictionary<string, AppWrapper> appLookup
             = new Dictionary<string, AppWrapper>();
+        private int firstVisibleRowIndex;
 
         private ConEmuExecutionHost conHost;
         private ConEmuControl conControl;
@@ -169,6 +170,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void CoreConfigReloadedHandler(object sender, EventArgs e)
         {
+            firstVisibleRowIndex = gridApps.FirstDisplayedScrollingRowIndex;
             InitializeDownloadList();
             InitializeAppIndexMenu();
             InitializeAppListColumnsMenu();
@@ -181,15 +183,15 @@ namespace Mastersign.Bench.Dashboard
         {
             foreach (var app in core.Config.Apps)
             {
-                NotifyAppStateChange(app.ID);
+                app.DiscardCachedValues();
             }
+            gridApps.Refresh();
             UpdatePendingCounts();
         }
 
         private void CoreAppActivationChangedHandler(object sender, EventArgs e)
         {
-            var l = (SortedBindingList<AppWrapper>)gridApps.DataSource;
-            l.NotifyListChanged();
+            gridApps.Refresh();
         }
 
         private void CoreAppStateChangedHandler(object sender, AppEventArgs e)
@@ -200,9 +202,11 @@ namespace Mastersign.Bench.Dashboard
 
         private void NotifyAppStateChange(string appId)
         {
-            ForAppWrapper(appId, w => w.App.DiscardCachedValues());
-            var l = (SortedBindingList<AppWrapper>)gridApps.DataSource;
-            l.NotifyListChanged();
+            ForAppWrapper(appId, w =>
+            {
+                w.App.DiscardCachedValues();
+                w.NotifyChanges();
+            });
         }
 
         private void ForAppWrapper(string appId, Action<AppWrapper> action)
@@ -371,9 +375,11 @@ namespace Mastersign.Bench.Dashboard
                 BeginInvoke((ThreadStart)(() =>
                 {
                     var selectedRow = gridApps.SelectedRows.Count > 0 ? gridApps.SelectedRows[0].Index : -10;
-                    var firstVisibleRow = gridApps.FirstDisplayedScrollingRowIndex;
                     gridApps.SuspendLayout();
-                    gridApps.DataSource = bindingList;
+                    if (gridApps.DataSource == null)
+                    {
+                        gridApps.DataSource = bindingList;
+                    }
                     if (sortedColumn != null)
                     {
                         gridApps.Sort(sortedColumn, sortDirection);
@@ -382,9 +388,9 @@ namespace Mastersign.Bench.Dashboard
                     {
                         gridApps.Rows[selectedRow].Selected = true;
                     }
-                    if (firstVisibleRow >= 0)
+                    if (firstVisibleRowIndex >= 0)
                     {
-                        gridApps.FirstDisplayedScrollingRowIndex = firstVisibleRow;
+                        gridApps.FirstDisplayedScrollingRowIndex = firstVisibleRowIndex;
                     }
                     gridApps.ResumeLayout();
                 }));
