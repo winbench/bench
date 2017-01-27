@@ -65,6 +65,11 @@ namespace Mastersign.Bench.Dashboard
 
         private void DownloaderIsWorkingChangedHandler(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                Invoke((EventHandler)DownloaderIsWorkingChangedHandler, sender, e);
+                return;
+            }
             if (downloader.IsWorking)
             {
                 ClearDownloadTasks();
