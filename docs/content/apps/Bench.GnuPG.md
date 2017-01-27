@@ -1,0 +1,40 @@
+﻿+++
+title = "GnuPG"
+weight = 18
+app_library = "default"
+app_category = "Security"
+app_typ = "default"
+app_ns = "Bench"
+app_id = "Bench.GnuPG"
+app_version = "2.0.30"
+app_categories = ["Security"]
+app_libraries = ["default"]
+app_types = ["default"]
++++
+
+**ID:** `Bench.GnuPG`  
+**Version:** 2.0.30  
+<!--more-->
+
+[Back to all apps](/apps/)
+
+## Description
+GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP).
+GnuPG allows to encrypt and sign your data and communication, features a versatile key management system
+as well as access modules for all kinds of public key directories.
+GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications.
+
+## Source
+
+* Library: `default`
+* Category: Security
+* Order Index: 18
+
+## Properties
+
+* Namespace: Bench
+* Name: GnuPG
+* Typ: `default`
+* Website: <https://gnupg.org>
+* Responsibilities: [Leiningen](/app/Bench.Leiningen), [Maven](/app/Bench.Maven)
+

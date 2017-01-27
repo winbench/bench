@@ -6,15 +6,14 @@ $docsDir = Resolve-Path "$rootDir\docs"
 $sourceDirs = @(
     $rootDir,
     "$rootDir\auto",
-    "$rootDir\auto\lib",
-    "$rootDir\actions"
+    "$rootDir\auto\lib"
 )
 $constNodes = @(
     "BenchDashboard.exe",
     "BenchLib.dll"
 )
 $filter = @("*.bat", "*.cmd", "*.ps1")
-$exclude = @("runps.cmd", "env.cmd")
+$exclude = @()
 $targetFile = "$docsDir\src-static\graph\dependencies.gw"
 $imageFile =  "$docsDir\static\img\dependencies.svg"
 $graphLabel = "Dependencies"

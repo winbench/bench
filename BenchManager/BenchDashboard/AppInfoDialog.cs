@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,85 +13,30 @@ namespace Mastersign.Bench.Dashboard
 {
     internal partial class AppInfoDialog : Form
     {
-        private static readonly string[] KnownProperties = new[]
-            {
-                PropertyKeys.AppTyp,
-                PropertyKeys.AppWebsite,
-                PropertyKeys.AppDocs,
-                PropertyKeys.AppVersion,
-                PropertyKeys.AppDependencies,
-                PropertyKeys.AppForce,
-                PropertyKeys.AppSetupTestFile,
-                PropertyKeys.AppPackageName,
-                PropertyKeys.AppUrl,
-                PropertyKeys.AppDownloadCookies,
-                PropertyKeys.AppDownloadHeaders,
-                PropertyKeys.AppResourceName,
-                PropertyKeys.AppArchiveName,
-                PropertyKeys.AppArchiveTyp,
-                PropertyKeys.AppArchivePath,
-                PropertyKeys.AppDir,
-                PropertyKeys.AppExe,
-                PropertyKeys.AppRegister,
-                PropertyKeys.AppPath,
-                PropertyKeys.AppEnvironment,
-                PropertyKeys.AppAdornedExecutables,
-                PropertyKeys.AppRegistryKeys,
-                PropertyKeys.AppLauncher,
-                PropertyKeys.AppLauncherExecutable,
-                PropertyKeys.AppLauncherArguments,
-                PropertyKeys.AppLauncherIcon,
-            };
-
         public AppInfoDialog(BenchConfiguration config, AppFacade app)
         {
             InitializeComponent();
             gridResolved.DoubleBuffered(true);
             lblAppId.Text = app.Label;
             LoadProperties(config, app);
+            LoadLicense(app);
+            LoadDocumentation(app);
         }
 
         private void LoadProperties(BenchConfiguration config, AppFacade app)
         {
             gridResolved.Rows.Clear();
-            AddRow(gridResolved, "ID", app.ID);
-            AddRow(gridResolved, PropertyKeys.AppTyp, app.Typ);
-            AddRow(gridResolved, PropertyKeys.AppWebsite, app.Website);
-            AddRow(gridResolved, PropertyKeys.AppDocs, app.Docs);
-            AddRow(gridResolved, PropertyKeys.AppVersion, app.Version);
-            AddRow(gridResolved, "Installed Version", app.InstalledVersion);
-            AddRow(gridResolved, PropertyKeys.AppDependencies, app.Dependencies);
-            AddRow(gridResolved, PropertyKeys.AppForce, app.Force);
-            AddRow(gridResolved, PropertyKeys.AppSetupTestFile, app.SetupTestFile);
-            AddRow(gridResolved, PropertyKeys.AppPackageName, app.PackageName);
-            AddRow(gridResolved, PropertyKeys.AppUrl, app.Url);
-            AddRow(gridResolved, PropertyKeys.AppDownloadCookies, app.DownloadCookies);
-            AddRow(gridResolved, PropertyKeys.AppDownloadHeaders, app.DownloadHeaders);
-            AddRow(gridResolved, PropertyKeys.AppResourceName, app.ResourceFileName);
-            AddRow(gridResolved, PropertyKeys.AppArchiveName, app.ResourceArchiveName);
-            AddRow(gridResolved, PropertyKeys.AppArchivePath, app.ResourceArchivePath);
-            AddRow(gridResolved, PropertyKeys.AppDir, app.Dir);
-            AddRow(gridResolved, PropertyKeys.AppExe, app.Exe);
-            AddRow(gridResolved, PropertyKeys.AppRegister, app.Register);
-            AddRow(gridResolved, PropertyKeys.AppPath, app.Path);
-            AddRow(gridResolved, PropertyKeys.AppEnvironment, app.Environment);
-            AddRow(gridResolved, PropertyKeys.AppAdornedExecutables, app.AdornedExecutables);
-            AddRow(gridResolved, PropertyKeys.AppRegistryKeys, app.RegistryKeys);
-            AddRow(gridResolved, PropertyKeys.AppLauncher, app.Launcher);
-            AddRow(gridResolved, PropertyKeys.AppLauncherExecutable, app.LauncherExecutable);
-            AddRow(gridResolved, PropertyKeys.AppLauncherArguments, app.LauncherArguments);
-            AddRow(gridResolved, PropertyKeys.AppLauncherIcon, app.LauncherIcon);
-            foreach(var key in config.PropertyNames(app.ID))
+            foreach (var kvp in app.KnownProperties)
             {
-                if (!KnownProperties.Contains(key))
-                {
-                    AddRow(gridResolved, key, config.GetGroupValue(app.ID, key));
-                }
+                AddRow(gridResolved, kvp.Key, kvp.Value);
+            }
+            foreach (var kvp in app.UnknownProperties)
+            {
+                AddRow(gridResolved, kvp.Key, kvp.Value);
             }
 
             gridRaw.Rows.Clear();
-            AddRow(gridRaw, "ID", app.ID);
-            foreach(var key in config.PropertyNames(app.ID))
+            foreach (var key in config.PropertyNames(app.ID))
             {
                 AddRow(gridRaw, key, config.GetRawGroupValue(app.ID, key));
             }
@@ -129,6 +75,34 @@ namespace Mastersign.Bench.Dashboard
         private void AddRow(DataGridView grid, string name, string value)
         {
             grid.Rows.Add(name, value);
+        }
+
+        private void LoadLicense(AppFacade app)
+        {
+            llblLicense.Tag = app.LicenseUrl;
+            llblLicense.Visible = llblLicense.Tag != null;
+        }
+
+        private void LoadDocumentation(AppFacade app)
+        {
+            var docText = app.MarkdownDocumentation;
+            if (!string.IsNullOrWhiteSpace(docText))
+            {
+                mdDocumentation.ShowMarkdownText(docText, app.Label);
+            }
+            else
+            {
+                tabControl.TabPages.Remove(tabDocumentation);
+            }
+        }
+
+        private void LicenseHandler(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var url = ((Control)sender).Tag as Uri;
+            if (url != null)
+            {
+                Process.Start(url.AbsoluteUri);
+            }
         }
     }
 }

@@ -18,6 +18,20 @@ namespace Mastersign.Bench
         void SetGroupCategory(string group, string category);
 
         /// <summary>
+        /// Attaches a metadata object to a group.
+        /// </summary>
+        /// <param name="group">The group to attach the metadata to.</param>
+        /// <param name="metadata">The metadata object.</param>
+        void SetGroupMetadata(string group, object metadata);
+
+        /// <summary>
+        /// attaches documentation to a group.
+        /// </summary>
+        /// <param name="group">The group to attach the documentation to.</param>
+        /// <param name="docs">The documentation text.</param>
+        void SetGroupDocumentation(string group, string docs);
+
+        /// <summary>
         /// Sets the value of the specified property.
         /// If the property did exist until now, it is created.
         /// </summary>
@@ -25,5 +39,12 @@ namespace Mastersign.Bench
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The new value for the property.</param>
         void SetGroupValue(string group, string name, object value);
+
+        /// <summary>
+        /// Resets the specified group property.
+        /// </summary>
+        /// <param name="group">The group of the property.</param>
+        /// <param name="name">The name of the property.</param>
+        void ResetGroupValue(string group, string name);
     }
 }

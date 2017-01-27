@@ -24,6 +24,8 @@ namespace Mastersign.Bench.Markdown
         private static readonly Regex ListElementExp = new Regex("^(?:\t|  +)[\\*\\+-]\\s+(?<value>.*?)\\s*$");
         private static readonly string ListElementFormat = "`{0}`";
 
+        private static readonly Regex DefaultGroupDocsBeginCue = new Regex("^#{3}\\s+\\S");
+        private static readonly Regex DefaultGroupDocsEndCue = new Regex("^#{1,3}\\s+\\S");
         private static readonly Regex DefaultGroupBeginCue = new Regex("^###\\s+(?<category>.+?)\\s*(?:\\{.*?\\})?\\s*(?:###)?$");
         private static readonly Regex DefaultGroupEndCue = new Regex("^\\s*$");
 
@@ -129,6 +131,13 @@ namespace Mastersign.Bench.Markdown
         public Regex GroupBeginCue { get; set; }
 
         /// <summary>
+        /// This regular expression is used to detect the beginning of the documentation
+        /// of a group. All lines, which are not recognized as properties or another cue,
+        /// are collected as the documentation for the group.
+        /// </summary>
+        public Regex GroupDocsBeginCue { get; set; }
+
+        /// <summary>
         /// This regular expression is used to detect the end of a property group.
         /// Properties, which are recognized after this expression matches a line,
         /// are stored as ungrouped properties.
@@ -136,9 +145,32 @@ namespace Mastersign.Bench.Markdown
         public Regex GroupEndCue { get; set; }
 
         /// <summary>
+        /// This regular expression is used to detect the end of the documentation
+        /// of a group. When this cue is triggered, the collected documentation
+        /// is attached to all groups, which where detected by <see cref="GroupBeginCue"/>
+        /// since the last <see cref="GroupDocsBeginCue"/>.
+        /// </summary>
+        public Regex GroupDocsEndCue { get; set; }
+
+        /// <summary>
         /// Gets or sets the property target, where recognized properties are stored in.
         /// </summary>
         public IGroupedPropertyTarget Target { get; set; }
+
+        /// <summary>
+        /// Gets or sets a metadata object, which is going to be attached to every group,
+        /// properties are recognized for.
+        /// </summary>
+        public object CurrentGroupMetadata { get; set; }
+
+        private readonly List<string> collectedGroupDocs = new List<string>();
+        private readonly List<string> docGroups = new List<string>();
+
+        /// <summary>
+        /// A switch to control, whether non-property lines are collected
+        /// as the documentation for a group.
+        /// </summary>
+        public bool CollectGroupDocs { get; set; }
 
         /// <summary>
         /// Initializes a new instance of <see cref="MarkdownPropertyParser"/>.
@@ -150,6 +182,8 @@ namespace Mastersign.Bench.Markdown
             CategoryCue = DefaultCategoryCue;
             GroupBeginCue = DefaultGroupBeginCue;
             GroupEndCue = DefaultGroupEndCue;
+            GroupDocsBeginCue = DefaultGroupDocsBeginCue;
+            GroupDocsEndCue = DefaultGroupDocsEndCue;
         }
 
         /// <summary>
@@ -168,6 +202,10 @@ namespace Mastersign.Bench.Markdown
             if (target != null)
             {
                 target.SetGroupValue(CurrentGroup, name, value);
+                if (CurrentGroupMetadata != null)
+                {
+                    target.SetGroupMetadata(CurrentGroup, CurrentGroupMetadata);
+                }
             }
         }
 
@@ -179,6 +217,7 @@ namespace Mastersign.Bench.Markdown
         private List<string> ListItems = new List<string>();
 
         private MdContext Context;
+        private bool collectingGroupDocsActive;
 
         /// <summary>
         /// Parses the data in the given stream as UTF8 encoded Markdown text
@@ -231,24 +270,34 @@ namespace Mastersign.Bench.Markdown
                 case MdContext.HtmlComment:
                     if (MdSyntax.IsHtmlCommentEnd(line))
                         Context = MdContext.Text;
+                    ProcessPossibleGroupDocsLine(line);
                     break;
                 case MdContext.CodeBlock:
                     if (MdSyntax.IsCodeBlockEnd(line, ref CodePreamble))
                         Context = MdContext.Text;
+                    ProcessPossibleGroupDocsLine(line);
                     break;
                 case MdContext.Text:
                     if (MdSyntax.IsYamlHeaderStart(LineNo, line))
                         Context = MdContext.YamlHeader;
                     else if (MdSyntax.IsHtmlCommentStart(line))
+                    {
                         Context = MdContext.HtmlComment;
+                        ProcessPossibleGroupDocsLine(line);
+                    }
                     else if (MdSyntax.IsCodeBlockStart(line, ref CodePreamble))
+                    {
                         Context = MdContext.CodeBlock;
+                        ProcessPossibleGroupDocsLine(line);
+                    }
                     else if (IsDeactivationCue(line))
                         Context = MdContext.Inactive;
                     else if (IsListStart(line, ref ListKey))
                         Context = MdContext.List;
                     else
+                    {
                         ProcessTextLine(line);
+                    }
                     break;
                 case MdContext.List:
                     if (!IsListElement(line, ListItems))
@@ -284,7 +333,14 @@ namespace Mastersign.Bench.Markdown
                 if (cm.Success)
                 {
                     CurrentCategory = cm.Groups["category"].Value;
-                    return;
+                }
+            }
+            if (GroupEndCue != null)
+            {
+                var gm = GroupEndCue.Match(line);
+                if (gm.Success)
+                {
+                    CurrentGroup = null;
                 }
             }
             if (GroupBeginCue != null)
@@ -297,16 +353,10 @@ namespace Mastersign.Bench.Markdown
                     {
                         Target.SetGroupCategory(CurrentGroup, CurrentCategory);
                     }
-                    return;
-                }
-            }
-            if (GroupEndCue != null)
-            {
-                var gm = GroupEndCue.Match(line);
-                if (gm.Success)
-                {
-                    CurrentGroup = null;
-                    return;
+                    if (collectingGroupDocsActive)
+                    {
+                        docGroups.Add(CurrentGroup);
+                    }
                 }
             }
             var m = MdListExp.Match(line);
@@ -329,6 +379,44 @@ namespace Mastersign.Bench.Markdown
                     OnPropertyValue(key, value);
                 }
             }
+            else
+            {
+                ProcessPossibleGroupDocsLine(line);
+            }
         }
+
+        private void CheckForGroupDocsBegin(string line)
+        {
+            if (CollectGroupDocs && GroupDocsBeginCue.IsMatch(line))
+            {
+                collectingGroupDocsActive = true;
+            }
+        }
+
+        private void CheckForGroupDocsEnd(string line)
+        {
+            if (CollectGroupDocs && GroupDocsEndCue.IsMatch(line))
+            {
+                var docText = string.Join(Environment.NewLine, collectedGroupDocs.ToArray()).Trim();
+                foreach (var g in docGroups)
+                {
+                    Target.SetGroupDocumentation(g, docText);
+                }
+                collectedGroupDocs.Clear();
+                docGroups.Clear();
+                collectingGroupDocsActive = false;
+            }
+        }
+
+        private void ProcessPossibleGroupDocsLine(string line)
+        {
+            CheckForGroupDocsEnd(line);
+            if (collectingGroupDocsActive)
+            {
+                collectedGroupDocs.Add(line);
+            }
+            CheckForGroupDocsBegin(line);
+        }
+
     }
 }

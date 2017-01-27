@@ -1,6 +1,6 @@
-﻿$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$myDir\profile.ps1"
-. "$myDir\config.lib.ps1"
+﻿$Script:scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$Script:scriptsDir\profile.ps1"
+. "$Script:scriptsDir\config.lib.ps1"
 
 function Purge-Dir ($path)
 {

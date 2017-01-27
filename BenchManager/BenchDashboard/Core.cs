@@ -22,7 +22,7 @@ namespace Mastersign.Bench.Dashboard
 
         public Downloader Downloader { get; private set; }
 
-        public Control GuiContext { get; set; }
+        public Form GuiContext { get; set; }
 
         public bool SetupOnStartup { get; set; }
 
@@ -30,15 +30,21 @@ namespace Mastersign.Bench.Dashboard
 
         private bool configReloadNecessary;
 
+        private bool activationReloadNecessary;
+
         private readonly object configReloadLockHandle = new object();
 
-        private FileSystemWatcher[] fsWatchers;
+        private FileSystemWatcher[] configFileWatchers;
+
+        private FileSystemWatcher[] activationFileWatchers;
 
         private ActionState actionState;
 
         private Cancelation cancelation;
 
         public event EventHandler ConfigReloaded;
+
+        public event EventHandler AppActivationChanged;
 
         public event EventHandler AllAppStateChanged;
 
@@ -57,7 +63,7 @@ namespace Mastersign.Bench.Dashboard
                     OnAppStateChanged(info.AppId);
                 }
                 if (info is TaskError) ActionState = ActionState.BusyWithErrors;
-                if (notify != null) notify(info);
+                notify?.Invoke(info);
             };
         }
 
@@ -68,20 +74,21 @@ namespace Mastersign.Bench.Dashboard
             Config = new BenchConfiguration(benchRoot, true, true, true);
             Env = new BenchEnvironment(Config);
             Downloader = BenchTasks.InitializeDownloader(Config);
-            ProcessExecutionHost = new DefaultExecutionHost();
+            ProcessExecutionHost = new SimpleExecutionHost();
             SetupFileWatchers();
+        }
+
+        public void Shutdown()
+        {
+            GuiContext.Close();
         }
 
         public void SyncWithGui(ThreadStart task)
         {
             if (GuiContext != null && GuiContext.InvokeRequired)
-            {
                 GuiContext.Invoke(task);
-            }
             else
-            {
                 task();
-            }
         }
 
         public bool Busy
@@ -92,21 +99,18 @@ namespace Mastersign.Bench.Dashboard
                 if (value == busy) return;
                 busy = value;
                 OnBusyChanged();
-                if (!busy && configReloadNecessary)
+                if (!busy)
                 {
-                    Reload();
+                    if (configReloadNecessary)
+                        Reload();
+                    else if (activationReloadNecessary)
+                        ReloadAppActivation();
                 }
             }
         }
 
         private void OnBusyChanged()
-        {
-            SyncWithGui(() =>
-            {
-                var handler = BusyChanged;
-                if (handler != null) handler(this, EventArgs.Empty);
-            });
-        }
+            => SyncWithGui(() => BusyChanged?.Invoke(this, EventArgs.Empty));
 
         public ActionState ActionState
         {
@@ -120,99 +124,95 @@ namespace Mastersign.Bench.Dashboard
         }
 
         private void OnActionStateChanged()
-        {
-            SyncWithGui(() =>
-            {
-                var handler = ActionStateChanged;
-                if (handler != null) handler(this, EventArgs.Empty);
-            });
-        }
+            => SyncWithGui(() => ActionStateChanged?.Invoke(this, EventArgs.Empty));
 
         public Cancelation Cancelation { get { return cancelation; } }
 
         private void SetupFileWatchers()
         {
             DisposeFileWatchers();
-            var paths = Config.Sources;
-            fsWatchers = paths
-                .Select(p => new FileSystemWatcher(Path.GetDirectoryName(p))
-                {
-                    Filter = Path.GetFileName(p),
-                    //NotifyFilter = NotifyFilters.LastWrite,
-                    IncludeSubdirectories = false,
-                    EnableRaisingEvents = true,
-                })
+
+            var configFileSet = ConfigurationFileType.UserConfig
+                | ConfigurationFileType.SiteConfig
+                | ConfigurationFileType.UserAppLib;
+            configFileWatchers = Config
+                .GetConfigurationFiles(configFileSet, actuallyLoaded: true, mustExist: true)
+                .Select(p => CreateFileWatcher(p.Path, ConfigFileChangedHandler))
                 .ToArray();
-            foreach (var w in fsWatchers)
+
+            var activationFileSet = ConfigurationFileType.AppSelection;
+            configFileWatchers = Config
+                .GetConfigurationFiles(activationFileSet, actuallyLoaded: true, mustExist: true)
+                .Select(p => CreateFileWatcher(p.Path, ActivationFileChangedHandler))
+                .ToArray();
+        }
+
+        private FileSystemWatcher CreateFileWatcher(string path, FileSystemEventHandler handler)
+        {
+            var watcher = new FileSystemWatcher(Path.GetDirectoryName(path))
             {
-                w.Changed += SourceFileChangedHandler;
-            }
+                Filter = Path.GetFileName(path),
+                IncludeSubdirectories = false,
+                EnableRaisingEvents = true,
+            };
+            watcher.Changed += handler;
+            return watcher;
         }
 
         private void DisposeFileWatchers()
         {
-            if (fsWatchers != null)
+            if (configFileWatchers != null)
             {
-                foreach (var w in fsWatchers)
+                foreach (var w in configFileWatchers)
                 {
-                    w.Changed -= SourceFileChangedHandler;
+                    w.Changed -= ConfigFileChangedHandler;
                     w.Dispose();
                 }
-                fsWatchers = null;
+                configFileWatchers = null;
+            }
+            if (activationFileWatchers != null)
+            {
+                foreach (var w in activationFileWatchers)
+                {
+                    w.Changed -= ActivationFileChangedHandler;
+                    w.Dispose();
+                }
+                activationFileWatchers = null;
             }
         }
 
-        private void SourceFileChangedHandler(object sender, FileSystemEventArgs e)
+        private void ConfigFileChangedHandler(object sender, FileSystemEventArgs e)
         {
             if (busy)
-            {
                 configReloadNecessary = true;
-            }
             else
-            {
                 Task.Run(() => Reload(true));
-            }
+        }
+
+        private void ActivationFileChangedHandler(object sender, FileSystemEventArgs e)
+        {
+            if (busy)
+                activationReloadNecessary = true;
+            else
+                Task.Run(() => ReloadAppActivation());
         }
 
         private void OnConfigReloaded()
-        {
-            SyncWithGui(() =>
-            {
-                var handler = ConfigReloaded;
-                if (handler != null)
-                {
-                    handler(this, EventArgs.Empty);
-                }
-            });
-        }
+            => SyncWithGui(() => ConfigReloaded?.Invoke(this, EventArgs.Empty));
 
         private void OnAllAppStateChanged()
-        {
-            SyncWithGui(() =>
-            {
-                var handler = AllAppStateChanged;
-                if (handler != null)
-                {
-                    handler(this, EventArgs.Empty);
-                }
-            });
-        }
+            => SyncWithGui(() => AllAppStateChanged?.Invoke(this, EventArgs.Empty));
+
+        private void OnAppActivationChanged()
+            => SyncWithGui(() => AppActivationChanged?.Invoke(this, EventArgs.Empty));
 
         private void OnAppStateChanged(string appId)
-        {
-            SyncWithGui(() =>
-            {
-                var handler = AppStateChanged;
-                if (handler != null)
-                {
-                    handler(this, new AppEventArgs(appId));
-                }
-            });
-        }
+            => SyncWithGui(() => AppStateChanged?.Invoke(this, new AppEventArgs(appId)));
 
         public void Reload(bool configChanged = false)
         {
             configReloadNecessary = false;
+            activationReloadNecessary = false;
             lock (configReloadLockHandle)
             {
                 Config = Config.Reload();
@@ -226,49 +226,39 @@ namespace Mastersign.Bench.Dashboard
             OnConfigReloaded();
         }
 
+        public void ReloadAppActivation()
+        {
+            activationReloadNecessary = false;
+            lock (configReloadLockHandle)
+            {
+                Config.ReloadAppActivation();
+            }
+            OnAppActivationChanged();
+        }
+
         public void SetAppActivated(string appId, bool value)
         {
             var activationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppActivationFile));
             if (value)
-            {
                 activationFile.SignIn(appId);
-            }
             else
-            {
                 activationFile.SignOut(appId);
-            }
         }
 
         public void SetAppDeactivated(string appId, bool value)
         {
             var deactivationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppDeactivationFile));
             if (value)
-            {
                 deactivationFile.SignIn(appId);
-            }
             else
-            {
                 deactivationFile.SignOut(appId);
-            }
         }
 
-        public Task<ActionResult> RunTaskAsync(BenchTaskForAll action,
-            Action<TaskInfo> notify, Cancelation cancelation)
-        {
-            return Task.Run(() =>
-            {
-                return action(this, CatchTaskInfos(notify), cancelation);
-            });
-        }
+        public Task<ActionResult> RunTaskAsync(BenchTaskForAll action, Action<TaskInfo> notify, Cancelation cancelation)
+            => Task.Run(() => action(this, CatchTaskInfos(notify), cancelation));
 
-        public Task<ActionResult> RunTaskAsync(BenchTaskForOne action, string appId,
-            Action<TaskInfo> notify, Cancelation cancelation)
-        {
-            return Task.Run(() =>
-            {
-                return action(this, appId, CatchTaskInfos(notify), cancelation);
-            });
-        }
+        public Task<ActionResult> RunTaskAsync(BenchTaskForOne action, string appId, Action<TaskInfo> notify, Cancelation cancelation)
+            => Task.Run(() => action(this, appId, CatchTaskInfos(notify), cancelation));
 
         private void BeginAction()
         {
@@ -603,6 +593,96 @@ namespace Mastersign.Bench.Dashboard
                         "Updating the bench environment for the following apps failed:",
                         "Updating the bench environment failed.",
                         result.Errors, 10));
+            }
+            return result;
+        }
+
+        public async Task<ActionResult> UpdateAppLibrariesAsync(Action<TaskInfo> notify)
+        {
+            BeginAction();
+            BenchTasks.DeleteAppLibraries(Config);
+            var result = await RunTaskAsync(BenchTasks.DoLoadAppLibraries, notify, cancelation);
+            EndAction(result.Success);
+            if (result.Canceled)
+            {
+                UI.ShowWarning("Loading App Libraries", "Canceled");
+                EndAction(result.Success);
+                return result;
+            }
+            else if (result.Success)
+            {
+                Reload();
+            }
+            else
+            {
+                UI.ShowWarning("Loading App Libraries",
+                    "Loading the app libraries failed.");
+            }
+            return result;
+        }
+
+        public async Task<ActionResult> UpdateAppsAsync(Action<TaskInfo> notify)
+        {
+            var result = await UpdateAppLibrariesAsync(notify);
+            if (!result.Success) return result;
+            return await UpgradeAppsAsync(notify);
+        }
+
+        private class AsyncVersionNumberResult : IAsyncResult
+        {
+            public object AsyncState => null;
+
+            public bool Success { get; private set; }
+            public string VersionNumber { get; private set; }
+            private ManualResetEvent handle;
+
+            public AsyncVersionNumberResult()
+            {
+                handle = new ManualResetEvent(false);
+            }
+
+            public WaitHandle AsyncWaitHandle => handle;
+
+            public bool CompletedSynchronously => false;
+
+            public bool IsCompleted => handle == null;
+
+            public void NotifyResult(bool success, string versionNumber)
+            {
+                Success = success;
+                VersionNumber = versionNumber;
+                handle.Set();
+                handle = null;
+            }
+        }
+
+        public Task<string> GetLatestVersionNumber()
+        {
+            var asyncResult = new AsyncVersionNumberResult();
+            BenchTasks.GetLatestVersionAsync(Config, asyncResult.NotifyResult);
+            return Task<string>.Factory.FromAsync(asyncResult, r =>
+            {
+                var result = (AsyncVersionNumberResult)r;
+                return result.Success ? result.VersionNumber : null;
+            });
+        }
+
+        public async Task<ActionResult> DownloadBenchUpdateAsync(Action<TaskInfo> notify)
+        {
+            BeginAction();
+            var result = await RunTaskAsync(BenchTasks.DoDownloadBenchUpdate, notify, cancelation);
+            EndAction(result.Success);
+            if (result.Canceled)
+            {
+                UI.ShowWarning("Downloading Bench update", "Canceled");
+            }
+            else if (!result.Success)
+            {
+                UI.ShowWarning("Upgrading Bench System",
+                    BuildCombinedErrorMessage(
+                        "Downloading the latest Bench update failed.",
+                        "Downloading the latest Bench update failed.",
+                        null, 1));
             }
             return result;
         }

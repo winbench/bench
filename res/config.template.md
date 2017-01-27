@@ -2,7 +2,7 @@
 
 ## Environment
 
-With the following properties, the composition of the environment variables is controlled.
+With the following properties you can control the composition of the environment variables.
 
 * OverrideHome: `true`
 * OverrideTemp: `true`
@@ -11,17 +11,38 @@ With the following properties, the composition of the environment variables is c
 * ~~EnvironmentPath: `$HomeDir$\bin`~~
 * ~~Environment: `MY_VAR: my custom value`~~
 
+## App Libraries
+
+Here you list all app libraries you want to use in this Bench environment.
+
+* AppLibs:
+    + `core`: `github:mastersign/bench-apps-core`
+    + `default`: `github:mastersign/bench-apps-default`
+
+## Quick Access
+
+With the following properties you can control the appearance of the launchers for the three shells.
+
+* QuickAccessCmd: `false`
+* QuickAccessPowerShell: `true`
+* QuickAccessBash: `false`
+
+## Dashboard
+
+With the following properties you can control certain behavior of the Bench Dashboard.
+
+* AutoUpdateCheck: `true`
+* DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
+
 ## Project Archive
 
-With the following properties, the project archive is controlled.
+With the following properties you can control the project archive.
 
 * ~~ProjectArchiveFormat: `7z`~~
 * ProjectArchiveDir: `archive`
 
-## Quick Access
+## Properties added by the Bench CLI
 
-With the following properties, the appearance of the launchers for the three shells is controlled.
+If the Bench CLI sets properties, which are not already listed in this file,
+it appends them to the end of the file.
 
-* QuickAccessCmd: `true`
-* QuickAccessPowerShell: `false`
-* QuickAccessBash: `false`

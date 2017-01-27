@@ -43,9 +43,14 @@
       <HintPath>..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Mastersign.Sequence, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mastersign.Sequence.1.1.0\lib\net20\Mastersign.Sequence.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -55,7 +60,10 @@
     <Compile Include="AppFacade.cs" />
     <Compile Include="AppIndexDefaultValueSource.cs" />
     <Compile Include="AppIndexFacade.cs" />
-    <Compile Include="AppIndexValueResolver.cs" />
+    <Compile Include="AppLibrary.cs" />
+    <Compile Include="ConfigurationFile.cs" />
+    <Compile Include="ConfigurationFileType.cs" />
+    <Compile Include="DictionaryValueResolver.cs" />
     <Compile Include="AppKeys.cs" />
     <Compile Include="AppStatusIcon.cs" />
     <Compile Include="AppTyps.cs" />
@@ -67,7 +75,7 @@
     <Compile Include="Cancelation.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="DefaultBenchManager.cs" />
-    <Compile Include="DefaultExecutionHost.cs" />
+    <Compile Include="SimpleExecutionHost.cs" />
     <Compile Include="ConsoleUI.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="Downloader.cs" />
@@ -84,7 +92,16 @@
     <Compile Include="Markdown\MdHeadline.cs" />
     <Compile Include="Markdown\MdSyntax.cs" />
     <Compile Include="PowerShell.cs" />
+    <Compile Include="PowerShellExecutionHostBase.cs" />
     <Compile Include="ProcessExecutionFailedException.cs" />
+    <Compile Include="RemoteExecHost\ExecutionRequest.cs" />
+    <Compile Include="PowerShellExecutionHost.cs" />
+    <Compile Include="RemoteExecHost\ExecutionResult.cs" />
+    <Compile Include="RemoteExecHost\IRemoteExecHost.cs" />
+    <Compile Include="RemoteExecHost\RemoteExecHostClient.cs" />
+    <Compile Include="RemoteExecHost\RemoteExecHostServer.cs" />
+    <Compile Include="RemoteExecHost\RemoteCommand.cs" />
+    <Compile Include="RemoteExecHost\RemoteExecutionFacade.cs" />
     <Compile Include="PythonVersion.cs" />
     <Compile Include="SchemeDispatchProxy.cs" />
     <Compile Include="SurroundedHtmlLinkUrlResolver.cs" />
@@ -92,6 +109,12 @@
     <Compile Include="TaskInfo.cs" />
     <Compile Include="TaskInfoLogger.cs" />
     <Compile Include="TaskResult.cs" />
+    <Compile Include="UI\AppSelectionStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AppSelectionStepControl.Designer.cs">
+      <DependentUpon>AppSelectionStepControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AdvancedStepControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -169,6 +192,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\AppSelectionStepControl.resx">
+      <DependentUpon>AppSelectionStepControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AdvancedStepControl.resx">
       <DependentUpon>AdvancedStepControl.cs</DependentUpon>
     </EmbeddedResource>

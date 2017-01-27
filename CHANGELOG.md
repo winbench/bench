@@ -18,15 +18,82 @@ This document follows the guidelines in http://keepachangelog.md.
 
 Use the following change groups: Added, Changed, Deprecated, Removed, Fixed, Security
 Add a link to the GitHub diff like
-[Full Changelog](https://github.com/mastersign/bench/compare/v<last-version>...v<this-version>)
+[<this-version>]: https://github.com/mastersign/bench/compare/v<last-version>...v<this-version>
 -->
 
 ## [Unreleased]
-[Dev Changes](https://github.com/mastersign/bench/compare/master...dev),
-[App Changes](https://github.com/mastersign/bench/compare/master...apps)
+
+[Unreleased]: https://github.com/mastersign/bench/compare/master...dev
+
+## [0.14.0] - 2017-01-27
+
+[0.14.0]: https://github.com/mastersign/bench/compare/v0.13.3...v0.14.0
+
+### Added
+- Bench CLI
+  ([#87](https://github.com/mastersign/bench/issues/87))
+- Update check in the About dialog of _BenchDashboard_
+- _Upgrade Bench_ entry in the _Setup_ menu of the setup dialog of _BenchDashboard_
+- Configurable columns to the Setup dialog of _BenchDashboard_
+- Config properties
+    + `VersionUrl`
+    + `UpdateUrlTemplate`
+    + `BootstrapUrlTemplate`
+    + `AutoUpdateCheck`
+    + `KnownLicenses`
+- Support for multiple app libraries
+  ([#90](https://github.com/mastersign/bench/issues/90))
+  Support for license infos
+  ([#91](https://github.com/mastersign/bench/issues/91))
+- Namespaces for app IDs
+- Config properties:
+    + `AppLibs`  
+      (this property must be overriden in the user or site config, to load more than the core app library)
+    + `AppLibsDownloadDir`
+    + `AppLibsDir`
+    + `AppLibIndexFileName`
+    + `AppLibCustomScriptDirName`
+    + `AppLibResourceDirName`
+    + `License`
+    + `LicenseUrl`
+- _Update App Libraries and Apps_ entry in the _Setup_ menu of the setup dialog of _BenchDashboard_
+- Markdown info text in the app info dialog
+- License link to the app info dialog
+- Additional columns to the setup dialog
+    + Category
+    + Library
+    + License
+
+### Changed
+- Upgrade process is using the _Bench CLI_ now
+  ([#84](https://github.com/mastersign/bench/issues/84))
+- Directory for custom scripts in the user app library
+  was moved from `config\apps` to `config\scripts`
+- Moved app definitions into their own Git repositories
+    + <https://github.com/mastersign/bench-apps-core>
+    + <https://github.com/mastersign/bench-apps-default>
+- In the future, all app related issues are attended at the app library repositories on GitHub
+- Improved performance for app selection in the Setup Dialog of BenchDashboard
+
+### Fixed
+- Proxy setup for Maven
+  ([#89](https://github.com/mastersign/bench/issues/89))
+- Download view in the Setup Dialog of the BenchDashboard
+  ([#81](https://github.com/mastersign/bench/issues/81))
+
+### Removed
+- Script based actions
+- Embedded app library  
+  **(the `AppLibs` property must be overriden in the user or site config now, to load more than the core app library)**
+- Config properties
+    + `ActionDir`
+    + `AppIndexFile`
+    + `CustomAppIndexFile`
+    + `AppResourceBaseDir`
 
 ## [0.13.3] - 2016-11-19
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.13.2...v0.13.3)
+
+[0.13.3]: https://github.com/mastersign/bench/compare/v0.13.2...v0.13.3
 
 ### Added
 - Support for second argument `verbose` in `bench-ctl`
@@ -41,7 +108,8 @@ Add a link to the GitHub diff like
   ([#86](https://github.com/mastersign/bench/issues/86))
 
 ## [0.13.2] - 2016-10-22
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.13.1...v0.13.2)
+
+[0.13.2]: https://github.com/mastersign/bench/compare/v0.13.1...v0.13.2
 
 ### Fixed
 - Switched from expanded strings to simple strings when setting
@@ -49,7 +117,8 @@ Add a link to the GitHub diff like
   ([#82](https://github.com/mastersign/bench/issues/82))
 
 ## [0.13.1] - 2016-10-19
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.13.0...v0.13.1)
+
+[0.13.1]: https://github.com/mastersign/bench/compare/v0.13.0...v0.13.1
 
 ### Added
 - Added Scribus
@@ -71,7 +140,8 @@ Add a link to the GitHub diff like
 - Update: Blender from 2.77a to 2.78
 
 ## [0.13.0] - 2016-08-16
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.12.1...v0.13.0)
+
+[0.13.0]: https://github.com/mastersign/bench/compare/v0.12.1...v0.13.0
 
 ### Added
 - Configuration property `UseRegistryIsolation` to provide a way
@@ -125,14 +195,16 @@ Add a link to the GitHub diff like
   ([#67](https://github.com/mastersign/bench/issues/67))
 
 ## [0.12.1] - 2016-07-29
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1)
+
+[0.12.1]: https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1
 
 ### Fixed
 - Environment setup fails if the user has no `PATH` environment variable
   ([#76](https://github.com/mastersign/bench/issues/76))
 
 ## [0.12.0] - 2016-07-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.4...v0.12.0)
+
+[0.12.0]: https://github.com/mastersign/bench/compare/v0.11.4...v0.12.0
 
 ### Added
 - Support for custom scripts in `config\apps`
@@ -153,7 +225,8 @@ Add a link to the GitHub diff like
   ([#73](https://github.com/mastersign/bench/issues/73))
 
 ## [0.11.4] - 2016-07-04
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.3...v0.11.4)
+
+[0.11.4]: https://github.com/mastersign/bench/compare/v0.11.3...v0.11.4
 
 ### Changed
 - Update: Node.js from 4.4.6 to 6.2.2
@@ -162,13 +235,15 @@ Add a link to the GitHub diff like
 - UI performance when activating/deactivating apps
 
 ## [0.11.3] - 2016-07-02
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.2...v0.11.3)
+
+[0.11.3]: https://github.com/mastersign/bench/compare/v0.11.2...v0.11.3
 
 ### Fixed
 - Fixed execution policy for running `PsExecHost.ps1`
 
 ## [0.11.2] - 2016-06-30
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.1...v0.11.2)
+
+[0.11.2]: https://github.com/mastersign/bench/compare/v0.11.1...v0.11.2
 
 ### Changed
 - Update: ConEmu from 16.03.13 to 16.06.19
@@ -179,7 +254,8 @@ Add a link to the GitHub diff like
 - Focus flicker of GUI app
 
 ## [0.11.1] - 2016-06-25
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.11.0...v0.11.1)
+
+[0.11.1]: https://github.com/mastersign/bench/compare/v0.11.0...v0.11.1
 
 ### Added
 - Bench configuration property `Website`
@@ -199,7 +275,8 @@ Add a link to the GitHub diff like
 - Custom setup script of Leiningen
 
 ## [0.11.0] - 2016-06-18
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.8...v0.11.0)
+
+[0.11.0]: https://github.com/mastersign/bench/compare/v0.10.8...v0.11.0
 
 ### Added
 - Custom config dictionary property `Environment` to add environment variables
@@ -243,14 +320,16 @@ Add a link to the GitHub diff like
   ([#61](https://github.com/mastersign/bench/issues/61))
 
 ## [0.10.8] - 2016-05-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.7...v0.10.8)
+
+[0.10.8]: https://github.com/mastersign/bench/compare/v0.10.7...v0.10.8
 
 ### Fixed
 - Mark Git as required, if an existing custom config needs to be cloned
   ([#55](https://github.com/mastersign/bench/issues/55))
 
 ## [0.10.7] - 2016-05-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.6...v0.10.7)
+
+[0.10.7]: https://github.com/mastersign/bench/compare/v0.10.6...v0.10.7
 
 ### Added
 - Setup action for downloading all app resources
@@ -275,7 +354,8 @@ Add a link to the GitHub diff like
   ([#53](https://github.com/mastersign/bench/issues/53))
 
 ## [0.10.6] - 2016-05-24
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.5...v0.10.6)
+
+[0.10.6]: https://github.com/mastersign/bench/compare/v0.10.5...v0.10.6
 
 ### Added
 - Launcher for 7-Zip file manager
@@ -291,7 +371,8 @@ Add a link to the GitHub diff like
 - Initializing/Upgrading the Bench environment
 
 ## [0.10.5] - 2016-05-17
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5)
+
+[0.10.5]: https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5
 
 ### Added
 - Configuration properties to control the appearance of shell launchers
@@ -306,7 +387,8 @@ Add a link to the GitHub diff like
   ([#44](https://github.com/mastersign/bench/issues/44))
 
 ## [0.10.4] - 2016-05-14
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.3...v0.10.4)
+
+[0.10.4]: https://github.com/mastersign/bench/compare/v0.10.3...v0.10.4
 
 ### Added
 - Content tree in Markdown viewer
@@ -330,7 +412,8 @@ Add a link to the GitHub diff like
 - GitKraken Resource Url
 
 ## [0.10.3] - 2016-05-13
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.2...v0.10.3)
+
+[0.10.3]: https://github.com/mastersign/bench/compare/v0.10.2...v0.10.3
 
 ### Added
 - Added GitKraken (latest)
@@ -342,7 +425,8 @@ Add a link to the GitHub diff like
   ([#42](https://github.com/mastersign/bench/issues/42))
 
 ## [0.10.2] - 2016-05-09
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.1...v0.10.2)
+
+[0.10.2]: https://github.com/mastersign/bench/compare/v0.10.1...v0.10.2
 
 ### Added
 - Support for Ruby Gems (app typ `ruby-package`)
@@ -350,7 +434,8 @@ Add a link to the GitHub diff like
 - Added SASS (latest)
 
 ## [0.10.1] - 2016-05-08
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.10.0...v0.10.1)
+
+[0.10.1]: https://github.com/mastersign/bench/compare/v0.10.0...v0.10.1
 
 ### Fixed
 - Installing NodeJS and Python packages via _Bench Dashboard_
@@ -362,7 +447,8 @@ Add a link to the GitHub diff like
     + `Maven` properties
 
 ## [0.10.0] - 2016-05-07
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.9.3...v0.10.0)
+
+[0.10.0]: https://github.com/mastersign/bench/compare/v0.9.3...v0.10.0
 
 For this release a clean install is required and the configuration
 must be migrated to the new format.
@@ -401,7 +487,8 @@ must be migrated to the new format.
 - Spacemacs under path with whitespaces
 
 ## [0.9.3] - 2016-04-13
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.9.2...v0.9.3)
+
+[0.9.3]: https://github.com/mastersign/bench/compare/v0.9.2...v0.9.3
 
 ### Added
 - App: Maven
@@ -423,7 +510,8 @@ must be migrated to the new format.
   ([#34](https://github.com/mastersign/bench/issues/34))
 
 ## [0.9.2] 2016-03-07
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2)
+
+[0.9.2]: https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2
 
 ### Added
 - App: JRE 7
@@ -435,7 +523,8 @@ must be migrated to the new format.
 - MSYS tools from MinGW are not in PATH
 
 ## [0.9.1] - 2016-03-03
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.9.0...v0.9.1)
+
+[0.9.1]: https://github.com/mastersign/bench/compare/v0.9.0...v0.9.1
 
 ### Added
 - support for Windows 7 with PowerShell 2
@@ -460,7 +549,8 @@ must be migrated to the new format.
   ([#31](https://github.com/mastersign/bench/issues/31))
 
 ## [0.9.0] - 2016-03-02
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.8.0...v0.9.0)
+
+[0.9.0]: https://github.com/mastersign/bench/compare/v0.8.0...v0.9.0
 
 ### Added
 - support for unpacking `*.tar.*` archives with two steps
@@ -498,7 +588,8 @@ must be migrated to the new format.
 - cancel downloads if one download failes
 
 ## [0.8.0] - 2016-02-15
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0)
+
+[0.8.0]: https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0
 
 ### Added
 - `auto\lib\profile.ps1` for customization of the PowerShell environment
@@ -526,7 +617,8 @@ must be migrated to the new format.
 - expansion of config values `AppAdornmentBaseDir` and `AppRegistryBaseDir`
 
 ## [0.7.2] - 2016-02-12
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.7.1...v0.7.2)
+
+[0.7.2]: https://github.com/mastersign/bench/compare/v0.7.1...v0.7.2
 
 ### Added
 - Passing arguments to _Command Line_ launcher with `/C`, to allow
@@ -538,13 +630,15 @@ must be migrated to the new format.
 - Update: Visual Studio Code Archive Pattern
 
 ## [0.7.1] - 2016-02-12
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.7.0...v0.7.1)
+
+[0.7.1]: https://github.com/mastersign/bench/compare/v0.7.0...v0.7.1
 
 ### Fixed
 - FFmpeg exe path
 
 ## [0.7.0] - 2016-02-12
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.6.1...v0.7.0)
+
+[0.7.0]: https://github.com/mastersign/bench/compare/v0.6.1...v0.7.0
 
 ### Added
 - `CHANGELOG.md`
@@ -579,7 +673,8 @@ must be migrated to the new format.
     + `auto\bench-upgrade.cmd`
 
 ## [0.6.1] - 2016-02-07
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.6.0...v0.6.1)
+
+[0.6.1]: https://github.com/mastersign/bench/compare/v0.6.0...v0.6.1
 
 ### Added
 - Automatic update of PIP to most recent version after installing Python 2 and Python 3
@@ -591,7 +686,8 @@ must be migrated to the new format.
   ([#15](https://github.com/mastersign/bench/issues/15))
 
 ## [0.6.0] - 2016-01-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.5.4...v0.6.0)
+
+[0.6.0]: https://github.com/mastersign/bench/compare/v0.5.4...v0.6.0
 
 ### Added
 - actions scripts for _CMD_, _PowerShell_, and _Bash_
@@ -602,7 +698,8 @@ must be migrated to the new format.
 - updated documentation of overridden environment variables
 
 ## [0.5.4] - 2016-01-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.5.3...v0.5.4)
+
+[0.5.4]: https://github.com/mastersign/bench/compare/v0.5.3...v0.5.4
 
 ### Change
 - Removed home directory from Git version control to prevent data loss
@@ -611,19 +708,22 @@ must be migrated to the new format.
   to `res\apps\vscode`
 
 ## [0.5.3] - 2016-01-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.5.2...v0.5.3)
+
+[0.5.3]: https://github.com/mastersign/bench/compare/v0.5.2...v0.5.3
 
 ### Fixed
 - Building relative paths in `env.cmd`
 
 ## [0.5.2] - 2016-01-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.5.2...v0.5.2)
+
+[0.5.2]: https://github.com/mastersign/bench/compare/v0.5.2...v0.5.2
 
 ### Fixed
 - Incorrect quotes for path strings in `config.template.ps1`
 
 ## [0.5.1] - 2016-01-27
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.5.0...v0.5.1)
+
+[0.5.1]: https://github.com/mastersign/bench/compare/v0.5.0...v0.5.1
 
 ### Changed
 - Moved Spacemacs config file from `%HOME%\.spacemacs` to `%HOME%\.spacemacs.d\init.el`
@@ -639,7 +739,8 @@ must be migrated to the new format.
 - Update: LightTable from 0.8.0 to 0.8.1
 
 ## [0.5.0] - 2016-01-22
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.4.0...v0.5.0)
+
+[0.5.0]: https://github.com/mastersign/bench/compare/v0.4.0...v0.5.0
 
 ### Added
 - Support for launcher shortcuts
@@ -659,7 +760,8 @@ must be migrated to the new format.
 - Do not empty the temp directory while loading `env.lib.ps1`
 
 ## [0.4.0] - 2016-01-20
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.3.4...v0.4.0)
+
+[0.4.0]: https://github.com/mastersign/bench/compare/v0.3.4...v0.4.0
 
 ### Added
 - App: IPython (in app group `DevPython2` and `DevPython3`)
@@ -672,7 +774,8 @@ must be migrated to the new format.
 - Restricted download of app resources to apps of type `default`
 
 ## [0.3.4] - 2016-01-20
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.3.3...v0.3.4)
+
+[0.3.4]: https://github.com/mastersign/bench/compare/v0.3.3...v0.3.4
 
 ### Added
 - App: GnuTLS
@@ -684,7 +787,8 @@ must be migrated to the new format.
 - Custom environment variables and setup scripts for meta apps
 
 ## [0.3.3] - 2016-01-18
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.3.2...v0.3.3)
+
+[0.3.3]: https://github.com/mastersign/bench/compare/v0.3.2...v0.3.3
 
 ### Added
 - Support for NPM version ranges
@@ -697,7 +801,8 @@ must be migrated to the new format.
 - Incorrect version patterns for NPM packages
 
 ## [0.3.2] - 2016-01-11
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.3.1...v0.3.2)
+
+[0.3.2]: https://github.com/mastersign/bench/compare/v0.3.1...v0.3.2
 
 ### Added
 - Override `HOME` in addition to `USERPROFILE`
@@ -723,13 +828,15 @@ must be migrated to the new format.
 - Incorrect warnings for meta apps during environment update
 
 ## [0.3.1] - 2016-01-08
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.3.3...v0.3.1)
+
+[0.3.1]: https://github.com/mastersign/bench/compare/v0.3.3...v0.3.1
 
 ### Added
 - Documentation for groups in `apps.md`
 
 ## [0.3.0] - 2016-01-08
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.2.2...v0.3.0)
+
+[0.3.0]: https://github.com/mastersign/bench/compare/v0.2.2...v0.3.0
 
 ### Added
 - Support for app typ `meta` for custom apps and app groups
@@ -748,7 +855,8 @@ must be migrated to the new format.
 - Update: Eclipse from 4.4.2 to 4.5
 
 ## [0.2.2] - 2016-01-07
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.2.1...v0.2.2)
+
+[0.2.2]: https://github.com/mastersign/bench/compare/v0.2.1...v0.2.2
 
 ### Added
 - App: Apache Web Server
@@ -766,7 +874,8 @@ must be migrated to the new format.
 - Switched `lib\git\bin` to `lib\git\cmd` in `PATH`
 
 ## [0.2.1] - 2016-01-06
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.2.0...v0.2.1)
+
+[0.2.1]: https://github.com/mastersign/bench/compare/v0.2.0...v0.2.1
 
 ### Added
 - App: Sift
@@ -784,7 +893,8 @@ must be migrated to the new format.
 - File name extraction from download URL
 
 ## [0.2.0] - 2016-01-06
-[Full Changelog](https://github.com/mastersign/bench/compare/v0.1.0...v0.2.0)
+
+[0.2.0]: https://github.com/mastersign/bench/compare/v0.1.0...v0.2.0
 
 ### Added
 - App: Oracel JDK 7 and 8
@@ -807,6 +917,6 @@ must be migrated to the new format.
 - location for `AppDataDir`
 - incorrect proxy template in `res\config.template.ps1`
 
-## [0.1.0] - 2016-01-04
+## 0.1.0 - 2016-01-04
 
 First public release on GitHub.

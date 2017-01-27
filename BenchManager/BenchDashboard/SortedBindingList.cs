@@ -21,45 +21,15 @@ namespace Mastersign.Bench.Dashboard
         {
         }
 
-        protected override bool IsSortedCore
-        {
-            get
-            {
-                return m_isSorted;
-            }
-        }
+        protected override bool IsSortedCore => m_isSorted;
 
-        protected override ListSortDirection SortDirectionCore
-        {
-            get
-            {
-                return m_sortDirection;
-            }
-        }
+        protected override ListSortDirection SortDirectionCore => m_sortDirection;
 
-        protected override PropertyDescriptor SortPropertyCore
-        {
-            get
-            {
-                return m_propertyDescriptor;
-            }
-        }
+        protected override PropertyDescriptor SortPropertyCore => m_propertyDescriptor;
 
-        protected override bool SupportsSearchingCore
-        {
-            get
-            {
-                return true;
-            }
-        }
+        protected override bool SupportsSearchingCore => true;
 
-        protected override bool SupportsSortingCore
-        {
-            get
-            {
-                return true;
-            }
-        }
+        protected override bool SupportsSortingCore => true;
 
         protected override void ApplySortCore(PropertyDescriptor propertyDesciptor, ListSortDirection sortDirection)
         {
@@ -73,9 +43,7 @@ namespace Mastersign.Bench.Dashboard
         }
 
         protected virtual IComparer<T> createComparer(PropertyDescriptor property, ListSortDirection direction)
-        {
-            return new PropertyDescriptorComparer<T>(property, direction);
-        }
+            => new PropertyDescriptorComparer<T>(property, direction);
 
         private void sort(IComparer<T> comparer)
         {
@@ -107,6 +75,11 @@ namespace Mastersign.Bench.Dashboard
             m_propertyDescriptor = base.SortPropertyCore;
 
             OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, NO_ITEM_INDEX));
+        }
+
+        public void NotifyListChanged()
+        {
+            OnListChanged(new ListChangedEventArgs(ListChangedType.PropertyDescriptorChanged, 0));
         }
     }
 

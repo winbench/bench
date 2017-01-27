@@ -1,6 +1,11 @@
 ﻿# Default Configuration
 
 * VersionFile: `res\version.txt`
+* Website: <http://mastersign.github.io/bench>
+* VersionUrl: <https://github.com/mastersign/bench/raw/master/res/version.txt>
+* UpdateUrlTemplate: `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip`
+* BootstrapUrlTemplate: `https://github.com/mastersign/bench/raw/v#VERSION#/res/bench-install.bat`
+* AutoUpdateCheck: `true`
 * UseProxy: `false`
 * ProxyBypass: `localhost`
 * HttpProxy: `http://127.0.0.1:80`
@@ -15,23 +20,59 @@
 * CustomConfigTemplateFile: `res\config.template.md`
 * SiteConfigFileName: `bench-site.md`
 * SiteConfigTemplateFile: `res\bench-site.template.md`
-* AppIndexFile: `res\apps.md`
 * AppActivationFile: `$CustomConfigDir$\apps-activated.txt`
 * AppActivationTemplateFile: `res\apps-activated.template.txt`
 * AppDeactivationFile: `$CustomConfigDir$\apps-deactivated.txt`
 * AppDeactivationTemplateFile: `res\apps-deactivated.template.txt`
-* CustomAppIndexFile: `$CustomConfigDir$\apps.md`
 * CustomAppIndexTemplateFile: `res\apps.template.md`
 * AppVersionIndexDir: `$LibDir$\_versions`
 * ConEmuConfigFile: `$CustomConfigDir$\ConEmu.xml`
 * ConEmuConfigTemplateFile: `res\ConEmu.template.xml`
 * DownloadDir: `cache`
-* AppResourceBaseDir: `res\apps`
 * AppAdornmentBaseDir: `$LibDir$\_proxies`
 * AppRegistryBaseDir: `$HomeDir$\registry_isolation`
-* ActionDir: `actions`
 * TempDir: `tmp`
 * LibDir: `lib`
+* AppLibs:
+    + `core`: `github:mastersign/bench-apps-core`
+* AppLibsDir: `$LibDir$\_applibs`
+* AppLibsDownloadDir: `$DownloadDir$\_applibs`
+* AppLibIndexFileName: `apps.md`
+* AppLibCustomScriptDirName: `scripts`
+* AppLibResourceDirName: `res`
+* KnownLicenses:
+    + `AFL-1.1`: <https://spdx.org/licenses/AFL-1.1.html>
+    + `AFL-1.2`: <https://spdx.org/licenses/AFL-1.2.html>
+    + `AFL-2.0`: <https://spdx.org/licenses/AFL-2.0.html>
+    + `AFL-2.1`: <https://spdx.org/licenses/AFL-2.1.html>
+    + `AFL-3.0`: <https://spdx.org/licenses/AFL-3.0.html>
+    + `Artistic-1.0`: <https://spdx.org/licenses/Artistic-1.0.html>
+    + `Artistic-2.0`: <https://spdx.org/licenses/Artistic-2.0.html>
+    + `Apache-1.1`: <https://spdx.org/licenses/Apache-1.1.html>
+    + `Apache-2.0`: <https://spdx.org/licenses/Apache-2.0.html>
+    + `BSD-2-Clause`: <https://spdx.org/licenses/BSD-2-Clause.html>
+    + `BSD-3-Clause`: <https://spdx.org/licenses/BSD-3-Clause.html>
+    + `CCDL-1.0`: <https://spdx.org/licenses/CDDL-1.0.html>
+    + `CPL-1.0`: <https://spdx.org/licenses/CPL-1.0.html>
+    + `CPAL-1.0`: <https://spdx.org/licenses/CPAL-1.0.html>
+    + `EPL-1.0`: <https://spdx.org/licenses/EPL-1.0.html>
+    + `GPL-2.0`: <https://spdx.org/licenses/GPL-2.0.html>
+    + `GPL-3.0`: <https://spdx.org/licenses/GPL-3.0.html>
+    + `AGPL-3.0`: <https://spdx.org/licenses/AGPL-3.0.html>
+    + `IPL-1.0`: <https://spdx.org/licenses/IPL-1.0.html>
+    + `Intel`: <https://spdx.org/licenses/Intel.html>
+    + `LGPL-2.0`: <https://spdx.org/licenses/LGPL-2.0.html>
+    + `LGPL-2.1`: <https://spdx.org/licenses/LGPL-2.1.html>
+    + `LGPL-3.0`: <https://spdx.org/licenses/LGPL-3.0.html>
+    + `MIT`: <https://spdx.org/licenses/MIT.html>
+    + `MPL-1.0`: <https://spdx.org/licenses/MPL-1.0.html>
+    + `MPL-1.1`: <https://spdx.org/licenses/MPL-1.1.html>
+    + `MPL-2.0`: <https://spdx.org/licenses/MPL-2.0.html>
+    + `MS-PL`: <https://spdx.org/licenses/MS-PL.html>
+    + `MS-RL`: <https://spdx.org/licenses/MS-RL.html>
+    + `OSL-1.0`: <https://spdx.org/licenses/OSL-1.0.html>
+    + `OSL-2.1`: <https://spdx.org/licenses/OSL-2.1.html>
+    + `OSL-3.0`: <https://spdx.org/licenses/OSL-3.0.html>
 * LogDir: `log`
 * HomeDir: `home`
 * AppDataDir: `$HomeDir$\AppData\Roaming`
@@ -47,8 +88,18 @@
 * LauncherDir: `launcher`
 * LauncherScriptDir: `$LibDir$\_launcher`
 * WizzardStartAutoSetup: `true`
+* WizzardApps:
+    + Web: `Bench.Group.WebDevelopment`
+    + JavaScript: `Bench.Group.JavaScriptDevelopment`
+    + Java: `Bench.Group.JavaDevelopment`
+    + Clojure: `Bench.Group.ClojureDevelopment`
+    + PHP: `Bench.Group.PHPDevelopment`
+    + Python 2: `Bench.Group.Python2Development`
+    + Python 3: `Bench.Group.Python3Development`
+    + C/C++: `Bench.Group.CppDevelopment`
 * QuickAccessCmd: `true`
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
-* EditorApp: `VSCode`
-* Website: <http://mastersign.github.io/bench>
+* TextEditorApp: `Bench.Notepad2`
+* MarkdownEditorApp: `Bench.MarkdownEdit`
+* DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`

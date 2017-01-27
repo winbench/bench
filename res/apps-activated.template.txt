@@ -4,6 +4,7 @@
 # This file contains the list with all activated apps.
 # The first word in a non-empty line, not commented out with #, is treated as an app ID.
 
-Git # activated by default to support project versioning
-Yeoman # activated by default to support actions\new-project.cmd
-VSCode # activated as default text editor
+Bench.Notepad2 # activated as default text editor
+Bench.MarkdownEdit # activated by default as editor for configuration files
+Bench.Git # activated by default to support project versioning
+Bench.Yeoman # activated by default to support actions\new-project.cmd

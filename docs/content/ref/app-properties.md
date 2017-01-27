@@ -12,6 +12,8 @@ weight = 8
 | [Typ](#Typ) | all | `false` |
 | [Dependencies](#Dependencies) | all | `false` |
 | [Website](#Website) | all | `false` |
+| [License](#License) | all | `false` |
+| [LicenseUrl](#LicenseUrl) | all | `false` |
 | [Docs](#Docs) | all | `false` |
 | [Force](#Force) | all | `false` |
 | [Dir](#Dir) | all | `false` |
@@ -19,6 +21,8 @@ weight = 8
 | [Register](#Register) | `meta`, `default` | `false` |
 | [Environment](#Environment) | all | `false` |
 | [Exe](#Exe) | all | `false` |
+| [ExeTestArguments](#ExeTestArguments) | all |  |
+| [ExeTest](#ExeTest) | all |  |
 | [AdornedExecutables](#AdornedExecutables) | all | `false` |
 | [RegistryKeys](#RegistryKeys) | all | `false` |
 | [Launcher](#Launcher) | all | `false` |
@@ -88,6 +92,26 @@ The meaning of the different possible values is explained in [App Types](/ref/ap
 
 This URL is used to create an entry in the documentation menu in the
 main window of the Bench Dashboard.
+
+## License {#License}
+
+* Description: A SPDX license identifier or `unknown` or `commercial`.
+* Data Type: string
+* Required: `false`
+* Default: `unknown`
+* App Types: all
+
+If this value is set to a SPDX identifier listed in the config property
+[`KnownLicenses`](/ref/config/#KnownLicenses),
+the [`LicenseUrl`](/ref/app-properties/#LicenseUrl) defaults to the associated URL.
+
+## LicenseUrl {#LicenseUrl}
+
+* Description: A URL or a relative path to a document with the license text.
+* Data Type: URL
+* Required: `false`
+* Default: empty or SPDX license URL
+* App Types: all
 
 ## Docs {#Docs}
 
@@ -165,6 +189,27 @@ The path can be absolute or relative to the target directory of the app.
 For package apps like `node-package` or `python3-package`,
 the path can be just the name of CLI wrapper script,
 given the package provides a CLI.
+
+## ExeTestArguments {#ExeTestArguments}
+
+* Description: A string to pass as command line arguments when the executable is tested.
+* Data Type: string
+* Default: empty
+* App Types: all
+
+To test if an app was installed successfully,
+the main executable is run with these arguments.
+If the process exit code is `0` the test was successful.
+
+## ExeTest {#ExeTest}
+
+* Description: A flag to prevent the test of the main executable.
+* Data Type: boolean
+* Default: `true`
+* App Types: all
+
+If the main executable of an app can not be tested by executing it with the
+[`ExeTestArguments`](#ExeTestArguments), this property must be set to `false`.
 
 ## AdornedExecutables {#AdornedExecutables}
 
@@ -257,7 +302,7 @@ The path can be absolute or relative to the target directory of the app.
 * Required: `true`*
 * App Types: `default`
 
-*) Only one of `ResourceName` or `ArchiveName` must be set.
+\*) Only one of `ResourceName` or `ArchiveName` must be set.
 
 ## ArchiveName {#ArchiveName}
 
@@ -268,7 +313,7 @@ The path can be absolute or relative to the target directory of the app.
 * Required: `true`*
 * App Types: `default`
 
-*) Only one of `ResourceName` or `ArchiveName` must be set.
+\*) Only one of `ResourceName` or `ArchiveName` must be set.
 
 ## ArchiveTyp {#ArchiveTyp}
 

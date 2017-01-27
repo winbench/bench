@@ -107,6 +107,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MarkdownControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MarkdownControl.Designer.cs">
+      <DependentUpon>MarkdownControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MarkdownViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MarkdownControl.resx">
+      <DependentUpon>MarkdownControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MarkdownViewer.resx">
       <DependentUpon>MarkdownViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,13 +209,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\books_16.png" />
     <None Include="Resources\missing_app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\update_apps_16.png" />
+    <None Include="Resources\update_bench_16.png" />
+    <None Include="Resources\progress_16_animation.gif" />
     <None Include="Resources\properties_16.png" />
     <None Include="Resources\about.ico" />
     <None Include="Resources\bash.ico" />
-    <None Include="Resources\library_16.png" />
     <None Include="Resources\Markdown.ico" />
     <None Include="Resources\markdown_16.png" />
     <None Include="Resources\refresh_16.png" />
@@ -230,6 +242,7 @@
     <None Include="Resources\error_48.png" />
     <None Include="Resources\install_16.png" />
     <None Include="Resources\logo_64.png" />
+    <None Include="Resources\book_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />
     <None Include="Resources\docs_16.png" />

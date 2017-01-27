@@ -1,8 +1,8 @@
-﻿$Script:myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-. "$Script:myDir\common.lib.ps1"
-& "$Script:myDir\Load-ClrLibs.ps1"
+﻿$Script:scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+. "$Script:scriptsDir\common.lib.ps1"
+& "$Script:scriptsDir\Load-ClrLibs.ps1"
 
-[string]$Script:autoDir = Resolve-Path ([IO.Path]::Combine($myDir, ".."))
+[string]$Script:autoDir = Resolve-Path ([IO.Path]::Combine($scriptsDir, ".."))
 [string]$Script:rootDir = Resolve-Path ([IO.Path]::Combine($autoDir, ".."))
 $Script:pathBackup = $env:PATH
 
@@ -32,7 +32,7 @@ function App-Force([string]$name) { return $global:BenchConfig.Apps[$name].Force
 function App-PackageName([string]$name) { return $global:BenchConfig.Apps[$name].PackageName }
 function App-Dir([string]$name) { return $global:BenchConfig.Apps[$name].Dir }
 function App-Paths([string]$name) { return $global:BenchConfig.Apps[$name].Path }
-function App-Exe([string]$name, [bool]$checkExist = $true) { return $global:BenchConfig.Apps[$name].Exe }
+
 function App-Register([string]$name) { return $global:BenchConfig.Apps[$name].Register }
 function App-Environment([string]$name) { return $global:BenchConfig.Apps[$name].Environment }
 function App-AdornedExecutables([string]$name) { return $global:BenchConfig.Apps[$name].AdornedExecutables }
@@ -43,8 +43,24 @@ function App-LauncherArguments([string]$name) { return $global:BenchConfig.Apps[
 function App-LauncherIcon([string]$name) { return $global:BenchConfig.Apps[$name].LauncherIcon }
 function App-SetupTestFile([string]$name) { return $global:BenchConfig.Apps[$name].SetupTestFile }
 function Check-App([string]$name) { return $global:BenchConfig.Apps[$name].IsInstalled }
+function App-CustomScript([string]$name, [string]$typ) { return $global:BenchConfig.Apps[$name].GetCustomScript($typ) }
+function App-SetupResource([string]$name, [string]$relPath) { return $global:BenchConfig.Apps[$name].GetSetupResource($relPath) }
 
-function App-Path([string]$name) {
+function App-Exe([string]$name, [bool]$checkExist = $true)
+{
+    $p = $global:BenchConfig.Apps[$name].Exe
+    if (!$checkExist -or [IO.File]::Exists($p))
+    {
+        return $p
+    }
+    else
+    {
+        return $null
+    }
+}
+
+function App-Path([string]$name)
+{
     $path = $global:BenchConfig.Apps[$name].Path
     if ($path.Length -gt 0)
     {

@@ -2,7 +2,7 @@
 date = "2016-06-22T13:40:45+02:00"
 description = "The graphical user interface for the Bench environment"
 title = "Bench Dashboard"
-weight = 3
+weight = 1
 +++
 
 [Main]: /img/Dashboard_Main.png

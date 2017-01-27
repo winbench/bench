@@ -7,15 +7,21 @@ namespace Mastersign.Bench.Test
     {
         private IDictionary<string, IDictionary<string, object>> groups;
         private IDictionary<string, string> groupCategories;
+        private IDictionary<string, object> groupMetadata;
+        private IDictionary<string, string> groupDocs;
 
         public GroupedPropertyCollection(
             IDictionary<string, IDictionary<string, object>> groups = null,
             IDictionary<string, string> groupCategories = null,
+            IDictionary<string, object> groupMetadata = null,
+            IDictionary<string, string> groupDocs = null,
             IDictionary<string, object> properties = null)
             : base(properties)
         {
             this.groups = groups ?? new Dictionary<string, IDictionary<string, object>>();
             this.groupCategories = groupCategories ?? new Dictionary<string, string>();
+            this.groupMetadata = groupMetadata ?? new Dictionary<string, object>();
+            this.groupDocs = groupDocs ?? new Dictionary<string, string>();
         }
 
         public bool CanGetGroupValue(string group, string name)
@@ -40,6 +46,19 @@ namespace Mastersign.Bench.Test
             string category;
             return groupCategories.TryGetValue(group, out category)
                 ? category : null;
+        }
+
+        public object GetGroupMetadata(string group)
+        {
+            object metadata;
+            return groupMetadata.TryGetValue(group, out metadata)
+                ? metadata : null;
+        }
+
+        public string GetGroupDocumentation(string group)
+        {
+            string docs;
+            return groupDocs.TryGetValue(group, out docs) ? docs : null;
         }
 
         public object GetGroupValue(string group, string name)
@@ -86,6 +105,16 @@ namespace Mastersign.Bench.Test
             groupCategories[group] = category;
         }
 
+        public void SetGroupMetadata(string group, object metadata)
+        {
+            groupMetadata[group] = metadata;
+        }
+
+        public void SetGroupDocumentation(string group, string docs)
+        {
+            groupDocs[group] = docs;
+        }
+
         public void SetGroupValue(string group, string name, object value)
         {
             if (group == null)
@@ -100,6 +129,23 @@ namespace Mastersign.Bench.Test
                     properties.Add(group, properties = new Dictionary<string, object>());
                 }
                 properties[name] = value;
+            }
+        }
+
+        public void ResetGroupValue(string group, string name)
+        {
+            if (group == null)
+            {
+                ResetValue(name);
+            }
+            else
+            {
+                IDictionary<string, object> properties;
+                if (!groups.TryGetValue(group, out properties))
+                {
+                    properties.Add(group, properties = new Dictionary<string, object>());
+                }
+                if (properties.ContainsKey(name)) properties.Remove(name);
             }
         }
     }

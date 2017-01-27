@@ -13,6 +13,10 @@ namespace Mastersign.Bench
 
         public const string Version = "Version";
         public const string VersionFile = "VersionFile";
+        public const string VersionUrl = "VersionUrl";
+        public const string AutoUpdateCheck = "AutoUpdateCheck";
+        public const string UpdateUrlTemplate = "UpdateUrlTemplate";
+        public const string BootstrapUrlTemplate = "BootstrapUrlTemplate";
         public const string Website = "Website";
 
         public const string UserName = "UserName";
@@ -21,6 +25,7 @@ namespace Mastersign.Bench
         public const string BenchDrive = "BenchDrive";
         public const string BenchRoot = "BenchRoot";
         public const string BenchAuto = "BenchAuto";
+        public const string BenchBin = "BenchBin";
         public const string BenchScripts = "BenchScripts";
 
         public const string CustomConfigDir = "CustomConfigDir";
@@ -30,8 +35,6 @@ namespace Mastersign.Bench
         public const string SiteConfigFileName = "SiteConfigFileName";
         public const string SiteConfigTemplateFile = "SiteConfigTemplateFile";
 
-        public const string AppIndexFile = "AppIndexFile";
-        public const string CustomAppIndexFile = "CustomAppIndexFile";
         public const string CustomAppIndexTemplateFile = "CustomAppIndexTemplateFile";
         public const string AppActivationFile = "AppActivationFile";
         public const string AppActivationTemplateFile = "AppActivationTemplateFile";
@@ -40,9 +43,13 @@ namespace Mastersign.Bench
         public const string AppVersionIndexDir = "AppVersionIndexDir";
 
         public const string WizzardStartAutoSetup = "WizzardStartAutoSetup";
+        public const string WizzardApps = "WizzardApps";
+        public const string WizzardSelectedApps = "WizzardSelectedApps";
         public const string QuickAccessCmd = "QuickAccessCmd";
         public const string QuickAccessPowerShell = "QuickAccessPowerShell";
         public const string QuickAccessBash = "QuickAccessBash";
+
+        public const string DashboardSetupAppListColumns = "DashboardSetupAppListColumns";
 
         public const string ConEmuConfigFile = "ConEmuConfigFile";
         public const string ConEmuConfigTemplateFile = "ConEmuConfigTemplateFile";
@@ -50,12 +57,18 @@ namespace Mastersign.Bench
         public const string TempDir = "TempDir";
         public const string DownloadDir = "DownloadDir";
         public const string LibDir = "LibDir";
+        public const string AppLibs = "AppLibs";
+        public const string AppLibsDir = "AppLibsDir";
+        public const string AppLibsDownloadDir = "AppLibsDownloadDir";
+        public const string AppLibIndexFileName = "AppLibIndexFileName";
+        public const string AppLibCustomScriptDirName = "AppLibCustomScriptDirName";
+        public const string AppLibResourceDirName = "AppLibResourceDirName";
+        public const string KnownLicenses = "KnownLicenses";
         public const string LogDir = "LogDir";
+        public const string LogFile = "LogFile";
         public const string LogLevel = "LogLevel";
-        public const string AppResourceBaseDir = "AppResourceBaseDir";
         public const string AppAdornmentBaseDir = "AppAdornmentBaseDir";
         public const string AppRegistryBaseDir = "AppRegistryBaseDir";
-        public const string ActionDir = "ActionDir";
         public const string LauncherDir = "LauncherDir";
         public const string LauncherScriptDir = "LauncherScriptDir";
         public const string HomeDir = "HomeDir";
@@ -80,20 +93,24 @@ namespace Mastersign.Bench
         public const string DownloadAttempts = "DownloadAttempts";
         public const string ParallelDownloads = "ParallelDownloads";
 
-        public const string EditorApp = "EditorApp";
+        public const string TextEditorApp = "TextEditorApp";
+        public const string MarkdownEditorApp = "MarkdownEditorApp";
 
         // Common App Properties
 
+        public const string AppIsActive = "IsActive";
         public const string AppIsActivated = "IsActivated";
         public const string AppIsDeactivated = "IsDeactivated";
         public const string AppIsRequired = "IsRequired";
         public const string AppIsDependency = "IsDependency";
-
         public const string AppLabel = "Label";
         public const string AppTyp = "Typ";
         public const string AppVersion = "Version";
+        public const string AppInstalledVersion = "InstalledVersion";
         public const string AppWebsite = "Website";
         public const string AppDocs = "Docs";
+        public const string AppLicense = "License";
+        public const string AppLicenseUrl = "LicenseUrl";
         public const string AppDependencies = "Dependencies";
         public const string AppResponsibilities = "Responsibilities";
         public const string AppForce = "Force";
@@ -104,6 +121,8 @@ namespace Mastersign.Bench
         public const string AppExe = "Exe";
         public const string AppAdornedExecutables = "AdornedExecutables";
         public const string AppRegistryKeys = "RegistryKeys";
+        public const string AppExeTest = "ExeTest";
+        public const string AppExeTestArguments = "ExeTestArguments";
         public const string AppLauncher = "Launcher";
         public const string AppLauncherExecutable = "LauncherExecutable";
         public const string AppLauncherArguments = "LauncherArguments";
@@ -111,6 +130,8 @@ namespace Mastersign.Bench
 
         // Default App Properties
 
+        public const string AppHasResource = "HasResource";
+        public const string AppIsResourceCached = "IsResourceCached";
         public const string AppUrl = "Url";
         public const string AppDownloadHeaders = "DownloadHeaders";
         public const string AppDownloadCookies = "DownloadCookies";

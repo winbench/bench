@@ -85,7 +85,7 @@ namespace Mastersign.Bench
             }
 
             var paths = new List<string>();
-            paths.Add(Config.GetStringValue(PropertyKeys.BenchAuto));
+            paths.Add(Config.GetStringValue(PropertyKeys.BenchBin));
             paths.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
             paths.AddRange(Config.Apps.EnvironmentPath);
             if (Config.GetBooleanValue(PropertyKeys.IgnoreSystemPath))
@@ -157,10 +157,11 @@ namespace Mastersign.Bench
                     if (!string.IsNullOrEmpty(userEmail)) w.WriteLine("SET USEREMAIL={0}", userEmail);
                 }
 
-                w.WriteLine("SET BENCH_AUTO=%~dp0auto");
-                w.WriteLine("CALL :SET_BENCH_HOME \"%BENCH_AUTO%\\..\"");
+                w.WriteLine("SET BENCH_DRIVE=%~d0");
+                w.WriteLine("SET BENCH_HOME=%~dp0");
+                w.WriteLine("CALL :CLEAN_BENCH_HOME");
+                w.WriteLine("SET BENCH_BIN=" + TryUseVar(Config.GetStringValue(PropertyKeys.BenchBin)));
                 w.WriteLine("SET /P BENCH_VERSION=<\"%BENCH_HOME%\\res\\version.txt\"");
-                w.WriteLine("CALL :SET_BENCH_DRIVE \"%BENCH_AUTO%\"");
                 w.WriteLine("SET BENCH_APPS={0}",
                     TryUseVar(Config.GetStringValue(PropertyKeys.LibDir), true));
 
@@ -198,7 +199,7 @@ namespace Mastersign.Bench
                 if (Config.GetBooleanValue(PropertyKeys.IgnoreSystemPath))
                 {
                     w.WriteLine("SET PATH={0}", PathList(
-                        "%BENCH_AUTO%",
+                        "%BENCH_BIN%",
                         "%BENCH_PATH%",
                         "%SystemRoot%",
                         @"%SystemRoot%\System32",
@@ -207,7 +208,7 @@ namespace Mastersign.Bench
                 else if (!Config.GetBooleanValue(PropertyKeys.RegisterInUserProfile))
                 {
                     w.WriteLine("SET PATH={0}", PathList(
-                        "%BENCH_AUTO%",
+                        "%BENCH_BIN%",
                         "%BENCH_PATH%",
                         "%PATH%"));
                 }
@@ -229,12 +230,10 @@ namespace Mastersign.Bench
 
                 w.WriteLine("GOTO:EOF");
                 w.WriteLine();
-                w.WriteLine(":SET_BENCH_HOME");
-                w.WriteLine("SET BENCH_HOME=%~dpfn1");
-                w.WriteLine("GOTO:EOF");
-                w.WriteLine();
-                w.WriteLine(":SET_BENCH_DRIVE");
-                w.WriteLine("SET BENCH_DRIVE=%~d1");
+                w.WriteLine(":CLEAN_BENCH_HOME");
+                w.WriteLine("SET BENCH_HOME=%BENCH_HOME%#+#");
+                w.WriteLine("SET BENCH_HOME=%BENCH_HOME:\\#+#=#+#%");
+                w.WriteLine("SET BENCH_HOME=%BENCH_HOME:#+#=%");
                 w.WriteLine("GOTO:EOF");
                 if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
                 {
@@ -298,6 +297,7 @@ namespace Mastersign.Bench
             SetEnvironmentVar("BENCH_APPS", libDir);
 
             var benchPath = new List<string>();
+            benchPath.Add(Config.GetStringValue(PropertyKeys.BenchBin));
             benchPath.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
             benchPath.AddRange(Config.Apps.EnvironmentPath);
             SetEnvironmentVar("BENCH_PATH", PathList(benchPath.ToArray()));
@@ -339,6 +339,13 @@ namespace Mastersign.Bench
         /// </remarks>
         public void UnregisterFromUserProfile()
         {
+            var currentEnvRootPath = Environment.GetEnvironmentVariable("BENCH_HOME");
+            if (!string.Equals(currentEnvRootPath, Config.BenchRootDir,
+                StringComparison.InvariantCultureIgnoreCase))
+            {
+                return;
+            }
+
             DeleteEnvironmentVar("BENCH_VERSION");
             DeleteEnvironmentVar("BENCH_HOME");
             DeleteEnvironmentVar("BENCH_APPS");

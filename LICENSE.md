@@ -1,5 +1,5 @@
 The MIT License (MIT)
----------------------
+=====================
 
 Copyright (c) 2016  Tobias Kiertscher <dev@mastersign.de>
 

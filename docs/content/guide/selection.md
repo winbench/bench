@@ -10,7 +10,6 @@ weight = 5
 [Activated Apps]: /ref/file-structure/#config-apps-activated
 [Deactivated Apps]: /ref/file-structure/#config-apps-deactivated
 [Meta App]: /ref/app-types/#meta
-[Groups]: /ref/apps/#groups
 [Bench Dashboard]: /ref/dashbord/
 [Mastersign.Bench.ActivationFile]: http://mastersign.github.io/bench/clr-api/html/T_Mastersign_Bench_ActivationFile.htm
 
@@ -72,7 +71,6 @@ If such an app is activated, all dependencies are activated implicitely.
 
 This pattern is useful to group a number of apps for some scenario under
 one descriptive name.
-The [groups section of the Bench app library][Groups] contains some examples.
 
 ## Activation and Deactivation
 The user currently has two options to activate or deactivate an app.

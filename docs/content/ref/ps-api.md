@@ -1,5 +1,5 @@
 +++
-date = "2016-06-22T13:43:35+02:00"
+date = "2017-01-02T17:00:00+02:00"
 description = "The programming interface for hooks and custom scripts"
 title = "PowerShell API"
 weight = 9
@@ -63,6 +63,8 @@ available in custom and hook scripts.
 * [`App-LauncherIcon`](#fun-app-launchericon)
 * [`App-SetupTestFile`](#fun-app-setuptestfile)
 * [`Check-App`](#fun-check-app)
+* [`App-CustomScriptFile`](#fun-app-customscriptfile)
+* [`App-SetupResource`](#fun-app-setupresource)
 
 ## Variables {#vars}
 
@@ -464,3 +466,24 @@ If the app ID is not defined, `$null` is returned.
 * Return Value: `$true` if the app is installed,
   `$false` if the app is not installed,
   and `$null` if the app ID is not defined.
+
+### `App-CustomScriptFile` {#fun-app-customscriptfile}
+
+* Description: This function retrieves a path to a custom script.
+* Parameter:
+    + `app`: The app ID.
+    + `type`: The type of cstom script (e.g. `setup` or `env`).
+* Return Value: An absolute path to the custom script
+  or `$null` if this type of custom script does not exists for the specified app.
+
+### `App-SetupResource` {#fun-app-setupresource}
+
+* Description: This function retrieves a path to a setup resource for an app.
+* Parameter:
+    + `app`: The app ID.
+    + `relativePath`: A relative path or simply the filename of the resource.
+* Return Value: An absolute path to the resource
+  or `$null` if the resource does not exists for the specified app.
+
+A setup resource can be a file or a directory, which is used by custom scripts.
+The setup resources of an app are included in the app library.

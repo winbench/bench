@@ -1,10 +1,11 @@
 @ECHO OFF
 SET ROOT=%~dp0
 
-SET VERSION=0.13.3
+SET VERSION=0.14.0
 SET TAG=v%VERSION%
 SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
 SET BENCH_ZIPFILE=%ROOT%Bench.zip
+SET BENCH_BOOTSTRAP_FILE=%~f0
 SET BENCH_SUBFLDR=
 SET BENCH_DIR=%ROOT%
 
@@ -13,7 +14,7 @@ PUSHD "%ROOT%"
 CALL :DOWNLOAD "%BENCH_ZIPURL%" "%BENCH_ZIPFILE%"
 
 ECHO Removing old Bench files ...
-FOR %%d IN (actions, auto, res, tmp, lib\conemu) DO (
+FOR %%d IN (actions, auto, res, tmp, lib\conemu, lib\_applibs, cache\_applibs) DO (
   IF EXIST "%ROOT%\%%d\" RMDIR /S /Q "%ROOT%\%%d"
 )
 
@@ -22,11 +23,12 @@ CALL :EXTRACT "%BENCH_ZIPFILE%" "%BENCH_SUBFLDR%" "%BENCH_DIR%"
 ECHO.Deleting ZIP files ...
 DEL "%BENCH_ZIPFILE%"
 
-ECHO.Running initialization script ...
-.\actions\bench-ctl.cmd initialize
+ECHO.Running initialization command ...
+CALL .\auto\bin\bench.exe --verbose manage initialize
 
 POPD
-EXIT /B 0
+REM Trick to exit the script before deleting it
+(GOTO) 2>nul & DEL "%BENCH_BOOTSTRAP_FILE%"
 
 REM ******* Procedures *******
 

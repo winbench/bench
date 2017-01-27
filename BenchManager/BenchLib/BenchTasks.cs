@@ -63,29 +63,14 @@ namespace Mastersign.Bench
                 }
             }
 
-            var resultCfg = new BenchConfiguration(benchRootDir, true, false, true);
-
-            // transfer intermediate results from wizzard to following initialization steps
-            foreach (var key in new[]
-                {
-                    PropertyKeys.CustomConfigRepository,
-                    PropertyKeys.WizzardStartAutoSetup
-                })
-            {
-                resultCfg.SetValue(key, cfg.GetValue(key));
-            }
-
-            if (resultCfg.GetValue(PropertyKeys.CustomConfigRepository) != null)
-            {
-                resultCfg.SetGroupCategory(AppKeys.Git, BenchConfiguration.DefaultAppCategory);
-                resultCfg.Apps[AppKeys.Git].ActivateAsRequired();
-            }
+            var resultCfg = new BenchConfiguration(benchRootDir, false, false, true);
+            cfg.InjectBenchInitializationProperties(resultCfg);
 
             return resultCfg;
         }
 
         /// <summary>
-        /// This method is the second step for initializing or upgrading a Bench installation.
+        /// This method is the last fourth for initializing or upgrading a Bench installation.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -148,6 +133,7 @@ namespace Mastersign.Bench
             }
 
             var cfg = new BenchConfiguration(man.Config.BenchRootDir, false, true, true);
+            man.Config.InjectBenchInitializationProperties(cfg);
 
             var homeDir = cfg.GetStringValue(PropertyKeys.HomeDir);
             FileSystem.AsureDir(homeDir);
@@ -160,7 +146,9 @@ namespace Mastersign.Bench
             FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.LibDir));
             FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.ProjectRootDir));
 
-            var customAppIndexFile = cfg.GetStringValue(PropertyKeys.CustomAppIndexFile);
+            var customAppIndexFile = Path.Combine(
+                cfg.GetStringValue(PropertyKeys.CustomConfigDir),
+                cfg.GetStringValue(PropertyKeys.AppLibIndexFileName));
             if (!File.Exists(customAppIndexFile))
             {
                 var customAppIndexTemplateFile = cfg.GetStringValue(PropertyKeys.CustomAppIndexTemplateFile);
@@ -185,7 +173,16 @@ namespace Mastersign.Bench
                 File.Copy(conEmuConfigTemplateFile, conEmuConfigFile, false);
             }
 
-            return new BenchConfiguration(man.Config.BenchRootDir, true, true, true);
+            var selectedApps = cfg.GetStringListValue(PropertyKeys.WizzardSelectedApps);
+            var activationFileEditor = new ActivationFile(activationFile);
+            foreach (var appId in selectedApps)
+            {
+                activationFileEditor.SignIn(appId);
+            }
+
+            var resultCfg = new BenchConfiguration(man.Config.BenchRootDir, true, true, true);
+            cfg.InjectBenchInitializationProperties(resultCfg);
+            return resultCfg;
         }
 
         /// <summary>
@@ -238,6 +235,128 @@ namespace Mastersign.Bench
                     {"mirror_id", new Regex(@"^\d+$") }
                 }),
                 new Regex(@"\<span\s[^\>]*class=""direct-link""[^\>]*\>(.*?)\</span\>"));
+
+        private static WebClient InitializeWebClient(BenchConfiguration config)
+        {
+            var useProxy = config.GetBooleanValue(PropertyKeys.UseProxy);
+            var httpProxy = config.GetStringValue(PropertyKeys.HttpProxy);
+            var httpsProxy = config.GetStringValue(PropertyKeys.HttpsProxy);
+            var proxyBypass = config.GetStringListValue(PropertyKeys.ProxyBypass);
+            var webClient = new WebClient();
+            webClient.Proxy = useProxy
+                ? new SchemeDispatchProxy(new Dictionary<string, IWebProxy>
+                    {
+                        {"http", new WebProxy(httpProxy, true, proxyBypass)},
+                        {"https", new WebProxy(httpsProxy, true, proxyBypass)}
+                    })
+                : null;
+            return webClient;
+        }
+
+        /// <summary>
+        /// Downloads a string via HTTP(S) asynchronously.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <param name="resultHandler">The handler to process the download result.</param>
+        public static void DownloadStringAsync(BenchConfiguration config, Uri url, StringDownloadResultHandler resultHandler)
+        {
+            var wc = InitializeWebClient(config);
+            wc.DownloadStringCompleted += (sender, eventArgs) =>
+            {
+                resultHandler(eventArgs.Error == null && !eventArgs.Cancelled, eventArgs.Result);
+                wc.Dispose();
+            };
+            wc.DownloadStringAsync(url);
+        }
+
+
+        /// <summary>
+        /// Downloads a string via HTTP(S).
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <returns>The resources content or <c>null</c> if the download failed.</returns>
+        public static string DownloadString(BenchConfiguration config, Uri url)
+        {
+            using (var wc = InitializeWebClient(config))
+            {
+                try
+                {
+                    return wc.DownloadString(url);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Downloads a file via HTTP(S) asynchronously.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <param name="targetFile">A path to the target file.</param>
+        /// <param name="resultHandler">The handler to process the download result.</param>
+        public static void DownloadFileAsync(BenchConfiguration config, Uri url, string targetFile,
+            FileDownloadResultHandler resultHandler)
+        {
+            var wc = InitializeWebClient(config);
+            wc.DownloadFileCompleted += (sender, eventArgs) =>
+            {
+                resultHandler(eventArgs.Error == null && !eventArgs.Cancelled);
+                wc.Dispose();
+            };
+            wc.DownloadStringAsync(url);
+        }
+
+        /// <summary>
+        /// Downloads a file via HTTP(S).
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="url">The URL of the HTTP resource.</param>
+        /// <param name="targetFile">A path to the target file.</param>
+        /// <returns><c>true</c> if the download was successful; otherwise <c>false</c>.</returns>
+        public static bool DownloadFile(BenchConfiguration config, Uri url, string targetFile)
+        {
+            using (var wc = InitializeWebClient(config))
+            {
+                try
+                {
+                    wc.DownloadFile(url, targetFile);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Downloads the version number of the latest Bench release asynchronously.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <param name="resultHandler">The handler for the download result.</param>
+        public static void GetLatestVersionAsync(BenchConfiguration config, StringDownloadResultHandler resultHandler)
+        {
+            var uri = new Uri(config.GetStringValue(PropertyKeys.VersionUrl));
+            DownloadStringAsync(config, uri,
+                (success, content) => resultHandler(success, content != null ? content.Trim() : null));
+        }
+
+        /// <summary>
+        /// Downloads the version number of the latest Bench release.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        /// <returns>The version number or <c>null</c> if the download failed.</returns>
+        public static string GetLatestVersion(BenchConfiguration config)
+        {
+            var uri = new Uri(config.GetStringValue(PropertyKeys.VersionUrl));
+            var result = DownloadString(config, uri);
+            return result != null ? result.Trim() : null;
+        }
 
         private static string RunCustomScript(BenchConfiguration config, IProcessExecutionHost execHost,
             string appId, string path, params string[] args)
@@ -386,6 +505,22 @@ namespace Mastersign.Bench
         #region Higher Order Actions
 
         /// <summary>
+        /// Runs the Bench task of downloading and extracting the app libraries.
+        /// </summary>
+        /// <param name="man">The Bench manager.</param>
+        /// <param name="notify">The notification handler.</param>
+        /// <param name="cancelation">A cancelation token.</param>
+        /// <returns>The result of running the task, in shape of an <see cref="ActionResult"/> object.</returns>
+        public static ActionResult DoLoadAppLibraries(IBenchManager man,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            return RunTasks(man,
+                new AppFacade[0],
+                notify, cancelation,
+                LoadAppLibraries);
+        }
+
+        /// <summary>
         /// Runs the Bench task of setting up only the apps, required of the Bench system itself.
         /// </summary>
         /// <param name="man">The Bench manager.</param>
@@ -440,7 +575,6 @@ namespace Mastersign.Bench
                     man.Config.Apps.ActiveApps
                 },
                 notify, cancelation,
-
                 UninstallApps,
                 DownloadAppResources,
                 InstallApps,
@@ -753,6 +887,22 @@ namespace Mastersign.Bench
                 UpdateEnvironment);
         }
 
+        /// <summary>
+        /// Runs the Bench task of downloading the latest Bench binary and bootstrap file.
+        /// </summary>
+        /// <param name="man">The Bench manager.</param>
+        /// <param name="notify">The notification handler.</param>
+        /// <param name="cancelation">A cancelation token.</param>
+        /// <returns>The result of running the task, in shape of an <see cref="ActionResult"/> object.</returns>
+        public static ActionResult DoDownloadBenchUpdate(IBenchManager man,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            return RunTasks(man,
+                new AppFacade[0],
+                notify, cancelation,
+                DownloadBenchUpdate);
+        }
+
         #endregion
 
         #region Task Composition
@@ -768,9 +918,15 @@ namespace Mastersign.Bench
             TaskInfoLogger logger = null;
             if (logLevel != LogLevels.None)
             {
-                logger = new TaskInfoLogger(
-                    man.Config.GetStringValue(PropertyKeys.LogDir),
-                    logLevel == LogLevels.Error);
+                var file = man.Config.GetStringValue(PropertyKeys.LogFile,
+                    DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.txt");
+                if (!Path.IsPathRooted(file))
+                {
+                    var logDir = man.Config.GetStringValue(PropertyKeys.LogDir);
+                    FileSystem.AsureDir(logDir);
+                    file = Path.Combine(logDir, file);
+                }
+                logger = new TaskInfoLogger(file, logLevel == LogLevels.Error);
             }
 
             var infos = new List<TaskInfo>();
@@ -838,6 +994,263 @@ namespace Mastersign.Bench
             p = Math.Min(a.Length - 1, p);
             while (p > 0 && a[p] == null) p--;
             return a[p];
+        }
+
+        #endregion
+
+        #region Load App Libraries
+
+        private static void UnwrapSubDir(string targetDir)
+        {
+            var content = Directory.GetFileSystemEntries(targetDir);
+            // Check if the only content of the source folder is one directory
+            if (content != null && content.Length == 1 && Directory.Exists(content[0]))
+            {
+                // Then move all further content one directory up
+                // (helps with ZIP files which contain the whole app library in a sub-dir)
+                FileSystem.MoveContent(content[0], targetDir);
+                Directory.Delete(content[0]);
+            }
+        }
+
+        private static bool IsAppLibrary(BenchConfiguration config, string directory)
+        {
+            var appIndexFileName = config.GetStringValue(PropertyKeys.AppLibIndexFileName);
+            return File.Exists(Path.Combine(directory, appIndexFileName));
+        }
+
+        private static void ExtractAppLibrary(BenchConfiguration config, string source, string targetDir)
+        {
+            if (!ZipFile.IsZipFile(source)) throw new InvalidOperationException(
+                "The app library does not appear to be a ZIP file: " + source);
+            FileSystem.EmptyDir(targetDir);
+            using (var zf = new ZipFile(source))
+            {
+                zf.ExtractExistingFile = ExtractExistingFileAction.OverwriteSilently;
+                zf.FlattenFoldersOnExtract = false;
+                zf.ExtractAll(targetDir);
+            }
+            if (!IsAppLibrary(config, targetDir)) UnwrapSubDir(targetDir);
+        }
+
+        private static void CopyAppLibrary(BenchConfiguration config, string source, string targetDir)
+        {
+            if (File.Exists(source))
+            {
+                ExtractAppLibrary(config, source, targetDir);
+            }
+            else if (Directory.Exists(source))
+            {
+                FileSystem.CopyDir(source, targetDir, true);
+                if (!IsAppLibrary(config, targetDir)) UnwrapSubDir(targetDir);
+            }
+            else
+            {
+                throw new ArgumentException("Source of app library not found: " + source);
+            }
+        }
+
+        private static string AppLibDirectory(BenchConfiguration config, string appLibId)
+        {
+            return Path.Combine(config.GetStringValue(PropertyKeys.AppLibsDir), appLibId);
+        }
+
+        /// <summary>
+        /// Deletes the loaded and cached app libraries
+        /// in preparation for re-loading them for an update or a repair.
+        /// </summary>
+        /// <param name="cfg">The Bench configuration</param>
+        public static void DeleteAppLibraries(BenchConfiguration cfg)
+        {
+            var appLibDir = cfg.GetStringValue(PropertyKeys.AppLibsDir);
+            FileSystem.EmptyDir(appLibDir);
+            var cacheDir = cfg.GetStringValue(PropertyKeys.AppLibsDownloadDir);
+            FileSystem.EmptyDir(cacheDir);
+        }
+
+        private static void LoadAppLibraries(IBenchManager man,
+            ICollection<AppFacade> _,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var appLibsDir = man.Config.GetStringValue(PropertyKeys.AppLibsDir);
+            FileSystem.AsureDir(appLibsDir);
+            var cacheDir = man.Config.GetStringValue(PropertyKeys.AppLibsDownloadDir);
+            FileSystem.AsureDir(cacheDir);
+
+            var appLibs = man.Config.AppLibraries;
+
+            // Clean unconfigured app library directories
+            foreach (var d in Directory.GetDirectories(appLibsDir))
+            {
+                var n = Path.GetFileName(d);
+                var found = false;
+                foreach (var l in appLibs)
+                {
+                    if (string.Equals(l.ID, n, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    FileSystem.PurgeDir(d);
+                    notify(new TaskInfo(string.Format("Deleted unknown app library '{0}'.", n)));
+                }
+            }
+
+            var finished = 0;
+            var errorCnt = 0;
+            var taskCnt = appLibs.Length;
+            var tasks = new List<DownloadTask>();
+            var endEvent = new ManualResetEvent(false);
+
+            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            {
+                notify(new TaskProgress(
+                    string.Format("Started download for app library '{0}' ...", e.Task.Id),
+                    progress: (float)finished / taskCnt,
+                    detailedMessage: e.Task.Url.ToString()));
+            };
+
+            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            {
+                finished++;
+                if (!e.Task.Success)
+                {
+                    errorCnt++;
+                    notify(new TaskError(e.Task.ErrorMessage));
+                }
+                else
+                {
+                    try
+                    {
+                        ExtractAppLibrary(man.Config, e.Task.TargetFile, AppLibDirectory(man.Config, e.Task.Id));
+                        notify(new TaskProgress(
+                            string.Format("Finished download for app library '{0}'.", e.Task.Id),
+                            progress: (float)finished / taskCnt));
+                    }
+                    catch (Exception exc)
+                    {
+                        errorCnt++;
+                        notify(new TaskError(
+                            string.Format("Extracting the archive of app library '{0}' failed.", e.Task.Id),
+                            exception: exc));
+                    }
+                }
+            };
+
+            EventHandler workFinishedHandler = null;
+            workFinishedHandler = (o, e) =>
+            {
+                man.Downloader.DownloadEnded -= downloadEndedHandler;
+                man.Downloader.WorkFinished -= workFinishedHandler;
+                endEvent.Set();
+            };
+            man.Downloader.DownloadStarted += downloadStartedHandler;
+            man.Downloader.DownloadEnded += downloadEndedHandler;
+            man.Downloader.WorkFinished += workFinishedHandler;
+
+            cancelation.Canceled += (s, e) => man.Downloader.CancelAll();
+
+            notify(new TaskProgress("Loading app libraries...",
+                progress: 0f));
+
+            foreach (var l in appLibs)
+            {
+                var appLibDir = AppLibDirectory(man.Config, l.ID);
+
+                // Skip app library if is already loaded
+                if (File.Exists(Path.Combine(appLibDir,
+                    man.Config.GetStringValue(PropertyKeys.AppLibIndexFileName))))
+                {
+                    notify(new TaskProgress(
+                        string.Format("App library '{0}' already loaded.", l.ID),
+                        progress: (float)finished / taskCnt));
+                    continue;
+                }
+                else
+                {
+                    // Clean the app library directory, if the directory is not valid
+                    notify(new TaskInfo(
+                        string.Format("Cleaning invalid app library '{0}'.", l.ID)));
+                    FileSystem.PurgeDir(appLibDir);
+                }
+
+                var appLibArchive = l.ID + ".zip";
+
+                if ("file".Equals(l.Url.Scheme.ToLowerInvariant()))
+                {
+                    var sourcePath = l.Url.LocalPath;
+                    notify(new TaskInfo(
+                        string.Format("Loading app libary '{0}' from file system...", l.ID)));
+                    finished++;
+                    try
+                    {
+                        CopyAppLibrary(man.Config, sourcePath, appLibDir);
+                        notify(new TaskProgress(
+                            string.Format("Successfully loaded app library '{0}'.", l.ID),
+                            progress: (float)finished / taskCnt));
+                    }
+                    catch (Exception e)
+                    {
+                        errorCnt++;
+                        notify(new TaskError(
+                            string.Format("Loading app library '{0}' failed.", l.ID),
+                            exception: e));
+                    }
+                }
+                else
+                {
+                    var appLibArchivePath = Path.Combine(cacheDir, appLibArchive);
+                    // Check if app library is cached
+                    if (File.Exists(appLibArchivePath))
+                    {
+                        finished++;
+                        // Extract if it is cached
+                        try
+                        {
+                            ExtractAppLibrary(man.Config, appLibArchivePath, appLibDir);
+                            notify(new TaskProgress(
+                                string.Format("Extracted app library '{0}' from cache.", l.ID),
+                                progress: (float)finished / taskCnt));
+                        }
+                        catch (Exception exc)
+                        {
+                            errorCnt++;
+                            notify(new TaskError(
+                                string.Format("Extracting the archive of app library '{0}' failed.", l.ID),
+                                exception: exc));
+                        }
+                    }
+                    else
+                    {
+                        // Queue download task if not
+                        var task = new DownloadTask(l.ID, l.Url, appLibArchivePath);
+                        tasks.Add(task);
+                        man.Downloader.Enqueue(task);
+                    }
+                }
+            }
+
+            if (tasks.Count == 0)
+            {
+                man.Downloader.DownloadEnded -= downloadEndedHandler;
+                man.Downloader.WorkFinished -= workFinishedHandler;
+                notify(new TaskProgress("Nothing to download.",
+                    progress: 1f));
+            }
+            else
+            {
+                notify(new TaskProgress(string.Format("Queued {0} downloads.", tasks.Count),
+                    progress: 0f));
+                endEvent.WaitOne();
+            }
+
+            if (!cancelation.IsCanceled)
+            {
+                notify(new TaskProgress("Finished loading app libraries.",
+                    progress: 1f));
+            }
         }
 
         #endregion
@@ -973,7 +1386,7 @@ namespace Mastersign.Bench
                 }
                 catch (Exception e)
                 {
-                    notify(new TaskError(e.Message, app.ID, null, e));
+                    notify(new TaskError(e.Message, appId: app.ID, exception: e));
                     continue;
                 }
                 notify(new TaskProgress(
@@ -1028,7 +1441,7 @@ namespace Mastersign.Bench
                 }
                 catch (Exception e)
                 {
-                    notify(new TaskError(e.Message, null, null, e));
+                    notify(new TaskError(e.Message, exception: e));
                     continue;
                 }
                 notify(new TaskProgress(
@@ -1090,14 +1503,14 @@ namespace Mastersign.Bench
             File.Copy(benchDashboardShortcut, Path.Combine(config.BenchRootDir, Path.GetFileName(benchDashboardShortcut)), true);
         }
 
-        private static void CreateActionLauncher(BenchConfiguration config, string label, string action, string icon,
+        private static void CreateActionLauncher(BenchConfiguration config, string label, string binFile, string icon = null,
             string targetDir = null)
         {
             var launcherDir = targetDir ?? config.GetStringValue(PropertyKeys.LauncherDir);
-            var actionDir = config.GetStringValue(PropertyKeys.ActionDir);
+            var binDir = config.GetStringValue(PropertyKeys.BenchBin);
             var shortcut = Path.Combine(launcherDir, label + ".lnk");
-            var target = Path.Combine(actionDir, action + ".cmd");
-            FileSystem.CreateShortcut(shortcut, target, null, config.BenchRootDir, icon);
+            var target = Path.Combine(binDir, binFile);
+            FileSystem.CreateShortcut(shortcut, target, null, config.BenchRootDir, icon ?? target);
         }
 
         private static void CreateActionLaunchers(BenchConfiguration config)
@@ -1106,21 +1519,20 @@ namespace Mastersign.Bench
 
             if (!IsDashboardSupported)
             {
-                CreateActionLauncher(config, "Bench Control", "bench-ctl", @"%SystemRoot%\System32\imageres.dll,109");
-                CreateActionLauncher(config, "Bench Control", "bench-ctl", @"%SystemRoot%\System32\imageres.dll,109",
-                    config.BenchRootDir);
+                CreateActionLauncher(config, "Bench CLI", "bench.exe");
+                CreateActionLauncher(config, "Bench CLI", "bench.exe", null, config.BenchRootDir);
             }
             if (config.GetBooleanValue(PropertyKeys.QuickAccessCmd, true))
             {
-                CreateActionLauncher(config, "Command Line", "bench-cmd", @"%SystemRoot%\System32\cmd.exe");
+                CreateActionLauncher(config, "Command Line", "bench-cmd.cmd", @"%SystemRoot%\System32\cmd.exe");
             }
             if (config.GetBooleanValue(PropertyKeys.QuickAccessPowerShell, false))
             {
-                CreateActionLauncher(config, "PowerShell", "bench-ps", @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe");
+                CreateActionLauncher(config, "PowerShell", "bench-ps.cmd", @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe");
             }
             if (config.GetBooleanValue(PropertyKeys.QuickAccessBash, false))
             {
-                CreateActionLauncher(config, "Bash", "bench-bash", @"%SystemRoot%\System32\imageres.dll,95");
+                CreateActionLauncher(config, "Bash", "bench-bash.cmd", @"%SystemRoot%\System32\imageres.dll,95");
             }
         }
 
@@ -1141,7 +1553,7 @@ namespace Mastersign.Bench
             code.AppendLine($"CALL \"{rootDir}\\env.cmd\"");
             if (app.IsExecutableAdorned(executable) && app.IsAdornmentRequired)
             {
-                code.AppendLine($"\"{autoDir}\\runps.cmd\" Run-Adorned {app.ID} \"{executable}\" {args}");
+                code.AppendLine($"\"{autoDir}\\bin\\runps.cmd\" Run-Adorned {app.ID} \"{executable}\" {args}");
             }
             else
             {
@@ -1166,7 +1578,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Writing the environment file failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1184,7 +1596,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Registering the environment in the user profile failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1195,7 +1607,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Cleaning execution proxies failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1206,7 +1618,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Cleaning launchers failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             try
@@ -1217,7 +1629,7 @@ namespace Mastersign.Bench
             {
                 notify(new TaskError(
                     string.Format("Creating bench action launchers failed: {0}", e.Message),
-                    null, null, e));
+                    exception: e));
                 return;
             }
             var selectedApps = man.Config.Apps.ActiveApps;
@@ -1237,7 +1649,7 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Creating execution proxy for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
                 try
@@ -1248,15 +1660,15 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Creating launcher for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
-                var envScript = app.GetCustomScriptFile("env");
+                var envScript = app.GetCustomScript("env");
                 if (envScript != null)
                 {
                     notify(new TaskProgress(
-                       string.Format("Running custom environment script for {0}.", app.ID),
-                       progress, app.ID));
+                       string.Format("Running custom environment script for {0}.", app.ID), progress,
+                       appId: app.ID));
                     string scriptOutput = null;
                     try
                     {
@@ -1266,14 +1678,14 @@ namespace Mastersign.Bench
                     {
                         notify(new TaskError(
                             string.Format("Running custom environment script for {0} failed: {1}", app.ID, e.Message),
-                            app.ID, e.ProcessOutput, e));
+                            appId: app.ID, exception: e));
                         continue;
                     }
                     if (!string.IsNullOrEmpty(scriptOutput))
                     {
                         notify(new TaskInfo(
                             string.Format("Running custom environment script for {0} finished.", app.ID),
-                            app.ID, scriptOutput));
+                            appId: app.ID, consoleOutput: scriptOutput));
                     }
                 }
                 notify(new TaskProgress(
@@ -1284,7 +1696,7 @@ namespace Mastersign.Bench
             var globalEnvScript = GetGlobalCustomScriptFile(man.Config, "env");
             if (globalEnvScript != null)
             {
-                notify(new TaskProgress("Executing global environment script.", 0.9f));
+                notify(new TaskProgress("Running global environment script.", 0.9f));
                 string scriptOutput = null;
                 try
                 {
@@ -1292,12 +1704,14 @@ namespace Mastersign.Bench
                 }
                 catch (ProcessExecutionFailedException e)
                 {
-                    notify(new TaskError("Executing global environment script failed.",
-                        null, e.ProcessOutput, e));
+                    notify(new TaskError("Running global environment script failed.",
+                        consoleOutput: e.ProcessOutput, exception: e));
                 }
                 if (!string.IsNullOrEmpty(scriptOutput))
                 {
-                    notify(new TaskInfo("Executing global environment script finished.", null, scriptOutput));
+                    notify(new TaskInfo(
+                        "Running global environment script finished.",
+                        consoleOutput: scriptOutput));
                 }
             }
 
@@ -1305,6 +1719,104 @@ namespace Mastersign.Bench
             {
                 notify(new TaskProgress("Finished updating environment.", 1f));
             }
+        }
+
+        #endregion
+
+        #region Bench Update
+
+        private static void DownloadBenchUpdate(IBenchManager man,
+            ICollection<AppFacade> _,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            notify(new TaskInfo("Retrieving latest Bench version number..."));
+
+            var version = GetLatestVersion(man.Config);
+            if (version == null)
+            {
+                notify(new TaskError("Retrieving the latest Bench version number failed."));
+                return;
+            }
+            notify(new TaskInfo("Found Bench v" + version));
+
+            var taskCount = 2;
+            var finished = 0;
+            var errorCnt = 0;
+            var endEvent = new ManualResetEvent(false);
+
+            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            {
+                notify(new TaskProgress(
+                    string.Format("Started download for {0} ...", e.Task.Id),
+                    (float)finished / taskCount, e.Task.Id, e.Task.Url.ToString()));
+            };
+
+            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            {
+                finished++;
+                if (!e.Task.Success)
+                {
+                    errorCnt++;
+                    notify(new TaskError(e.Task.ErrorMessage, e.Task.Id));
+                }
+                else
+                {
+                    notify(new TaskProgress(
+                        string.Format("Finished download for {0}.", e.Task.Id),
+                        (float)finished / taskCount, e.Task.Id));
+                }
+            };
+
+            EventHandler workFinishedHandler = null;
+            workFinishedHandler = (EventHandler)((o, e) =>
+            {
+                man.Downloader.DownloadEnded -= downloadEndedHandler;
+                man.Downloader.WorkFinished -= workFinishedHandler;
+                endEvent.Set();
+            });
+            man.Downloader.DownloadStarted += downloadStartedHandler;
+            man.Downloader.DownloadEnded += downloadEndedHandler;
+            man.Downloader.WorkFinished += workFinishedHandler;
+
+            cancelation.Canceled += (s, e) =>
+            {
+                man.Downloader.CancelAll();
+            };
+
+            notify(new TaskProgress("Downloading Bench update...", 0f));
+
+            var binaryUrl = man.Config.GetStringValue(PropertyKeys.UpdateUrlTemplate, string.Empty)
+                .Replace("#VERSION#", version);
+            var binaryFile = Path.Combine(man.Config.BenchRootDir, "Bench.zip");
+            var bootstrapUrl = man.Config.GetStringValue(PropertyKeys.BootstrapUrlTemplate, string.Empty)
+                .Replace("#VERSION#", version);
+            var bootstrapFile = Path.Combine(man.Config.BenchRootDir, "bench-install.bat");
+
+            man.Downloader.Enqueue(new DownloadTask("Bench Binary", new Uri(binaryUrl), binaryFile));
+            man.Downloader.Enqueue(new DownloadTask("Bootstrap File", new Uri(bootstrapUrl), bootstrapFile));
+            endEvent.WaitOne();
+
+            if (!cancelation.IsCanceled)
+            {
+                notify(new TaskProgress("Finished downloading the Bench update.", 1f));
+            }
+        }
+
+        /// <summary>
+        /// Starts the boostrap script for (re)installing the Bench system.
+        /// This requires the <c>bench-install.bat</c> and the <c>bench.zip</c>
+        /// to be stored in the Bench root directory.
+        /// </summary>
+        /// <param name="config">The Bench configuration.</param>
+        public static void InitiateInstallationBootstrap(BenchConfiguration config)
+        {
+            var rootPath = config.BenchRootDir;
+            var si = new ProcessStartInfo("cmd",
+                "/D \"@ECHO.Starting Bench Installation... && @ECHO. && @ECHO.Make sure, all programs in the Bench environment are closed. && @PAUSE && CALL ^\""
+                    + Path.Combine(rootPath, "bench-install.bat") + "^\"\"");
+            si.UseShellExecute = true;
+            si.WorkingDirectory = rootPath;
+            Process.Start(si);
         }
 
         #endregion
@@ -1335,7 +1847,7 @@ namespace Mastersign.Bench
             var targetDir = Path.Combine(config.GetStringValue(PropertyKeys.LibDir), app.Dir);
             var extractDir = app.ResourceArchivePath != null ? tmpDir : targetDir;
             FileSystem.AsureDir(extractDir);
-            var customExtractScript = app.GetCustomScriptFile("extract");
+            var customExtractScript = app.GetCustomScript("extract");
             switch (app.ResourceArchiveTyp)
             {
                 case AppArchiveTyps.Auto:
@@ -1599,16 +2111,8 @@ namespace Mastersign.Bench
             }
         }
 
-        private static void InstallApps(IBenchManager man,
-            ICollection<AppFacade> apps,
-            Action<TaskInfo> notify, Cancelation cancelation)
+        private static bool PrepareDirectories(IBenchManager man, Action<TaskInfo> notify)
         {
-            var selectedApps = new List<AppFacade>();
-            foreach (var app in apps)
-            {
-                if (app.CanInstall) selectedApps.Add(app);
-            }
-
             try
             {
                 FileSystem.AsureDir(
@@ -1622,9 +2126,166 @@ namespace Mastersign.Bench
             }
             catch (Exception e)
             {
-                notify(new TaskError("Preparing directories failed.", null, null, e));
-                return;
+                notify(new TaskError("Preparing directories failed.",
+                    exception: e));
+                return false;
             }
+            return true;
+        }
+
+        private static bool InstallApp(IBenchManager man, AppFacade app, Action<TaskInfo> notify)
+        {
+            // 1. Extraction / Installation
+            try
+            {
+                switch (app.Typ)
+                {
+                    case AppTyps.Meta:
+                        // no resource extraction
+                        break;
+                    case AppTyps.Default:
+                        if (app.ResourceFileName != null)
+                        {
+                            CopyAppResourceFile(man.Config, app);
+                        }
+                        else if (app.ResourceArchiveName != null)
+                        {
+                            ExtractAppArchive(man.Config, man.ProcessExecutionHost, app);
+                        }
+                        break;
+                    case AppTyps.NodePackage:
+                        InstallNodePackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    case AppTyps.RubyPackage:
+                        InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    case AppTyps.Python2Package:
+                        InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
+                        break;
+                    case AppTyps.Python3Package:
+                        InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                        break;
+                    case AppTyps.NuGetPackage:
+                        InstallNuGetPackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Invalid app typ '" + app.Typ + "' for app " + app.ID + ".");
+                }
+            }
+            catch (ProcessExecutionFailedException e)
+            {
+                notify(new TaskError(
+                    string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                return false;
+            }
+            catch (Exception e)
+            {
+                notify(new TaskError(
+                    string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, exception: e));
+                return false;
+            }
+
+            // 2. Custom Setup-Script
+            var customSetupScript = app.GetCustomScript("setup");
+            if (customSetupScript != null)
+            {
+                notify(new TaskInfo(
+                    string.Format("Executing custom setup script for {0}.", app.ID),
+                    appId: app.ID));
+                string scriptOutput = null;
+                try
+                {
+                    scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customSetupScript).Trim();
+                }
+                catch (ProcessExecutionFailedException e)
+                {
+                    notify(new TaskError(
+                        string.Format("Execution of custom setup script for {0} failed.", app.ID),
+                        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(scriptOutput))
+                {
+                    notify(new TaskInfo(
+                        string.Format("Execution custom setup script for {0} finished.", app.ID),
+                        appId: app.ID, consoleOutput: scriptOutput));
+                }
+            }
+
+            // 3. Create Execution Proxy
+            try
+            {
+                CreateExecutionProxies(man.Config, app);
+            }
+            catch (Exception e)
+            {
+                notify(new TaskError(
+                    string.Format("Creating the execution proxy for {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, exception: e));
+                return false;
+            }
+
+            // 4. Create Launcher
+            try
+            {
+                CreateLauncher(man.Config, app);
+            }
+            catch (Exception e)
+            {
+                notify(new TaskError(
+                    string.Format("Creating the launcher for {0} failed: {1}", app.ID, e.Message),
+                    appId: app.ID, exception: e));
+                return false;
+            }
+
+            // 5. Run Custom Environment Script
+            var envScript = app.GetCustomScript("env");
+            if (envScript != null)
+            {
+                notify(new TaskInfo(
+                   string.Format("Running custom environment script for {0}.", app.ID),
+                   appId: app.ID));
+                string scriptOutput = null;
+                try
+                {
+                    scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, envScript).Trim();
+                }
+                catch (ProcessExecutionFailedException e)
+                {
+                    notify(new TaskError(
+                        string.Format("Running the custom environment script for {0} failed.", app.ID),
+                        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(scriptOutput))
+                {
+                    notify(new TaskInfo(
+                        string.Format("Running custom environment script for {0} finished.", app.ID),
+                        appId: app.ID, consoleOutput: scriptOutput));
+                }
+            }
+
+            // 6. Store installed version
+            app.InstalledVersion = app.Version;
+
+            app.DiscardCachedValues();
+
+            return true;
+        }
+
+        private static void InstallApps(IBenchManager man,
+            ICollection<AppFacade> apps,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var selectedApps = new List<AppFacade>();
+            foreach (var app in apps)
+            {
+                if (app.CanInstall) selectedApps.Add(app);
+            }
+
+            if (!PrepareDirectories(man, notify)) return;
 
             var cnt = 0;
             foreach (var app in selectedApps)
@@ -1632,145 +2293,13 @@ namespace Mastersign.Bench
                 if (cancelation.IsCanceled) break;
                 cnt++;
                 var progress = 0.9f * cnt / selectedApps.Count;
-
-                // 1. Extraction / Installation
                 notify(new TaskProgress(string.Format("Installing app {0}.", app.ID), progress, app.ID));
-                try
-                {
-                    switch (app.Typ)
-                    {
-                        case AppTyps.Meta:
-                            // no resource extraction
-                            break;
-                        case AppTyps.Default:
-                            if (app.ResourceFileName != null)
-                            {
-                                CopyAppResourceFile(man.Config, app);
-                            }
-                            else if (app.ResourceArchiveName != null)
-                            {
-                                ExtractAppArchive(man.Config, man.ProcessExecutionHost, app);
-                            }
-                            break;
-                        case AppTyps.NodePackage:
-                            InstallNodePackage(man.Config, man.ProcessExecutionHost, app);
-                            break;
-                        case AppTyps.RubyPackage:
-                            InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
-                            break;
-                        case AppTyps.Python2Package:
-                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
-                            break;
-                        case AppTyps.Python3Package:
-                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
-                            break;
-                        case AppTyps.NuGetPackage:
-                            InstallNuGetPackage(man.Config, man.ProcessExecutionHost, app);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException("Invalid app typ '" + app.Typ + "' for app " + app.ID + ".");
-                    }
-                }
-                catch (ProcessExecutionFailedException e)
-                {
-                    notify(new TaskError(
-                        string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
-                        app.ID, e.ProcessOutput, e));
-                    continue;
-                }
-                catch (Exception e)
-                {
-                    notify(new TaskError(
-                        string.Format("Installing app {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
-                    continue;
-                }
 
-                // 2. Custom Setup-Script
-                var customSetupScript = app.GetCustomScriptFile("setup");
-                if (customSetupScript != null)
+                if (InstallApp(man, app, notify))
                 {
-                    notify(new TaskProgress(
-                        string.Format("Executing custom setup script for {0}.", app.ID),
-                        progress, app.ID));
-                    string scriptOutput = null;
-                    try
-                    {
-                        scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customSetupScript).Trim();
-                    }
-                    catch (ProcessExecutionFailedException e)
-                    {
-                        notify(new TaskError(
-                            string.Format("Execution of custom setup script for {0} failed.", app.ID),
-                            app.ID, e.ProcessOutput, e));
-                        continue;
-                    }
-                    if (!string.IsNullOrEmpty(scriptOutput))
-                    {
-                        notify(new TaskInfo(
-                            string.Format("Execution custom setup script for {0} finished.", app.ID),
-                            app.ID, scriptOutput));
-                    }
+                    notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress,
+                        appId: app.ID));
                 }
-
-                // 3. Create Execution Proxy
-                try
-                {
-                    CreateExecutionProxies(man.Config, app);
-                }
-                catch (Exception e)
-                {
-                    notify(new TaskError(
-                        string.Format("Creating the execution proxy for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
-                    continue;
-                }
-
-                // 4. Create Launcher
-                try
-                {
-                    CreateLauncher(man.Config, app);
-                }
-                catch (Exception e)
-                {
-                    notify(new TaskError(
-                        string.Format("Creating the launcher for {0} failed: {1}", app.ID, e.Message),
-                        app.ID, null, e));
-                    continue;
-                }
-
-                // 5. Run Custom Environment Script
-                var envScript = app.GetCustomScriptFile("env");
-                if (envScript != null)
-                {
-                    notify(new TaskProgress(
-                       string.Format("Running custom environment script for {0}.", app.ID),
-                       progress, app.ID));
-                    string scriptOutput = null;
-                    try
-                    {
-                        scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, envScript).Trim();
-                    }
-                    catch (ProcessExecutionFailedException e)
-                    {
-                        notify(new TaskError(
-                            string.Format("Running the custom environment script for {0} failed.", app.ID),
-                            app.ID, e.ProcessOutput, e));
-                        continue;
-                    }
-                    if (!string.IsNullOrEmpty(scriptOutput))
-                    {
-                        notify(new TaskInfo(
-                            string.Format("Running custom environment script for {0} finished.", app.ID),
-                            app.ID, scriptOutput));
-                    }
-                }
-
-                // 6. Store installed version
-                app.InstalledVersion = app.Version;
-
-                notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress, app.ID));
-                app.DiscardCachedValues();
             }
 
             var globalCustomSetupScript = GetGlobalCustomScriptFile(man.Config, "setup");
@@ -1786,17 +2315,118 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         "Execution of global custom setup script failed.",
-                        null, e.ProcessOutput, e));
+                        consoleOutput: e.ProcessOutput, exception: e));
                 }
                 if (!string.IsNullOrEmpty(scriptOutput))
                 {
-                    notify(new TaskInfo("Executing global custom setup script finished.", null, scriptOutput));
+                    notify(new TaskInfo("Executing global custom setup script finished.",
+                        consoleOutput: scriptOutput));
                 }
             }
 
             if (!cancelation.IsCanceled)
             {
                 notify(new TaskProgress("Finished installing apps.", 1f));
+            }
+        }
+
+        #endregion
+
+        #region Test Apps
+
+        private static bool InstallAppsDependencies(IBenchManager man, AppFacade app, 
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var dependencyIds = app.FindAllDependencies();
+            if (dependencyIds.Contains(app.ID)) dependencyIds.Remove(app.ID);
+
+            var dependencies = man.Config.Apps.GetApps(dependencyIds);
+            var result = RunTasks(man,
+                dependencies,
+                notify, cancelation,
+                DownloadAppResources,
+                InstallApps);
+            return result.Success;
+        }
+
+        private static void TestApps(IBenchManager man,
+            ICollection<AppFacade> apps,
+            Action<TaskInfo> notify, Cancelation cancelation)
+        {
+            var selectedApps = new List<AppFacade>();
+            foreach (var app in apps)
+            {
+                if (app.CanTest) selectedApps.Add(app);
+            }
+
+            if (!PrepareDirectories(man, notify)) return;
+
+            var cnt = 0;
+            foreach (var app in selectedApps)
+            {
+                if (cancelation.IsCanceled) break;
+                cnt++;
+                var progress = 0.9f * cnt / selectedApps.Count;
+
+                // TODO Property checks
+
+                // Installing dependencies
+                notify(new TaskInfo(
+                    string.Format("Installing dependencies for app {0}", app.ID),
+                    appId: app.ID));
+                if (!InstallAppsDependencies(man, app, notify, cancelation))
+                {
+                    notify(new TaskError(
+                        string.Format("Installing dependencies for app {0} failed.", app.ID),
+                        appId: app.ID));
+                    continue;
+                }
+
+                // TODO Download check
+
+                // TODO Install check
+
+                // TODO Post install check
+
+                // TODO ExeTest check
+
+                // TOTO Custom test script check
+
+                //notify(new TaskProgress(string.Format("Testing app {0}.", app.ID), progress, app.ID));
+                //try
+                //{
+                //    switch (app.Typ)
+                //    {
+                //        case AppTyps.Meta:
+                //            break;
+                //        case AppTyps.Default:
+                //            break;
+                //        case AppTyps.NodePackage:
+                //            break;
+                //        case AppTyps.RubyPackage:
+                //            break;
+                //        case AppTyps.Python2Package:
+                //            break;
+                //        case AppTyps.Python3Package:
+                //            break;
+                //        case AppTyps.NuGetPackage:
+                //            break;
+                //    }
+                //}
+                //catch (ProcessExecutionFailedException e)
+                //{
+                //    notify(new TaskError(
+                //        string.Format("Testing app {0} failed: {1}", app.ID, e.Message),
+                //        appId: app.ID, consoleOutput: e.ProcessOutput, exception: e));
+                //    continue;
+                //}
+                //catch (Exception e)
+                //{
+                //    notify(new TaskError(
+                //        string.Format("Testing app {0} failed: {1}", app.ID, e.Message),
+                //        appId: app.ID, exception: e));
+                //    continue;
+                //}
             }
         }
 
@@ -1874,7 +2504,7 @@ namespace Mastersign.Bench
         private static bool CanOmitUninstall(ICollection<AppFacade> selectedApps, AppFacade app)
         {
             var parentAppId = default(string);
-            switch(app.Typ)
+            switch (app.Typ)
             {
                 case AppTyps.NodePackage:
                     parentAppId = AppKeys.NodeJS;
@@ -1891,11 +2521,11 @@ namespace Mastersign.Bench
             }
             if (parentAppId != null)
             {
-                foreach(var selectedApp in selectedApps)
+                foreach (var selectedApp in selectedApps)
                 {
                     if (selectedApp.ID == parentAppId)
                     {
-                        return app.GetCustomScriptFile("remove") == null;
+                        return app.GetCustomScript("remove") == null;
                     }
                 }
             }
@@ -1929,20 +2559,20 @@ namespace Mastersign.Bench
                     string.Format("Uninstalling app {0}.", app.ID),
                     progress, app.ID));
 
-                var customScript = app.GetCustomScriptFile("remove");
+                var customScript = app.GetCustomScript("remove");
                 try
                 {
                     if (customScript != null)
                     {
                         notify(new TaskProgress(
-                            string.Format("Executing custom uninstall script for {0}.", app.ID),
-                            progress, app.ID));
+                            string.Format("Running custom uninstall script for {0}.", app.ID), progress,
+                            appId: app.ID));
                         var scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customScript).Trim();
                         if (!string.IsNullOrEmpty(scriptOutput))
                         {
                             notify(new TaskInfo(
-                                string.Format("Execution of custom uninstall script for {0} finished.", app.ID),
-                                app.ID, scriptOutput));
+                                string.Format("Running of custom uninstall script for {0} finished.", app.ID),
+                                appId: app.ID, consoleOutput: scriptOutput));
                         }
                     }
                     else
@@ -1981,7 +2611,7 @@ namespace Mastersign.Bench
                 {
                     notify(new TaskError(
                         string.Format("Uninstalling the app {0} failed.", app.ID),
-                        app.ID, null, e));
+                        appId: app.ID, exception: e));
                     continue;
                 }
 
@@ -2010,7 +2640,7 @@ namespace Mastersign.Bench
                 }
                 catch (Exception e)
                 {
-                    notify(new TaskError("Uninstalling apps failed.", null, null, e));
+                    notify(new TaskError("Uninstalling apps failed.", exception: e));
                 }
                 if (success)
                 {

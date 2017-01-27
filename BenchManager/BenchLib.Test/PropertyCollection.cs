@@ -43,5 +43,10 @@ namespace Mastersign.Bench.Test
         {
             properties[name] = value;
         }
+
+        public void ResetValue(string name)
+        {
+            if (properties.ContainsKey(name)) properties.Remove(name);
+        }
     }
 }

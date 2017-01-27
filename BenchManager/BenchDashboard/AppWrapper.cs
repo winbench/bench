@@ -25,6 +25,14 @@ namespace Mastersign.Bench.Dashboard
 
         public string Label { get { return app.Label; } }
 
+        public string Name => app.Name;
+
+        public string Namespace => app.Namespace ?? "(default)";
+
+        public string AppLibrary => app.AppLibrary?.ID ?? "user";
+
+        public string Category => app.Category;
+
         public string Version
         {
             get
@@ -34,6 +42,10 @@ namespace Mastersign.Bench.Dashboard
                     : app.Version;
             }
         }
+
+        public string License => app.License;
+
+        public Uri LicenseUrl => app.LicenseUrl;
 
         public string Launcher { get { return app.Launcher; } }
 

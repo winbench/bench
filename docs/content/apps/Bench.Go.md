@@ -1,0 +1,37 @@
+﻿+++
+title = "Go"
+weight = 33
+app_library = "default"
+app_category = "Languages and Platforms"
+app_typ = "default"
+app_ns = "Bench"
+app_id = "Bench.Go"
+app_version = "1.7.4"
+app_categories = ["Languages and Platforms"]
+app_libraries = ["default"]
+app_types = ["default"]
++++
+
+**ID:** `Bench.Go`  
+**Version:** 1.7.4  
+<!--more-->
+
+[Back to all apps](/apps/)
+
+## Description
+Go is an open source programming language that makes it easy
+to build simple, reliable, and efficient software.
+
+## Source
+
+* Library: `default`
+* Category: Languages and Platforms
+* Order Index: 33
+
+## Properties
+
+* Namespace: Bench
+* Name: Go
+* Typ: `default`
+* Website: <https://golang.org>
+

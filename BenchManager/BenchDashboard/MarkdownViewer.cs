@@ -16,16 +16,8 @@ namespace Mastersign.Bench.Dashboard
 {
     public partial class MarkdownViewer : Form
     {
-        private readonly static string template;
-
-        static MarkdownViewer()
-        {
-            template = Resources.MarkdownViewerTemplate.Replace("$CSS$", Resources.MarkdownViewerStyle);
-        }
-
         private readonly IBenchManager core;
         private readonly string windowTitle;
-        private string tempFile;
 
         public MarkdownViewer(IBenchManager core)
         {
@@ -41,7 +33,6 @@ namespace Mastersign.Bench.Dashboard
 
         private void MarkdownViewer_FormClosed(object sender, FormClosedEventArgs e)
         {
-            TempFile = null;
         }
 
         private void InitializeBounds()
@@ -54,52 +45,10 @@ namespace Mastersign.Bench.Dashboard
             SetBounds(x, y, w, h);
         }
 
-        private string TempFile
-        {
-            get { return tempFile; }
-            set
-            {
-                if (tempFile != null && File.Exists(tempFile))
-                {
-                    File.Delete(tempFile);
-                }
-                tempFile = value;
-            }
-        }
-
-        private Uri TempDocumentUrl { get { return new Uri("file:///" + TempFile); } }
-
-        private string NewTempFilePath()
-        {
-            return Path.Combine(
-                core.Config.GetStringValue(PropertyKeys.TempDir),
-                Path.GetRandomFileName() + ".html");
-        }
-
         public void LoadMarkdown(string file, string title = null)
         {
-            TempFile = NewTempFilePath();
-            title = title ?? Path.GetFileNameWithoutExtension(file);
-            Text = windowTitle + " - " + title;
-            string html;
-            var md2html = new MarkdownToHtmlConverter();
-            try
-            {
-                using (var s = File.Open(file, FileMode.Open, FileAccess.Read))
-                {
-                    html = md2html.ConvertToHtml(s);
-                }
-                html = template.Replace("$TITLE$", title).Replace("$CONTENT$", html);
-
-                File.WriteAllText(TempFile, html, Encoding.UTF8);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.ToString());
-                TempFile = null;
-                return;
-            }
-            webBrowser.Navigate(TempDocumentUrl);
+            Text = windowTitle + " - " + (title ?? Path.GetFileNameWithoutExtension(file));
+            var md2html = markdownControl.ShowMarkdownFile(file, title);
             LoadTree(md2html.Anchors);
         }
 
@@ -143,11 +92,7 @@ namespace Mastersign.Bench.Dashboard
             var mdElement = e.Node.Tag as MdHeadline;
             if (mdElement != null)
             {
-                var element = webBrowser.Document.GetElementById(mdElement.Id);
-                if (element != null)
-                {
-                    element.ScrollIntoView(true);
-                }
+                markdownControl.ScrollToElement(mdElement.Id);
             }
         }
 

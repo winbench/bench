@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using static Mastersign.Sequence.Sequence;
 using Mastersign.Bench.Markdown;
 
 namespace Mastersign.Bench.UI
@@ -11,6 +12,7 @@ namespace Mastersign.Bench.UI
         private ProxyStepControl stepProxy;
         private UserIdentificationStepControl stepUserIdentification;
         private ExistingConfigStepControl stepExistingConfig;
+        private AppSelectionStepControl stepAppSeletion;
         private AdvancedStepControl stepAdvanced;
 
         private readonly BenchConfiguration config;
@@ -40,6 +42,7 @@ namespace Mastersign.Bench.UI
                 if (InitCustomConfig)
                 {
                     steps.Add(stepExistingConfig);
+                    steps.Add(stepAppSeletion);
                 }
                 steps.Add(stepAdvanced);
                 return steps.ToArray();
@@ -67,6 +70,12 @@ namespace Mastersign.Bench.UI
             {
                 stepExistingConfig = new ExistingConfigStepControl();
                 stepExistingConfig.IsConfigGitRepoExisting = false;
+
+                stepAppSeletion = new AppSelectionStepControl();
+                stepAppSeletion.InitializeStepControl(
+                    Seq(config.GetStringListValue(PropertyKeys.WizzardApps))
+                    .Map(DictionaryValueResolver.ParseKeyValuePair)
+                    .ToArray());
             }
             stepAdvanced = new AdvancedStepControl();
             stepAdvanced.StartAutoSetup = config.GetBooleanValue(
@@ -81,7 +90,7 @@ namespace Mastersign.Bench.UI
                 foreach (var e in stepProxy.ProxyBypass) bypassList.Add("`" + e + "`");
                 var updates = new Dictionary<string, string>
                     {
-                        {PropertyKeys.UserName, stepUserIdentification.UserName },
+                        { PropertyKeys.UserName, stepUserIdentification.UserName },
                         { PropertyKeys.UserEmail, stepUserIdentification.UserEmail },
                         { PropertyKeys.UseProxy, stepProxy.UseProxy ? "true" : "false" },
                         { PropertyKeys.HttpProxy, stepProxy.HttpProxy },
@@ -102,7 +111,6 @@ namespace Mastersign.Bench.UI
                 File.Copy(siteConfigTemplateFile, defaultSiteConfigFile, false);
                 MarkdownPropertyEditor.UpdateFile(defaultSiteConfigFile, updates);
             }
-
             if (InitCustomConfig)
             {
                 if (stepExistingConfig.IsConfigGitRepoExisting)
@@ -113,6 +121,7 @@ namespace Mastersign.Bench.UI
                 {
                     config.SetValue(PropertyKeys.CustomConfigRepository, (object)null);
                 }
+                config.SetValue(PropertyKeys.WizzardSelectedApps, stepAppSeletion.SelectedApps);
             }
             config.SetValue(PropertyKeys.WizzardStartAutoSetup, stepAdvanced.StartAutoSetup);
 

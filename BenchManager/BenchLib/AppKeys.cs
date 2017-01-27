@@ -10,39 +10,39 @@ namespace Mastersign.Bench
     public static class AppKeys
     {
         /// <summary>The app ID of 7-Zip.</summary>
-        public const string SevenZip = "7z";
+        public const string SevenZip = "Bench.7z";
 
         /// <summary>The app ID of Less MSI.</summary>
-        public const string LessMSI = "LessMsi";
+        public const string LessMSI = "Bench.LessMsi";
 
         /// <summary>The app ID of Inno Setup Unpacker.</summary>
-        public const string InnoSetupUnpacker = "InnoUnp";
+        public const string InnoSetupUnpacker = "Bench.InnoUnp";
 
         /// <summary>The app ID of ConEmu.</summary>
-        public const string ConEmu = "ConEmu";
+        public const string ConEmu = "Bench.ConEmu";
 
         /// <summary>The app ID of Git.</summary>
-        public const string Git = "Git";
+        public const string Git = "Bench.Git";
 
         /// <summary>The app ID of Node.js.</summary>
-        public const string NodeJS = "Node";
+        public const string NodeJS = "Bench.Node";
 
         /// <summary>The app ID of the Node.js package manager.</summary>
-        public const string Npm = "Npm";
+        public const string Npm = "Bench.Npm";
 
         /// <summary>The app ID of Ruby.</summary>
-        public const string Ruby = "Ruby";
+        public const string Ruby = "Bench.Ruby";
 
         /// <summary>The app ID of RubyGems.</summary>
-        public const string RubyGems = "RubyGems";
+        public const string RubyGems = "Bench.RubyGems";
 
         /// <summary>The app ID of Python 2.</summary>
-        public const string Python2 = "Python2";
+        public const string Python2 = "Bench.Python2";
 
         /// <summary>The app ID of Python 3.</summary>
-        public const string Python3 = "Python3";
+        public const string Python3 = "Bench.Python3";
 
         /// <summary>The app ID of NuGet.</summary>
-        public const string NuGet = "NuGet";
+        public const string NuGet = "Bench.NuGet";
     }
 }

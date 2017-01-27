@@ -1,8 +1,8 @@
 +++
-date = "2016-06-22T13:43:12+02:00"
+date = "2017-01-02T16:30:00+02:00"
 description = "The layout of the folders and files in the Bench environment"
 title = "File Structure"
-weight = 4
+weight = 3
 +++
 
 The file structure of Bench is divided in two groups, the core and the extended file structure.
@@ -17,48 +17,23 @@ configuration property is mentioned.
 The core structure consists of directories and files, which are installed
 during the Bench setup, and _can not_ be moved via custom or site configuration.
 
-* [`actions`](#action-dir)
-  ([ActionDir](/ref/config/#ActionDir))
-    + [`bench-bash.cmd`](#action-bench-bash)
-    + [`bench-cmd.cmd`](#action-bench-cmd)
-    + [`bench-ctl.cmd`](#action-bench-ctl)
-    + [`bench-ps.cmd`](#action-bench-ps)
-    + `clone-git-project.cmd`
-    + `new-project.cmd`
-    + `open-editor.cmd`
-    + `project-backup.cmd`
-    + `project-editor.cmd`
-    + `project-ps.cmd`
-    + `project-watch.cmd`
 * [`auto`](#auto-dir) Bench Automation
-    + [`apps`](#auto-apps-dir) Bench App Automation Directory
-        - [`<app-id>.extract.ps1`](#custom-script-extract)
-        - [`<app-id>.setup.ps1`](#custom-script-setup)
-        - [`<app-id>.env.ps1`](#custom-script-env)
-        - [`<app-id>.remove.ps1`](#custom-script-remove)
-        - [`<app-id>.pre-run.ps1`](#custom-script-pre-run)
-        - [`<app-id>.post-run.ps1`](#custom-script-post-run)
     + [`bin`](#auto-bin-dir) Bench Binaries
+        - [`bench.exe`](/ref/bench-cli/)
         - [`BenchDashboard.exe`](/ref/dashboard/)
         - [`BenchLib.dll`](/ref/clr-api/)
+        - [`bench-cmd.cmd`](#auto-bin-bench-cmd)
+        - [`bench-ps.cmd`](#auto-bin-bench-ps)
+        - [`bench-bash.cmd`](#auto-bin-bench-bash)
+        - ...
     + [`lib`](#auto-lib-dir) Bench Scripts
         - `bench.lib.ps1`
         - ...
-    + `archive.cmd`
-    + `editor.cmd`
-    + `init.cmd`
-    + `runps.cmd`
 * [`config`](#config-dir) User Configuration
   ([CustomConfigDir](/ref/config/#CustomConfigDir))
-    + [`apps`](#config-apps-dir) User App Automation Directory
-        - [`<app-id>.extract.ps1`](#custom-script-extract)
-        - [`<app-id>.setup.ps1`](#custom-script-setup)
-        - [`<app-id>.env.ps1`](#custom-script-env)
-        - [`<app-id>.remove.ps1`](#custom-script-remove)
-        - [`<app-id>.pre-run.ps1`](#custom-script-pre-run)
-        - [`<app-id>.post-run.ps1`](#custom-script-post-run)
-    + [`apps.md`](#config-apps) User App Library
-      ([CustomAppIndexFile](/ref/config/#CustomAppIndexFile))
+    + [`scripts`](/ref/app-library/#scripts-dir) Custom Scripts Directory
+    + [`res`](/ref/app-library/res-dir) App Setup Resources Directory
+    + [`apps.md`](/ref/app-library/apps-file) App Index of the User App Library
     + [`apps-activated.txt`](#config-apps-activated) App Activation List
       ([AppActivationFile](/ref/config/#AppActivationFile))
     + [`apps-deactivated.txt`](#config-apps-deactivated) App Deactivation List
@@ -70,10 +45,6 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
     + [`env.ps1`](#config-env) Environment Setup Hook
     + [`setup.ps1`](#config-setup) Setup Hook
 * [`res`](#res-dir) Bench Resources
-    + [`apps`](#res-apps-dir) Additional App Resources
-      ([AppResourceBaseDir](/ref/config/#AppResourceBaseDir))
-    + [`apps.md`](#res-apps) Bench App Library
-      ([AppIndexFile](/ref/config/#AppIndexFile))
     + [`apps.template.md`](#res-apps-template)
       ([CustomAppIndexTemplateFile](/ref/config/#CustomAppIndexTemplateFile))
     + [`apps-activated.template.txt`](#res-app-activation-template)
@@ -92,6 +63,8 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
       ([VersionFile](/ref/config/#VersionFile))
 * [`lib`](#lib-dir) App Installations
    ([LibDir](/ref/config/#LibDir))
+     + [`_applibs`](#lib-applibs-dir)
+       ([AppLibsDir](/ref/config/#AppLibsDir))
      + [`_proxies`](#lib-proxies-dir)
        ([AppAdornmentBaseDir](/ref/config/#AppAdornmentBaseDir))
      + [`_launcher`](#lib-launcher-dir)
@@ -114,6 +87,8 @@ and _can_ be moved via custom or site configuration.
   ([ProjectArchiveDir](/ref/config/#ProjectArchiveDir))
 * [`cache`](#cache-dir) Downloaded App Resources
   ([DownloadDir](/ref/config/#DownloadDir))
+    + [`_applibs`](#cache-applibs-dir) Downloaded App Libraries
+      ([AppLibsDownloadDir](/ref/config/#AppLibsDownloadDir))
 * [`home`](#home-dir) Isolated User Profile
   ([HomeDir](/ref/config/#HomeDir))
     + `AppData`
@@ -139,184 +114,37 @@ and _can_ be moved via custom or site configuration.
 
 ## Details {#details}
 
-### Action Directory {#action-dir}
-
-* Description: Script for task execution in the Bench environment.
-* Path: `actions`
-* Type: directory
-* Config Property: ([ActionDir](/ref/config/#ActionDir))
-
-This directory contains `*.cmd` scripts to run a couple of useful tasks
-in the Bench environment.
-They do load the `env.cmd` by them selfs if necessary.
-Therefore, they can be started directly from an arbitrary command prompt,
-via a Windows shortcut, or from the explorer.
-
-### Action `bench-bash` {#action-bench-bash}
-
-* Description: Starts a [Git][] shell in the Bench environment.
-* Path: `actions\bench-bash.cmd`
-* Type: file
-
-This action will fail if [Git][] is not installed
-
-### Action `bench-cmd` {#action-bench-cmd}
-
-* Description: Starts a Windows CMD console in the Bench environment.
-* Path: `actions\bench-cmd.cmd`
-* Type: file
-
-### Action `bench-ctl` {#action-bench-ctl}
-
-* Description: Starts the [command line interface][Bench CLI] of the Bench manager.
-* Path: `actions\bench-ctl.cmd`
-* Type: file
-
-### Action `bench-ps` {#action-bench-ps}
-
-* Description: Starts a PowerShell console in the Bench environment.
-* Path: `actions\bench-ps.cmd`
-* Type: file
-
 ### Bench Automation Directory {#auto-dir}
 
 * Description: The base directory for the Bench scripts and binaries.
 * Path: `auto`
 * Type: directory
 
-### Bench App Automation Directory {#auto-apps-dir}
-
-* Description: The directory with the custom scripts of the apps included in Bench.
-* Path: `auto\apps`
-* Type: directory
-
-### App Custom Script `extract` {#custom-script-extract}
-
-* Description: Custom script for app resource extraction.
-* Path: `auto\apps\<app-id>.extract.ps1` or `config\apps\<app-id>.extract.ps1`
-* Type: file
-
-Custom scripts for app resource extraction must be named with the app ID
-in lower case, and the name extension `.extract.ps1`.
-
-The _custom script for extraction_ is executed if the
-[`ArchiveTyp`](/ref/app-properties/#ArchiveTyp) is set to `auto` or `custom`.
-If the [`ArchiveTyp`](/ref/app-properties/#ArchiveTyp) of the app is set
-to `auto` and a _custom script for extraction_ for this app exists,
-the custom script takes precedence over the other extraction methods.
-
-Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
-Custom extraction scripts are called with two command line arguments:
-
-1. The absolute path of the downloaded app resource archive
-2. The absolute path of the target directory to extract the resources
-
-Example for the extraction of a nested archive:
-
-```PowerShell
-param ($archivePath, $targetDir)
-
-$nestedArchive = "nested.zip"
-
-# create temporary directory
-$tmpDir = Empty-Dir "$(Get-ConfigValue TempDir)\custom_extract"
-
-# get path of 7-Zip
-$7z = App-Exe 7z
-
-# call 7-Zip to extract outer archive
-& $7z x "-o$tmpDir" "$archivePath"
-
-# check if expected inner archive exists
-if (!(Test-Path "$tmpDir\$nestedArchive"))
-{
-    throw "Did not find the expected content in the app resource."
-}
-
-# call 7-Zip to extract inner archive
-& $7z x "-o$targetDir" "$tmpDir\$nestedArchive"
-
-# Delete temporary directory
-Purge-Dir $tmpDir
-```
-
-### App Custom Script `setup` {#custom-script-setup}
-
-* Description: Custom script for app setup.
-* Path: `auto\apps\<app-id>.setup.md` or `config\apps\<app-id>.setup.ps1`
-* Type: file
-
-Custom scripts for app resource extraction must be named with the app ID
-in lower case, and the name extension `.setup.ps1`.
-
-If a _custom setup script_ for an app exists, it is executed after
-the installation of the (extracted) app resources in the
-[apps target dir](#lib-app).
-Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) is available.
-
-### App Custom Script `env` {#custom-script-env}
-
-* Description: Custom script for environment setup.
-* Path: `auto\apps\<app-id>.env.ps1` or `config\apps\<app-id>.env.ps1`
-* Type: file
-
-Custom scripts for environment setup must be named with the app ID
-in lower case, and the name extension `.env.ps1`.
-
-If a _custom environment setup script_ for an app exists, it is executed
-after the setup to update configuration files depending
-on the location of Bench or other [configuration properties](/ref/config).
-It is also called if the _Upade Environment_ task for Bench is executed.
-Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
-
-### App Custom Script `remove` {#custom-script-remove}
-
-* Description: Custom script for app deinstallation.
-* Path: `auto\apps\<app-id>.remove.ps1` or `config\apps\<app-id>.remove.ps1`
-* Type: files
-
-Custom scripts for deinstallation must be named with the app ID
-in lower case, and the name extension `.remove.ps1`.
-
-If a _custom deinstallation script_ for an app exists, it is executed
-instead of the default uninstall method.
-Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
-
-### App Custom Script `pre-run` {#custom-script-pre-run}
-
-* Description: Pre-run hook for adorned executables of an app.
-* Path: `auto\apps\<app-id>.pre-run.ps1` or `config\apps\<app-id>.pre-run.ps1`
-* Type: file
-
-The _custom pre-run script_ is executed immediately before an app executable is run.
-It is only executed if an app executable is run via its execution proxy.
-This is usually the case because it is listed in
-[AdornedExecutables](/ref/app-properties/#AdornedExecutables).
-The [main executable](/ref/app-properties/#Exe) of an app is automatically
-included in the list of adorned executables
-if the [registry isolation](/ref/app-properties/#RegistryKeys) is used.
-Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
-
-### App Custom Script `post-run` {#custom-script-post-run}
-
-* Description: Post-run hook for adorned executables of an app.
-* Path: `auto\apps\<app-id>.post-run.ps1` or `config\apps\<app-id>.post-run.ps1`
-* Type: file
-
-The _custom post-run script_ is executed immediately after an app executable is run.
-It is only executed if an app executable is run via its execution proxy.
-This is usually the case because it is listed in
-[AdornedExecutables](/ref/app-properties/#AdornedExecutables).
-The [main executable](/ref/app-properties/#Exe) of an app is automatically
-included in the list of adorned executables
-if the [registry isolation](/ref/app-properties/#RegistryKeys) is used.
-Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
-
 ### Bench Binary Directory {#auto-bin-dir}
 
 * Description: The directory with all binary executables and libraries of Bench.
 * Path: `auto\bin`
 * Type: directory
+
+### Action `bench-bash` {#auto-bin-bench-bash}
+
+* Description: Starts a [Git][] shell in the Bench environment.
+* Path: `auto\bin\bench-bash.cmd`
+* Type: file
+
+This action will fail if [Git][] is not installed
+
+### Action `bench-cmd` {#auto-bin-bench-cmd}
+
+* Description: Starts a Windows CMD console in the Bench environment.
+* Path: `auto\bin\bench-cmd.cmd`
+* Type: file
+
+### Action `bench-ps` {#auto-bin-bench-ps}
+
+* Description: Starts a PowerShell console in the Bench environment.
+* Path: `auto\bin\bench-ps.cmd`
+* Type: file
 
 ### Bench Script Directory {#auto-lib-dir}
 
@@ -334,21 +162,8 @@ Inside of the _custom script_ is the [PowerShell API](/ref/ps-api/) available.
 This directory is designed to be put under version control,
 to manage and share Bench configurations.
 
-### User App Automation Directory {#config-apps-dir}
-
-* Description: The directory with the custom scripts of the user apps.
-* Path: `config\apps`
-* Type: directory
-
-### User App Library {#config-apps}
-
-* Description: The user app library.
-* Path: `config\apps.md`
-* Config Property: [CustomAppIndexFile](/ref/config/#CustomAppIndexFile)
-* Type: file
-
-The app library file is written in [Markdown list syntax](/ref/markup-syntax).
-Every app is defined by a number of [App Properties](/ref/app-properties/).
+The user configuration directory contains the user configuration
+and is the user [app library](/ref/app-library) at the same time.
 
 ### App Activation List {#config-apps-activated}
 
@@ -415,24 +230,6 @@ Inside of the _setup hook script_ is the [PowerShell API](/ref/ps-api/) availabl
 * Description: This directory contains resources for the Bench system.
 * Path: `res`
 * Type: directory
-
-### App Custom Resources Directory {#res-apps-dir}
-
-* Description: This directory contains resources used by custom scripts
-  of included apps.
-* Path: `res\apps`
-* Config Property: [AppResourceBaseDir](/ref/config/#AppResourceBaseDir)
-* Type: directory
-
-### Bench App Library {#res-apps}
-
-* Description: This file contains the libary with all apps included in Bench
-* Path: `res\apps.md`
-* Config Property: [AppIndexFile](/ref/config/#AppIndexFile)
-* Type: file
-
-The app library file is written in [Markdown list syntax](/ref/markup-syntax).
-Every app is defined by a number of [App Properties](/ref/app-properties/).
 
 ### Custom App Library Template {#res-apps-template}
 
@@ -514,6 +311,16 @@ Every activated app gets installed in it's [target directory](/ref/app-propertie
 Usually the app target directories are direct sub-folders of the _app installation directory_.
 The default value for the [target directory](/ref/app-properties/#Dir) of an app is
 its ID in lower case.
+
+### App Library Load Directory {#lib-applibs-dir}
+
+* Description: This diectory is used to load the app libraries.
+* Path: `lib\_applibs`
+* Config Property: [AppLibsDir](/ref/config/#AppLibsDir)
+* Type: directory
+
+App libraries are loaded as sub-directories, named by their
+ID from the [AppLibs](/ref/config/#AppLibs) table.
 
 ### Execution Proxy Directory {#lib-proxies-dir}
 
@@ -607,6 +414,13 @@ project name and a timestamp.
 * Description: This directory contains all downloaded app resources.
 * Path: `cache`
 * Config Property: [DownloadDir](/ref/config/#DownloadDir)
+* Type: directory
+
+### App Libary Download Cache {#cache-applibs-dir}
+
+* Description: This directory contains all downloaded app libraries.
+* Path: `cache\_applibs`
+* Config Property: [AppLibsDownloadDir](/ref/config/#AppLibsDownloadDir)
 * Type: directory
 
 ### Home Directory {#home-dir}
@@ -714,6 +528,6 @@ The configuration files are loaded in the listed order.
 If a configuration value appears in multiple configuration files,
 the value from the file, loaded latest, wins.
 
-[Bench CLI]: /ref/bench-ctl
+[Bench CLI]: /ref/bench-cli
 [Bench Dashboard]: /ref/dashboard
-[Git]: /ref/apps#Git
+[Git]: /apps/Bench.Git

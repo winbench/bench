@@ -16,6 +16,8 @@ namespace Mastersign.Bench
     {
         private readonly List<string> groupNames = new List<string>(); // ordered list for group names
         private readonly Dictionary<string, string> groupCategories = new Dictionary<string, string>();
+        private readonly Dictionary<string, object> groupMetadata = new Dictionary<string, object>();
+        private readonly Dictionary<string, string> groupDocumentation = new Dictionary<string, string>();
         private readonly Dictionary<string, List<string>> groupKeys = new Dictionary<string, List<string>>(); // ordered lists for property names
         private readonly Dictionary<string, Dictionary<string, object>> groups = new Dictionary<string, Dictionary<string, object>>();
 
@@ -59,7 +61,53 @@ namespace Mastersign.Bench
         public string GetGroupCategory(string group)
         {
             string category;
-            return groupCategories.TryGetValue(group, out category) ? category : null;
+            return groupCategories.TryGetValue(group ?? string.Empty, out category) ? category : null;
+        }
+
+        /// <summary>
+        /// Attaches a metadata object to a group.
+        /// </summary>
+        /// <param name="group">The group to attach the metadata to.</param>
+        /// <param name="metadata">The metadata object.</param>
+        public void SetGroupMetadata(string group, object metadata)
+        {
+            group = group ?? string.Empty;
+            groupMetadata[group] = metadata;
+        }
+
+        /// <summary>
+        /// Gets the metadata object, attached to the specified group, 
+        /// or <c>null</c> if the group has no metadata attached.
+        /// </summary>
+        /// <param name="group">The group in question.</param>
+        /// <returns>The metadata object attached to the given group, or <c>null</c>.</returns>
+        public object GetGroupMetadata(string group)
+        {
+            object metadata;
+            return groupMetadata.TryGetValue(group ?? string.Empty, out metadata) ? metadata : null;
+        }
+
+        /// <summary>
+        /// attaches documentation to a group.
+        /// </summary>
+        /// <param name="group">The group to attach the documentation to.</param>
+        /// <param name="docs">The documentation text.</param>
+        public void SetGroupDocumentation(string group, string docs)
+        {
+            group = group ?? string.Empty;
+            groupDocumentation[group] = docs;
+        }
+
+        /// <summary>
+        /// Gets the documentation text, attached to the specified group,
+        /// or <c>null</c> if the group has no documentation attached.
+        /// </summary>
+        /// <param name="group">The group in question.</param>
+        /// <returns>A string with the Markdown documentation text, or <c>null</c>.</returns>
+        public string GetGroupDocumentation(string group)
+        {
+            string docs;
+            return groupDocumentation.TryGetValue(group ?? string.Empty, out docs) ? docs : null;
         }
 
         /// <summary>
@@ -170,6 +218,12 @@ namespace Mastersign.Bench
         public void SetValue(string name, object value) { SetGroupValue(null, name, value); }
 
         /// <summary>
+        /// Resets the specified property.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        public void ResetValue(string name) { ResetGroupValue(null, name); }
+
+        /// <summary>
         /// Sets a string value for the specified group property.
         /// </summary>
         /// <param name="group">The group of the property.</param>
@@ -211,6 +265,35 @@ namespace Mastersign.Bench
         public void SetGroupValue(string group, string name, object value)
         {
             InternalSetValue(group, name, value);
+        }
+
+        /// <summary>
+        /// Resets the specified group property.
+        /// </summary>
+        /// <param name="group">The group of the property.</param>
+        /// <param name="name">The name of the property.</param>
+        public void ResetGroupValue(string group, string name)
+        {
+            group = group ?? string.Empty;
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentOutOfRangeException("propertyName", "The property name must not be null or empty.");
+            }
+            List<string> keys;
+            Dictionary<string, object> groupDict;
+            if (groups.ContainsKey(group))
+            {
+                keys = groupKeys[group];
+                groupDict = groups[group];
+            }
+            else
+            {
+                return;
+            }
+            if (groupDict.ContainsKey(name))
+            {
+                groupDict.Remove(name);
+            }
         }
 
         private void InternalSetValue(string groupName, string propertyName, object value)
@@ -655,47 +738,6 @@ namespace Mastersign.Bench
             return groupKeys.TryGetValue(group, out keys) ? keys : (IEnumerable<string>)new string[0];
         }
 
-        private string FormatValue(string group, string name, object val, bool resolve = true)
-        {
-            if (resolve)
-            {
-                val = ResolveGroupValue(group, name, val);
-            }
-            if (val == null)
-            {
-                return "null";
-            }
-            if (val is bool)
-            {
-                return (bool)val ? "`true`" : "`false`";
-            }
-            if (val is string)
-            {
-                return string.Format("`{0}`", val);
-            }
-            if (val.GetType().IsArray)
-            {
-                var a = (Array)val;
-                var f = new string[a.Length];
-                for (int i = 0; i < a.Length; i++)
-                {
-                    f[i] = FormatValue(group, name, a.GetValue(i), false);
-                }
-                return "List( " + string.Join(", ", f) + " )";
-            }
-            if (val is IDictionary)
-            {
-                var d = (IDictionary)val;
-                var l = new List<string>(d.Count);
-                foreach (var k in d.Keys)
-                {
-                    l.Add(string.Format("`{0}: {1}`", k, d[k]));
-                }
-                return "Dict( " + string.Join(", ", l.ToArray()) + " )";
-            }
-            return "Object( " + val.ToString() + " )";
-        }
-
         /// <summary>
         /// Returns a string represenation of this property collection.
         /// </summary>
@@ -740,6 +782,47 @@ namespace Mastersign.Bench
                 }
             }
             return sb.ToString().TrimStart();
+        }
+
+        private string FormatValue(string group, string name, object val, bool resolve = true)
+        {
+            if (resolve)
+            {
+                val = ResolveGroupValue(group, name, val);
+            }
+            if (val == null)
+            {
+                return "null";
+            }
+            if (val is bool)
+            {
+                return (bool)val ? "`true`" : "`false`";
+            }
+            if (val is string)
+            {
+                return string.Format("`{0}`", val);
+            }
+            if (val.GetType().IsArray)
+            {
+                var a = (Array)val;
+                var f = new string[a.Length];
+                for (int i = 0; i < a.Length; i++)
+                {
+                    f[i] = FormatValue(group, name, a.GetValue(i), false);
+                }
+                return "List( " + string.Join(", ", f) + " )";
+            }
+            if (val is IDictionary)
+            {
+                var d = (IDictionary)val;
+                var l = new List<string>(d.Count);
+                foreach (var k in d.Keys)
+                {
+                    l.Add(string.Format("`{0}: {1}`", k, d[k]));
+                }
+                return "Dict( " + string.Join(", ", l.ToArray()) + " )";
+            }
+            return "Object( " + val.ToString() + " )";
         }
     }
 }

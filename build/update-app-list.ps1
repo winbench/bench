@@ -1,97 +1,93 @@
 $rootDir = [IO.Path]::GetDirectoryName([IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition))
 $scriptsDir = Resolve-Path "$rootDir\auto\lib"
 $docsDir = Resolve-Path "$rootDir\docs"
-& "$scriptsDir\Load-ClrLibs.ps1"
+. "$scriptsDir\bench.lib.ps1"
 
-$cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $false, $false)
-
+$cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $false)
 $apps = $cfg.Apps
 
-$targetFile = "$docsDir\src-content\ref\apps.md"
+$targetFile = "$docsDir\content\ref\apps.md"
+$targetDir = Empty-Dir "$docsDir\content\apps"
 
-function GetFrontMatter($file)
+function WriteAppFile($app, $no)
 {
-	$sourceLines = [IO.File]::ReadAllLines($file, [Text.Encoding]::UTF8)
-	$hits = 0
-	$lastHit = -1
-	for ($i = 0; $i -lt $sourceLines.Length; $i++)
-	{
-		if ($sourceLines[$i] -eq "+++")
-		{
-			$hits++
-			$lastHit = $i
-		}
-		if ($hits -eq 2) { break; }
-	}
-	if ($hits -eq 2)
-	{
-		$sb = New-Object System.Text.StringBuilder
-		for ($i = 0; $i -le $lastHit; $i++)
-		{
-			$_ = $sb.AppendLine($sourceLines[$i])
-		}
-		return $sb.ToString()
-	}
-	return ""
-}
-
-function WriteAppBlock($sb, $app)
-{
-	  $_ = $sb.AppendLine("### $($app.Label) {#$($app.ID)}")
-	  $_ = $sb.AppendLine()
-	  $_ = $sb.AppendLine("* ID: ``$($app.ID)``")
-	  $_ = $sb.AppendLine("* Typ: ``$($app.Typ)``")
-	  if ($app.Website) { $_ = $sb.AppendLine("* Website: <$($app.Website)>") }
     $version = $app.Version
     if (!$version) { $version = "latest" }
-    $_ = $sb.AppendLine("* Version: $version")
-    if ($app.Dependencies.Length -gt 0)
+    $ns = $app.Namespace
+    if (!$ns) { $ns = "(default)" }
+    $deps = $app.Dependencies
+    $resp = $app.Responsibilities
+
+    $f = [IO.Path]::Combine($targetDir, $app.ID + ".md")
+    $w = New-Object System.IO.StreamWriter @($f, $false, [Text.Encoding]::UTF8)
+    $w.WriteLine("+++")
+    $w.WriteLine("title = `"$($app.Label)`"")
+    $w.WriteLine("weight = $no")
+    # Custom page params
+    $w.WriteLine("app_library = `"$($app.AppLibrary.ID)`"")
+    $w.WriteLine("app_category = `"$($app.Category)`"")
+    $w.WriteLine("app_typ = `"$($app.Typ)`"")
+    $w.WriteLine("app_ns = `"$ns`"")
+    $w.WriteLine("app_id = `"$($app.ID)`"")
+    $w.WriteLine("app_version = `"$version`"")
+    # Taxonomies
+    $w.WriteLine("app_categories = [`"$($app.Category)`"]")
+    $w.WriteLine("app_libraries = [`"$($app.AppLibrary.ID)`"]")
+    $w.WriteLine("app_types = [`"$($app.Typ)`"]")
+    $w.WriteLine("+++")
+    $w.WriteLine()
+    $w.WriteLine("**ID:** ``$($app.ID)``  ")
+    $w.WriteLine("**Version:** $version  ")
+    $w.WriteLine("<!--more-->")
+    $w.WriteLine()
+    $w.WriteLine("[Back to all apps](/apps/)")
+    if ($app.MarkdownDocumentation)
     {
-        [array]$deps = $app.Dependencies | % {
+        $w.WriteLine()
+        $w.WriteLine("## Description")
+        $w.WriteLine($app.MarkdownDocumentation)
+    }
+    $w.WriteLine()
+    $w.WriteLine("## Source")
+    $w.WriteLine()
+    $w.WriteLine("* Library: ``$($app.AppLibrary.ID)``")
+    $w.WriteLine("* Category: $($app.Category)")
+    $w.WriteLine("* Order Index: $no")
+    $w.WriteLine()
+    $w.WriteLine("## Properties")
+    $w.WriteLine()
+    $w.WriteLine("* Namespace: $ns")
+    $w.WriteLine("* Name: $($app.Name)")
+    $w.WriteLine("* Typ: ``$($app.Typ)``")
+    if ($app.Website) { $w.WriteLine("* Website: <$($app.Website)>") }
+    
+    if ($deps.Length -gt 0)
+    {
+        [array]$deps2 = $deps | % {
             $depApp = $apps[$_]
-            return "[$($depApp.Label)](#$_)"
+            return "[$($depApp.Label)](/app/$_)"
         }
-        $depsList = [string]::Join(", ", $deps)
-        $_ = $sb.AppendLine("* Dependencies: $depsList")
+        $depsList = [string]::Join(", ", $deps2)
+        $w.WriteLine("* Dependencies: $depsList")
     }
-	  $_ = $sb.AppendLine()
-}
-
-function WriteAppTable($sb, $label, $anchor)
-{
-    $_ = $sb.AppendLine("[**$label**](#$anchor)")
-    $_ = $sb.AppendLine()
-    $_ = $sb.AppendLine("<!--")
-    $_ = $sb.AppendLine("#data-table /*/$label/*")
-    $_ = $sb.AppendLine("#column ID: value(ID)")
-    $_ = $sb.AppendLine("#column Name: name(.)")
-    if ($label -ne "Groups")
+    if ($resp.Length -gt 0)
     {
-        $_ = $sb.AppendLine("#column Version: value(Version)")
-        $_ = $sb.AppendLine("#column Website: value(Website)")
+        [array]$resp2 = $resp | % {
+            $respApp = $apps[$_]
+            return "[$($respApp.Label)](/app/$_)"
+        }
+        $respList = [string]::Join(", ", $resp2)
+        $w.WriteLine("* Responsibilities: $respList")
     }
-    $_ = $sb.AppendLine("-->")
-    $_ = $sb.AppendLine()
+    $w.WriteLine()
+    $w.Close()
 }
 
-function WriteAppCategory($sb, $label, $anchor, $name)
+$no = 0
+foreach ($app in $apps)
 {
-	  $_ = $sb.AppendLine("## $label {#$anchor}")
-	  $_ = $sb.AppendLine()
-	  $apps.ByCategory($name) | Sort-Object -Property Label | % { WriteAppBlock $sb $_ }
+    $no++
+    if (!$app.AppLibrary) { continue }
+    Write-Host "$($no.ToString("0000")) $($app.ID)"
+    WriteAppFile $app $no
 }
-
-$sb = New-Object System.Text.StringBuilder
-$_ = $sb.Append((GetFrontMatter $targetFile))
-$_ = $sb.AppendLine()
-$_ = $sb.AppendLine("## Overview")
-$_ = $sb.AppendLine()
-WriteAppTable $sb "Groups" "groups"
-WriteAppTable $sb "Required Apps" "apps-required"
-WriteAppTable $sb "Optional Apps" "apps-optional"
-
-WriteAppCategory $sb "Groups" "groups" "Groups"
-WriteAppCategory $sb "Required Apps" "apps-required" "Required"
-WriteAppCategory $sb "Optional Apps" "apps-optional" "Optional"
-
-[IO.File]::WriteAllText($targetFile, $sb.ToString(), [Text.Encoding]::UTF8)

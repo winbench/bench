@@ -11,7 +11,20 @@ if (!(Test-Path $assemblyPath))
     & "$myDir\build.ps1" -Mode Debug -MsBuildVerbosity minimal -NoRelease
 }
 
-# Load Assembly
+# Make sure the documentation build tools are available
+
+if (!(Test-Path "$docsDir\node_modules"))
+{
+  npm install
+  check-success
+}
+if (!(Test-Path "$docsDir\bower_components"))
+{
+  bower install
+  check-success
+}
+
+# Load Bench Assemblies
 
 & "$scriptsDir\Load-ClrLibs.ps1"
 
@@ -30,30 +43,30 @@ function check-success()
 
 pushd $docsDir
 
+# Clean output directory
+
 if (Test-Path .\public)
 {
   del .\public -Recurse -Force
 }
 
+# Write generated content
+
+& "$myDir\update-bench-cli-docs.ps1"
 & "$myDir\update-app-list.ps1"
 & "$myDir\update-dependency-graph.ps1"
 
-if (!(Test-Path "$docsDir\node_modules"))
-{
-  npm install
-  check-success
-}
-if (!(Test-Path "$docsDir\bower_components"))
-{
-  bower install
-  check-success
-}
+# Enhance Markdown
 
 gulp
 check-success
 
+# Build HTML website
+
 hugo -D
 check-success
+
+# Build CLR documenation
 
 & "$myDir\build-clr-docs.ps1"
 

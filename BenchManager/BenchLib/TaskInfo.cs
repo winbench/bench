@@ -43,18 +43,25 @@ namespace Mastersign.Bench
         public string DetailedMessage { get; private set; }
 
         /// <summary>
+        /// The output of executed processes, or <c>null</c>.
+        /// </summary>
+        public string ConsoleOutput { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="TaskInfo"/>.
         /// </summary>
         /// <param name="message">A short message desccribing the event.</param>
         /// <param name="appId">The ID of the afected app or <c>null</c>.</param>
+        /// <param name="consoleOutput">The output of executed programs or <c>null</c>.</param>
         /// <param name="detailedMessage">A detailed message describing the event or <c>null</c>.</param>
-        public TaskInfo(string message, string appId = null, string detailedMessage = null)
+        public TaskInfo(string message, string appId = null, string detailedMessage = null, string consoleOutput = null)
         {
             if (message == null) throw new ArgumentNullException("message");
             Timestamp = DateTime.Now;
             AppId = appId;
             Message = message;
             DetailedMessage = detailedMessage;
+            ConsoleOutput = consoleOutput;
         }
     }
 
@@ -113,9 +120,11 @@ namespace Mastersign.Bench
         /// <param name="message">A short message describing the error.</param>
         /// <param name="appId">Th ID of the affected app or <c>null</c>.</param>
         /// <param name="detailedMessage">A detailed message describing the error or <c>null</c>.</param>
+        /// <param name="consoleOutput">The output of executed programs or <c>null</c>.</param>
         /// <param name="exception">The execption that caused the error or <c>null</c>.</param>
-        public TaskError(string message, string appId = null, string detailedMessage = null, Exception exception = null)
-            : base(message, appId, detailedMessage)
+        public TaskError(string message, string appId = null, string detailedMessage = null, 
+            string consoleOutput = null, Exception exception = null)
+            : base(message, appId, detailedMessage, consoleOutput)
         {
             Exception = exception;
         }

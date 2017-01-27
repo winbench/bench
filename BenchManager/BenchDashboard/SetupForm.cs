@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using ConEmu.WinForms;
 using Mastersign.Bench.Dashboard.Properties;
+using Mastersign.Bench.Markdown;
 
 namespace Mastersign.Bench.Dashboard
 {
@@ -21,16 +22,26 @@ namespace Mastersign.Bench.Dashboard
         private ListSortDirection sortDirection;
         private AppFacade contextApp;
 
-        private readonly Dictionary<string, AppWrapper> appLookup = new Dictionary<string, AppWrapper>();
+        private readonly Dictionary<string, AppWrapper> appLookup
+            = new Dictionary<string, AppWrapper>();
+        private int firstVisibleRowIndex;
 
         private ConEmuExecutionHost conHost;
         private ConEmuControl conControl;
+
+        private readonly List<string> appListColumnLabels = new List<string>();
+        private readonly Dictionary<string, DataGridViewColumn> appListColumns
+            = new Dictionary<string, DataGridViewColumn>();
+        private static string[] defaulAppListColumnLabels
+            = new[] { "Order", "ID", "Version", "Active", "Deactivated", "Status" };
+        private DataGridViewColumn iconColumn;
 
         public SetupForm(Core core)
         {
             this.core = core;
             core.ConfigReloaded += CoreConfigReloadedHandler;
             core.AllAppStateChanged += CoreAllAppStateChangedHandler;
+            core.AppActivationChanged += CoreAppActivationChangedHandler;
             core.AppStateChanged += CoreAppStateChangedHandler;
             core.BusyChanged += CoreBusyChangedHandler;
             core.ActionStateChanged += CoreActionStateChangedHandler;
@@ -38,12 +49,22 @@ namespace Mastersign.Bench.Dashboard
             gridApps.DoubleBuffered(true);
             InitializeConsole();
             gridApps.AutoGenerateColumns = false;
+            iconColumn = gridApps.Columns[0];
+            foreach (DataGridViewColumn col in gridApps.Columns)
+            {
+                if (string.IsNullOrEmpty(col.HeaderText)) continue;
+                appListColumnLabels.Add(col.HeaderText);
+                appListColumns.Add(col.HeaderText, col);
+            }
         }
 
         private void SetupForm_Load(object sender, EventArgs e)
         {
             InitializeDownloadList();
             InitializeBounds();
+            InitializeAppIndexMenu();
+            InitializeAppListColumnsMenu();
+            InitializeAppListColumns();
             InitializeAppList();
             UpdatePendingCounts();
 
@@ -72,8 +93,88 @@ namespace Mastersign.Bench.Dashboard
             SetBounds(x, y, w, h);
         }
 
+        private void InitializeAppIndexMenu()
+        {
+            tsmiShowAppIndex.DropDownItems.Clear();
+            foreach (var lib in core.Config.AppLibraries)
+            {
+                var appLibItem = new ToolStripMenuItem("App Library '" + lib.ID + "'");
+                appLibItem.Image = Resources.books_16;
+                appLibItem.Tag = lib;
+                appLibItem.Click += ShowAppIndexHandler;
+                tsmiShowAppIndex.DropDownItems.Add(appLibItem);
+            }
+        }
+
+        private void InitializeAppListColumnsMenu()
+        {
+            var colLabels = core.Config.GetStringListValue(
+                PropertyKeys.DashboardSetupAppListColumns,
+                defaulAppListColumnLabels);
+            foreach (var colLabel in appListColumnLabels)
+            {
+                ToolStripMenuItem item = null;
+                if (tsmiColumns.DropDownItems.Count > 0)
+                {
+                    foreach (ToolStripMenuItem i in tsmiColumns.DropDownItems)
+                        if (i.Text == colLabel)
+                            item = i;
+                }
+                if (item == null)
+                {
+                    item = new ToolStripMenuItem(colLabel);
+                    item.Click += AppListColumnToggleHandler;
+                    tsmiColumns.DropDownItems.Add(item);
+                }
+                item.Checked = colLabels.Contains(colLabel);
+            }
+        }
+
+        private void AppListColumnToggleHandler(object sender, EventArgs e)
+        {
+            var newColLabels = new List<string>();
+            foreach (ToolStripMenuItem item in tsmiColumns.DropDownItems)
+            {
+                if (item == sender) item.Checked = !item.Checked;
+                if (item.Checked)
+                {
+                    newColLabels.Add(string.Format("`{0}`", item.Text));
+                }
+            }
+            var configFile = core.Config.GetStringValue(PropertyKeys.CustomConfigFile);
+            MarkdownPropertyEditor.UpdateFile(configFile, new Dictionary<string, string>
+                { { PropertyKeys.DashboardSetupAppListColumns, string.Join(", ", newColLabels) } });
+        }
+
+        private void InitializeAppListColumns()
+        {
+            gridApps.SuspendLayout();
+            gridApps.Columns.Clear();
+            var colLabels = core.Config.GetStringListValue(
+                PropertyKeys.DashboardSetupAppListColumns,
+                defaulAppListColumnLabels);
+            iconColumn.DisplayIndex = 0;
+            gridApps.Columns.Add(iconColumn);
+            var pos = 1;
+            foreach (var colLabel in colLabels)
+            {
+                DataGridViewColumn col;
+                if (appListColumns.TryGetValue(colLabel, out col))
+                {
+                    col.DisplayIndex = pos++;
+                    gridApps.Columns.Add(col);
+                }
+            }
+            gridApps.ResumeLayout();
+        }
+
         private void CoreConfigReloadedHandler(object sender, EventArgs e)
         {
+            firstVisibleRowIndex = gridApps.FirstDisplayedScrollingRowIndex;
+            InitializeDownloadList();
+            InitializeAppIndexMenu();
+            InitializeAppListColumnsMenu();
+            InitializeAppListColumns();
             InitializeAppList();
             UpdatePendingCounts();
         }
@@ -82,9 +183,15 @@ namespace Mastersign.Bench.Dashboard
         {
             foreach (var app in core.Config.Apps)
             {
-                NotifyAppStateChange(app.ID);
+                app.DiscardCachedValues();
             }
+            gridApps.Refresh();
             UpdatePendingCounts();
+        }
+
+        private void CoreAppActivationChangedHandler(object sender, EventArgs e)
+        {
+            gridApps.Refresh();
         }
 
         private void CoreAppStateChangedHandler(object sender, AppEventArgs e)
@@ -95,11 +202,19 @@ namespace Mastersign.Bench.Dashboard
 
         private void NotifyAppStateChange(string appId)
         {
+            ForAppWrapper(appId, w =>
+            {
+                w.App.DiscardCachedValues();
+                w.NotifyChanges();
+            });
+        }
+
+        private void ForAppWrapper(string appId, Action<AppWrapper> action)
+        {
             AppWrapper wrapper;
             if (appLookup.TryGetValue(appId, out wrapper))
             {
-                wrapper.App.DiscardCachedValues();
-                wrapper.NotifyChanges();
+                action(wrapper);
             }
         }
 
@@ -217,21 +332,26 @@ namespace Mastersign.Bench.Dashboard
             Controls.Add(c);
             conControl = c;
             conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
+            conHost.StartHost();
             core.ProcessExecutionHost = conHost;
         }
 
         private void DisposeConsole()
         {
             var oldHost = core.ProcessExecutionHost;
-            core.ProcessExecutionHost = new DefaultExecutionHost();
+            core.ProcessExecutionHost = new SimpleExecutionHost();
             oldHost.Dispose();
         }
 
         private void InitializeDownloadList()
         {
+            if (downloadList.Downloader != null)
+            {
+                downloadList.Downloader.IsWorkingChanged -= DownloaderIsWorkingChangedHandler;
+            }
             downloadList.Downloader = core.Downloader;
-            core.Downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
-            IsDownloadListVisible = false;
+            downloadList.Downloader.IsWorkingChanged += DownloaderIsWorkingChangedHandler;
+            UpdateDownloadListVisibility();
         }
 
         private void InitializeAppList()
@@ -255,7 +375,6 @@ namespace Mastersign.Bench.Dashboard
                 BeginInvoke((ThreadStart)(() =>
                 {
                     var selectedRow = gridApps.SelectedRows.Count > 0 ? gridApps.SelectedRows[0].Index : -10;
-                    var firstVisibleRow = gridApps.FirstDisplayedScrollingRowIndex;
                     gridApps.SuspendLayout();
                     gridApps.DataSource = bindingList;
                     if (sortedColumn != null)
@@ -266,9 +385,9 @@ namespace Mastersign.Bench.Dashboard
                     {
                         gridApps.Rows[selectedRow].Selected = true;
                     }
-                    if (firstVisibleRow >= 0)
+                    if (firstVisibleRowIndex >= 0)
                     {
-                        gridApps.FirstDisplayedScrollingRowIndex = firstVisibleRow;
+                        gridApps.FirstDisplayedScrollingRowIndex = firstVisibleRowIndex;
                     }
                     gridApps.ResumeLayout();
                 }));
@@ -314,7 +433,7 @@ namespace Mastersign.Bench.Dashboard
             UpdateDownloadListVisibility();
         }
 
-        private void EditTextFile(string name, string path)
+        private void EditFile(string name, string path, string appId)
         {
             if (!File.Exists(path))
             {
@@ -327,19 +446,35 @@ namespace Mastersign.Bench.Dashboard
                     MessageBoxIcon.Error);
                 return;
             }
-            System.Diagnostics.Process.Start(path);
+            var editorApp = core.Config.Apps[appId];
+            if (editorApp.IsInstalled)
+            {
+                core.LaunchApp(appId, path);
+            }
+            else
+            {
+                System.Diagnostics.Process.Start(path);
+            }
         }
+
+        private void EditTextFile(string name, string path)
+            => EditFile(name, path, core.Config.GetStringValue(PropertyKeys.TextEditorApp));
+
+        private void EditMarkdownFile(string name, string path)
+            => EditFile(name, path, core.Config.GetStringValue(PropertyKeys.MarkdownEditorApp));
 
         private void EditCustomConfigHandler(object sender, EventArgs e)
         {
-            EditTextFile("Custom Configuration",
+            EditMarkdownFile("User Configuration",
                 core.Config.GetStringValue(PropertyKeys.CustomConfigFile));
         }
 
         private void EditCustomAppsHandler(object sender, EventArgs e)
         {
-            EditTextFile("Custom App Index",
-                core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile));
+            EditMarkdownFile("User App Library",
+                Path.Combine(
+                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)));
         }
 
         private void ActivationListHandler(object sender, EventArgs e)
@@ -441,10 +576,68 @@ namespace Mastersign.Bench.Dashboard
             await core.UpgradeAppsAsync(TaskInfoHandler);
         }
 
-        private async void UpdateEnvironment(object sender, EventArgs e)
+        private async void UpdateEnvironmentHandler(object sender, EventArgs e)
         {
             AnnounceTask("Update Environment");
             await core.UpdateEnvironmentAsync(TaskInfoHandler);
+        }
+
+        private async void UpdateAppLibsHandler(object sender, EventArgs e)
+        {
+            AnnounceTask("Update App Libraries");
+            await core.UpdateAppLibrariesAsync(TaskInfoHandler);
+        }
+
+        private async void UpdateBenchHandler(object sender, EventArgs e)
+        {
+            AnnounceTask("Update App Libraries and Apps");
+            await core.UpdateAppsAsync(TaskInfoHandler);
+        }
+
+        private async void UpgradeBenchSystemHandler(object sender, EventArgs e)
+        {
+            AnnounceTask("Updating Bench System");
+
+            var version = core.Config.GetStringValue(PropertyKeys.Version);
+            var latestVersion = await core.GetLatestVersionNumber();
+            if (latestVersion == null)
+            {
+                MessageBox.Show(this,
+                    "Retrieving the version number of the latest release failed."
+                    + Environment.NewLine + Environment.NewLine
+                    + "The update process was cancelled.",
+                    "Updating Bench System",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (string.Equals(version, latestVersion))
+            {
+                var res = MessageBox.Show(this,
+                    "There is no update available."
+                    + " You are already using the latest release of Bench (v" + version + ")." + Environment.NewLine
+                    + Environment.NewLine
+                    + "Do you want to reinstall the Bench system with a download of the latest release anyway?",
+                    "Updating Bench System",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res != DialogResult.Yes) return;
+            }
+            else
+            {
+                var res = MessageBox.Show(this,
+                    "Are you sure you want to update the Bench system?" + Environment.NewLine
+                    + Environment.NewLine
+                    + "Current version: " + version + Environment.NewLine
+                    + "Update version: " + latestVersion,
+                    "Updating Bench System",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (res != DialogResult.OK) return;
+            }
+            var result = await core.DownloadBenchUpdateAsync(TaskInfoHandler);
+            if (result.Success)
+            {
+                BenchTasks.InitiateInstallationBootstrap(core.Config);
+                Program.Core.Shutdown();
+            }
         }
 
         private void AppInfoHandler(object sender, EventArgs e)
@@ -602,6 +795,16 @@ namespace Mastersign.Bench.Dashboard
                     core.SetAppDeactivated(appWrapper.ID, !appWrapper.App.IsDeactivated);
                 }
             }
+            if (col == colLicense)
+            {
+                var row = gridApps.Rows[e.RowIndex];
+                var appWrapper = row.DataBoundItem as AppWrapper;
+                var url = appWrapper.LicenseUrl;
+                if (url != null)
+                {
+                    System.Diagnostics.Process.Start(url.AbsoluteUri);
+                }
+            }
         }
 
         private void gridApps_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -617,15 +820,25 @@ namespace Mastersign.Bench.Dashboard
 
         private void ShowAppIndexHandler(object sender, EventArgs e)
         {
-            var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
-            viewer.Show();
+            var lib = (sender as ToolStripItem)?.Tag as AppLibrary;
+            if (lib != null)
+            {
+                var viewer = new MarkdownViewer(core);
+                viewer.LoadMarkdown(Path.Combine(lib.BaseDir,
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    "App Library '" + lib.ID + "'");
+                viewer.Show();
+            }
         }
 
         private void ShowCustomAppIndexHandler(object sender, EventArgs e)
         {
             var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile), "User App Library");
+            viewer.LoadMarkdown(
+                Path.Combine(
+                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                "User App Library");
             viewer.Show();
         }
 
@@ -649,6 +862,11 @@ namespace Mastersign.Bench.Dashboard
             core.AppStateChanged -= CoreAppStateChangedHandler;
             core.BusyChanged -= CoreBusyChangedHandler;
             core.ActionStateChanged -= CoreActionStateChangedHandler;
+        }
+
+        private void CloseHandler(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

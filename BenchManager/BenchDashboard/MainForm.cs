@@ -24,9 +24,10 @@ namespace Mastersign.Bench.Dashboard
         public MainForm(Core core)
         {
             this.core = core;
-            core.AllAppStateChanged += AppStateChangedHandler;
-            core.AppStateChanged += AppStateChangedHandler;
             core.ConfigReloaded += ConfigReloadedHandler;
+            core.AllAppStateChanged += AppStateChangedHandler;
+            core.AppActivationChanged += AppStateChangedHandler;
+            core.AppStateChanged += AppStateChangedHandler;
             core.BusyChanged += CoreBusyChangedHandler;
             InitializeComponent();
             InitializeAppLauncherList();
@@ -86,16 +87,24 @@ namespace Mastersign.Bench.Dashboard
         {
             var ctxm = new ContextMenuStrip();
 
-            var benchItem = new ToolStripMenuItem("Bench");
+            var benchItem = new ToolStripMenuItem("Bench Website");
             benchItem.Image = new Icon(Icon, new Size(16, 16)).ToBitmap();
             benchItem.Tag = core.Config.GetStringValue(PropertyKeys.Website);
             benchItem.Click += LinkHandler;
             ctxm.Items.Add(benchItem);
 
-            var appLibItem = new ToolStripMenuItem("Bench App Library");
-            appLibItem.Image = Resources.library_16;
-            appLibItem.Click += AppIndexHandler;
-            ctxm.Items.Add(appLibItem);
+            var appLibsItem = new ToolStripMenuItem("App Libraries");
+            appLibsItem.Image = Resources.library_16;
+            ctxm.Items.Add(appLibsItem);
+            foreach (var lib in core.Config.AppLibraries)
+            {
+                var appLibItem = new ToolStripMenuItem("App Library '" + lib.ID + "'");
+                appLibItem.Image = Resources.books_16;
+                appLibItem.Tag = lib;
+                appLibItem.Click += AppIndexHandler;
+                appLibsItem.DropDownItems.Add(appLibItem);
+            }
+
             var userAppLibItem = new ToolStripMenuItem("User App Library");
             userAppLibItem.Image = Resources.userlibrary_16;
             userAppLibItem.Click += CustomAppIndexHandler;
@@ -138,15 +147,25 @@ namespace Mastersign.Bench.Dashboard
 
         private void AppIndexHandler(object sender, EventArgs e)
         {
-            var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.AppIndexFile), "Bench App Library");
-            viewer.Show();
+            var lib = (sender as ToolStripItem)?.Tag as AppLibrary;
+            if (lib != null)
+            {
+                var viewer = new MarkdownViewer(core);
+                viewer.LoadMarkdown(Path.Combine(lib.BaseDir,
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    "App Library '" + lib.ID + "'");
+                viewer.Show();
+            }
         }
 
         private void CustomAppIndexHandler(object sender, EventArgs e)
         {
             var viewer = new MarkdownViewer(core);
-            viewer.LoadMarkdown(core.Config.GetStringValue(PropertyKeys.CustomAppIndexFile), "User App Library");
+            viewer.LoadMarkdown(
+                Path.Combine(
+                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
+                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                "User App Library");
             viewer.Show();
         }
 
@@ -244,14 +263,14 @@ namespace Mastersign.Bench.Dashboard
 
         private void ShellCmdHandler(object sender, EventArgs e)
         {
-            new DefaultExecutionHost().StartProcess(core.Env,
+            new SimpleExecutionHost().StartProcess(core.Env,
                 core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
                 core.CmdPath, "", result => { }, ProcessMonitoring.ExitCode);
         }
 
         private void ShellPowerShellHandler(object sender, EventArgs e)
         {
-            new DefaultExecutionHost().StartProcess(core.Env,
+            new SimpleExecutionHost().StartProcess(core.Env,
                 core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
                 core.PowerShellPath, "", result => { }, ProcessMonitoring.ExitCode);
         }
@@ -261,7 +280,7 @@ namespace Mastersign.Bench.Dashboard
             var bashPath = core.BashPath;
             if (File.Exists(bashPath))
             {
-                new DefaultExecutionHost().StartProcess(core.Env,
+                new SimpleExecutionHost().StartProcess(core.Env,
                     core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
                     bashPath, "", result => { }, ProcessMonitoring.ExitCode);
             }
@@ -312,7 +331,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void AboutHandler(object sender, EventArgs e)
         {
-            new AboutDialog().ShowDialog(this);
+            new AboutDialog(core).ShowDialog(this);
         }
 
         private void DocsHandler(object sender, EventArgs e)
