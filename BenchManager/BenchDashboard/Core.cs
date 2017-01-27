@@ -63,7 +63,7 @@ namespace Mastersign.Bench.Dashboard
                     OnAppStateChanged(info.AppId);
                 }
                 if (info is TaskError) ActionState = ActionState.BusyWithErrors;
-                if (notify != null) notify(info);
+                notify?.Invoke(info);
             };
         }
 
@@ -86,13 +86,9 @@ namespace Mastersign.Bench.Dashboard
         public void SyncWithGui(ThreadStart task)
         {
             if (GuiContext != null && GuiContext.InvokeRequired)
-            {
                 GuiContext.Invoke(task);
-            }
             else
-            {
                 task();
-            }
         }
 
         public bool Busy
@@ -114,13 +110,7 @@ namespace Mastersign.Bench.Dashboard
         }
 
         private void OnBusyChanged()
-        {
-            SyncWithGui(() =>
-            {
-                var handler = BusyChanged;
-                if (handler != null) handler(this, EventArgs.Empty);
-            });
-        }
+            => SyncWithGui(() => BusyChanged?.Invoke(this, EventArgs.Empty));
 
         public ActionState ActionState
         {
@@ -134,13 +124,7 @@ namespace Mastersign.Bench.Dashboard
         }
 
         private void OnActionStateChanged()
-        {
-            SyncWithGui(() =>
-            {
-                var handler = ActionStateChanged;
-                if (handler != null) handler(this, EventArgs.Empty);
-            });
-        }
+            => SyncWithGui(() => ActionStateChanged?.Invoke(this, EventArgs.Empty));
 
         public Cancelation Cancelation { get { return cancelation; } }
 
@@ -200,46 +184,30 @@ namespace Mastersign.Bench.Dashboard
         private void ConfigFileChangedHandler(object sender, FileSystemEventArgs e)
         {
             if (busy)
-            {
                 configReloadNecessary = true;
-            }
             else
-            {
                 Task.Run(() => Reload(true));
-            }
         }
 
         private void ActivationFileChangedHandler(object sender, FileSystemEventArgs e)
         {
             if (busy)
-            {
                 activationReloadNecessary = true;
-            }
             else
-            {
                 Task.Run(() => ReloadAppActivation());
-            }
         }
 
         private void OnConfigReloaded()
-        {
-            SyncWithGui(() => ConfigReloaded?.Invoke(this, EventArgs.Empty));
-        }
+            => SyncWithGui(() => ConfigReloaded?.Invoke(this, EventArgs.Empty));
 
         private void OnAllAppStateChanged()
-        {
-            SyncWithGui(() => AllAppStateChanged?.Invoke(this, EventArgs.Empty));
-        }
+            => SyncWithGui(() => AllAppStateChanged?.Invoke(this, EventArgs.Empty));
 
         private void OnAppActivationChanged()
-        {
-            SyncWithGui(() => AppActivationChanged?.Invoke(this, EventArgs.Empty));
-        }
+            => SyncWithGui(() => AppActivationChanged?.Invoke(this, EventArgs.Empty));
 
         private void OnAppStateChanged(string appId)
-        {
-            SyncWithGui(() => AppStateChanged?.Invoke(this, new AppEventArgs(appId)));
-        }
+            => SyncWithGui(() => AppStateChanged?.Invoke(this, new AppEventArgs(appId)));
 
         public void Reload(bool configChanged = false)
         {
@@ -272,45 +240,25 @@ namespace Mastersign.Bench.Dashboard
         {
             var activationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppActivationFile));
             if (value)
-            {
                 activationFile.SignIn(appId);
-            }
             else
-            {
                 activationFile.SignOut(appId);
-            }
         }
 
         public void SetAppDeactivated(string appId, bool value)
         {
             var deactivationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppDeactivationFile));
             if (value)
-            {
                 deactivationFile.SignIn(appId);
-            }
             else
-            {
                 deactivationFile.SignOut(appId);
-            }
         }
 
-        public Task<ActionResult> RunTaskAsync(BenchTaskForAll action,
-            Action<TaskInfo> notify, Cancelation cancelation)
-        {
-            return Task.Run(() =>
-            {
-                return action(this, CatchTaskInfos(notify), cancelation);
-            });
-        }
+        public Task<ActionResult> RunTaskAsync(BenchTaskForAll action, Action<TaskInfo> notify, Cancelation cancelation)
+            => Task.Run(() => action(this, CatchTaskInfos(notify), cancelation));
 
-        public Task<ActionResult> RunTaskAsync(BenchTaskForOne action, string appId,
-            Action<TaskInfo> notify, Cancelation cancelation)
-        {
-            return Task.Run(() =>
-            {
-                return action(this, appId, CatchTaskInfos(notify), cancelation);
-            });
-        }
+        public Task<ActionResult> RunTaskAsync(BenchTaskForOne action, string appId, Action<TaskInfo> notify, Cancelation cancelation)
+            => Task.Run(() => action(this, appId, CatchTaskInfos(notify), cancelation));
 
         private void BeginAction()
         {
