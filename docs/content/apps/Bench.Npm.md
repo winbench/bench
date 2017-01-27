@@ -41,5 +41,5 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Typ: `default`
 * Website: <https://www.npmjs.com/package/npm>
 * Dependencies: [Node.js](/app/Bench.Node)
-* Responsibilities: [CoffeeScript](/app/Bench.CoffeeScript), [Gulp](/app/Bench.Gulp), [Grunt](/app/Bench.Grunt), [Bower](/app/Bench.Bower), [Yeoman](/app/Bench.Yeoman), [JSHint](/app/Bench.JSHint)
+* Responsibilities: [CoffeeScript](/app/Bench.CoffeeScript), [Gulp](/app/Bench.Gulp), [Grunt](/app/Bench.Grunt), [Bower](/app/Bench.Bower), [Yeoman](/app/Bench.Yeoman), [JSHint](/app/Bench.JSHint), [JSBeautify](/app/Bench.JSBeautify), [Tern](/app/Bench.Tern), [Yeoman Generator for Markdown Projects](/app/User.MdProc)
 

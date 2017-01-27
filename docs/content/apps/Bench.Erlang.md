@@ -1,19 +1,19 @@
 ﻿+++
 title = "Erlang"
-weight = 33
+weight = 34
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Erlang"
-app_version = "19.0"
-app_categories = ["Platforms and Programming Languages"]
+app_version = "19.2"
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Erlang`  
-**Version:** 19.0  
+**Version:** 19.2  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -24,8 +24,8 @@ Erlang is a programming language used to build massively scalable soft real-time
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 33
+* Category: Languages and Platforms
+* Order Index: 34
 
 ## Properties
 

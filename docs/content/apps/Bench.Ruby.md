@@ -6,14 +6,14 @@ app_category = "Core"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Ruby"
-app_version = "2.3.1"
+app_version = "2.3.3"
 app_categories = ["Core"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Ruby`  
-**Version:** 2.3.1  
+**Version:** 2.3.3  
 <!--more-->
 
 [Back to all apps](/apps/)

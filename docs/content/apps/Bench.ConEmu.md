@@ -6,14 +6,14 @@ app_category = "Required"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.ConEmu"
-app_version = "16.10.09a"
+app_version = "17.01.18"
 app_categories = ["Required"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.ConEmu`  
-**Version:** 16.10.09a  
+**Version:** 17.01.18  
 <!--more-->
 
 [Back to all apps](/apps/)

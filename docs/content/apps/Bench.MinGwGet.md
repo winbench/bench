@@ -1,13 +1,13 @@
 ﻿+++
 title = "MinGwGet"
-weight = 28
+weight = 29
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MinGwGet"
 app_version = "0.6.2"
-app_categories = ["Platforms and Programming Languages"]
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
@@ -24,8 +24,8 @@ The package manager for [MinGW](http://www.mingw.org/).
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 28
+* Category: Languages and Platforms
+* Order Index: 29
 
 ## Properties
 

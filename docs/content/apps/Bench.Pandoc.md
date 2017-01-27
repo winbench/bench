@@ -1,19 +1,19 @@
 ﻿+++
 title = "Pandoc"
-weight = 73
+weight = 78
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Pandoc"
-app_version = "1.17.2"
+app_version = "1.19.1"
 app_categories = ["Writing"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Pandoc`  
-**Version:** 1.17.2  
+**Version:** 1.19.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Pandoc is a library and command-line tool for converting from one markup format 
 
 * Library: `default`
 * Category: Writing
-* Order Index: 73
+* Order Index: 78
 
 ## Properties
 
@@ -33,4 +33,5 @@ Pandoc is a library and command-line tool for converting from one markup format 
 * Name: Pandoc
 * Typ: `default`
 * Website: <https://github.com/jgm/pandoc/releases/latest>
+* Responsibilities: [Yeoman Generator for Markdown Projects](/app/User.MdProc)
 

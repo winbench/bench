@@ -1,13 +1,13 @@
 ﻿+++
 title = "Java Development Kit 7"
-weight = 24
+weight = 25
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JDK7"
 app_version = "7u80"
-app_categories = ["Platforms and Programming Languages"]
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
@@ -26,8 +26,8 @@ The development kit is required for Java source code to get compiled.
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 24
+* Category: Languages and Platforms
+* Order Index: 25
 
 ## Properties
 

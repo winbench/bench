@@ -1,6 +1,6 @@
 ﻿+++
 title = "NUnit 3 Runners"
-weight = 52
+weight = 53
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "nuget-package"
@@ -26,7 +26,7 @@ The console runner `nunit3-console.exe` executes tests on the console.
 
 * Library: `default`
 * Category: Software Development Utilities
-* Order Index: 52
+* Order Index: 53
 
 ## Properties
 

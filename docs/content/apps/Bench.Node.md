@@ -6,14 +6,14 @@ app_category = "Core"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Node"
-app_version = "6.9.2"
+app_version = "6.9.4"
 app_categories = ["Core"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Node`  
-**Version:** 6.9.2  
+**Version:** 6.9.4  
 <!--more-->
 
 [Back to all apps](/apps/)

@@ -1,19 +1,19 @@
 ﻿+++
 title = "Hugo"
-weight = 78
+weight = 83
 app_library = "default"
 app_category = "Web"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Hugo"
-app_version = "0.16"
+app_version = "0.18.1"
 app_categories = ["Web"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Hugo`  
-**Version:** 0.16  
+**Version:** 0.18.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ and much more. Hugo’s speed fosters creativity and makes building a website fu
 
 * Library: `default`
 * Category: Web
-* Order Index: 78
+* Order Index: 83
 
 ## Properties
 

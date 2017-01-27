@@ -1,19 +1,19 @@
 ﻿+++
 title = "Java Runtime Environment 8"
-weight = 23
+weight = 24
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JRE8"
-app_version = "112"
-app_categories = ["Platforms and Programming Languages"]
+app_version = "121"
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.JRE8`  
-**Version:** 112  
+**Version:** 121  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,8 +26,8 @@ The runtime environment is required for a compiled Java program to get executed.
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 23
+* Category: Languages and Platforms
+* Order Index: 24
 
 ## Properties
 

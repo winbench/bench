@@ -1,19 +1,19 @@
 ﻿+++
 title = "Atom"
-weight = 35
+weight = 36
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Atom"
-app_version = "1.11.2"
+app_version = "1.13.0"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Atom`  
-**Version:** 1.11.2  
+**Version:** 1.13.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ is picked up from Atom._
 
 * Library: `default`
 * Category: Editors
-* Order Index: 35
+* Order Index: 36
 
 ## Properties
 

@@ -33,5 +33,5 @@ Python is a programming language that lets you work quickly and integrate system
 * Name: Python3
 * Typ: `default`
 * Website: <https://www.python.org/>
-* Responsibilities: [PyReadline (Python 3)](/app/Bench.PyReadline3), [IPython 3](/app/Bench.IPython3)
+* Responsibilities: [PyReadline (Python 3)](/app/Bench.PyReadline3), [IPython 3](/app/Bench.IPython3), [Jupyter](/app/Bench.Jupyter)
 

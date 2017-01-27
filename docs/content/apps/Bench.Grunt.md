@@ -1,19 +1,19 @@
 ﻿+++
 title = "Grunt"
-weight = 48
+weight = 49
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
 app_ns = "Bench"
 app_id = "Bench.Grunt"
-app_version = ">=0.4.5 <0.5.0"
+app_version = ">=1.0.0 <2.0.0"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["node-package"]
 +++
 
 **ID:** `Bench.Grunt`  
-**Version:** >=0.4.5 <0.5.0  
+**Version:** >=1.0.0 <2.0.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ The JavaScript Task Runner
 
 * Library: `default`
 * Category: Software Development Utilities
-* Order Index: 48
+* Order Index: 49
 
 ## Properties
 

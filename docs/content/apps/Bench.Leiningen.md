@@ -1,13 +1,13 @@
 ﻿+++
 title = "Leiningen"
-weight = 26
+weight = 27
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Leiningen"
 app_version = "latest"
-app_categories = ["Platforms and Programming Languages"]
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
@@ -26,8 +26,8 @@ it gets out of your way and lets you focus on your code.
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 26
+* Category: Languages and Platforms
+* Order Index: 27
 
 ## Properties
 

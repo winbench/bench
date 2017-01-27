@@ -1,19 +1,19 @@
 ﻿+++
 title = "PHP 7"
-weight = 21
+weight = 22
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.PHP7"
-app_version = "7.0.8"
-app_categories = ["Platforms and Programming Languages"]
+app_version = "7.0.14"
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.PHP7`  
-**Version:** 7.0.8  
+**Version:** 7.0.14  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -27,8 +27,8 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable](ht
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 21
+* Category: Languages and Platforms
+* Order Index: 22
 
 ## Properties
 

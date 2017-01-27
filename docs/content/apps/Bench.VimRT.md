@@ -1,19 +1,19 @@
 ﻿+++
 title = "VimRT"
-weight = 40
+weight = 41
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.VimRT"
-app_version = "7.4"
+app_version = "8.0"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.VimRT`  
-**Version:** 7.4  
+**Version:** 8.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,7 +26,7 @@ It is an improved version of the vi editor distributed with most UNIX systems.
 
 * Library: `default`
 * Category: Editors
-* Order Index: 40
+* Order Index: 41
 
 ## Properties
 

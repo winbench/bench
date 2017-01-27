@@ -1,6 +1,6 @@
 ﻿+++
 title = "IPython 3"
-weight = 58
+weight = 61
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python3-package"
@@ -21,22 +21,17 @@ app_types = ["python3-package"]
 ## Description
 IPython provides a rich architecture for computing with a powerful interactive shell.
 
-for Python 2:
-
-
-for Python 3:
-
 ## Source
 
 * Library: `default`
 * Category: Software Development Utilities
-* Order Index: 58
+* Order Index: 61
 
 ## Properties
 
 * Namespace: Bench
 * Name: IPython3
 * Typ: `python3-package`
-* Website: <http://pypi.python.org/pypi/ipython>
+* Website: <https://ipython.org/>
 * Dependencies: [PyReadline (Python 3)](/app/Bench.PyReadline3), [Python 3](/app/Bench.Python3)
 

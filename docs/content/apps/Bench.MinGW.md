@@ -1,13 +1,13 @@
 ﻿+++
 title = "MinGW"
-weight = 30
+weight = 31
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "meta"
 app_ns = "Bench"
 app_id = "Bench.MinGW"
 app_version = "0.6.2"
-app_categories = ["Platforms and Programming Languages"]
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["meta"]
 +++
@@ -42,8 +42,8 @@ and install more MinGW packages.
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 30
+* Category: Languages and Platforms
+* Order Index: 31
 
 ## Properties
 

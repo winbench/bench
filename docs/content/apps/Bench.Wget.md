@@ -1,19 +1,19 @@
 ﻿+++
 title = "Wget"
-weight = 13
+weight = 15
 app_library = "core"
 app_category = "Basics"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Wget"
-app_version = "1.11.4-1"
+app_version = "latest"
 app_categories = ["Basics"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Wget`  
-**Version:** 1.11.4-1  
+**Version:** latest  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,7 +26,7 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 
 * Library: `core`
 * Category: Basics
-* Order Index: 13
+* Order Index: 15
 
 ## Properties
 
@@ -34,6 +34,5 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 * Name: Wget
 * Typ: `default`
 * Website: <https://www.gnu.org>
-* Dependencies: [WgetDeps](/app/Bench.WgetDeps)
 * Responsibilities: [Leiningen](/app/Bench.Leiningen), [MinGwGet](/app/Bench.MinGwGet)
 

@@ -3,7 +3,7 @@ $scriptsDir = Resolve-Path "$rootDir\auto\lib"
 $docsDir = Resolve-Path "$rootDir\docs"
 . "$scriptsDir\bench.lib.ps1"
 
-$cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $false, $false)
+$cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $false)
 $apps = $cfg.Apps
 
 $targetFile = "$docsDir\content\ref\apps.md"
@@ -87,6 +87,7 @@ $no = 0
 foreach ($app in $apps)
 {
     $no++
+    if (!$app.AppLibrary) { continue }
     Write-Host "$($no.ToString("0000")) $($app.ID)"
     WriteAppFile $app $no
 }

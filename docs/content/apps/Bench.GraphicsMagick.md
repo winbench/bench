@@ -1,19 +1,19 @@
 ﻿+++
 title = "Graphics Magick"
-weight = 79
+weight = 84
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.GraphicsMagick"
-app_version = "1.3.24"
+app_version = "1.3.25"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.GraphicsMagick`  
-**Version:** 1.3.24  
+**Version:** 1.3.25  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ like DPX, GIF, JPEG, JPEG-2000, PNG, PDF, PNM, and TIFF.
 
 * Library: `default`
 * Category: Multimedia
-* Order Index: 79
+* Order Index: 84
 
 ## Properties
 

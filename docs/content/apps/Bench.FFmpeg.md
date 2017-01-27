@@ -1,6 +1,6 @@
 ﻿+++
 title = "FFmpeg"
-weight = 80
+weight = 85
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -28,7 +28,7 @@ No matter if they were designed by some standards committee, the community or a 
 
 * Library: `default`
 * Category: Multimedia
-* Order Index: 80
+* Order Index: 85
 
 ## Properties
 

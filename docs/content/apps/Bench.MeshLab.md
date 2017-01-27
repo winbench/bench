@@ -1,19 +1,19 @@
 ﻿+++
 title = "MeshLab"
-weight = 86
+weight = 93
 app_library = "default"
 app_category = "3D Modeling"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MeshLab"
-app_version = "1.3.3"
+app_version = "2016.12"
 app_categories = ["3D Modeling"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.MeshLab`  
-**Version:** 1.3.3  
+**Version:** 2016.12  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -29,7 +29,7 @@ cleaning, healing, inspecting, rendering and converting this kind of meshes.
 
 * Library: `default`
 * Category: 3D Modeling
-* Order Index: 86
+* Order Index: 93
 
 ## Properties
 

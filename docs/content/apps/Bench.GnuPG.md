@@ -1,6 +1,6 @@
 ﻿+++
 title = "GnuPG"
-weight = 17
+weight = 18
 app_library = "default"
 app_category = "Security"
 app_typ = "default"
@@ -28,7 +28,7 @@ GnuPG, also known as GPG, is a command line tool with features for easy integrat
 
 * Library: `default`
 * Category: Security
-* Order Index: 17
+* Order Index: 18
 
 ## Properties
 

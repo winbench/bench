@@ -1,6 +1,6 @@
 ﻿+++
 title = "Maven"
-weight = 51
+weight = 52
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -27,7 +27,7 @@ reporting and documentation from a central piece of information.
 
 * Library: `default`
 * Category: Software Development Utilities
-* Order Index: 51
+* Order Index: 52
 
 ## Properties
 

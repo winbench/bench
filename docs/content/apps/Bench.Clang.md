@@ -1,19 +1,19 @@
 ﻿+++
 title = "LLVM Clang"
-weight = 31
+weight = 32
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Clang"
-app_version = "3.8.1"
-app_categories = ["Platforms and Programming Languages"]
+app_version = "3.9.1"
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Clang`  
-**Version:** 3.8.1  
+**Version:** 3.9.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -32,8 +32,8 @@ install the LLVM-Plugin for Eclipse CDT.
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 31
+* Category: Languages and Platforms
+* Order Index: 32
 
 ## Properties
 

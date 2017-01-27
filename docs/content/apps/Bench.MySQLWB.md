@@ -1,19 +1,19 @@
 ﻿+++
 title = "MySQL Workbench"
-weight = 68
+weight = 73
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MySQLWB"
-app_version = "6.3.7"
+app_version = "6.3.8"
 app_categories = ["Services"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.MySQLWB`  
-**Version:** 6.3.7  
+**Version:** 6.3.8  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -30,7 +30,7 @@ and the [Microsoft.NET Framework 4.0 Client Profile](http://www.microsoft.com/do
 
 * Library: `default`
 * Category: Services
-* Order Index: 68
+* Order Index: 73
 
 ## Properties
 

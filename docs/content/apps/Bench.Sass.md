@@ -1,6 +1,6 @@
 ﻿+++
 title = "SASS"
-weight = 77
+weight = 82
 app_library = "default"
 app_category = "Web"
 app_typ = "ruby-package"
@@ -25,7 +25,7 @@ Sass is the most mature, stable, and powerful professional grade CSS extension l
 
 * Library: `default`
 * Category: Web
-* Order Index: 77
+* Order Index: 82
 
 ## Properties
 

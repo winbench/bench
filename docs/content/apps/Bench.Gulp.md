@@ -1,6 +1,6 @@
 ﻿+++
 title = "Gulp"
-weight = 47
+weight = 48
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -25,7 +25,7 @@ The streaming build system.
 
 * Library: `default`
 * Category: Software Development Utilities
-* Order Index: 47
+* Order Index: 48
 
 ## Properties
 
@@ -34,4 +34,5 @@ The streaming build system.
 * Typ: `node-package`
 * Website: <http://gulpjs.com>
 * Dependencies: [NPM](/app/Bench.Npm)
+* Responsibilities: [Yeoman Generator for Markdown Projects](/app/User.MdProc)
 

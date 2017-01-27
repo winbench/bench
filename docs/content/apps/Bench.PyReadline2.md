@@ -1,6 +1,6 @@
 ﻿+++
 title = "PyReadline (Python 2)"
-weight = 55
+weight = 58
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python2-package"
@@ -30,7 +30,7 @@ for Python 3:
 
 * Library: `default`
 * Category: Software Development Utilities
-* Order Index: 55
+* Order Index: 58
 
 ## Properties
 

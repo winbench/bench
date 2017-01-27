@@ -1,13 +1,13 @@
 ﻿+++
 title = "CoffeeScript"
-weight = 34
+weight = 35
 app_library = "default"
-app_category = "Platforms and Programming Languages"
+app_category = "Languages and Platforms"
 app_typ = "node-package"
 app_ns = "Bench"
 app_id = "Bench.CoffeeScript"
 app_version = ">=1.10.0 <2.0.0"
-app_categories = ["Platforms and Programming Languages"]
+app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["node-package"]
 +++
@@ -21,8 +21,8 @@ app_types = ["node-package"]
 ## Source
 
 * Library: `default`
-* Category: Platforms and Programming Languages
-* Order Index: 34
+* Category: Languages and Platforms
+* Order Index: 35
 
 ## Properties
 

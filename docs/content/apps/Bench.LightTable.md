@@ -1,6 +1,6 @@
 ﻿+++
 title = "LightTable"
-weight = 43
+weight = 44
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -25,7 +25,7 @@ The next generation code editor.
 
 * Library: `default`
 * Category: Editors
-* Order Index: 43
+* Order Index: 44
 
 ## Properties
 

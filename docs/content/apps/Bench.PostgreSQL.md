@@ -1,19 +1,19 @@
 ﻿+++
 title = "PostgreSQL"
-weight = 69
+weight = 74
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.PostgreSQL"
-app_version = "9.5.3-1"
+app_version = "9.6.1-1"
 app_categories = ["Services"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.PostgreSQL`  
-**Version:** 9.5.3-1  
+**Version:** 9.6.1-1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -35,7 +35,7 @@ The initial password for _postgres_ is `bench`.
 
 * Library: `default`
 * Category: Services
-* Order Index: 69
+* Order Index: 74
 
 ## Properties
 

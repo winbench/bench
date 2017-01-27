@@ -1,6 +1,6 @@
 ﻿+++
 title = "Eclipse for PHP"
-weight = 45
+weight = 46
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,7 +26,7 @@ Git client, Mylyn and editors for JavaScript, HTML, CSS and...
 
 * Library: `default`
 * Category: Editors
-* Order Index: 45
+* Order Index: 46
 
 ## Properties
 

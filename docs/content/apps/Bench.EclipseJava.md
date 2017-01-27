@@ -1,6 +1,6 @@
 ﻿+++
 title = "Eclipse for Java"
-weight = 44
+weight = 45
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,7 +26,7 @@ XML Editor, Mylyn, Maven and Gradle integration...
 
 * Library: `default`
 * Category: Editors
-* Order Index: 44
+* Order Index: 45
 
 ## Properties
 

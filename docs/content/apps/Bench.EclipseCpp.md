@@ -1,6 +1,6 @@
 ﻿+++
 title = "Eclipse for C++"
-weight = 46
+weight = 47
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -25,7 +25,7 @@ An IDE for C/C++ developers with Mylyn integration.
 
 * Library: `default`
 * Category: Editors
-* Order Index: 46
+* Order Index: 47
 
 ## Properties
 

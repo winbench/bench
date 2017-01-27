@@ -1,19 +1,19 @@
 ﻿+++
 title = "JabRef"
-weight = 74
+weight = 79
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JabRef"
-app_version = "3.5"
+app_version = "3.8.1"
 app_categories = ["Writing"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.JabRef`  
-**Version:** 3.5  
+**Version:** 3.8.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,7 +26,7 @@ The native file format used by JabRef is BibTeX, the standard LaTeX bibliography
 
 * Library: `default`
 * Category: Writing
-* Order Index: 74
+* Order Index: 79
 
 ## Properties
 

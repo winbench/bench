@@ -1,6 +1,6 @@
 ﻿+++
 title = "GIMP"
-weight = 85
+weight = 92
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -29,7 +29,7 @@ GIMP provides you with sophisticated tools to get your job done.
 
 * Library: `default`
 * Category: Multimedia
-* Order Index: 85
+* Order Index: 92
 
 ## Properties
 
