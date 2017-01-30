@@ -192,6 +192,7 @@ namespace Mastersign.Bench.Dashboard
         private void CoreAppActivationChangedHandler(object sender, EventArgs e)
         {
             gridApps.Refresh();
+            UpdatePendingCounts();
         }
 
         private void CoreAppStateChangedHandler(object sender, AppEventArgs e)
