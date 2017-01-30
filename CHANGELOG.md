@@ -25,6 +25,17 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Changed
+- Removed _Yeoman_ from pre-selected apps
+- Added Ruby and LaTeX groups to initialization wizzard
+- Added `UseRegistryIsolation` property to user configuration template
+- Moved default app library from user configuration template to Bench configuration
+
+### Fixed
+- Possible `KeyNotFoundException` when canceling a download
+- Updating counters in the setup dialog when changing app selection
+- Editing Markdown files with the system editor
+
 ## [0.14.0] - 2017-01-27
 
 [0.14.0]: https://github.com/mastersign/bench/compare/v0.13.3...v0.14.0
