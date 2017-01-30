@@ -434,6 +434,11 @@ namespace Mastersign.Bench.Dashboard
             UpdateDownloadListVisibility();
         }
 
+        private static string SystemEditorPath
+            => Path.Combine(
+                Environment.GetEnvironmentVariable("SystemRoot"),
+                "notepad.exe");
+
         private void EditFile(string name, string path, string appId)
         {
             if (!File.Exists(path))
@@ -454,7 +459,7 @@ namespace Mastersign.Bench.Dashboard
             }
             else
             {
-                System.Diagnostics.Process.Start(path);
+                System.Diagnostics.Process.Start(SystemEditorPath, path);
             }
         }
 
