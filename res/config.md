@@ -35,6 +35,7 @@
 * LibDir: `lib`
 * AppLibs:
     + `core`: `github:mastersign/bench-apps-core`
+    + `default`: `github:mastersign/bench-apps-default`
 * AppLibsDir: `$LibDir$\_applibs`
 * AppLibsDownloadDir: `$DownloadDir$\_applibs`
 * AppLibIndexFileName: `apps.md`
@@ -96,7 +97,9 @@
     + PHP: `Bench.Group.PHPDevelopment`
     + Python 2: `Bench.Group.Python2Development`
     + Python 3: `Bench.Group.Python3Development`
+    + Ruby: `Bench.Group.RubyDevelopment`
     + C/C++: `Bench.Group.CppDevelopment`
+    + LaTeX: `Bench.Group.LaTeXWriting`
 * QuickAccessCmd: `true`
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`

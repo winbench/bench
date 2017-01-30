@@ -7,4 +7,3 @@
 Bench.Notepad2 # activated as default text editor
 Bench.MarkdownEdit # activated by default as editor for configuration files
 Bench.Git # activated by default to support project versioning
-Bench.Yeoman # activated by default to support actions\new-project.cmd
