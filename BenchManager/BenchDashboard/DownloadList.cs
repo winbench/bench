@@ -115,7 +115,12 @@ namespace Mastersign.Bench.Dashboard
             }
             else
             {
-                downloadControls[e.Task].ErrorMessage = e.Task.ErrorMessage;
+                var t = e.Task;
+                DownloadControl c;
+                if (downloadControls.TryGetValue(t, out c))
+                {
+                    c.ErrorMessage = t.ErrorMessage;
+                }
             }
         }
 
