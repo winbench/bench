@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.14.1] - 2017-01-30
+
+[0.14.1]: https://github.com/mastersign/bench/compare/v0.14.0...v0.14.1
+
 ### Changed
 - Removed _Yeoman_ from pre-selected apps
 - Added Ruby and LaTeX groups to initialization wizzard
