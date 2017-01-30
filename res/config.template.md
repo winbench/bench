@@ -2,11 +2,13 @@
 
 ## Environment
 
-With the following properties you can control the composition of the environment variables.
+With the following properties you can control the composition of the environment variables
+and the isolation level of the Bench environment from the Windows system.
 
 * OverrideHome: `true`
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
+* UseRegistryIsolation: `true`
 * RegisterInUserProfile: `false`
 * ~~EnvironmentPath: `$HomeDir$\bin`~~
 * ~~Environment: `MY_VAR: my custom value`~~
