@@ -39,9 +39,7 @@ function Write-Config($trg)
 if (Test-Path $tmpArchive) { del $tmpArchive }
 if (Test-Path $targetFile) { del $targetFile }
 
-& $7z a $tmpArchive .\auto
-& $7z a $tmpArchive .\res
-& $7z a $tmpArchive .\config
+& $7z a $tmpArchive .\auto .\res .\config
 
 $target = [IO.File]::Create($targetFile)
 Copy-FileContent $sfxFile $target
