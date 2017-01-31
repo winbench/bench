@@ -2,7 +2,7 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
 $tmpArchive = "$myDir\bench_export.7z"
 $7z = "$myDir\lib\bench\7z\7z.exe"
-$sfxFile = "$myDir\res\7zS.sfx"
+$sfxFile = "$myDir\res\bench.sfx"
 $targetFile = "$myDir\test.exe"
 
 function Copy-StreamContent($src, $trg)
