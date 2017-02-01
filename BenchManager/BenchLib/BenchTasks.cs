@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Mastersign.Bench.UI;
 using Mastersign.Bench.Windows;
+using static Mastersign.Sequence.Sequence;
 
 namespace Mastersign.Bench
 {
@@ -2334,7 +2335,7 @@ namespace Mastersign.Bench
 
         #region Test Apps
 
-        private static bool InstallAppsDependencies(IBenchManager man, AppFacade app, 
+        private static bool InstallAppsDependencies(IBenchManager man, AppFacade app,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
             var dependencyIds = app.FindAllDependencies();
@@ -2650,5 +2651,221 @@ namespace Mastersign.Bench
         }
 
         #endregion
+
+        #region Export and Clone Bench Environment
+
+        /// <summary>
+        /// Shows a simple UI to ask for the target directory for a new Bench environment.
+        /// </summary>
+        /// <returns>A path to an existing directory or <c>null</c>.</returns>
+        public static string AskForBenchCloneTargetDirectory()
+        {
+            var browser = new System.Windows.Forms.FolderBrowserDialog
+            {
+                Description = "Select the target directory for the new Bench environment.",
+                ShowNewFolderButton = true,
+                SelectedPath = Environment.GetEnvironmentVariable("SystemDrive")
+            };
+            var result = browser.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.Cancel) return null;
+            var path = browser.SelectedPath;
+            if (Directory.GetFileSystemEntries(path).Length > 0)
+            {
+                var answer = System.Windows.Forms.MessageBox.Show(
+                    "The selected directory is not empty.\n\nAre you sure you want to setup Bench in this directory?",
+                    "Bench Transfer",
+                    System.Windows.Forms.MessageBoxButtons.YesNo,
+                    System.Windows.Forms.MessageBoxIcon.Warning);
+                if (answer != System.Windows.Forms.DialogResult.Yes) return null;
+            }
+            try
+            {
+                FileSystem.AsureDir(path);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return path;
+        }
+
+        /// <summary>
+        /// Creates a transfer package of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="man">The manager for the source Bench environment.</param>
+        /// <param name="targetFile">The target file for the transfer package. If the ending is <c>.exe</c>, an SFX archive will be created.</param>
+        /// <param name="selection">A selection of directories and files to include in the package.</param>
+        public static bool ExportBenchEnvironment(IBenchManager man, string targetFile, TransferPaths selection)
+        {
+            var paths = man.Config.GetTransferPaths(selection);
+            var extension = Path.GetExtension(targetFile).ToLowerInvariant();
+            if (!Seq(".exe", ".zip", ".7z").Contains(extension))
+            {
+                man.UI.ShowError("export", "The filename extension of the target file is invalid.");
+                return false;
+            }
+            var sfxArchive = extension == ".exe";
+            if (sfxArchive)
+                return ExportBenchEnvironmentSfx(man, targetFile, paths);
+            else
+                return ExportBenchEnvironmentArchive(man, targetFile, paths);
+        }
+
+        private static void CopyStream(Stream src, Stream trg, int bufferSize = 64 * 1024)
+        {
+            var buffer = new byte[bufferSize];
+            var read = 0;
+            while ((read = src.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                trg.Write(buffer, 0, read);
+            }
+        }
+
+        private static void CopyFileToStream(string file, Stream trg, int bufferSize = 64 * 1024)
+        {
+            using (var src = File.OpenRead(file))
+            {
+                CopyStream(src, trg, bufferSize);
+            }
+        }
+
+        private static TextWriter WriteSfxConfig(BenchConfiguration cfg, Stream trg)
+        {
+            var enc = new UTF8Encoding(false);
+            var w = new StreamWriter(trg, enc, 1024);
+            w.WriteLine(";!@Install@!UTF-8!");
+            w.WriteLine("Title=\"Bench Transfer Package\"");
+            w.Write("BeginPrompt=\"This is a pre - configured Bench environment. If you proceed, you will be asked for a target directory to extract and setup the Bench environment.\n\n");
+            if (cfg.GetBooleanValue(PropertyKeys.RegisterInUserProfile))
+            {
+                w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables of your user profile will be modified during setup.\n\n");
+            }
+            w.WriteLine("See http://mastersign.github.io/bench/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?\"");
+            w.WriteLine(@"RunProgram="".\\auto\\bin\\bench.exe --verbose transfer install""");
+            w.Write(";!@InstallEnd@!");
+            w.Flush();
+            return w;
+        }
+
+        private static bool ExportBenchEnvironmentSfx(IBenchManager man, string targetFile, string[] paths)
+        {
+            var tmpArchive = Path.Combine(
+                man.Config.GetStringValue(PropertyKeys.TempDir),
+                "bench_export_" + Path.ChangeExtension(Path.GetRandomFileName(), ".7z"));
+
+            if (!ExportBenchEnvironmentArchive(man, tmpArchive, paths)) return false;
+
+            var sfxPath = Path.Combine(Path.Combine(man.Config.BenchRootDir, "res"), "bench.sfx");
+            try
+            {
+                using (var s = File.Open(targetFile, FileMode.Create, FileAccess.Write))
+                {
+                    CopyFileToStream(sfxPath, s);
+                    WriteSfxConfig(man.Config, s);
+                    CopyFileToStream(tmpArchive, s);
+                }
+                File.Delete(tmpArchive);
+            }
+            catch (Exception e)
+            {
+                man.UI.ShowError("export", "Failed to export the Bench environment.",
+                    exception: e);
+                return false;
+            }
+            return true;
+        }
+
+        private static bool ExportBenchEnvironmentArchive(IBenchManager man, string targetFile, string[] paths)
+        {
+            FileSystem.AsureDir(Path.GetDirectoryName(targetFile));
+            if (File.Exists(targetFile)) File.Delete(targetFile);
+            var execHost = man.ProcessExecutionHost;
+            var args = new List<string>();
+            args.Add("a");
+            if (Path.GetExtension(targetFile).ToLowerInvariant() == ".7z")
+            {
+                args.Add("-mx=9");
+                args.Add("-mmt=on");
+            }
+            args.Add(targetFile);
+            args.AddRange(paths);
+            var result = execHost.RunProcess(man.Env, man.Config.BenchRootDir,
+                man.Config.Apps[AppKeys.SevenZip].Exe,
+                CommandLine.FormatArgumentList(args.ToArray()),
+                ProcessMonitoring.ExitCode);
+            return result.ExitCode == 0;
+        }
+
+        /// <summary>
+        /// Copies all files from an extracted transfer package to a target directory and kicks-off the initialization.
+        /// </summary>
+        /// <param name="benchRoot">The directory of the extracted transfer package.</param>
+        /// <param name="targetDirectory">The directory to install the new Bench environment in.</param>
+        public static void InstallBenchEnvironment(string benchRoot, string targetDirectory)
+        {
+            FileSystem.CopyDir(benchRoot, targetDirectory, true);
+            LaunchRemoteSetup(targetDirectory);
+        }
+
+        /// <summary>
+        /// Creates a clone of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="man">The manager for the source Bench environment.</param>
+        /// <param name="targetDirectory">A directory to install the clone into.</param>
+        /// <param name="selection">A selection of directories and files to copy.</param>
+        public static bool CloneBenchEnvironment(IBenchManager man, string targetDirectory, TransferPaths selection)
+        {
+            var paths = man.Config.GetTransferPaths(selection);
+            try
+            {
+                foreach (var p in paths)
+                {
+                    var src = Path.Combine(man.Config.BenchRootDir, p);
+                    var trg = Path.Combine(targetDirectory, p);
+                    if (File.Exists(src))
+                    {
+                        FileSystem.AsureDir(Path.GetDirectoryName(trg));
+                        File.Copy(src, trg);
+                    }
+                    else if (Directory.Exists(src))
+                    {
+                        FileSystem.CopyDir(src, trg, true);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                man.UI.ShowError("clone", "Failed to clone the Bench environmnent files.",
+                    exception: e);
+                return false;
+            }
+            try
+            {
+                LaunchRemoteSetup(targetDirectory);
+            }
+            catch (Exception e)
+            {
+                man.UI.ShowError("clone", "Failed to start the initialization of the new Bench environment.",
+                    exception: e);
+                return false;
+            }
+            return true;
+        }
+
+        private static void LaunchRemoteSetup(string benchRoot)
+        {
+            var cliPath = Path.Combine(benchRoot, @"auto\bin\bench.exe");
+            if (File.Exists(cliPath))
+            {
+                Process.Start(cliPath, "--verbose manage initialize");
+            }
+            else
+            {
+                throw new FileNotFoundException("Could not find the Bench CLI in the target Bench environment.");
+            }
+        }
+
+        #endregion
+
     }
 }
