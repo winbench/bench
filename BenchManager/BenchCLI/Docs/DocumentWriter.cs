@@ -58,6 +58,78 @@ namespace Mastersign.Docs
             return this;
         }
 
+        public DocumentWriter AppendList(string separator, params IDocumentElements[] elements)
+        {
+            var first = true;
+            foreach (var e in elements)
+            {
+                if (!first) Text(separator);
+                first = false;
+                e.WriteTo(this);
+            }
+            return this;
+        }
+
+        public DocumentWriter AppendList(IDocumentElements separator, params IDocumentElements[] elements)
+        {
+            var first = true;
+            foreach (var e in elements)
+            {
+                if (!first) separator.WriteTo(this);
+                first = false;
+                e.WriteTo(this);
+            }
+            return this;
+        }
+
+        public DocumentWriter AppendList<T>(string separator, DocumentContentGenerator<T> generator, params T[] args)
+        {
+            var first = true;
+            foreach (var a in args)
+            {
+                if (!first) Text(separator);
+                first = false;
+                generator(this, a);
+            }
+            return this;
+        }
+
+        public DocumentWriter AppendList<T>(IDocumentElements separator, DocumentContentGenerator<T> generator, params T[] args)
+        {
+            var first = true;
+            foreach (var a in args)
+            {
+                if (!first) separator.WriteTo(this);
+                first = false;
+                generator(this, a);
+            }
+            return this;
+        }
+
+        public DocumentWriter AppendList<T>(string separator, DocumentContentGenerator<T> generator, IEnumerable<T> args)
+        {
+            var first = true;
+            foreach (var a in args)
+            {
+                if (!first) Text(separator);
+                first = false;
+                generator(this, a);
+            }
+            return this;
+        }
+
+        public DocumentWriter AppendList<T>(IDocumentElements separator, DocumentContentGenerator<T> generator, IEnumerable<T> args)
+        {
+            var first = true;
+            foreach (var a in args)
+            {
+                if (!first) separator.WriteTo(this);
+                first = false;
+                generator(this, a);
+            }
+            return this;
+        }
+
         public DocumentWriter Block(BlockType type, string format, params object[] args)
         {
             Begin(type);
