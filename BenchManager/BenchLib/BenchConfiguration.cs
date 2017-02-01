@@ -46,19 +46,20 @@ namespace Mastersign.Bench
     /// </remarks>
     public class BenchConfiguration : ResolvingPropertyCollection
     {
-        private const string AUTO_DIR = @"auto";
+        private const string AUTO_DIR = "auto";
+        private const string RES_DIR = "res";
         private const string BIN_DIR = AUTO_DIR + @"\bin";
         private const string SCRIPTS_DIR = AUTO_DIR + @"\lib";
 
         /// <summary>
         /// The relative path of the Bench configuration file.
         /// </summary>
-        public const string CONFIG_FILE = @"res\config.md";
+        public const string CONFIG_FILE = RES_DIR + @"\config.md";
 
         /// <summary>
         /// The relative path of the PowerShell API library file.
         /// </summary>
-        public const string MAIN_PS_LIB_FILE = @"auto\lib\bench.lib.ps1";
+        public const string MAIN_PS_LIB_FILE = SCRIPTS_DIR + @"\bench.lib.ps1";
 
         private static readonly string[] BENCH_CHECK_FILES = new[]
         {
