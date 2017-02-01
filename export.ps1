@@ -29,7 +29,7 @@ function Write-Config($trg)
 
     $w.WriteLine(";!@Install@!UTF-8!")
     $w.WriteLine("Title=`"Bench Transfer Package`"")
-    $w.WriteLine("BeginPrompt=`"Are you sure you want to extract and setup this Bench environment?`"")
+    $w.WriteLine("BeginPrompt=`"This is a pre-configured Bench environment. If you proceed, you will be asked for a target directory to extract and setup the Bench environment.\n\nWarning: Depending on the configuration of this Bench environment, the environment variables of your user profile may be modified.\n\nSee http://mastersign.github.io/bench/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?`"")
     $w.WriteLine("ExecuteFile=`"powershell.exe`"")
     $w.WriteLine("ExecuteParameters=`"-NoProfile -NoLogo -ExecutionPolicy Unrestricted -Command ( & \`".\\auto\\lib\\Initialize-ExportedBench.ps1\`" )`"")
     $w.Write(";!@InstallEnd@!")
