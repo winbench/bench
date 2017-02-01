@@ -243,6 +243,128 @@ namespace Mastersign.Bench
             LoadAppActivation();
         }
 
+        /// <summary>
+        /// Checks whether the home directory of this Bench environment 
+        /// can be transfered in case of an export or cloning.
+        /// </summary>
+        public bool CanTransferHomeDirectory
+            => GetBooleanValue(PropertyKeys.OverrideHome)
+            && GetStringValue(PropertyKeys.HomeDir)
+                .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <summary>
+        /// Checks whether the project directory of this Bench environment
+        /// can be transfered in case of an export or cloning.
+        /// </summary>
+        public bool CanTransferProjectDirectory
+            => GetStringValue(PropertyKeys.ProjectRootDir)
+                .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <summary>
+        /// Checks whether the cached app libraries of this Bench environment
+        /// can be transfered in case of an export or cloning.
+        /// </summary>
+        public bool CanTransferAppLibraryCache
+            => GetStringValue(PropertyKeys.AppLibsDownloadDir)
+                .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <summary>
+        /// Checks whether the cached app resources of this Bench environment
+        /// can be transfered in case of an export or cloning.
+        /// </summary>
+        public bool CanTransferAppResourceCache
+            => GetStringValue(PropertyKeys.DownloadDir)
+                .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <summary>
+        /// Returns an array with relative paths to the directories and files,
+        /// relevant for a transfer of the Bench environment.
+        /// </summary>
+        /// <returns>An array with relative paths.</returns>
+        public string[] GetTransferPaths(TransferPaths selection)
+        {
+            var result = new List<string>();
+            result.Add(AUTO_DIR);
+            result.Add(RES_DIR);
+            var licenseFile = "LICENSE.md";
+            if (File.Exists(Path.Combine(BenchRootDir, licenseFile)))
+            {
+                result.Add(licenseFile);
+            }
+            var changeLogFile = "CHANGELOG.md";
+            if (File.Exists(Path.Combine(BenchRootDir, changeLogFile)))
+            {
+                result.Add(changeLogFile);
+            }
+            if ((selection & TransferPaths.UserConfiguration) == TransferPaths.UserConfiguration)
+            {
+                result.Add(GetStringValue(PropertyKeys.CustomConfigDir));
+            }
+            if ((selection & TransferPaths.HomeDirectory) == TransferPaths.HomeDirectory &&
+                CanTransferHomeDirectory)
+            {
+                result.Add(GetStringValue(PropertyKeys.HomeDir));
+            }
+            if ((selection & TransferPaths.ProjectDirectory) == TransferPaths.ProjectDirectory &&
+                CanTransferProjectDirectory)
+            {
+                result.Add(GetStringValue(PropertyKeys.ProjectRootDir));
+            }
+            if ((selection & TransferPaths.AppLibraries) == TransferPaths.AppLibraries)
+            {
+                if (CanTransferAppLibraryCache)
+                {
+                    result.Add(GetStringValue(PropertyKeys.AppLibsDownloadDir));
+                }
+                result.Add(GetStringValue(PropertyKeys.AppLibsDir));
+            }
+            if (CanTransferAppResourceCache)
+            {
+                if ((selection & TransferPaths.AppResourceCache) == TransferPaths.AppResourceCache)
+                {
+                    result.Add(GetStringValue(PropertyKeys.DownloadDir));
+                }
+                else if ((selection & TransferPaths.RequiredAppResourceCache) == TransferPaths.RequiredAppResourceCache)
+                {
+                    foreach (var a in Apps.RequiredApps)
+                    {
+                        if (a.HasResource && a.IsResourceCached)
+                        {
+                            result.Add(Path.Combine(
+                                GetStringValue(PropertyKeys.DownloadDir),
+                                a.ResourceFileName ?? a.ResourceArchiveName));
+                        }
+                    }
+                }
+            }
+            if ((selection & TransferPaths.Apps) == TransferPaths.Apps)
+            {
+                result.Add(GetStringValue(PropertyKeys.LibDir));
+            }
+            else if ((selection & TransferPaths.RequiredApps) == TransferPaths.RequiredApps)
+            {
+                foreach (var a in Apps.RequiredApps)
+                {
+                    if (a.Typ == AppTyps.Default &&
+                        a.CanCheckInstallation &&
+                        a.IsInstalled &&
+                        !string.IsNullOrEmpty(a.Dir))
+                    {
+                        result.Add(a.Dir);
+                    }
+                }
+            }
+            for (int i = 0; i < result.Count; i++)
+            {
+                if (result[i].StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result[i] = result[i].Substring(BenchRootDir.Length)
+                        .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                }
+            }
+            return result.ToArray();
+        }
+
         private static string[] FindSiteConfigFiles(string benchRootDir, string fileName)
         {
             var results = new List<string>();

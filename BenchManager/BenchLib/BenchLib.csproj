@@ -109,6 +109,7 @@
     <Compile Include="TaskInfo.cs" />
     <Compile Include="TaskInfoLogger.cs" />
     <Compile Include="TaskResult.cs" />
+    <Compile Include="TransferPaths.cs" />
     <Compile Include="UI\AppSelectionStepControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
