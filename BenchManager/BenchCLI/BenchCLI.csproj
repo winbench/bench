@@ -71,6 +71,9 @@
     <Compile Include="Commands\AppListPropertiesCommand.cs" />
     <Compile Include="Commands\AppInfoCommand.cs" />
     <Compile Include="Commands\AppPropertyCommand.cs" />
+    <Compile Include="Commands\TransferCloneCommand.cs" />
+    <Compile Include="Commands\TransferCommandBase.cs" />
+    <Compile Include="Commands\TransferExportCommand.cs" />
     <Compile Include="Commands\ConfigCommand.cs" />
     <Compile Include="Commands\ConfigGetCommand.cs" />
     <Compile Include="Commands\ListAppLibrariesCommand.cs" />
@@ -86,6 +89,8 @@
     <Compile Include="Commands\ProjectCommand.cs" />
     <Compile Include="Commands\ReinstallCommand.cs" />
     <Compile Include="Commands\RenewCommand.cs" />
+    <Compile Include="Commands\TransferCommand.cs" />
+    <Compile Include="Commands\TransferInstallCommand.cs" />
     <Compile Include="Commands\UpdateCommand.cs" />
     <Compile Include="Commands\UpdateEnvironmentCommand.cs" />
     <Compile Include="Commands\LoadAppLibrariesCommand.cs" />

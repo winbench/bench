@@ -8,6 +8,7 @@ namespace Mastersign.Bench.Cli
 {
     class Program
     {
+        [STAThread]
         static int Main(string[] args)
         {
             var controller = new RootCommand();

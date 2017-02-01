@@ -19,6 +19,7 @@ namespace Mastersign.Bench.Cli.Commands
         private readonly BenchCommand listCommand = new ListCommand();
         private readonly BenchCommand dashboardCommand = new DashboardCommand();
         private readonly BenchCommand manageCommand = new ManageCommand();
+        private readonly BenchCommand transferCommand = new TransferCommand();
         private readonly BenchCommand appCommand = new AppCommand();
         private readonly BenchCommand projectCommand = new ProjectCommand();
 
@@ -56,6 +57,7 @@ namespace Mastersign.Bench.Cli.Commands
             RegisterSubCommand(listCommand);
             RegisterSubCommand(dashboardCommand);
             RegisterSubCommand(manageCommand);
+            RegisterSubCommand(transferCommand);
             RegisterSubCommand(appCommand);
             RegisterSubCommand(projectCommand);
         }
@@ -122,6 +124,10 @@ namespace Mastersign.Bench.Cli.Commands
             commandManage.Description
                 .Text("Manage the Bench environment and its configuration.");
 
+            var commandTransfer = new CommandArgument(transferCommand.Name, 't');
+            commandTransfer.Description
+                .Text("Copy or export this Bench environment.");
+
             var commandApp = new CommandArgument(appCommand.Name, 'a');
             commandApp.Description
                 .Text("Manage individual apps.");
@@ -145,6 +151,7 @@ namespace Mastersign.Bench.Cli.Commands
                 commandHelp,
                 commandList,
                 commandManage,
+                commandTransfer,
                 commandDashboard,
                 commandApp,
                 commandProject);
