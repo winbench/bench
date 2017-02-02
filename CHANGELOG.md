@@ -29,10 +29,12 @@ Add a link to the GitHub diff like
 
 [0.14.1]: https://github.com/mastersign/bench/compare/v0.14.0...v0.14.1
 
+### Added
+- Ruby and LaTeX groups to initialization wizzard
+- `UseRegistryIsolation` property to user configuration template
+
 ### Changed
 - Removed _Yeoman_ from pre-selected apps
-- Added Ruby and LaTeX groups to initialization wizzard
-- Added `UseRegistryIsolation` property to user configuration template
 - Moved default app library from user configuration template to Bench configuration
 
 ### Fixed
