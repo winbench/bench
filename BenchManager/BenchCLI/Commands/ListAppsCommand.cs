@@ -34,7 +34,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         private static readonly AppSet DEF_SET = AppSet.All;
         private static readonly string DEF_PROPERTIES = string.Join(",",
-            new[] { "ID", PropertyKeys.AppLabel, PropertyKeys.AppVersion, PropertyKeys.AppIsActive });
+            new[] { "ID", AppPropertyKeys.Label, AppPropertyKeys.Version, AppPropertyKeys.IsActive });
         private static readonly string DEF_FILTER = string.Empty;
         private static readonly string DEF_SORT_BY = "ID";
 

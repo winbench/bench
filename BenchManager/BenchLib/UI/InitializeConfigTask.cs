@@ -18,16 +18,16 @@ namespace Mastersign.Bench.UI
         private readonly BenchConfiguration config;
 
         public InitializeConfigTask(BenchConfiguration config,
-            bool initSiteConfig, bool initCustomConfig)
+            bool initSiteConfig, bool initUserConfig)
         {
             this.config = config;
             InitSiteConfig = initSiteConfig;
-            InitCustomConfig = initCustomConfig;
+            InitUserConfig = initUserConfig;
         }
 
         public bool InitSiteConfig { get; private set; }
 
-        public bool InitCustomConfig { get; private set; }
+        public bool InitUserConfig { get; private set; }
 
         public override WizzardStepControl[] StepControls
         {
@@ -39,7 +39,7 @@ namespace Mastersign.Bench.UI
                     steps.Add(stepProxy);
                     steps.Add(stepUserIdentification);
                 }
-                if (InitCustomConfig)
+                if (InitUserConfig)
                 {
                     steps.Add(stepExistingConfig);
                     steps.Add(stepAppSeletion);
@@ -60,26 +60,26 @@ namespace Mastersign.Bench.UI
                 stepProxy.UseProxy = proxyInfo.UseProxy; // config.GetBooleanValue(PropertyKeys.UseProxy);
                 stepProxy.HttpProxy = proxyInfo.HttpProxyAddress; // config.GetStringValue(PropertyKeys.HttpProxy);
                 stepProxy.HttpsProxy = proxyInfo.HttpsProxyAddress; //  config.GetStringValue(PropertyKeys.HttpsProxy);
-                stepProxy.ProxyBypass = config.GetStringListValue(PropertyKeys.ProxyBypass);
+                stepProxy.ProxyBypass = config.GetStringListValue(ConfigPropertyKeys.ProxyBypass);
 
                 stepUserIdentification = new UserIdentificationStepControl();
-                stepUserIdentification.UserName = config.GetStringValue(PropertyKeys.UserName);
-                stepUserIdentification.UserEmail = config.GetStringValue(PropertyKeys.UserEmail);
+                stepUserIdentification.UserName = config.GetStringValue(ConfigPropertyKeys.UserName);
+                stepUserIdentification.UserEmail = config.GetStringValue(ConfigPropertyKeys.UserEmail);
             }
-            if (InitCustomConfig)
+            if (InitUserConfig)
             {
                 stepExistingConfig = new ExistingConfigStepControl();
                 stepExistingConfig.IsConfigGitRepoExisting = false;
 
                 stepAppSeletion = new AppSelectionStepControl();
                 stepAppSeletion.InitializeStepControl(
-                    Seq(config.GetStringListValue(PropertyKeys.WizzardApps))
+                    Seq(config.GetStringListValue(ConfigPropertyKeys.WizzardApps))
                     .Map(DictionaryValueResolver.ParseKeyValuePair)
                     .ToArray());
             }
             stepAdvanced = new AdvancedStepControl();
             stepAdvanced.StartAutoSetup = config.GetBooleanValue(
-                PropertyKeys.WizzardStartAutoSetup, true);
+                ConfigPropertyKeys.WizzardStartAutoSetup, true);
         }
 
         public override void After()
@@ -90,16 +90,16 @@ namespace Mastersign.Bench.UI
                 foreach (var e in stepProxy.ProxyBypass) bypassList.Add("`" + e + "`");
                 var updates = new Dictionary<string, string>
                     {
-                        { PropertyKeys.UserName, stepUserIdentification.UserName },
-                        { PropertyKeys.UserEmail, stepUserIdentification.UserEmail },
-                        { PropertyKeys.UseProxy, stepProxy.UseProxy ? "true" : "false" },
-                        { PropertyKeys.HttpProxy, stepProxy.HttpProxy },
-                        { PropertyKeys.HttpsProxy, stepProxy.HttpsProxy },
-                        { PropertyKeys.ProxyBypass, string.Join(", ", bypassList.ToArray()) },
+                        { ConfigPropertyKeys.UserName, stepUserIdentification.UserName },
+                        { ConfigPropertyKeys.UserEmail, stepUserIdentification.UserEmail },
+                        { ConfigPropertyKeys.UseProxy, stepProxy.UseProxy ? "true" : "false" },
+                        { ConfigPropertyKeys.HttpProxy, stepProxy.HttpProxy },
+                        { ConfigPropertyKeys.HttpsProxy, stepProxy.HttpsProxy },
+                        { ConfigPropertyKeys.ProxyBypass, string.Join(", ", bypassList.ToArray()) },
                     };
-                var siteConfigTemplateFile = config.GetStringValue(PropertyKeys.SiteConfigTemplateFile);
+                var siteConfigTemplateFile = config.GetStringValue(ConfigPropertyKeys.SiteConfigTemplateFile);
                 var defaultSiteConfigFile = Path.Combine(config.BenchRootDir,
-                    config.GetStringValue(PropertyKeys.SiteConfigFileName));
+                    config.GetStringValue(ConfigPropertyKeys.SiteConfigFileName));
                 if (File.Exists(defaultSiteConfigFile))
                 {
                     var backupFile = defaultSiteConfigFile + ".bak";
@@ -111,19 +111,19 @@ namespace Mastersign.Bench.UI
                 File.Copy(siteConfigTemplateFile, defaultSiteConfigFile, false);
                 MarkdownPropertyEditor.UpdateFile(defaultSiteConfigFile, updates);
             }
-            if (InitCustomConfig)
+            if (InitUserConfig)
             {
                 if (stepExistingConfig.IsConfigGitRepoExisting)
                 {
-                    config.SetValue(PropertyKeys.CustomConfigRepository, stepExistingConfig.ConfigGitRepo);
+                    config.SetValue(ConfigPropertyKeys.UserConfigRepository, stepExistingConfig.ConfigGitRepo);
                 }
                 else
                 {
-                    config.SetValue(PropertyKeys.CustomConfigRepository, (object)null);
+                    config.SetValue(ConfigPropertyKeys.UserConfigRepository, (object)null);
                 }
-                config.SetValue(PropertyKeys.WizzardSelectedApps, stepAppSeletion.SelectedApps);
+                config.SetValue(ConfigPropertyKeys.WizzardSelectedApps, stepAppSeletion.SelectedApps);
             }
-            config.SetValue(PropertyKeys.WizzardStartAutoSetup, stepAdvanced.StartAutoSetup);
+            config.SetValue(ConfigPropertyKeys.WizzardStartAutoSetup, stepAdvanced.StartAutoSetup);
 
             base.After();
         }

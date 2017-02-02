@@ -26,9 +26,9 @@ namespace Mastersign.Bench
             {
                 switch (name)
                 {
-                    case PropertyKeys.KnownLicenses:
+                    case ConfigPropertyKeys.KnownLicenses:
                         return ParseKeyValuePairs(value);
-                    case PropertyKeys.CustomEnvironment:
+                    case ConfigPropertyKeys.CustomEnvironment:
                         return ParseKeyValuePairs(value);
                     default:
                         return value;
@@ -38,13 +38,13 @@ namespace Mastersign.Bench
             {
                 switch (name)
                 {
-                    case PropertyKeys.AppDocs:
+                    case AppPropertyKeys.Docs:
                         return ParseKeyValuePairs(value);
-                    case PropertyKeys.AppDownloadHeaders:
+                    case AppPropertyKeys.DownloadHeaders:
                         return ParseKeyValuePairs(value);
-                    case PropertyKeys.AppDownloadCookies:
+                    case AppPropertyKeys.DownloadCookies:
                         return ParseKeyValuePairs(value);
-                    case PropertyKeys.AppEnvironment:
+                    case AppPropertyKeys.Environment:
                         return ParseKeyValuePairs(value);
                     default:
                         return value;

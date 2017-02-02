@@ -51,7 +51,7 @@ namespace Mastersign.Bench.Cli.Commands
                 return false;
             }
 
-            var activationFile = cfg.GetStringValue(PropertyKeys.AppActivationFile);
+            var activationFile = cfg.GetStringValue(ConfigPropertyKeys.AppActivationFile);
             if (!File.Exists(activationFile))
             {
                 WriteError("The activation file for apps was not found.");
@@ -59,7 +59,7 @@ namespace Mastersign.Bench.Cli.Commands
                 return false;
             }
             WriteDetail("Found activation file: " + activationFile);
-            var deactivationFile = cfg.GetStringValue(PropertyKeys.AppDeactivationFile);
+            var deactivationFile = cfg.GetStringValue(ConfigPropertyKeys.AppDeactivationFile);
             if (!File.Exists(deactivationFile))
             {
                 WriteError("The deactivation file for apps was not found.");

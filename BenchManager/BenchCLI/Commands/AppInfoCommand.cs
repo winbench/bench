@@ -138,7 +138,7 @@ namespace Mastersign.Bench.Cli.Commands
             if (app.IsResourceCached)
             {
                 WriteProperty(writer, "Cached Resource",
-                    Path.Combine(config.GetStringValue(PropertyKeys.DownloadDir),
+                    Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsCacheDir),
                         app.ResourceArchiveName ?? app.ResourceFileName),
                     InlineType.Keyword);
             }

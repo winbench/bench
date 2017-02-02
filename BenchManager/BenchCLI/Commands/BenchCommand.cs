@@ -54,7 +54,7 @@ namespace Mastersign.Bench.Cli.Commands
         protected BenchConfiguration LoadConfiguration(bool withApps = true)
         {
             var cfg = new BenchConfiguration(RootPath, withApps, true, true);
-            if (LogFile != null) cfg.SetValue(PropertyKeys.LogFile, LogFile);
+            if (LogFile != null) cfg.SetValue(ConfigPropertyKeys.LogFile, LogFile);
             return cfg;
         }
 

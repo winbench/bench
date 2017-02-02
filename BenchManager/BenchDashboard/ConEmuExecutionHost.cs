@@ -27,7 +27,7 @@ namespace Mastersign.Bench.Dashboard
         private ConEmuSession currentSession;
 
         public ConEmuExecutionHost(Core core, ConEmuControl control, string conEmuExe)
-            : base(core.Config.BenchRootDir, core.Config.GetStringValue(PropertyKeys.BenchScripts))
+            : base(core.Config.BenchRootDir, core.Config.GetStringValue(ConfigPropertyKeys.BenchScripts))
         {
             this.core = core;
             this.control = control;

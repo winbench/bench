@@ -5,9 +5,9 @@ using System.Text;
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// This class contains string constants for all configuration and app properties.
+    /// This class contains string constants for all configuration properties.
     /// </summary>
-    public static class PropertyKeys
+    public static class ConfigPropertyKeys
     {
 #pragma warning disable CS1591 // warning for missing XML doc comment
 
@@ -28,19 +28,19 @@ namespace Mastersign.Bench
         public const string BenchBin = "BenchBin";
         public const string BenchScripts = "BenchScripts";
 
-        public const string CustomConfigDir = "CustomConfigDir";
-        public const string CustomConfigFile = "CustomConfigFile";
-        public const string CustomConfigTemplateFile = "CustomConfigTemplateFile";
-        public const string CustomConfigRepository = "CustomConfigRepository";
+        public const string UserConfigDir = "UserConfigDir";
+        public const string UserConfigFile = "UserConfigFile";
+        public const string UserConfigTemplateFile = "UserConfigTemplateFile";
+        public const string UserConfigRepository = "UserConfigRepository";
         public const string SiteConfigFileName = "SiteConfigFileName";
         public const string SiteConfigTemplateFile = "SiteConfigTemplateFile";
 
-        public const string CustomAppIndexTemplateFile = "CustomAppIndexTemplateFile";
+        public const string UserAppIndexTemplateFile = "UserAppIndexTemplateFile";
         public const string AppActivationFile = "AppActivationFile";
         public const string AppActivationTemplateFile = "AppActivationTemplateFile";
         public const string AppDeactivationFile = "AppDeactivationFile";
         public const string AppDeactivationTemplateFile = "AppDeactivationTemplateFile";
-        public const string AppVersionIndexDir = "AppVersionIndexDir";
+        public const string AppsVersionIndexDir = "AppsVersionIndexDir";
 
         public const string WizzardStartAutoSetup = "WizzardStartAutoSetup";
         public const string WizzardApps = "WizzardApps";
@@ -55,11 +55,12 @@ namespace Mastersign.Bench
         public const string ConEmuConfigTemplateFile = "ConEmuConfigTemplateFile";
 
         public const string TempDir = "TempDir";
-        public const string DownloadDir = "DownloadDir";
-        public const string LibDir = "LibDir";
+        public const string CacheDir = "CacheDir";
+        public const string AppsCacheDir = "AppsCacheDir";
+        public const string AppsInstallDir = "AppsInstallDir";
         public const string AppLibs = "AppLibs";
-        public const string AppLibsDir = "AppLibsDir";
-        public const string AppLibsDownloadDir = "AppLibsDownloadDir";
+        public const string AppLibsInstallDir = "AppLibsInstallDir";
+        public const string AppLibsCacheDir = "AppLibsCacheDir";
         public const string AppLibIndexFileName = "AppLibIndexFileName";
         public const string AppLibCustomScriptDirName = "AppLibCustomScriptDirName";
         public const string AppLibResourceDirName = "AppLibResourceDirName";
@@ -67,8 +68,8 @@ namespace Mastersign.Bench
         public const string LogDir = "LogDir";
         public const string LogFile = "LogFile";
         public const string LogLevel = "LogLevel";
-        public const string AppAdornmentBaseDir = "AppAdornmentBaseDir";
-        public const string AppRegistryBaseDir = "AppRegistryBaseDir";
+        public const string AppsAdornmentBaseDir = "AppsAdornmentBaseDir";
+        public const string AppsRegistryBaseDir = "AppsRegistryBaseDir";
         public const string LauncherDir = "LauncherDir";
         public const string LauncherScriptDir = "LauncherScriptDir";
         public const string HomeDir = "HomeDir";
@@ -95,55 +96,6 @@ namespace Mastersign.Bench
 
         public const string TextEditorApp = "TextEditorApp";
         public const string MarkdownEditorApp = "MarkdownEditorApp";
-
-        // Common App Properties
-
-        public const string AppIsActive = "IsActive";
-        public const string AppIsActivated = "IsActivated";
-        public const string AppIsDeactivated = "IsDeactivated";
-        public const string AppIsRequired = "IsRequired";
-        public const string AppIsDependency = "IsDependency";
-        public const string AppLabel = "Label";
-        public const string AppTyp = "Typ";
-        public const string AppVersion = "Version";
-        public const string AppInstalledVersion = "InstalledVersion";
-        public const string AppWebsite = "Website";
-        public const string AppDocs = "Docs";
-        public const string AppLicense = "License";
-        public const string AppLicenseUrl = "LicenseUrl";
-        public const string AppDependencies = "Dependencies";
-        public const string AppResponsibilities = "Responsibilities";
-        public const string AppForce = "Force";
-        public const string AppDir = "Dir";
-        public const string AppPath = "Path";
-        public const string AppRegister = "Register";
-        public const string AppEnvironment = "Environment";
-        public const string AppExe = "Exe";
-        public const string AppAdornedExecutables = "AdornedExecutables";
-        public const string AppRegistryKeys = "RegistryKeys";
-        public const string AppExeTest = "ExeTest";
-        public const string AppExeTestArguments = "ExeTestArguments";
-        public const string AppLauncher = "Launcher";
-        public const string AppLauncherExecutable = "LauncherExecutable";
-        public const string AppLauncherArguments = "LauncherArguments";
-        public const string AppLauncherIcon = "LauncherIcon";
-
-        // Default App Properties
-
-        public const string AppHasResource = "HasResource";
-        public const string AppIsResourceCached = "IsResourceCached";
-        public const string AppUrl = "Url";
-        public const string AppDownloadHeaders = "DownloadHeaders";
-        public const string AppDownloadCookies = "DownloadCookies";
-        public const string AppResourceName = "ResourceName";
-        public const string AppArchiveName = "ArchiveName";
-        public const string AppArchiveTyp = "ArchiveTyp";
-        public const string AppArchivePath = "ArchivePath";
-        public const string AppSetupTestFile = "SetupTestFile";
-
-        // Package App Properties
-
-        public const string AppPackageName = "PackageName";
 
 #pragma warning restore CS1591 // warning for missing XML doc comment
     }

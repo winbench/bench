@@ -102,7 +102,7 @@ The placeholder `#VERSION#` in the URL template will be replaced
 by the version number of the targeted Bench release,
 to generate the actual URL.
 
-### CustomConfigDir {#CustomConfigDir}
+### UserConfigDir {#UserConfigDir}
 
 * Description: The path to the directory with the user configuration (`config.md`, `apps-activated.txt`, ...) is stored.
 * Data Type: path
@@ -111,16 +111,16 @@ to generate the actual URL.
 
 The user configuration directory is designed in a way, that is can be easily put under version control.
 
-### CustomConfigFile {#CustomConfigFile}
+### UserConfigFile {#UserConfigFile}
 
 * Description: The path to the user configuration file.
 * Data Type: path
-* Default: `$CustomConfigDir$\config.md`
+* Default: `$UserConfigDir$\config.md`
 * Type: System
 
 The specified file must be a Markdown file and follow the [Markdown list syntax][syntax].
 
-### CustomConfigTemplateFile {#CustomConfigTemplateFile}
+### UserConfigTemplateFile {#UserConfigTemplateFile}
 
 * Description: The path to the user configuration template file,
   which is copied during the Bench setup in case no user configuration exists.
@@ -177,18 +177,32 @@ For starters the following list of app libraries is advised:
     + `default`: `github:mastersign/bench-apps-default`
 ```
 
-### AppLibsDir {#AppLibsDir}
+### AppLibsInstallDir {#AppLibsInstallDir}
 
 * Description: The path of the directory, where to load the app libraries.
 * Data Type: path
-* Default: `$LibDir$\_applibs`
+* Default: `$LibDir$\applibs`
 * Type: System
 
-### AppLibsDownloadDir {#AppLibsDownloadDir}
+### CacheDir {#CacheDir}
 
-* Description: The path of the directory, downloaded app libraries are cached.
+* Description: The path of the directory, where downloaded files are cached.
 * Data Type: path
-* Default: `$DownloadDir$\_applibs`
+* Default: `cache`
+* Type: System
+
+### AppLibsCacheDir {#AppLibsDownloadDir}
+
+* Description: The path of the directory, where downloaded app libraries are cached.
+* Data Type: path
+* Default: `$CacheDir$\applibs`
+* Type: System
+
+### AppsCacheDir {#AppsCacheDir}
+
+* Description: The path of the directory, where downloaded app resources are cached.
+* Data Type: path
+* Default: `$CacheDir$\apps`
 * Type: System
 
 ### AppLibIndexFileName {#AppLibIndexFileName}
@@ -222,7 +236,7 @@ It is used from custom scripts to retrieve paths to resources, e.g. during the a
 
 * Description: The path to a file with a list of activated apps.
 * Data Type: path
-* Default: `$CustomConfigDir$\apps-activated.txt`
+* Default: `$UserConfigDir$\apps-activated.txt`
 * Type: System
 
 The specified file must be an UTF8 encoded text file.
@@ -241,7 +255,7 @@ Only non-space characters, up to the first space or the end of a line, are consi
 
 * Description: The path to a file with a list of deactivated apps.
 * Data Type: path
-* Default: `$CustomConfigDir$\apps-deactivated.txt`
+* Default: `$UserConfigDir$\apps-deactivated.txt`
 * Type: System
 
 The specified file must be an UTF8 encoded text file.
@@ -256,7 +270,7 @@ Only non-space characters, up to the first space or the end of a line, are consi
 * Default: `res\apps-deactivated.template.txt`
 * Type: System
 
-### CustomAppIndexTemplateFile {#CustomAppIndexTemplateFile}
+### UserAppIndexTemplateFile {#UserAppIndexTemplateFile}
 
 * Description: The path to the user app library template file,
   which is copied during the Bench setup in case no user configuration exists.
@@ -268,7 +282,7 @@ Only non-space characters, up to the first space or the end of a line, are consi
 
 * Description: The path to the ConEmu configuration, used in the Bench Dashboard.
 * Data Type: path
-* Default: `$CustomConfigDir$\ConEmu.xml`
+* Default: `$UserConfigDir$\ConEmu.xml`
 * Type: System
 
 ### ConEmuConfigTemplateFile {#ConEmuConfigTemplateFile}
@@ -281,9 +295,16 @@ Only non-space characters, up to the first space or the end of a line, are consi
 
 ### LibDir {#LibDir}
 
-* Description: The path to the base directory where Bench apps are installed.
+* Description: The path to the base directory for files downloaded and installed by Bench.
 * Data Type: path
 * Default: `lib`
+* Type: System
+
+### AppsInstallDir {#AppsInstallDir}
+
+* Description: The path to the base directory where Bench apps are installed.
+* Data Type: path
+* Default: `$LibDir$\apps`
 * Type: System
 
 ### Website {#Website}
@@ -292,13 +313,6 @@ Only non-space characters, up to the first space or the end of a line, are consi
 * Data Type: URL
 * Default: <http://mastersign.github.io/bench>
 * Type: System
-
-### WizzardEditCustomConfigBeforeSetup {#WizzardEditCustomConfigBeforeSetup}
-
-* Description: A temporary switch which is used during the Bench setup process.
-* Data Type: boolean
-* Default: `false`
-* Type: Temporary
 
 ### WizzardApps {#WizzardApps}
 
@@ -420,29 +434,36 @@ and in custom scripts e.g. from [Git](/apps/Bench.Git).
 If the app property `License` is set to an SPDX identifier listed in this
 dictionary, the app property `LicenseUrl` defaults to the associated URL.
 
-### AppVersionIndexDir {#AppVersionIndexDir}
+### AppsVersionIndexDir {#AppsVersionIndexDir}
 
 * Description: The directory to store the currently installed version numbers of the apps.
 * Data Type: path
-* Default: `$LibDir$\_versions`
+* Default: `$LibDir$\versions`
 * Type: User/Site
 
-### DownloadDir {#DownloadDir}
+### CacheDir {#CacheDir}
 
-* Description: The path to the directory where downloaded app resources are cached.
+* Description: The path to the directory where downloaded files are cached.
 * Data Type: path
 * Default: `cache`
 * Type: User/Site
 
-### AppAdornmentBaseDir {#AppAdornmentBaseDir}
+### AppsCacheDir {#AppsCacheDir}
+
+* Description: The path to the directory where downloaded app resources are cached.
+* Data Type: path
+* Default: `$CacheDir$\apps`
+* Type: User/Site
+
+### AppsAdornmentBaseDir {#AppsAdornmentBaseDir}
 
 * Description: The path to the directory where wrapper scripts are stored,
-  which allow the adornment of an app execution.
+  which allow the adornment of app executions.
 * Data Type: path
-* Default: `$LibDir$\_proxies`
+* Default: `$LibDir$\proxies`
 * Type: User
 
-### AppRegistryBaseDir {#AppRegistryBaseDir}
+### AppsRegistryBaseDir {#AppsRegistryBaseDir}
 
 * Description: The path to the directory where registry backups
   for the app isolation mechanism are stored.

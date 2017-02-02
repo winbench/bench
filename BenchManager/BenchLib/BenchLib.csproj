@@ -61,6 +61,7 @@
     <Compile Include="AppIndexDefaultValueSource.cs" />
     <Compile Include="AppIndexFacade.cs" />
     <Compile Include="AppLibrary.cs" />
+    <Compile Include="AppPropertyKeys.cs" />
     <Compile Include="ConfigurationFile.cs" />
     <Compile Include="ConfigurationFileType.cs" />
     <Compile Include="DictionaryValueResolver.cs" />
@@ -171,7 +172,7 @@
     <Compile Include="PathResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupedPropertyCollection.cs" />
-    <Compile Include="PropertyKeys.cs" />
+    <Compile Include="ConfigPropertyKeys.cs" />
     <Compile Include="ResolvingPropertyCollection.cs" />
     <Compile Include="IUserInterface.cs" />
     <Compile Include="VariableResolver.cs" />

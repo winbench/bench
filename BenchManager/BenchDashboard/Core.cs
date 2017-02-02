@@ -238,7 +238,7 @@ namespace Mastersign.Bench.Dashboard
 
         public void SetAppActivated(string appId, bool value)
         {
-            var activationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppActivationFile));
+            var activationFile = new ActivationFile(Config.GetStringValue(ConfigPropertyKeys.AppActivationFile));
             if (value)
                 activationFile.SignIn(appId);
             else
@@ -247,7 +247,7 @@ namespace Mastersign.Bench.Dashboard
 
         public void SetAppDeactivated(string appId, bool value)
         {
-            var deactivationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppDeactivationFile));
+            var deactivationFile = new ActivationFile(Config.GetStringValue(ConfigPropertyKeys.AppDeactivationFile));
             if (value)
                 deactivationFile.SignIn(appId);
             else
@@ -756,7 +756,7 @@ namespace Mastersign.Bench.Dashboard
             get
             {
                 return Path.Combine(
-                    Config.GetStringGroupValue(AppKeys.Git, PropertyKeys.AppDir),
+                    Config.GetStringGroupValue(AppKeys.Git, AppPropertyKeys.Dir),
                     @"bin\bash.exe");
             }
         }

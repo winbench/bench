@@ -53,7 +53,7 @@ namespace Mastersign.Bench
         /// Gets an absolute path to the base directory of the app library.
         /// </summary>
         public string BaseDir => Path.Combine(
-            config.GetStringValue(PropertyKeys.AppLibsDir),
+            config.GetStringValue(ConfigPropertyKeys.AppLibsInstallDir),
             ID.ToLowerInvariant());
     }
 }

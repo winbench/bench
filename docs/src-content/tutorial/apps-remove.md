@@ -60,8 +60,8 @@ But be aware, that apps, depending on this deactivated app,
 propably will not work properly.
 
 If you want to get rid of downloaded app resources to free up disk space,
-just locate them in the [download cache](/ref/file-structure/#cache-dir) directory
-`cache` and delete them.
+just locate them in the [download cache](/ref/file-structure/#cache-apps-dir) directory
+`cache\apps` and delete them.
 
 To kick-off the deinstallation of apps which are installed, but not activated,
 run the [Bench CLI][] with the [setup action](/ref/bench-cli/#cmd_bench-manage-setup).

@@ -108,9 +108,9 @@ namespace Mastersign.Bench
         public bool WithAppIndex { get; private set; }
 
         /// <summary>
-        /// A flag which indicates if the custom configuration was loaded during initialization of the <see cref="BenchConfiguration"/>.
+        /// A flag which indicates if the user configuration was loaded during initialization of the <see cref="BenchConfiguration"/>.
         /// </summary>
-        public bool WithCustomConfiguration { get; private set; }
+        public bool WithUserConfiguration { get; private set; }
 
         /// <summary>
         /// A flag which indicates if the site configuration was loaded during the initialization of the <see cref="BenchConfiguration"/>.
@@ -133,13 +133,13 @@ namespace Mastersign.Bench
         /// </summary>
         /// <param name="benchRootDir">The absolute path to the root directory of Bench.</param>
         /// <param name="loadAppIndex">A flag to control if app library files are going to be loaded.</param>
-        /// <param name="loadCustomConfiguration">A flag to control if custom configuration files are going to be loaded.</param>
+        /// <param name="loadUserConfiguration">A flag to control if user configuration files are going to be loaded.</param>
         /// <param name="loadSiteConfiguration">A flag to control if site configuration files are going to be loaded.</param>
-        public BenchConfiguration(string benchRootDir, bool loadAppIndex, bool loadCustomConfiguration, bool loadSiteConfiguration)
+        public BenchConfiguration(string benchRootDir, bool loadAppIndex, bool loadUserConfiguration, bool loadSiteConfiguration)
         {
             BenchRootDir = benchRootDir;
             WithAppIndex = loadAppIndex;
-            WithCustomConfiguration = loadCustomConfiguration;
+            WithUserConfiguration = loadUserConfiguration;
             WithSiteConfiguration = loadSiteConfiguration;
             AddResolver(new GroupedVariableResolver(this));
             AddResolver(new VariableResolver(this));
@@ -165,18 +165,18 @@ namespace Mastersign.Bench
                 parser.Parse(configStream);
             }
 
-            siteConfigFileName = GetStringValue(PropertyKeys.SiteConfigFileName);
+            siteConfigFileName = GetStringValue(ConfigPropertyKeys.SiteConfigFileName);
 
-            if (loadCustomConfiguration)
+            if (loadUserConfiguration)
             {
-                var customConfigFile = GetStringValue(PropertyKeys.CustomConfigFile);
-                Debug.WriteLine("Looking for custom config file: " + customConfigFile);
-                if (File.Exists(customConfigFile))
+                var userConfigFile = GetStringValue(ConfigPropertyKeys.UserConfigFile);
+                Debug.WriteLine("Looking for user config file: " + userConfigFile);
+                if (File.Exists(userConfigFile))
                 {
-                    using (var customConfigStream = File.OpenRead(customConfigFile))
+                    using (var userConfigStream = File.OpenRead(userConfigFile))
                     {
-                        Debug.WriteLine("Reading custom configuration ...");
-                        parser.Parse(customConfigStream);
+                        Debug.WriteLine("Reading user configuration ...");
+                        parser.Parse(userConfigStream);
                     }
                 }
             }
@@ -199,7 +199,7 @@ namespace Mastersign.Bench
             {
                 foreach (var l in AppLibraries)
                 {
-                    var appIndexFile = Path.Combine(l.BaseDir, GetStringValue(PropertyKeys.AppLibIndexFileName));
+                    var appIndexFile = Path.Combine(l.BaseDir, GetStringValue(ConfigPropertyKeys.AppLibIndexFileName));
                     Debug.WriteLine("Looking for app library index: " + appIndexFile);
                     if (File.Exists(appIndexFile))
                     {
@@ -217,11 +217,11 @@ namespace Mastersign.Bench
                     }
                 }
 
-                if (loadCustomConfiguration)
+                if (loadUserConfiguration)
                 {
                     var customAppIndexFile = Path.Combine(
-                        GetStringValue(PropertyKeys.CustomConfigDir),
-                        GetStringValue(PropertyKeys.AppLibIndexFileName));
+                        GetStringValue(ConfigPropertyKeys.UserConfigDir),
+                        GetStringValue(ConfigPropertyKeys.AppLibIndexFileName));
                     Debug.WriteLine("Looking for custom app library index: " + customAppIndexFile);
                     if (File.Exists(customAppIndexFile))
                     {
@@ -248,8 +248,8 @@ namespace Mastersign.Bench
         /// can be transfered in case of an export or cloning.
         /// </summary>
         public bool CanTransferHomeDirectory
-            => GetBooleanValue(PropertyKeys.OverrideHome)
-            && GetStringValue(PropertyKeys.HomeDir)
+            => GetBooleanValue(ConfigPropertyKeys.OverrideHome)
+            && GetStringValue(ConfigPropertyKeys.HomeDir)
                 .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace Mastersign.Bench
         /// can be transfered in case of an export or cloning.
         /// </summary>
         public bool CanTransferProjectDirectory
-            => GetStringValue(PropertyKeys.ProjectRootDir)
+            => GetStringValue(ConfigPropertyKeys.ProjectRootDir)
                 .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace Mastersign.Bench
         /// can be transfered in case of an export or cloning.
         /// </summary>
         public bool CanTransferAppLibraryCache
-            => GetStringValue(PropertyKeys.AppLibsDownloadDir)
+            => GetStringValue(ConfigPropertyKeys.AppLibsCacheDir)
                 .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Mastersign.Bench
         /// can be transfered in case of an export or cloning.
         /// </summary>
         public bool CanTransferAppResourceCache
-            => GetStringValue(PropertyKeys.DownloadDir)
+            => GetStringValue(ConfigPropertyKeys.AppsCacheDir)
                 .StartsWith(BenchRootDir, StringComparison.InvariantCultureIgnoreCase);
 
         /// <summary>
@@ -298,31 +298,31 @@ namespace Mastersign.Bench
             }
             if ((selection & TransferPaths.UserConfiguration) == TransferPaths.UserConfiguration)
             {
-                result.Add(GetStringValue(PropertyKeys.CustomConfigDir));
+                result.Add(GetStringValue(ConfigPropertyKeys.UserConfigDir));
             }
             if ((selection & TransferPaths.HomeDirectory) == TransferPaths.HomeDirectory &&
                 CanTransferHomeDirectory)
             {
-                result.Add(GetStringValue(PropertyKeys.HomeDir));
+                result.Add(GetStringValue(ConfigPropertyKeys.HomeDir));
             }
             if ((selection & TransferPaths.ProjectDirectory) == TransferPaths.ProjectDirectory &&
                 CanTransferProjectDirectory)
             {
-                result.Add(GetStringValue(PropertyKeys.ProjectRootDir));
+                result.Add(GetStringValue(ConfigPropertyKeys.ProjectRootDir));
             }
             if ((selection & TransferPaths.AppLibraries) == TransferPaths.AppLibraries)
             {
                 if (CanTransferAppLibraryCache)
                 {
-                    result.Add(GetStringValue(PropertyKeys.AppLibsDownloadDir));
+                    result.Add(GetStringValue(ConfigPropertyKeys.AppLibsCacheDir));
                 }
-                result.Add(GetStringValue(PropertyKeys.AppLibsDir));
+                result.Add(GetStringValue(ConfigPropertyKeys.AppLibsInstallDir));
             }
             if (CanTransferAppResourceCache)
             {
                 if ((selection & TransferPaths.AppResourceCache) == TransferPaths.AppResourceCache)
                 {
-                    result.Add(GetStringValue(PropertyKeys.DownloadDir));
+                    result.Add(GetStringValue(ConfigPropertyKeys.AppsCacheDir));
                 }
                 else if ((selection & TransferPaths.RequiredAppResourceCache) == TransferPaths.RequiredAppResourceCache)
                 {
@@ -331,7 +331,7 @@ namespace Mastersign.Bench
                         if (a.HasResource && a.IsResourceCached)
                         {
                             result.Add(Path.Combine(
-                                GetStringValue(PropertyKeys.DownloadDir),
+                                GetStringValue(ConfigPropertyKeys.AppsCacheDir),
                                 a.ResourceFileName ?? a.ResourceArchiveName));
                         }
                     }
@@ -339,7 +339,7 @@ namespace Mastersign.Bench
             }
             if ((selection & TransferPaths.Apps) == TransferPaths.Apps)
             {
-                result.Add(GetStringValue(PropertyKeys.LibDir));
+                result.Add(GetStringValue(ConfigPropertyKeys.AppsInstallDir));
             }
             else if ((selection & TransferPaths.RequiredApps) == TransferPaths.RequiredApps)
             {
@@ -409,12 +409,12 @@ namespace Mastersign.Bench
                 files.Add(new ConfigurationFile(ConfigurationFileType.BenchConfig, 0,
                     Path.Combine(BenchRootDir, CONFIG_FILE)));
             }
-            if (!actuallyLoaded || WithCustomConfiguration)
+            if (!actuallyLoaded || WithUserConfiguration)
             {
                 if ((type & ConfigurationFileType.UserConfig) == ConfigurationFileType.UserConfig)
                 {
 
-                    var userConfigFile = GetStringValue(PropertyKeys.CustomConfigFile);
+                    var userConfigFile = GetStringValue(ConfigPropertyKeys.UserConfigFile);
                     if (!mustExist || File.Exists(userConfigFile))
                     {
                         files.Add(new ConfigurationFile(ConfigurationFileType.UserConfig, 1,
@@ -444,17 +444,17 @@ namespace Mastersign.Bench
                         files.Add(new ConfigurationFile(ConfigurationFileType.BenchAppLib, 100 + i,
                             Path.Combine(
                                 appLibraries[i].BaseDir,
-                                GetStringValue(PropertyKeys.AppLibIndexFileName))));
+                                GetStringValue(ConfigPropertyKeys.AppLibIndexFileName))));
                     }
                 }
             }
-            if (!actuallyLoaded || (WithAppIndex && WithCustomConfiguration))
+            if (!actuallyLoaded || (WithAppIndex && WithUserConfiguration))
             {
                 if ((type & ConfigurationFileType.UserAppLib) == ConfigurationFileType.UserAppLib)
                 {
                     var userAppLib = Path.Combine(
-                        GetStringValue(PropertyKeys.CustomConfigDir),
-                        GetStringValue(PropertyKeys.AppLibIndexFileName));
+                        GetStringValue(ConfigPropertyKeys.UserConfigDir),
+                        GetStringValue(ConfigPropertyKeys.AppLibIndexFileName));
                     if (!mustExist || File.Exists(userAppLib))
                     {
                         files.Add(new ConfigurationFile(ConfigurationFileType.UserAppLib, 999,
@@ -462,11 +462,11 @@ namespace Mastersign.Bench
                     }
                 }
             }
-            if (!actuallyLoaded || (WithAppIndex && WithCustomConfiguration))
+            if (!actuallyLoaded || (WithAppIndex && WithUserConfiguration))
             {
                 if ((type & ConfigurationFileType.Activation) == ConfigurationFileType.Activation)
                 {
-                    var activationFile = GetStringValue(PropertyKeys.AppActivationFile);
+                    var activationFile = GetStringValue(ConfigPropertyKeys.AppActivationFile);
                     if (!mustExist || File.Exists(activationFile))
                     {
                         files.Add(new ConfigurationFile(ConfigurationFileType.Activation, 1000,
@@ -475,7 +475,7 @@ namespace Mastersign.Bench
                 }
                 if ((type & ConfigurationFileType.Deactivation) == ConfigurationFileType.Deactivation)
                 {
-                    var deactivationFile = GetStringValue(PropertyKeys.AppDeactivationFile);
+                    var deactivationFile = GetStringValue(ConfigPropertyKeys.AppDeactivationFile);
                     if (!mustExist || File.Exists(deactivationFile))
                     {
                         files.Add(new ConfigurationFile(ConfigurationFileType.Deactivation, 1001,
@@ -514,25 +514,25 @@ namespace Mastersign.Bench
 
         private void AutomaticConfiguration()
         {
-            SetValue(PropertyKeys.BenchRoot, BenchRootDir);
-            SetValue(PropertyKeys.BenchDrive, Path.GetPathRoot(BenchRootDir));
-            SetValue(PropertyKeys.BenchAuto, Path.Combine(BenchRootDir, AUTO_DIR));
-            SetValue(PropertyKeys.BenchBin, Path.Combine(BenchRootDir, BIN_DIR));
-            SetValue(PropertyKeys.BenchScripts, Path.Combine(BenchRootDir, SCRIPTS_DIR));
+            SetValue(ConfigPropertyKeys.BenchRoot, BenchRootDir);
+            SetValue(ConfigPropertyKeys.BenchDrive, Path.GetPathRoot(BenchRootDir));
+            SetValue(ConfigPropertyKeys.BenchAuto, Path.Combine(BenchRootDir, AUTO_DIR));
+            SetValue(ConfigPropertyKeys.BenchBin, Path.Combine(BenchRootDir, BIN_DIR));
+            SetValue(ConfigPropertyKeys.BenchScripts, Path.Combine(BenchRootDir, SCRIPTS_DIR));
 
-            var versionFile = GetValue(PropertyKeys.VersionFile) as string;
+            var versionFile = GetValue(ConfigPropertyKeys.VersionFile) as string;
             var version = File.Exists(versionFile) ? File.ReadAllText(versionFile, Encoding.UTF8).Trim() : "0.0.0";
-            SetValue(PropertyKeys.Version, version);
+            SetValue(ConfigPropertyKeys.Version, version);
 
-            if (!GetBooleanValue(PropertyKeys.OverrideHome))
+            if (!GetBooleanValue(ConfigPropertyKeys.OverrideHome))
             {
-                SetValue(PropertyKeys.HomeDir, GetVolatileEnvironmentVariable("USERPROFILE"));
-                SetValue(PropertyKeys.AppDataDir, GetVolatileEnvironmentVariable("APPDATA"));
-                SetValue(PropertyKeys.LocalAppDataDir, GetVolatileEnvironmentVariable("LOCALAPPDATA"));
+                SetValue(ConfigPropertyKeys.HomeDir, GetVolatileEnvironmentVariable("USERPROFILE"));
+                SetValue(ConfigPropertyKeys.AppDataDir, GetVolatileEnvironmentVariable("APPDATA"));
+                SetValue(ConfigPropertyKeys.LocalAppDataDir, GetVolatileEnvironmentVariable("LOCALAPPDATA"));
             }
-            if (!GetBooleanValue(PropertyKeys.OverrideTemp))
+            if (!GetBooleanValue(ConfigPropertyKeys.OverrideTemp))
             {
-                SetValue(PropertyKeys.TempDir, Path.GetTempPath());
+                SetValue(ConfigPropertyKeys.TempDir, Path.GetTempPath());
             }
 
             foreach (var app in Apps)
@@ -559,11 +559,11 @@ namespace Mastersign.Bench
                 app.ActivateAsRequired();
             }
 
-            if (WithCustomConfiguration)
+            if (WithUserConfiguration)
             {
                 // activate manually activated apps
 
-                var activationFile = new ActivationFile(GetStringValue(PropertyKeys.AppActivationFile));
+                var activationFile = new ActivationFile(GetStringValue(ConfigPropertyKeys.AppActivationFile));
                 foreach (var appName in activationFile)
                 {
                     if (Apps.Exists(appName))
@@ -575,7 +575,7 @@ namespace Mastersign.Bench
 
                 // deactivate manually deactivated apps
 
-                var deactivationFile = new ActivationFile(GetStringValue(PropertyKeys.AppDeactivationFile));
+                var deactivationFile = new ActivationFile(GetStringValue(ConfigPropertyKeys.AppDeactivationFile));
                 foreach (var appName in deactivationFile)
                 {
                     if (Apps.Exists(appName))
@@ -612,13 +612,13 @@ namespace Mastersign.Bench
                 return property.EndsWith("File")
                     || property.EndsWith("Dir");
             }
-            return property == PropertyKeys.AppDir
-                || property == PropertyKeys.AppPath
-                || property == PropertyKeys.AppExe
-                || property == PropertyKeys.AppSetupTestFile
-                || property == PropertyKeys.AppAdornedExecutables
-                || property == PropertyKeys.AppLauncherExecutable
-                || property == PropertyKeys.AppLauncherIcon;
+            return property == AppPropertyKeys.Dir
+                || property == AppPropertyKeys.Path
+                || property == AppPropertyKeys.Exe
+                || property == AppPropertyKeys.SetupTestFile
+                || property == AppPropertyKeys.AdornedExecutables
+                || property == AppPropertyKeys.LauncherExecutable
+                || property == AppPropertyKeys.LauncherIcon;
         }
 
         private string GetBaseForPathProperty(string app, string property)
@@ -627,13 +627,13 @@ namespace Mastersign.Bench
             {
                 return BenchRootDir;
             }
-            else if (property == PropertyKeys.AppDir)
+            else if (property == AppPropertyKeys.Dir)
             {
-                return GetStringValue(PropertyKeys.LibDir);
+                return GetStringValue(ConfigPropertyKeys.AppsInstallDir);
             }
             else
             {
-                return GetStringGroupValue(app, PropertyKeys.AppDir);
+                return GetStringGroupValue(app, AppPropertyKeys.Dir);
             }
         }
 
@@ -646,15 +646,15 @@ namespace Mastersign.Bench
         {
             foreach (var key in new[]
                 {
-                    PropertyKeys.CustomConfigRepository,
-                    PropertyKeys.WizzardStartAutoSetup,
-                    PropertyKeys.WizzardSelectedApps,
+                    ConfigPropertyKeys.UserConfigRepository,
+                    ConfigPropertyKeys.WizzardStartAutoSetup,
+                    ConfigPropertyKeys.WizzardSelectedApps,
                 })
             {
                 targetCfg.SetValue(key, this.GetValue(key));
             }
 
-            if (targetCfg.GetValue(PropertyKeys.CustomConfigRepository) != null)
+            if (targetCfg.GetValue(ConfigPropertyKeys.UserConfigRepository) != null)
             {
                 targetCfg.SetGroupCategory(AppKeys.Git, BenchConfiguration.DefaultAppCategory);
                 targetCfg.Apps[AppKeys.Git].ActivateAsRequired();
@@ -674,7 +674,7 @@ namespace Mastersign.Bench
             get
             {
                 var result = new List<AppLibrary>();
-                foreach (var item in GetStringListValue(PropertyKeys.AppLibs))
+                foreach (var item in GetStringListValue(ConfigPropertyKeys.AppLibs))
                 {
                     var kvp = DictionaryValueResolver.ParseKeyValuePair(item);
                     if (string.IsNullOrEmpty(kvp.Key)) continue;
@@ -739,7 +739,7 @@ namespace Mastersign.Bench
         public BenchConfiguration Reload()
         {
             return new BenchConfiguration(BenchRootDir,
-                WithAppIndex, WithCustomConfiguration, WithSiteConfiguration);
+                WithAppIndex, WithUserConfiguration, WithSiteConfiguration);
         }
     }
 }
