@@ -44,6 +44,12 @@ Add a link to the GitHub diff like
 
 [0.14.0]: https://github.com/mastersign/bench/compare/v0.13.3...v0.14.0
 
+With this release all app definitions where moved into external app libraries.
+In that process and app ID namespaces where introduced and all app IDs
+where changed.
+Therefore, it is advised to start with a fresh Bench installation for this release
+and migrate an existing user configuration manually.
+
 ### Added
 - Bench CLI
   ([#87](https://github.com/mastersign/bench/issues/87))
