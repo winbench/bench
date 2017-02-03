@@ -1,18 +1,18 @@
 ﻿+++
 title = "IPython 2"
-weight = 60
+weight = 77
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python2-package"
-app_ns = "Bench"
-app_id = "Bench.IPython2"
+app_ns = "Bench.Python2"
+app_id = "Bench.Python2.IPython"
 app_version = "latest"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["python2-package"]
 +++
 
-**ID:** `Bench.IPython2`  
+**ID:** `Bench.Python2.IPython`  
 **Version:** latest  
 <!--more-->
 
@@ -23,15 +23,16 @@ IPython provides a rich architecture for computing with a powerful interactive s
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 60
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 77
 
 ## Properties
 
-* Namespace: Bench
-* Name: IPython2
+* Namespace: Bench.Python2
+* Name: IPython
 * Typ: `python2-package`
 * Website: <https://ipython.org/>
-* Dependencies: [PyReadline (Python 2)](/app/Bench.PyReadline2), [Python 2](/app/Bench.Python2)
+* Dependencies: [PyReadline (Python 2)](/apps/Bench.Python2.PyReadline), [Python 2](/apps/Bench.Python2)
+* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development)
 

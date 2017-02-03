@@ -1,6 +1,6 @@
 ﻿+++
 title = "Blender"
-weight = 94
+weight = 116
 app_library = "default"
 app_category = "3D Modeling"
 app_typ = "default"
@@ -23,9 +23,9 @@ Blender is the open source, cross platform suite of tools for 3D creation.
 
 ## Source
 
-* Library: `default`
-* Category: 3D Modeling
-* Order Index: 94
+* Library: [`default`](/app_libraries/default)
+* Category: [3D Modeling](/app_categories/3d-modeling)
+* Order Index: 116
 
 ## Properties
 

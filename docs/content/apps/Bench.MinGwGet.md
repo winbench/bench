@@ -1,6 +1,6 @@
 ﻿+++
 title = "MinGwGet"
-weight = 29
+weight = 41
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -23,15 +23,15 @@ The package manager for [MinGW](http://www.mingw.org/).
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 29
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 41
 
 ## Properties
 
 * Namespace: Bench
 * Name: MinGwGet
 * Typ: `default`
-* Dependencies: [Wget](/app/Bench.Wget)
-* Responsibilities: [MinGwGetGui](/app/Bench.MinGwGetGui), [MinGW](/app/Bench.MinGW)
+* Dependencies: [Wget](/apps/Bench.Wget)
+* Responsibilities: [MinGwGetGui](/apps/Bench.MinGwGetGui), [MinGW](/apps/Bench.MinGW)
 

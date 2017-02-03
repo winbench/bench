@@ -1,6 +1,6 @@
 ﻿+++
 title = "OpenSSL"
-weight = 16
+weight = 26
 app_library = "default"
 app_category = "Security"
 app_typ = "default"
@@ -24,9 +24,9 @@ It is also a general-purpose cryptography library.
 
 ## Source
 
-* Library: `default`
-* Category: Security
-* Order Index: 16
+* Library: [`default`](/app_libraries/default)
+* Category: [Security](/app_categories/security)
+* Order Index: 26
 
 ## Properties
 

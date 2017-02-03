@@ -1,6 +1,6 @@
 ﻿+++
 title = "Erlang"
-weight = 34
+weight = 46
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -23,9 +23,9 @@ Erlang is a programming language used to build massively scalable soft real-time
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 34
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 46
 
 ## Properties
 
@@ -33,5 +33,5 @@ Erlang is a programming language used to build massively scalable soft real-time
 * Name: Erlang
 * Typ: `default`
 * Website: <http://www.erlang.org/>
-* Responsibilities: [RabbitMQ](/app/Bench.RabbitMQ)
+* Responsibilities: [RabbitMQ](/apps/Bench.RabbitMQ)
 

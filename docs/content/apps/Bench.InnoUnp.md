@@ -23,8 +23,8 @@ A tool to extract the files from an Inno Setup executable.
 
 ## Source
 
-* Library: `core`
-* Category: Required
+* Library: [`core`](/app_libraries/core)
+* Category: [Required](/app_categories/required)
 * Order Index: 3
 
 ## Properties

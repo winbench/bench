@@ -1,6 +1,6 @@
 ﻿+++
 title = "Graphviz"
-weight = 89
+weight = 110
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -27,9 +27,9 @@ and in visual interfaces for other technical domains.
 
 ## Source
 
-* Library: `default`
-* Category: Multimedia
-* Order Index: 89
+* Library: [`default`](/app_libraries/default)
+* Category: [Multimedia](/app_categories/multimedia)
+* Order Index: 110
 
 ## Properties
 
@@ -37,5 +37,5 @@ and in visual interfaces for other technical domains.
 * Name: Graphviz
 * Typ: `default`
 * Website: <http://www.graphviz.org/>
-* Responsibilities: [Yeoman Generator for Markdown Projects](/app/User.MdProc)
+* Responsibilities: [Yeoman Generator for Markdown Projects](/apps/User.MdProc)
 

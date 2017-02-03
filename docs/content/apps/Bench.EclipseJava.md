@@ -1,6 +1,6 @@
 ﻿+++
 title = "Eclipse for Java"
-weight = 45
+weight = 59
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -24,9 +24,9 @@ XML Editor, Mylyn, Maven and Gradle integration...
 
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 45
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 59
 
 ## Properties
 
@@ -34,5 +34,6 @@ XML Editor, Mylyn, Maven and Gradle integration...
 * Name: EclipseJava
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Dependencies: [Java Runtime Environment 8](/app/Bench.JRE8)
+* Dependencies: [Java Runtime Environment 8](/apps/Bench.JRE8)
+* Responsibilities: [Java Development](/apps/Bench.Group.JavaDevelopment)
 

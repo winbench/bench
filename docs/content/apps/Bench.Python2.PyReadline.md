@@ -1,18 +1,18 @@
 ﻿+++
 title = "PyReadline (Python 2)"
-weight = 58
+weight = 75
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python2-package"
-app_ns = "Bench"
-app_id = "Bench.PyReadline2"
+app_ns = "Bench.Python2"
+app_id = "Bench.Python2.PyReadline"
 app_version = "latest"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["python2-package"]
 +++
 
-**ID:** `Bench.PyReadline2`  
+**ID:** `Bench.Python2.PyReadline`  
 **Version:** latest  
 <!--more-->
 
@@ -21,23 +21,18 @@ app_types = ["python2-package"]
 ## Description
 Required for colors in IPython.
 
-for Python 2:
-
-
-for Python 3:
-
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 58
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 75
 
 ## Properties
 
-* Namespace: Bench
-* Name: PyReadline2
+* Namespace: Bench.Python2
+* Name: PyReadline
 * Typ: `python2-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
-* Dependencies: [Python 2](/app/Bench.Python2)
-* Responsibilities: [IPython 2](/app/Bench.IPython2)
+* Dependencies: [Python 2](/apps/Bench.Python2)
+* Responsibilities: [IPython 2](/apps/Bench.Python2.IPython)
 

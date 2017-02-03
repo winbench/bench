@@ -1,6 +1,6 @@
 ﻿+++
 title = "RabbitMQ"
-weight = 76
+weight = 96
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -34,9 +34,9 @@ At first start you can login with user `guest` and passwort `guest`.
 
 ## Source
 
-* Library: `default`
-* Category: Services
-* Order Index: 76
+* Library: [`default`](/app_libraries/default)
+* Category: [Services](/app_categories/services)
+* Order Index: 96
 
 ## Properties
 
@@ -44,5 +44,5 @@ At first start you can login with user `guest` and passwort `guest`.
 * Name: RabbitMQ
 * Typ: `default`
 * Website: <http://www.rabbitmq.com>
-* Dependencies: [Erlang](/app/Bench.Erlang)
+* Dependencies: [Erlang](/apps/Bench.Erlang)
 

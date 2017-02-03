@@ -1,6 +1,6 @@
 ﻿+++
 title = "HandBrakeCLI"
-weight = 86
+weight = 107
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -23,9 +23,9 @@ The command line interface for the open source video transcoder.
 
 ## Source
 
-* Library: `default`
-* Category: Multimedia
-* Order Index: 86
+* Library: [`default`](/app_libraries/default)
+* Category: [Multimedia](/app_categories/multimedia)
+* Order Index: 107
 
 ## Properties
 

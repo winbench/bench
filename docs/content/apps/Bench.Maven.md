@@ -1,6 +1,6 @@
 ﻿+++
 title = "Maven"
-weight = 52
+weight = 67
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -25,9 +25,9 @@ reporting and documentation from a central piece of information.
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 52
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 67
 
 ## Properties
 
@@ -35,5 +35,6 @@ reporting and documentation from a central piece of information.
 * Name: Maven
 * Typ: `default`
 * Website: <https://maven.apache.org>
-* Dependencies: [Java Runtime Environment 8](/app/Bench.JRE8), [GnuPG](/app/Bench.GnuPG)
+* Dependencies: [Java Runtime Environment 8](/apps/Bench.JRE8), [GnuPG](/apps/Bench.GnuPG)
+* Responsibilities: [Java Development](/apps/Bench.Group.JavaDevelopment), [Boot Clojure](/apps/Bench.BootClj)
 

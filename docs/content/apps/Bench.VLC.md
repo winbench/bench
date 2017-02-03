@@ -1,6 +1,6 @@
 ﻿+++
 title = "VLC Player"
-weight = 88
+weight = 109
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -24,9 +24,9 @@ that plays most multimedia files, and various streaming protocols.
 
 ## Source
 
-* Library: `default`
-* Category: Multimedia
-* Order Index: 88
+* Library: [`default`](/app_libraries/default)
+* Category: [Multimedia](/app_categories/multimedia)
+* Order Index: 109
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "MySQL Workbench"
-weight = 73
+weight = 93
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -28,9 +28,9 @@ and the [Microsoft.NET Framework 4.0 Client Profile](http://www.microsoft.com/do
 
 ## Source
 
-* Library: `default`
-* Category: Services
-* Order Index: 73
+* Library: [`default`](/app_libraries/default)
+* Category: [Services](/app_categories/services)
+* Order Index: 93
 
 ## Properties
 
@@ -38,4 +38,5 @@ and the [Microsoft.NET Framework 4.0 Client Profile](http://www.microsoft.com/do
 * Name: MySQLWB
 * Typ: `default`
 * Website: <http://dev.mysql.com/downloads/workbench/>
+* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment)
 

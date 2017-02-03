@@ -25,8 +25,8 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 
 ## Source
 
-* Library: `core`
-* Category: Core
+* Library: [`core`](/app_libraries/core)
+* Category: [Core](/app_categories/core)
 * Order Index: 6
 
 ## Properties
@@ -35,5 +35,5 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 * Name: Node
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Responsibilities: [NPM](/app/Bench.Npm)
+* Responsibilities: [NPM](/apps/Bench.Npm)
 

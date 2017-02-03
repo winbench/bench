@@ -1,6 +1,6 @@
 ﻿+++
 title = "Jupyter"
-weight = 62
+weight = 81
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python3-package"
@@ -24,9 +24,9 @@ across over 40 programming languages.
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 62
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 81
 
 ## Properties
 
@@ -34,5 +34,5 @@ across over 40 programming languages.
 * Name: Jupyter
 * Typ: `python3-package`
 * Website: <https://jupyter.org>
-* Dependencies: [Python 3](/app/Bench.Python3)
+* Dependencies: [Python 3](/apps/Bench.Python3)
 

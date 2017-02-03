@@ -1,6 +1,6 @@
 ﻿+++
 title = "PHP 5"
-weight = 21
+weight = 31
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -26,9 +26,9 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable](ht
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 21
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 31
 
 ## Properties
 

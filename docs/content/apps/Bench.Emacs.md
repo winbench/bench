@@ -1,6 +1,6 @@
 ﻿+++
 title = "Emacs"
-weight = 39
+weight = 52
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,9 +26,9 @@ with extensions to support text editing.
 
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 39
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 52
 
 ## Properties
 
@@ -36,6 +36,6 @@ with extensions to support text editing.
 * Name: Emacs
 * Typ: `default`
 * Website: <https://www.gnu.org/software/emacs/>
-* Dependencies: [GNU TLS](/app/Bench.GnuTLS)
-* Responsibilities: [Spacemacs](/app/Bench.Spacemacs)
+* Dependencies: [GNU TLS](/apps/Bench.GnuTLS)
+* Responsibilities: [Spacemacs](/apps/Bench.Spacemacs)
 

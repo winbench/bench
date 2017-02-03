@@ -1,6 +1,6 @@
 ﻿+++
 title = "Java Development Kit 8"
-weight = 26
+weight = 36
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,9 +25,9 @@ The development kit is required for Java source code to get compiled.
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 26
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 36
 
 ## Properties
 
@@ -35,5 +35,5 @@ The development kit is required for Java source code to get compiled.
 * Name: JDK8
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Responsibilities: [Leiningen](/app/Bench.Leiningen)
+* Responsibilities: [Java Development](/apps/Bench.Group.JavaDevelopment), [Leiningen](/apps/Bench.Leiningen), [Boot Clojure](/apps/Bench.BootClj)
 

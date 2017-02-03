@@ -23,8 +23,8 @@ RubyGems is a package management framework for Ruby.
 
 ## Source
 
-* Library: `core`
-* Category: Core
+* Library: [`core`](/app_libraries/core)
+* Category: [Core](/app_categories/core)
 * Order Index: 9
 
 ## Properties
@@ -33,6 +33,6 @@ RubyGems is a package management framework for Ruby.
 * Name: RubyGems
 * Typ: `default`
 * Website: <https://rubygems.org/>
-* Dependencies: [Ruby](/app/Bench.Ruby)
-* Responsibilities: [SASS](/app/Bench.Sass)
+* Dependencies: [Ruby](/apps/Bench.Ruby)
+* Responsibilities: [Ruby Development](/apps/Bench.Group.RubyDevelopment), [Bundler](/apps/Bench.Bundler), [SASS](/apps/Bench.Sass)
 

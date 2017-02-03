@@ -24,8 +24,8 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 
 ## Source
 
-* Library: `core`
-* Category: Basics
+* Library: [`core`](/app_libraries/core)
+* Category: [Basics](/app_categories/basics)
 * Order Index: 15
 
 ## Properties
@@ -34,5 +34,5 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 * Name: Wget
 * Typ: `default`
 * Website: <https://www.gnu.org>
-* Responsibilities: [Leiningen](/app/Bench.Leiningen), [MinGwGet](/app/Bench.MinGwGet)
+* Responsibilities: [Leiningen](/apps/Bench.Leiningen), [MinGwGet](/apps/Bench.MinGwGet)
 

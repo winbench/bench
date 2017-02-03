@@ -1,18 +1,18 @@
 ﻿+++
 title = "IPython 3"
-weight = 61
+weight = 78
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python3-package"
-app_ns = "Bench"
-app_id = "Bench.IPython3"
+app_ns = "Bench.Python3"
+app_id = "Bench.Python3.IPython"
 app_version = "latest"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["python3-package"]
 +++
 
-**ID:** `Bench.IPython3`  
+**ID:** `Bench.Python3.IPython`  
 **Version:** latest  
 <!--more-->
 
@@ -23,15 +23,16 @@ IPython provides a rich architecture for computing with a powerful interactive s
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 61
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 78
 
 ## Properties
 
-* Namespace: Bench
-* Name: IPython3
+* Namespace: Bench.Python3
+* Name: IPython
 * Typ: `python3-package`
 * Website: <https://ipython.org/>
-* Dependencies: [PyReadline (Python 3)](/app/Bench.PyReadline3), [Python 3](/app/Bench.Python3)
+* Dependencies: [PyReadline (Python 3)](/apps/Bench.Python3.PyReadline), [Python 3](/apps/Bench.Python3)
+* Responsibilities: [Python 3 Development](/apps/Bench.Group.Python3Development)
 

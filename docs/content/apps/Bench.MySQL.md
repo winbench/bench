@@ -1,6 +1,6 @@
 ﻿+++
 title = "MySQL"
-weight = 71
+weight = 91
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -30,9 +30,9 @@ The initial password for _root_ is `bench`.
 
 ## Source
 
-* Library: `default`
-* Category: Services
-* Order Index: 71
+* Library: [`default`](/app_libraries/default)
+* Category: [Services](/app_categories/services)
+* Order Index: 91
 
 ## Properties
 
@@ -40,4 +40,5 @@ The initial password for _root_ is `bench`.
 * Name: MySQL
 * Typ: `default`
 * Website: <http://www.mysql.com/>
+* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment)
 

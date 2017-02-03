@@ -24,8 +24,8 @@ It has an elegant syntax that is natural to read and easy to write.
 
 ## Source
 
-* Library: `core`
-* Category: Core
+* Library: [`core`](/app_libraries/core)
+* Category: [Core](/app_categories/core)
 * Order Index: 8
 
 ## Properties
@@ -34,5 +34,5 @@ It has an elegant syntax that is natural to read and easy to write.
 * Name: Ruby
 * Typ: `default`
 * Website: <https://www.ruby-lang.org/>
-* Responsibilities: [RubyGems](/app/Bench.RubyGems)
+* Responsibilities: [RubyGems](/apps/Bench.RubyGems), [Ruby Development](/apps/Bench.Group.RubyDevelopment)
 

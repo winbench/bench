@@ -1,6 +1,6 @@
 ﻿+++
 title = "PHP 7"
-weight = 22
+weight = 32
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -26,9 +26,9 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable](ht
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 22
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 32
 
 ## Properties
 
@@ -36,4 +36,5 @@ This application needs the x86 version of the [Visual C++ 14 Redistributable](ht
 * Name: PHP7
 * Typ: `default`
 * Website: <http://www.php.net>
+* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment)
 

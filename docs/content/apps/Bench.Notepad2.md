@@ -24,8 +24,8 @@ This program can be run out of the box without installation, and does not touch 
 
 ## Source
 
-* Library: `core`
-* Category: Basics
+* Library: [`core`](/app_libraries/core)
+* Category: [Basics](/app_categories/basics)
 * Order Index: 13
 
 ## Properties

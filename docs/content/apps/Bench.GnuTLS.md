@@ -1,6 +1,6 @@
 ﻿+++
 title = "GNU TLS"
-weight = 17
+weight = 27
 app_library = "default"
 app_category = "Security"
 app_typ = "default"
@@ -23,9 +23,9 @@ The GnuTLS Transport Layer Security Library.
 
 ## Source
 
-* Library: `default`
-* Category: Security
-* Order Index: 17
+* Library: [`default`](/app_libraries/default)
+* Category: [Security](/app_categories/security)
+* Order Index: 27
 
 ## Properties
 
@@ -33,5 +33,5 @@ The GnuTLS Transport Layer Security Library.
 * Name: GnuTLS
 * Typ: `default`
 * Website: <http://www.gnutls.org/>
-* Responsibilities: [Emacs](/app/Bench.Emacs)
+* Responsibilities: [Emacs](/apps/Bench.Emacs)
 
