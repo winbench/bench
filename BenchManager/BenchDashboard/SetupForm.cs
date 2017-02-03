@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ConEmu.WinForms;
 using Mastersign.Bench.Dashboard.Properties;
 using Mastersign.Bench.Markdown;
+using System.Threading.Tasks;
 
 namespace Mastersign.Bench.Dashboard
 {
@@ -332,7 +333,7 @@ namespace Mastersign.Bench.Dashboard
             c.Visible = true;
             Controls.Add(c);
             conControl = c;
-            conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
+            conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu]?.Exe);
             conHost.StartHost();
             core.ProcessExecutionHost = conHost;
         }
@@ -644,6 +645,22 @@ namespace Mastersign.Bench.Dashboard
                 BenchTasks.InitiateInstallationBootstrap(core.Config);
                 Program.Core.Shutdown();
             }
+        }
+
+        private async void ExportCloneHandler(object sender, EventArgs e)
+        {
+            var dlg = new ExportForm(core);
+            var result = dlg.ShowDialog(this);
+            if (result != DialogResult.OK) return;
+            var export = dlg.ExportMode;
+            AnnounceTask(export
+                ? "Exporting the Bench environment"
+                : "Cloning the Bench environment");
+            var targetPath = dlg.TargetPath;
+            var selection = dlg.ContentSelection;
+            var success = export
+                ? await core.ExportBenchEnvironmentAsync(TaskInfoHandler, targetPath, selection)
+                : await core.CloneBenchEnvironmentAsync(TaskInfoHandler, targetPath, selection);
         }
 
         private void AppInfoHandler(object sender, EventArgs e)

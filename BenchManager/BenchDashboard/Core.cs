@@ -687,6 +687,30 @@ namespace Mastersign.Bench.Dashboard
             return result;
         }
 
+        public async Task<bool> ExportBenchEnvironmentAsync(Action<TaskInfo> notify, string targetFile, TransferPaths contentSelection)
+        {
+            BeginAction();
+            notify(new TaskInfo("Creating transfer package..."));
+            var t = new Task<bool>(() => BenchTasks.ExportBenchEnvironment(this, targetFile, contentSelection));
+            t.Start();
+            var success = await t;
+            notify(new TaskInfo("Finished exporting the Bench environment."));
+            EndAction(success);
+            return success;
+        }
+
+        public async Task<bool> CloneBenchEnvironmentAsync(Action<TaskInfo> notify, string targetFile, TransferPaths contentSelection)
+        {
+            BeginAction();
+            notify(new TaskInfo("Copying Bench environment files..."));
+            var t = new Task<bool>(() => BenchTasks.CloneBenchEnvironment(this, targetFile, contentSelection));
+            t.Start();
+            var success = await t;
+            notify(new TaskInfo("Started initialization of the new Bench environment."));
+            EndAction(success);
+            return success;
+        }
+
         private static string BuildCombinedErrorMessage(string infoWithErrors, string infoWithoutErrors,
             IEnumerable<TaskInfo> errors, int maxLines)
         {

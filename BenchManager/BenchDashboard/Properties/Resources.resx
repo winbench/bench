@@ -280,4 +280,13 @@
   <data name="update_apps_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\update_apps_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="browse_file_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\browse_file_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="browse_folder_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\browse_folder_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="export_clone_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\export_clone_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

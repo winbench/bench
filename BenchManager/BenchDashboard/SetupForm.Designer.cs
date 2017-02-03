@@ -84,6 +84,7 @@
             this.tsmiUpdateAppLibs = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdateBench = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeBench = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExportClone = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReinstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -599,6 +600,7 @@
             this.tsmiUpdateAppLibs,
             this.tsmiUpdateBench,
             this.tsmiUpgradeBench,
+            this.tsmiExportClone,
             toolStripSeparator2,
             this.tsmiInstallAll,
             this.tsmiReinstallAll,
@@ -660,6 +662,16 @@
             this.tsmiUpgradeBench.Text = "Upgrade &Bench";
             this.tsmiUpgradeBench.ToolTipText = "Upgrades the Bench system.";
             this.tsmiUpgradeBench.Click += new System.EventHandler(this.UpgradeBenchSystemHandler);
+            // 
+            // tsmiExportClone
+            // 
+            this.tsmiExportClone.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.export_clone_16;
+            this.tsmiExportClone.Name = "tsmiExportClone";
+            this.tsmiExportClone.Size = new System.Drawing.Size(237, 22);
+            this.tsmiExportClone.Text = "E&xport or Clone Bench...";
+            this.tsmiExportClone.ToolTipText = "Creates a compressed transfer package or clone this Bench environment to another " +
+    "location.";
+            this.tsmiExportClone.Click += new System.EventHandler(this.ExportCloneHandler);
             // 
             // tsmiInstallAll
             // 
@@ -764,10 +776,10 @@
             this.tsmiEditUserConfig.Text = "User &Configuration";
             this.tsmiEditUserConfig.Click += new System.EventHandler(this.EditUserConfigHandler);
             // 
-            // tsmiEditCustomApps
+            // tsmiEditUserApps
             // 
             this.tsmiEditUserApps.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.apps;
-            this.tsmiEditUserApps.Name = "tsmiEditCustomApps";
+            this.tsmiEditUserApps.Name = "tsmiEditUserApps";
             this.tsmiEditUserApps.Size = new System.Drawing.Size(174, 22);
             this.tsmiEditUserApps.Text = "&User Apps";
             this.tsmiEditUserApps.Click += new System.EventHandler(this.EditUserAppsHandler);
@@ -939,5 +951,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTyp;
         private System.Windows.Forms.DataGridViewLinkColumn colLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExportClone;
     }
 }

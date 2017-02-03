@@ -95,6 +95,12 @@
     <Compile Include="DownloadList.Designer.cs">
       <DependentUpon>DownloadList.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportForm.Designer.cs">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImmediateMenuStrip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadList.resx">
       <DependentUpon>DownloadList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportForm.resx">
+      <DependentUpon>ExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -225,6 +234,9 @@
     <None Include="Resources\install_16.png" />
     <None Include="Resources\logo_64.png" />
     <None Include="Resources\book_16.png" />
+    <None Include="Resources\browse_folder_16.png" />
+    <None Include="Resources\browse_file_16.png" />
+    <None Include="Resources\export_clone_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />
     <None Include="Resources\docs_16.png" />
