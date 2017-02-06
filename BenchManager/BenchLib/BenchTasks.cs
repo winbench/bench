@@ -2784,8 +2784,11 @@ namespace Mastersign.Bench
             args.Add("a");
             if (Path.GetExtension(targetFile).ToLowerInvariant() == ".7z")
             {
-                args.Add("-mx=9");
+                args.Add("-myx=9");
+                args.Add("-mx=5");
+                args.Add("-mmtf=on");
                 args.Add("-mmt=on");
+                args.Add("-m0=LZMA2:d=16");
             }
             args.Add(targetFile);
             args.AddRange(paths);
