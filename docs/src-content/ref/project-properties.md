@@ -42,19 +42,27 @@ If the path is relative, it is interpreted relative to the [`ProjectRootDir`](/r
 * Data Type: string
 * Possible Values:
     + `git`
-    + `svn`
     + `download`
 * Required: `false`
 * Default: `git`
 
-### MainBranch {#MainBranch}
+### GitRemoteUrl {#GitRemoteUrl}
 
-* Description: A explicit override to specify a branch to checkout
+* Description: The URL of the remote repository to clone
+* Data Type: URL
+* Required: `false`
+* Default: empty
+
+Is required, if the `RepositoryType` is `git`.
+
+### GitMainBranch {#MainBranch}
+
+* Description: An explicit override to specify the branch to checkout
 * Data Type: string
 * Required: `false`
 * Default: empty
 
-If this value is empty, the version control specific default will be used.
+If this value is empty, the default of the remote repository will be used.
 
 ### BuildCommand {#BuildCommand}
 
