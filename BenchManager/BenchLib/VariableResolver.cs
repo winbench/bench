@@ -20,7 +20,7 @@ namespace Mastersign.Bench
     /// by replacing it with <c>#NAME#</c>.
     /// </para>
     /// </summary>
-    public class VariableResolver : IGroupedValueResolver
+    public class VariableResolver : IValueResolver, IGroupedValueResolver
     {
         private static readonly Regex DefaultVariablePattern = new Regex("\\$(?<name>.+?)\\$");
 
@@ -59,18 +59,17 @@ namespace Mastersign.Bench
         /// <summary>
         /// Returns the resolved or transformed value of the specified property.
         /// </summary>
-        /// <param name="group">The group of the property.</param>
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The original value of the specified property.</param>
         /// <returns>The resolved or transformed value for the specified value.</returns>
-        public object ResolveGroupValue(string group, string name, object value)
+        public object ResolveValue(string name, object value)
         {
             if (value == null) return null;
             if (value is string[])
             {
-                return Array.ConvertAll((string[])value, v => (string)ResolveGroupValue(group, name, v));
+                return Array.ConvertAll((string[])value, v => (string)ResolveValue(null, v));
             }
-            if (value is string && ValueSource != null && VariablePattern != null)
+            if (value is string && VariablePattern != null && ValueSource != null)
             {
                 value = VariablePattern.Replace((string)value, m =>
                 {
@@ -80,5 +79,15 @@ namespace Mastersign.Bench
             }
             return value;
         }
+
+        /// <summary>
+        /// Returns the resolved or transformed value of the specified property.
+        /// </summary>
+        /// <param name="group">The group of the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The original value of the specified property.</param>
+        /// <returns>The resolved or transformed value for the specified value.</returns>
+        public object ResolveGroupValue(string group, string name, object value)
+            => ResolveValue(null, value);
     }
 }

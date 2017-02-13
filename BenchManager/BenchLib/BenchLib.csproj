@@ -58,6 +58,7 @@
     <Compile Include="ActivationFile.cs" />
     <Compile Include="AppArchiveTyps.cs" />
     <Compile Include="AppFacade.cs" />
+    <Compile Include="AppIndex.cs" />
     <Compile Include="AppIndexDefaultValueSource.cs" />
     <Compile Include="AppIndexFacade.cs" />
     <Compile Include="AppLibrary.cs" />
@@ -76,6 +77,12 @@
     <Compile Include="Cancelation.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="DefaultBenchManager.cs" />
+    <Compile Include="IObjectLibrary.cs" />
+    <Compile Include="PropertyCollection.cs" />
+    <Compile Include="PropertyPathResolver.cs" />
+    <Compile Include="IValueResolver.cs" />
+    <Compile Include="MarkdownPropertyParserFactory.cs" />
+    <Compile Include="ResolvingPropertyCollection.cs" />
     <Compile Include="SimpleExecutionHost.cs" />
     <Compile Include="ConsoleUI.cs" />
     <Compile Include="Delegates.cs" />
@@ -169,12 +176,13 @@
     <Compile Include="Markdown\MarkdownPropertyEditor.cs" />
     <Compile Include="Markdown\MarkdownPropertyParser.cs" />
     <Compile Include="PageContentUrlResolver.cs" />
-    <Compile Include="PathResolver.cs" />
+    <Compile Include="GroupedPropertyPathResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupedPropertyCollection.cs" />
     <Compile Include="ConfigPropertyKeys.cs" />
-    <Compile Include="ResolvingPropertyCollection.cs" />
+    <Compile Include="ResolvingGroupedPropertyCollection.cs" />
     <Compile Include="IUserInterface.cs" />
+    <Compile Include="ValueParser.cs" />
     <Compile Include="VariableResolver.cs" />
     <Compile Include="Vendor\MarkdownSharp\GitHubCodeBlockExtension.cs" />
     <Compile Include="Vendor\MarkdownSharp\IExtensionInterface.cs" />

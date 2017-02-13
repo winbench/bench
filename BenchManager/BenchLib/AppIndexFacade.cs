@@ -13,7 +13,8 @@ namespace Mastersign.Bench
     /// </summary>
     public class AppIndexFacade : IEnumerable<AppFacade>
     {
-        private readonly IConfiguration AppIndex;
+        private readonly IConfiguration Config;
+        private readonly IObjectLibrary AppIndex;
 
         private Dictionary<string, AppFacade> cache = new Dictionary<string, AppFacade>();
 
@@ -22,7 +23,7 @@ namespace Mastersign.Bench
             AppFacade app;
             if (!cache.TryGetValue(appName, out app))
             {
-                app = new AppFacade(AppIndex, appName);
+                app = new AppFacade(Config, AppIndex, appName);
                 cache.Add(appName, app);
             }
             return app;
@@ -31,9 +32,11 @@ namespace Mastersign.Bench
         /// <summary>
         /// Initializes a new instance of <see cref="AppIndexFacade"/>.
         /// </summary>
-        /// <param name="appIndex">An instance of <see cref="IConfiguration"/> holding the configuration of Bench apps.</param>
-        public AppIndexFacade(IConfiguration appIndex)
+        /// <param name="config">The Bench configuration properties.</param>
+        /// <param name="appIndex">An instance of <see cref="IObjectLibrary"/> holding the configuration of Bench apps.</param>
+        public AppIndexFacade(IConfiguration config, IObjectLibrary appIndex)
         {
+            Config = config;
             AppIndex = appIndex;
         }
 

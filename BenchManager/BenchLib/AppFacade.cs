@@ -19,17 +19,21 @@ namespace Mastersign.Bench
         /// </summary>
         public const char NS_SEPARATOR = '.';
 
-        private readonly IConfiguration AppIndex;
+        private readonly IConfiguration Config;
+
+        private readonly IObjectLibrary AppIndex;
 
         private readonly string AppName;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AppFacade"/>.
         /// </summary>
-        /// <param name="source">The configuration, containing the properties of the app.</param>
+        /// <param name="config">The Bench configuration properties.</param>
+        /// <param name="source">The app index, containing the properties of the app.</param>
         /// <param name="appName">The ID of the app.</param>
-        public AppFacade(IConfiguration source, string appName)
+        public AppFacade(IConfiguration config, IObjectLibrary source, string appName)
         {
+            Config = config;
             AppIndex = source;
             AppName = appName;
         }
@@ -160,7 +164,7 @@ namespace Mastersign.Bench
         /// Gets the category, this app belongs to.
         /// E.g. there are <c>Required</c> and <c>Optional</c> apps.
         /// </summary>
-        /// <see cref="BenchConfiguration.DefaultAppCategory"/>
+        /// <see cref="AppIndex.DefaultAppCategory"/>
         public string Category => AppIndex.GetGroupCategory(AppName);
 
         /// <summary>
@@ -428,7 +432,7 @@ namespace Mastersign.Bench
         /// </summary>
         public string AdornmentProxyBasePath
             => IOPath.Combine(
-                    AppIndex.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir),
+                    Config.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir),
                     ID.ToLowerInvariant());
 
         /// <summary>
@@ -466,7 +470,7 @@ namespace Mastersign.Bench
         /// Checks, whether execution adornment proxies are required for this app, or not.
         /// </summary>
         public bool IsAdornmentRequired
-            => (RegistryKeys.Length > 0 && AppIndex.GetBooleanValue(ConfigPropertyKeys.UseRegistryIsolation))
+            => (RegistryKeys.Length > 0 && Config.GetBooleanValue(ConfigPropertyKeys.UseRegistryIsolation))
                     || File.Exists(GetCustomScript("pre-run"))
                     || File.Exists(GetCustomScript("post-run"));
 
@@ -547,7 +551,7 @@ namespace Mastersign.Bench
             var launcher = Launcher;
             return launcher != null
                 ? IOPath.Combine(
-                    AppIndex.GetStringValue(ConfigPropertyKeys.LauncherDir),
+                    Config.GetStringValue(ConfigPropertyKeys.LauncherDir),
                     launcher + ".lnk")
                 : null;
         }
@@ -555,7 +559,7 @@ namespace Mastersign.Bench
         internal string GetLauncherScriptFile()
         {
             return IOPath.Combine(
-                AppIndex.GetStringValue(ConfigPropertyKeys.LauncherScriptDir),
+                Config.GetStringValue(ConfigPropertyKeys.LauncherScriptDir),
                 ID.ToLowerInvariant() + ".cmd");
         }
 
@@ -567,12 +571,12 @@ namespace Mastersign.Bench
         public string GetCustomScript(string typ)
         {
             var relativePath = IOPath.Combine(
-                AppIndex.GetStringValue(ConfigPropertyKeys.AppLibCustomScriptDirName),
+                Config.GetStringValue(ConfigPropertyKeys.AppLibCustomScriptDirName),
                 NamespacePathSegment);
             var scriptName = string.Format("{0}.{1}.ps1", Name.ToLowerInvariant(), typ);
 
             var userPath = IOPath.Combine(
-                IOPath.Combine(AppIndex.GetStringValue(ConfigPropertyKeys.UserConfigDir), relativePath),
+                IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.UserConfigDir), relativePath),
                 scriptName);
             if (File.Exists(userPath)) return userPath;
 
@@ -594,12 +598,12 @@ namespace Mastersign.Bench
         public string GetSetupResource(string relativeResourcePath)
         {
             var relativeDirPath = IOPath.Combine(
-                AppIndex.GetStringValue(ConfigPropertyKeys.AppLibResourceDirName),
+                Config.GetStringValue(ConfigPropertyKeys.AppLibResourceDirName),
                 PathSegment);
 
             var userPath = IOPath.Combine(
                 IOPath.Combine(
-                    AppIndex.GetStringValue(ConfigPropertyKeys.UserConfigDir),
+                    Config.GetStringValue(ConfigPropertyKeys.UserConfigDir),
                     relativeDirPath),
                 relativeResourcePath);
             if (File.Exists(userPath) || Directory.Exists(userPath)) return userPath;
@@ -617,7 +621,7 @@ namespace Mastersign.Bench
         internal string GetVersionFile()
         {
             return IOPath.Combine(
-                AppIndex.GetStringValue(ConfigPropertyKeys.AppsVersionIndexDir),
+                Config.GetStringValue(ConfigPropertyKeys.AppsVersionIndexDir),
                 ID + ".txt");
         }
 
@@ -738,9 +742,9 @@ namespace Mastersign.Bench
             {
                 case AppTyps.Default:
                     return ResourceFileName != null
-                        ? File.Exists(IOPath.Combine(AppIndex.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceFileName))
+                        ? File.Exists(IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceFileName))
                         : ResourceArchiveName != null
-                            ? File.Exists(IOPath.Combine(AppIndex.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceArchiveName))
+                            ? File.Exists(IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceArchiveName))
                             : true;
                 default:
                     return false;
@@ -1204,7 +1208,7 @@ namespace Mastersign.Bench
         {
             foreach (var depName in Dependencies)
             {
-                var depApp = new AppFacade(AppIndex, depName);
+                var depApp = new AppFacade(Config, AppIndex, depName);
                 if (!depApp.IsActive)
                 {
                     depApp.ActivateAsDependency();
@@ -1309,7 +1313,7 @@ namespace Mastersign.Bench
             if (AdornedExecutables.Length > 0)
             {
                 var proxyDir = IOPath.Combine(
-                    AppIndex.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir),
+                    Config.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir),
                     AppName.ToLowerInvariant());
                 Path = AppendToList(Path, proxyDir);
             }

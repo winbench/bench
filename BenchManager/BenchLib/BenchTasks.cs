@@ -65,7 +65,7 @@ namespace Mastersign.Bench
             }
 
             var resultCfg = new BenchConfiguration(benchRootDir, false, false, true);
-            cfg.InjectBenchInitializationProperties(resultCfg);
+            resultCfg.CopyBenchInitializationPropertiesFrom(cfg);
 
             return resultCfg;
         }
@@ -134,7 +134,7 @@ namespace Mastersign.Bench
             }
 
             var cfg = new BenchConfiguration(man.Config.BenchRootDir, false, true, true);
-            man.Config.InjectBenchInitializationProperties(cfg);
+            cfg.CopyBenchInitializationPropertiesFrom(man.Config);
 
             var homeDir = cfg.GetStringValue(ConfigPropertyKeys.HomeDir);
             FileSystem.AsureDir(homeDir);
@@ -182,7 +182,7 @@ namespace Mastersign.Bench
             }
 
             var resultCfg = new BenchConfiguration(man.Config.BenchRootDir, true, true, true);
-            cfg.InjectBenchInitializationProperties(resultCfg);
+            resultCfg.CopyBenchInitializationPropertiesFrom(cfg);
             return resultCfg;
         }
 
@@ -480,7 +480,7 @@ namespace Mastersign.Bench
 
         private static string GemExe(BenchConfiguration config)
         {
-            var rubyExe = config.GetStringGroupValue(AppKeys.Ruby, AppPropertyKeys.Exe);
+            var rubyExe = config.Apps[AppKeys.Ruby].Exe;
             return rubyExe != null
                 ? Path.Combine(Path.GetDirectoryName(rubyExe), "gem.cmd")
                 : null;

@@ -231,7 +231,7 @@ namespace Mastersign.Bench.Dashboard
             activationReloadNecessary = false;
             lock (configReloadLockHandle)
             {
-                Config.ReloadAppActivation();
+                Config.AppProperties.ReloadAppActivation();
             }
             OnAppActivationChanged();
         }
@@ -780,7 +780,7 @@ namespace Mastersign.Bench.Dashboard
             get
             {
                 return Path.Combine(
-                    Config.GetStringGroupValue(AppKeys.Git, AppPropertyKeys.Dir),
+                    Config.Apps[AppKeys.Git].Dir,
                     @"bin\bash.exe");
             }
         }

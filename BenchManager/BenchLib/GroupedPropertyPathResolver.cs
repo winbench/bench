@@ -5,17 +5,17 @@ using System.Text;
 
 namespace Mastersign.Bench
 {
-    internal class PathResolver : IGroupedValueResolver
+    internal class GroupedPropertyPathResolver : IGroupedValueResolver
     {
-        public PropertyCriteria Selector { get; set; }
+        public GroupedPropertyCriteria Selector { get; set; }
 
-        public BasePathSource BasePathSource { get; set; }
+        public GroupedPropertyBasePathSource BasePathSource { get; set; }
 
-        public PathResolver()
+        public GroupedPropertyPathResolver()
         {
         }
 
-        public PathResolver(PropertyCriteria selector, BasePathSource basePathSource)
+        public GroupedPropertyPathResolver(GroupedPropertyCriteria selector, GroupedPropertyBasePathSource basePathSource)
             : this()
         {
             Selector = selector;

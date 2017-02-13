@@ -4,13 +4,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Mastersign.Bench.Markdown;
 using Microsoft.Win32;
 
 namespace Mastersign.Bench
 {
     /// <summary>
-    /// The merged configuration and app library for a Bench environment.
+    /// The merged configuration for a Bench environment.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -28,19 +27,6 @@ namespace Mastersign.Bench
     ///     <item>
     ///         <term>site</term>
     ///         <description><c>bench-site.md</c> files (filename can be changed via custom config)</description>
-    ///     </item>
-    /// </list>
-    /// <para>
-    /// The app library is merged by loading the following files:
-    /// </para>
-    /// <list type="bullet">
-    ///     <item>
-    ///       <term>external</term>
-    ///       <description><c>lib\_applibs\*\apps.md</c></description>
-    ///     </item>
-    ///     <item>
-    ///         <term>custom</term>
-    ///         <description><c>config\apps.md</c></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -89,18 +75,13 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
-        /// The property group category, which contains app definitions of required apps.
-        /// </summary>
-        public const string DefaultAppCategory = "Required";
-
-        private readonly AppIndexFacade appIndexFacade;
-
-        /// <summary>
         /// The absolute path to the root directory of Bench.
         /// </summary>
         public string BenchRootDir { get; private set; }
 
         private string siteConfigFileName; // cached to prevent overriding by custom configuration
+
+        private AppIndex appProperties;
 
         /// <summary>
         /// A flag which indicates if the app library was loaded during initialization of the <see cref="BenchConfiguration"/>.
@@ -141,17 +122,12 @@ namespace Mastersign.Bench
             WithAppIndex = loadAppIndex;
             WithUserConfiguration = loadUserConfiguration;
             WithSiteConfiguration = loadSiteConfiguration;
-            AddResolver(new GroupedVariableResolver(this));
-            AddResolver(new VariableResolver(this));
-            AddResolver(new PathResolver(IsPathProperty, GetBaseForPathProperty));
 
-            var parser = new MarkdownPropertyParser
-            {
-                Target = this,
-                GroupBeginCue = new Regex("^[\\*\\+-]\\s+ID:\\s*(`?)(?<group>\\S+?)\\1$"),
-                GroupEndCue = new Regex("^\\s*$"),
-                CollectGroupDocs = true,
-            };
+            AddResolver(new VariableResolver(this));
+            AddResolver(new PropertyPathResolver(IsPathProperty, GetBaseForPathProperty));
+            AddResolver(new DictionaryValueResolver());
+
+            var parser = MarkdownPropertyParserFactory.Create(this);
 
             var configFile = Path.Combine(benchRootDir, CONFIG_FILE);
             Debug.WriteLine("Looking for default configuration: " + configFile);
@@ -195,52 +171,24 @@ namespace Mastersign.Bench
                 }
             }
 
+            AutomaticConfiguration();
+
             if (loadAppIndex)
             {
-                foreach (var l in AppLibraries)
-                {
-                    var appIndexFile = Path.Combine(l.BaseDir, GetStringValue(ConfigPropertyKeys.AppLibIndexFileName));
-                    Debug.WriteLine("Looking for app library index: " + appIndexFile);
-                    if (File.Exists(appIndexFile))
-                    {
-                        parser.CurrentGroupMetadata = l;
-                        using (var appIndexStream = File.OpenRead(appIndexFile))
-                        {
-                            Debug.WriteLine("Reading index of app library '{0}' ...", l.ID);
-                            parser.Parse(appIndexStream);
-                        }
-                        parser.CurrentGroupMetadata = null;
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Index file of app library '{0}' not found.", l.ID);
-                    }
-                }
-
-                if (loadUserConfiguration)
-                {
-                    var customAppIndexFile = Path.Combine(
-                        GetStringValue(ConfigPropertyKeys.UserConfigDir),
-                        GetStringValue(ConfigPropertyKeys.AppLibIndexFileName));
-                    Debug.WriteLine("Looking for custom app library index: " + customAppIndexFile);
-                    if (File.Exists(customAppIndexFile))
-                    {
-                        using (var customAppIndexStream = File.OpenRead(customAppIndexFile))
-                        {
-                            Debug.WriteLine("Reading custom app library index ...");
-                            parser.Parse(customAppIndexStream);
-                        }
-                    }
-                }
+                appProperties = new AppIndex(this, loadUserConfiguration);
             }
+        }
 
-            AddResolver(new DictionaryValueResolver(this));
-            GroupedDefaultValueSource = new AppIndexDefaultValueSource(this);
-            appIndexFacade = new AppIndexFacade(this);
 
-            AutomaticConfiguration();
-            RecordAppResponsibilities();
-            LoadAppActivation();
+        private bool IsPathProperty(string property)
+        {
+            return property.EndsWith("File")
+                || property.EndsWith("Dir");
+        }
+
+        private string GetBaseForPathProperty(string property)
+        {
+            return BenchRootDir;
         }
 
         /// <summary>
@@ -541,108 +489,12 @@ namespace Mastersign.Bench
             }
         }
 
-        private void RecordAppResponsibilities()
-        {
-            foreach (var app in new List<AppFacade>(Apps))
-            {
-                app.TrackResponsibilities();
-            }
-        }
-
-        private void LoadAppActivation()
-        {
-            // activate required apps
-
-            foreach (var app in Apps.ByCategory(DefaultAppCategory))
-            {
-                Debug.WriteLine(string.Format("Activating required app '{0}'", app.ID));
-                app.ActivateAsRequired();
-            }
-
-            if (WithUserConfiguration)
-            {
-                // activate manually activated apps
-
-                var activationFile = new ActivationFile(GetStringValue(ConfigPropertyKeys.AppActivationFile));
-                foreach (var appName in activationFile)
-                {
-                    if (Apps.Exists(appName))
-                    {
-                        Debug.WriteLine(string.Format("Activating app '{0}'", appName));
-                        Apps[appName].Activate();
-                    }
-                }
-
-                // deactivate manually deactivated apps
-
-                var deactivationFile = new ActivationFile(GetStringValue(ConfigPropertyKeys.AppDeactivationFile));
-                foreach (var appName in deactivationFile)
-                {
-                    if (Apps.Exists(appName))
-                    {
-                        Debug.WriteLine(string.Format("Deactivating app '{0}'", appName));
-                        Apps[appName].Deactivate();
-                    }
-                }
-            }
-        }
-
-        private void ResetAppActivation()
-        {
-            foreach (var app in Apps)
-            {
-                app.ResetActivation();
-            }
-        }
-
         /// <summary>
-        /// Reads the activation and deactivation files,
-        /// and reloads the app activation and dependency structure.
+        /// Copy a couple of temporary properties, needed during the initialization
+        /// of a Bench environment, from a source configuration to this configuration.
         /// </summary>
-        public void ReloadAppActivation()
-        {
-            ResetAppActivation();
-            LoadAppActivation();
-        }
-
-        private bool IsPathProperty(string app, string property)
-        {
-            if (string.IsNullOrEmpty(app))
-            {
-                return property.EndsWith("File")
-                    || property.EndsWith("Dir");
-            }
-            return property == AppPropertyKeys.Dir
-                || property == AppPropertyKeys.Path
-                || property == AppPropertyKeys.Exe
-                || property == AppPropertyKeys.SetupTestFile
-                || property == AppPropertyKeys.AdornedExecutables
-                || property == AppPropertyKeys.LauncherExecutable
-                || property == AppPropertyKeys.LauncherIcon;
-        }
-
-        private string GetBaseForPathProperty(string app, string property)
-        {
-            if (string.IsNullOrEmpty(app))
-            {
-                return BenchRootDir;
-            }
-            else if (property == AppPropertyKeys.Dir)
-            {
-                return GetStringValue(ConfigPropertyKeys.AppsInstallDir);
-            }
-            else
-            {
-                return GetStringGroupValue(app, AppPropertyKeys.Dir);
-            }
-        }
-
-        /// <summary>
-        /// Transfers a couple of temporary properties, needed during the initialization
-        /// of a Bench environment, to a new instance of the configuration.
-        /// </summary>
-        /// <param name="targetCfg">The new configuration instance.</param>
-        public void InjectBenchInitializationProperties(BenchConfiguration targetCfg)
+        /// <param name="sourceCfg">The source configuration to copy from.</param>
+        public void CopyBenchInitializationPropertiesFrom(BenchConfiguration sourceCfg)
         {
             foreach (var key in new[]
                 {
@@ -651,20 +503,24 @@ namespace Mastersign.Bench
                     ConfigPropertyKeys.WizzardSelectedApps,
                 })
             {
-                targetCfg.SetValue(key, this.GetValue(key));
+                sourceCfg.SetValue(key, this.GetValue(key));
             }
-
-            if (targetCfg.GetValue(ConfigPropertyKeys.UserConfigRepository) != null)
+            if (appProperties != null && GetValue(ConfigPropertyKeys.UserConfigRepository) != null)
             {
-                targetCfg.SetGroupCategory(AppKeys.Git, BenchConfiguration.DefaultAppCategory);
-                targetCfg.Apps[AppKeys.Git].ActivateAsRequired();
+                appProperties.SetGroupCategory(AppKeys.Git, AppIndex.DefaultAppCategory);
+                Apps[AppKeys.Git].ActivateAsRequired();
             }
         }
 
         /// <summary>
         /// The merged definition of the Bench apps as a <see cref="AppIndexFacade"/>.
         /// </summary>
-        public AppIndexFacade Apps { get { return appIndexFacade; } }
+        public AppIndexFacade Apps => appProperties.Facade;
+
+        /// <summary>
+        /// The merged definition of the Bench apps.
+        /// </summary>
+        public AppIndex AppProperties => appProperties;
 
         /// <summary>
         /// The app libraries defined in the configuration property <c>AppLibs</c>.
@@ -676,7 +532,7 @@ namespace Mastersign.Bench
                 var result = new List<AppLibrary>();
                 foreach (var item in GetStringListValue(ConfigPropertyKeys.AppLibs))
                 {
-                    var kvp = DictionaryValueResolver.ParseKeyValuePair(item);
+                    var kvp = ValueParser.ParseKeyValuePair(item);
                     if (string.IsNullOrEmpty(kvp.Key)) continue;
                     var id = kvp.Key;
                     Uri url;

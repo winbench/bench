@@ -7,14 +7,17 @@ namespace Mastersign.Bench
 {
     internal class AppIndexDefaultValueSource : IGroupedPropertySource
     {
+        public IPropertySource Config { get; set; }
+
         public IGroupedPropertySource AppIndex { get; set; }
 
         public AppIndexDefaultValueSource()
         {
         }
 
-        public AppIndexDefaultValueSource(IGroupedPropertySource appIndex)
+        public AppIndexDefaultValueSource(IPropertySource config, IGroupedPropertySource appIndex)
         {
+            Config = config;
             AppIndex = appIndex;
         }
 
@@ -45,7 +48,7 @@ namespace Mastersign.Bench
                 case AppPropertyKeys.License:
                     return "unknown";
                 case AppPropertyKeys.LicenseUrl:
-                    var knownUrls = AppIndex.GetGroupValue(null, ConfigPropertyKeys.KnownLicenses) as IDictionary<string, string>;
+                    var knownUrls = Config.GetValue(ConfigPropertyKeys.KnownLicenses) as IDictionary<string, string>;
                     if (knownUrls == null) return null;
                     var license = AppIndex.GetGroupValue(appId, AppPropertyKeys.License) as string;
                     if (string.IsNullOrEmpty(license)) return null;

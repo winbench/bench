@@ -74,7 +74,7 @@ namespace Mastersign.Bench.UI
                 stepAppSeletion = new AppSelectionStepControl();
                 stepAppSeletion.InitializeStepControl(
                     Seq(config.GetStringListValue(ConfigPropertyKeys.WizzardApps))
-                    .Map(DictionaryValueResolver.ParseKeyValuePair)
+                    .Map(ValueParser.ParseKeyValuePair)
                     .ToArray());
             }
             stepAdvanced = new AdvancedStepControl();

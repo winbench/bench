@@ -45,7 +45,7 @@ namespace Mastersign.Bench.Cli.Commands
 
             // Reload the configuration with the core app libraries
             cfgWithCoreApps = new BenchConfiguration(RootPath, true, false, true);
-            cfgWithSite.InjectBenchInitializationProperties(cfgWithCoreApps);
+            cfgWithCoreApps.CopyBenchInitializationPropertiesFrom(cfgWithSite);
             cfgWithSite = null;
 
             // Create a manager object to get an execution host
