@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using Mastersign.Bench.Markdown;
+using Mastersign.Bench.PropertyCollections;
 
 namespace Mastersign.Bench
 {

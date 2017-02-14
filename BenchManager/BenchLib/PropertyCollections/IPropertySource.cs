@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mastersign.Bench
+namespace Mastersign.Bench.PropertyCollections
 {
     /// <summary>
     /// This interface describes the capability of reading properties.

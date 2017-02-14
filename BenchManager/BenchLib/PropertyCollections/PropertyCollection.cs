@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Mastersign.Bench
+namespace Mastersign.Bench.PropertyCollections
 {
     /// <summary>
     /// This class is the default implementation for <see cref="IConfiguration"/>.

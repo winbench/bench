@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Bench.PropertyCollections;
 using NUnit.Framework;
 
 namespace Mastersign.Bench.Test
