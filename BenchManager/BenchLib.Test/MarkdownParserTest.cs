@@ -14,8 +14,8 @@ namespace Mastersign.Bench.Test
         public void SimpleProperty()
         {
             var md = "* Key: Value";
-            var cfg = new GroupedPropertyCollection();
-            var parser = new MarkdownPropertyParser(cfg);
+            var cfg = new PropertyCollection();
+            var parser = new MarkdownPropertyParser { PropertyTarget = cfg };
             using (var r = new StringReader(md)) { parser.Parse(r); }
 
             Assert.AreEqual("Value", cfg.GetValue("Key"));
@@ -25,8 +25,8 @@ namespace Mastersign.Bench.Test
         public void QuotedProperties()
         {
             var md = "* K1: `Value`\n* K2: <Value2>";
-            var cfg = new GroupedPropertyCollection();
-            var parser = new MarkdownPropertyParser(cfg);
+            var cfg = new PropertyCollection();
+            var parser = new MarkdownPropertyParser { PropertyTarget = cfg };
             using (var r = new StringReader(md)) { parser.Parse(r); }
 
             Assert.AreEqual("Value", cfg.GetValue("K1"));
@@ -37,8 +37,8 @@ namespace Mastersign.Bench.Test
         public void OneLineListProperty()
         {
             var md = "* Key: `ABC`, `XYZ`, `123`";
-            var cfg = new GroupedPropertyCollection();
-            var parser = new MarkdownPropertyParser(cfg);
+            var cfg = new PropertyCollection();
+            var parser = new MarkdownPropertyParser { PropertyTarget = cfg };
             using (var r = new StringReader(md)) { parser.Parse(r); }
 
             Assert.AreEqual(new[] { "ABC", "XYZ", "123" }, cfg.GetValue("Key"));
@@ -48,8 +48,8 @@ namespace Mastersign.Bench.Test
         public void MultilineListProperty()
         {
             var md = "* Key:\n   + ABC\n   + XYZ\n   + 123";
-            var cfg = new GroupedPropertyCollection();
-            var parser = new MarkdownPropertyParser(cfg);
+            var cfg = new PropertyCollection();
+            var parser = new MarkdownPropertyParser { PropertyTarget = cfg };
             using (var r = new StringReader(md)) { parser.Parse(r); }
 
             Assert.AreEqual(new[] { "ABC", "XYZ", "123" }, cfg.GetValue("Key"));
@@ -68,8 +68,8 @@ namespace Mastersign.Bench.Test
                 "  + <SK6>: `v6`",
                 "  + `SK7`:<v7>",
                 "  + `$abc:123$`");
-            var cfg = new GroupedPropertyCollection();
-            var parser = new MarkdownPropertyParser(cfg);
+            var cfg = new PropertyCollection();
+            var parser = new MarkdownPropertyParser { PropertyTarget = cfg };
             using (var r = new StringReader(md)) { parser.Parse(r); }
 
             Assert.AreEqual(new[]

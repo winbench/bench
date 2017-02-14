@@ -44,7 +44,7 @@ namespace Mastersign.Bench.Cli.Commands
             var appId = Arguments.GetPositionalValue(POSITIONAL_APP_ID);
             var cfg = LoadConfiguration();
 
-            if (!cfg.ContainsGroup(appId))
+            if (!cfg.Apps.Exists(appId))
             {
                 WriteError("The app '{0}' was not found.", appId);
                 return false;

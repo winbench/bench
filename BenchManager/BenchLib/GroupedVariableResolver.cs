@@ -20,7 +20,7 @@ namespace Mastersign.Bench
     /// by replacing it with <c>#GROUP:NAME#</c>.
     /// </para>
     /// </summary>
-    public class GroupedVariableResolver : IGroupedValueResolver
+    public class GroupedVariableResolver : IValueResolver, IGroupedValueResolver
     {
         private static readonly Regex DefaultGroupVariablePattern = new Regex("\\$(?<group>.*?):(?<name>.+?)\\$");
 
@@ -54,6 +54,31 @@ namespace Mastersign.Bench
             : this()
         {
             ValueSource = valueSource;
+        }
+
+        /// <summary>
+        /// Returns the resolved or transformed value of the specified property.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The original value of the specified property.</param>
+        /// <returns>The resolved or transformed value for the specified value.</returns>
+        public object ResolveValue(string name, object value)
+        {
+            if (value == null) return null;
+            if (value is string[])
+            {
+                return Array.ConvertAll((string[])value, v => (string)ResolveValue(name, v));
+            }
+            if (value is string && ValueSource != null && GroupVariablePattern != null)
+            {
+                value = GroupVariablePattern.Replace((string)value, m =>
+                {
+                    var g = m.Groups["group"].Value;
+                    var n = m.Groups["name"].Value;
+                    return (ValueSource.GetGroupValue(g, n) as string) ?? string.Format("#{0}:{1}#", g, n);
+                });
+            }
+            return value;
         }
 
         /// <summary>

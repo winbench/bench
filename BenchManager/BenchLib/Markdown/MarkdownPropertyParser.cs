@@ -153,9 +153,14 @@ namespace Mastersign.Bench.Markdown
         public Regex GroupDocsEndCue { get; set; }
 
         /// <summary>
-        /// Gets or sets the property target, where recognized properties are stored in.
+        /// Gets or sets the property target, where recognized grouoped properties are stored in.
         /// </summary>
-        public IGroupedPropertyTarget Target { get; set; }
+        public IGroupedPropertyTarget GroupPropertyTarget { get; set; }
+
+        /// <summary>
+        /// Gets or sets the target, where recognized ungrouped properties are stored in.
+        /// </summary>
+        public IPropertyTarget PropertyTarget { get; set; }
 
         /// <summary>
         /// Gets or sets a metadata object, which is going to be attached to every group,
@@ -186,25 +191,26 @@ namespace Mastersign.Bench.Markdown
             GroupDocsEndCue = DefaultGroupDocsEndCue;
         }
 
-        /// <summary>
-        /// Initializes a new instance of <see cref="MarkdownPropertyParser"/>.
-        /// </summary>
-        /// <param name="target">The target for recognized properties.</param>
-        public MarkdownPropertyParser(IGroupedPropertyTarget target)
-            : this()
-        {
-            Target = target;
-        }
-
         private void OnPropertyValue(string name, object value)
         {
-            var target = Target;
-            if (target != null)
+            if (CurrentGroup == null)
             {
-                target.SetGroupValue(CurrentGroup, name, value);
-                if (CurrentGroupMetadata != null)
+                var target = PropertyTarget;
+                if (target != null)
                 {
-                    target.SetGroupMetadata(CurrentGroup, CurrentGroupMetadata);
+                    target.SetValue(name, value);
+                }
+            }
+            else
+            {
+                var groupTarget = GroupPropertyTarget;
+                if (groupTarget != null)
+                {
+                    groupTarget.SetGroupValue(CurrentGroup, name, value);
+                    if (CurrentGroupMetadata != null)
+                    {
+                        groupTarget.SetGroupMetadata(CurrentGroup, CurrentGroupMetadata);
+                    }
                 }
             }
         }
@@ -351,7 +357,7 @@ namespace Mastersign.Bench.Markdown
                     CurrentGroup = gm.Groups["group"].Value;
                     if (CurrentCategory != null)
                     {
-                        Target.SetGroupCategory(CurrentGroup, CurrentCategory);
+                        GroupPropertyTarget.SetGroupCategory(CurrentGroup, CurrentCategory);
                     }
                     if (collectingGroupDocsActive)
                     {
@@ -400,7 +406,7 @@ namespace Mastersign.Bench.Markdown
                 var docText = string.Join(Environment.NewLine, collectedGroupDocs.ToArray()).Trim();
                 foreach (var g in docGroups)
                 {
-                    Target.SetGroupDocumentation(g, docText);
+                    GroupPropertyTarget.SetGroupDocumentation(g, docText);
                 }
                 collectedGroupDocs.Clear();
                 docGroups.Clear();

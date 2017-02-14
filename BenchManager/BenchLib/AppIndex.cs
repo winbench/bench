@@ -90,8 +90,17 @@ namespace Mastersign.Bench
 
             appIndexFacade = new AppIndexFacade(Config, this);
 
+            AutomaticConfiguration();
             RecordAppResponsibilities();
             LoadAppActivation();
+        }
+
+        private void AutomaticConfiguration()
+        {
+            foreach (var app in appIndexFacade)
+            {
+                app.SetupAutoConfiguration();
+            }
         }
 
         /// <summary>

@@ -270,7 +270,7 @@ namespace Mastersign.Bench
         /// <param name="name">The name of the property.</param>
         /// <returns>A boolean, or <c>false</c> if the property does not exist
         /// or its value can not be properly converted.</returns>
-        public bool GetBooleanValue(string name) => GetBooleanValue(name);
+        public bool GetBooleanValue(string name) => GetBooleanValue(name, false);
 
         /// <summary>
         /// Gets the value of a property as a boolean, or a default value if the
@@ -305,7 +305,7 @@ namespace Mastersign.Bench
         /// <param name="name">The name of the property.</param>
         /// <returns>An integer, or <c>0</c> if the property does not exist
         /// or its value can not be properly converted.</returns>
-        public int GetInt32Value(string name) => GetInt32Value(name);
+        public int GetInt32Value(string name) => GetInt32Value(name, 0);
 
         /// <summary>
         /// Gets the value of a property as an integer, or a default value if the

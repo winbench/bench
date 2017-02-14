@@ -16,7 +16,7 @@ namespace Mastersign.Bench.Test
                 {"a", "123"},
                 {"b", "456"},
             });
-            var cfg = new ResolvingGroupedPropertyCollection();
+            var cfg = new ResolvingPropertyCollection();
             cfg.AddResolver(new VariableResolver(propCollection));
 
             cfg.SetValue("v1", "$a$");
@@ -41,7 +41,7 @@ namespace Mastersign.Bench.Test
             {
                 {"a", "123"},
             });
-            var cfg = new ResolvingGroupedPropertyCollection();
+            var cfg = new ResolvingPropertyCollection();
             cfg.AddResolver(new VariableResolver(propCollection));
 
             cfg.SetValue("v1", " $a ");
@@ -63,7 +63,7 @@ namespace Mastersign.Bench.Test
                 {"a", 123},
                 {"b", true},
             });
-            var cfg = new ResolvingGroupedPropertyCollection();
+            var cfg = new ResolvingPropertyCollection();
             cfg.AddResolver(new VariableResolver(propCollection));
 
             cfg.SetValue("v1", "$a$");
@@ -94,7 +94,7 @@ namespace Mastersign.Bench.Test
         [Test]
         public void TransitiveVariableExpansion()
         {
-            var cfg = new ResolvingGroupedPropertyCollection();
+            var cfg = new ResolvingPropertyCollection();
             cfg.AddResolver(new VariableResolver(cfg));
 
             cfg.SetValue("x1", "$x2$");
@@ -121,7 +121,7 @@ namespace Mastersign.Bench.Test
                     { "x", "UVW" }
                 } },
             });
-            var cfg = new ResolvingGroupedPropertyCollection();
+            var cfg = new ResolvingPropertyCollection();
             cfg.AddResolver(new GroupedVariableResolver(groupedProperties));
 
             cfg.SetValue("v1", "$A:x$");
@@ -148,7 +148,7 @@ namespace Mastersign.Bench.Test
                     { "x", "123" },
                 } },
             });
-            var cfg = new ResolvingGroupedPropertyCollection();
+            var cfg = new ResolvingPropertyCollection();
             cfg.AddResolver(new GroupedVariableResolver(groupedProperties));
 
             cfg.SetValue("v1", " $A:x ");
@@ -207,7 +207,7 @@ namespace Mastersign.Bench.Test
                     { "y", true },
                 } },
             });
-            var cfg = new ResolvingGroupedPropertyCollection();
+            var cfg = new ResolvingPropertyCollection();
             cfg.AddResolver(new GroupedVariableResolver(groupedProperties));
             cfg.SetValue("int", "$A:x$");
             cfg.SetValue("bool", "$A:y$");

@@ -482,11 +482,6 @@ namespace Mastersign.Bench
             {
                 SetValue(ConfigPropertyKeys.TempDir, Path.GetTempPath());
             }
-
-            foreach (var app in Apps)
-            {
-                app.SetupAutoConfiguration();
-            }
         }
 
         /// <summary>

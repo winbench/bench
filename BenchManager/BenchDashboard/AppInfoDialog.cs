@@ -36,9 +36,9 @@ namespace Mastersign.Bench.Dashboard
             }
 
             gridRaw.Rows.Clear();
-            foreach (var key in config.PropertyNames(app.ID))
+            foreach (var key in config.AppProperties.PropertyNames(app.ID))
             {
-                AddRow(gridRaw, key, config.GetRawGroupValue(app.ID, key));
+                AddRow(gridRaw, key, config.AppProperties.GetRawGroupValue(app.ID, key));
             }
         }
 
