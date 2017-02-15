@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Mastersign.CliTools;
-using Mastersign.Docs;
 
 namespace Mastersign.Bench.Cli.Commands
 {
@@ -71,6 +70,37 @@ namespace Mastersign.Bench.Cli.Commands
             using (var mgr = CreateManager())
             {
                 return task(mgr);
+            }
+        }
+
+        public bool LaunchApp(BenchConfiguration cfg, bool detached, string appId, params string[] args)
+        {
+            if (!cfg.Apps.Exists(appId))
+            {
+                WriteError("The app '{0}' was not found.", appId);
+                return false;
+            }
+
+            var app = cfg.Apps[appId];
+            if (app.Exe == null)
+            {
+                WriteError("The app '{0}' has no main executable.", app.Label);
+                return false;
+            }
+            WriteDetail("Found apps executable: {0}", app.Exe);
+
+            WriteDetail("Starting app '{0}' {1} ...", app.Label, detached ? "detached" : "synchronously");
+
+            var env = new BenchEnvironment(cfg);
+            var p = BenchTasks.LaunchApp(cfg, env, appId, args);
+            if (detached)
+            {
+                return true;
+            }
+            else
+            {
+                p.WaitForExit();
+                return p.ExitCode == 0;
             }
         }
 
