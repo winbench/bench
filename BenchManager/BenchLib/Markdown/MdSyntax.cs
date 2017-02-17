@@ -8,15 +8,15 @@ namespace Mastersign.Bench.Markdown
     internal static class MdSyntax
     {
         private static readonly string YamlHeaderStart = "---";
-        private static readonly Regex YamlHeaderEndExp = new Regex("^---|...$");
-        private static readonly Regex CodeBlockExp = new Regex("^(?<preamble>```+|~~~+)");
+        private static readonly Regex YamlHeaderEndExp = new Regex(@"^-{3}|\.{3}$");
+        private static readonly Regex CodeBlockExp = new Regex("^(?<preamble>`{3,}|~{3,})");
         private static readonly string HtmlCommentStart = "<!--";
         private static readonly string HtmlCommentEnd = "-->";
 
         public static bool IsYamlHeaderStart(int lineNo, string line)
         {
             if (lineNo > 0) return false;
-            return line == YamlHeaderStart;
+            return string.Equals(line, YamlHeaderStart);
         }
 
         public static bool IsYamlHeaderEnd(int lineNo, string line)
@@ -27,16 +27,20 @@ namespace Mastersign.Bench.Markdown
 
         public static bool IsHtmlCommentStart(string line, int pos = 0)
         {
-            var startP = line.LastIndexOf(HtmlCommentStart, pos);
+            var startP = line.LastIndexOf(HtmlCommentStart);
             if (startP < 0) return false;
-            return line.IndexOf(HtmlCommentEnd, startP) < 0;
+            var endP = line.LastIndexOf(HtmlCommentEnd);
+            if (endP < 0) return true;
+            return startP > endP;
         }
 
         public static bool IsHtmlCommentEnd(string line)
         {
-            var endP = line.IndexOf(HtmlCommentEnd);
+            var endP = line.LastIndexOf(HtmlCommentEnd);
             if (endP < 0) return false;
-            return !IsHtmlCommentStart(line, endP);
+            var startP = line.LastIndexOf(HtmlCommentStart);
+            if (startP < 0) return true;
+            return endP > startP;
         }
 
         public static bool IsCodeBlockStart(string line, ref string preamble)
@@ -55,7 +59,7 @@ namespace Mastersign.Bench.Markdown
 
         public static bool IsCodeBlockEnd(string line, ref string preamble)
         {
-            if (line.Trim() == preamble)
+            if (string.Equals(line.Trim(), preamble))
             {
                 preamble = null;
                 return true;

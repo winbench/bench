@@ -68,6 +68,10 @@ Otherwise, a fresh Bench installation and copying the user configuration manuall
     + `lib\_versions` &rarr; `lib\versions`
     + `lib\<app installs>` &rarr; `lib\apps\<app installs>`
 
+### Fixed
+- Recognition of HTML comments in config files
+  ([#96](https://github.com/mastersign/bench/issues/96))
+
 ## [0.14.1] - 2017-01-30
 
 [0.14.1]: https://github.com/mastersign/bench/compare/v0.14.0...v0.14.1
