@@ -1,7 +1,7 @@
 @ECHO OFF
 SET ROOT=%~dp0
 
-SET VERSION=0.15.0
+SET VERSION=0.15.1
 SET TAG=v%VERSION%
 SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
 SET BENCH_ZIPFILE=%ROOT%Bench.zip
@@ -11,9 +11,16 @@ SET BENCH_DIR=%ROOT%
 
 PUSHD "%ROOT%"
 
+ECHO.Starting Bench Installation...
+
 CALL :DOWNLOAD "%BENCH_ZIPURL%" "%BENCH_ZIPFILE%"
 
-ECHO Removing old Bench files ...
+IF EXIST "%ROOT%\lib\" (
+  ECHO.
+  ECHO.Make sure, all programs in the Bench environment are closed.
+  PAUSE
+)
+ECHO.Removing old Bench files ...
 FOR %%d IN (actions, auto, res, tmp, lib\conemu, lib\_applibs, cache\_applibs) DO (
   IF EXIST "%ROOT%\%%d\" RMDIR /S /Q "%ROOT%\%%d"
 )
