@@ -1,11 +1,11 @@
 ﻿+++
-date = "2017-02-03T16:43:02+01:00"
+date = "2017-02-17T11:37:41+01:00"
 description = "The command-line interface: bench.exe"
 title = "Bench CLI"
 weight = 2
 +++
 
-Version: 0.14.1
+Version: 0.15.0
 
 The  _Bench CLI_ allows to interact with a Bench environment on the command line.
 
@@ -38,7 +38,9 @@ Take a look at [the project website](http://mastersign.github.io/bench) for a de
 * [ `bench`  `list`  `files`](#cmd_bench-list-files)
 * [ `bench`  `manage`](#cmd_bench-manage)
 * [ `bench`  `manage`  `config`](#cmd_bench-manage-config)
+* [ `bench`  `manage`  `config`  `edit`](#cmd_bench-manage-config-edit)
 * [ `bench`  `manage`  `config`  `get`](#cmd_bench-manage-config-get)
+* [ `bench`  `manage`  `config`  `set`](#cmd_bench-manage-config-set)
 * [ `bench`  `manage`  `downloads`](#cmd_bench-manage-downloads)
 * [ `bench`  `manage`  `initialize`](#cmd_bench-manage-initialize)
 * [ `bench`  `manage`  `load-app-libs`](#cmd_bench-manage-load-app-libs)
@@ -630,10 +632,35 @@ The  `config` command gives access to the Bench user configuration.
 
 ### Commands {#cmd_bench-manage-config_commands}
 
+#### [ `edit`,  `e`](#cmd_bench-manage-config-edit)
+Opens the user configuration in the default Markdown editor.
+
+Syntax:  `bench`  `manage`  `config`  `edit`  _&lt;flag&gt;_\*  
+
 #### [ `get`,  `read`,  `g`](#cmd_bench-manage-config-get)
 Reads a configuration value.
 
-Syntax:  `bench`  `manage`  `config`  `get`  _&lt;property-name&gt;_  
+Syntax:  `bench`  `manage`  `config`  `get`  _&lt;Property Name&gt;_  
+
+#### [ `set`,  `write`,  `s`](#cmd_bench-manage-config-set)
+Writes a configuration value.
+
+Syntax:  `bench`  `manage`  `config`  `set`  _&lt;Property Name&gt;_  _&lt;New Value&gt;_  
+
+## bench manage config edit {#cmd_bench-manage-config-edit}
+Command:  `bench`  `manage`  `config`  `edit`
+
+The  `edit` command opens the user configuration in the default Markdown editor.
+
+### Usage {#cmd_bench-manage-config-edit_usage}
+
+*  `bench`  `manage`  `config`  `edit`  `-?`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `config`  `edit`  _&lt;flag&gt;_\*
+
+### Flags {#cmd_bench-manage-config-edit_flags}
+
+####  `--detached` |  `--async` |  `-d`
+Do not wait for the editor to be closed.
 
 ## bench manage config get {#cmd_bench-manage-config-get}
 Command:  `bench`  `manage`  `config`  `get`
@@ -643,12 +670,30 @@ The  `get` command reads a configuration value.
 ### Usage {#cmd_bench-manage-config-get_usage}
 
 *  `bench`  `manage`  `config`  `get`  `-?`
-*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `config`  `get`  _&lt;property-name&gt;_
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `config`  `get`  _&lt;Property Name&gt;_
 
 ### Positional Arguments {#cmd_bench-manage-config-get_positionals}
 
-####  1. property-name
+####  1. Property Name
 The name of the configuration property to read.
+
+## bench manage config set {#cmd_bench-manage-config-set}
+Command:  `bench`  `manage`  `config`  `set`
+
+The  `set` command writes a configuration value to the user configuration file.
+
+### Usage {#cmd_bench-manage-config-set_usage}
+
+*  `bench`  `manage`  `config`  `set`  `-?`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `manage`  `config`  `set`  _&lt;Property Name&gt;_  _&lt;New Value&gt;_
+
+### Positional Arguments {#cmd_bench-manage-config-set_positionals}
+
+####  1. Property Name
+The name of the configuration property to write.
+
+####  2. New Value
+The new value for the configuration property.
 
 ## bench manage downloads {#cmd_bench-manage-downloads}
 Command:  `bench`  `manage`  `downloads`

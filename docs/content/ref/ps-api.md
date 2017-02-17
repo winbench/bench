@@ -2,7 +2,7 @@
 date = "2017-01-02T17:00:00+02:00"
 description = "The programming interface for hooks and custom scripts"
 title = "PowerShell API"
-weight = 9
+weight = 100
 +++
 
 The _PowerShell API_ of Bench consists of a set of global variables and functions,
