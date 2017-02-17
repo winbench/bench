@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Fixed
+- Broken upgrade mechanism
+  ([#97](https://github.com/mastersign/bench/issues/97))
+
 ## [0.15.0] - 2017-02-17
 
 [0.15.0]: https://github.com/mastersign/bench/compare/v0.14.1...v0.15.0

@@ -1811,13 +1811,7 @@ namespace Mastersign.Bench
         /// <param name="config">The Bench configuration.</param>
         public static void InitiateInstallationBootstrap(BenchConfiguration config)
         {
-            var rootPath = config.BenchRootDir;
-            var si = new ProcessStartInfo("cmd",
-                "/D \"@ECHO.Starting Bench Installation... && @ECHO. && @ECHO.Make sure, all programs in the Bench environment are closed. && @PAUSE && CALL ^\""
-                    + Path.Combine(rootPath, "bench-install.bat") + "^\"\"");
-            si.UseShellExecute = true;
-            si.WorkingDirectory = rootPath;
-            Process.Start(si);
+            Process.Start("cmd", "/D /C \"" + Path.Combine(config.BenchRootDir, "bench-install.bat") + "\"");
         }
 
         #endregion
