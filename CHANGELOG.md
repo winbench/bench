@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.15.0] - 2017-02-17
+
+[0.15.0]: https://github.com/mastersign/bench/compare/v0.14.1...v0.15.0
+
 In this release the directories for cached and installed files where changed.
 To prevent downloading all app resources and installing all apps again,
 the upgrade must be perfomed with a special script.
