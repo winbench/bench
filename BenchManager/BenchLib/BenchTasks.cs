@@ -1793,9 +1793,21 @@ namespace Mastersign.Bench
                 .Replace("#VERSION#", version);
             var bootstrapFile = Path.Combine(man.Config.BenchRootDir, "bench-install.bat");
 
-            man.Downloader.Enqueue(new DownloadTask("Bench Binary", new Uri(binaryUrl), binaryFile));
-            man.Downloader.Enqueue(new DownloadTask("Bootstrap File", new Uri(bootstrapUrl), bootstrapFile));
-            endEvent.WaitOne();
+            var noWork = true;
+            if (!File.Exists(binaryFile))
+            {
+                man.Downloader.Enqueue(new DownloadTask("Bench Binary", new Uri(binaryUrl), binaryFile));
+                noWork = false;
+            }
+            if (!File.Exists(bootstrapFile))
+            {
+                man.Downloader.Enqueue(new DownloadTask("Bootstrap File", new Uri(bootstrapUrl), bootstrapFile));
+                noWork = false;
+            }
+            if (!noWork)
+            {
+                endEvent.WaitOne();
+            }
 
             if (!cancelation.IsCanceled)
             {
