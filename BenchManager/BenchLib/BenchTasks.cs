@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Mastersign.Bench.UI;
 using Mastersign.Bench.Windows;
+using static Mastersign.Sequence.Sequence;
 
 namespace Mastersign.Bench
 {
@@ -48,15 +49,15 @@ namespace Mastersign.Bench
             var cfg = new BenchConfiguration(benchRootDir, false, false, false);
 
             var siteConfigFiles = cfg.FindSiteConfigFiles();
-            var customConfigFile = cfg.GetStringValue(PropertyKeys.CustomConfigFile);
+            var userConfigFile = cfg.GetStringValue(ConfigPropertyKeys.UserConfigFile);
 
             var initSiteConfig = siteConfigFiles.Length == 0;
-            var initCustomConfig = !File.Exists(customConfigFile);
+            var initUserConfig = !File.Exists(userConfigFile);
 
-            if (initSiteConfig || initCustomConfig)
+            if (initSiteConfig || initUserConfig)
             {
                 var wizzardTask = new InitializeConfigTask(cfg,
-                    initSiteConfig, initCustomConfig);
+                    initSiteConfig, initUserConfig);
                 if (!WizzardForm.ShowWizzard(wizzardTask))
                 {
                     return null;
@@ -64,7 +65,7 @@ namespace Mastersign.Bench
             }
 
             var resultCfg = new BenchConfiguration(benchRootDir, false, false, true);
-            cfg.InjectBenchInitializationProperties(resultCfg);
+            resultCfg.CopyBenchInitializationPropertiesFrom(cfg);
 
             return resultCfg;
         }
@@ -86,30 +87,30 @@ namespace Mastersign.Bench
         /// <param name="man">A <see cref="IBenchManager"/> object to use when running initializations.</param>
         /// <returns>A <see cref="BenchConfiguration"/> object, fully initialized
         /// with all configuration files and app libraries.</returns>
-        public static BenchConfiguration InitializeCustomConfiguration(IBenchManager man)
+        public static BenchConfiguration InitializeUserConfiguration(IBenchManager man)
         {
-            var customConfigDir = man.Config.GetStringValue(PropertyKeys.CustomConfigDir);
-            var customConfigFile = man.Config.GetStringValue(PropertyKeys.CustomConfigFile);
+            var userConfigDir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir);
+            var userConfigFile = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigFile);
 
-            if (!File.Exists(customConfigFile))
+            if (!File.Exists(userConfigFile))
             {
-                var repo = man.Config.GetStringValue(PropertyKeys.CustomConfigRepository);
+                var repo = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigRepository);
                 if (repo != null)
                 {
                     // asure no config directory exist for git clone
-                    if (Directory.Exists(customConfigDir))
+                    if (Directory.Exists(userConfigDir))
                     {
-                        FileSystem.PurgeDir(customConfigDir);
+                        FileSystem.PurgeDir(userConfigDir);
                     }
                     // asure the parent directory exists
-                    if (!Directory.Exists(Path.GetDirectoryName(customConfigDir)))
+                    if (!Directory.Exists(Path.GetDirectoryName(userConfigDir)))
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(customConfigDir));
+                        Directory.CreateDirectory(Path.GetDirectoryName(userConfigDir));
                     }
                     // clone the existing config
                     var result = man.ProcessExecutionHost.RunProcess(man.Env, man.Config.BenchRootDir,
                         man.Config.Apps[AppKeys.Git].Exe,
-                        CommandLine.FormatArgumentList("clone", repo, customConfigDir),
+                        CommandLine.FormatArgumentList("clone", repo, userConfigDir),
                         ProcessMonitoring.ExitCodeAndOutput);
                     if (result.ExitCode != 0)
                     {
@@ -122,58 +123,58 @@ namespace Mastersign.Bench
                 }
                 else
                 {
-                    if (!Directory.Exists(customConfigDir))
+                    if (!Directory.Exists(userConfigDir))
                     {
-                        Directory.CreateDirectory(customConfigDir);
+                        Directory.CreateDirectory(userConfigDir);
                     }
 
-                    var customConfigTemplateFile = man.Config.GetStringValue(PropertyKeys.CustomConfigTemplateFile);
-                    File.Copy(customConfigTemplateFile, customConfigFile, false);
+                    var userConfigTemplateFile = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigTemplateFile);
+                    File.Copy(userConfigTemplateFile, userConfigFile, false);
                 }
             }
 
             var cfg = new BenchConfiguration(man.Config.BenchRootDir, false, true, true);
-            man.Config.InjectBenchInitializationProperties(cfg);
+            cfg.CopyBenchInitializationPropertiesFrom(man.Config);
 
-            var homeDir = cfg.GetStringValue(PropertyKeys.HomeDir);
+            var homeDir = cfg.GetStringValue(ConfigPropertyKeys.HomeDir);
             FileSystem.AsureDir(homeDir);
             FileSystem.AsureDir(Path.Combine(homeDir, "Desktop"));
             FileSystem.AsureDir(Path.Combine(homeDir, "Documents"));
-            FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.AppDataDir));
-            FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.LocalAppDataDir));
-            FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.TempDir));
-            FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.DownloadDir));
-            FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.LibDir));
-            FileSystem.AsureDir(cfg.GetStringValue(PropertyKeys.ProjectRootDir));
+            FileSystem.AsureDir(cfg.GetStringValue(ConfigPropertyKeys.AppDataDir));
+            FileSystem.AsureDir(cfg.GetStringValue(ConfigPropertyKeys.LocalAppDataDir));
+            FileSystem.AsureDir(cfg.GetStringValue(ConfigPropertyKeys.TempDir));
+            FileSystem.AsureDir(cfg.GetStringValue(ConfigPropertyKeys.AppsCacheDir));
+            FileSystem.AsureDir(cfg.GetStringValue(ConfigPropertyKeys.AppsInstallDir));
+            FileSystem.AsureDir(cfg.GetStringValue(ConfigPropertyKeys.ProjectRootDir));
 
             var customAppIndexFile = Path.Combine(
-                cfg.GetStringValue(PropertyKeys.CustomConfigDir),
-                cfg.GetStringValue(PropertyKeys.AppLibIndexFileName));
+                cfg.GetStringValue(ConfigPropertyKeys.UserConfigDir),
+                cfg.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName));
             if (!File.Exists(customAppIndexFile))
             {
-                var customAppIndexTemplateFile = cfg.GetStringValue(PropertyKeys.CustomAppIndexTemplateFile);
+                var customAppIndexTemplateFile = cfg.GetStringValue(ConfigPropertyKeys.UserAppIndexTemplateFile);
                 File.Copy(customAppIndexTemplateFile, customAppIndexFile, false);
             }
-            var activationFile = cfg.GetStringValue(PropertyKeys.AppActivationFile);
+            var activationFile = cfg.GetStringValue(ConfigPropertyKeys.AppActivationFile);
             if (!File.Exists(activationFile))
             {
-                var activationTemplateFile = cfg.GetStringValue(PropertyKeys.AppActivationTemplateFile);
+                var activationTemplateFile = cfg.GetStringValue(ConfigPropertyKeys.AppActivationTemplateFile);
                 File.Copy(activationTemplateFile, activationFile, false);
             }
-            var deactivationFile = cfg.GetStringValue(PropertyKeys.AppDeactivationFile);
+            var deactivationFile = cfg.GetStringValue(ConfigPropertyKeys.AppDeactivationFile);
             if (!File.Exists(deactivationFile))
             {
-                var deactivationTemplateFile = cfg.GetStringValue(PropertyKeys.AppDeactivationTemplateFile);
+                var deactivationTemplateFile = cfg.GetStringValue(ConfigPropertyKeys.AppDeactivationTemplateFile);
                 File.Copy(deactivationTemplateFile, deactivationFile, false);
             }
-            var conEmuConfigFile = cfg.GetStringValue(PropertyKeys.ConEmuConfigFile);
+            var conEmuConfigFile = cfg.GetStringValue(ConfigPropertyKeys.ConEmuConfigFile);
             if (!File.Exists(conEmuConfigFile))
             {
-                var conEmuConfigTemplateFile = cfg.GetStringValue(PropertyKeys.ConEmuConfigTemplateFile);
+                var conEmuConfigTemplateFile = cfg.GetStringValue(ConfigPropertyKeys.ConEmuConfigTemplateFile);
                 File.Copy(conEmuConfigTemplateFile, conEmuConfigFile, false);
             }
 
-            var selectedApps = cfg.GetStringListValue(PropertyKeys.WizzardSelectedApps);
+            var selectedApps = cfg.GetStringListValue(ConfigPropertyKeys.WizzardSelectedApps);
             var activationFileEditor = new ActivationFile(activationFile);
             foreach (var appId in selectedApps)
             {
@@ -181,7 +182,7 @@ namespace Mastersign.Bench
             }
 
             var resultCfg = new BenchConfiguration(man.Config.BenchRootDir, true, true, true);
-            cfg.InjectBenchInitializationProperties(resultCfg);
+            resultCfg.CopyBenchInitializationPropertiesFrom(cfg);
             return resultCfg;
         }
 
@@ -193,12 +194,12 @@ namespace Mastersign.Bench
         /// <returns>The created downloader instance.</returns>
         public static Downloader InitializeDownloader(BenchConfiguration config)
         {
-            var parallelDownloads = config.GetInt32Value(PropertyKeys.ParallelDownloads, 1);
-            var downloadAttempts = config.GetInt32Value(PropertyKeys.DownloadAttempts, 1);
-            var useProxy = config.GetBooleanValue(PropertyKeys.UseProxy);
-            var httpProxy = config.GetStringValue(PropertyKeys.HttpProxy);
-            var httpsProxy = config.GetStringValue(PropertyKeys.HttpsProxy);
-            var proxyBypass = config.GetStringListValue(PropertyKeys.ProxyBypass);
+            var parallelDownloads = config.GetInt32Value(ConfigPropertyKeys.ParallelDownloads, 1);
+            var downloadAttempts = config.GetInt32Value(ConfigPropertyKeys.DownloadAttempts, 1);
+            var useProxy = config.GetBooleanValue(ConfigPropertyKeys.UseProxy);
+            var httpProxy = config.GetStringValue(ConfigPropertyKeys.HttpProxy);
+            var httpsProxy = config.GetStringValue(ConfigPropertyKeys.HttpsProxy);
+            var proxyBypass = config.GetStringListValue(ConfigPropertyKeys.ProxyBypass);
             var downloader = new Downloader(parallelDownloads);
             downloader.DownloadAttempts = downloadAttempts;
             if (useProxy)
@@ -238,10 +239,10 @@ namespace Mastersign.Bench
 
         private static WebClient InitializeWebClient(BenchConfiguration config)
         {
-            var useProxy = config.GetBooleanValue(PropertyKeys.UseProxy);
-            var httpProxy = config.GetStringValue(PropertyKeys.HttpProxy);
-            var httpsProxy = config.GetStringValue(PropertyKeys.HttpsProxy);
-            var proxyBypass = config.GetStringListValue(PropertyKeys.ProxyBypass);
+            var useProxy = config.GetBooleanValue(ConfigPropertyKeys.UseProxy);
+            var httpProxy = config.GetStringValue(ConfigPropertyKeys.HttpProxy);
+            var httpsProxy = config.GetStringValue(ConfigPropertyKeys.HttpsProxy);
+            var proxyBypass = config.GetStringListValue(ConfigPropertyKeys.ProxyBypass);
             var webClient = new WebClient();
             webClient.Proxy = useProxy
                 ? new SchemeDispatchProxy(new Dictionary<string, IWebProxy>
@@ -341,7 +342,7 @@ namespace Mastersign.Bench
         /// <param name="resultHandler">The handler for the download result.</param>
         public static void GetLatestVersionAsync(BenchConfiguration config, StringDownloadResultHandler resultHandler)
         {
-            var uri = new Uri(config.GetStringValue(PropertyKeys.VersionUrl));
+            var uri = new Uri(config.GetStringValue(ConfigPropertyKeys.VersionUrl));
             DownloadStringAsync(config, uri,
                 (success, content) => resultHandler(success, content != null ? content.Trim() : null));
         }
@@ -353,7 +354,7 @@ namespace Mastersign.Bench
         /// <returns>The version number or <c>null</c> if the download failed.</returns>
         public static string GetLatestVersion(BenchConfiguration config)
         {
-            var uri = new Uri(config.GetStringValue(PropertyKeys.VersionUrl));
+            var uri = new Uri(config.GetStringValue(ConfigPropertyKeys.VersionUrl));
             var result = DownloadString(config, uri);
             return result != null ? result.Trim() : null;
         }
@@ -366,7 +367,7 @@ namespace Mastersign.Bench
                 throw new FileNotFoundException("Custom script not found.", path);
             }
             var customScriptRunner = Path.Combine(
-                config.GetStringValue(PropertyKeys.BenchScripts),
+                config.GetStringValue(ConfigPropertyKeys.BenchScripts),
                 "Run-CustomScript.ps1");
             var result = execHost.RunProcess(new BenchEnvironment(config),
                 config.BenchRootDir, customScriptRunner,
@@ -389,7 +390,7 @@ namespace Mastersign.Bench
                 throw new FileNotFoundException("Global custom script not found.", path);
             }
             var customScriptRunner = Path.Combine(
-                config.GetStringValue(PropertyKeys.BenchScripts),
+                config.GetStringValue(ConfigPropertyKeys.BenchScripts),
                 "Run-CustomScript.ps1");
             var result = execHost.RunProcess(new BenchEnvironment(config),
                 config.BenchRootDir, customScriptRunner,
@@ -406,12 +407,12 @@ namespace Mastersign.Bench
 
         private static string CustomScriptDir(BenchConfiguration config)
         {
-            return Path.Combine(config.GetStringValue(PropertyKeys.BenchAuto), "apps");
+            return Path.Combine(config.GetStringValue(ConfigPropertyKeys.BenchAuto), "apps");
         }
 
         private static string GetGlobalCustomScriptFile(BenchConfiguration config, string typ)
         {
-            var path = Path.Combine(config.GetStringValue(PropertyKeys.CustomConfigDir), typ + ".ps1");
+            var path = Path.Combine(config.GetStringValue(ConfigPropertyKeys.UserConfigDir), typ + ".ps1");
             return File.Exists(path) ? path : null;
         }
 
@@ -466,20 +467,20 @@ namespace Mastersign.Bench
             }
             if (isAdorned)
             {
-                return StartProcessViaShell(env, config.GetStringValue(PropertyKeys.HomeDir),
+                return StartProcessViaShell(env, config.GetStringValue(ConfigPropertyKeys.HomeDir),
                     exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
                     ProcessWindowStyle.Minimized);
             }
             else
             {
-                return StartProcess(env, config.GetStringValue(PropertyKeys.HomeDir),
+                return StartProcess(env, config.GetStringValue(ConfigPropertyKeys.HomeDir),
                     exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args));
             }
         }
 
         private static string GemExe(BenchConfiguration config)
         {
-            var rubyExe = config.GetStringGroupValue(AppKeys.Ruby, PropertyKeys.AppExe);
+            var rubyExe = config.Apps[AppKeys.Ruby].Exe;
             return rubyExe != null
                 ? Path.Combine(Path.GetDirectoryName(rubyExe), "gem.cmd")
                 : null;
@@ -491,11 +492,11 @@ namespace Mastersign.Bench
             {
                 case PythonVersion.Python2:
                     return Path.Combine(
-                        Path.Combine(config.GetStringValue(PropertyKeys.LibDir), config.Apps[AppKeys.Python2].Dir),
+                        Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsInstallDir), config.Apps[AppKeys.Python2].Dir),
                         @"Scripts\pip2.exe");
                 case PythonVersion.Python3:
                     return Path.Combine(
-                        Path.Combine(config.GetStringValue(PropertyKeys.LibDir), config.Apps[AppKeys.Python3].Dir),
+                        Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsInstallDir), config.Apps[AppKeys.Python3].Dir),
                         @"Scripts\pip3.exe");
                 default:
                     throw new NotSupportedException();
@@ -914,15 +915,15 @@ namespace Mastersign.Bench
         {
             if (tasks.Length == 0) return new ActionResult();
 
-            var logLevel = LogLevels.GuessLevel(man.Config.GetStringValue(PropertyKeys.LogLevel));
+            var logLevel = LogLevels.GuessLevel(man.Config.GetStringValue(ConfigPropertyKeys.LogLevel));
             TaskInfoLogger logger = null;
             if (logLevel != LogLevels.None)
             {
-                var file = man.Config.GetStringValue(PropertyKeys.LogFile,
+                var file = man.Config.GetStringValue(ConfigPropertyKeys.LogFile,
                     DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.txt");
                 if (!Path.IsPathRooted(file))
                 {
-                    var logDir = man.Config.GetStringValue(PropertyKeys.LogDir);
+                    var logDir = man.Config.GetStringValue(ConfigPropertyKeys.LogDir);
                     FileSystem.AsureDir(logDir);
                     file = Path.Combine(logDir, file);
                 }
@@ -1015,7 +1016,7 @@ namespace Mastersign.Bench
 
         private static bool IsAppLibrary(BenchConfiguration config, string directory)
         {
-            var appIndexFileName = config.GetStringValue(PropertyKeys.AppLibIndexFileName);
+            var appIndexFileName = config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName);
             return File.Exists(Path.Combine(directory, appIndexFileName));
         }
 
@@ -1052,7 +1053,7 @@ namespace Mastersign.Bench
 
         private static string AppLibDirectory(BenchConfiguration config, string appLibId)
         {
-            return Path.Combine(config.GetStringValue(PropertyKeys.AppLibsDir), appLibId);
+            return Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppLibsInstallDir), appLibId);
         }
 
         /// <summary>
@@ -1062,9 +1063,9 @@ namespace Mastersign.Bench
         /// <param name="cfg">The Bench configuration</param>
         public static void DeleteAppLibraries(BenchConfiguration cfg)
         {
-            var appLibDir = cfg.GetStringValue(PropertyKeys.AppLibsDir);
+            var appLibDir = cfg.GetStringValue(ConfigPropertyKeys.AppLibsInstallDir);
             FileSystem.EmptyDir(appLibDir);
-            var cacheDir = cfg.GetStringValue(PropertyKeys.AppLibsDownloadDir);
+            var cacheDir = cfg.GetStringValue(ConfigPropertyKeys.AppLibsCacheDir);
             FileSystem.EmptyDir(cacheDir);
         }
 
@@ -1072,9 +1073,9 @@ namespace Mastersign.Bench
             ICollection<AppFacade> _,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            var appLibsDir = man.Config.GetStringValue(PropertyKeys.AppLibsDir);
+            var appLibsDir = man.Config.GetStringValue(ConfigPropertyKeys.AppLibsInstallDir);
             FileSystem.AsureDir(appLibsDir);
-            var cacheDir = man.Config.GetStringValue(PropertyKeys.AppLibsDownloadDir);
+            var cacheDir = man.Config.GetStringValue(ConfigPropertyKeys.AppLibsCacheDir);
             FileSystem.AsureDir(cacheDir);
 
             var appLibs = man.Config.AppLibraries;
@@ -1161,7 +1162,7 @@ namespace Mastersign.Bench
 
                 // Skip app library if is already loaded
                 if (File.Exists(Path.Combine(appLibDir,
-                    man.Config.GetStringValue(PropertyKeys.AppLibIndexFileName))))
+                    man.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName))))
                 {
                     notify(new TaskProgress(
                         string.Format("App library '{0}' already loaded.", l.ID),
@@ -1260,7 +1261,7 @@ namespace Mastersign.Bench
         private static void DownloadAppResources(IBenchManager man, ICollection<AppFacade> apps,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            var targetDir = man.Config.GetStringValue(PropertyKeys.DownloadDir);
+            var targetDir = man.Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir);
             FileSystem.AsureDir(targetDir);
 
             var tasks = new List<DownloadTask>();
@@ -1360,7 +1361,7 @@ namespace Mastersign.Bench
             ICollection<AppFacade> apps,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            var downloadDir = man.Config.GetStringValue(PropertyKeys.DownloadDir);
+            var downloadDir = man.Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir);
 
             notify(new TaskProgress("Deleting app resources", 0));
 
@@ -1405,7 +1406,7 @@ namespace Mastersign.Bench
             ICollection<AppFacade> apps,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            var downloadDir = man.Config.GetStringValue(PropertyKeys.DownloadDir);
+            var downloadDir = man.Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir);
 
             notify(new TaskProgress("Deleting obsolete app resources", 0));
 
@@ -1461,7 +1462,7 @@ namespace Mastersign.Bench
 
         private static void CleanExecutionProxies(BenchConfiguration config)
         {
-            FileSystem.EmptyDir(config.GetStringValue(PropertyKeys.AppAdornmentBaseDir));
+            FileSystem.EmptyDir(config.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir));
         }
 
         private static void CreateExecutionProxies(BenchConfiguration config, AppFacade app)
@@ -1483,8 +1484,8 @@ namespace Mastersign.Bench
 
         private static void CleanLaunchers(BenchConfiguration config)
         {
-            FileSystem.EmptyDir(config.GetStringValue(PropertyKeys.LauncherDir));
-            FileSystem.EmptyDir(config.GetStringValue(PropertyKeys.LauncherScriptDir));
+            FileSystem.EmptyDir(config.GetStringValue(ConfigPropertyKeys.LauncherDir));
+            FileSystem.EmptyDir(config.GetStringValue(ConfigPropertyKeys.LauncherScriptDir));
 
             var benchControlRootLink = Path.Combine(config.BenchRootDir, "Bench Control.lnk");
             var benchDashboardRootLink = Path.Combine(config.BenchRootDir, "Bench Dashboard.lnk");
@@ -1495,8 +1496,8 @@ namespace Mastersign.Bench
         private static void CreateBenchDashboardLauncher(BenchConfiguration config)
         {
             if (!IsDashboardSupported) return;
-            var benchDashboard = Path.Combine(config.GetStringValue(PropertyKeys.BenchAuto), @"bin\BenchDashboard.exe");
-            var benchDashboardShortcut = Path.Combine(config.GetStringValue(PropertyKeys.LauncherDir), "Bench Dashboard.lnk");
+            var benchDashboard = Path.Combine(config.GetStringValue(ConfigPropertyKeys.BenchAuto), @"bin\BenchDashboard.exe");
+            var benchDashboardShortcut = Path.Combine(config.GetStringValue(ConfigPropertyKeys.LauncherDir), "Bench Dashboard.lnk");
             FileSystem.CreateShortcut(benchDashboardShortcut, benchDashboard,
                 string.Format("-root \"{0}\"", config.BenchRootDir), config.BenchRootDir,
                 benchDashboard);
@@ -1506,8 +1507,8 @@ namespace Mastersign.Bench
         private static void CreateActionLauncher(BenchConfiguration config, string label, string binFile, string icon = null,
             string targetDir = null)
         {
-            var launcherDir = targetDir ?? config.GetStringValue(PropertyKeys.LauncherDir);
-            var binDir = config.GetStringValue(PropertyKeys.BenchBin);
+            var launcherDir = targetDir ?? config.GetStringValue(ConfigPropertyKeys.LauncherDir);
+            var binDir = config.GetStringValue(ConfigPropertyKeys.BenchBin);
             var shortcut = Path.Combine(launcherDir, label + ".lnk");
             var target = Path.Combine(binDir, binFile);
             FileSystem.CreateShortcut(shortcut, target, null, config.BenchRootDir, icon ?? target);
@@ -1522,15 +1523,15 @@ namespace Mastersign.Bench
                 CreateActionLauncher(config, "Bench CLI", "bench.exe");
                 CreateActionLauncher(config, "Bench CLI", "bench.exe", null, config.BenchRootDir);
             }
-            if (config.GetBooleanValue(PropertyKeys.QuickAccessCmd, true))
+            if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessCmd, true))
             {
                 CreateActionLauncher(config, "Command Line", "bench-cmd.cmd", @"%SystemRoot%\System32\cmd.exe");
             }
-            if (config.GetBooleanValue(PropertyKeys.QuickAccessPowerShell, false))
+            if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShell, false))
             {
                 CreateActionLauncher(config, "PowerShell", "bench-ps.cmd", @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe");
             }
-            if (config.GetBooleanValue(PropertyKeys.QuickAccessBash, false))
+            if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessBash, false))
             {
                 CreateActionLauncher(config, "Bash", "bench-bash.cmd", @"%SystemRoot%\System32\imageres.dll,95");
             }
@@ -1544,7 +1545,7 @@ namespace Mastersign.Bench
             var executable = app.LauncherExecutable;
             var args = CommandLine.FormatArgumentList(app.LauncherArguments);
             var script = app.GetLauncherScriptFile();
-            var autoDir = config.GetStringValue(PropertyKeys.BenchAuto);
+            var autoDir = config.GetStringValue(ConfigPropertyKeys.BenchAuto);
             var rootDir = config.BenchRootDir;
 
             var code = new StringBuilder();
@@ -1583,7 +1584,7 @@ namespace Mastersign.Bench
             }
             try
             {
-                if (man.Config.GetBooleanValue(PropertyKeys.RegisterInUserProfile))
+                if (man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile))
                 {
                     man.Env.RegisterInUserProfile();
                 }
@@ -1785,10 +1786,10 @@ namespace Mastersign.Bench
 
             notify(new TaskProgress("Downloading Bench update...", 0f));
 
-            var binaryUrl = man.Config.GetStringValue(PropertyKeys.UpdateUrlTemplate, string.Empty)
+            var binaryUrl = man.Config.GetStringValue(ConfigPropertyKeys.UpdateUrlTemplate, string.Empty)
                 .Replace("#VERSION#", version);
             var binaryFile = Path.Combine(man.Config.BenchRootDir, "Bench.zip");
-            var bootstrapUrl = man.Config.GetStringValue(PropertyKeys.BootstrapUrlTemplate, string.Empty)
+            var bootstrapUrl = man.Config.GetStringValue(ConfigPropertyKeys.BootstrapUrlTemplate, string.Empty)
                 .Replace("#VERSION#", version);
             var bootstrapFile = Path.Combine(man.Config.BenchRootDir, "bench-install.bat");
 
@@ -1825,12 +1826,12 @@ namespace Mastersign.Bench
 
         private static void CopyAppResourceFile(BenchConfiguration config, AppFacade app)
         {
-            var resourceFile = Path.Combine(config.GetStringValue(PropertyKeys.DownloadDir), app.ResourceFileName);
+            var resourceFile = Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), app.ResourceFileName);
             if (!File.Exists(resourceFile))
             {
                 throw new FileNotFoundException("Application resource not found.", resourceFile);
             }
-            var targetDir = Path.Combine(config.GetStringValue(PropertyKeys.LibDir), app.Dir);
+            var targetDir = Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsInstallDir), app.Dir);
 
             FileSystem.AsureDir(targetDir);
             File.Copy(resourceFile, Path.Combine(targetDir, app.ResourceFileName), true);
@@ -1838,13 +1839,13 @@ namespace Mastersign.Bench
 
         private static void ExtractAppArchive(BenchConfiguration config, IProcessExecutionHost execHost, AppFacade app)
         {
-            var tmpDir = Path.Combine(config.GetStringValue(PropertyKeys.TempDir), app.ID + "_extract");
-            var archiveFile = Path.Combine(config.GetStringValue(PropertyKeys.DownloadDir), app.ResourceArchiveName);
+            var tmpDir = Path.Combine(config.GetStringValue(ConfigPropertyKeys.TempDir), app.ID + "_extract");
+            var archiveFile = Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), app.ResourceArchiveName);
             if (!File.Exists(archiveFile))
             {
                 throw new FileNotFoundException("Application resource not found.", app.ResourceArchiveName);
             }
-            var targetDir = Path.Combine(config.GetStringValue(PropertyKeys.LibDir), app.Dir);
+            var targetDir = Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsInstallDir), app.Dir);
             var extractDir = app.ResourceArchivePath != null ? tmpDir : targetDir;
             FileSystem.AsureDir(extractDir);
             var customExtractScript = app.GetCustomScript("extract");
@@ -1920,7 +1921,7 @@ namespace Mastersign.Bench
             if (Regex.IsMatch(Path.GetFileName(archiveFile), @"\.tar\.\w+$",
                 RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
             {
-                var tmpDir = Path.Combine(config.GetStringValue(PropertyKeys.TempDir), id + "_tar");
+                var tmpDir = Path.Combine(config.GetStringValue(ConfigPropertyKeys.TempDir), id + "_tar");
                 FileSystem.EmptyDir(tmpDir);
                 try
                 {
@@ -2116,13 +2117,13 @@ namespace Mastersign.Bench
             try
             {
                 FileSystem.AsureDir(
-                    man.Config.GetStringValue(PropertyKeys.LauncherScriptDir));
+                    man.Config.GetStringValue(ConfigPropertyKeys.LauncherScriptDir));
                 FileSystem.AsureDir(
-                    man.Config.GetStringValue(PropertyKeys.LauncherDir));
+                    man.Config.GetStringValue(ConfigPropertyKeys.LauncherDir));
                 FileSystem.AsureDir(
-                    man.Config.GetStringValue(PropertyKeys.AppAdornmentBaseDir));
+                    man.Config.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir));
                 FileSystem.AsureDir(
-                    man.Config.GetStringValue(PropertyKeys.AppVersionIndexDir));
+                    man.Config.GetStringValue(ConfigPropertyKeys.AppsVersionIndexDir));
             }
             catch (Exception e)
             {
@@ -2334,7 +2335,7 @@ namespace Mastersign.Bench
 
         #region Test Apps
 
-        private static bool InstallAppsDependencies(IBenchManager man, AppFacade app, 
+        private static bool InstallAppsDependencies(IBenchManager man, AppFacade app,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
             var dependencyIds = app.FindAllDependencies();
@@ -2630,7 +2631,7 @@ namespace Mastersign.Bench
         {
             notify(new TaskProgress("Uninstalling alls apps.", 0f));
             var success = false;
-            var libDir = man.Config.GetStringValue(PropertyKeys.LibDir);
+            var libDir = man.Config.GetStringValue(ConfigPropertyKeys.AppsInstallDir);
             if (libDir != null && Directory.Exists(libDir))
             {
                 try
@@ -2650,5 +2651,224 @@ namespace Mastersign.Bench
         }
 
         #endregion
+
+        #region Export and Clone Bench Environment
+
+        /// <summary>
+        /// Shows a simple UI to ask for the target directory for a new Bench environment.
+        /// </summary>
+        /// <returns>A path to an existing directory or <c>null</c>.</returns>
+        public static string AskForBenchCloneTargetDirectory()
+        {
+            var browser = new System.Windows.Forms.FolderBrowserDialog
+            {
+                Description = "Select the target directory for the new Bench environment.",
+                ShowNewFolderButton = true,
+                SelectedPath = Environment.GetEnvironmentVariable("SystemDrive")
+            };
+            var result = browser.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.Cancel) return null;
+            var path = browser.SelectedPath;
+            if (Directory.GetFileSystemEntries(path).Length > 0)
+            {
+                var answer = System.Windows.Forms.MessageBox.Show(
+                    "The selected directory is not empty.\n\nAre you sure you want to setup Bench in this directory?",
+                    "Bench Transfer",
+                    System.Windows.Forms.MessageBoxButtons.YesNo,
+                    System.Windows.Forms.MessageBoxIcon.Warning);
+                if (answer != System.Windows.Forms.DialogResult.Yes) return null;
+            }
+            try
+            {
+                FileSystem.AsureDir(path);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return path;
+        }
+
+        /// <summary>
+        /// Creates a transfer package of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="man">The manager for the source Bench environment.</param>
+        /// <param name="targetFile">The target file for the transfer package. If the ending is <c>.exe</c>, an SFX archive will be created.</param>
+        /// <param name="selection">A selection of directories and files to include in the package.</param>
+        public static bool ExportBenchEnvironment(IBenchManager man, string targetFile, TransferPaths selection)
+        {
+            var paths = man.Config.GetTransferPaths(selection);
+            var extension = Path.GetExtension(targetFile).ToLowerInvariant();
+            if (!Seq(".exe", ".zip", ".7z").Contains(extension))
+            {
+                man.UI.ShowError("export", "The filename extension of the target file is invalid.");
+                return false;
+            }
+            var sfxArchive = extension == ".exe";
+            if (sfxArchive)
+                return ExportBenchEnvironmentSfx(man, targetFile, paths);
+            else
+                return ExportBenchEnvironmentArchive(man, targetFile, paths);
+        }
+
+        private static void CopyStream(Stream src, Stream trg, int bufferSize = 64 * 1024)
+        {
+            var buffer = new byte[bufferSize];
+            var read = 0;
+            while ((read = src.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                trg.Write(buffer, 0, read);
+            }
+        }
+
+        private static void CopyFileToStream(string file, Stream trg, int bufferSize = 64 * 1024)
+        {
+            using (var src = File.OpenRead(file))
+            {
+                CopyStream(src, trg, bufferSize);
+            }
+        }
+
+        private static TextWriter WriteSfxConfig(BenchConfiguration cfg, Stream trg)
+        {
+            var enc = new UTF8Encoding(false);
+            var w = new StreamWriter(trg, enc, 1024);
+            w.WriteLine(";!@Install@!UTF-8!");
+            w.WriteLine("Title=\"Bench Transfer Package\"");
+            w.Write("BeginPrompt=\"This is a pre - configured Bench environment. If you proceed, you will be asked for a target directory to extract and setup the Bench environment.\n\n");
+            if (cfg.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile))
+            {
+                w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables of your user profile will be modified during setup.\n\n");
+            }
+            w.WriteLine("See http://mastersign.github.io/bench/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?\"");
+            w.WriteLine(@"RunProgram="".\\auto\\bin\\bench.exe --verbose transfer install""");
+            w.Write(";!@InstallEnd@!");
+            w.Flush();
+            return w;
+        }
+
+        private static bool ExportBenchEnvironmentSfx(IBenchManager man, string targetFile, string[] paths)
+        {
+            var tmpArchive = Path.Combine(
+                man.Config.GetStringValue(ConfigPropertyKeys.TempDir),
+                "bench_export_" + Path.ChangeExtension(Path.GetRandomFileName(), ".7z"));
+
+            if (!ExportBenchEnvironmentArchive(man, tmpArchive, paths)) return false;
+
+            var sfxPath = Path.Combine(Path.Combine(man.Config.BenchRootDir, "res"), "bench.sfx");
+            try
+            {
+                using (var s = File.Open(targetFile, FileMode.Create, FileAccess.Write))
+                {
+                    CopyFileToStream(sfxPath, s);
+                    WriteSfxConfig(man.Config, s);
+                    CopyFileToStream(tmpArchive, s);
+                }
+                File.Delete(tmpArchive);
+            }
+            catch (Exception e)
+            {
+                man.UI.ShowError("export", "Failed to export the Bench environment.",
+                    exception: e);
+                return false;
+            }
+            return true;
+        }
+
+        private static bool ExportBenchEnvironmentArchive(IBenchManager man, string targetFile, string[] paths)
+        {
+            FileSystem.AsureDir(Path.GetDirectoryName(targetFile));
+            if (File.Exists(targetFile)) File.Delete(targetFile);
+            var execHost = man.ProcessExecutionHost;
+            var args = new List<string>();
+            args.Add("a");
+            if (Path.GetExtension(targetFile).ToLowerInvariant() == ".7z")
+            {
+                args.Add("-myx=9");
+                args.Add("-mx=5");
+                args.Add("-mmtf=on");
+                args.Add("-mmt=on");
+                args.Add("-m0=LZMA2:d=16");
+            }
+            args.Add(targetFile);
+            args.AddRange(paths);
+            var result = execHost.RunProcess(man.Env, man.Config.BenchRootDir,
+                man.Config.Apps[AppKeys.SevenZip].Exe,
+                CommandLine.FormatArgumentList(args.ToArray()),
+                ProcessMonitoring.ExitCode);
+            return result.ExitCode == 0;
+        }
+
+        /// <summary>
+        /// Copies all files from an extracted transfer package to a target directory and kicks-off the initialization.
+        /// </summary>
+        /// <param name="benchRoot">The directory of the extracted transfer package.</param>
+        /// <param name="targetDirectory">The directory to install the new Bench environment in.</param>
+        public static void InstallBenchEnvironment(string benchRoot, string targetDirectory)
+        {
+            FileSystem.CopyDir(benchRoot, targetDirectory, true);
+            LaunchRemoteSetup(targetDirectory);
+        }
+
+        /// <summary>
+        /// Creates a clone of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="man">The manager for the source Bench environment.</param>
+        /// <param name="targetDirectory">A directory to install the clone into.</param>
+        /// <param name="selection">A selection of directories and files to copy.</param>
+        public static bool CloneBenchEnvironment(IBenchManager man, string targetDirectory, TransferPaths selection)
+        {
+            var paths = man.Config.GetTransferPaths(selection);
+            try
+            {
+                foreach (var p in paths)
+                {
+                    var src = Path.Combine(man.Config.BenchRootDir, p);
+                    var trg = Path.Combine(targetDirectory, p);
+                    if (File.Exists(src))
+                    {
+                        FileSystem.AsureDir(Path.GetDirectoryName(trg));
+                        File.Copy(src, trg);
+                    }
+                    else if (Directory.Exists(src))
+                    {
+                        FileSystem.CopyDir(src, trg, true);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                man.UI.ShowError("clone", "Failed to clone the Bench environmnent files.",
+                    exception: e);
+                return false;
+            }
+            try
+            {
+                LaunchRemoteSetup(targetDirectory);
+            }
+            catch (Exception e)
+            {
+                man.UI.ShowError("clone", "Failed to start the initialization of the new Bench environment.",
+                    exception: e);
+                return false;
+            }
+            return true;
+        }
+
+        private static void LaunchRemoteSetup(string benchRoot)
+        {
+            var cliPath = Path.Combine(benchRoot, @"auto\bin\bench.exe");
+            if (File.Exists(cliPath))
+            {
+                Process.Start(cliPath, "--verbose manage initialize");
+            }
+            else
+            {
+                throw new FileNotFoundException("Could not find the Bench CLI in the target Bench environment.");
+            }
+        }
+
+        #endregion
+
     }
 }

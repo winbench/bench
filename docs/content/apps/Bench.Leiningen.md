@@ -1,6 +1,6 @@
 ﻿+++
 title = "Leiningen"
-weight = 27
+weight = 37
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,9 +25,9 @@ it gets out of your way and lets you focus on your code.
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 27
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 37
 
 ## Properties
 
@@ -35,5 +35,6 @@ it gets out of your way and lets you focus on your code.
 * Name: Leiningen
 * Typ: `default`
 * Website: <http://leiningen.org>
-* Dependencies: [Java Development Kit 8](/app/Bench.JDK8), [GnuPG](/app/Bench.GnuPG), [Wget](/app/Bench.Wget)
+* Dependencies: [Java Development Kit 8](/apps/Bench.JDK8), [GnuPG](/apps/Bench.GnuPG), [Wget](/apps/Bench.Wget)
+* Responsibilities: [Clojure Development](/apps/Bench.Group.ClojureDevelopment), [Inlein](/apps/Bench.Inlein)
 

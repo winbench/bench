@@ -1,6 +1,6 @@
 ﻿+++
 title = "MiKTeX"
-weight = 77
+weight = 97
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
@@ -28,9 +28,9 @@ are selected to suit the needs of the default LaTeX template of _Pandoc_.
 
 ## Source
 
-* Library: `default`
-* Category: Writing
-* Order Index: 77
+* Library: [`default`](/app_libraries/default)
+* Category: [Writing](/app_categories/writing)
+* Order Index: 97
 
 ## Properties
 
@@ -38,5 +38,5 @@ are selected to suit the needs of the default LaTeX template of _Pandoc_.
 * Name: MiKTeX
 * Typ: `default`
 * Website: <http://miktex.org/portable>
-* Responsibilities: [TeXnicCenter](/app/Bench.TeXnicCenter), [Yeoman Generator for Markdown Projects](/app/User.MdProc)
+* Responsibilities: [LaTeX Writing](/apps/Bench.Group.LaTeXWriting), [TeXnicCenter](/apps/Bench.TeXnicCenter), [Yeoman Generator for Markdown Projects](/apps/User.MdProc)
 

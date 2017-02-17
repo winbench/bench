@@ -9,6 +9,11 @@ $apps = $cfg.Apps
 $targetFile = "$docsDir\content\ref\apps.md"
 $targetDir = Empty-Dir "$docsDir\content\apps"
 
+function NormalizeTag($value)
+{
+  return $value.ToLowerInvariant().Replace(" ", "-")
+}
+
 function WriteAppFile($app, $no)
 {
     $version = $app.Version
@@ -50,8 +55,8 @@ function WriteAppFile($app, $no)
     $w.WriteLine()
     $w.WriteLine("## Source")
     $w.WriteLine()
-    $w.WriteLine("* Library: ``$($app.AppLibrary.ID)``")
-    $w.WriteLine("* Category: $($app.Category)")
+    $w.WriteLine("* Library: [``$($app.AppLibrary.ID)``](/app_libraries/$(NormalizeTag $app.AppLibrary.ID))")
+    $w.WriteLine("* Category: [$($app.Category)](/app_categories/$(NormalizeTag $app.Category))")
     $w.WriteLine("* Order Index: $no")
     $w.WriteLine()
     $w.WriteLine("## Properties")
@@ -65,7 +70,7 @@ function WriteAppFile($app, $no)
     {
         [array]$deps2 = $deps | % {
             $depApp = $apps[$_]
-            return "[$($depApp.Label)](/app/$_)"
+            return "[$($depApp.Label)](/apps/$_)"
         }
         $depsList = [string]::Join(", ", $deps2)
         $w.WriteLine("* Dependencies: $depsList")
@@ -74,7 +79,7 @@ function WriteAppFile($app, $no)
     {
         [array]$resp2 = $resp | % {
             $respApp = $apps[$_]
-            return "[$($respApp.Label)](/app/$_)"
+            return "[$($respApp.Label)](/apps/$_)"
         }
         $respList = [string]::Join(", ", $resp2)
         $w.WriteLine("* Responsibilities: $respList")

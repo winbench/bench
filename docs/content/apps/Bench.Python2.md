@@ -23,8 +23,8 @@ Python is a programming language that lets you work quickly and integrate system
 
 ## Source
 
-* Library: `core`
-* Category: Core
+* Library: [`core`](/app_libraries/core)
+* Category: [Core](/app_categories/core)
 * Order Index: 10
 
 ## Properties
@@ -33,5 +33,5 @@ Python is a programming language that lets you work quickly and integrate system
 * Name: Python2
 * Typ: `default`
 * Website: <https://www.python.org/>
-* Responsibilities: [PyReadline (Python 2)](/app/Bench.PyReadline2), [IPython 2](/app/Bench.IPython2)
+* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [PyReadline (Python 2)](/apps/Bench.Python2.PyReadline), [IPython 2](/apps/Bench.Python2.IPython), [PEP8 (Python 2)](/apps/Bench.Python2.PEP8)
 

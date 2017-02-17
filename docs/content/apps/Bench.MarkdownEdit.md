@@ -23,8 +23,8 @@ Markdown Edit (MDE) is low distraction editor for Windows. MDE focuses on produc
 
 ## Source
 
-* Library: `core`
-* Category: Basics
+* Library: [`core`](/app_libraries/core)
+* Category: [Basics](/app_categories/basics)
 * Order Index: 14
 
 ## Properties

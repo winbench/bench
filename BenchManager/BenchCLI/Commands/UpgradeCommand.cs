@@ -22,7 +22,7 @@ namespace Mastersign.Bench.Cli.Commands
         protected override bool ExecuteCommand(string[] args)
         {
             var cfg = LoadConfiguration();
-            var version = cfg.GetStringValue(PropertyKeys.Version);
+            var version = cfg.GetStringValue(ConfigPropertyKeys.Version);
 
             WriteDetail("Retrieving the latest version number...");
             var latestVersion = BenchTasks.GetLatestVersion(cfg);

@@ -1,6 +1,6 @@
 ﻿+++
 title = "Visual Studio Code"
-weight = 37
+weight = 50
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -23,9 +23,9 @@ A cross platform code editor from Microsoft.
 
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 37
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 50
 
 ## Properties
 

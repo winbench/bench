@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ConEmu.WinForms;
 using Mastersign.Bench.Dashboard.Properties;
 using Mastersign.Bench.Markdown;
+using System.Threading.Tasks;
 
 namespace Mastersign.Bench.Dashboard
 {
@@ -109,7 +110,7 @@ namespace Mastersign.Bench.Dashboard
         private void InitializeAppListColumnsMenu()
         {
             var colLabels = core.Config.GetStringListValue(
-                PropertyKeys.DashboardSetupAppListColumns,
+                ConfigPropertyKeys.DashboardSetupAppListColumns,
                 defaulAppListColumnLabels);
             foreach (var colLabel in appListColumnLabels)
             {
@@ -141,9 +142,9 @@ namespace Mastersign.Bench.Dashboard
                     newColLabels.Add(string.Format("`{0}`", item.Text));
                 }
             }
-            var configFile = core.Config.GetStringValue(PropertyKeys.CustomConfigFile);
+            var configFile = core.Config.GetStringValue(ConfigPropertyKeys.UserConfigFile);
             MarkdownPropertyEditor.UpdateFile(configFile, new Dictionary<string, string>
-                { { PropertyKeys.DashboardSetupAppListColumns, string.Join(", ", newColLabels) } });
+                { { ConfigPropertyKeys.DashboardSetupAppListColumns, string.Join(", ", newColLabels) } });
         }
 
         private void InitializeAppListColumns()
@@ -151,7 +152,7 @@ namespace Mastersign.Bench.Dashboard
             gridApps.SuspendLayout();
             gridApps.Columns.Clear();
             var colLabels = core.Config.GetStringListValue(
-                PropertyKeys.DashboardSetupAppListColumns,
+                ConfigPropertyKeys.DashboardSetupAppListColumns,
                 defaulAppListColumnLabels);
             iconColumn.DisplayIndex = 0;
             gridApps.Columns.Add(iconColumn);
@@ -332,7 +333,7 @@ namespace Mastersign.Bench.Dashboard
             c.Visible = true;
             Controls.Add(c);
             conControl = c;
-            conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu].Exe);
+            conHost = new ConEmuExecutionHost(core, conControl, core.Config.Apps[AppKeys.ConEmu]?.Exe);
             conHost.StartHost();
             core.ProcessExecutionHost = conHost;
         }
@@ -464,35 +465,35 @@ namespace Mastersign.Bench.Dashboard
         }
 
         private void EditTextFile(string name, string path)
-            => EditFile(name, path, core.Config.GetStringValue(PropertyKeys.TextEditorApp));
+            => EditFile(name, path, core.Config.GetStringValue(ConfigPropertyKeys.TextEditorApp));
 
         private void EditMarkdownFile(string name, string path)
-            => EditFile(name, path, core.Config.GetStringValue(PropertyKeys.MarkdownEditorApp));
+            => EditFile(name, path, core.Config.GetStringValue(ConfigPropertyKeys.MarkdownEditorApp));
 
-        private void EditCustomConfigHandler(object sender, EventArgs e)
+        private void EditUserConfigHandler(object sender, EventArgs e)
         {
             EditMarkdownFile("User Configuration",
-                core.Config.GetStringValue(PropertyKeys.CustomConfigFile));
+                core.Config.GetStringValue(ConfigPropertyKeys.UserConfigFile));
         }
 
-        private void EditCustomAppsHandler(object sender, EventArgs e)
+        private void EditUserAppsHandler(object sender, EventArgs e)
         {
             EditMarkdownFile("User App Library",
                 Path.Combine(
-                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
-                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)));
+                    core.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir),
+                    core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)));
         }
 
         private void ActivationListHandler(object sender, EventArgs e)
         {
             EditTextFile("App Activation",
-                core.Config.GetStringValue(PropertyKeys.AppActivationFile));
+                core.Config.GetStringValue(ConfigPropertyKeys.AppActivationFile));
         }
 
         private void DeactivationListHandler(object sender, EventArgs e)
         {
             EditTextFile("App Deactivation",
-                core.Config.GetStringValue(PropertyKeys.AppDeactivationFile));
+                core.Config.GetStringValue(ConfigPropertyKeys.AppDeactivationFile));
         }
 
         private void TaskInfoHandler(TaskInfo info)
@@ -604,7 +605,7 @@ namespace Mastersign.Bench.Dashboard
         {
             AnnounceTask("Updating Bench System");
 
-            var version = core.Config.GetStringValue(PropertyKeys.Version);
+            var version = core.Config.GetStringValue(ConfigPropertyKeys.Version);
             var latestVersion = await core.GetLatestVersionNumber();
             if (latestVersion == null)
             {
@@ -644,6 +645,22 @@ namespace Mastersign.Bench.Dashboard
                 BenchTasks.InitiateInstallationBootstrap(core.Config);
                 Program.Core.Shutdown();
             }
+        }
+
+        private async void ExportCloneHandler(object sender, EventArgs e)
+        {
+            var dlg = new ExportForm(core);
+            var result = dlg.ShowDialog(this);
+            if (result != DialogResult.OK) return;
+            var export = dlg.ExportMode;
+            AnnounceTask(export
+                ? "Exporting the Bench environment"
+                : "Cloning the Bench environment");
+            var targetPath = dlg.TargetPath;
+            var selection = dlg.ContentSelection;
+            var success = export
+                ? await core.ExportBenchEnvironmentAsync(TaskInfoHandler, targetPath, selection)
+                : await core.CloneBenchEnvironmentAsync(TaskInfoHandler, targetPath, selection);
         }
 
         private void AppInfoHandler(object sender, EventArgs e)
@@ -831,7 +848,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 var viewer = new MarkdownViewer(core);
                 viewer.LoadMarkdown(Path.Combine(lib.BaseDir,
-                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)),
                     "App Library '" + lib.ID + "'");
                 viewer.Show();
             }
@@ -842,8 +859,8 @@ namespace Mastersign.Bench.Dashboard
             var viewer = new MarkdownViewer(core);
             viewer.LoadMarkdown(
                 Path.Combine(
-                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
-                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    core.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir),
+                    core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)),
                 "User App Library");
             viewer.Show();
         }

@@ -112,9 +112,9 @@ namespace Mastersign.Bench.Cli.Commands
             using (var w = MapWriterFactory.Create(Format))
             {
                 w.Write("ID", appId);
-                foreach (var name in cfg.PropertyNames(appId))
+                foreach (var name in cfg.AppProperties.PropertyNames(appId))
                 {
-                    w.Write(name, cfg.GetRawGroupValue(appId, name));
+                    w.Write(name, cfg.AppProperties.GetRawGroupValue(appId, name));
                 }
             }
         }

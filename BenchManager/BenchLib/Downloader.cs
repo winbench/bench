@@ -256,8 +256,14 @@ namespace Mastersign.Bench
                 Debug.WriteLine("Worker " + no + " waiting for task...");
                 availableTasks.WaitOne();
 
+                // Aquire next available task
+                lock (queueLock)
+                {
+                    task = queue.Count > 0 ? queue.Dequeue() : null;
+                }
+
                 // Dispose synchronization resources if canceled
-                if (IsDisposed)
+                if (IsDisposed || task == null)
                 {
                     Debug.WriteLine("Worker " + no + " ending.");
                     downloadEvents[no].Close();
@@ -265,11 +271,6 @@ namespace Mastersign.Bench
                     break;
                 }
 
-                // Aquire next available task
-                lock (queueLock)
-                {
-                    task = queue.Dequeue();
-                }
                 runningDownloads++;
                 Debug.WriteLine("Worker " + no + " beginning with " + task.Id);
 

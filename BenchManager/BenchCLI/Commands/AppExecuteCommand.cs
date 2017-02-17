@@ -40,45 +40,10 @@ namespace Mastersign.Bench.Cli.Commands
         protected override bool ExecuteCommand(string[] args)
         {
             var cfg = LoadConfiguration();
-
             var appId = Arguments.GetPositionalValue(POSITIONAL_APP_ID);
-
-            if (!cfg.ContainsGroup(appId))
-            {
-                WriteError("The app '{0}' was not found.", appId);
-                return false;
-            }
-
-            var app = cfg.Apps[appId];
-            if (app.Exe == null)
-            {
-                WriteError("The app '{0}' has no main executable.", app.Label);
-                return false;
-            }
-            WriteDetail("Found apps executable: {0}", app.Exe);
-
             var detached = Arguments.GetFlag(FLAG_DETACHED);
-            WriteDetail("Starting app '{0}' {1} ...", app.Label, detached ? "detached" : "synchronously");
 
-            using (var mgr = new DefaultBenchManager(cfg))
-            {
-                mgr.Verbose = Verbose;
-                if (detached)
-                {
-                    mgr.ProcessExecutionHost.StartProcess(mgr.Env,
-                        cfg.BenchRootDir, app.Exe, CommandLine.FormatArgumentList(args),
-                        null, ProcessMonitoring.ExitCode);
-                    return true;
-                }
-                else
-                {
-                    var r = mgr.ProcessExecutionHost.RunProcess(mgr.Env,
-                        cfg.BenchRootDir, app.Exe, CommandLine.FormatArgumentList(args),
-                        ProcessMonitoring.ExitCodeAndOutput);
-                    Console.Write(r.Output);
-                    return r.ExitCode == 0;
-                }
-            }
+            return LaunchApp(cfg, detached, appId, args);
         }
     }
 }

@@ -23,8 +23,8 @@ A tool to view and extract the contents of a Windows Installer (.msi) file.
 
 ## Source
 
-* Library: `core`
-* Category: Required
+* Library: [`core`](/app_libraries/core)
+* Category: [Required](/app_categories/required)
 * Order Index: 1
 
 ## Properties

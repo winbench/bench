@@ -45,13 +45,13 @@ namespace Mastersign.Bench.Cli.Commands
             var appId = Arguments.GetPositionalValue(POSITIONAL_APP_ID);
             var cfg = LoadConfiguration();
 
-            if (!cfg.ContainsGroup(appId))
+            if (!cfg.Apps.Exists(appId))
             {
                 WriteError("The app '{0}' was not found.", appId);
                 return false;
             }
 
-            var activationFile = cfg.GetStringValue(PropertyKeys.AppActivationFile);
+            var activationFile = cfg.GetStringValue(ConfigPropertyKeys.AppActivationFile);
             if (!File.Exists(activationFile))
             {
                 WriteError("The activation file for apps was not found.");
@@ -59,7 +59,7 @@ namespace Mastersign.Bench.Cli.Commands
                 return false;
             }
             WriteDetail("Found activation file: " + activationFile);
-            var deactivationFile = cfg.GetStringValue(PropertyKeys.AppDeactivationFile);
+            var deactivationFile = cfg.GetStringValue(ConfigPropertyKeys.AppDeactivationFile);
             if (!File.Exists(deactivationFile))
             {
                 WriteError("The deactivation file for apps was not found.");

@@ -1,6 +1,6 @@
 ﻿+++
 title = "TeXnicCenter"
-weight = 80
+weight = 100
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
@@ -23,9 +23,9 @@ Premium LaTeX Editing for Windows.
 
 ## Source
 
-* Library: `default`
-* Category: Writing
-* Order Index: 80
+* Library: [`default`](/app_libraries/default)
+* Category: [Writing](/app_categories/writing)
+* Order Index: 100
 
 ## Properties
 
@@ -33,5 +33,6 @@ Premium LaTeX Editing for Windows.
 * Name: TeXnicCenter
 * Typ: `default`
 * Website: <http://www.texniccenter.org>
-* Dependencies: [MiKTeX](/app/Bench.MiKTeX)
+* Dependencies: [MiKTeX](/apps/Bench.MiKTeX)
+* Responsibilities: [LaTeX Writing](/apps/Bench.Group.LaTeXWriting)
 

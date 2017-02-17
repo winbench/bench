@@ -12,54 +12,40 @@ namespace Mastersign.Bench
     public interface IUserInterface
     {
         /// <summary>
-        /// Prompts the user to input the necessary information
-        /// about a Bench user.
+        /// Displays a detail message to the user.
         /// </summary>
-        /// <param name="prompt">A string, shown to the user as prompt.</param>
-        /// <returns>A new instance of <see cref="BenchUserInfo"/> with the read input from the user.</returns>
-        BenchUserInfo ReadUserInfo(string prompt);
-
-        /// <summary>
-        /// Reads a password from the user in a safe fashion.
-        /// </summary>
-        /// <param name="prompt">A string, shown to the user as prompt.</param>
-        /// <returns>An instance of <see cref="SecureString"/>.</returns>
-        SecureString ReadPassword(string prompt);
-
-        /// <summary>
-        /// Allow the user to edit the given text file.
-        /// This methods returns, when the user ends the editing.
-        /// </summary>
-        /// <param name="path">A path to the text file to edit.</param>
-        void EditTextFile(string path);
-
-        /// <summary>
-        /// Allow the user to edit the given text file.
-        /// This methods returns, when the user ends the editing.
-        /// </summary>
-        /// <param name="path">A path to the text file to edit.</param>
-        /// <param name="prompt">A string, shown to the user as prompt.</param>
-        void EditTextFile(string path, string prompt);
+        /// <param name="topic">The topic of the message.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="detailedMessage">Additional information.</param>
+        void ShowVerbose(string topic, string message, string detailedMessage = null);
 
         /// <summary>
         /// Displays an informational message to the user.
         /// </summary>
         /// <param name="topic">The topic of the message.</param>
         /// <param name="message">The message.</param>
-        void ShowInfo(string topic, string message);
+        /// <param name="detailedMessage">Additional information.</param>
+        void ShowInfo(string topic, string message, string detailedMessage = null);
 
         /// <summary>
         /// Displays a warning message to the user.
         /// </summary>
         /// <param name="topic">The topic of the message.</param>
         /// <param name="message">The message.</param>
-        void ShowWarning(string topic, string message);
+        /// <param name="detailedMessage">Additional information.</param>
+        /// <param name="exception">An <see cref="Exception"/> object, causing the warning.</param>
+        void ShowWarning(string topic, string message, string detailedMessage = null,
+            Exception exception = null);
 
         /// <summary>
         /// Displays an error message to the user.
         /// </summary>
         /// <param name="topic">The topic of the message.</param>
         /// <param name="message">The message.</param>
-        void ShowError(string topic, string message);
+        /// <param name="detailedMessage">Additional information.</param>
+        /// <param name="exception">An <see cref="Exception"/> object, causing the warning.</param>
+        void ShowError(string topic, string message, string detailedMessage = null,
+            Exception exception = null);
+
     }
 }

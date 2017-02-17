@@ -1,6 +1,6 @@
 ﻿+++
 title = "Zeal Docs"
-weight = 63
+weight = 82
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -23,9 +23,9 @@ An offline documentation browser inspired by [Dash](https://kapeli.com/dash/).
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 63
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 82
 
 ## Properties
 

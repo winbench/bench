@@ -25,14 +25,71 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.15.0] - 2017-02-17
+
+[0.15.0]: https://github.com/mastersign/bench/compare/v0.14.1...v0.15.0
+
+In this release the directories for cached and installed files where changed.
+To prevent downloading all app resources and installing all apps again,
+the upgrade must be perfomed with a special script.
+Otherwise, a fresh Bench installation and copying the user configuration manually is necessary.
+
+- Make sure all programs from the Bench environment are closed
+- Download [`migrate-to-0-15.cmd`](https://gist.githubusercontent.com/mastersign/4e977df04d7d19b043f6cbf259d4fd0e/raw/migrate-to-0-15.cmd)
+- Save the script in the Bench root directory
+- Make sure it has the filename extension `.cmd`
+- Allow the execution in the file properties
+- Run the script file
+- Delete the script file after successful upgrade
+
+### Added
+- Bench CLI commands
+  ([#87](https://github.com/mastersign/bench/issues/87))
+    + `bench manage config set <Property Name> <Property Value>`
+    + `bench manage config edit [--async]`
+- Export and cloning of Bench environment with SFX archive support
+    + `bench.exe transfer export <target file>`
+    + `bench.exe transfer clone <target directory>`
+- Config property name
+    + `CacheDir`
+
+### Changed
+- Config property names
+    + `CustomConfigDir` &rarr; `UserConfigDir`
+    + `CustomConfigFile` &rarr; `UserConfigFile`
+    + `CustomConfigTemplateFile`&rarr; `UserConfigTemplateFile`
+    + `CustomAppIndexTemplateFile` &rarr; `UserAppIndexTemplateFile`
+    + `AppVersionIndexDir` &rarr; `AppsVersionIndexDir`
+    + `DownloadDir` &rarr; `AppsCacheDir`
+    + `AppAdornmentBaseDir` &rarr; `AppsAdornmentBaseDir`
+    + `AppRegistryBaseDir` &rarr; `AppsRegistryBaseDir`
+    + `AppLibsDir` &rarr; `AppLibsInstallDir`
+    + `AppLibsDownloadDir` &rarr; `AppLibsCacheDir`
+- Config property purpose
+    + `LibDir` &rarr; `AppsInstallDir`
+- Default file structure
+    + `cache\_applibs` &rarr; `cache\applibs`
+    + `cache\<app resources>` &rarr; `cache\apps\<app resources>`
+    + `lib\_applibs` &rarr; `lib\applibs`
+    + `lib\_launcher` &rarr; `lib\launcher`
+    + `lib\_proxies` &rarr; `lib\proxies`
+    + `lib\_versions` &rarr; `lib\versions`
+    + `lib\<app installs>` &rarr; `lib\apps\<app installs>`
+
+### Fixed
+- Recognition of HTML comments in config files
+  ([#96](https://github.com/mastersign/bench/issues/96))
+
 ## [0.14.1] - 2017-01-30
 
 [0.14.1]: https://github.com/mastersign/bench/compare/v0.14.0...v0.14.1
 
+### Added
+- Ruby and LaTeX groups to initialization wizzard
+- `UseRegistryIsolation` property to user configuration template
+
 ### Changed
 - Removed _Yeoman_ from pre-selected apps
-- Added Ruby and LaTeX groups to initialization wizzard
-- Added `UseRegistryIsolation` property to user configuration template
 - Moved default app library from user configuration template to Bench configuration
 
 ### Fixed
@@ -43,6 +100,12 @@ Add a link to the GitHub diff like
 ## [0.14.0] - 2017-01-27
 
 [0.14.0]: https://github.com/mastersign/bench/compare/v0.13.3...v0.14.0
+
+With this release all app definitions where moved into external app libraries.
+In that process and app ID namespaces where introduced and all app IDs
+where changed.
+Therefore, it is advised to start with a fresh Bench installation for this release
+and migrate an existing user configuration manually.
 
 ### Added
 - Bench CLI

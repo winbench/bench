@@ -20,7 +20,7 @@ namespace Mastersign.Bench.Dashboard
         {
             this.core = core;
             InitializeComponent();
-            lblVersion.Text = "Version " + Program.Core.Config.GetStringValue(PropertyKeys.Version);
+            lblVersion.Text = "Version " + Program.Core.Config.GetStringValue(ConfigPropertyKeys.Version);
             txtLicenses.Text = Resources.licenses;
             var acks = new List<string>();
             foreach (var ack in Resources.acknowledgements.Split(
@@ -30,7 +30,7 @@ namespace Mastersign.Bench.Dashboard
             }
             lblAcks.Text = string.Join(" / ", acks);
             lblUpdate.Text = string.Empty;
-            if (core.Config.GetBooleanValue(PropertyKeys.AutoUpdateCheck))
+            if (core.Config.GetBooleanValue(ConfigPropertyKeys.AutoUpdateCheck))
             {
                 CheckForUpdate();
             }
@@ -55,7 +55,7 @@ namespace Mastersign.Bench.Dashboard
             if (IsDisposed) return;
             if (version != null)
             {
-                var currentVersion = config.GetStringValue(PropertyKeys.Version);
+                var currentVersion = config.GetStringValue(ConfigPropertyKeys.Version);
                 if (!string.Equals(currentVersion, version))
                 {
                     lblUpdate.Text = "Update available: v" + version;

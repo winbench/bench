@@ -1,6 +1,6 @@
 ﻿+++
 title = "PostgreSQL"
-weight = 74
+weight = 94
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -33,9 +33,9 @@ The initial password for _postgres_ is `bench`.
 
 ## Source
 
-* Library: `default`
-* Category: Services
-* Order Index: 74
+* Library: [`default`](/app_libraries/default)
+* Category: [Services](/app_categories/services)
+* Order Index: 94
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "CMake"
-weight = 54
+weight = 69
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -33,9 +33,9 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 54
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 69
 
 ## Properties
 
@@ -43,4 +43,5 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 * Name: CMake
 * Typ: `default`
 * Website: <https://cmake.org/>
+* Responsibilities: [C/C++ Development](/apps/Bench.Group.CppDevelopment)
 

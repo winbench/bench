@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using Mastersign.Bench.PropertyCollections;
 using IOPath = System.IO.Path;
 
 namespace Mastersign.Bench
@@ -19,17 +20,21 @@ namespace Mastersign.Bench
         /// </summary>
         public const char NS_SEPARATOR = '.';
 
-        private readonly IConfiguration AppIndex;
+        private readonly IConfiguration Config;
+
+        private readonly IObjectLibrary AppIndex;
 
         private readonly string AppName;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AppFacade"/>.
         /// </summary>
-        /// <param name="source">The configuration, containing the properties of the app.</param>
+        /// <param name="config">The Bench configuration properties.</param>
+        /// <param name="source">The app index, containing the properties of the app.</param>
         /// <param name="appName">The ID of the app.</param>
-        public AppFacade(IConfiguration source, string appName)
+        public AppFacade(IConfiguration config, IObjectLibrary source, string appName)
         {
+            Config = config;
             AppIndex = source;
             AppName = appName;
         }
@@ -154,20 +159,20 @@ namespace Mastersign.Bench
         /// <summary>
         /// Gets the label of the app.
         /// </summary>
-        public string Label => StringValue(PropertyKeys.AppLabel);
+        public string Label => StringValue(AppPropertyKeys.Label);
 
         /// <summary>
         /// Gets the category, this app belongs to.
         /// E.g. there are <c>Required</c> and <c>Optional</c> apps.
         /// </summary>
-        /// <see cref="BenchConfiguration.DefaultAppCategory"/>
+        /// <see cref="AppIndex.DefaultAppCategory"/>
         public string Category => AppIndex.GetGroupCategory(AppName);
 
         /// <summary>
         /// <para>The typ of this app.</para>
         /// <para>See for <see cref="AppTyps"/> to compare and list the app typs.</para>
         /// </summary>
-        public string Typ => StringValue(PropertyKeys.AppTyp);
+        public string Typ => StringValue(AppPropertyKeys.Typ);
 
         /// <summary>
         /// Checks, if this app is a packaged managed by some kind of package manager.
@@ -193,7 +198,7 @@ namespace Mastersign.Bench
         /// If the app has the version <c>"latest"</c> it is considered to have no specified version.
         /// </remarks>
         /// <seealso cref="IsVersioned"/>
-        public string Version => StringValue(PropertyKeys.AppVersion);
+        public string Version => StringValue(AppPropertyKeys.Version);
 
         /// <summary>
         /// Checks, if this app has a specified version.
@@ -213,20 +218,20 @@ namespace Mastersign.Bench
         /// <summary>
         /// Gets the URL of the project or vendor website of this app, or <c>null</c> if no website was specified.
         /// </summary>
-        public string Website => StringValue(PropertyKeys.AppWebsite);
+        public string Website => StringValue(AppPropertyKeys.Website);
 
         /// <summary>
         /// Gets a dictionary with labels and URLs for help and documentation.
         /// If an URL is relative, it is considered to be relative to the apps <see cref="Dir"/>.
         /// </summary>
         public IDictionary<string, string> Docs
-            => (Value(PropertyKeys.AppDocs) as IDictionary<string, string>)
+            => (Value(AppPropertyKeys.Docs) as IDictionary<string, string>)
                   ?? new Dictionary<string, string>();
 
         /// <summary>
         /// Gets the short name of the apps license.
         /// </summary>
-        public string License => StringValue(PropertyKeys.AppLicense);
+        public string License => StringValue(AppPropertyKeys.License);
 
         /// <summary>
         /// Gets the absolute URL of the apps license document.
@@ -236,7 +241,7 @@ namespace Mastersign.Bench
             get
             {
                 Uri result;
-                var licenseUrl = StringValue(PropertyKeys.AppLicenseUrl);
+                var licenseUrl = StringValue(AppPropertyKeys.LicenseUrl);
                 if (!Uri.TryCreate(licenseUrl, UriKind.RelativeOrAbsolute, out result))
                 {
                     return null;
@@ -253,8 +258,8 @@ namespace Mastersign.Bench
         /// </summary>
         public string[] Dependencies
         {
-            get { return ListValue(PropertyKeys.AppDependencies); }
-            set { UpdateValue(PropertyKeys.AppDependencies, value); }
+            get { return ListValue(AppPropertyKeys.Dependencies); }
+            set { UpdateValue(AppPropertyKeys.Dependencies, value); }
         }
 
         /// <summary>
@@ -262,122 +267,122 @@ namespace Mastersign.Bench
         /// </summary>
         public string[] Responsibilities
         {
-            get { return ListValue(PropertyKeys.AppResponsibilities); }
-            set { UpdateValue(PropertyKeys.AppResponsibilities, value); }
+            get { return ListValue(AppPropertyKeys.Responsibilities); }
+            set { UpdateValue(AppPropertyKeys.Responsibilities, value); }
         }
 
         /// <summary>
         /// Checks, whether this app is marked as activated by the user, or not.
         /// </summary>
         /// <value><c>true</c> if the apps ID is marked as activated by the user; otherwise <c>false</c>.</value>
-        public bool IsActivated => BoolValue(PropertyKeys.AppIsActivated);
+        public bool IsActivated => BoolValue(AppPropertyKeys.IsActivated);
 
         /// <summary>
         /// Checks, whether this app is marked as deactivated by the user, or not.
         /// </summary>
         /// <value><c>true</c> if the apps ID is marked as deactivated by the user; otherwise <c>false</c>.</value>
-        public bool IsDeactivated => BoolValue(PropertyKeys.AppIsDeactivated);
+        public bool IsDeactivated => BoolValue(AppPropertyKeys.IsDeactivated);
 
         /// <summary>
         /// Checks, whether this app is required by the Bench system, or not.
         /// </summary>
         /// <value><c>true</c> if the app is required by Bench; otherwise <c>false</c>.</value>
-        public bool IsRequired => BoolValue(PropertyKeys.AppIsRequired);
+        public bool IsRequired => BoolValue(AppPropertyKeys.IsRequired);
 
         /// <summary>
         /// Checks, whether this app is dependency of another app.
         /// </summary>
         /// <value><c>true</c> if the app is required by another app; otherwise <c>false</c>.</value>
-        public bool IsDependency => BoolValue(PropertyKeys.AppIsDependency);
+        public bool IsDependency => BoolValue(AppPropertyKeys.IsDependency);
 
         /// <summary>
         /// Gets the URL of the apps resource, or <c>null</c> if the app has no downloadable resource.
         /// </summary>
-        public string Url => StringValue(PropertyKeys.AppUrl);
+        public string Url => StringValue(AppPropertyKeys.Url);
 
         /// <summary>
         /// Gets a dictionary with HTTP header fields for the download request.
         /// </summary>
         public IDictionary<string, string> DownloadHeaders
-            => (Value(PropertyKeys.AppDownloadHeaders) as IDictionary<string, string>)
+            => (Value(AppPropertyKeys.DownloadHeaders) as IDictionary<string, string>)
                   ?? new Dictionary<string, string>();
 
         /// <summary>
         /// Gets a dictionary with HTTP cookies for the download request.
         /// </summary>
         public IDictionary<string, string> DownloadCookies
-            => (Value(PropertyKeys.AppDownloadCookies) as IDictionary<string, string>)
+            => (Value(AppPropertyKeys.DownloadCookies) as IDictionary<string, string>)
                   ?? new Dictionary<string, string>();
 
         /// <summary>
         /// Gets the name of the apps file resource, or <c>null</c>
         /// in case the app has an archive resource or no downloadable resource at all.
         /// </summary>
-        public string ResourceFileName => StringValue(PropertyKeys.AppResourceName);
+        public string ResourceFileName => StringValue(AppPropertyKeys.ResourceName);
 
         /// <summary>
         /// Gets the name of the apps archive resource, or <c>null</c>
         /// in case the app has a file resource or no downloadable resource at all.
         /// </summary>
-        public string ResourceArchiveName => StringValue(PropertyKeys.AppArchiveName);
+        public string ResourceArchiveName => StringValue(AppPropertyKeys.ArchiveName);
 
         /// <summary>
         /// Gets the sub path inside of the resource archive, or <c>null</c>
         /// in case the whole archive can be extracted or the app has no archive resource.
         /// </summary>
-        public string ResourceArchivePath => StringValue(PropertyKeys.AppArchivePath);
+        public string ResourceArchivePath => StringValue(AppPropertyKeys.ArchivePath);
 
         /// <summary>
         /// Gets the typ of the resource archive, or <c>null</c> if the app has no archive resource.
         /// See <see cref="AppArchiveTyps"/> to compare or list the possible typs of an archive resource.
         /// </summary>
-        public string ResourceArchiveTyp => StringValue(PropertyKeys.AppArchiveTyp);
+        public string ResourceArchiveTyp => StringValue(AppPropertyKeys.ArchiveTyp);
 
         /// <summary>
         /// Gets a value, which specifies if the app will be installed even if it is already installed.
         /// </summary>
         public bool Force
         {
-            get { return BoolValue(PropertyKeys.AppForce); }
-            set { UpdateValue(PropertyKeys.AppForce, value); }
+            get { return BoolValue(AppPropertyKeys.Force); }
+            set { UpdateValue(AppPropertyKeys.Force, value); }
         }
 
         /// <summary>
         /// The name of the package represented by this app, or <c>null</c> in case
         /// <see cref="IsManagedPackage"/> is <c>false</c>.
         /// </summary>
-        public string PackageName => StringValue(PropertyKeys.AppPackageName);
+        public string PackageName => StringValue(AppPropertyKeys.PackageName);
 
         /// <summary>
         /// The name of the target directory for this app.
         /// The target directory is the directory where the app resources are installed.
         /// </summary>
-        public string Dir => StringValue(PropertyKeys.AppDir);
+        public string Dir => StringValue(AppPropertyKeys.Dir);
 
         /// <summary>
         /// The relative path of the main executable file of the app, or <c>null</c>
         /// in case the app has no executable (e.g. the app is just a group).
         /// The path is relative to the target <see cref="Dir"/> of this app.
         /// </summary>
-        public string Exe => StringValue(PropertyKeys.AppExe);
+        public string Exe => StringValue(AppPropertyKeys.Exe);
 
         /// <summary>
         /// A flag to control whether the main executable of this app can be tested
         /// by executing it with the <see cref="ExeTestArguments"/> and checking the exit code for <c>0</c>.
         /// </summary>
-        public bool ExeTest => BoolValue(PropertyKeys.AppExeTest);
+        public bool ExeTest => BoolValue(AppPropertyKeys.ExeTest);
 
         /// <summary>
         /// A command line argument string to pass to the main executable, when testing it for propery installation.
         /// </summary>
-        public string ExeTestArguments => StringValue(PropertyKeys.AppExeTestArguments) ?? string.Empty;
+        public string ExeTestArguments => StringValue(AppPropertyKeys.ExeTestArguments) ?? string.Empty;
 
         /// <summary>
         /// The relative path to a file, which existence can be used to check if the app is installed,
         /// or <c>null</c> e.g. in case the app is a package managed by a package manager.
         /// The path is relative to the target <see cref="Dir"/> of this app.
         /// </summary>
-        public string SetupTestFile => StringValue(PropertyKeys.AppSetupTestFile);
+        public string SetupTestFile => StringValue(AppPropertyKeys.SetupTestFile);
 
         /// <summary>
         /// An array with relative or absolute paths,
@@ -387,21 +392,21 @@ namespace Mastersign.Bench
         /// <seealso cref="Register"/>
         public string[] Path
         {
-            get { return ListValue(PropertyKeys.AppPath); }
-            set { UpdateValue(PropertyKeys.AppPath, value); }
+            get { return ListValue(AppPropertyKeys.Path); }
+            set { UpdateValue(AppPropertyKeys.Path, value); }
         }
 
         /// <summary>
         /// A flag to control if the <see cref="Path"/>s of this app will be added
         /// to the environment variable <c>PATH</c>.
         /// </summary>
-        public bool Register => BoolValue(PropertyKeys.AppRegister);
+        public bool Register => BoolValue(AppPropertyKeys.Register);
 
         /// <summary>
         /// A dictionary with additional environment variables to setup, when this app is activated.
         /// </summary>
         public IDictionary<string, string> Environment
-            => (Value(PropertyKeys.AppEnvironment) as IDictionary<string, string>)
+            => (Value(AppPropertyKeys.Environment) as IDictionary<string, string>)
                   ?? new Dictionary<string, string>();
 
         /// <summary>
@@ -409,8 +414,8 @@ namespace Mastersign.Bench
         /// </summary>
         public string[] AdornedExecutables
         {
-            get { return ListValue(PropertyKeys.AppAdornedExecutables); }
-            set { UpdateValue(PropertyKeys.AppAdornedExecutables, value); }
+            get { return ListValue(AppPropertyKeys.AdornedExecutables); }
+            set { UpdateValue(AppPropertyKeys.AdornedExecutables, value); }
         }
 
         internal void AddAdornedExecutable(string path)
@@ -428,7 +433,7 @@ namespace Mastersign.Bench
         /// </summary>
         public string AdornmentProxyBasePath
             => IOPath.Combine(
-                    AppIndex.GetStringValue(PropertyKeys.AppAdornmentBaseDir),
+                    Config.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir),
                     ID.ToLowerInvariant());
 
         /// <summary>
@@ -466,7 +471,7 @@ namespace Mastersign.Bench
         /// Checks, whether execution adornment proxies are required for this app, or not.
         /// </summary>
         public bool IsAdornmentRequired
-            => (RegistryKeys.Length > 0 && AppIndex.GetBooleanValue(PropertyKeys.UseRegistryIsolation))
+            => (RegistryKeys.Length > 0 && Config.GetBooleanValue(ConfigPropertyKeys.UseRegistryIsolation))
                     || File.Exists(GetCustomScript("pre-run"))
                     || File.Exists(GetCustomScript("post-run"));
 
@@ -474,18 +479,18 @@ namespace Mastersign.Bench
         /// An array with registry paths relative to the <c>HKCU</c> (current user) hive,
         /// which must be considered for registry isolation.
         /// </summary>
-        public string[] RegistryKeys => ListValue(PropertyKeys.AppRegistryKeys);
+        public string[] RegistryKeys => ListValue(AppPropertyKeys.RegistryKeys);
 
         /// <summary>
         /// The label for the apps launcher, or <c>null</c> if the app has no launcher.
         /// </summary>
-        public string Launcher => StringValue(PropertyKeys.AppLauncher);
+        public string Launcher => StringValue(AppPropertyKeys.Launcher);
 
         /// <summary>
         /// The path to the main executable, to be started by the apps launcher,
         /// or <c>null</c> if the app has no launcher.
         /// </summary>
-        public string LauncherExecutable => StringValue(PropertyKeys.AppLauncherExecutable);
+        public string LauncherExecutable => StringValue(AppPropertyKeys.LauncherExecutable);
 
         /// <summary>
         /// An array with command line arguments to be sent to the <see cref="LauncherExecutable"/>
@@ -494,24 +499,24 @@ namespace Mastersign.Bench
         /// from the launcher to the executable. This is also necessary for drag-and-drop of files
         /// onto the launcher to work.
         /// </summary>
-        public string[] LauncherArguments => ListValue(PropertyKeys.AppLauncherArguments);
+        public string[] LauncherArguments => ListValue(AppPropertyKeys.LauncherArguments);
 
         /// <summary>
         /// A path to an <c>*.ico</c> or <c>*.exe</c> file with the icon for the apps launcher,
         /// or <c>null</c> if the app has no launcher.
         /// </summary>
-        public string LauncherIcon => StringValue(PropertyKeys.AppLauncherIcon);
+        public string LauncherIcon => StringValue(AppPropertyKeys.LauncherIcon);
 
         #region Recursive Discovery
 
         internal IList<string> FindAllDependencies()
         {
-            return FindAppsRecursively(PropertyKeys.AppDependencies);
+            return FindAppsRecursively(AppPropertyKeys.Dependencies);
         }
 
         internal IList<string> FindAllResponsibilities()
         {
-            return FindAppsRecursively(PropertyKeys.AppResponsibilities);
+            return FindAppsRecursively(AppPropertyKeys.Responsibilities);
         }
 
         private IList<string> FindAppsRecursively(string listPropertyName)
@@ -547,7 +552,7 @@ namespace Mastersign.Bench
             var launcher = Launcher;
             return launcher != null
                 ? IOPath.Combine(
-                    AppIndex.GetStringValue(PropertyKeys.LauncherDir),
+                    Config.GetStringValue(ConfigPropertyKeys.LauncherDir),
                     launcher + ".lnk")
                 : null;
         }
@@ -555,7 +560,7 @@ namespace Mastersign.Bench
         internal string GetLauncherScriptFile()
         {
             return IOPath.Combine(
-                AppIndex.GetStringValue(PropertyKeys.LauncherScriptDir),
+                Config.GetStringValue(ConfigPropertyKeys.LauncherScriptDir),
                 ID.ToLowerInvariant() + ".cmd");
         }
 
@@ -567,12 +572,12 @@ namespace Mastersign.Bench
         public string GetCustomScript(string typ)
         {
             var relativePath = IOPath.Combine(
-                AppIndex.GetStringValue(PropertyKeys.AppLibCustomScriptDirName),
+                Config.GetStringValue(ConfigPropertyKeys.AppLibCustomScriptDirName),
                 NamespacePathSegment);
             var scriptName = string.Format("{0}.{1}.ps1", Name.ToLowerInvariant(), typ);
 
             var userPath = IOPath.Combine(
-                IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.CustomConfigDir), relativePath),
+                IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.UserConfigDir), relativePath),
                 scriptName);
             if (File.Exists(userPath)) return userPath;
 
@@ -594,12 +599,12 @@ namespace Mastersign.Bench
         public string GetSetupResource(string relativeResourcePath)
         {
             var relativeDirPath = IOPath.Combine(
-                AppIndex.GetStringValue(PropertyKeys.AppLibResourceDirName),
+                Config.GetStringValue(ConfigPropertyKeys.AppLibResourceDirName),
                 PathSegment);
 
             var userPath = IOPath.Combine(
                 IOPath.Combine(
-                    AppIndex.GetStringValue(PropertyKeys.CustomConfigDir),
+                    Config.GetStringValue(ConfigPropertyKeys.UserConfigDir),
                     relativeDirPath),
                 relativeResourcePath);
             if (File.Exists(userPath) || Directory.Exists(userPath)) return userPath;
@@ -617,7 +622,7 @@ namespace Mastersign.Bench
         internal string GetVersionFile()
         {
             return IOPath.Combine(
-                AppIndex.GetStringValue(PropertyKeys.AppVersionIndexDir),
+                Config.GetStringValue(ConfigPropertyKeys.AppsVersionIndexDir),
                 ID + ".txt");
         }
 
@@ -679,14 +684,14 @@ namespace Mastersign.Bench
             switch (Typ)
             {
                 case AppTyps.NodePackage:
-                    var npmDir = AppIndex.GetStringGroupValue(AppKeys.Npm, PropertyKeys.AppDir);
+                    var npmDir = AppIndex.GetStringGroupValue(AppKeys.Npm, AppPropertyKeys.Dir);
                     var npmPackageDir = IOPath.Combine(
                         IOPath.Combine(npmDir, "node_modules"),
                         PackageName);
                     return Directory.Exists(npmPackageDir);
                 case AppTyps.RubyPackage:
-                    var rubyDir = AppIndex.GetStringGroupValue(AppKeys.Ruby, PropertyKeys.AppDir);
-                    var rubyVersion = new Version(AppIndex.GetStringGroupValue(AppKeys.Ruby, PropertyKeys.AppVersion));
+                    var rubyDir = AppIndex.GetStringGroupValue(AppKeys.Ruby, AppPropertyKeys.Dir);
+                    var rubyVersion = new Version(AppIndex.GetStringGroupValue(AppKeys.Ruby, AppPropertyKeys.Version));
                     var generalVersion = new Version(rubyVersion.Major, rubyVersion.Minor, 0);
                     var generalVersionStr = generalVersion.ToString(3);
                     var gemDirBase = IOPath.Combine(rubyDir,
@@ -695,13 +700,13 @@ namespace Mastersign.Bench
                     var folders = Directory.GetDirectories(gemDirBase, PackageName + "-*");
                     return folders.Length > 0;
                 case AppTyps.Python2Package:
-                    var python2Dir = AppIndex.GetStringGroupValue(AppKeys.Python2, PropertyKeys.AppDir);
+                    var python2Dir = AppIndex.GetStringGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                     var pip2PackageDir = IOPath.Combine(
                         IOPath.Combine(python2Dir, "lib"),
                         IOPath.Combine("site-packages", PackageName));
                     return Directory.Exists(pip2PackageDir) || File.Exists(SetupTestFile);
                 case AppTyps.Python3Package:
-                    var python3Dir = AppIndex.GetStringGroupValue(AppKeys.Python3, PropertyKeys.AppDir);
+                    var python3Dir = AppIndex.GetStringGroupValue(AppKeys.Python3, AppPropertyKeys.Dir);
                     var pip3PackageDir = IOPath.Combine(
                         IOPath.Combine(python3Dir, "lib"),
                         IOPath.Combine("site-packages", PackageName));
@@ -738,9 +743,9 @@ namespace Mastersign.Bench
             {
                 case AppTyps.Default:
                     return ResourceFileName != null
-                        ? File.Exists(IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.DownloadDir), ResourceFileName))
+                        ? File.Exists(IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceFileName))
                         : ResourceArchiveName != null
-                            ? File.Exists(IOPath.Combine(AppIndex.GetStringValue(PropertyKeys.DownloadDir), ResourceArchiveName))
+                            ? File.Exists(IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceArchiveName))
                             : true;
                 default:
                     return false;
@@ -1184,19 +1189,19 @@ namespace Mastersign.Bench
 
         internal void Activate()
         {
-            AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsActivated, true);
+            AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsActivated, true);
             ActivateDependencies();
         }
 
         internal void ActivateAsRequired()
         {
-            AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsRequired, true);
+            AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsRequired, true);
             ActivateDependencies();
         }
 
         internal void ActivateAsDependency()
         {
-            AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsDependency, true);
+            AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsDependency, true);
             ActivateDependencies();
         }
 
@@ -1204,7 +1209,7 @@ namespace Mastersign.Bench
         {
             foreach (var depName in Dependencies)
             {
-                var depApp = new AppFacade(AppIndex, depName);
+                var depApp = new AppFacade(Config, AppIndex, depName);
                 if (!depApp.IsActive)
                 {
                     depApp.ActivateAsDependency();
@@ -1217,7 +1222,7 @@ namespace Mastersign.Bench
         /// </summary>
         public void Deactivate()
         {
-            AppIndex.SetGroupValue(AppName, PropertyKeys.AppIsDeactivated, true);
+            AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsDeactivated, true);
         }
 
         /// <summary>
@@ -1265,9 +1270,9 @@ namespace Mastersign.Bench
         {
             foreach (var dependency in Dependencies)
             {
-                var oldSet = AppIndex.GetStringListGroupValue(dependency, PropertyKeys.AppResponsibilities);
+                var oldSet = AppIndex.GetStringListGroupValue(dependency, AppPropertyKeys.Responsibilities);
                 var newSet = AddToSet(oldSet, ID);
-                AppIndex.SetGroupValue(dependency, PropertyKeys.AppResponsibilities, newSet);
+                AppIndex.SetGroupValue(dependency, AppPropertyKeys.Responsibilities, newSet);
             }
         }
 
@@ -1290,10 +1295,10 @@ namespace Mastersign.Bench
         /// </summary>
         internal void ResetActivation()
         {
-            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsActivated);
-            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsDeactivated);
-            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsRequired);
-            AppIndex.ResetGroupValue(AppName, PropertyKeys.AppIsDependency);
+            AppIndex.ResetGroupValue(AppName, AppPropertyKeys.IsActivated);
+            AppIndex.ResetGroupValue(AppName, AppPropertyKeys.IsDeactivated);
+            AppIndex.ResetGroupValue(AppName, AppPropertyKeys.IsRequired);
+            AppIndex.ResetGroupValue(AppName, AppPropertyKeys.IsDependency);
         }
 
         private void SetupAdornmentForRegistryIsolation()
@@ -1309,7 +1314,7 @@ namespace Mastersign.Bench
             if (AdornedExecutables.Length > 0)
             {
                 var proxyDir = IOPath.Combine(
-                    AppIndex.GetStringValue(PropertyKeys.AppAdornmentBaseDir),
+                    Config.GetStringValue(ConfigPropertyKeys.AppsAdornmentBaseDir),
                     AppName.ToLowerInvariant());
                 Path = AppendToList(Path, proxyDir);
             }
@@ -1361,45 +1366,45 @@ namespace Mastersign.Bench
         public static readonly string[] KnownPropertyKeys = new[]
             {
                 "ID",
-                PropertyKeys.AppTyp,
-                PropertyKeys.AppLabel,
-                PropertyKeys.AppWebsite,
-                PropertyKeys.AppDocs,
-                PropertyKeys.AppVersion,
-                PropertyKeys.AppLicense,
-                PropertyKeys.AppLicenseUrl,
-                PropertyKeys.AppIsActive,
-                PropertyKeys.AppIsRequired,
-                PropertyKeys.AppIsActivated,
-                PropertyKeys.AppIsDeactivated,
-                PropertyKeys.AppHasResource,
-                PropertyKeys.AppIsResourceCached,
-                PropertyKeys.AppInstalledVersion,
-                PropertyKeys.AppDependencies,
-                PropertyKeys.AppIsDependency,
-                PropertyKeys.AppForce,
-                PropertyKeys.AppSetupTestFile,
-                PropertyKeys.AppPackageName,
-                PropertyKeys.AppUrl,
-                PropertyKeys.AppDownloadCookies,
-                PropertyKeys.AppDownloadHeaders,
-                PropertyKeys.AppResourceName,
-                PropertyKeys.AppArchiveName,
-                PropertyKeys.AppArchiveTyp,
-                PropertyKeys.AppArchivePath,
-                PropertyKeys.AppDir,
-                PropertyKeys.AppExe,
-                PropertyKeys.AppRegister,
-                PropertyKeys.AppPath,
-                PropertyKeys.AppEnvironment,
-                PropertyKeys.AppAdornedExecutables,
-                PropertyKeys.AppRegistryKeys,
-                PropertyKeys.AppExeTest,
-                PropertyKeys.AppExeTestArguments,
-                PropertyKeys.AppLauncher,
-                PropertyKeys.AppLauncherExecutable,
-                PropertyKeys.AppLauncherArguments,
-                PropertyKeys.AppLauncherIcon,
+                AppPropertyKeys.Typ,
+                AppPropertyKeys.Label,
+                AppPropertyKeys.Website,
+                AppPropertyKeys.Docs,
+                AppPropertyKeys.Version,
+                AppPropertyKeys.License,
+                AppPropertyKeys.LicenseUrl,
+                AppPropertyKeys.IsActive,
+                AppPropertyKeys.IsRequired,
+                AppPropertyKeys.IsActivated,
+                AppPropertyKeys.IsDeactivated,
+                AppPropertyKeys.HasResource,
+                AppPropertyKeys.IsResourceCached,
+                AppPropertyKeys.InstalledVersion,
+                AppPropertyKeys.Dependencies,
+                AppPropertyKeys.IsDependency,
+                AppPropertyKeys.Force,
+                AppPropertyKeys.SetupTestFile,
+                AppPropertyKeys.PackageName,
+                AppPropertyKeys.Url,
+                AppPropertyKeys.DownloadCookies,
+                AppPropertyKeys.DownloadHeaders,
+                AppPropertyKeys.ResourceName,
+                AppPropertyKeys.ArchiveName,
+                AppPropertyKeys.ArchiveTyp,
+                AppPropertyKeys.ArchivePath,
+                AppPropertyKeys.Dir,
+                AppPropertyKeys.Exe,
+                AppPropertyKeys.Register,
+                AppPropertyKeys.Path,
+                AppPropertyKeys.Environment,
+                AppPropertyKeys.AdornedExecutables,
+                AppPropertyKeys.RegistryKeys,
+                AppPropertyKeys.ExeTest,
+                AppPropertyKeys.ExeTestArguments,
+                AppPropertyKeys.Launcher,
+                AppPropertyKeys.LauncherExecutable,
+                AppPropertyKeys.LauncherArguments,
+                AppPropertyKeys.LauncherIcon,
             };
 
         /// <summary>
@@ -1426,44 +1431,44 @@ namespace Mastersign.Bench
             {
                 var result = new List<KeyValuePair<string, object>>();
                 result.Add(new KeyValuePair<string, object>("ID", this.ID));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppTyp, this.Typ));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLabel, this.Label));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppWebsite, this.Website));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDocs, this.Docs));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppVersion, this.Version));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLicense, this.License));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLicenseUrl, this.LicenseUrl?.AbsoluteUri));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsActive, this.IsActive));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsRequired, this.IsRequired));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsActivated, this.IsActivated));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsDeactivated, this.IsDeactivated));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppHasResource, this.HasResource));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsResourceCached, this.IsResourceCached));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppInstalledVersion, this.InstalledVersion));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDependencies, this.Dependencies));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppIsDependency, this.IsDependency));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppForce, this.Force));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppSetupTestFile, this.SetupTestFile));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppPackageName, this.PackageName));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppUrl, this.Url));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDownloadCookies, this.DownloadCookies));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDownloadHeaders, this.DownloadHeaders));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppResourceName, this.ResourceFileName));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppArchiveName, this.ResourceArchiveName));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppArchivePath, this.ResourceArchivePath));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppDir, this.Dir));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppExe, this.Exe));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppRegister, this.Register));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppPath, this.Path));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppEnvironment, this.Environment));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppAdornedExecutables, this.AdornedExecutables));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppRegistryKeys, this.RegistryKeys));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppExeTest, this.ExeTest));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppExeTestArguments, this.ExeTestArguments));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncher, this.Launcher));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherExecutable, this.LauncherExecutable));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherArguments, this.LauncherArguments));
-                result.Add(new KeyValuePair<string, object>(PropertyKeys.AppLauncherIcon, this.LauncherIcon));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Typ, this.Typ));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Label, this.Label));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Website, this.Website));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Docs, this.Docs));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Version, this.Version));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.License, this.License));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LicenseUrl, this.LicenseUrl?.AbsoluteUri));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActive, this.IsActive));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsRequired, this.IsRequired));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActivated, this.IsActivated));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsDeactivated, this.IsDeactivated));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.HasResource, this.HasResource));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsResourceCached, this.IsResourceCached));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.InstalledVersion, this.InstalledVersion));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Dependencies, this.Dependencies));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsDependency, this.IsDependency));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Force, this.Force));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.SetupTestFile, this.SetupTestFile));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.PackageName, this.PackageName));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Url, this.Url));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.DownloadCookies, this.DownloadCookies));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.DownloadHeaders, this.DownloadHeaders));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.ResourceName, this.ResourceFileName));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.ArchiveName, this.ResourceArchiveName));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.ArchivePath, this.ResourceArchivePath));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Dir, this.Dir));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Exe, this.Exe));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Register, this.Register));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Path, this.Path));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Environment, this.Environment));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.AdornedExecutables, this.AdornedExecutables));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.RegistryKeys, this.RegistryKeys));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.ExeTest, this.ExeTest));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.ExeTestArguments, this.ExeTestArguments));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Launcher, this.Launcher));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LauncherExecutable, this.LauncherExecutable));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LauncherArguments, this.LauncherArguments));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LauncherIcon, this.LauncherIcon));
                 return result.ToArray();
             }
         }

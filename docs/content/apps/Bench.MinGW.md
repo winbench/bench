@@ -1,6 +1,6 @@
 ﻿+++
 title = "MinGW"
-weight = 31
+weight = 43
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "meta"
@@ -23,7 +23,8 @@ MinGW provides a GNU development environment for Windows,
 including compilers for C/C++, Objective-C, Fortran, Ada, ...
 
 
-You can adapt the preselected MinGW packages by putting something like this in your `config\apps.md`:
+You can adapt the preselected MinGW packages
+by putting something like this in your user app library in `config\apps.md`:
 
 ```Markdown
 * ID: `Bench.MinGW`
@@ -41,9 +42,9 @@ and install more MinGW packages.
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 31
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 43
 
 ## Properties
 
@@ -51,5 +52,6 @@ and install more MinGW packages.
 * Name: MinGW
 * Typ: `meta`
 * Website: <http://www.mingw.org/>
-* Dependencies: [MinGwGet](/app/Bench.MinGwGet), [MinGwGetGui](/app/Bench.MinGwGetGui)
+* Dependencies: [MinGwGet](/apps/Bench.MinGwGet), [MinGwGetGui](/apps/Bench.MinGwGetGui)
+* Responsibilities: [C/C++ Development](/apps/Bench.Group.CppDevelopment)
 

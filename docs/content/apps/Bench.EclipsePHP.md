@@ -1,6 +1,6 @@
 ﻿+++
 title = "Eclipse for PHP"
-weight = 46
+weight = 60
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -24,9 +24,9 @@ Git client, Mylyn and editors for JavaScript, HTML, CSS and...
 
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 46
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 60
 
 ## Properties
 
@@ -34,5 +34,6 @@ Git client, Mylyn and editors for JavaScript, HTML, CSS and...
 * Name: EclipsePHP
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Dependencies: [Java Runtime Environment 8](/app/Bench.JRE8)
+* Dependencies: [Java Runtime Environment 8](/apps/Bench.JRE8)
+* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment)
 

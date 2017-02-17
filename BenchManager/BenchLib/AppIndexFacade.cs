@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Bench.PropertyCollections;
 
 namespace Mastersign.Bench
 {
@@ -13,30 +14,32 @@ namespace Mastersign.Bench
     /// </summary>
     public class AppIndexFacade : IEnumerable<AppFacade>
     {
-        private readonly IConfiguration AppIndex;
+        private readonly IConfiguration Config;
+        private readonly IObjectLibrary AppIndex;
 
         private Dictionary<string, AppFacade> cache = new Dictionary<string, AppFacade>();
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="AppIndexFacade"/>.
+        /// </summary>
+        /// <param name="config">The Bench configuration properties.</param>
+        /// <param name="appIndex">An instance of <see cref="IObjectLibrary"/> holding the configuration of Bench apps.</param>
+        public AppIndexFacade(IConfiguration config, IObjectLibrary appIndex)
+        {
+            Config = config;
+            AppIndex = appIndex;
+        }
 
         private AppFacade GetAppFacade(string appName)
         {
             AppFacade app;
             if (!cache.TryGetValue(appName, out app))
             {
-                app = new AppFacade(AppIndex, appName);
+                app = new AppFacade(Config, AppIndex, appName);
                 cache.Add(appName, app);
             }
             return app;
         }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="AppIndexFacade"/>.
-        /// </summary>
-        /// <param name="appIndex">An instance of <see cref="IConfiguration"/> holding the configuration of Bench apps.</param>
-        public AppIndexFacade(IConfiguration appIndex)
-        {
-            AppIndex = appIndex;
-        }
-
         /// <summary>
         /// Gets an instance of <see cref="AppFacade"/> for the specified app.
         /// </summary>

@@ -1,4 +1,4 @@
-﻿# Default Configuration
+# Default Configuration
 
 * VersionFile: `res\version.txt`
 * Website: <http://mastersign.github.io/bench>
@@ -15,29 +15,31 @@
 * LogLevel: `Info`
 * UserName: user
 * UserEmail: user@localhost
-* CustomConfigDir: `config`
-* CustomConfigFile: `$CustomConfigDir$\config.md`
-* CustomConfigTemplateFile: `res\config.template.md`
-* SiteConfigFileName: `bench-site.md`
+* UserConfigTemplateFile: `res\config.template.md`
 * SiteConfigTemplateFile: `res\bench-site.template.md`
-* AppActivationFile: `$CustomConfigDir$\apps-activated.txt`
+* UserAppIndexTemplateFile: `res\apps.template.md`
 * AppActivationTemplateFile: `res\apps-activated.template.txt`
-* AppDeactivationFile: `$CustomConfigDir$\apps-deactivated.txt`
 * AppDeactivationTemplateFile: `res\apps-deactivated.template.txt`
-* CustomAppIndexTemplateFile: `res\apps.template.md`
-* AppVersionIndexDir: `$LibDir$\_versions`
-* ConEmuConfigFile: `$CustomConfigDir$\ConEmu.xml`
 * ConEmuConfigTemplateFile: `res\ConEmu.template.xml`
-* DownloadDir: `cache`
-* AppAdornmentBaseDir: `$LibDir$\_proxies`
-* AppRegistryBaseDir: `$HomeDir$\registry_isolation`
-* TempDir: `tmp`
 * LibDir: `lib`
+* AppLibsInstallDir: `$LibDir$\applibs`
+* AppsInstallDir: `$LibDir$\apps`
+* AppsVersionIndexDir: `$LibDir$\versions`
+* AppsAdornmentBaseDir: `$LibDir$\proxies`
+* LauncherScriptDir: `$LibDir$\launcher`
+* UserConfigDir: `config`
+* UserConfigFile: `$UserConfigDir$\config.md`
+* AppActivationFile: `$UserConfigDir$\apps-activated.txt`
+* AppDeactivationFile: `$UserConfigDir$\apps-deactivated.txt`
+* ConEmuConfigFile: `$UserConfigDir$\ConEmu.xml`
+* CacheDir: `cache`
+* AppsCacheDir: `$CacheDir$\apps`
+* AppLibsCacheDir: `$CacheDir$\applibs`
+* TempDir: `tmp`
 * AppLibs:
     + `core`: `github:mastersign/bench-apps-core`
     + `default`: `github:mastersign/bench-apps-default`
-* AppLibsDir: `$LibDir$\_applibs`
-* AppLibsDownloadDir: `$DownloadDir$\_applibs`
+* SiteConfigFileName: `bench-site.md`
 * AppLibIndexFileName: `apps.md`
 * AppLibCustomScriptDirName: `scripts`
 * AppLibResourceDirName: `res`
@@ -75,9 +77,11 @@
     + `OSL-2.1`: <https://spdx.org/licenses/OSL-2.1.html>
     + `OSL-3.0`: <https://spdx.org/licenses/OSL-3.0.html>
 * LogDir: `log`
+* LauncherDir: `launcher`
 * HomeDir: `home`
 * AppDataDir: `$HomeDir$\AppData\Roaming`
 * LocalAppDataDir: `$HomeDir$\AppData\Local`
+* AppsRegistryBaseDir: `$HomeDir$\registry_isolation`
 * OverrideHome: `true`
 * OverrideTemp: `true`
 * IgnoreSystemPath: `true`
@@ -86,8 +90,6 @@
 * ProjectRootDir: `projects`
 * ProjectArchiveDir: `archive`
 * ProjectArchiveFormat: `zip`
-* LauncherDir: `launcher`
-* LauncherScriptDir: `$LibDir$\_launcher`
 * WizzardStartAutoSetup: `true`
 * WizzardApps:
     + Web: `Bench.Group.WebDevelopment`

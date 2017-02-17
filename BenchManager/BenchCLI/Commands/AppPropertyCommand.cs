@@ -54,7 +54,7 @@ namespace Mastersign.Bench.Cli.Commands
             }
             WriteDetail("App ID: " + appId);
             WriteDetail("Property: " + propertyName);
-            PropertyWriter.WritePropertyValue(cfg.GetGroupValue(appId, propertyName));
+            PropertyWriter.WritePropertyValue(cfg.AppProperties.GetGroupValue(appId, propertyName));
             return true;
         }
     }

@@ -89,7 +89,7 @@ namespace Mastersign.Bench.Dashboard
 
             var benchItem = new ToolStripMenuItem("Bench Website");
             benchItem.Image = new Icon(Icon, new Size(16, 16)).ToBitmap();
-            benchItem.Tag = core.Config.GetStringValue(PropertyKeys.Website);
+            benchItem.Tag = core.Config.GetStringValue(ConfigPropertyKeys.Website);
             benchItem.Click += LinkHandler;
             ctxm.Items.Add(benchItem);
 
@@ -152,7 +152,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 var viewer = new MarkdownViewer(core);
                 viewer.LoadMarkdown(Path.Combine(lib.BaseDir,
-                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)),
                     "App Library '" + lib.ID + "'");
                 viewer.Show();
             }
@@ -163,8 +163,8 @@ namespace Mastersign.Bench.Dashboard
             var viewer = new MarkdownViewer(core);
             viewer.LoadMarkdown(
                 Path.Combine(
-                    core.Config.GetStringValue(PropertyKeys.CustomConfigDir),
-                    core.Config.GetStringValue(PropertyKeys.AppLibIndexFileName)),
+                    core.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir),
+                    core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)),
                 "User App Library");
             viewer.Show();
         }
@@ -235,9 +235,9 @@ namespace Mastersign.Bench.Dashboard
             };
             var buttonEnabled = new[]
             {
-                core.Config.GetBooleanValue(PropertyKeys.QuickAccessCmd, true),
-                core.Config.GetBooleanValue(PropertyKeys.QuickAccessPowerShell, false),
-                core.Config.GetBooleanValue(PropertyKeys.QuickAccessBash, false),
+                core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessCmd, true),
+                core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShell, false),
+                core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessBash, false),
             };
             var x = buttons[0].Left;
             var y = buttons[0].Top;
@@ -264,14 +264,14 @@ namespace Mastersign.Bench.Dashboard
         private void ShellCmdHandler(object sender, EventArgs e)
         {
             new SimpleExecutionHost().StartProcess(core.Env,
-                core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
+                core.Config.GetStringValue(ConfigPropertyKeys.ProjectRootDir),
                 core.CmdPath, "", result => { }, ProcessMonitoring.ExitCode);
         }
 
         private void ShellPowerShellHandler(object sender, EventArgs e)
         {
             new SimpleExecutionHost().StartProcess(core.Env,
-                core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
+                core.Config.GetStringValue(ConfigPropertyKeys.ProjectRootDir),
                 core.PowerShellPath, "", result => { }, ProcessMonitoring.ExitCode);
         }
 
@@ -281,7 +281,7 @@ namespace Mastersign.Bench.Dashboard
             if (File.Exists(bashPath))
             {
                 new SimpleExecutionHost().StartProcess(core.Env,
-                    core.Config.GetStringValue(PropertyKeys.ProjectRootDir),
+                    core.Config.GetStringValue(ConfigPropertyKeys.ProjectRootDir),
                     bashPath, "", result => { }, ProcessMonitoring.ExitCode);
             }
             else

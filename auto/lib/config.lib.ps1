@@ -14,9 +14,9 @@ $global:BenchConfig = New-Object Mastersign.Bench.BenchConfiguration($Script:roo
 function Get-ConfigValue([string]$name) { return $global:BenchConfig.GetValue($name) }
 function Get-ConfigBooleanValue([string]$name) { return $global:BenchConfig.GetBooleanValue($name) }
 function Get-ConfigListValue([string]$name) { return $global:BenchConfig.GetStringListValue($name) }
-function Get-AppConfigValue([string]$app, [string]$name) { return $global:BenchConfig.GetGroupValue($app, $name) }
-function Get-AppConfigBooleanValue([string]$app, [string]$name) { return $global:BenchConfig.GetBooleanGroupValue($app, $name) }
-function Get-AppConfigListValue([string]$app, [string]$name) { return $global:BenchConfig.GetStringListGroupValue($app, $name) }
+function Get-AppConfigValue([string]$app, [string]$name) { return $global:BenchConfig.AppProperties.GetGroupValue($app, $name) }
+function Get-AppConfigBooleanValue([string]$app, [string]$name) { return $global:BenchConfig.AppProperties.GetBooleanGroupValue($app, $name) }
+function Get-AppConfigListValue([string]$app, [string]$name) { return $global:BenchConfig.AppProperties.GetStringListGroupValue($app, $name) }
 
 function App-Typ([string]$name) { return $global:BenchConfig.Apps[$name].Typ }
 function App-Version([string]$name) { return $global:BenchConfig.Apps[$name].Version }

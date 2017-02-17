@@ -60,7 +60,7 @@ currently available under the download URL of the app.
 Make shure the app in question is not running at this point.
 Find the apps folder in the [`lib`](/ref/file-structure/#lib-dir)
 directory and delete it with all its content.
-Then find the apps resource in the download [`cache`](/ref/file-structure/#cache-dir)
+Then find the apps resource in the download [`cache\apps`](/ref/file-structure/#cache-apps-dir)
 directory and delete it too.
 
 Now you just need to kick-off the automatic setup process with the

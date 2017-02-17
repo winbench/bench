@@ -21,7 +21,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         protected override bool ExecuteCommand(string[] args)
         {
-            BenchConfiguration cfgWithSite, cfgWithCoreApps, cfgWithCustom;
+            BenchConfiguration cfgWithSite, cfgWithCoreApps, cfgWithUser;
 
             // 1. Initialize the site configuration, possibly with HTTP(S) proxy
             cfgWithSite = BenchTasks.InitializeSiteConfiguration(RootPath);
@@ -45,7 +45,7 @@ namespace Mastersign.Bench.Cli.Commands
 
             // Reload the configuration with the core app libraries
             cfgWithCoreApps = new BenchConfiguration(RootPath, true, false, true);
-            cfgWithSite.InjectBenchInitializationProperties(cfgWithCoreApps);
+            cfgWithCoreApps.CopyBenchInitializationPropertiesFrom(cfgWithSite);
             cfgWithSite = null;
 
             // Create a manager object to get an execution host
@@ -61,8 +61,8 @@ namespace Mastersign.Bench.Cli.Commands
                 }
 
                 // 4. Initialize the user configuration and reload the Bench configuration
-                cfgWithCustom = BenchTasks.InitializeCustomConfiguration(mgrWithCoreApps);
-                if (cfgWithCustom == null)
+                cfgWithUser = BenchTasks.InitializeUserConfiguration(mgrWithCoreApps);
+                if (cfgWithUser == null)
                 {
                     WriteInfo("Initialization canceled.");
                     return false;
@@ -70,7 +70,7 @@ namespace Mastersign.Bench.Cli.Commands
             } // dispose the manager object
 
             // Create a manager object to get a download manager
-            using (var mgrWithCustom = new DefaultBenchManager(cfgWithCustom))
+            using (var mgrWithCustom = new DefaultBenchManager(cfgWithUser))
             {
                 mgrWithCustom.Verbose = Verbose;
                 // 5. Download the app libraries, listed in the custom configuration
@@ -82,7 +82,7 @@ namespace Mastersign.Bench.Cli.Commands
             }
 
             // Check if the auto setup should be started right now
-            var autoSetup = cfgWithCustom.GetBooleanValue(PropertyKeys.WizzardStartAutoSetup, true);
+            var autoSetup = cfgWithUser.GetBooleanValue(ConfigPropertyKeys.WizzardStartAutoSetup, true);
 
             var dashboardPath = DashboardExecutable();
             if (dashboardPath != null)

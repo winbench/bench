@@ -43,8 +43,8 @@
       <HintPath>..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mastersign.Sequence, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mastersign.Sequence.1.1.0\lib\net20\Mastersign.Sequence.dll</HintPath>
+    <Reference Include="Mastersign.Sequence, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mastersign.Sequence.1.3.0\lib\net20\Mastersign.Sequence.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -58,9 +58,11 @@
     <Compile Include="ActivationFile.cs" />
     <Compile Include="AppArchiveTyps.cs" />
     <Compile Include="AppFacade.cs" />
+    <Compile Include="AppIndex.cs" />
     <Compile Include="AppIndexDefaultValueSource.cs" />
     <Compile Include="AppIndexFacade.cs" />
     <Compile Include="AppLibrary.cs" />
+    <Compile Include="AppPropertyKeys.cs" />
     <Compile Include="ConfigurationFile.cs" />
     <Compile Include="ConfigurationFileType.cs" />
     <Compile Include="DictionaryValueResolver.cs" />
@@ -75,6 +77,12 @@
     <Compile Include="Cancelation.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="DefaultBenchManager.cs" />
+    <Compile Include="PropertyCollections\IObjectLibrary.cs" />
+    <Compile Include="PropertyCollections\PropertyCollection.cs" />
+    <Compile Include="PropertyPathResolver.cs" />
+    <Compile Include="PropertyCollections\IValueResolver.cs" />
+    <Compile Include="MarkdownPropertyParserFactory.cs" />
+    <Compile Include="PropertyCollections\ResolvingPropertyCollection.cs" />
     <Compile Include="SimpleExecutionHost.cs" />
     <Compile Include="ConsoleUI.cs" />
     <Compile Include="Delegates.cs" />
@@ -82,7 +90,7 @@
     <Compile Include="DownloadEventArgs.cs" />
     <Compile Include="DownloadTask.cs" />
     <Compile Include="FileSystem.cs" />
-    <Compile Include="GroupedVariableResolver.cs" />
+    <Compile Include="PropertyCollections\GroupedVariableResolver.cs" />
     <Compile Include="IBenchManager.cs" />
     <Compile Include="IProcessExecutionHost.cs" />
     <Compile Include="LogLevels.cs" />
@@ -109,6 +117,7 @@
     <Compile Include="TaskInfo.cs" />
     <Compile Include="TaskInfoLogger.cs" />
     <Compile Include="TaskResult.cs" />
+    <Compile Include="TransferPaths.cs" />
     <Compile Include="UI\AppSelectionStepControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,25 +164,26 @@
     <Compile Include="UI\WizzardTask.cs" />
     <Compile Include="UrlPattern.cs" />
     <Compile Include="HtmlLinkUrlResolver.cs" />
-    <Compile Include="IConfiguration.cs" />
-    <Compile Include="IPropertySource.cs" />
-    <Compile Include="IGroupedPropertySource.cs" />
-    <Compile Include="IGroupedPropertyCollection.cs" />
-    <Compile Include="IGroupedPropertyTarget.cs" />
-    <Compile Include="IPropertyCollection.cs" />
-    <Compile Include="IPropertyTarget.cs" />
-    <Compile Include="IGroupedValueResolver.cs" />
+    <Compile Include="PropertyCollections\IConfiguration.cs" />
+    <Compile Include="PropertyCollections\IPropertySource.cs" />
+    <Compile Include="PropertyCollections\IGroupedPropertySource.cs" />
+    <Compile Include="PropertyCollections\IGroupedPropertyCollection.cs" />
+    <Compile Include="PropertyCollections\IGroupedPropertyTarget.cs" />
+    <Compile Include="PropertyCollections\IPropertyCollection.cs" />
+    <Compile Include="PropertyCollections\IPropertyTarget.cs" />
+    <Compile Include="PropertyCollections\IGroupedValueResolver.cs" />
     <Compile Include="IUrlResolver.cs" />
     <Compile Include="Markdown\MarkdownPropertyEditor.cs" />
     <Compile Include="Markdown\MarkdownPropertyParser.cs" />
     <Compile Include="PageContentUrlResolver.cs" />
-    <Compile Include="PathResolver.cs" />
+    <Compile Include="GroupedPropertyPathResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GroupedPropertyCollection.cs" />
-    <Compile Include="PropertyKeys.cs" />
-    <Compile Include="ResolvingPropertyCollection.cs" />
+    <Compile Include="PropertyCollections\GroupedPropertyCollection.cs" />
+    <Compile Include="ConfigPropertyKeys.cs" />
+    <Compile Include="PropertyCollections\ResolvingGroupedPropertyCollection.cs" />
     <Compile Include="IUserInterface.cs" />
-    <Compile Include="VariableResolver.cs" />
+    <Compile Include="ValueParser.cs" />
+    <Compile Include="PropertyCollections\VariableResolver.cs" />
     <Compile Include="Vendor\MarkdownSharp\GitHubCodeBlockExtension.cs" />
     <Compile Include="Vendor\MarkdownSharp\IExtensionInterface.cs" />
     <Compile Include="Vendor\MarkdownSharp\Markdown.cs" />

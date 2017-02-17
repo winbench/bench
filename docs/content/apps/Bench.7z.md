@@ -24,8 +24,8 @@ It comes with a graphical file manager and supports a large range of compression
 
 ## Source
 
-* Library: `core`
-* Category: Required
+* Library: [`core`](/app_libraries/core)
+* Category: [Required](/app_categories/required)
 * Order Index: 2
 
 ## Properties

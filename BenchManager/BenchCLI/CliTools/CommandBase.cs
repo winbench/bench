@@ -346,7 +346,10 @@ namespace Mastersign.CliTools
 
         public virtual bool Process(string[] args)
         {
-            WriteDetail("Arguments: {0}", string.Join(" ", args));
+            if (args.Length > 0)
+            {
+                WriteDetail("Arguments: {0}", string.Join(" ", args));
+            }
             return Process(ArgumentParser.Parse(args));
         }
 

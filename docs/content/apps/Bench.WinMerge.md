@@ -1,6 +1,6 @@
 ﻿+++
 title = "WinMerge"
-weight = 66
+weight = 85
 app_library = "default"
 app_category = "Filesystem"
 app_typ = "default"
@@ -25,9 +25,9 @@ that is easy to understand and handle.
 
 ## Source
 
-* Library: `default`
-* Category: Filesystem
-* Order Index: 66
+* Library: [`default`](/app_libraries/default)
+* Category: [Filesystem](/app_categories/filesystem)
+* Order Index: 85
 
 ## Properties
 

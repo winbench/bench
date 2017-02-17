@@ -122,6 +122,26 @@ namespace Mastersign.Bench.Dashboard.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap browse_file_16 {
+            get {
+                object obj = ResourceManager.GetObject("browse_file_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap browse_folder_16 {
+            get {
+                object obj = ResourceManager.GetObject("browse_folder_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cached_16 {
             get {
                 object obj = ResourceManager.GetObject("cached_16", resourceCulture);
@@ -245,6 +265,16 @@ namespace Mastersign.Bench.Dashboard.Properties {
         internal static System.Drawing.Bitmap exclude {
             get {
                 object obj = ResourceManager.GetObject("exclude", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap export_clone_16 {
+            get {
+                object obj = ResourceManager.GetObject("export_clone_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

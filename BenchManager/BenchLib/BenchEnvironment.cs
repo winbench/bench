@@ -38,34 +38,34 @@ namespace Mastersign.Bench
         /// <param name="set">The handler for an individual variable.</param>
         public void Load(DictionaryEntryHandler set)
         {
-            if (Config.GetBooleanValue(PropertyKeys.UseProxy))
+            if (Config.GetBooleanValue(ConfigPropertyKeys.UseProxy))
             {
                 set("HTTP_PROXY",
-                  Config.GetStringValue(PropertyKeys.HttpProxy).TrimEnd('/'));
+                  Config.GetStringValue(ConfigPropertyKeys.HttpProxy).TrimEnd('/'));
                 set("HTTPS_PROXY",
-                  Config.GetStringValue(PropertyKeys.HttpsProxy).TrimEnd('/'));
+                  Config.GetStringValue(ConfigPropertyKeys.HttpsProxy).TrimEnd('/'));
             }
-            if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
+            if (Config.GetBooleanValue(ConfigPropertyKeys.OverrideHome))
             {
-                set("USERNAME", Config.GetStringValue(PropertyKeys.UserName));
-                set("USEREMAIL", Config.GetStringValue(PropertyKeys.UserEmail));
-                var home = Config.GetStringValue(PropertyKeys.HomeDir);
+                set("USERNAME", Config.GetStringValue(ConfigPropertyKeys.UserName));
+                set("USEREMAIL", Config.GetStringValue(ConfigPropertyKeys.UserEmail));
+                var home = Config.GetStringValue(ConfigPropertyKeys.HomeDir);
                 set("USERPROFILE", home);
                 set("HOME", home);
                 set("HOMEDRIVE", GetDrivePart(home));
                 set("HOMEPATH", GetPathPart(home));
                 set("APPDATA",
-                    Config.GetStringValue(PropertyKeys.AppDataDir));
+                    Config.GetStringValue(ConfigPropertyKeys.AppDataDir));
                 set("LOCALAPPDATA",
-                    Config.GetStringValue(PropertyKeys.LocalAppDataDir));
+                    Config.GetStringValue(ConfigPropertyKeys.LocalAppDataDir));
             }
             else
             {
                 set("HOME", Environment.GetEnvironmentVariable("USERPROFILE"));
             }
-            if (Config.GetBooleanValue(PropertyKeys.OverrideTemp))
+            if (Config.GetBooleanValue(ConfigPropertyKeys.OverrideTemp))
             {
-                var temp = Config.GetStringValue(PropertyKeys.TempDir);
+                var temp = Config.GetStringValue(ConfigPropertyKeys.TempDir);
                 set("TEMP", temp);
                 set("TMP", temp);
             }
@@ -74,7 +74,7 @@ namespace Mastersign.Bench
             {
                 set(k, env[k]);
             }
-            var customEnv = Config.GetValue(PropertyKeys.CustomEnvironment) as IDictionary<string, string>;
+            var customEnv = Config.GetValue(ConfigPropertyKeys.CustomEnvironment) as IDictionary<string, string>;
             if (customEnv != null)
             {
                 foreach (var k in customEnv.Keys)
@@ -85,10 +85,10 @@ namespace Mastersign.Bench
             }
 
             var paths = new List<string>();
-            paths.Add(Config.GetStringValue(PropertyKeys.BenchBin));
-            paths.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
+            paths.Add(Config.GetStringValue(ConfigPropertyKeys.BenchBin));
+            paths.AddRange(Config.GetStringListValue(ConfigPropertyKeys.CustomPath));
             paths.AddRange(Config.Apps.EnvironmentPath);
-            if (Config.GetBooleanValue(PropertyKeys.IgnoreSystemPath))
+            if (Config.GetBooleanValue(ConfigPropertyKeys.IgnoreSystemPath))
             {
                 paths.Add(Environment.GetEnvironmentVariable("SystemRoot"));
                 paths.Add(Path.Combine(Environment.GetEnvironmentVariable("SystemRoot"), "System32"));
@@ -142,61 +142,61 @@ namespace Mastersign.Bench
                 w.WriteLine("@ECHO OFF");
                 w.WriteLine("REM **** MD Bench Environment Setup ****");
                 w.WriteLine();
-                if (Config.GetBooleanValue(PropertyKeys.UseProxy))
+                if (Config.GetBooleanValue(ConfigPropertyKeys.UseProxy))
                 {
                     w.WriteLine("SET HTTP_PROXY={0}",
-                        Config.GetStringValue(PropertyKeys.HttpProxy).TrimEnd('/'));
+                        Config.GetStringValue(ConfigPropertyKeys.HttpProxy).TrimEnd('/'));
                     w.WriteLine("SET HTTPS_PROXY={0}",
-                        Config.GetStringValue(PropertyKeys.HttpsProxy).TrimEnd('/'));
+                        Config.GetStringValue(ConfigPropertyKeys.HttpsProxy).TrimEnd('/'));
                 }
-                if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
+                if (Config.GetBooleanValue(ConfigPropertyKeys.OverrideHome))
                 {
-                    var userName = Config.GetStringValue(PropertyKeys.UserName);
+                    var userName = Config.GetStringValue(ConfigPropertyKeys.UserName);
                     if (!string.IsNullOrEmpty(userName)) w.WriteLine("SET USERNAME={0}", userName);
-                    var userEmail = Config.GetStringValue(PropertyKeys.UserEmail);
+                    var userEmail = Config.GetStringValue(ConfigPropertyKeys.UserEmail);
                     if (!string.IsNullOrEmpty(userEmail)) w.WriteLine("SET USEREMAIL={0}", userEmail);
                 }
 
                 w.WriteLine("SET BENCH_DRIVE=%~d0");
                 w.WriteLine("SET BENCH_HOME=%~dp0");
                 w.WriteLine("CALL :CLEAN_BENCH_HOME");
-                w.WriteLine("SET BENCH_BIN=" + TryUseVar(Config.GetStringValue(PropertyKeys.BenchBin)));
+                w.WriteLine("SET BENCH_BIN=" + TryUseVar(Config.GetStringValue(ConfigPropertyKeys.BenchBin)));
                 w.WriteLine("SET /P BENCH_VERSION=<\"%BENCH_HOME%\\res\\version.txt\"");
                 w.WriteLine("SET BENCH_APPS={0}",
-                    TryUseVar(Config.GetStringValue(PropertyKeys.LibDir), true));
+                    TryUseVar(Config.GetStringValue(ConfigPropertyKeys.AppsInstallDir), true));
 
                 w.WriteLine("SET L=%BENCH_APPS%");
-                if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
+                if (Config.GetBooleanValue(ConfigPropertyKeys.OverrideHome))
                 {
                     w.WriteLine("SET HOME={0}",
-                        TryUseVar(Config.GetStringValue(PropertyKeys.HomeDir), true));
+                        TryUseVar(Config.GetStringValue(ConfigPropertyKeys.HomeDir), true));
                     w.WriteLine("CALL :SET_HOME_PATH \"%HOME%\"");
                     w.WriteLine("CALL :SET_HOME_DRIVE \"%HOME%\"");
                     w.WriteLine("SET USERPROFILE=%HOME%");
                     w.WriteLine("SET APPDATA={0}",
-                        TryUseVar(Config.GetStringValue(PropertyKeys.AppDataDir)));
+                        TryUseVar(Config.GetStringValue(ConfigPropertyKeys.AppDataDir)));
                     w.WriteLine("SET LOCALAPPDATA={0}",
-                        TryUseVar(Config.GetStringValue(PropertyKeys.LocalAppDataDir)));
+                        TryUseVar(Config.GetStringValue(ConfigPropertyKeys.LocalAppDataDir)));
                 }
                 else
                 {
                     w.WriteLine("SET HOME=%USERPROFILE%");
                 }
-                if (Config.GetBooleanValue(PropertyKeys.OverrideTemp))
+                if (Config.GetBooleanValue(ConfigPropertyKeys.OverrideTemp))
                 {
                     w.WriteLine("SET TEMP={0}",
-                        TryUseVar(Config.GetStringValue(PropertyKeys.TempDir)));
+                        TryUseVar(Config.GetStringValue(ConfigPropertyKeys.TempDir)));
                     w.WriteLine("SET TMP=%TEMP%");
                 }
                 var benchPath = new List<string>();
-                benchPath.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
+                benchPath.AddRange(Config.GetStringListValue(ConfigPropertyKeys.CustomPath));
                 benchPath.AddRange(Config.Apps.EnvironmentPath);
                 for (var i = 0; i < benchPath.Count; i++)
                 {
                     benchPath[i] = TryUseVar(benchPath[i]);
                 }
                 w.WriteLine("SET BENCH_PATH={0}", PathList(benchPath.ToArray()));
-                if (Config.GetBooleanValue(PropertyKeys.IgnoreSystemPath))
+                if (Config.GetBooleanValue(ConfigPropertyKeys.IgnoreSystemPath))
                 {
                     w.WriteLine("SET PATH={0}", PathList(
                         "%BENCH_BIN%",
@@ -205,7 +205,7 @@ namespace Mastersign.Bench
                         @"%SystemRoot%\System32",
                         @"%SystemRoot%\System32\WindowsPowerShell\v1.0"));
                 }
-                else if (!Config.GetBooleanValue(PropertyKeys.RegisterInUserProfile))
+                else if (!Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile))
                 {
                     w.WriteLine("SET PATH={0}", PathList(
                         "%BENCH_BIN%",
@@ -218,7 +218,7 @@ namespace Mastersign.Bench
                 {
                     w.WriteLine("SET {0}={1}", k, TryUseVar(env[k]));
                 }
-                var customEnv = Config.GetValue(PropertyKeys.CustomEnvironment) as IDictionary<string, string>;
+                var customEnv = Config.GetValue(ConfigPropertyKeys.CustomEnvironment) as IDictionary<string, string>;
                 if (customEnv != null)
                 {
                     foreach (var k in customEnv.Keys)
@@ -235,7 +235,7 @@ namespace Mastersign.Bench
                 w.WriteLine("SET BENCH_HOME=%BENCH_HOME:\\#+#=#+#%");
                 w.WriteLine("SET BENCH_HOME=%BENCH_HOME:#+#=%");
                 w.WriteLine("GOTO:EOF");
-                if (Config.GetBooleanValue(PropertyKeys.OverrideHome))
+                if (Config.GetBooleanValue(ConfigPropertyKeys.OverrideHome))
                 {
                     w.WriteLine();
                     w.WriteLine(":SET_HOME_PATH");
@@ -282,23 +282,23 @@ namespace Mastersign.Bench
         /// </remarks>
         public void RegisterInUserProfile()
         {
-            if (Config.GetBooleanValue(PropertyKeys.UseProxy))
+            if (Config.GetBooleanValue(ConfigPropertyKeys.UseProxy))
             {
                 SetEnvironmentVar("HTTP_PROXY",
-                  Config.GetStringValue(PropertyKeys.HttpProxy).TrimEnd('/'), false);
+                  Config.GetStringValue(ConfigPropertyKeys.HttpProxy).TrimEnd('/'), false);
                 SetEnvironmentVar("HTTPS_PROXY",
-                  Config.GetStringValue(PropertyKeys.HttpsProxy).TrimEnd('/'), false);
+                  Config.GetStringValue(ConfigPropertyKeys.HttpsProxy).TrimEnd('/'), false);
             }
 
-            var version = Config.GetStringValue(PropertyKeys.Version);
-            var libDir = Config.GetStringValue(PropertyKeys.LibDir);
+            var version = Config.GetStringValue(ConfigPropertyKeys.Version);
+            var libDir = Config.GetStringValue(ConfigPropertyKeys.AppsInstallDir);
             SetEnvironmentVar("BENCH_VERSION", version);
             SetEnvironmentVar("BENCH_HOME", Config.BenchRootDir);
             SetEnvironmentVar("BENCH_APPS", libDir);
 
             var benchPath = new List<string>();
-            benchPath.Add(Config.GetStringValue(PropertyKeys.BenchBin));
-            benchPath.AddRange(Config.GetStringListValue(PropertyKeys.CustomPath));
+            benchPath.Add(Config.GetStringValue(ConfigPropertyKeys.BenchBin));
+            benchPath.AddRange(Config.GetStringListValue(ConfigPropertyKeys.CustomPath));
             benchPath.AddRange(Config.Apps.EnvironmentPath);
             SetEnvironmentVar("BENCH_PATH", PathList(benchPath.ToArray()));
 
@@ -312,7 +312,7 @@ namespace Mastersign.Bench
             {
                 SetEnvironmentVar(k, env[k]);
             }
-            var customEnv = Config.GetValue(PropertyKeys.CustomEnvironment) as IDictionary<string, string>;
+            var customEnv = Config.GetValue(ConfigPropertyKeys.CustomEnvironment) as IDictionary<string, string>;
             if (customEnv != null)
             {
                 foreach (var k in customEnv.Keys)
@@ -365,19 +365,19 @@ namespace Mastersign.Bench
         {
             var libBase = new
             {
-                Dir = NormalizePath(Config.GetStringValue(PropertyKeys.LibDir)),
+                Dir = NormalizePath(Config.GetStringValue(ConfigPropertyKeys.AppsInstallDir)),
                 PathVar = "L",
                 DriveVar = (string)null
             };
             var homeBase = new
             {
-                Dir = NormalizePath(Config.GetStringValue(PropertyKeys.HomeDir)),
+                Dir = NormalizePath(Config.GetStringValue(ConfigPropertyKeys.HomeDir)),
                 PathVar = "HOME",
                 DriveVar = "HOMEDRIVE"
             };
             var benchBase = new
             {
-                Dir = NormalizePath(Config.GetStringValue(PropertyKeys.BenchRoot)),
+                Dir = NormalizePath(Config.GetStringValue(ConfigPropertyKeys.BenchRoot)),
                 PathVar = "BENCH_HOME",
                 DriveVar = "BENCH_DRIVE"
             };

@@ -12,7 +12,7 @@ weight = 4
 [RegisterInUserProfile]: /ref/config/#RegisterInUserProfile
 [UseRegistryIsolation]: /ref/config/#UseRegistryIsolation
 [UseProxy]: /ref/config/#UseProxy
-[AppAdornmentBaseDir]: /ref/config/#AppAdornmentBaseDir
+[AppsAdornmentBaseDir]: /ref/config/#AppsAdornmentBaseDir
 [RegistryKeys]: /ref/app-properties/#RegistryKeys
 [AdornedExecutables]: /ref/app-properties/#AdornedExecutables
 
@@ -86,7 +86,7 @@ As a consequence, when calling an adorned command line tool
 and executed instead of the target executable.
 
 Execution proxies are stored in the directory, specified by the configuration
-property [AppAdornmentBaseDir][], which is `lib\_proxies` by default.
+property [AppsAdornmentBaseDir][], which is `lib\_proxies` by default.
 
 ## Registry Isolation {#registry-isolation}
 Bench supports a simple form of isolating apps that write to the Windows registry.

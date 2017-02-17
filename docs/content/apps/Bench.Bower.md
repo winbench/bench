@@ -1,6 +1,6 @@
 ﻿+++
 title = "Bower"
-weight = 50
+weight = 65
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -28,9 +28,9 @@ the right versions of the packages you need and their dependencies.
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 50
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 65
 
 ## Properties
 
@@ -38,5 +38,6 @@ the right versions of the packages you need and their dependencies.
 * Name: Bower
 * Typ: `node-package`
 * Website: <https://bower.io/>
-* Dependencies: [Git](/app/Bench.Git), [NPM](/app/Bench.Npm)
+* Dependencies: [Git](/apps/Bench.Git), [NPM](/apps/Bench.Npm)
+* Responsibilities: [Web Development](/apps/Bench.Group.WebDevelopment)
 

@@ -11,6 +11,8 @@ namespace Mastersign.Bench.Cli.Commands
         public override string Name => "config";
 
         private readonly BenchCommand getCommand = new ConfigGetCommand();
+        private readonly BenchCommand setCommand = new ConfigSetCommand();
+        private readonly BenchCommand editCommand = new ConfigEditCommand();
 
         protected override void InitializeArgumentParser(ArgumentParser parser)
         {
@@ -25,13 +27,29 @@ namespace Mastersign.Bench.Cli.Commands
             commandGet.SyntaxInfo
                 .Append(HelpFormatter.CommandSyntax, getCommand);
 
+            var commandSet = new CommandArgument(setCommand.Name, 's', "write");
+            commandSet.Description
+                .Text("Writes a configuration value.");
+            commandSet.SyntaxInfo
+                .Append(HelpFormatter.CommandSyntax, setCommand);
+
+            var commandEdit = new CommandArgument(editCommand.Name, 'e');
+            commandEdit.Description
+                .Text("Opens the user configuration in the default Markdown editor.");
+            commandEdit.SyntaxInfo
+                .Append(HelpFormatter.CommandSyntax, editCommand);
+            
             parser.RegisterArguments(
-                commandGet);
+                commandGet,
+                commandSet,
+                commandEdit);
         }
 
         public ConfigCommand()
         {
             RegisterSubCommand(getCommand);
+            RegisterSubCommand(setCommand);
+            RegisterSubCommand(editCommand);
         }
     }
 }

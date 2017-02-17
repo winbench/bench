@@ -1,6 +1,6 @@
 ﻿+++
 title = "Vim"
-weight = 43
+weight = 56
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -24,9 +24,9 @@ It is an improved version of the vi editor distributed with most UNIX systems.
 
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 43
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 56
 
 ## Properties
 
@@ -34,5 +34,5 @@ It is an improved version of the vi editor distributed with most UNIX systems.
 * Name: Vim
 * Typ: `default`
 * Website: <http://www.vim.org>
-* Dependencies: [VimRT](/app/Bench.VimRT), [VimConsole](/app/Bench.VimConsole)
+* Dependencies: [VimRT](/apps/Bench.VimRT), [VimConsole](/apps/Bench.VimConsole)
 

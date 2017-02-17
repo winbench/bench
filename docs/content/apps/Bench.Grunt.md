@@ -1,6 +1,6 @@
 ﻿+++
 title = "Grunt"
-weight = 49
+weight = 64
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -23,9 +23,9 @@ The JavaScript Task Runner
 
 ## Source
 
-* Library: `default`
-* Category: Software Development Utilities
-* Order Index: 49
+* Library: [`default`](/app_libraries/default)
+* Category: [Software Development Utilities](/app_categories/software-development-utilities)
+* Order Index: 64
 
 ## Properties
 
@@ -33,5 +33,5 @@ The JavaScript Task Runner
 * Name: Grunt
 * Typ: `node-package`
 * Website: <http://gruntjs.com>
-* Dependencies: [NPM](/app/Bench.Npm)
+* Dependencies: [NPM](/apps/Bench.Npm)
 

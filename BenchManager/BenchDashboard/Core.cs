@@ -231,14 +231,14 @@ namespace Mastersign.Bench.Dashboard
             activationReloadNecessary = false;
             lock (configReloadLockHandle)
             {
-                Config.ReloadAppActivation();
+                Config.AppProperties.ReloadAppActivation();
             }
             OnAppActivationChanged();
         }
 
         public void SetAppActivated(string appId, bool value)
         {
-            var activationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppActivationFile));
+            var activationFile = new ActivationFile(Config.GetStringValue(ConfigPropertyKeys.AppActivationFile));
             if (value)
                 activationFile.SignIn(appId);
             else
@@ -247,7 +247,7 @@ namespace Mastersign.Bench.Dashboard
 
         public void SetAppDeactivated(string appId, bool value)
         {
-            var deactivationFile = new ActivationFile(Config.GetStringValue(PropertyKeys.AppDeactivationFile));
+            var deactivationFile = new ActivationFile(Config.GetStringValue(ConfigPropertyKeys.AppDeactivationFile));
             if (value)
                 deactivationFile.SignIn(appId);
             else
@@ -687,6 +687,30 @@ namespace Mastersign.Bench.Dashboard
             return result;
         }
 
+        public async Task<bool> ExportBenchEnvironmentAsync(Action<TaskInfo> notify, string targetFile, TransferPaths contentSelection)
+        {
+            BeginAction();
+            notify(new TaskInfo("Creating transfer package..."));
+            var t = new Task<bool>(() => BenchTasks.ExportBenchEnvironment(this, targetFile, contentSelection));
+            t.Start();
+            var success = await t;
+            notify(new TaskInfo("Finished exporting the Bench environment."));
+            EndAction(success);
+            return success;
+        }
+
+        public async Task<bool> CloneBenchEnvironmentAsync(Action<TaskInfo> notify, string targetFile, TransferPaths contentSelection)
+        {
+            BeginAction();
+            notify(new TaskInfo("Copying Bench environment files..."));
+            var t = new Task<bool>(() => BenchTasks.CloneBenchEnvironment(this, targetFile, contentSelection));
+            t.Start();
+            var success = await t;
+            notify(new TaskInfo("Started initialization of the new Bench environment."));
+            EndAction(success);
+            return success;
+        }
+
         private static string BuildCombinedErrorMessage(string infoWithErrors, string infoWithoutErrors,
             IEnumerable<TaskInfo> errors, int maxLines)
         {
@@ -756,7 +780,7 @@ namespace Mastersign.Bench.Dashboard
             get
             {
                 return Path.Combine(
-                    Config.GetStringGroupValue(AppKeys.Git, PropertyKeys.AppDir),
+                    Config.Apps[AppKeys.Git].Dir,
                     @"bin\bash.exe");
             }
         }

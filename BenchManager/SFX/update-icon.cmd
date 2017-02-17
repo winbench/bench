@@ -1,0 +1,1 @@
+..\..\lib\bench\reshack\ResourceHacker.exe -script .\reshack.txt

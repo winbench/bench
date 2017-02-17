@@ -1,6 +1,6 @@
 ﻿+++
 title = "VimConsole"
-weight = 42
+weight = 55
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -24,15 +24,15 @@ It is an improved version of the vi editor distributed with most UNIX systems.
 
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 42
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 55
 
 ## Properties
 
 * Namespace: Bench
 * Name: VimConsole
 * Typ: `default`
-* Dependencies: [VimRT](/app/Bench.VimRT)
-* Responsibilities: [Vim](/app/Bench.Vim)
+* Dependencies: [VimRT](/apps/Bench.VimRT)
+* Responsibilities: [Vim](/apps/Bench.Vim)
 

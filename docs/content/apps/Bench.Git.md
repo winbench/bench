@@ -23,8 +23,8 @@ Git is a free and open source distributed version control system designed to han
 
 ## Source
 
-* Library: `core`
-* Category: Core
+* Library: [`core`](/app_libraries/core)
+* Category: [Core](/app_categories/core)
 * Order Index: 5
 
 ## Properties
@@ -33,5 +33,5 @@ Git is a free and open source distributed version control system designed to han
 * Name: Git
 * Typ: `default`
 * Website: <https://git-scm.com/download/win>
-* Responsibilities: [Spacemacs](/app/Bench.Spacemacs), [Bower](/app/Bench.Bower)
+* Responsibilities: [Spacemacs](/apps/Bench.Spacemacs), [Bower](/apps/Bench.Bower)
 

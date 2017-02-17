@@ -84,6 +84,7 @@
             this.tsmiUpdateAppLibs = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdateBench = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeBench = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExportClone = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReinstallAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpgradeAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,8 +96,8 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiClose = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiEditCustomConfig = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiEditCustomApps = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditUserConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditUserApps = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditActivationList = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditDeactivationList = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiColumns = new System.Windows.Forms.ToolStripMenuItem();
@@ -599,6 +600,7 @@
             this.tsmiUpdateAppLibs,
             this.tsmiUpdateBench,
             this.tsmiUpgradeBench,
+            this.tsmiExportClone,
             toolStripSeparator2,
             this.tsmiInstallAll,
             this.tsmiReinstallAll,
@@ -660,6 +662,16 @@
             this.tsmiUpgradeBench.Text = "Upgrade &Bench";
             this.tsmiUpgradeBench.ToolTipText = "Upgrades the Bench system.";
             this.tsmiUpgradeBench.Click += new System.EventHandler(this.UpgradeBenchSystemHandler);
+            // 
+            // tsmiExportClone
+            // 
+            this.tsmiExportClone.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.export_clone_16;
+            this.tsmiExportClone.Name = "tsmiExportClone";
+            this.tsmiExportClone.Size = new System.Drawing.Size(237, 22);
+            this.tsmiExportClone.Text = "E&xport or Clone Bench...";
+            this.tsmiExportClone.ToolTipText = "Creates a compressed transfer package or clone this Bench environment to another " +
+    "location.";
+            this.tsmiExportClone.Click += new System.EventHandler(this.ExportCloneHandler);
             // 
             // tsmiInstallAll
             // 
@@ -748,29 +760,29 @@
             // tsmEdit
             // 
             this.tsmEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiEditCustomConfig,
-            this.tsmiEditCustomApps,
+            this.tsmiEditUserConfig,
+            this.tsmiEditUserApps,
             this.tsmiEditActivationList,
             this.tsmiEditDeactivationList});
             this.tsmEdit.Name = "tsmEdit";
             this.tsmEdit.Size = new System.Drawing.Size(116, 20);
             this.tsmEdit.Text = "&Edit Configuration";
             // 
-            // tsmiEditCustomConfig
+            // tsmiEditUserConfig
             // 
-            this.tsmiEditCustomConfig.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.userconfig_16;
-            this.tsmiEditCustomConfig.Name = "tsmiEditCustomConfig";
-            this.tsmiEditCustomConfig.Size = new System.Drawing.Size(174, 22);
-            this.tsmiEditCustomConfig.Text = "User &Configuration";
-            this.tsmiEditCustomConfig.Click += new System.EventHandler(this.EditCustomConfigHandler);
+            this.tsmiEditUserConfig.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.userconfig_16;
+            this.tsmiEditUserConfig.Name = "tsmiEditUserConfig";
+            this.tsmiEditUserConfig.Size = new System.Drawing.Size(174, 22);
+            this.tsmiEditUserConfig.Text = "User &Configuration";
+            this.tsmiEditUserConfig.Click += new System.EventHandler(this.EditUserConfigHandler);
             // 
-            // tsmiEditCustomApps
+            // tsmiEditUserApps
             // 
-            this.tsmiEditCustomApps.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.apps;
-            this.tsmiEditCustomApps.Name = "tsmiEditCustomApps";
-            this.tsmiEditCustomApps.Size = new System.Drawing.Size(174, 22);
-            this.tsmiEditCustomApps.Text = "&User Apps";
-            this.tsmiEditCustomApps.Click += new System.EventHandler(this.EditCustomAppsHandler);
+            this.tsmiEditUserApps.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.apps;
+            this.tsmiEditUserApps.Name = "tsmiEditUserApps";
+            this.tsmiEditUserApps.Size = new System.Drawing.Size(174, 22);
+            this.tsmiEditUserApps.Text = "&User Apps";
+            this.tsmiEditUserApps.Click += new System.EventHandler(this.EditUserAppsHandler);
             // 
             // tsmiEditActivationList
             // 
@@ -876,8 +888,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDownloadAllResources;
         private System.Windows.Forms.ToolStripMenuItem tsmiInstallAll;
         private System.Windows.Forms.ToolStripMenuItem tsmEdit;
-        private System.Windows.Forms.ToolStripMenuItem tsmiEditCustomConfig;
-        private System.Windows.Forms.ToolStripMenuItem tsmiEditCustomApps;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditUserConfig;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditUserApps;
         private System.Windows.Forms.ToolStripMenuItem tsmiEditActivationList;
         private System.Windows.Forms.ToolStripMenuItem tsmiEditDeactivationList;
         private DownloadList downloadList;
@@ -939,5 +951,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTyp;
         private System.Windows.Forms.DataGridViewLinkColumn colLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExportClone;
     }
 }

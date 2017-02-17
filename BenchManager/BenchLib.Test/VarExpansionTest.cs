@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastersign.Bench.PropertyCollections;
 using NUnit.Framework;
 
 namespace Mastersign.Bench.Test
@@ -186,7 +187,7 @@ namespace Mastersign.Bench.Test
                     { "y3", "456" },
                 } },
             });
-            var cfg = new ResolvingPropertyCollection();
+            var cfg = new ResolvingGroupedPropertyCollection();
             cfg.AddResolver(new GroupedVariableResolver(cfg));
 
             cfg.SetGroupValue("A", "x1", "$A:x2$");

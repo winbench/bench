@@ -4,9 +4,13 @@ using System.Security;
 
 namespace Mastersign.Bench
 {
-    internal delegate bool PropertyCriteria(string group, string name);
+    internal delegate bool PropertyCriteria(string name);
 
-    internal delegate string BasePathSource(string group, string name);
+    internal delegate bool GroupedPropertyCriteria(string group, string name);
+
+    internal delegate string PropertyBasePathSource(string name);
+
+    internal delegate string GroupedPropertyBasePathSource(string group, string name);
 
     internal delegate BenchUserInfo UserInfoSource(string prompt);
 

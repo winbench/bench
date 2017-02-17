@@ -1,6 +1,6 @@
 ﻿+++
 title = "Java Runtime Environment 8"
-weight = 24
+weight = 34
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,9 +25,9 @@ The runtime environment is required for a compiled Java program to get executed.
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 24
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 34
 
 ## Properties
 
@@ -35,5 +35,5 @@ The runtime environment is required for a compiled Java program to get executed.
 * Name: JRE8
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Responsibilities: [Eclipse for Java](/app/Bench.EclipseJava), [Eclipse for PHP](/app/Bench.EclipsePHP), [Eclipse for C++](/app/Bench.EclipseCpp), [Maven](/app/Bench.Maven), [JabRef](/app/Bench.JabRef)
+* Responsibilities: [Nightcode](/apps/Bench.Nightcode), [Eclipse for Java](/apps/Bench.EclipseJava), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Eclipse for C++](/apps/Bench.EclipseCpp), [Maven](/apps/Bench.Maven), [JabRef](/apps/Bench.JabRef)
 

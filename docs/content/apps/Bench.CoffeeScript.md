@@ -1,6 +1,6 @@
 ﻿+++
 title = "CoffeeScript"
-weight = 35
+weight = 47
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "node-package"
@@ -20,9 +20,9 @@ app_types = ["node-package"]
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 35
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 47
 
 ## Properties
 
@@ -30,5 +30,5 @@ app_types = ["node-package"]
 * Name: CoffeeScript
 * Typ: `node-package`
 * Website: <http://coffeescript.org/>
-* Dependencies: [NPM](/app/Bench.Npm)
+* Dependencies: [NPM](/apps/Bench.Npm)
 

@@ -1,19 +1,19 @@
 ﻿+++
 title = "JabRef"
-weight = 79
+weight = 99
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JabRef"
-app_version = "3.8.1"
+app_version = "3.8.2"
 app_categories = ["Writing"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.JabRef`  
-**Version:** 3.8.1  
+**Version:** 3.8.2  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -24,9 +24,9 @@ The native file format used by JabRef is BibTeX, the standard LaTeX bibliography
 
 ## Source
 
-* Library: `default`
-* Category: Writing
-* Order Index: 79
+* Library: [`default`](/app_libraries/default)
+* Category: [Writing](/app_categories/writing)
+* Order Index: 99
 
 ## Properties
 
@@ -34,5 +34,6 @@ The native file format used by JabRef is BibTeX, the standard LaTeX bibliography
 * Name: JabRef
 * Typ: `default`
 * Website: <http://www.jabref.org>
-* Dependencies: [Java Runtime Environment 8](/app/Bench.JRE8)
+* Dependencies: [Java Runtime Environment 8](/apps/Bench.JRE8)
+* Responsibilities: [LaTeX Writing](/apps/Bench.Group.LaTeXWriting)
 

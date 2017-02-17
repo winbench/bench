@@ -1,0 +1,7 @@
+//This file is a Resource hacker script to replace the icon of the 7zSD.sfx.exe
+[FILENAMES]
+Exe=7zSD.sfx.exe
+SaveAs=Bench.sfx.exe
+Log=CONSOLE
+[COMMANDS]
+-addoverwrite sfx.ico, ICONGROUP,1,1033

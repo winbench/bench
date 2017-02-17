@@ -23,8 +23,8 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 
 ## Source
 
-* Library: `core`
-* Category: Required
+* Library: [`core`](/app_libraries/core)
+* Category: [Required](/app_categories/required)
 * Order Index: 4
 
 ## Properties

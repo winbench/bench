@@ -13,6 +13,14 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "BenchLibDocs", "BenchLibDoc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchCLI", "BenchCLI\BenchCLI.csproj", "{64E94A41-026F-473C-BC48-70F8D5EB977A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PS Scripts", "PS Scripts", "{00C1FD4D-A334-418E-8F81-AD5023C8280B}"
+	ProjectSection(SolutionItems) = preProject
+		..\auto\lib\bench.lib.ps1 = ..\auto\lib\bench.lib.ps1
+		..\auto\lib\common.lib.ps1 = ..\auto\lib\common.lib.ps1
+		..\auto\lib\config.lib.ps1 = ..\auto\lib\config.lib.ps1
+		..\auto\lib\reg.lib.ps1 = ..\auto\lib\reg.lib.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

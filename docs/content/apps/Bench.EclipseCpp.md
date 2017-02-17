@@ -1,6 +1,6 @@
 ﻿+++
 title = "Eclipse for C++"
-weight = 47
+weight = 61
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -23,9 +23,9 @@ An IDE for C/C++ developers with Mylyn integration.
 
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 47
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 61
 
 ## Properties
 
@@ -33,5 +33,6 @@ An IDE for C/C++ developers with Mylyn integration.
 * Name: EclipseCpp
 * Typ: `default`
 * Website: <http://www.eclipse.org/>
-* Dependencies: [Java Runtime Environment 8](/app/Bench.JRE8)
+* Dependencies: [Java Runtime Environment 8](/apps/Bench.JRE8)
+* Responsibilities: [C/C++ Development](/apps/Bench.Group.CppDevelopment)
 

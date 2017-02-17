@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -11,68 +9,45 @@ namespace Mastersign.Bench.Dashboard
     {
         public Form ParentWindow { get; set; }
 
-        public void ShowInfo(string topic, string message)
+        public void Show(MessageBoxIcon typ, string topic, string message, string detailedMessage = null,
+            Exception exception = null)
         {
             if (ParentWindow != null && ParentWindow.InvokeRequired)
             {
-                ParentWindow.Invoke((InfoShowCase)ShowInfo, topic, message);
+                ParentWindow.Invoke((InfoShowCase)Show, typ, topic, message, detailedMessage, exception);
                 return;
             }
             if (ParentWindow.IsDisposed) ParentWindow = null;
             MessageBox.Show(ParentWindow, message, topic,
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBoxButtons.OK, typ);
         }
 
-        public void ShowWarning(string topic, string message)
+        public void ShowVerbose(string topic, string message, string detailedMessage = null)
         {
-            if (ParentWindow != null && ParentWindow.InvokeRequired)
-            {
-                ParentWindow.Invoke((InfoShowCase)ShowWarning, topic, message);
-                return;
-            }
-            if (ParentWindow.IsDisposed) ParentWindow = null;
-            MessageBox.Show(ParentWindow, message, topic,
-                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            Show(MessageBoxIcon.None, topic, message, 
+                detailedMessage: detailedMessage);
         }
 
-        public void ShowError(string topic, string message)
+        public void ShowInfo(string topic, string message, string detailedMessage = null)
         {
-            if (ParentWindow != null && ParentWindow.InvokeRequired)
-            {
-                ParentWindow.Invoke((InfoShowCase)ShowError, topic, message);
-                return;
-            }
-            if (ParentWindow.IsDisposed) ParentWindow = null;
-            MessageBox.Show(ParentWindow, message, topic,
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Show(MessageBoxIcon.Information, topic, message,
+                detailedMessage: detailedMessage);
         }
 
-        public BenchUserInfo ReadUserInfo(string prompt)
+        public void ShowWarning(string topic, string message, string detailedMessage = null, Exception exception = null)
         {
-            return UserInfoDialog.GetUserInfo(prompt);
+            Show(MessageBoxIcon.Warning, topic, message,
+                detailedMessage: detailedMessage,
+                exception: exception);
         }
 
-        public System.Security.SecureString ReadPassword(string prompt)
+        public void ShowError(string topic, string message, string detailedMessage = null, Exception exception = null)
         {
-            return PasswordDialog.GetPassword(prompt);
+            Show(MessageBoxIcon.Error, topic, message,
+                detailedMessage: detailedMessage,
+                exception: exception);
         }
 
-        public void EditTextFile(string path)
-        {
-            var p = Process.Start(
-                Path.Combine(Environment.GetEnvironmentVariable("SystemRoot"), "notepad.exe"),
-                path);
-            p.WaitForExit();
-        }
-
-        public void EditTextFile(string path, string prompt)
-        {
-            MessageBox.Show(ParentWindow, prompt
-                + Environment.NewLine + Environment.NewLine
-                + "Close the editor to continue.");
-            EditTextFile(path);
-        }
-
-        private delegate void InfoShowCase(string topic, string message);
+        private delegate void InfoShowCase(MessageBoxIcon typ, string topic, string message, string detailedMessage, Exception exception);
     }
 }

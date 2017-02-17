@@ -1,6 +1,6 @@
 ﻿+++
 title = "Atom"
-weight = 36
+weight = 49
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -24,11 +24,22 @@ A hackable text editor for the 21st Century.
 _Hint: Install the `env-from-shell` package to make sure the Bench environment
 is picked up from Atom._
 
+
+You can adapt the pre-installed Atom packages
+by putting something like this in your user app library in `config\apps.md`:
+
+```Markdown
+* ID: `Bench.Atom`
+* DefaultPackages:
+    + `git-plus`
+    + `language-powershell`
+```
+
 ## Source
 
-* Library: `default`
-* Category: Editors
-* Order Index: 36
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 49
 
 ## Properties
 
@@ -36,4 +47,5 @@ is picked up from Atom._
 * Name: Atom
 * Typ: `default`
 * Website: <https://atom.io>
+* Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment)
 

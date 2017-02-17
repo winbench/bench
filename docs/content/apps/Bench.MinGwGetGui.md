@@ -1,6 +1,6 @@
 ﻿+++
 title = "MinGwGetGui"
-weight = 30
+weight = 42
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -23,15 +23,15 @@ A graphical user interface for the package manager of [MinGW](http://www.mingw.o
 
 ## Source
 
-* Library: `default`
-* Category: Languages and Platforms
-* Order Index: 30
+* Library: [`default`](/app_libraries/default)
+* Category: [Languages and Platforms](/app_categories/languages-and-platforms)
+* Order Index: 42
 
 ## Properties
 
 * Namespace: Bench
 * Name: MinGwGetGui
 * Typ: `default`
-* Dependencies: [MinGwGet](/app/Bench.MinGwGet)
-* Responsibilities: [MinGW](/app/Bench.MinGW)
+* Dependencies: [MinGwGet](/apps/Bench.MinGwGet)
+* Responsibilities: [MinGW](/apps/Bench.MinGW)
 

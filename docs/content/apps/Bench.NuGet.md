@@ -25,8 +25,8 @@ The NuGet Gallery is the central package repository used by all package authors 
 
 ## Source
 
-* Library: `core`
-* Category: Core
+* Library: [`core`](/app_libraries/core)
+* Category: [Core](/app_categories/core)
 * Order Index: 12
 
 ## Properties
@@ -35,5 +35,5 @@ The NuGet Gallery is the central package repository used by all package authors 
 * Name: NuGet
 * Typ: `default`
 * Website: <https://www.nuget.org>
-* Responsibilities: [NUnit 3 Runners](/app/Bench.NUnitRunners)
+* Responsibilities: [NUnit 3 Runners](/apps/Bench.NUnitRunners)
 

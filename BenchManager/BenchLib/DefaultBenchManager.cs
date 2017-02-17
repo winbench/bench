@@ -92,7 +92,6 @@ namespace Mastersign.Bench
         /// </summary>
         public bool Verbose { get; set; }
 
-        private static readonly object consoleSyncHandle = new object();
 
         private void NotificationHandler(TaskInfo info)
         {
@@ -100,28 +99,17 @@ namespace Mastersign.Bench
 
             if (!Verbose && err == null) return;
 
-            lock (consoleSyncHandle)
+            if (err != null)
             {
-                if (err != null) Console.ForegroundColor = ConsoleColor.Red;
-
-                Console.WriteLine(
-                    "[{0}] ({1}) {2}",
-                    info is TaskError ? "ERROR" : "INFO",
-                    info.AppId ?? "global",
-                    info.Message);
-
-                if (!string.IsNullOrEmpty(info.DetailedMessage))
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine(info.DetailedMessage);
-                }
-                if (err != null && err.Exception != null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine(err.Exception.ToString());
-                }
-                Console.ResetColor();
+                UI.ShowError(err.AppId ?? "global", err.Message,
+                    detailedMessage: err.DetailedMessage,
+                    exception: err.Exception);
             }
+            else
+            {
+                UI.ShowInfo(info.AppId ?? "global", info.Message,
+                    detailedMessage: info.DetailedMessage);
+            }            
         }
 
         private bool RunAction(BenchTaskForAll action)

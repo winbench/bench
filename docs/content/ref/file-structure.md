@@ -30,7 +30,7 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
         - `bench.lib.ps1`
         - ...
 * [`config`](#config-dir) User Configuration
-  ([CustomConfigDir](/ref/config/#CustomConfigDir))
+  ([UserConfigDir](/ref/config/#UserConfigDir))
     + [`scripts`](/ref/app-library/#scripts-dir) Custom Scripts Directory
     + [`res`](/ref/app-library/res-dir) App Setup Resources Directory
     + [`apps.md`](/ref/app-library/apps-file) App Index of the User App Library
@@ -39,14 +39,14 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
     + [`apps-deactivated.txt`](#config-apps-deactivated) App Deactivation List
       ([AppDeactivationFile](/ref/config/#AppDeactivationFile))
     + [`config.md`](#config-config) User Configuration File
-      ([CustomConfigFile](/ref/config/#CustomConfigFile))
+      ([UserConfigFile](/ref/config/#UserConfigFile))
     + [`ConEmu.xml`](#config-conemu)
       ([ConEmuConfigFile](/ref/config/#ConEmuConfigFile))
     + [`env.ps1`](#config-env) Environment Setup Hook
     + [`setup.ps1`](#config-setup) Setup Hook
 * [`res`](#res-dir) Bench Resources
     + [`apps.template.md`](#res-apps-template)
-      ([CustomAppIndexTemplateFile](/ref/config/#CustomAppIndexTemplateFile))
+      ([UserAppIndexTemplateFile](/ref/config/#UserAppIndexTemplateFile))
     + [`apps-activated.template.txt`](#res-app-activation-template)
       ([AppActivationTemplateFile](/ref/config/#AppActivationTemplateFile))
     + [`apps-deactivated.template.txt`](#res-app-deactivation-template)
@@ -58,20 +58,21 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
       ([ConEmuConfigTemplateFile](/ref/config/#ConEmuConfigTemplateFile))
     + [`config.md`](#res-config) Default Configuration
     + [`config.template.md`](#res-config-template)
-      ([CustomConfigTemplateFile](/ref/config/#CustomConfigTemplateFile))
+      ([UserConfigTemplateFile](/ref/config/#UserConfigTemplateFile))
     + [`version.txt`](#res-version) Version String
       ([VersionFile](/ref/config/#VersionFile))
 * [`lib`](#lib-dir) App Installations
    ([LibDir](/ref/config/#LibDir))
-     + [`_applibs`](#lib-applibs-dir)
-       ([AppLibsDir](/ref/config/#AppLibsDir))
-     + [`_proxies`](#lib-proxies-dir)
-       ([AppAdornmentBaseDir](/ref/config/#AppAdornmentBaseDir))
-     + [`_launcher`](#lib-launcher-dir)
+     + [`applibs`](#lib-applibs-dir)
+       ([AppLibsInstallDir](/ref/config/#AppLibsInstallDir))
+     + [`proxies`](#lib-proxies-dir)
+       ([AppsAdornmentBaseDir](/ref/config/#AppsAdornmentBaseDir))
+     + [`launcher`](#lib-launcher-dir)
        ([LauncherScriptDir](/ref/config/#LauncherScriptDir))
-     + [`_versions`](#lib-versions-dir)
-       ([AppVersionIndexDir](/ref/config/#AppVersionIndexDir))
-     + ...
+     + [`versions`](#lib-versions-dir)
+       ([AppsVersionIndexDir](/ref/config/#AppsVersionIndexDir))
+     + [`apps`](#lib-apps-dir)
+       ([AppsInstallDir](/ref/config/#AppsInstallDir))
 * [`CHANGELOG.md`](#changelog)
 * [`env.cmd`](#env)
 * [`LICENSE.md`](#license)
@@ -85,10 +86,12 @@ and _can_ be moved via custom or site configuration.
 
 * [`archive`](#archive-dir) Project Archive
   ([ProjectArchiveDir](/ref/config/#ProjectArchiveDir))
-* [`cache`](#cache-dir) Downloaded App Resources
-  ([DownloadDir](/ref/config/#DownloadDir))
-    + [`_applibs`](#cache-applibs-dir) Downloaded App Libraries
-      ([AppLibsDownloadDir](/ref/config/#AppLibsDownloadDir))
+* [`cache`](#cache-dir) Downloaded Resources
+  ([CacheDir](/ref/config/#CacheDir))
+    + [`applibs`](#cache-applibs-dir) Downloaded App Libraries
+      ([AppLibsCacheDir](/ref/config/#AppLibsCacheDir))
+    + [`apps`](#cache-apps-dir) Downloaded App Resources
+      ([AppsCacheDir](/ref/config/#AppsCacheDir))
 * [`home`](#home-dir) Isolated User Profile
   ([HomeDir](/ref/config/#HomeDir))
     + `AppData`
@@ -99,7 +102,7 @@ and _can_ be moved via custom or site configuration.
     + `Desktop`
     + `Documents`
     + [`registry_isolation`](#home-registry-isolation-dir)
-      ([AppRegistryBaseDir](/ref/config/#AppRegistryBaseDir))
+      ([AppRegistryBaseDir](/ref/config/#AppsRegistryBaseDir))
     + ...
 * [`launcher`](#launcher-dir) Launcher Shortcuts
   ([LauncherDir](/ref/config/#LauncherDir))
@@ -156,7 +159,7 @@ This action will fail if [Git][] is not installed
 
 * Description: The directory for the user configuration.
 * Path: `config`
-* Config Property: [CustomConfigDir](/ref/config/#CustomConfigDir)
+* Config Property: [CustomConfigDir](/ref/config/#UserConfigDir)
 * Type: directory
 
 This directory is designed to be put under version control,
@@ -195,7 +198,7 @@ are considered.
 
 * Description: The user configuration file.
 * Path: `config\config.md`
-* Config Property: [CustomConfigFile](/ref/config/#CustomConfigFile)
+* Config Property: [CustomConfigFile](/ref/config/#UserConfigFile)
 * Type: file
 
 The _user configuration file_ is written in [Markdown list syntax](/ref/markup-syntax).
@@ -231,11 +234,11 @@ Inside of the _setup hook script_ is the [PowerShell API](/ref/ps-api/) availabl
 * Path: `res`
 * Type: directory
 
-### Custom App Library Template {#res-apps-template}
+### User App Library Template {#res-apps-template}
 
-* Description: The template for the [custom app library](#config-apps).
+* Description: The template for the [user app library](#config-apps).
 * Path: `res\apps.template.md`
-* Config Property: [CustomAppIndexTemplateFile](/ref/config/#CustomAppIndexTemplateFile)
+* Config Property: [UserAppIndexTemplateFile](/ref/config/#UserAppIndexTemplateFile)
 * Type: file
 
 ### App Activation Template {#res-app-activation-template}
@@ -286,11 +289,11 @@ The site configuration file is written in [Markdown list syntax](/ref/markup-syn
 
 The default configuration file is written in [Markdown list syntax](/ref/markup-syntax).
 
-### Custom Configuration Template {#res-config-template}
+### User Configuration Template {#res-config-template}
 
-* Description: The template for the [custom configuration](#config-config).
+* Description: The template for the [user configuration](#config-config).
 * Path: `res\config.template.md`
-* Config Property: [CustomConfigTemplateFile](/ref/config/#CustomConfigTemplateFile)
+* Config Property: [UserConfigTemplateFile](/ref/config/#UserConfigTemplateFile)
 * Type: file
 
 ### Version File {#res-version}
@@ -300,11 +303,18 @@ The default configuration file is written in [Markdown list syntax](/ref/markup-
 * Config Property: [VersionFile](/ref/config/#VersionFile)
 * Type: file
 
-### App Installation Directory {#lib-dir}
+### Installation Directory {#lib-dir}
 
-* Description: This directory contains the app installations.
+* Description: This directory is the place for files, loaded and installed by the Bench system.
 * Path: `lib`
 * Config Property: [LibDir](/ref/config/#LibDir)
+* Type: directory
+
+### App Installation Directory {#lib-apps-dir}
+
+* Description: This directory contains the app installations.
+* Path: `lib\apps`
+* Config Property: [AppsInstallDir](/ref/config/#AppsInstallDir)
 * Type: directory
 
 Every activated app gets installed in it's [target directory](/ref/app-properties/#Dir).
@@ -312,11 +322,15 @@ Usually the app target directories are direct sub-folders of the _app installati
 The default value for the [target directory](/ref/app-properties/#Dir) of an app is
 its ID in lower case.
 
-### App Library Load Directory {#lib-applibs-dir}
+If the app ID is namespaced, like `<namespace>.<app ID>`, then the namespace becomes
+a sub-folder in the app installation directory, and the app itself is installed in
+the namespace folder.
+
+### App Library Installation Directory {#lib-applibs-dir}
 
 * Description: This diectory is used to load the app libraries.
-* Path: `lib\_applibs`
-* Config Property: [AppLibsDir](/ref/config/#AppLibsDir)
+* Path: `lib\applibs`
+* Config Property: [AppLibsInstallDir](/ref/config/#AppLibsInstallDir)
 * Type: directory
 
 App libraries are loaded as sub-directories, named by their
@@ -325,8 +339,8 @@ ID from the [AppLibs](/ref/config/#AppLibs) table.
 ### Execution Proxy Directory {#lib-proxies-dir}
 
 * Description: Execution proxy scripts for adorned executables are stored in this directory.
-* Path: `lib\_proxies`
-* Config Property: [AppAdornmentBaseDir](/ref/config/#AppAdornmentBaseDir)
+* Path: `lib\proxies`
+* Config Property: [AppsAdornmentBaseDir](/ref/config/#AppsAdornmentBaseDir)
 * Type: directory
 
 For every adorned executable, a batch file is generated, which runs the actual
@@ -347,8 +361,8 @@ in the shell call and call the execution proxy if necessary.
 ### Version Index Directory {#lib-versions-dir}
 
 * Description: The version numbers of the currently installed apps are stored here.
-* Path: `lib\_versions`
-* Config Property: [AppVersionIndexDir](/ref/config/#AppVersionIndexDir)
+* Path: `lib\versions`
+* Config Property: [AppsVersionIndexDir](/ref/config/#AppsVersionIndexDir)
 * Type: directory
 
 When Bench installes an app, it stores the version number from the app property
@@ -409,18 +423,25 @@ The format of the archive files can be controlled via the configuration property
 The name of the archive files in this directory is build with the respective
 project name and a timestamp.
 
-### App Resource Cache {#cache-dir}
+### Cache {#cache-dir}
+
+* Description: This directory contains downloaded resources.
+* Path: `cache`
+* Config Property: [CacheDir](/ref/config/#CacheDir)
+* Type: directory
+
+### App Libary Cache {#cache-applibs-dir}
+
+* Description: This directory contains all downloaded app libraries.
+* Path: `cache\applibs`
+* Config Property: [AppLibsCacheDir](/ref/config/#AppLibsCacheDir)
+* Type: directory
+
+### App Resource Cache {#cache-apps-dir}
 
 * Description: This directory contains all downloaded app resources.
 * Path: `cache`
-* Config Property: [DownloadDir](/ref/config/#DownloadDir)
-* Type: directory
-
-### App Libary Download Cache {#cache-applibs-dir}
-
-* Description: This directory contains all downloaded app libraries.
-* Path: `cache\_applibs`
-* Config Property: [AppLibsDownloadDir](/ref/config/#AppLibsDownloadDir)
+* Config Property: [AppsCacheDir](/ref/config/#AppsCacheDir)
 * Type: directory
 
 ### Home Directory {#home-dir}
@@ -463,7 +484,7 @@ in the Bench environment is pointing to this directory.
 * Description: In this directory backups of registry keys are stored when the
   registry isolation mechanism is used.
 * Path: `home\registry_isolation`
-* Config Property: [AppRegistryBaseDir](/ref/config/#AppRegistryBaseDir)
+* Config Property: [AppsRegistryBaseDir](/ref/config/#AppsRegistryBaseDir)
 * Type: directory
 
 ### Launcher Directory {#launcher-dir}

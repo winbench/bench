@@ -20,7 +20,7 @@ namespace Mastersign.Bench
         /// </summary>
         /// <param name="config">The Bench configuration.</param>
         public PowerShellExecutionHost(BenchConfiguration config)
-            : base(config.BenchRootDir, config.GetStringValue(PropertyKeys.BenchScripts))
+            : base(config.BenchRootDir, config.GetStringValue(ConfigPropertyKeys.BenchScripts))
         {
         }
 

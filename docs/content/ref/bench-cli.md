@@ -1,11 +1,11 @@
 ﻿+++
-date = "2017-01-27T16:09:03+01:00"
+date = "2017-02-03T16:43:02+01:00"
 description = "The command-line interface: bench.exe"
 title = "Bench CLI"
 weight = 2
 +++
 
-Version: 0.14.0
+Version: 0.14.1
 
 The  _Bench CLI_ allows to interact with a Bench environment on the command line.
 
@@ -49,6 +49,10 @@ Take a look at [the project website](http://mastersign.github.io/bench) for a de
 * [ `bench`  `manage`  `update-env`](#cmd_bench-manage-update-env)
 * [ `bench`  `manage`  `upgrade`](#cmd_bench-manage-upgrade)
 * [ `bench`  `project`](#cmd_bench-project)
+* [ `bench`  `transfer`](#cmd_bench-transfer)
+* [ `bench`  `transfer`  `clone`](#cmd_bench-transfer-clone)
+* [ `bench`  `transfer`  `export`](#cmd_bench-transfer-export)
+* [ `bench`  `transfer`  `install`](#cmd_bench-transfer-install)
 
 ## bench {#cmd_bench}
 The  `bench` command is the executable of the Bench CLI.
@@ -116,6 +120,9 @@ Manage the Bench environment and its configuration.
 Manage projects in the Bench environment.
 
 Syntax:  `bench`  `project`  
+
+#### [ `transfer`,  `t`](#cmd_bench-transfer)
+Copy or export this Bench environment.
 
 ## bench app {#cmd_bench-app}
 Command:  `bench`  `app`
@@ -761,4 +768,98 @@ The  `project` command allows you to perform certain tasks on projects in the Be
 
 *  `bench`  `project`  `-?`
 *  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `project`
+
+## bench transfer {#cmd_bench-transfer}
+Command:  `bench`  `transfer`
+
+The  `transfer` command supports different kinds of a copying the whole Bench environment.
+
+### Usage {#cmd_bench-transfer_usage}
+
+*  `bench`  `transfer`  `-?`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `transfer`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `transfer`  _&lt;command&gt;_ ...
+
+### Commands {#cmd_bench-transfer_commands}
+
+#### [ `clone`,  `c`](#cmd_bench-transfer-clone)
+Copy this Bench environment to a different place.
+
+#### [ `export`,  `e`](#cmd_bench-transfer-export)
+Create a transfer package of this Bench environment
+
+Syntax:  `bench`  `transfer`  `export`  _&lt;option&gt;_\*  _&lt;target-file&gt;_  
+
+#### [ `install`,  `i`](#cmd_bench-transfer-install)
+Install a Bench environment from an extracted Bench transfer package
+
+Syntax:  `bench`  `transfer`  `install`  _&lt;option&gt;_\*  
+
+## bench transfer clone {#cmd_bench-transfer-clone}
+Command:  `bench`  `transfer`  `clone`
+
+The  `clone` command creates and initializes a clone of this Bench environment in a different location.
+
+### Usage {#cmd_bench-transfer-clone_usage}
+
+*  `bench`  `transfer`  `clone`  `-?`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `transfer`  `clone`  _&lt;option&gt;_\*  _&lt;target-dir&gt;_
+
+### Options {#cmd_bench-transfer-clone_options}
+
+####  `--include` |  `-i`  _&lt;value&gt;_
+Specifies the content included in the export.
+
+Expected: A comma separated list of the following keywords:  `SystemOnly`,  `Config`,  `Home`,  `Projects`,  `AppLibs`,  `RequiredCache`,  `Cache`,  `RequiredApps`,  `Apps`,  `All`  
+Default: Config,AppLibs,Cache  
+
+### Positional Arguments {#cmd_bench-transfer-clone_positionals}
+
+####  1. target-dir
+The target directory for the clone.
+
+Expected: A path to a directory. The directory must not exist yet.  
+
+## bench transfer export {#cmd_bench-transfer-export}
+Command:  `bench`  `transfer`  `export`
+
+The  `export` command creates a transfer package of this Bench environment.
+
+### Usage {#cmd_bench-transfer-export_usage}
+
+*  `bench`  `transfer`  `export`  `-?`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `transfer`  `export`  _&lt;option&gt;_\*  _&lt;target-file&gt;_
+
+### Options {#cmd_bench-transfer-export_options}
+
+####  `--include` |  `-i`  _&lt;value&gt;_
+Specifies the content included in the export.
+
+Expected: A comma separated list of the following keywords:  `SystemOnly`,  `Config`,  `Home`,  `Projects`,  `AppLibs`,  `RequiredCache`,  `Cache`,  `RequiredApps`,  `Apps`,  `All`  
+Default: Config,AppLibs  
+
+### Positional Arguments {#cmd_bench-transfer-export_positionals}
+
+####  1. target-file
+A path to the output file.
+
+Expected: The filename can have one of the following extensions:  `.zip`,  `.7z`,  `.exe`  
+
+## bench transfer install {#cmd_bench-transfer-install}
+Command:  `bench`  `transfer`  `install`
+
+The  `install` command installs a Bench environment from an extracted Bench transfer package.
+
+### Usage {#cmd_bench-transfer-install_usage}
+
+*  `bench`  `transfer`  `install`  `-?`
+*  `bench` ( _&lt;flag&gt;_ |  _&lt;option&gt;_)\*  `transfer`  `install`  _&lt;option&gt;_\*
+
+### Options {#cmd_bench-transfer-install_options}
+
+####  `--target-dir` |  `--target` |  `--dir` |  `-d`  _&lt;value&gt;_
+Specifies the target directory for the installation.
+If left empty, a directory browser will be displayed to choose the target directory.
+
+Expected: A path to a directory. The directory must not exist yet.  
 

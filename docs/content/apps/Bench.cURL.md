@@ -1,6 +1,6 @@
 ﻿+++
 title = "cURL"
-weight = 68
+weight = 88
 app_library = "default"
 app_category = "Network"
 app_typ = "default"
@@ -28,9 +28,9 @@ file transfer resume, proxy tunneling and more.
 
 ## Source
 
-* Library: `default`
-* Category: Network
-* Order Index: 68
+* Library: [`default`](/app_libraries/default)
+* Category: [Network](/app_categories/network)
+* Order Index: 88
 
 ## Properties
 
