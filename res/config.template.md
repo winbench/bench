@@ -10,8 +10,11 @@ and the isolation level of the Bench environment from the Windows system.
 * IgnoreSystemPath: `true`
 * UseRegistryIsolation: `true`
 * RegisterInUserProfile: `false`
-* ~~EnvironmentPath: `$HomeDir$\bin`~~
-* ~~Environment: `MY_VAR: my custom value`~~
+<!-- * EnvironmentPath: `$HomeDir$\bin` -->
+<!--
+* Environment:
+    + `MY_VAR`: `my custom value`
+-->
 
 ## Quick Access
 
