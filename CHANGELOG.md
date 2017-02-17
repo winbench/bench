@@ -39,6 +39,10 @@ Otherwise, a fresh Bench installation and copying the user configuration manuall
 - Delete the script file after successful upgrade
 
 ### Added
+- Bench CLI commands
+  ([#87](https://github.com/mastersign/bench/issues/87))
+    + `bench manage config set <Property Name> <Property Value>`
+    + `bench manage config edit [--async]`
 - Export and cloning of Bench environment with SFX archive support
     + `bench.exe transfer export <target file>`
     + `bench.exe transfer clone <target directory>`
