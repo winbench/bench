@@ -9,8 +9,8 @@ namespace Mastersign.Bench.Cli.Commands
 {
     class ConfigSetCommand : BenchCommand
     {
-        private static string POSITIONAL_PROPERTY_NAME = "property-name";
-        private static string POSITIONAL_PROPERTY_VALUE = "property-value";
+        private static string POSITIONAL_PROPERTY_NAME = "Property Name";
+        private static string POSITIONAL_PROPERTY_VALUE = "New Value";
 
         public override string Name => "set";
 

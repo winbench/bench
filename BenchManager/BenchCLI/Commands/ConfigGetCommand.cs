@@ -8,7 +8,7 @@ namespace Mastersign.Bench.Cli.Commands
 {
     class ConfigGetCommand : BenchCommand
     {
-        private static string POSITIONAL_PROPERTY_NAME = "property-name";
+        private static string POSITIONAL_PROPERTY_NAME = "Property Name";
 
         public override string Name => "get";
 
