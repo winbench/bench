@@ -19,17 +19,6 @@ namespace Mastersign.Bench
 
         private Dictionary<string, AppFacade> cache = new Dictionary<string, AppFacade>();
 
-        private AppFacade GetAppFacade(string appName)
-        {
-            AppFacade app;
-            if (!cache.TryGetValue(appName, out app))
-            {
-                app = new AppFacade(Config, AppIndex, appName);
-                cache.Add(appName, app);
-            }
-            return app;
-        }
-
         /// <summary>
         /// Initializes a new instance of <see cref="AppIndexFacade"/>.
         /// </summary>
@@ -41,6 +30,16 @@ namespace Mastersign.Bench
             AppIndex = appIndex;
         }
 
+        private AppFacade GetAppFacade(string appName)
+        {
+            AppFacade app;
+            if (!cache.TryGetValue(appName, out app))
+            {
+                app = new AppFacade(Config, AppIndex, appName);
+                cache.Add(appName, app);
+            }
+            return app;
+        }
         /// <summary>
         /// Gets an instance of <see cref="AppFacade"/> for the specified app.
         /// </summary>
