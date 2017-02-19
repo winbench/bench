@@ -21,7 +21,7 @@ IF EXIST "%ROOT%\lib\" (
   PAUSE
 )
 ECHO.Removing old Bench files ...
-FOR %%d IN (actions, auto, res, tmp, lib\conemu, lib\_applibs, cache\_applibs) DO (
+FOR %%d IN (actions, auto, res, tmp, lib\apps\bench\conemu, lib\applibs, cache\applibs) DO (
   IF EXIST "%ROOT%\%%d\" RMDIR /S /Q "%ROOT%\%%d"
 )
 
