@@ -4,6 +4,7 @@
 [![GitHub Release][release-img]][release-url]
 [![Github Releases][downloads-img]][downloads-url]
 [![GitHub Issues][issues-img]][issues-url]
+[![Website][website-img]][bench-website]
 
 [![Bench](docs/static/img/bench-logo.png)][bench-website]
 
@@ -38,6 +39,7 @@ Copyright © by Tobias Kiertscher <dev@mastersign.de>.
 [license-img]: https://img.shields.io/github/license/mastersign/bench.svg?style=flat-square
 [issues-url]: https://github.com/mastersign/bench/issues
 [issues-img]: https://img.shields.io/github/issues/mastersign/bench.svg?style=flat-square
+[website-img]: https://img.shields.io/website-up-down/http/mastersign.github.io.svg?style=flat-square
 
 [bench-website]: http://mastersign.github.io/bench "Bench Website"
 [About]: http://mastersign.github.io/bench/about/
