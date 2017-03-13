@@ -17,6 +17,7 @@ $verbosity = $MsBuildVerbosity
 $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
 $compilerPackageVersion = "1.3.2"
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+$nuget4Url = "https://dist.nuget.org/win-x86-commandline/v4.0.0/nuget.exe"
 $solutionDir = "BenchManager" # relative to root dir
 $solutionFile = "BenchManager.sln" # relative to solution dir
 $buildTargetDir = "auto\bin" # relative to root dir
@@ -70,9 +71,18 @@ echo "Building Bench ($mode)"
 $nugetPath = "$rootDir\$solutionDir\nuget.exe"
 if (!(Test-Path $nugetPath))
 {
-    echo "Downloading NuGet.exe ..."
+    echo "Downloading latest NuGet.exe ..."
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($nugetUrl, $nugetPath)
+}
+[Version]$nugetVersion = [Diagnostics.FileVersionInfo]::GetVersionInfo($nugetPath).FileVersion
+if ($nugetVersion.Major -lt 4)
+{
+    echo "Latest NuGet is earlier then 4.x."
+    del $nugetPath
+    echo "Downloading NuGet.exe 4.0 ..."
+    $wc = New-Object System.Net.WebClient
+    $wc.DownloadFile($nuget4Url, $nugetPath)
 }
 
 # Restore NuGet packages
