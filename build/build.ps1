@@ -10,8 +10,9 @@ pushd
 
 $projectName = "Bench"
 $clrVersion = "4.0.30319"
-$toolsVersion = "14.0"
+$toolsVersion = "4.0"
 $mode = $Mode
+$target = "Clean;Build"
 $verbosity = $MsBuildVerbosity
 $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
 $compilerPackageVersion = "1.3.2"
@@ -90,7 +91,7 @@ if ($LastExitCode -ne 0)
 echo ""
 echo "Building Visual Studio solution $solutionFile ..."
 cd "$rootDir\$solutionDir"
-& $msbuild $solutionFile /v:$verbosity /tv:$toolsVersion /m /p:Configuration=$mode /nodereuse:false
+& $msbuild $solutionFile /v:$verbosity /tv:$toolsVersion /t:$target /p:Configuration=$mode /m /nodereuse:false
 $buildError = $LastExitCode
 
 # Remove Roslyn compiler from projects
