@@ -2,8 +2,7 @@
 
 ## Environment
 
-With the following properties you can control the composition of the environment variables
-and the isolation level of the Bench environment from the Windows system.
+With the following properties, you can control the composition of the environment variables and the isolation level of the Bench environment from the Windows system.
 
 * OverrideHome: `true`
 * OverrideTemp: `true`
@@ -18,7 +17,7 @@ and the isolation level of the Bench environment from the Windows system.
 
 ## Quick Access
 
-With the following properties you can control the appearance of the launchers for the three shells.
+With the following properties, you can control the appearance of the launchers for the three shells.
 
 * QuickAccessCmd: `false`
 * QuickAccessPowerShell: `true`
@@ -26,14 +25,14 @@ With the following properties you can control the appearance of the launchers fo
 
 ## Dashboard
 
-With the following properties you can control certain behavior of the Bench Dashboard.
+With the following properties, you can control certain behavior of the Bench Dashboard.
 
 * AutoUpdateCheck: `true`
 * DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
 
 ## Project Archive
 
-With the following properties you can control the project archive.
+With the following properties, you can control the project archive.
 
 * ~~ProjectArchiveFormat: `7z`~~
 * ProjectArchiveDir: `archive`
