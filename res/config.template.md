@@ -15,6 +15,14 @@ With the following properties, you can control the composition of the environmen
     + `MY_VAR`: `my custom value`
 -->
 
+## App Libraries
+
+With the following dictionary property, you can add additional app libraries.
+
+* AppLibs:
+    + `core`: `github:mastersign/bench-apps-core`
+    + `default`: `github:mastersign/bench-apps-default`
+
 ## Quick Access
 
 With the following properties, you can control the appearance of the launchers for the three shells.
