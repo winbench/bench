@@ -22,6 +22,7 @@ if (!(Test-Path $assemblyPath))
 
 # Make sure the documentation build tools are available
 
+pushd $docsDir
 if (!(Test-Path "$docsDir\node_modules"))
 {
   npm install
@@ -32,6 +33,7 @@ if (!(Test-Path "$docsDir\bower_components"))
   bower install
   check-success
 }
+popd
 
 # Load Bench Assemblies
 
