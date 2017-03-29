@@ -1,6 +1,6 @@
 ﻿+++
 title = "PyReadline (Python 3)"
-weight = 76
+weight = 81
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python3-package"
@@ -25,7 +25,7 @@ Required for colors in IPython.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 76
+* Order Index: 81
 
 ## Properties
 
@@ -34,5 +34,5 @@ Required for colors in IPython.
 * Typ: `python3-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [IPython 3](/apps/Bench.Python3.IPython)
+* Responsibilities: [IPython (Python 3)](/apps/Bench.Python3.IPython)
 

@@ -8,8 +8,9 @@ $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
 $clrVersion = "4.0.30319"
-$toolsVersion = "14.0"
+$toolsVersion = "4.0"
 $mode = $Mode
+$target = "Clean;Build"
 $verbosity = $MsBuildVerbosity
 $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
 $solutionDir = "BenchManager" # relative to root dir
@@ -22,7 +23,7 @@ $helpTargetDir = "docs\public\clr-api\" # relative to root dir
 echo ""
 echo "Building SHFB project $solutionFile ..."
 cd "$rootDir\$solutionDir"
-& $msbuild $helpProject /v:$verbosity /tv:$toolsVersion /m /p:Configuration=$mode /nodereuse:false
+& $msbuild $helpProject /v:$verbosity /tv:$toolsVersion /t:$target /p:Configuration=$mode /m /nodereuse:false
 if ($LastExitCode -ne 0)
 {
     Write-Error "Building the help SHFB project failed."

@@ -1,6 +1,6 @@
 ﻿+++
-title = "IPython 3"
-weight = 78
+title = "IPython (Python 3)"
+weight = 83
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python3-package"
@@ -25,7 +25,7 @@ IPython provides a rich architecture for computing with a powerful interactive s
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 78
+* Order Index: 83
 
 ## Properties
 
@@ -34,5 +34,5 @@ IPython provides a rich architecture for computing with a powerful interactive s
 * Typ: `python3-package`
 * Website: <https://ipython.org/>
 * Dependencies: [PyReadline (Python 3)](/apps/Bench.Python3.PyReadline), [Python 3](/apps/Bench.Python3)
-* Responsibilities: [Python 3 Development](/apps/Bench.Group.Python3Development)
+* Responsibilities: [Python 3 Development](/apps/Bench.Group.Python3Development), [SciPy](/apps/Bench.Python3.SciPy)
 

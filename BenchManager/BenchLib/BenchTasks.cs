@@ -936,6 +936,7 @@ namespace Mastersign.Bench
 
             Action<TaskInfo> myNotify = info =>
             {
+                if (info == null) return;
                 if (info is TaskProgress)
                 {
                     info = ((TaskProgress)info).ScaleProgress(taskProgress, 1f / tasks.Length);

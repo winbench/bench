@@ -1,11 +1,11 @@
 ﻿+++
-date = "2017-02-17T11:37:41+01:00"
+date = "2017-03-29T10:25:38+02:00"
 description = "The command-line interface: bench.exe"
 title = "Bench CLI"
 weight = 2
 +++
 
-Version: 0.15.0
+Version: 0.15.2
 
 The  _Bench CLI_ allows to interact with a Bench environment on the command line.
 

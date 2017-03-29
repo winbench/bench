@@ -1,6 +1,6 @@
 ﻿+++
 title = "Java Development Kit 7"
-weight = 35
+weight = 37
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -27,7 +27,7 @@ The development kit is required for Java source code to get compiled.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 35
+* Order Index: 37
 
 ## Properties
 

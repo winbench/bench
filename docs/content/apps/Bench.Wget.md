@@ -1,6 +1,6 @@
 ﻿+++
 title = "Wget"
-weight = 15
+weight = 16
 app_library = "core"
 app_category = "Basics"
 app_typ = "default"
@@ -26,7 +26,7 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Basics](/app_categories/basics)
-* Order Index: 15
+* Order Index: 16
 
 ## Properties
 
@@ -34,5 +34,5 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 * Name: Wget
 * Typ: `default`
 * Website: <https://www.gnu.org>
-* Responsibilities: [Leiningen](/apps/Bench.Leiningen), [MinGwGet](/apps/Bench.MinGwGet)
+* Responsibilities: [Leiningen](/apps/Bench.Leiningen), [MinGwGet](/apps/Bench.MinGwGet), [Composer](/apps/Bench.Composer)
 

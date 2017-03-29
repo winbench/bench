@@ -1,19 +1,19 @@
 ﻿+++
 title = "FileZilla"
-weight = 89
+weight = 104
 app_library = "default"
 app_category = "Network"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.FileZilla"
-app_version = "3.24.0"
+app_version = "3.25.1"
 app_categories = ["Network"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.FileZilla`  
-**Version:** 3.24.0  
+**Version:** 3.25.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ FileZilla Client is a free, open source FTP client. It supports FTP, SFTP, and F
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Network](/app_categories/network)
-* Order Index: 89
+* Order Index: 104
 
 ## Properties
 

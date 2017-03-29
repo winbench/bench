@@ -7,7 +7,7 @@ $benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
 $benchEnv.Load()
 
 $appLibsDevDir = Safe-Dir "$rootDir\applibs"
-$appLibsDir = Empty-Dir $(Get-ConfigValue "AppLibsDir")
+$appLibsDir = Empty-Dir $(Get-ConfigValue "AppLibsInstallDir")
 
 pushd $appLibsDevDir
 

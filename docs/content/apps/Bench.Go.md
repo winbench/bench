@@ -1,6 +1,6 @@
 ﻿+++
 title = "Go"
-weight = 45
+weight = 47
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -26,7 +26,7 @@ to build simple, reliable, and efficient software.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 45
+* Order Index: 47
 
 ## Properties
 

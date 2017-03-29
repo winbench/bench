@@ -499,7 +499,7 @@ namespace Mastersign.Bench
                     ConfigPropertyKeys.WizzardSelectedApps,
                 })
             {
-                sourceCfg.SetValue(key, this.GetValue(key));
+                SetValue(key, sourceCfg.GetValue(key));
             }
             if (appProperties != null && GetValue(ConfigPropertyKeys.UserConfigRepository) != null)
             {

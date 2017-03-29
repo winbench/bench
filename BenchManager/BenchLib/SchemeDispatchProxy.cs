@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
+using static Mastersign.Sequence.Sequence;
 
 namespace Mastersign.Bench
 {
@@ -35,6 +36,15 @@ namespace Mastersign.Bench
             return proxyTable.TryGetValue(destination.Scheme.ToLowerInvariant(), out proxy)
                 ? proxy != null ? proxy.GetProxy(destination) : def
                 : def;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("SchemeDispatchProxy {");
+            sb.Append(string.Join(", ", Seq(proxyTable.Keys).ToArray()));
+            sb.Append("}");
+            return sb.ToString();
         }
     }
 }

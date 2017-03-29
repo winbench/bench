@@ -1,6 +1,6 @@
 ﻿+++
 title = "PHP 5"
-weight = 31
+weight = 33
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -28,7 +28,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable](ht
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 31
+* Order Index: 33
 
 ## Properties
 
@@ -36,4 +36,5 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable](ht
 * Name: PHP5
 * Typ: `default`
 * Website: <http://www.php.net>
+* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment), [Composer](/apps/Bench.Composer)
 

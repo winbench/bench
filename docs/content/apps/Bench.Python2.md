@@ -33,5 +33,5 @@ Python is a programming language that lets you work quickly and integrate system
 * Name: Python2
 * Typ: `default`
 * Website: <https://www.python.org/>
-* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [PyReadline (Python 2)](/apps/Bench.Python2.PyReadline), [IPython 2](/apps/Bench.Python2.IPython), [PEP8 (Python 2)](/apps/Bench.Python2.PEP8)
+* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [PyReadline (Python 2)](/apps/Bench.Python2.PyReadline), [IPython (Python 2)](/apps/Bench.Python2.IPython), [PEP8 (Python 2)](/apps/Bench.Python2.PEP8)
 

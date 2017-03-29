@@ -1,6 +1,6 @@
 ﻿+++
 title = "HandBrake"
-weight = 108
+weight = 123
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -25,7 +25,7 @@ The open source video transcoder.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 108
+* Order Index: 123
 
 ## Properties
 

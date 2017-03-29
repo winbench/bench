@@ -1,6 +1,6 @@
 ﻿+++
 title = "MeshLab"
-weight = 115
+weight = 133
 app_library = "default"
 app_category = "3D Modeling"
 app_typ = "default"
@@ -29,7 +29,7 @@ cleaning, healing, inspecting, rendering and converting this kind of meshes.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [3D Modeling](/app_categories/3d-modeling)
-* Order Index: 115
+* Order Index: 133
 
 ## Properties
 

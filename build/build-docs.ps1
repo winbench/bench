@@ -3,6 +3,15 @@ $rootDir = [IO.Path]::GetDirectoryName($myDir)
 $scriptsDir = Resolve-Path "$rootDir\auto\lib"
 $docsDir = Resolve-Path "$rootDir\docs"
 
+function check-success()
+{
+  if ($LastExitCode -ne 0)
+  {
+    popd
+    exit $exitCode
+  }
+}
+
 # Compile the Assembly if necessary
 
 $assemblyPath = "$rootDir\BenchManager\BenchLib\bin\$mode\BenchLib.dll"
@@ -13,6 +22,7 @@ if (!(Test-Path $assemblyPath))
 
 # Make sure the documentation build tools are available
 
+pushd $docsDir
 if (!(Test-Path "$docsDir\node_modules"))
 {
   npm install
@@ -23,6 +33,7 @@ if (!(Test-Path "$docsDir\bower_components"))
   bower install
   check-success
 }
+popd
 
 # Load Bench Assemblies
 
@@ -31,15 +42,6 @@ if (!(Test-Path "$docsDir\bower_components"))
 $cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $true)
 $benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($cfg)
 $benchEnv.Load()
-
-function check-success()
-{
-  if ($LastExitCode -ne 0)
-  {
-    popd
-    exit $exitCode
-  }
-}
 
 pushd $docsDir
 
