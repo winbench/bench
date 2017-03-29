@@ -186,14 +186,7 @@ namespace Mastersign.Bench
         {
             Debug.WriteLine("Starting worker " + no + "...");
             DownloadTask task = null;
-            var wc = webClients[no] = new WebClient
-            {
-                Proxy = new SchemeDispatchProxy(new Dictionary<string, IWebProxy>
-                    {
-                        {"http", HttpProxy},
-                        {"https", HttpsProxy}
-                    })
-            };
+            var wc = webClients[no] = new WebClient();
             wc.DownloadProgressChanged += (o, e) =>
             {
                 task.DownloadedBytes = e.BytesReceived;
@@ -275,6 +268,18 @@ namespace Mastersign.Bench
                 Debug.WriteLine("Worker " + no + " beginning with " + task.Id);
 
                 // Prepare web client
+                if (HttpProxy != null || HttpsProxy != null)
+                {
+                    wc.Proxy = new SchemeDispatchProxy(new Dictionary<string, IWebProxy>
+                    {
+                        {"http", HttpProxy},
+                        {"https", HttpsProxy}
+                    });
+                }
+                else
+                {
+                    wc.Proxy = null;
+                }
                 wc.Headers.Clear();
                 if (task.Headers != null)
                 {
@@ -448,7 +453,8 @@ namespace Mastersign.Bench
 
             for (int i = 0; i < ParallelDownloads; i++)
             {
-                webClients[i].CancelAsync();
+                var wc = webClients[i];
+                if (wc != null) wc.CancelAsync();
             }
 
             // allow worker to end
