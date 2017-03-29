@@ -1,6 +1,6 @@
 ﻿+++
 title = "JSHint"
-weight = 71
+weight = 76
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -25,7 +25,7 @@ JSHint is a tool that helps to detect errors and potential problems in your Java
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 71
+* Order Index: 76
 
 ## Properties
 

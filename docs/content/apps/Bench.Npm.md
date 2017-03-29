@@ -41,5 +41,5 @@ Therefore, the latest version of _NPM_ is installed afterwards via the setup scr
 * Typ: `default`
 * Website: <https://www.npmjs.com/package/npm>
 * Dependencies: [Node.js](/apps/Bench.Node)
-* Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment), [CoffeeScript](/apps/Bench.CoffeeScript), [Gulp](/apps/Bench.Gulp), [Grunt](/apps/Bench.Grunt), [Bower](/apps/Bench.Bower), [Yeoman](/apps/Bench.Yeoman), [JSLint](/apps/Bench.JSLint), [JSHint](/apps/Bench.JSHint), [JSBeautify](/apps/Bench.JSBeautify), [Tern](/apps/Bench.Tern), [Less](/apps/Bench.Less), [Yeoman Generator for Markdown Projects](/apps/User.MdProc)
+* Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment), [CoffeeScript](/apps/Bench.CoffeeScript), [Gulp](/apps/Bench.Gulp), [Grunt](/apps/Bench.Grunt), [Bower](/apps/Bench.Bower), [Yeoman](/apps/Bench.Yeoman), [Angular CLI](/apps/Bench.AngularCli), [JSLint](/apps/Bench.JSLint), [JSHint](/apps/Bench.JSHint), [JSBeautify](/apps/Bench.JSBeautify), [Tern](/apps/Bench.Tern), [Cordova](/apps/Bench.Cordova), [Ionic](/apps/Bench.Ionic), [Less](/apps/Bench.Less)
 

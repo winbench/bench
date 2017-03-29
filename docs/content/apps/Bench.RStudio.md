@@ -1,6 +1,6 @@
 ﻿+++
 title = "R Studio"
-weight = 62
+weight = 64
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -28,7 +28,7 @@ debugging and workspace management.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 62
+* Order Index: 64
 
 ## Properties
 
@@ -37,4 +37,5 @@ debugging and workspace management.
 * Typ: `default`
 * Website: <https://www.rstudio.com>
 * Dependencies: [R](/apps/Bench.R)
+* Responsibilities: [Data Science](/apps/Bench.Group.DataScience)
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "Hugo"
-weight = 104
+weight = 119
 app_library = "default"
 app_category = "Web"
 app_typ = "default"
@@ -28,7 +28,7 @@ and much more. Hugo’s speed fosters creativity and makes building a website fu
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Web](/app_categories/web)
-* Order Index: 104
+* Order Index: 119
 
 ## Properties
 

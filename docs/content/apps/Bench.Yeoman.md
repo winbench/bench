@@ -1,6 +1,6 @@
 ﻿+++
 title = "Yeoman"
-weight = 66
+weight = 70
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -28,7 +28,7 @@ to help you stay productive.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 66
+* Order Index: 70
 
 ## Properties
 
@@ -37,5 +37,4 @@ to help you stay productive.
 * Typ: `node-package`
 * Website: <http://yeoman.io/>
 * Dependencies: [NPM](/apps/Bench.Npm)
-* Responsibilities: [Yeoman Generator for Markdown Projects](/apps/User.MdProc)
 

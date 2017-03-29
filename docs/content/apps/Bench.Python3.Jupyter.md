@@ -1,18 +1,18 @@
 ﻿+++
-title = "Jupyter"
-weight = 81
+title = "jupyter (Python 3)"
+weight = 91
 app_library = "default"
-app_category = "Software Development Utilities"
+app_category = "Math and Science"
 app_typ = "python3-package"
-app_ns = "Bench"
-app_id = "Bench.Jupyter"
+app_ns = "Bench.Python3"
+app_id = "Bench.Python3.Jupyter"
 app_version = "latest"
-app_categories = ["Software Development Utilities"]
+app_categories = ["Math and Science"]
 app_libraries = ["default"]
 app_types = ["python3-package"]
 +++
 
-**ID:** `Bench.Jupyter`  
+**ID:** `Bench.Python3.Jupyter`  
 **Version:** latest  
 <!--more-->
 
@@ -25,14 +25,15 @@ across over 40 programming languages.
 ## Source
 
 * Library: [`default`](/app_libraries/default)
-* Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 81
+* Category: [Math and Science](/app_categories/math-and-science)
+* Order Index: 91
 
 ## Properties
 
-* Namespace: Bench
+* Namespace: Bench.Python3
 * Name: Jupyter
 * Typ: `python3-package`
 * Website: <https://jupyter.org>
 * Dependencies: [Python 3](/apps/Bench.Python3)
+* Responsibilities: [SciPy](/apps/Bench.Python3.SciPy)
 

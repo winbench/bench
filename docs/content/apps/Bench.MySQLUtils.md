@@ -1,6 +1,6 @@
 ﻿+++
 title = "MySQL Utilities"
-weight = 92
+weight = 107
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -22,7 +22,7 @@ app_types = ["default"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 92
+* Order Index: 107
 
 ## Properties
 

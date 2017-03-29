@@ -1,6 +1,6 @@
 ﻿+++
 title = "JSLint"
-weight = 70
+weight = 75
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -26,7 +26,7 @@ Is is a code quality tool.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 70
+* Order Index: 75
 
 ## Properties
 
