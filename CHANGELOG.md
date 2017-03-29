@@ -25,6 +25,20 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.15.2] - 2017-03-29
+
+[0.15.2]: https://github.com/mastersign/bench/compare/v0.15.1...v0.15.2
+
+### Fixed
+- Pre-selected apps and flag for immediate setup start
+  ([#101](https://github.com/mastersign/bench/issues/101))
+- Problems with downloads behind a HTTP(S) proxy
+  ([#102](https://github.com/mastersign/bench/issues/102))
+
+## [0.15.1] - 2017-02-17
+
+[0.15.1]: https://github.com/mastersign/bench/compare/v0.15.0...v0.15.1
+
 ### Fixed
 - Broken upgrade mechanism
   ([#97](https://github.com/mastersign/bench/issues/97))
