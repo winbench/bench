@@ -12,6 +12,7 @@ There are currently the following types of apps:
 * Typ [`meta`](#meta): app groups or apps with a fully customized setup process
 * Typ [`default`](#default): Windows executables from a downloaded file, archive, or setup
 * Typ [`node-package`](#node-package): Node.js packages, installable with NPM
+* Typ [`python-package`](#python-package): Python packages for Python 2 and 3 from PyPI, installable with PIP
 * Typ [`python2-package`](#python-package): Python packages for Python 2 from PyPI, installable with PIP
 * Typ [`python3-package`](#python-package): Python packages for Python 3 from PyPI, installable with PIP
 * Typ [`ruby-package`](#ruby-package): Ruby packages, installable with Gem
@@ -50,11 +51,30 @@ To determine, if a _Node.js Package_ is already installed, the existence of its 
 `node_modules` in the Node.js directory is checked.
 
 ## Python Package {#python-package}
-An app is a _Python Package_ if its [`Typ`][] property is set to `python2-package` or `python3-package`.
+An app is a _Python Package_ if its [`Typ`][] property is set to
+`python-package`, `python2-package`, or `python3-package`.
 
-A _Python Package_ is downloaded and installed by _PIP_ the Python package manager.
-_Python Packages_ for Python 2 and Python 3 are defined separately.
-If you need a _Python Package_ for both major versions, you need to define it twice.
+A _Python Package_ is downloaded and installed via _PIP_ the Python package manager.
+_Python Packages_ can be defined for Python 2 and Python 3 separately, or for both.
+
+A package of typ `python2-package` automatically depends on Python 2 and is installed
+only with the PIP of Python 2.
+A package of typ `python3-package` automatically depends on Python 3 and is installed
+only with the PIP of Python 3.
+However, a package of typ `python-package` has slightly more complicated semantics.
+
+* If neither Python 2 nor Python 3 is activated explicitly,
+  the package automatically depends on Python 3
+  but is installed with the PIP of all explictly or implictly activated Python versions.
+* If only one of both Python versions is activated explicitly,
+  the package automatically depends on the explicitly activated version
+  but is installed with the PIP of all explictly or implictly activated Python versions.
+* If both Python versions are activated explicitly,
+  the package automatically depends on Python 3
+  but is installed with the PIP of both Python versions.
+
+This means, a `python-package` implictly activates Python 3 if no Python version
+is explicitly activated, and it is installed in all activated Python versions.
 
 To determine, if a _Python Package_ is already installed, the existence of its package folder in
 `lib\site-packages` in the Python directory is checked.

@@ -63,6 +63,7 @@ weight = 8
     + `default`
     + `meta`
     + `node-package`
+    + `python-package`
     + `python2-package`
     + `python3-package`
     + `ruby-package`
