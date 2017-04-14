@@ -2071,7 +2071,7 @@ namespace Mastersign.Bench
             argList.Add(app.PackageName);
             if (app.IsVersioned) argList.Add(app.Version);
             if (app.IsInstalled) argList.Add("--upgrade");
-            argList.Add("--quiet");
+            //argList.Add("--quiet");
             var args = CommandLine.FormatArgumentList(argList.ToArray());
             var result = execHost.RunProcess(new BenchEnvironment(config), config.BenchRootDir, pipExe, args,
                     ProcessMonitoring.ExitCodeAndOutput);
@@ -2166,6 +2166,18 @@ namespace Mastersign.Bench
                         break;
                     case AppTyps.RubyPackage:
                         InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    case AppTyps.PythonPackage:
+                        var python2App = man.Config.Apps[AppKeys.Python2];
+                        if (python2App != null && python2App.IsInstalled)
+                        {
+                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
+                        }
+                        var python3App = man.Config.Apps[AppKeys.Python3];
+                        if (python3App != null && python3App.IsInstalled)
+                        {
+                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                        }
                         break;
                     case AppTyps.Python2Package:
                         InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
@@ -2497,7 +2509,7 @@ namespace Mastersign.Bench
             {
                 throw new FileNotFoundException("The " + pyVer + " package manager PIP was not found.");
             }
-            var args = CommandLine.FormatArgumentList("uninstall", app.PackageName, "--yes", "--quiet");
+            var args = CommandLine.FormatArgumentList("uninstall", app.PackageName, "--yes"/*, "--quiet"*/);
             var result = execHost.RunProcess(new BenchEnvironment(config), config.BenchRootDir, pipExe, args,
                     ProcessMonitoring.ExitCode);
 
@@ -2517,12 +2529,12 @@ namespace Mastersign.Bench
                 case AppTyps.NodePackage:
                     parentAppId = AppKeys.NodeJS;
                     break;
-                case AppTyps.Python2Package:
-                    parentAppId = AppKeys.Python2;
-                    break;
-                case AppTyps.Python3Package:
-                    parentAppId = AppKeys.Python3;
-                    break;
+                //case AppTyps.Python2Package:
+                //    parentAppId = AppKeys.Python2;
+                //    break;
+                //case AppTyps.Python3Package:
+                //    parentAppId = AppKeys.Python3;
+                //    break;
                 case AppTyps.RubyPackage:
                     parentAppId = AppKeys.Ruby;
                     break;
@@ -2598,6 +2610,18 @@ namespace Mastersign.Bench
                                 break;
                             case AppTyps.RubyPackage:
                                 UninstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
+                                break;
+                            case AppTyps.PythonPackage:
+                                var python2App = man.Config.Apps[AppKeys.Python2];
+                                if (python2App != null && python2App.IsInstalled)
+                                {
+                                    UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
+                                }
+                                var python3App = man.Config.Apps[AppKeys.Python3];
+                                if (python3App != null && python3App.IsInstalled)
+                                {
+                                    UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                                }
                                 break;
                             case AppTyps.Python2Package:
                                 UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);

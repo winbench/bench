@@ -10,13 +10,13 @@ namespace Mastersign.Bench
     {
         public IPropertySource Config { get; set; }
 
-        public IGroupedPropertySource AppIndex { get; set; }
+        public IObjectLibrary AppIndex { get; set; }
 
         public AppIndexDefaultValueSource()
         {
         }
 
-        public AppIndexDefaultValueSource(IPropertySource config, IGroupedPropertySource appIndex)
+        public AppIndexDefaultValueSource(IPropertySource config, IObjectLibrary appIndex)
         {
             Config = config;
             AppIndex = appIndex;
@@ -73,6 +73,10 @@ namespace Mastersign.Bench
                             return AppIndex.GetGroupValue(AppKeys.Npm, AppPropertyKeys.Dir);
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Dir);
+                        case AppTyps.PythonPackage:
+                            return AppIndex.GetBooleanGroupValue(AppKeys.Python3, AppPropertyKeys.IsActive)
+                                ? AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir)
+                                : AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                         case AppTyps.Python2Package:
                             return AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                         case AppTyps.Python3Package:
@@ -90,6 +94,14 @@ namespace Mastersign.Bench
                             return AppIndex.GetGroupValue(AppKeys.Npm, AppPropertyKeys.Path);
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Path);
+                        case AppTyps.PythonPackage:
+                            return AppIndex.GetBooleanGroupValue(AppKeys.Python3, AppPropertyKeys.IsActive)
+                                ? Path.Combine(
+                                    AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir) as string,
+                                    "Scripts")
+                                : Path.Combine(
+                                    AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir) as string,
+                                    "Scripts");
                         case AppTyps.Python2Package:
                             return Path.Combine(
                                 AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir) as string,

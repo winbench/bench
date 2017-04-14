@@ -91,9 +91,10 @@ namespace Mastersign.Bench
 
             appIndexFacade = new AppIndexFacade(Config, this);
 
-            AutomaticConfiguration();
-            RecordAppResponsibilities();
             LoadAppActivation();
+            AutomaticConfiguration();
+            ActivateAppDependencies();
+            RecordAppResponsibilities();
         }
 
         private void AutomaticConfiguration()
@@ -118,7 +119,12 @@ namespace Mastersign.Bench
 
         private void RecordAppResponsibilities()
         {
-            foreach (var app in new List<AppFacade>(Facade))
+            var apps = new List<AppFacade>(Facade);
+            foreach(var app in apps)
+            {
+                ResetGroupValue(app.Name, AppPropertyKeys.Responsibilities);
+            }
+            foreach (var app in apps)
             {
                 app.TrackResponsibilities();
             }
@@ -162,11 +168,20 @@ namespace Mastersign.Bench
             }
         }
 
+        private void ActivateAppDependencies()
+        {
+            foreach (var app in Facade)
+            {
+                if (app.IsActive) app.ActivateDependencies();
+            }
+        }
+
         private void ResetAppActivation()
         {
             foreach (var app in Facade)
             {
                 app.ResetActivation();
+                app.ResetAutoDependency();
             }
         }
 
@@ -178,6 +193,8 @@ namespace Mastersign.Bench
         {
             ResetAppActivation();
             LoadAppActivation();
+            AutomaticConfiguration();
+            ActivateAppDependencies();
         }
 
         private bool IsPathProperty(string app, string property)

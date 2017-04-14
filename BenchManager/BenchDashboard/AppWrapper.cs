@@ -65,6 +65,8 @@ namespace Mastersign.Bench.Dashboard
                         return "NodeJS";
                     case AppTyps.RubyPackage:
                         return "Ruby";
+                    case AppTyps.PythonPackage:
+                        return "Python";
                     case AppTyps.Python2Package:
                         return "Python 2";
                     case AppTyps.Python3Package:
