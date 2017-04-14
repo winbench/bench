@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Added
+- New app typ `python-package` to generalize Python packages
+  which are compatible with Python 2.7 and 3.x
+
 ## [0.15.2] - 2017-03-29
 
 [0.15.2]: https://github.com/mastersign/bench/compare/v0.15.1...v0.15.2
