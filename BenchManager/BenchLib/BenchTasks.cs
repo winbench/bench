@@ -2068,8 +2068,14 @@ namespace Mastersign.Bench
             }
             var argList = new List<string>();
             argList.Add("install");
-            argList.Add(app.PackageName);
-            if (app.IsVersioned) argList.Add(app.Version);
+            if (app.IsVersioned)
+            {
+                argList.Add(app.PackageName + "==" + app.Version);
+            }
+            else
+            {
+                argList.Add(app.PackageName);
+            }
             if (app.IsInstalled) argList.Add("--upgrade");
             //argList.Add("--quiet");
             var args = CommandLine.FormatArgumentList(argList.ToArray());
