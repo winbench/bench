@@ -170,7 +170,8 @@ namespace Mastersign.Bench
 
         private void ActivateAppDependencies()
         {
-            foreach (var app in Facade)
+            var apps = new List<AppFacade>(Facade);
+            foreach (var app in apps)
             {
                 if (app.IsActive) app.ActivateDependencies();
             }
