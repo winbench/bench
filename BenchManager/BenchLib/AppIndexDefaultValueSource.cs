@@ -74,7 +74,7 @@ namespace Mastersign.Bench
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Dir);
                         case AppTyps.PythonPackage:
-                            return AppIndex.GetBooleanGroupValue(AppKeys.Python3, AppPropertyKeys.IsActive)
+                            return File.Exists(AppIndex.GetStringGroupValue(AppKeys.Python3, AppPropertyKeys.Exe))
                                 ? AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir)
                                 : AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                         case AppTyps.Python2Package:
@@ -95,7 +95,7 @@ namespace Mastersign.Bench
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Path);
                         case AppTyps.PythonPackage:
-                            return AppIndex.GetBooleanGroupValue(AppKeys.Python3, AppPropertyKeys.IsActive)
+                            return File.Exists(AppIndex.GetStringGroupValue(AppKeys.Python3, AppPropertyKeys.Exe))
                                 ? Path.Combine(
                                     AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir) as string,
                                     "Scripts")
