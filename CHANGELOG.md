@@ -28,6 +28,13 @@ Add a link to the GitHub diff like
 ### Added
 - New app typ `python-package` to generalize Python packages
   which are compatible with Python 2.7 and 3.x
+  ([#103](https://github.com/mastersign/bench/issues/103))
+- Support for x64 apps
+  ([#100](https://github.com/mastersign/bench/issues/100))
+    + SAPP &ndash; _system architecture property postfix_
+      like `Url64Bit` and `Url32Bit` for app property `Url`
+    + config property `Allow64Bit`
+    + runtime config property `Use64Bit`
 
 ## [0.15.2] - 2017-03-29
 
