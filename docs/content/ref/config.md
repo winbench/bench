@@ -50,9 +50,6 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [SiteConfigTemplateFile](#SiteConfigTemplateFile) | path | `res\bench-site.template.md` |
 | [AppLibs](#AppLibs) | dictionary | `core: github:mastersign/bench-apps-core` |
 | [AppLibsInstallDir](#AppLibsInstallDir) | path | `$LibDir$\applibs` |
-| [CacheDir](#CacheDir) | path | `cache` |
-| [AppLibsCacheDir](#AppLibsDownloadDir) | path | `$CacheDir$\applibs` |
-| [AppsCacheDir](#AppsCacheDir) | path | `$CacheDir$\apps` |
 | [AppLibIndexFileName](#AppLibIndexFileName) | string | `apps.md` |
 | [AppLibCustomScriptDirName](#AppLibCustomScriptDirName) | string | `res` |
 | [AppLibResourceDirName](#AppLibResourceDirName) | string | `res` |
@@ -66,6 +63,7 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [LibDir](#LibDir) | path | `lib` |
 | [AppsInstallDir](#AppsInstallDir) | path | `$LibDir$\apps` |
 | [Website](#Website) | URL | <http://mastersign.github.io/bench> |
+| [Use64Bit](#Use64Bit) | boolean | automatically determined |
 | [WizzardApps](#WizzardApps) | dictionary | groups from the default app library |
 | [WizzardSelectedApps](#WizzardSelectedApps) | list | empty |
 | [WizzardStartAutoSetup](#WizzardStartAutoSetup) | boolean | `true` |
@@ -86,6 +84,7 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [KnownLicenses](#KnownLicenses) | User/Site | dictionary | A selection from <https://spdx.org/licenses/> |
 | [AppsVersionIndexDir](#AppsVersionIndexDir) | User/Site | path | `$LibDir$\versions` |
 | [CacheDir](#CacheDir) | User/Site | path | `cache` |
+| [AppLibsCacheDir](#AppLibsDownloadDir) | User/Site | path | `$CacheDir$\applibs` |
 | [AppsCacheDir](#AppsCacheDir) | User/Site | path | `$CacheDir$\apps` |
 | [AppsAdornmentBaseDir](#AppsAdornmentBaseDir) | User | path | `$LibDir$\proxies` |
 | [AppsRegistryBaseDir](#AppsRegistryBaseDir) | User | path | `$HomeDir$\registry_isolation` |
@@ -101,6 +100,7 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [UseRegistryIsolation](#UseRegistryIsolation) | User | boolean | `true` |
 | [CustomPath](#CustomPath) | User/Site | string list | empty |
 | [CustomEnvironment](#CustomEnvironment) | User/Site | dictionary | empty |
+| [Allow64Bit](#Allow64Bit) | User/Site | boolean | `false` |
 | [ProjectRootDir](#ProjectRootDir) | User/Site | path | `projects` |
 | [ProjectArchiveDir](#ProjectArchiveDir) | User/Site | path | `archive` |
 | [ProjectArchiveFormat](#ProjectArchiveFormat) | User/Site | string | `zip` |
@@ -243,27 +243,6 @@ For starters the following list of app libraries is advised:
 * Default: `$LibDir$\applibs`
 * Type: System
 
-### CacheDir {#CacheDir}
-
-* Description: The path of the directory, where downloaded files are cached.
-* Data Type: path
-* Default: `cache`
-* Type: System
-
-### AppLibsCacheDir {#AppLibsDownloadDir}
-
-* Description: The path of the directory, where downloaded app libraries are cached.
-* Data Type: path
-* Default: `$CacheDir$\applibs`
-* Type: System
-
-### AppsCacheDir {#AppsCacheDir}
-
-* Description: The path of the directory, where downloaded app resources are cached.
-* Data Type: path
-* Default: `$CacheDir$\apps`
-* Type: System
-
 ### AppLibIndexFileName {#AppLibIndexFileName}
 
 * Description: The name of the index file in an app library.
@@ -372,6 +351,13 @@ Only non-space characters, up to the first space or the end of a line, are consi
 * Data Type: URL
 * Default: <http://mastersign.github.io/bench>
 * Type: System
+
+### Use64Bit {#Use64Bit}
+
+* Description: The runtime decision if the 64Bit binaries of the apps will be used.
+* Data Type: boolean
+* Default: automatically determined
+* Type: Runtime
 
 ### WizzardApps {#WizzardApps}
 
@@ -507,6 +493,13 @@ dictionary, the app property `LicenseUrl` defaults to the associated URL.
 * Default: `cache`
 * Type: User/Site
 
+### AppLibsCacheDir {#AppLibsDownloadDir}
+
+* Description: The path of the directory, where downloaded app libraries are cached.
+* Data Type: path
+* Default: `$CacheDir$\applibs`
+* Type: User/Site
+
 ### AppsCacheDir {#AppsCacheDir}
 
 * Description: The path to the directory where downloaded app resources are cached.
@@ -617,6 +610,23 @@ dictionary, the app property `LicenseUrl` defaults to the associated URL.
 * Data Type: dictionary
 * Default: empty
 * Type: User/Site
+
+### Allow64Bit {#Allow64Bit}
+
+* Description: A flag to allow download and installation of 64Bit binaries
+  on a 64Bit Windows operating system.
+* Data Type: boolean
+* Default: `false`
+* Type: User/Site
+
+If set to `true` Bench is checking the operating system it is run on,
+and if it is a 64Bit Windows, it is using the 64Bit alternatives
+in the app properties to download and install 64Bit binaries.
+See [`Use64Bit`](#Use64Bit).
+
+**Warning:** This property should be left to `false`, if the Bench
+environment is used as a portable environment on different machines,
+and it is unclear if all machines support 64Bit code.
 
 ### ProjectRootDir {#ProjectRootDir}
 
