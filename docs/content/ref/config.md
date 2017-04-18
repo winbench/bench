@@ -99,6 +99,8 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [IgnoreSystemPath](#IgnoreSystemPath) | User/Site | boolean | `true` |
 | [RegisterInUserProfile](#RegisterInUserProfile) | User | boolean | `false` |
 | [UseRegistryIsolation](#UseRegistryIsolation) | User | boolean | `true` |
+| [CustomPath](#CustomPath) | User/Site | string list | empty |
+| [CustomEnvironment](#CustomEnvironment) | User/Site | dictionary | empty |
 | [ProjectRootDir](#ProjectRootDir) | User/Site | path | `projects` |
 | [ProjectArchiveDir](#ProjectArchiveDir) | User/Site | path | `archive` |
 | [ProjectArchiveFormat](#ProjectArchiveFormat) | User/Site | string | `zip` |
@@ -601,6 +603,20 @@ dictionary, the app property `LicenseUrl` defaults to the associated URL.
 * Data Type: boolean
 * Default: `true`
 * Type: User
+
+### CustomPath {#CustomPath}
+
+* Description: A list with additional directories, to put on the `PATH` environment variable.
+* Data Type: string list
+* Default: empty
+* Type: User/Site
+
+### CustomEnvironment {#CustomEnvironment}
+
+* Description: A dictionary with additional environment variables.
+* Data Type: dictionary
+* Default: empty
+* Type: User/Site
 
 ### ProjectRootDir {#ProjectRootDir}
 

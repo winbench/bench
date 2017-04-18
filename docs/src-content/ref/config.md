@@ -545,6 +545,20 @@ dictionary, the app property `LicenseUrl` defaults to the associated URL.
 * Default: `true`
 * Type: User
 
+### CustomPath {#CustomPath}
+
+* Description: A list with additional directories, to put on the `PATH` environment variable.
+* Data Type: string list
+* Default: empty
+* Type: User/Site
+
+### CustomEnvironment {#CustomEnvironment}
+
+* Description: A dictionary with additional environment variables.
+* Data Type: dictionary
+* Default: empty
+* Type: User/Site
+
 ### ProjectRootDir {#ProjectRootDir}
 
 * Description: The path to the directory where projects are stored.
