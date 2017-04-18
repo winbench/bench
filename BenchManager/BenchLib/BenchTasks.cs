@@ -1415,9 +1415,31 @@ namespace Mastersign.Bench
             foreach (var app in apps)
             {
                 if (!app.HasResource) continue;
-                var resourceName = (app.ResourceFileName ?? app.ResourceArchiveName)
-                    .ToLowerInvariant();
-                preservedFileNames.Add(resourceName);
+                var resourceName32Bit = (
+                    man.Config.AppProperties.GetStringGroupValue(app.ID,
+                        AppPropertyKeys.ResourceName + AppPropertyKeys.ARCH_32BIT_POSTFIX) 
+                    ?? man.Config.AppProperties.GetStringGroupValue(app.ID, 
+                        AppPropertyKeys.ArchiveName + AppPropertyKeys.ARCH_32BIT_POSTFIX));
+                var resourceName64Bit = (
+                    man.Config.AppProperties.GetStringGroupValue(app.ID,
+                        AppPropertyKeys.ResourceName + AppPropertyKeys.ARCH_64BIT_POSTFIX)
+                    ?? man.Config.AppProperties.GetStringGroupValue(app.ID,
+                        AppPropertyKeys.ArchiveName + AppPropertyKeys.ARCH_64BIT_POSTFIX));
+
+                var resourceName = (app.ResourceFileName ?? app.ResourceArchiveName);
+
+                if (!string.IsNullOrEmpty(resourceName))
+                {
+                    preservedFileNames.Add(resourceName.ToLowerInvariant());
+                }
+                if (!string.IsNullOrEmpty(resourceName32Bit) && !string.Equals(resourceName, resourceName32Bit, StringComparison.InvariantCulture))
+                {
+                    preservedFileNames.Add(resourceName32Bit.ToLowerInvariant());
+                }
+                if (!string.IsNullOrEmpty(resourceName64Bit) && !string.Equals(resourceName, resourceName64Bit, StringComparison.InvariantCulture))
+                {
+                    preservedFileNames.Add(resourceName64Bit.ToLowerInvariant());
+                }
             }
 
             var fileNames = new List<string>();
