@@ -1,6 +1,6 @@
 ﻿+++
 title = "Spacemacs"
-weight = 55
+weight = 54
 app_library = "default"
 app_category = "Editors"
 app_typ = "meta"
@@ -25,7 +25,7 @@ The best editor is neither Emacs nor Vim, it's Emacs and Vim!
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 55
+* Order Index: 54
 
 ## Properties
 

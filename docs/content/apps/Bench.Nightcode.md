@@ -1,6 +1,6 @@
 ﻿+++
 title = "Nightcode"
-weight = 60
+weight = 59
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -25,7 +25,7 @@ An IDE for Clojure.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 60
+* Order Index: 59
 
 ## Properties
 

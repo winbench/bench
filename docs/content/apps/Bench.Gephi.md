@@ -1,36 +1,38 @@
 ﻿+++
-title = "Dia"
-weight = 130
+title = "Gephi"
+weight = 129
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
-app_id = "Bench.Dia"
-app_version = "0.97.2"
+app_id = "Bench.Gephi"
+app_version = "0.9.1"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
-**ID:** `Bench.Dia`  
-**Version:** 0.97.2  
+**ID:** `Bench.Gephi`  
+**Version:** 0.9.1  
 <!--more-->
 
 [Back to all apps](/apps/)
 
 ## Description
-Dia is a program to draw structured diagrams.
+Gephi is the leading visualization and exploration software for all kinds of graphs and networks.
+Gephi is open-source and free.
 
 ## Source
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 130
+* Order Index: 129
 
 ## Properties
 
 * Namespace: Bench
-* Name: Dia
+* Name: Gephi
 * Typ: `default`
-* Website: <https://wiki.gnome.org/Apps/Dia>
+* Website: <https://gephi.org>
+* Dependencies: [Java Runtime Environment 8](/apps/Bench.JRE8)
 

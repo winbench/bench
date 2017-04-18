@@ -1,6 +1,6 @@
 ﻿+++
 title = "Python 2 Development"
-weight = 22
+weight = 21
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,12 +22,12 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 22
+* Order Index: 21
 
 ## Properties
 
 * Namespace: Bench.Group
 * Name: Python2Development
 * Typ: `meta`
-* Dependencies: [Python 2](/apps/Bench.Python2), [IPython (Python 2)](/apps/Bench.Python2.IPython), [PEP8 (Python 2)](/apps/Bench.Python2.PEP8)
+* Dependencies: [Python 2](/apps/Bench.Python2), [IPython (Python 2)](/apps/Bench.Python2.IPython), [PEP8](/apps/Bench.Python.PEP8)
 

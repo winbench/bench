@@ -1,6 +1,6 @@
 ﻿+++
 title = "Inkscape"
-weight = 127
+weight = 131
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -26,7 +26,7 @@ It's free and open source.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 127
+* Order Index: 131
 
 ## Properties
 

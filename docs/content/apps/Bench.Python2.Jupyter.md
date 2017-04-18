@@ -1,18 +1,18 @@
 ﻿+++
-title = "jupyter (Python 3)"
-weight = 90
+title = "jupyter (Python 2)"
+weight = 89
 app_library = "default"
 app_category = "Math and Science"
-app_typ = "python3-package"
-app_ns = "Bench.Python3"
-app_id = "Bench.Python3.Jupyter"
+app_typ = "python2-package"
+app_ns = "Bench.Python2"
+app_id = "Bench.Python2.Jupyter"
 app_version = "latest"
 app_categories = ["Math and Science"]
 app_libraries = ["default"]
-app_types = ["python3-package"]
+app_types = ["python2-package"]
 +++
 
-**ID:** `Bench.Python3.Jupyter`  
+**ID:** `Bench.Python2.Jupyter`  
 **Version:** latest  
 <!--more-->
 
@@ -26,14 +26,14 @@ across over 40 programming languages.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 90
+* Order Index: 89
 
 ## Properties
 
-* Namespace: Bench.Python3
+* Namespace: Bench.Python2
 * Name: Jupyter
-* Typ: `python3-package`
+* Typ: `python2-package`
 * Website: <https://jupyter.org>
-* Dependencies: [IPython (Python 3)](/apps/Bench.Python3.IPython), [Tornado](/apps/Bench.Python.Tornado), [Python 3](/apps/Bench.Python3)
-* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy)
+* Dependencies: [Scandir (Python 2)](/apps/Bench.Python2.Scandir), [IPython (Python 2)](/apps/Bench.Python2.IPython), [Tornado](/apps/Bench.Python.Tornado), [Python 2](/apps/Bench.Python2)
+* Responsibilities: [SciPy (Python 2)](/apps/Bench.Python2.SciPy)
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "RabbitMQ"
-weight = 111
+weight = 114
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -36,7 +36,7 @@ At first start you can login with user `guest` and passwort `guest`.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 111
+* Order Index: 114
 
 ## Properties
 

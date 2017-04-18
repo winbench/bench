@@ -1,6 +1,6 @@
 ﻿+++
 title = "PIP (Python 3)"
-weight = 12
+weight = 11
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -25,7 +25,7 @@ The PyPA recommended tool for installing Python packages.
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 12
+* Order Index: 11
 
 ## Properties
 
@@ -33,4 +33,5 @@ The PyPA recommended tool for installing Python packages.
 * Name: Pip
 * Typ: `default`
 * Dependencies: [Python 3](/apps/Bench.Python3)
+* Responsibilities: [Python 3](/apps/Bench.Python3)
 

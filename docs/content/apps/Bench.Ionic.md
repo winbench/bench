@@ -1,6 +1,6 @@
 ﻿+++
 title = "Ionic"
-weight = 89
+weight = 87
 app_library = "default"
 app_category = "Mobile Development"
 app_typ = "node-package"
@@ -27,7 +27,7 @@ Ionic is the beautiful, free and open source mobile SDK for developing native an
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Mobile Development](/app_categories/mobile-development)
-* Order Index: 89
+* Order Index: 87
 
 ## Properties
 
@@ -35,5 +35,5 @@ Ionic is the beautiful, free and open source mobile SDK for developing native an
 * Name: Ionic
 * Typ: `node-package`
 * Website: <http://ionicframework.com/>
-* Dependencies: [Cordova](/apps/Bench.Cordova), [NPM](/apps/Bench.Npm)
+* Dependencies: [Cordova](/apps/Bench.Cordova), [Node.js](/apps/Bench.Node)
 

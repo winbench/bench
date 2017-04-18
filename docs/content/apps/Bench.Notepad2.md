@@ -1,6 +1,6 @@
 ﻿+++
 title = "Notepad2"
-weight = 14
+weight = 13
 app_library = "core"
 app_category = "Basics"
 app_typ = "default"
@@ -26,7 +26,7 @@ This program can be run out of the box without installation, and does not touch 
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Basics](/app_categories/basics)
-* Order Index: 14
+* Order Index: 13
 
 ## Properties
 

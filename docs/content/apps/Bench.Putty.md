@@ -1,6 +1,6 @@
 ﻿+++
 title = "Putty"
-weight = 31
+weight = 30
 app_library = "default"
 app_category = "Security"
 app_typ = "default"
@@ -25,7 +25,7 @@ PuTTY is a free (MIT-licensed) Win32 Telnet and SSH client.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Security](/app_categories/security)
-* Order Index: 31
+* Order Index: 30
 
 ## Properties
 

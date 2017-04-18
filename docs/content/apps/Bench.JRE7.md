@@ -1,6 +1,6 @@
 ﻿+++
 title = "Java Runtime Environment 7"
-weight = 35
+weight = 34
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -27,7 +27,7 @@ The runtime environment is required for a compiled Java program to get executed.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 35
+* Order Index: 34
 
 ## Properties
 

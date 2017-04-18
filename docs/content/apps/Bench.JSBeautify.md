@@ -1,6 +1,6 @@
 ﻿+++
 title = "JSBeautify"
-weight = 77
+weight = 76
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -30,7 +30,7 @@ Supported commands: `js-beautify`, `css-beautify`, `html-beautify`
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 77
+* Order Index: 76
 
 ## Properties
 
@@ -38,6 +38,6 @@ Supported commands: `js-beautify`, `css-beautify`, `html-beautify`
 * Name: JSBeautify
 * Typ: `node-package`
 * Website: <http://jsbeautifier.org/>
-* Dependencies: [NPM](/apps/Bench.Npm)
+* Dependencies: [Node.js](/apps/Bench.Node)
 * Responsibilities: [Web Development](/apps/Bench.Group.WebDevelopment), [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment)
 

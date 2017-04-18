@@ -1,6 +1,6 @@
 ﻿+++
 title = "IPython (Python 2)"
-weight = 82
+weight = 81
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python2-package"
@@ -25,7 +25,7 @@ IPython provides a rich architecture for computing with a powerful interactive s
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 82
+* Order Index: 81
 
 ## Properties
 
@@ -33,6 +33,6 @@ IPython provides a rich architecture for computing with a powerful interactive s
 * Name: IPython
 * Typ: `python2-package`
 * Website: <https://ipython.org/>
-* Dependencies: [PyReadline (Python 2)](/apps/Bench.Python2.PyReadline), [Python 2](/apps/Bench.Python2)
-* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development)
+* Dependencies: [PyReadline](/apps/Bench.Python.PyReadline), [Scandir (Python 2)](/apps/Bench.Python2.Scandir), [Python 2](/apps/Bench.Python2)
+* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [jupyter (Python 2)](/apps/Bench.Python2.Jupyter), [SciPy (Python 2)](/apps/Bench.Python2.SciPy)
 

@@ -1,18 +1,18 @@
 ﻿+++
-title = "pandas (Python 3)"
-weight = 97
+title = "pandas"
+weight = 99
 app_library = "default"
 app_category = "Math and Science"
-app_typ = "python3-package"
-app_ns = "Bench.Python3"
-app_id = "Bench.Python3.Pandas"
+app_typ = "python-package"
+app_ns = "Bench.Python"
+app_id = "Bench.Python.Pandas"
 app_version = "latest"
 app_categories = ["Math and Science"]
 app_libraries = ["default"]
-app_types = ["python3-package"]
+app_types = ["python-package"]
 +++
 
-**ID:** `Bench.Python3.Pandas`  
+**ID:** `Bench.Python.Pandas`  
 **Version:** latest  
 <!--more-->
 
@@ -25,14 +25,14 @@ pandas is an open source, BSD-licensed library providing high-performance, easy-
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 97
+* Order Index: 99
 
 ## Properties
 
-* Namespace: Bench.Python3
+* Namespace: Bench.Python
 * Name: Pandas
-* Typ: `python3-package`
+* Typ: `python-package`
 * Website: <http://pandas.pydata.org/>
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [SciPy](/apps/Bench.Python3.SciPy)
+* Responsibilities: [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [SciPy (Python 3)](/apps/Bench.Python3.SciPy)
 

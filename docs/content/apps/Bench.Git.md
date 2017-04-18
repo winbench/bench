@@ -6,14 +6,14 @@ app_category = "Core"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Git"
-app_version = "2.12.0"
+app_version = "2.12.2"
 app_categories = ["Core"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Git`  
-**Version:** 2.12.0  
+**Version:** 2.12.2  
 <!--more-->
 
 [Back to all apps](/apps/)

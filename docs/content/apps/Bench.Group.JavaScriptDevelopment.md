@@ -1,6 +1,6 @@
 ﻿+++
 title = "JavaScript Development"
-weight = 18
+weight = 17
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,13 +22,13 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 18
+* Order Index: 17
 
 ## Properties
 
 * Namespace: Bench.Group
 * Name: JavaScriptDevelopment
 * Typ: `meta`
-* Dependencies: [NPM](/apps/Bench.Npm), [JSHint](/apps/Bench.JSHint), [JSLint](/apps/Bench.JSLint), [JSBeautify](/apps/Bench.JSBeautify), [Tern](/apps/Bench.Tern), [Atom](/apps/Bench.Atom)
+* Dependencies: [Node.js](/apps/Bench.Node), [JSHint](/apps/Bench.JSHint), [JSLint](/apps/Bench.JSLint), [JSBeautify](/apps/Bench.JSBeautify), [Tern](/apps/Bench.Tern), [Atom](/apps/Bench.Atom)
 * Responsibilities: [Web Development](/apps/Bench.Group.WebDevelopment)
 

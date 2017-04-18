@@ -1,19 +1,19 @@
 ﻿+++
 title = "HandBrakeCLI"
-weight = 122
+weight = 125
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.HandBrakeCLI"
-app_version = "1.0.2"
+app_version = "1.0.3"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.HandBrakeCLI`  
-**Version:** 1.0.2  
+**Version:** 1.0.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ The command line interface for the open source video transcoder.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 122
+* Order Index: 125
 
 ## Properties
 

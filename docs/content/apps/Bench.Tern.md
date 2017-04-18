@@ -1,6 +1,6 @@
 ﻿+++
 title = "Tern"
-weight = 78
+weight = 77
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -26,7 +26,7 @@ that can be used to improve the JavaScript integration of existing editors.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 78
+* Order Index: 77
 
 ## Properties
 
@@ -34,6 +34,6 @@ that can be used to improve the JavaScript integration of existing editors.
 * Name: Tern
 * Typ: `node-package`
 * Website: <https://github.com/ternjs/tern>
-* Dependencies: [NPM](/apps/Bench.Npm)
+* Dependencies: [Node.js](/apps/Bench.Node)
 * Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment)
 

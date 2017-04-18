@@ -1,6 +1,6 @@
 ﻿+++
 title = "scikit-learn"
-weight = 98
+weight = 100
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python3-package"
@@ -30,7 +30,7 @@ Machine Learning in Python
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 98
+* Order Index: 100
 
 ## Properties
 
@@ -38,6 +38,6 @@ Machine Learning in Python
 * Name: SciKitLearn
 * Typ: `python3-package`
 * Website: <http://scikit-learn.org>
-* Dependencies: [NumPy (Python 3)](/apps/Bench.Python3.NumPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [Matplotlib (Python 3)](/apps/Bench.Python3.Matplotlib), [Python 3](/apps/Bench.Python3)
+* Dependencies: [NumPy (Python 3)](/apps/Bench.Python3.NumPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [Matplotlib](/apps/Bench.Python.Matplotlib), [Python 3](/apps/Bench.Python3)
 * Responsibilities: [Data Science](/apps/Bench.Group.DataScience)
 

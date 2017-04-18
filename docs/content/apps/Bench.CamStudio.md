@@ -1,19 +1,19 @@
 ﻿+++
 title = "CamStudio Screen Recorder"
-weight = 132
+weight = 136
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.CamStudio"
-app_version = "latest"
+app_version = "2.7"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.CamStudio`  
-**Version:** latest  
+**Version:** 2.7  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -30,13 +30,11 @@ plus add a time stamp or watermark. CamStudio also captures screenshots
 if you set the frame rate, drag the mouse over the area for capture,
 and tap on the coordinates.
 
-* Version 2.7
-
 ## Source
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 132
+* Order Index: 136
 
 ## Properties
 

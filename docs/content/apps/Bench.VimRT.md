@@ -1,6 +1,6 @@
 ﻿+++
 title = "VimRT"
-weight = 56
+weight = 55
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,7 +26,7 @@ It is an improved version of the vi editor distributed with most UNIX systems.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 56
+* Order Index: 55
 
 ## Properties
 

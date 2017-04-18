@@ -1,18 +1,18 @@
 ﻿+++
-title = "SciPy library (Python 3)"
-weight = 96
+title = "SciPy library (Python 2)"
+weight = 95
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "default"
-app_ns = "Bench.Python3"
-app_id = "Bench.Python3.SciPyLib"
+app_ns = "Bench.Python2"
+app_id = "Bench.Python2.SciPyLib"
 app_version = "0.19.0"
 app_categories = ["Math and Science"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
-**ID:** `Bench.Python3.SciPyLib`  
+**ID:** `Bench.Python2.SciPyLib`  
 **Version:** 0.19.0  
 <!--more-->
 
@@ -31,14 +31,14 @@ Thanks a lot to Christoph Golke for his service.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 96
+* Order Index: 95
 
 ## Properties
 
-* Namespace: Bench.Python3
+* Namespace: Bench.Python2
 * Name: SciPyLib
 * Typ: `default`
 * Website: <https://www.scipy.org/scipylib/>
-* Dependencies: [NumPy (Python 3)](/apps/Bench.Python3.NumPy)
-* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn)
+* Dependencies: [NumPy (Python 2)](/apps/Bench.Python2.NumPy)
+* Responsibilities: [SciPy (Python 2)](/apps/Bench.Python2.SciPy)
 

@@ -1,18 +1,18 @@
 ﻿+++
-title = "PyReadline (Python 3)"
-weight = 81
+title = "PyReadline"
+weight = 79
 app_library = "default"
 app_category = "Software Development Utilities"
-app_typ = "python3-package"
-app_ns = "Bench.Python3"
-app_id = "Bench.Python3.PyReadline"
+app_typ = "python-package"
+app_ns = "Bench.Python"
+app_id = "Bench.Python.PyReadline"
 app_version = "latest"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
-app_types = ["python3-package"]
+app_types = ["python-package"]
 +++
 
-**ID:** `Bench.Python3.PyReadline`  
+**ID:** `Bench.Python.PyReadline`  
 **Version:** latest  
 <!--more-->
 
@@ -25,14 +25,14 @@ Required for colors in IPython.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 81
+* Order Index: 79
 
 ## Properties
 
-* Namespace: Bench.Python3
+* Namespace: Bench.Python
 * Name: PyReadline
-* Typ: `python3-package`
+* Typ: `python-package`
 * Website: <https://pypi.python.org/pypi/pyreadline>
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [IPython (Python 3)](/apps/Bench.Python3.IPython)
+* Responsibilities: [IPython (Python 2)](/apps/Bench.Python2.IPython), [IPython (Python 3)](/apps/Bench.Python3.IPython)
 

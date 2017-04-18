@@ -1,6 +1,6 @@
 ﻿+++
 title = "TeXnicCenter"
-weight = 115
+weight = 118
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
@@ -25,7 +25,7 @@ Premium LaTeX Editing for Windows.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Writing](/app_categories/writing)
-* Order Index: 115
+* Order Index: 118
 
 ## Properties
 

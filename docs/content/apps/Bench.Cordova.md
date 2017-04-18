@@ -1,6 +1,6 @@
 ﻿+++
 title = "Cordova"
-weight = 88
+weight = 86
 app_library = "default"
 app_category = "Mobile Development"
 app_typ = "node-package"
@@ -27,7 +27,7 @@ Free and open source
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Mobile Development](/app_categories/mobile-development)
-* Order Index: 88
+* Order Index: 86
 
 ## Properties
 
@@ -35,6 +35,6 @@ Free and open source
 * Name: Cordova
 * Typ: `node-package`
 * Website: <https://cordova.apache.org/>
-* Dependencies: [NPM](/apps/Bench.Npm)
+* Dependencies: [Node.js](/apps/Bench.Node)
 * Responsibilities: [Ionic](/apps/Bench.Ionic)
 
