@@ -1,5 +1,8 @@
 ﻿# User Configuration
 
+Have a look at <http://mastersign.github.io/bench/ref/config/>
+for a detailed explanation of the configuration properties.
+
 ## Environment
 
 With the following properties, you can control the composition of the environment variables and the isolation level of the Bench environment from the Windows system.
@@ -50,7 +53,7 @@ With the following properties, you can control certain behavior of the Bench Das
 
 With the following properties, you can control the project archive.
 
-* ~~ProjectArchiveFormat: `7z`~~
+* ProjectArchiveFormat: `zip`
 * ProjectArchiveDir: `archive`
 
 ## Properties added by the Bench CLI
