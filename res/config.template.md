@@ -15,6 +15,14 @@ With the following properties, you can control the composition of the environmen
     + `MY_VAR`: `my custom value`
 -->
 
+## Machine Architecture
+
+With the following property, you allow the usage of 64Bit binaries.
+Set this property to `true` if you intend to use this Bench environment
+only on systems which support 64Bit code.
+
+* Allow64Bit: `false`
+
 ## App Libraries
 
 With the following dictionary property, you can add additional app libraries.

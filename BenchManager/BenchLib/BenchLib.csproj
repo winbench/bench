@@ -189,6 +189,7 @@
     <Compile Include="Vendor\MarkdownSharp\Markdown.cs" />
     <Compile Include="Vendor\MarkdownSharp\MarkdownOptions.cs" />
     <Compile Include="Windows\ClrInfo.cs" />
+    <Compile Include="Windows\MachineArchitecture.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">

@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Mastersign.Bench.PropertyCollections;
 using Microsoft.Win32;
+using Mastersign.Bench.Windows;
 
 namespace Mastersign.Bench
 {
@@ -179,8 +180,7 @@ namespace Mastersign.Bench
                 appProperties = new AppIndex(this, loadUserConfiguration);
             }
         }
-
-
+        
         private bool IsPathProperty(string property)
         {
             return property.EndsWith("File")
@@ -453,6 +453,12 @@ namespace Mastersign.Bench
             }
         }
 
+        /// <summary>
+        /// Is <c>true</c> if the operating system supports 64Bit code
+        /// and the Bench configuration allows 64Bit binaries.
+        /// </summary>
+        public bool Use64Bit => GetBooleanValue(ConfigPropertyKeys.Use64Bit);
+
         private string GetVolatileEnvironmentVariable(string name)
         {
             using (var key = Registry.CurrentUser.OpenSubKey("Volatile Environment", false))
@@ -468,10 +474,13 @@ namespace Mastersign.Bench
             SetValue(ConfigPropertyKeys.BenchAuto, Path.Combine(BenchRootDir, AUTO_DIR));
             SetValue(ConfigPropertyKeys.BenchBin, Path.Combine(BenchRootDir, BIN_DIR));
             SetValue(ConfigPropertyKeys.BenchScripts, Path.Combine(BenchRootDir, SCRIPTS_DIR));
-
+           
             var versionFile = GetValue(ConfigPropertyKeys.VersionFile) as string;
             var version = File.Exists(versionFile) ? File.ReadAllText(versionFile, Encoding.UTF8).Trim() : "0.0.0";
             SetValue(ConfigPropertyKeys.Version, version);
+
+            SetValue(ConfigPropertyKeys.Use64Bit, 
+                GetBooleanValue(ConfigPropertyKeys.Allow64Bit) && MachineArchitecture.Is64BitOperatingSystem);
 
             if (!GetBooleanValue(ConfigPropertyKeys.OverrideHome))
             {

@@ -8,7 +8,7 @@ namespace Mastersign.Bench
 {
     internal class AppIndexDefaultValueSource : IGroupedPropertySource
     {
-        public IPropertySource Config { get; set; }
+        public IConfiguration Config { get; set; }
 
         public IObjectLibrary AppIndex { get; set; }
 
@@ -16,7 +16,7 @@ namespace Mastersign.Bench
         {
         }
 
-        public AppIndexDefaultValueSource(IPropertySource config, IObjectLibrary appIndex)
+        public AppIndexDefaultValueSource(IConfiguration config, IObjectLibrary appIndex)
         {
             Config = config;
             AppIndex = appIndex;
@@ -37,11 +37,40 @@ namespace Mastersign.Bench
             throw new NotSupportedException();
         }
 
+        private bool Use64Bit => Config.GetBooleanValue(ConfigPropertyKeys.Use64Bit);
+
         public object GetGroupValue(string appId, string key)
         {
             string appTyp;
             switch (key)
             {
+                // Machine Architecure Switch
+
+                case AppPropertyKeys.Version:
+                case AppPropertyKeys.Dir:
+                case AppPropertyKeys.Path:
+                case AppPropertyKeys.Environment:
+                case AppPropertyKeys.Exe:
+                case AppPropertyKeys.AdornedExecutables:
+                case AppPropertyKeys.RegistryKeys:
+                case AppPropertyKeys.SetupTestFile:
+                case AppPropertyKeys.ExeTestArguments:
+                case AppPropertyKeys.LauncherExecutable:
+                case AppPropertyKeys.LauncherArguments:
+                case AppPropertyKeys.LauncherIcon:
+                case AppPropertyKeys.Url:
+                case AppPropertyKeys.DownloadHeaders:
+                case AppPropertyKeys.DownloadCookies:
+                case AppPropertyKeys.ResourceName:
+                case AppPropertyKeys.ArchiveName:
+                case AppPropertyKeys.ArchiveTyp:
+                case AppPropertyKeys.ArchivePath:
+                    return Use64Bit
+                        ? AppIndex.GetGroupValue(appId, key + AppPropertyKeys.ARCH_64BIT_POSTFIX)
+                        : AppIndex.GetGroupValue(appId, key + AppPropertyKeys.ARCH_32BIT_POSTFIX);
+                
+                // Common App Properties
+
                 case AppPropertyKeys.Label:
                     return AppFacade.NameFromId(appId);
                 case AppPropertyKeys.Typ:
@@ -55,22 +84,13 @@ namespace Mastersign.Bench
                     if (string.IsNullOrEmpty(license)) return null;
                     string knownUrl;
                     return knownUrls.TryGetValue(license, out knownUrl) ? knownUrl : null;
-                case AppPropertyKeys.ArchiveTyp:
-                    return AppArchiveTyps.Auto;
-                case AppPropertyKeys.ArchivePath:
-                    return string.Equals(
-                        AppIndex.GetGroupValue(appId, AppPropertyKeys.ArchiveTyp) as string,
-                        AppArchiveTyps.InnoSetup,
-                        StringComparison.InvariantCultureIgnoreCase)
-                        ? "{app}" : null;
-                case AppPropertyKeys.PackageName:
-                    return AppFacade.NameFromId(appId).ToLowerInvariant();
-                case AppPropertyKeys.Dir:
+                case AppPropertyKeys.Dir + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.Dir + AppPropertyKeys.ARCH_64BIT_POSTFIX:
                     appTyp = AppIndex.GetGroupValue(appId, AppPropertyKeys.Typ) as string;
                     switch (appTyp)
                     {
                         case AppTyps.NodePackage:
-                            return AppIndex.GetGroupValue(AppKeys.Npm, AppPropertyKeys.Dir);
+                            return AppIndex.GetGroupValue(AppKeys.NodeJS, AppPropertyKeys.Dir);
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Dir);
                         case AppTyps.PythonPackage:
@@ -86,12 +106,13 @@ namespace Mastersign.Bench
                         default:
                             return AppFacade.PathSegmentFromId(appId);
                     }
-                case AppPropertyKeys.Path:
+                case AppPropertyKeys.Path + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.Path + AppPropertyKeys.ARCH_64BIT_POSTFIX:
                     appTyp = AppIndex.GetGroupValue(appId, AppPropertyKeys.Typ) as string;
                     switch (appTyp)
                     {
                         case AppTyps.NodePackage:
-                            return AppIndex.GetGroupValue(AppKeys.Npm, AppPropertyKeys.Path);
+                            return AppIndex.GetGroupValue(AppKeys.NodeJS, AppPropertyKeys.Path);
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Path);
                         case AppTyps.PythonPackage:
@@ -119,7 +140,10 @@ namespace Mastersign.Bench
                         default:
                             return AppIndex.GetGroupValue(appId, AppPropertyKeys.Dir);
                     }
-                case AppPropertyKeys.Exe:
+                case AppPropertyKeys.Register:
+                    return true;
+                case AppPropertyKeys.Exe + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.Exe + AppPropertyKeys.ARCH_64BIT_POSTFIX:
                     appTyp = AppIndex.GetGroupValue(appId, AppPropertyKeys.Typ) as string;
                     if (appTyp == AppTyps.Default)
                     {
@@ -128,17 +152,8 @@ namespace Mastersign.Bench
                             AppFacade.NameFromId(appId).ToLowerInvariant() + ".exe");
                     }
                     return null;
-                case AppPropertyKeys.ExeTest:
-                    return true;
-                case AppPropertyKeys.Register:
-                    return true;
-                case AppPropertyKeys.LauncherExecutable:
-                    return AppIndex.GetGroupValue(appId, AppPropertyKeys.Exe);
-                case AppPropertyKeys.LauncherArguments:
-                    return new[] { "%*" };
-                case AppPropertyKeys.LauncherIcon:
-                    return AppIndex.GetGroupValue(appId, AppPropertyKeys.LauncherExecutable);
-                case AppPropertyKeys.SetupTestFile:
+                case AppPropertyKeys.SetupTestFile + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.SetupTestFile + AppPropertyKeys.ARCH_64BIT_POSTFIX:
                     appTyp = AppIndex.GetGroupValue(appId, AppPropertyKeys.Typ) as string;
                     switch (appTyp)
                     {
@@ -151,6 +166,32 @@ namespace Mastersign.Bench
                         default:
                             return AppIndex.GetGroupValue(appId, AppPropertyKeys.Exe);
                     }
+                case AppPropertyKeys.ExeTest:
+                    return true;
+                case AppPropertyKeys.LauncherExecutable + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.LauncherExecutable + AppPropertyKeys.ARCH_64BIT_POSTFIX:
+                    return AppIndex.GetGroupValue(appId, AppPropertyKeys.Exe);
+                case AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_64BIT_POSTFIX:
+                    return new[] { "%*" };
+                case AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_64BIT_POSTFIX:
+                    return AppIndex.GetGroupValue(appId, AppPropertyKeys.LauncherExecutable);
+                
+                // Default App Properties
+
+                case AppPropertyKeys.ArchiveTyp + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.ArchiveTyp + AppPropertyKeys.ARCH_64BIT_POSTFIX:
+                    return AppArchiveTyps.Auto;
+                case AppPropertyKeys.ArchivePath + AppPropertyKeys.ARCH_32BIT_POSTFIX:
+                case AppPropertyKeys.ArchivePath + AppPropertyKeys.ARCH_64BIT_POSTFIX:
+                    return string.Equals(
+                        AppIndex.GetGroupValue(appId, AppPropertyKeys.ArchiveTyp) as string,
+                        AppArchiveTyps.InnoSetup,
+                        StringComparison.InvariantCultureIgnoreCase)
+                        ? "{app}" : null;
+                case AppPropertyKeys.PackageName:
+                    return AppFacade.NameFromId(appId).ToLowerInvariant();
                 default:
                     throw new NotSupportedException();
             }
@@ -160,20 +201,51 @@ namespace Mastersign.Bench
         {
             return name == AppPropertyKeys.Typ
                 || name == AppPropertyKeys.Label
+                || name == AppPropertyKeys.Version
                 || name == AppPropertyKeys.License
                 || name == AppPropertyKeys.LicenseUrl
-                || name == AppPropertyKeys.ArchiveTyp
-                || name == AppPropertyKeys.ArchivePath
-                || name == AppPropertyKeys.PackageName
                 || name == AppPropertyKeys.Dir
+                || name == AppPropertyKeys.Dir + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.Dir + AppPropertyKeys.ARCH_64BIT_POSTFIX
                 || name == AppPropertyKeys.Path
-                || name == AppPropertyKeys.Exe
-                || name == AppPropertyKeys.ExeTest
+                || name == AppPropertyKeys.Path + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.Path + AppPropertyKeys.ARCH_64BIT_POSTFIX
                 || name == AppPropertyKeys.Register
+                || name == AppPropertyKeys.Environment
+                || name == AppPropertyKeys.Exe
+                || name == AppPropertyKeys.Exe + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.Exe + AppPropertyKeys.ARCH_64BIT_POSTFIX
+                || name == AppPropertyKeys.AdornedExecutables
+                || name == AppPropertyKeys.RegistryKeys
+                || name == AppPropertyKeys.SetupTestFile
+                || name == AppPropertyKeys.SetupTestFile + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.SetupTestFile + AppPropertyKeys.ARCH_64BIT_POSTFIX
+                || name == AppPropertyKeys.ExeTest
+                || name == AppPropertyKeys.ExeTestArguments
                 || name == AppPropertyKeys.LauncherExecutable
+                || name == AppPropertyKeys.LauncherExecutable + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.LauncherExecutable + AppPropertyKeys.ARCH_64BIT_POSTFIX
                 || name == AppPropertyKeys.LauncherArguments
+                || name == AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_64BIT_POSTFIX
                 || name == AppPropertyKeys.LauncherIcon
-                || name == AppPropertyKeys.SetupTestFile;
+                || name == AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_64BIT_POSTFIX
+
+                || name == AppPropertyKeys.Url
+                || name == AppPropertyKeys.DownloadHeaders
+                || name == AppPropertyKeys.DownloadCookies
+                || name == AppPropertyKeys.ResourceName
+                || name == AppPropertyKeys.ArchiveName
+                || name == AppPropertyKeys.ArchiveTyp
+                || name == AppPropertyKeys.ArchiveTyp + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.ArchiveTyp + AppPropertyKeys.ARCH_64BIT_POSTFIX
+                || name == AppPropertyKeys.ArchivePath
+                || name == AppPropertyKeys.ArchivePath + AppPropertyKeys.ARCH_32BIT_POSTFIX
+                || name == AppPropertyKeys.ArchivePath + AppPropertyKeys.ARCH_64BIT_POSTFIX
+
+                || name == AppPropertyKeys.PackageName
+                ;
         }
     }
 }
