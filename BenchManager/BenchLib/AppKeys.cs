@@ -27,9 +27,6 @@ namespace Mastersign.Bench
         /// <summary>The app ID of Node.js.</summary>
         public const string NodeJS = "Bench.Node";
 
-        /// <summary>The app ID of the Node.js package manager.</summary>
-        public const string Npm = "Bench.Npm";
-
         /// <summary>The app ID of Ruby.</summary>
         public const string Ruby = "Bench.Ruby";
 

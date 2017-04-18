@@ -688,9 +688,9 @@ namespace Mastersign.Bench
             switch (Typ)
             {
                 case AppTyps.NodePackage:
-                    var npmDir = AppIndex.GetStringGroupValue(AppKeys.Npm, AppPropertyKeys.Dir);
+                    var nodeJsDir = AppIndex.GetStringGroupValue(AppKeys.NodeJS, AppPropertyKeys.Dir);
                     var npmPackageDir = IOPath.Combine(
-                        IOPath.Combine(npmDir, "node_modules"),
+                        IOPath.Combine(nodeJsDir, "node_modules"),
                         PackageName);
                     return Directory.Exists(npmPackageDir);
                 case AppTyps.RubyPackage:
@@ -1293,7 +1293,7 @@ namespace Mastersign.Bench
             switch (Typ)
             {
                 case AppTyps.NodePackage:
-                    AddDependency(AppKeys.Npm);
+                    AddDependency(AppKeys.NodeJS);
                     break;
                 case AppTyps.RubyPackage:
                     AddDependency(AppKeys.RubyGems);
@@ -1358,7 +1358,7 @@ namespace Mastersign.Bench
             switch (AppIndex.GetStringGroupValue(AppName, AppPropertyKeys.Typ))
             {
                 case AppTyps.NodePackage:
-                    deps = RemoveFromSet(deps, AppKeys.Npm);
+                    deps = RemoveFromSet(deps, AppKeys.NodeJS);
                     break;
                 case AppTyps.RubyPackage:
                     deps = RemoveFromSet(deps, AppKeys.RubyGems);

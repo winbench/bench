@@ -2014,7 +2014,7 @@ namespace Mastersign.Bench
 
         private static void InstallNodePackage(BenchConfiguration config, IProcessExecutionHost execHost, AppFacade app)
         {
-            var npmExe = config.Apps[AppKeys.Npm].Exe;
+            var npmExe = Path.Combine(config.Apps[AppKeys.NodeJS].Dir, "npm.cmd");
             if (npmExe == null || !File.Exists(npmExe))
             {
                 throw new FileNotFoundException("The NodeJS package manager was not found.");
@@ -2472,7 +2472,7 @@ namespace Mastersign.Bench
         private static void UninstallNodePackage(BenchConfiguration config, IProcessExecutionHost execHost,
             AppFacade app)
         {
-            var npmExe = config.Apps[AppKeys.Npm].Exe;
+            var npmExe = Path.Combine(config.Apps[AppKeys.NodeJS].Dir, "npm.cmd");
             if (npmExe == null || !File.Exists(npmExe))
             {
                 throw new FileNotFoundException("The NodeJS package manager was not found.");
