@@ -36,6 +36,15 @@ Add a link to the GitHub diff like
     + config property `Allow64Bit`
     + runtime config property `Use64Bit`
 
+### Changed
+- Improved the semantics of tasks which target one specific app.
+  Now active apps, depending on the target app, are reinstalled
+  when the target app is reinstalled or upgraded.
+
+### Fixed
+- Respect deactivated apps when running tasks which target on specific app
+  ([#104](https://github.com/mastersign/bench/issues/104))
+
 ## [0.15.2] - 2017-03-29
 
 [0.15.2]: https://github.com/mastersign/bench/compare/v0.15.1...v0.15.2

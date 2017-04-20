@@ -716,7 +716,9 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var dependencies = man.Config.Apps.GetApps(app.FindAllDependencies());
+            var dependencies = Seq(man.Config.Apps.GetApps(app.FindAllDependencies()))
+                .Filter(a => a.IsActive)
+                .ToList();
             return RunTasks(man,
                 dependencies,
                 notify, cancelation,
@@ -754,7 +756,9 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var responsibilities = man.Config.Apps.GetApps(app.FindAllResponsibilities());
+            var responsibilities = Seq(man.Config.Apps.GetApps(app.FindAllResponsibilities()))
+                .Filter(a => a.IsActive || a.CanCheckInstallation && a.IsInstalled)
+                .ToList();
             return RunTasks(man,
                 responsibilities,
                 notify, cancelation,
@@ -794,14 +798,23 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var dependencies = man.Config.Apps.GetApps(app.FindAllDependencies());
-            var responsibilities = man.Config.Apps.GetApps(app.FindAllResponsibilities());
+            var dependencies = Seq(man.Config.Apps.GetApps(app.FindAllDependencies()))
+                .Filter(a => a.IsActive)
+                .ToList();
+            var responsibilities = Seq(man.Config.Apps.GetApps(app.FindAllResponsibilities()))
+                .Filter(a => a.CanCheckInstallation && a.IsInstalled)
+                .ToList();
+            var dependenciesAndResponsibilities = new List<AppFacade>();
+            dependenciesAndResponsibilities.AddRange(dependencies);
+            dependenciesAndResponsibilities.AddRange(
+                Seq<AppFacade>(responsibilities).Filter(a => !dependencies.Contains(a)));
+            
             return RunTasks(man,
                 new ICollection<AppFacade>[]
                 {
                     dependencies,
                     responsibilities,
-                    dependencies
+                    dependenciesAndResponsibilities
                 },
                 notify, cancelation,
                 DownloadAppResources,
@@ -820,9 +833,9 @@ namespace Mastersign.Bench
         public static ActionResult DoUpgradeApps(IBenchManager man,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            var upgradable = new List<AppFacade>();
-            foreach (var app in man.Config.Apps) if (app.CanUpgrade) upgradable.Add(app);
-
+            var upgradable = Seq<AppFacade>(man.Config.Apps)
+                .Filter(a => a.CanUpgrade)
+                .ToList();
             var activeApps = man.Config.Apps.ActiveApps;
             return RunTasks(man,
                 new ICollection<AppFacade>[]
@@ -853,8 +866,12 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var dependencies = man.Config.Apps.GetApps(app.FindAllDependencies());
-            var responsibilities = man.Config.Apps.GetApps(app.FindAllResponsibilities());
+            var dependencies = Seq(man.Config.Apps.GetApps(app.FindAllDependencies()))
+                .Filter(a => a.IsActive)
+                .ToList();
+            var responsibilities = Seq(man.Config.Apps.GetApps(app.FindAllResponsibilities()))
+                .Filter(a => a.IsActive || a.CanCheckInstallation && a.IsInstalled)
+                .ToList();
             return RunTasks(man,
                 new ICollection<AppFacade>[]
                 {
@@ -1417,8 +1434,8 @@ namespace Mastersign.Bench
                 if (!app.HasResource) continue;
                 var resourceName32Bit = (
                     man.Config.AppProperties.GetStringGroupValue(app.ID,
-                        AppPropertyKeys.ResourceName + AppPropertyKeys.ARCH_32BIT_POSTFIX) 
-                    ?? man.Config.AppProperties.GetStringGroupValue(app.ID, 
+                        AppPropertyKeys.ResourceName + AppPropertyKeys.ARCH_32BIT_POSTFIX)
+                    ?? man.Config.AppProperties.GetStringGroupValue(app.ID,
                         AppPropertyKeys.ArchiveName + AppPropertyKeys.ARCH_32BIT_POSTFIX));
                 var resourceName64Bit = (
                     man.Config.AppProperties.GetStringGroupValue(app.ID,
