@@ -458,6 +458,7 @@ namespace Mastersign.Bench
         {
             var app = config.Apps[appId];
             var exe = app.LauncherExecutable;
+            var cwd = app.LauncherWorkingDir;
             var isAdorned = app.IsExecutableAdorned(exe) && app.IsAdornmentRequired;
             if (isAdorned) exe = app.GetLauncherScriptFile();
 
@@ -467,13 +468,13 @@ namespace Mastersign.Bench
             }
             if (isAdorned)
             {
-                return StartProcessViaShell(env, config.GetStringValue(ConfigPropertyKeys.HomeDir),
+                return StartProcessViaShell(env, cwd,
                     exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
                     ProcessWindowStyle.Minimized);
             }
             else
             {
-                return StartProcess(env, config.GetStringValue(ConfigPropertyKeys.HomeDir),
+                return StartProcess(env, cwd,
                     exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args));
             }
         }
@@ -808,7 +809,7 @@ namespace Mastersign.Bench
             dependenciesAndResponsibilities.AddRange(dependencies);
             dependenciesAndResponsibilities.AddRange(
                 Seq<AppFacade>(responsibilities).Filter(a => !dependencies.Contains(a)));
-            
+
             return RunTasks(man,
                 new ICollection<AppFacade>[]
                 {
