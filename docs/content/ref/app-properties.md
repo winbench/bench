@@ -80,6 +80,7 @@ otherwise it defaults to `Url32Bit`.
 | [Launcher](#Launcher) | all | `false` | `false` |
 | [LauncherExecutable](#LauncherExecutable) | all | `false` | `true` |
 | [LauncherArguments](#LauncherArguments) | all | `false` | `true` |
+| [LauncherWorkingDir](#LauncherWorkingDir) | all | `false` | `false` |
 | [LauncherIcon](#LauncherIcon) | all | `false` | `true` |
 | [Url](#Url) | `default` | `true` | `true` |
 | [DownloadCookies](#DownloadCookies) | `default` | `false` | `true` |
@@ -338,6 +339,15 @@ To allow arbitrary arguments to be passed from the launcher to the executable,
 the last element in the list must be `%*`.
 Passing arguments from the launcher to the executable allows drag-and-drop
 for files from the Explorer onto the launcher.
+
+## LauncherWorkingDir {#LauncherWorkingDir}
+
+* Description: A path to the working directory of the launcher shortcut.
+* Data Type: string
+* Required: `false`
+* Default: The value of the config property [`HomeDir`](/ref/config/#HomeDir)
+* App Types: all
+* SAPP: `false`
 
 ## LauncherIcon {#LauncherIcon}
 

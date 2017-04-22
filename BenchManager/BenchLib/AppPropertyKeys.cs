@@ -52,6 +52,7 @@ namespace Mastersign.Bench
         public const string Launcher = "Launcher";
         public const string LauncherExecutable = "LauncherExecutable"; // supports architecture alternatives
         public const string LauncherArguments = "LauncherArguments"; // supports architecture alternatives
+        public const string LauncherWorkingDir = "LauncherWorkingDir";
         public const string LauncherIcon = "LauncherIcon"; // supports architecture alternatives
 
         // Default App Properties

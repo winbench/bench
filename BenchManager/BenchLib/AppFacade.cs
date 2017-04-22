@@ -504,6 +504,11 @@ namespace Mastersign.Bench
         public string[] LauncherArguments => ListValue(AppPropertyKeys.LauncherArguments);
 
         /// <summary>
+        /// The path to a directory, to be the working directory, when starting the <see cref="LauncherExecutable"/>.
+        /// </summary>
+        public string LauncherWorkingDir => StringValue(AppPropertyKeys.LauncherWorkingDir);
+
+        /// <summary>
         /// A path to an <c>*.ico</c> or <c>*.exe</c> file with the icon for the apps launcher,
         /// or <c>null</c> if the app has no launcher.
         /// </summary>

@@ -35,6 +35,8 @@ Add a link to the GitHub diff like
       like `Url64Bit` and `Url32Bit` for app property `Url`
     + config property `Allow64Bit`
     + runtime config property `Use64Bit`
+- App property `LauncherWorkingDir`
+  ([#98](https://github.com/mastersign/bench/issues/98))
 
 ### Changed
 - Improved the semantics of tasks which target one specific app.

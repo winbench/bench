@@ -313,6 +313,15 @@ the last element in the list must be `%*`.
 Passing arguments from the launcher to the executable allows drag-and-drop
 for files from the Explorer onto the launcher.
 
+## LauncherWorkingDir {#LauncherWorkingDir}
+
+* Description: A path to the working directory of the launcher shortcut.
+* Data Type: string
+* Required: `false`
+* Default: The value of the config property [`HomeDir`](/ref/config/#HomeDir)
+* App Types: all
+* SAPP: `false`
+
 ## LauncherIcon {#LauncherIcon}
 
 * Description: The path to the icon of the launcher

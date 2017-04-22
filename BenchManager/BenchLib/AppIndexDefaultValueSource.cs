@@ -174,6 +174,8 @@ namespace Mastersign.Bench
                 case AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_32BIT_POSTFIX:
                 case AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_64BIT_POSTFIX:
                     return new[] { "%*" };
+                case AppPropertyKeys.LauncherWorkingDir:
+                    return Config.GetStringValue(ConfigPropertyKeys.HomeDir);
                 case AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_32BIT_POSTFIX:
                 case AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_64BIT_POSTFIX:
                     return AppIndex.GetGroupValue(appId, AppPropertyKeys.LauncherExecutable);
@@ -228,6 +230,7 @@ namespace Mastersign.Bench
                 || name == AppPropertyKeys.LauncherArguments
                 || name == AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_32BIT_POSTFIX
                 || name == AppPropertyKeys.LauncherArguments + AppPropertyKeys.ARCH_64BIT_POSTFIX
+                || name == AppPropertyKeys.LauncherWorkingDir
                 || name == AppPropertyKeys.LauncherIcon
                 || name == AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_32BIT_POSTFIX
                 || name == AppPropertyKeys.LauncherIcon + AppPropertyKeys.ARCH_64BIT_POSTFIX

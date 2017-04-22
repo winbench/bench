@@ -1584,6 +1584,7 @@ namespace Mastersign.Bench
 
             var executable = app.LauncherExecutable;
             var args = CommandLine.FormatArgumentList(app.LauncherArguments);
+            var cwd = app.LauncherWorkingDir;
             var script = app.GetLauncherScriptFile();
             var autoDir = config.GetStringValue(ConfigPropertyKeys.BenchAuto);
             var rootDir = config.BenchRootDir;
@@ -1603,7 +1604,7 @@ namespace Mastersign.Bench
             File.WriteAllText(script, code.ToString());
 
             var shortcut = app.GetLauncherFile();
-            FileSystem.CreateShortcut(shortcut, script, null, config.BenchRootDir, app.LauncherIcon,
+            FileSystem.CreateShortcut(shortcut, script, null, cwd, app.LauncherIcon,
                 FileSystem.ShortcutWindowStyle.Minimized);
         }
 
