@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppInfoDialog));
             this.lblAppId = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -43,6 +44,8 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelHead = new System.Windows.Forms.Panel();
             this.llblLicense = new System.Windows.Forms.LinkLabel();
+            this.ctxmProperties = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiCopyValue = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabDocumentation.SuspendLayout();
             this.tabResolved.SuspendLayout();
@@ -50,6 +53,7 @@
             this.tabRaw.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridRaw)).BeginInit();
             this.panelHead.SuspendLayout();
+            this.ctxmProperties.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblAppId
@@ -126,6 +130,8 @@
             this.gridResolved.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridResolved.Size = new System.Drawing.Size(419, 433);
             this.gridResolved.TabIndex = 1;
+            this.gridResolved.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridCellMouseDownHandler);
+            this.gridResolved.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridKeyDownHandler);
             // 
             // colName
             // 
@@ -174,6 +180,8 @@
             this.gridRaw.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridRaw.Size = new System.Drawing.Size(419, 433);
             this.gridRaw.TabIndex = 2;
+            this.gridRaw.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridCellMouseDownHandler);
+            this.gridRaw.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridKeyDownHandler);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -213,6 +221,20 @@
             this.llblLicense.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.llblLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LicenseHandler);
             // 
+            // ctxmProperties
+            // 
+            this.ctxmProperties.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCopyValue});
+            this.ctxmProperties.Name = "ctxmProperties";
+            this.ctxmProperties.Size = new System.Drawing.Size(134, 26);
+            // 
+            // tsmiCopyValue
+            // 
+            this.tsmiCopyValue.Name = "tsmiCopyValue";
+            this.tsmiCopyValue.Size = new System.Drawing.Size(133, 22);
+            this.tsmiCopyValue.Text = "&Copy Value";
+            this.tsmiCopyValue.Click += new System.EventHandler(this.tsmiCopyValueClickHandler);
+            // 
             // AppInfoDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,6 +254,7 @@
             this.tabRaw.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridRaw)).EndInit();
             this.panelHead.ResumeLayout(false);
+            this.ctxmProperties.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -251,5 +274,7 @@
         private MarkdownControl mdDocumentation;
         private System.Windows.Forms.Panel panelHead;
         private System.Windows.Forms.LinkLabel llblLicense;
+        private System.Windows.Forms.ContextMenuStrip ctxmProperties;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCopyValue;
     }
 }

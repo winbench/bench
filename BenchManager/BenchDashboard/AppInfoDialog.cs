@@ -104,5 +104,57 @@ namespace Mastersign.Bench.Dashboard
                 Process.Start(url.AbsoluteUri);
             }
         }
+
+        private void UpdateCellSelection(DataGridView grid, int columnIndex, int rowIndex)
+        {
+            var cell = grid[columnIndex, rowIndex];
+            if (!cell.Selected)
+            {
+                cell.DataGridView.ClearSelection();
+                cell.DataGridView.CurrentCell = cell;
+                cell.Selected = true;
+            }
+        }
+
+        private void ShowContextMenuForCell(DataGridView grid, int columnIndex, int rowIndex, Point location)
+        {
+            var cell = grid[columnIndex, rowIndex];
+            tsmiCopyValue.Tag = cell.Value;
+            if (string.IsNullOrWhiteSpace(cell.Value as string)) return;
+            var cellRect = grid.GetCellDisplayRectangle(columnIndex, rowIndex, true);
+            var p = cellRect.Location;
+            p.Offset(location);
+            ctxmProperties.Show(grid, p);
+        }
+
+        private void gridCellMouseDownHandler(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            var grid = (DataGridView)sender;
+            UpdateCellSelection(grid, e.ColumnIndex, e.RowIndex);
+            ShowContextMenuForCell(grid, e.ColumnIndex, e.RowIndex, e.Location);
+        }
+
+        private void tsmiCopyValueClickHandler(object sender, EventArgs e)
+        {
+            var value = ((ToolStripItem)sender).Tag as string;
+            Clipboard.SetText(value);
+        }
+
+        private void gridKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.F10 && e.Shift) || e.KeyCode == Keys.Apps)
+            {
+                e.SuppressKeyPress = true;
+                var grid = sender as DataGridView;
+                var cell = grid?.CurrentCell;
+                if (cell != null)
+                {
+                    var r = cell.DataGridView.GetCellDisplayRectangle(cell.ColumnIndex, cell.RowIndex, false);
+                    ShowContextMenuForCell(grid, cell.ColumnIndex, cell.RowIndex, new Point(0, r.Height));
+                }
+            }
+        }
     }
 }

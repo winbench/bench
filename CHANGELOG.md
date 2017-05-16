@@ -39,6 +39,8 @@ Add a link to the GitHub diff like
     + additional page in initialization wizzard
 - App property `LauncherWorkingDir`
   ([#98](https://github.com/mastersign/bench/issues/98))
+- Support for copying values from app info dialog
+  ([#106](https://github.com/mastersign/bench/issues/106))
 
 ### Changed
 - Improved the semantics of tasks which target one specific app.
