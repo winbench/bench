@@ -6,14 +6,14 @@ app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.EclipsePHP"
-app_version = "4.6"
+app_version = "4.6.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.EclipsePHP`  
-**Version:** 4.6  
+**Version:** 4.6.3  
 <!--more-->
 
 [Back to all apps](/apps/)

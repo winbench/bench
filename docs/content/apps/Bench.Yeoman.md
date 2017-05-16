@@ -6,14 +6,14 @@ app_category = "Software Development Utilities"
 app_typ = "node-package"
 app_ns = "Bench"
 app_id = "Bench.Yeoman"
-app_version = ">=1.5.0 <2.0.0"
+app_version = ">=1.8.0 <2.0.0"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["node-package"]
 +++
 
 **ID:** `Bench.Yeoman`  
-**Version:** >=1.5.0 <2.0.0  
+**Version:** >=1.8.0 <2.0.0  
 <!--more-->
 
 [Back to all apps](/apps/)

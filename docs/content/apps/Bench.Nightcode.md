@@ -6,14 +6,14 @@ app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Nightcode"
-app_version = "2.3.0"
+app_version = "2.3.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Nightcode`  
-**Version:** 2.3.0  
+**Version:** 2.3.3  
 <!--more-->
 
 [Back to all apps](/apps/)

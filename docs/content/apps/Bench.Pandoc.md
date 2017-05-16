@@ -1,19 +1,19 @@
 ﻿+++
 title = "Pandoc"
-weight = 116
+weight = 119
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Pandoc"
-app_version = "1.19.1"
+app_version = "1.19.2.1"
 app_categories = ["Writing"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Pandoc`  
-**Version:** 1.19.1  
+**Version:** 1.19.2.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Pandoc is a library and command-line tool for converting from one markup format 
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Writing](/app_categories/writing)
-* Order Index: 116
+* Order Index: 119
 
 ## Properties
 

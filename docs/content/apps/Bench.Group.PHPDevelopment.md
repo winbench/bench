@@ -29,5 +29,5 @@ app_types = ["meta"]
 * Namespace: Bench.Group
 * Name: PHPDevelopment
 * Typ: `meta`
-* Dependencies: [PHP 5](/apps/Bench.PHP5), [Apache](/apps/Bench.Apache), [MySQL](/apps/Bench.MySQL), [MySQL Workbench](/apps/Bench.MySQLWB), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Composer](/apps/Bench.Composer)
+* Dependencies: [PHP 7](/apps/Bench.PHP7), [Apache](/apps/Bench.Apache), [MySQL](/apps/Bench.MySQL), [MySQL Workbench](/apps/Bench.MySQLWB), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Composer](/apps/Bench.Composer)
 

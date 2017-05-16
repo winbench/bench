@@ -1,6 +1,6 @@
 ﻿+++
 title = "IPython (Python 2)"
-weight = 81
+weight = 82
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python2-package"
@@ -25,7 +25,7 @@ IPython provides a rich architecture for computing with a powerful interactive s
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 81
+* Order Index: 82
 
 ## Properties
 

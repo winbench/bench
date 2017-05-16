@@ -1,19 +1,19 @@
 ﻿+++
 title = "RabbitMQ"
-weight = 114
+weight = 117
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.RabbitMQ"
-app_version = "3.6.6"
+app_version = "3.6.9"
 app_categories = ["Services"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.RabbitMQ`  
-**Version:** 3.6.6  
+**Version:** 3.6.9  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -36,7 +36,7 @@ At first start you can login with user `guest` and passwort `guest`.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 114
+* Order Index: 117
 
 ## Properties
 

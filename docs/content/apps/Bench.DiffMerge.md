@@ -1,36 +1,36 @@
 ﻿+++
-title = "Sift"
-weight = 102
+title = "DiffMerge"
+weight = 104
 app_library = "default"
 app_category = "Filesystem"
 app_typ = "default"
 app_ns = "Bench"
-app_id = "Bench.Sift"
-app_version = "0.9.0"
+app_id = "Bench.DiffMerge"
+app_version = "4.2.0"
 app_categories = ["Filesystem"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
-**ID:** `Bench.Sift`  
-**Version:** 0.9.0  
+**ID:** `Bench.DiffMerge`  
+**Version:** 4.2.0  
 <!--more-->
 
 [Back to all apps](/apps/)
 
 ## Description
-Sift - grep on steroids. A fast and powerful alternative to grep.
+DiffMerge is an application to visually compare and merge files on Windows, OS X and Linux.
 
 ## Source
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Filesystem](/app_categories/filesystem)
-* Order Index: 102
+* Order Index: 104
 
 ## Properties
 
 * Namespace: Bench
-* Name: Sift
+* Name: DiffMerge
 * Typ: `default`
-* Website: <https://sift-tool.org/>
+* Website: <http://www.sourcegear.com/diffmerge/>
 

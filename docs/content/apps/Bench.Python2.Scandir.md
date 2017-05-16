@@ -1,6 +1,6 @@
 ﻿+++
 title = "Scandir (Python 2)"
-weight = 80
+weight = 81
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -30,7 +30,7 @@ Thanks a lot to Christoph Golke for his service.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 80
+* Order Index: 81
 
 ## Properties
 

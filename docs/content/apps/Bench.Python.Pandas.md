@@ -34,5 +34,5 @@ pandas is an open source, BSD-licensed library providing high-performance, easy-
 * Typ: `python-package`
 * Website: <http://pandas.pydata.org/>
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [SciPy (Python 3)](/apps/Bench.Python3.SciPy)
+* Responsibilities: [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [TensorFlow](/apps/Bench.TensorFlow)
 

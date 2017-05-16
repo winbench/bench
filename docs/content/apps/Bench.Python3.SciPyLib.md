@@ -40,5 +40,5 @@ Thanks a lot to Christoph Golke for his service.
 * Typ: `default`
 * Website: <https://www.scipy.org/scipylib/>
 * Dependencies: [NumPy (Python 3)](/apps/Bench.Python3.NumPy)
-* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn)
+* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn), [TensorFlow](/apps/Bench.TensorFlow)
 

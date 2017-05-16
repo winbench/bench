@@ -1,6 +1,6 @@
 ﻿+++
 title = "Angular CLI"
-weight = 70
+weight = 71
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -25,7 +25,7 @@ HTML is great for declaring static documents, but it falters when we try to use 
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 70
+* Order Index: 71
 
 ## Properties
 

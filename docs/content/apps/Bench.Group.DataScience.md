@@ -29,5 +29,5 @@ app_types = ["meta"]
 * Namespace: Bench.Group
 * Name: DataScience
 * Typ: `meta`
-* Dependencies: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn), [Sublime Text 3](/apps/Bench.SublimeText3), [R](/apps/Bench.R), [R Studio](/apps/Bench.RStudio)
+* Dependencies: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn), [TensorFlow](/apps/Bench.TensorFlow), [Sublime Text 3](/apps/Bench.SublimeText3), [R](/apps/Bench.R), [R Studio](/apps/Bench.RStudio)
 

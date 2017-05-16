@@ -36,5 +36,4 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable](ht
 * Name: PHP5
 * Typ: `default`
 * Website: <http://www.php.net>
-* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment), [Composer](/apps/Bench.Composer)
 

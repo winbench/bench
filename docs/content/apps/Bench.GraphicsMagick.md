@@ -1,6 +1,6 @@
 ﻿+++
 title = "Graphics Magick"
-weight = 123
+weight = 126
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -28,7 +28,7 @@ like DPX, GIF, JPEG, JPEG-2000, PNG, PDF, PNM, and TIFF.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 123
+* Order Index: 126
 
 ## Properties
 

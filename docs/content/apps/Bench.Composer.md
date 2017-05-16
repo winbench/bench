@@ -33,6 +33,6 @@ Dependency Manager for PHP
 * Name: Composer
 * Typ: `meta`
 * Website: <https://getcomposer.org/>
-* Dependencies: [Wget](/apps/Bench.Wget), [PHP 5](/apps/Bench.PHP5)
+* Dependencies: [Wget](/apps/Bench.Wget), [PHP 7](/apps/Bench.PHP7)
 * Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment)
 
