@@ -674,13 +674,8 @@ namespace Mastersign.Bench
         /// Checks, whether this app has a downloadable app resource, or not.
         /// </summary>
         public bool HasResource
-        {
-            get
-            {
-                return Typ == AppTyps.Default &&
-                    (ResourceFileName != null || ResourceArchiveName != null);
-            }
-        }
+            => Typ == AppTyps.Default &&
+               (ResourceFileName != null || ResourceArchiveName != null);
 
         /// <summary>
         /// Checks, whether the installation state of this app can be checked, or not.
@@ -733,7 +728,7 @@ namespace Mastersign.Bench
                         IOPath.Combine("site-packages", PackageName));
                     if (python2App.IsInstalled && python3App.IsInstalled)
                     {
-                        return Directory.Exists(pipPackageDir2) 
+                        return Directory.Exists(pipPackageDir2)
                             && Directory.Exists(pipPackageDir3);
                     }
                     else if (python2App.IsInstalled)
