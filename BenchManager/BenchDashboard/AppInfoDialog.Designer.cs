@@ -64,7 +64,7 @@
             this.lblAppId.Location = new System.Drawing.Point(0, 0);
             this.lblAppId.Name = "lblAppId";
             this.lblAppId.Padding = new System.Windows.Forms.Padding(4);
-            this.lblAppId.Size = new System.Drawing.Size(366, 48);
+            this.lblAppId.Size = new System.Drawing.Size(557, 48);
             this.lblAppId.TabIndex = 1;
             this.lblAppId.Text = "<ID>";
             // 
@@ -77,7 +77,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 48);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(433, 465);
+            this.tabControl.Size = new System.Drawing.Size(624, 413);
             this.tabControl.TabIndex = 2;
             // 
             // tabDocumentation
@@ -86,7 +86,7 @@
             this.tabDocumentation.Location = new System.Drawing.Point(4, 22);
             this.tabDocumentation.Name = "tabDocumentation";
             this.tabDocumentation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDocumentation.Size = new System.Drawing.Size(425, 439);
+            this.tabDocumentation.Size = new System.Drawing.Size(616, 387);
             this.tabDocumentation.TabIndex = 2;
             this.tabDocumentation.Text = "Documentation";
             this.tabDocumentation.UseVisualStyleBackColor = true;
@@ -96,7 +96,7 @@
             this.mdDocumentation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mdDocumentation.Location = new System.Drawing.Point(3, 3);
             this.mdDocumentation.Name = "mdDocumentation";
-            this.mdDocumentation.Size = new System.Drawing.Size(419, 433);
+            this.mdDocumentation.Size = new System.Drawing.Size(610, 381);
             this.mdDocumentation.TabIndex = 0;
             // 
             // tabResolved
@@ -206,13 +206,13 @@
             this.panelHead.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHead.Location = new System.Drawing.Point(0, 0);
             this.panelHead.Name = "panelHead";
-            this.panelHead.Size = new System.Drawing.Size(433, 48);
+            this.panelHead.Size = new System.Drawing.Size(624, 48);
             this.panelHead.TabIndex = 3;
             // 
             // llblLicense
             // 
             this.llblLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.llblLicense.Location = new System.Drawing.Point(372, 9);
+            this.llblLicense.Location = new System.Drawing.Point(563, 9);
             this.llblLicense.Name = "llblLicense";
             this.llblLicense.Size = new System.Drawing.Size(49, 13);
             this.llblLicense.TabIndex = 2;
@@ -239,7 +239,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 513);
+            this.ClientSize = new System.Drawing.Size(624, 461);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.panelHead);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

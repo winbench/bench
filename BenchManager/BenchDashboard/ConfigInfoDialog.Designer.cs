@@ -60,7 +60,7 @@
             this.lblAppId.Location = new System.Drawing.Point(0, 0);
             this.lblAppId.Name = "lblAppId";
             this.lblAppId.Padding = new System.Windows.Forms.Padding(4);
-            this.lblAppId.Size = new System.Drawing.Size(421, 48);
+            this.lblAppId.Size = new System.Drawing.Size(612, 48);
             this.lblAppId.TabIndex = 1;
             this.lblAppId.Text = "Bench";
             // 
@@ -72,7 +72,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 48);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(433, 465);
+            this.tabControl.Size = new System.Drawing.Size(624, 413);
             this.tabControl.TabIndex = 2;
             // 
             // tabResolved
@@ -81,7 +81,7 @@
             this.tabResolved.Location = new System.Drawing.Point(4, 22);
             this.tabResolved.Name = "tabResolved";
             this.tabResolved.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResolved.Size = new System.Drawing.Size(425, 439);
+            this.tabResolved.Size = new System.Drawing.Size(616, 387);
             this.tabResolved.TabIndex = 0;
             this.tabResolved.Text = "Properties";
             this.tabResolved.UseVisualStyleBackColor = true;
@@ -104,7 +104,7 @@
             this.gridResolved.RowHeadersVisible = false;
             this.gridResolved.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.gridResolved.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridResolved.Size = new System.Drawing.Size(419, 433);
+            this.gridResolved.Size = new System.Drawing.Size(610, 381);
             this.gridResolved.TabIndex = 1;
             this.gridResolved.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridCellMouseDownHandler);
             this.gridResolved.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridKeyDownHandler);
@@ -181,7 +181,7 @@
             this.panelHead.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHead.Location = new System.Drawing.Point(0, 0);
             this.panelHead.Name = "panelHead";
-            this.panelHead.Size = new System.Drawing.Size(433, 48);
+            this.panelHead.Size = new System.Drawing.Size(624, 48);
             this.panelHead.TabIndex = 3;
             // 
             // ctxmProperties
@@ -202,7 +202,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 513);
+            this.ClientSize = new System.Drawing.Size(624, 461);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.panelHead);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
