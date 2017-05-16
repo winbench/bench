@@ -300,6 +300,8 @@ Only non-space characters, up to the first space or the end of a line, are consi
 * Default: automatically determined
 * Type: Runtime
 
+See [`Allow64Bit`](#Allow64Bit).
+
 ### WizzardApps {#WizzardApps}
 
 * Description: A list of apps and groups to offer for activation during the user configuration initialization.
@@ -560,7 +562,7 @@ dictionary, the app property `LicenseUrl` defaults to the associated URL.
 * Default: `false`
 * Type: User/Site
 
-If set to `true` Bench is checking the operating system it is run on,
+If set to `true` Bench is checking the operating system it is running on,
 and if it is a 64Bit Windows, it is using the 64Bit alternatives
 in the app properties to download and install 64Bit binaries.
 See [`Use64Bit`](#Use64Bit).

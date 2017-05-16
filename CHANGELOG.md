@@ -35,6 +35,7 @@ Add a link to the GitHub diff like
       like `Url64Bit` and `Url32Bit` for app property `Url`
     + config property `Allow64Bit`
     + runtime config property `Use64Bit`
+    + app property `Only64Bit`
 - App property `LauncherWorkingDir`
   ([#98](https://github.com/mastersign/bench/issues/98))
 

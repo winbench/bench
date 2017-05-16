@@ -1,5 +1,5 @@
 +++
-date = "2017-04-18T14:30:00+02:00"
+date = "2017-05-16T09:30:00+02:00"
 description = "The properties for the definition of an app"
 title = "App Properties"
 weight = 8
@@ -24,7 +24,7 @@ This means, Bench always reads the basic property, and if this is set,
 no adaption to the system architecture takes place.
 But if the extended property versions are set and the basic property is not
 set explicitly, it automatically defaults to the value of the 32 Bit
-or the 64 Bit property version.
+or the 64 Bit property version, respectively.
 
 The preconditions for using the 64 Bit version of the property are:
 
@@ -55,6 +55,9 @@ it defaults to either `Url32Bit` or `Url64Bit`.
 If the preconditions mentioned above are met, `Url` defaults to `Url64Bit`;
 otherwise it defaults to `Url32Bit`.
 
+If an app is only released with a 64 Bit binary, then the `Url64Bit` property should be set,
+and the [`Only64Bit`](#Only64Bit) flag should be set to `true`.
+
 ## Overview
 
 | Property | App Types | Required | SAPP |
@@ -73,6 +76,7 @@ otherwise it defaults to `Url32Bit`.
 | [Register](#Register) | `meta`, `default` | `false` | `false` |
 | [Environment](#Environment) | all | `false` | `true` |
 | [Exe](#Exe) | all | `false` | `true` |
+| [Only64Bit](#Only64BIt) | all | `false` | `false` |
 | [ExeTestArguments](#ExeTestArguments) | all |  | `true` |
 | [ExeTest](#ExeTest) | all |  | `false` |
 | [AdornedExecutables](#AdornedExecutables) | all | `false` | `true` |
@@ -257,6 +261,15 @@ The path can be absolute or relative to the target directory of the app.
 For package apps like `node-package` or `python*-package`,
 the path can be just the name of CLI wrapper script,
 given the package provides a CLI.
+
+## Only64Bit {#Only64BIt}
+
+* Description: A flag to declare that an app is only supported on 64Bit systems.
+* Data Type: boolean
+* Required: `false`
+* Default: `false`
+* App Types: all
+* SAPP: `false`
 
 ## ExeTestArguments {#ExeTestArguments}
 

@@ -26,6 +26,7 @@ namespace Mastersign.Bench
         public const string IsActive = "IsActive";
         public const string IsActivated = "IsActivated";
         public const string IsDeactivated = "IsDeactivated";
+        public const string IsSupported = "IsSupported";
         public const string IsRequired = "IsRequired";
         public const string IsDependency = "IsDependency";
         public const string Label = "Label";
@@ -46,6 +47,7 @@ namespace Mastersign.Bench
         public const string Exe = "Exe"; // supports architecture alternatives
         public const string AdornedExecutables = "AdornedExecutables"; // supports architecture alternatives
         public const string RegistryKeys = "RegistryKeys"; // supports architecture alternatives
+        public const string Only64Bit = "Only64Bit";
         public const string SetupTestFile = "SetupTestFile"; // supports architecture alternatives
         public const string ExeTest = "ExeTest";
         public const string ExeTestArguments = "ExeTestArguments"; // supports architecture alternatives

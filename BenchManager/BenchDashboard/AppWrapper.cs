@@ -109,15 +109,9 @@ namespace Mastersign.Bench.Dashboard
 
         public string LongStatus { get { return app.LongStatus; } }
 
-        public string IsActive
-        {
-            get
-            {
-                return app.IsActivated ? "active" : (app.IsActive ? "implicit" : "inactive");
-            }
-        }
+        public string IsActive => app.IsActivated ? "activated" : (app.IsActive ? "implicit" : "inactive");
 
-        public bool IsDeactivated { get { return app.IsDeactivated; } }
+        public string IsSuppressed => app.IsDeactivated ? "deactivated" : (app.IsSuppressed ? "implicit" : "supported");
 
         public bool IsDependency { get { return app.IsDependency; } }
 

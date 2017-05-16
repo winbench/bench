@@ -387,6 +387,11 @@ namespace Mastersign.Bench
         public string SetupTestFile => StringValue(AppPropertyKeys.SetupTestFile);
 
         /// <summary>
+        /// A flag to control whether this app can only be installed if 64Bit programs are supported.
+        /// </summary>
+        public bool Only64Bit => BoolValue(AppPropertyKeys.Only64Bit);
+
+        /// <summary>
         /// An array with relative or absolute paths,
         /// which will be added to the environment variable <c>PATH</c> when this app is activated.
         /// If a path is relative, it is relative to the target <see cref="Dir"/> of this app.
@@ -639,23 +644,31 @@ namespace Mastersign.Bench
 
         /// <summary>
         /// <para>
-        /// Checks, whether is app is active.
+        /// Checks, whether this app is active.
         /// An app can be active, because it was marked by the user to be activated,
         /// or because it is required by Bench or it is a dependency for another app.
         /// </para>
         /// <para>
-        /// An app is <strong>not active</strong> if it was marked by the user as deactivated,
-        /// regardless whether it is required by Bench or another app or marked as activated.
+        /// An app is <strong>not active</strong> if it <see cref="IsSuppressed"/>.
         /// </para>
         /// </summary>
-        public bool IsActive
-        {
-            get
-            {
-                return !IsDeactivated
-                    && (IsRequired || IsDependency || IsActivated);
-            }
-        }
+        public bool IsActive => (IsRequired || IsDependency || IsActivated) && !IsSuppressed;
+
+        /// <summary>
+        /// Checks, whether this app is suppressed.
+        /// An app can be suppressed, because it was marked by the user as deactivated.
+        /// And it can be suppressed, because it does only support 64Bit architecture
+        /// but the configuration or the system does not allow 64Bit programs.
+        /// </summary>
+        public bool IsSuppressed => IsDeactivated || !IsSupported;
+
+        /// <summary>
+        /// Checks, whether this app is supported in the current configuration on the current system.
+        /// An app is not supported, if the app is marked as <see cref="Only64Bit"/> and
+        /// the Bench configuration does not <see cref="ConfigPropertyKeys.Allow64Bit"/>
+        /// or the current system does not support 64Bit programs.
+        /// </summary>
+        public bool IsSupported => !Only64Bit || Config.GetBooleanValue(ConfigPropertyKeys.Use64Bit);
 
         /// <summary>
         /// Checks, whether this app has a downloadable app resource, or not.
@@ -894,7 +907,11 @@ namespace Mastersign.Bench
                 }
                 else
                 {
-                    if (IsDeactivated)
+                    if (!IsSupported)
+                    {
+                        return "not supported";
+                    }
+                    else if (IsDeactivated)
                     {
                         if (HasResource && IsResourceCached)
                             return "cached";
@@ -935,7 +952,14 @@ namespace Mastersign.Bench
                     case AppTyps.Default:
                         if (CanCheckInstallation && IsInstalled)
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
                             {
                                 if (HasResource && IsResourceCached)
                                     return "App is deactivated, but cached and installed.";
@@ -969,7 +993,14 @@ namespace Mastersign.Bench
                         }
                         else if (!CanCheckInstallation)
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
                             {
                                 if (HasResource && IsResourceCached)
                                     return "App is deactivated, but cached.";
@@ -1003,7 +1034,14 @@ namespace Mastersign.Bench
                         }
                         else
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
                             {
                                 if (HasResource && IsResourceCached)
                                     return "App is deactivated, but cached.";
@@ -1044,7 +1082,9 @@ namespace Mastersign.Bench
                         if (IsInstalled)
                         {
                             if (IsDeactivated)
+                            {
                                 return "Package is deactivated, but installed.";
+                            }
                             else
                             {
                                 if (IsActivated)
@@ -1057,8 +1097,17 @@ namespace Mastersign.Bench
                         }
                         else
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
+                            {
                                 return "Package is deactivated.";
+                            }
                             else
                             {
                                 if (IsActivated)
@@ -1527,6 +1576,7 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LicenseUrl, this.LicenseUrl?.AbsoluteUri));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActive, this.IsActive));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsRequired, this.IsRequired));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsSupported, this.IsSupported));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActivated, this.IsActivated));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsDeactivated, this.IsDeactivated));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.HasResource, this.HasResource));
@@ -1535,6 +1585,7 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Dependencies, this.Dependencies));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsDependency, this.IsDependency));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Force, this.Force));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Only64Bit, this.Only64Bit));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.SetupTestFile, this.SetupTestFile));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.PackageName, this.PackageName));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Url, this.Url));
