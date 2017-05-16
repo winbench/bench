@@ -1,6 +1,6 @@
 ﻿+++
 title = "jupyter (Python 3)"
-weight = 91
+weight = 90
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python3-package"
@@ -26,7 +26,7 @@ across over 40 programming languages.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 91
+* Order Index: 90
 
 ## Properties
 
@@ -34,6 +34,6 @@ across over 40 programming languages.
 * Name: Jupyter
 * Typ: `python3-package`
 * Website: <https://jupyter.org>
-* Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [SciPy](/apps/Bench.Python3.SciPy)
+* Dependencies: [IPython (Python 3)](/apps/Bench.Python3.IPython), [Tornado](/apps/Bench.Python.Tornado), [Python 3](/apps/Bench.Python3)
+* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy)
 

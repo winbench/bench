@@ -18,6 +18,7 @@ namespace Mastersign.Bench.Cli.Commands
             NotActive,
             Activated,
             Deactivated,
+            NotSupported,
             Installed,
             NotInstalled,
             Cached,
@@ -189,6 +190,7 @@ namespace Mastersign.Bench.Cli.Commands
                 case AppSet.NotActive: return !app.IsActive;
                 case AppSet.Activated: return app.IsActivated;
                 case AppSet.Deactivated: return app.IsDeactivated;
+                case AppSet.NotSupported: return !app.IsSupported;
                 case AppSet.Installed: return app.IsInstalled;
                 case AppSet.NotInstalled: return !app.IsInstalled;
                 case AppSet.Cached: return app.IsResourceCached;

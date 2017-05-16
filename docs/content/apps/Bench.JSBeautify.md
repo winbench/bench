@@ -38,6 +38,6 @@ Supported commands: `js-beautify`, `css-beautify`, `html-beautify`
 * Name: JSBeautify
 * Typ: `node-package`
 * Website: <http://jsbeautifier.org/>
-* Dependencies: [NPM](/apps/Bench.Npm)
+* Dependencies: [Node.js](/apps/Bench.Node)
 * Responsibilities: [Web Development](/apps/Bench.Group.WebDevelopment), [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment)
 

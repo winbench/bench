@@ -1,6 +1,6 @@
 ﻿+++
 title = "Ruby"
-weight = 8
+weight = 7
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -26,7 +26,7 @@ It has an elegant syntax that is natural to read and easy to write.
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 8
+* Order Index: 7
 
 ## Properties
 

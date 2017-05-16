@@ -1,6 +1,6 @@
 ﻿+++
 title = "Python 2"
-weight = 10
+weight = 9
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -25,7 +25,7 @@ Python is a programming language that lets you work quickly and integrate system
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 10
+* Order Index: 9
 
 ## Properties
 
@@ -33,5 +33,5 @@ Python is a programming language that lets you work quickly and integrate system
 * Name: Python2
 * Typ: `default`
 * Website: <https://www.python.org/>
-* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [PyReadline (Python 2)](/apps/Bench.Python2.PyReadline), [IPython (Python 2)](/apps/Bench.Python2.IPython), [PEP8 (Python 2)](/apps/Bench.Python2.PEP8)
+* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [Scandir (Python 2)](/apps/Bench.Python2.Scandir), [IPython (Python 2)](/apps/Bench.Python2.IPython), [jupyter (Python 2)](/apps/Bench.Python2.Jupyter), [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [NumPy (Python 2)](/apps/Bench.Python2.NumPy)
 

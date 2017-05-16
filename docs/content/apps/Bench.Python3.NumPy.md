@@ -1,13 +1,13 @@
 ﻿+++
 title = "NumPy (Python 3)"
-weight = 93
+weight = 94
 app_library = "default"
-app_category = "User Apps"
+app_category = "Math and Science"
 app_typ = "default"
 app_ns = "Bench.Python3"
 app_id = "Bench.Python3.NumPy"
 app_version = "1.12.1"
-app_categories = ["User Apps"]
+app_categories = ["Math and Science"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
@@ -38,8 +38,8 @@ Thanks a lot to Christoph Golke for his service.
 ## Source
 
 * Library: [`default`](/app_libraries/default)
-* Category: [User Apps](/app_categories/user-apps)
-* Order Index: 93
+* Category: [Math and Science](/app_categories/math-and-science)
+* Order Index: 94
 
 ## Properties
 
@@ -48,5 +48,5 @@ Thanks a lot to Christoph Golke for his service.
 * Typ: `default`
 * Website: <http://www.numpy.org/>
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [SciPy](/apps/Bench.Python3.SciPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [scikit-learn](/apps/Bench.Python3.SciKitLearn)
+* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [scikit-learn](/apps/Bench.Python3.SciKitLearn), [TensorFlow](/apps/Bench.TensorFlow)
 

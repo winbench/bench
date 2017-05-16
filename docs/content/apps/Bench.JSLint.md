@@ -34,6 +34,6 @@ Is is a code quality tool.
 * Name: JSLint
 * Typ: `node-package`
 * Website: <http://jslint.com/>
-* Dependencies: [NPM](/apps/Bench.Npm)
+* Dependencies: [Node.js](/apps/Bench.Node)
 * Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment)
 

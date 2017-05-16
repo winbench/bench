@@ -1,6 +1,6 @@
 ﻿+++
 title = "Leiningen"
-weight = 39
+weight = 38
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -27,7 +27,7 @@ it gets out of your way and lets you focus on your code.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 39
+* Order Index: 38
 
 ## Properties
 

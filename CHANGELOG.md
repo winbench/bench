@@ -25,6 +25,41 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.16.0] - 2017-05-16
+
+[0.16.0]: https://github.com/mastersign/bench/compare/v0.15.2...v0.16.0
+
+### Added
+- New app typ `python-package` to generalize Python packages
+  which are compatible with Python 2.7 and 3.x
+  ([#103](https://github.com/mastersign/bench/issues/103))
+- Support for x64 apps
+  ([#100](https://github.com/mastersign/bench/issues/100))
+    + SAPP &ndash; _system architecture property postfix_
+      like `Url64Bit` and `Url32Bit` for app property `Url`
+    + config property `Allow64Bit`
+    + runtime config property `Use64Bit`
+    + app property `Only64Bit`
+    + additional page in initialization wizzard
+- App property `LauncherWorkingDir`
+  ([#98](https://github.com/mastersign/bench/issues/98))
+- Support for copying values from app info dialog
+  ([#106](https://github.com/mastersign/bench/issues/106))
+- Configuration info dialog
+  ([#105](https://github.com/mastersign/bench/issues/105))
+
+### Changed
+- Improved the semantics of tasks which target one specific app.
+  Now active apps, depending on the target app, are reinstalled
+  when the target app is reinstalled or upgraded.
+
+### Fixed
+- Respect deactivated apps when running tasks which target on a specific app
+  ([#104](https://github.com/mastersign/bench/issues/104))
+- Allow the `bench.exe` to run on the CLR 4.0 without additionally installing
+  the CLR 2.0.
+  ([#107](https://github.com/mastersign/bench/issues/107))
+
 ## [0.15.2] - 2017-03-29
 
 [0.15.2]: https://github.com/mastersign/bench/compare/v0.15.1...v0.15.2

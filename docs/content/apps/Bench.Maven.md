@@ -6,14 +6,14 @@ app_category = "Software Development Utilities"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Maven"
-app_version = "3.3.9"
+app_version = "3.5.0"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Maven`  
-**Version:** 3.3.9  
+**Version:** 3.5.0  
 <!--more-->
 
 [Back to all apps](/apps/)

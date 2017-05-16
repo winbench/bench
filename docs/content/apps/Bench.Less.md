@@ -1,6 +1,6 @@
 ﻿+++
 title = "Less"
-weight = 117
+weight = 123
 app_library = "default"
 app_category = "Web"
 app_typ = "node-package"
@@ -33,7 +33,7 @@ The shell command of Less is `lessc`.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Web](/app_categories/web)
-* Order Index: 117
+* Order Index: 123
 
 ## Properties
 
@@ -41,6 +41,6 @@ The shell command of Less is `lessc`.
 * Name: Less
 * Typ: `node-package`
 * Website: <lesscss.org>
-* Dependencies: [NPM](/apps/Bench.Npm)
+* Dependencies: [Node.js](/apps/Bench.Node)
 * Responsibilities: [Web Development](/apps/Bench.Group.WebDevelopment)
 

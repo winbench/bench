@@ -1,5 +1,5 @@
 ﻿+++
-title = "SciPy"
+title = "SciPy (Python 3)"
 weight = 92
 app_library = "default"
 app_category = "Math and Science"
@@ -33,6 +33,6 @@ SciPy (pronounced “Sigh Pie”) is a Python-based ecosystem of open-source sof
 * Name: SciPy
 * Typ: `meta`
 * Website: <https://www.scipy.org/>
-* Dependencies: [NumPy (Python 3)](/apps/Bench.Python3.NumPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [Matplotlib (Python 3)](/apps/Bench.Python3.Matplotlib), [IPython (Python 3)](/apps/Bench.Python3.IPython), [jupyter (Python 3)](/apps/Bench.Python3.Jupyter), [SymPy (Python 3)](/apps/Bench.Python3.SymPy), [pandas (Python 3)](/apps/Bench.Python3.Pandas)
+* Dependencies: [Python 3](/apps/Bench.Python3), [NumPy (Python 3)](/apps/Bench.Python3.NumPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [IPython (Python 3)](/apps/Bench.Python3.IPython), [jupyter (Python 3)](/apps/Bench.Python3.Jupyter), [Matplotlib](/apps/Bench.Python.Matplotlib), [SymPy](/apps/Bench.Python.SymPy), [pandas](/apps/Bench.Python.Pandas)
 * Responsibilities: [Data Science](/apps/Bench.Group.DataScience)
 

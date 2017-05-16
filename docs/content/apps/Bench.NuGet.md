@@ -1,6 +1,6 @@
 ﻿+++
 title = "NuGet"
-weight = 13
+weight = 12
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -27,7 +27,7 @@ The NuGet Gallery is the central package repository used by all package authors 
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 13
+* Order Index: 12
 
 ## Properties
 

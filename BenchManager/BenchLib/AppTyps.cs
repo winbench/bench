@@ -21,6 +21,9 @@ namespace Mastersign.Bench
         /// <summary>The name of the app typ for Ruby gems.</summary>
         public const string RubyPackage = "ruby-package";
 
+        /// <summary>The name of the app typ for generic Python packages, managed by PIP.</summary>
+        public const string PythonPackage = "python-package";
+
         /// <summary>The name of the app typ for Python 2 packages, managed by PIP.</summary>
         public const string Python2Package = "python2-package";
 

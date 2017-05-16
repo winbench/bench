@@ -1,19 +1,19 @@
 ﻿+++
 title = "Eclipse for PHP"
-weight = 62
+weight = 61
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.EclipsePHP"
-app_version = "4.6"
+app_version = "4.6.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.EclipsePHP`  
-**Version:** 4.6  
+**Version:** 4.6.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,7 +26,7 @@ Git client, Mylyn and editors for JavaScript, HTML, CSS and...
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 62
+* Order Index: 61
 
 ## Properties
 

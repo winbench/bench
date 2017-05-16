@@ -87,6 +87,7 @@
 * IgnoreSystemPath: `true`
 * RegisterInUserProfile: `false`
 * UseRegistryIsolation: `true`
+* Allow64Bit: `false`
 * ProjectRootDir: `projects`
 * ProjectArchiveDir: `archive`
 * ProjectArchiveFormat: `zip`

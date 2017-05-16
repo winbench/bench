@@ -19,11 +19,11 @@ namespace Mastersign.Bench.Dashboard
         }
 
         [Browsable(false)]
-        public AppFacade App { get { return app; } }
+        public AppFacade App => app;
 
-        public string ID { get { return app.ID; } }
+        public string ID => app.ID;
 
-        public string Label { get { return app.Label; } }
+        public string Label => app.Label;
 
         public string Name => app.Name;
 
@@ -33,23 +33,18 @@ namespace Mastersign.Bench.Dashboard
 
         public string Category => app.Category;
 
-        public string Version
-        {
-            get
-            {
-                return app.IsInstalled && !app.IsVersionUpToDate
-                    ? app.InstalledVersion + " \u2192 " + app.Version
-                    : app.Version;
-            }
-        }
+        public string Version 
+            => app.IsInstalled && !app.IsVersionUpToDate
+               ? app.InstalledVersion + " \u2192 " + app.Version
+               : app.Version;
 
         public string License => app.License;
 
         public Uri LicenseUrl => app.LicenseUrl;
 
-        public string Launcher { get { return app.Launcher; } }
+        public string Launcher => app.Launcher;
 
-        public int Index { get { return no; } }
+        public int Index => no;
 
         public string Typ
         {
@@ -65,6 +60,8 @@ namespace Mastersign.Bench.Dashboard
                         return "NodeJS";
                     case AppTyps.RubyPackage:
                         return "Ruby";
+                    case AppTyps.PythonPackage:
+                        return "Python";
                     case AppTyps.Python2Package:
                         return "Python 2";
                     case AppTyps.Python3Package:
@@ -103,23 +100,17 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
-        public string ShortStatus { get { return app.ShortStatus; } }
+        public string ShortStatus => app.ShortStatus;
 
-        public string LongStatus { get { return app.LongStatus; } }
+        public string LongStatus => app.LongStatus;
 
-        public string IsActive
-        {
-            get
-            {
-                return app.IsActivated ? "active" : (app.IsActive ? "implicit" : "inactive");
-            }
-        }
+        public string IsActive => app.IsActivated ? "activated" : (app.IsActive ? "implicit" : "inactive");
 
-        public bool IsDeactivated { get { return app.IsDeactivated; } }
+        public string IsSuppressed => app.IsDeactivated ? "deactivated" : (app.IsSuppressed ? "implicit" : "supported");
 
-        public bool IsDependency { get { return app.IsDependency; } }
+        public bool IsDependency => app.IsDependency;
 
-        public bool IsInstalled { get { return app.IsInstalled; } }
+        public bool IsInstalled => app.IsInstalled;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

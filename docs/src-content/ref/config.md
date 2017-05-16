@@ -184,27 +184,6 @@ For starters the following list of app libraries is advised:
 * Default: `$LibDir$\applibs`
 * Type: System
 
-### CacheDir {#CacheDir}
-
-* Description: The path of the directory, where downloaded files are cached.
-* Data Type: path
-* Default: `cache`
-* Type: System
-
-### AppLibsCacheDir {#AppLibsDownloadDir}
-
-* Description: The path of the directory, where downloaded app libraries are cached.
-* Data Type: path
-* Default: `$CacheDir$\applibs`
-* Type: System
-
-### AppsCacheDir {#AppsCacheDir}
-
-* Description: The path of the directory, where downloaded app resources are cached.
-* Data Type: path
-* Default: `$CacheDir$\apps`
-* Type: System
-
 ### AppLibIndexFileName {#AppLibIndexFileName}
 
 * Description: The name of the index file in an app library.
@@ -313,6 +292,15 @@ Only non-space characters, up to the first space or the end of a line, are consi
 * Data Type: URL
 * Default: <http://mastersign.github.io/bench>
 * Type: System
+
+### Use64Bit {#Use64Bit}
+
+* Description: The runtime decision if the 64Bit binaries of the apps will be used.
+* Data Type: boolean
+* Default: automatically determined
+* Type: Runtime
+
+See [`Allow64Bit`](#Allow64Bit).
 
 ### WizzardApps {#WizzardApps}
 
@@ -448,6 +436,13 @@ dictionary, the app property `LicenseUrl` defaults to the associated URL.
 * Default: `cache`
 * Type: User/Site
 
+### AppLibsCacheDir {#AppLibsDownloadDir}
+
+* Description: The path of the directory, where downloaded app libraries are cached.
+* Data Type: path
+* Default: `$CacheDir$\applibs`
+* Type: User/Site
+
 ### AppsCacheDir {#AppsCacheDir}
 
 * Description: The path to the directory where downloaded app resources are cached.
@@ -544,6 +539,37 @@ dictionary, the app property `LicenseUrl` defaults to the associated URL.
 * Data Type: boolean
 * Default: `true`
 * Type: User
+
+### CustomPath {#CustomPath}
+
+* Description: A list with additional directories, to put on the `PATH` environment variable.
+* Data Type: string list
+* Default: empty
+* Type: User/Site
+
+### CustomEnvironment {#CustomEnvironment}
+
+* Description: A dictionary with additional environment variables.
+* Data Type: dictionary
+* Default: empty
+* Type: User/Site
+
+### Allow64Bit {#Allow64Bit}
+
+* Description: A flag to allow download and installation of 64Bit binaries
+  on a 64Bit Windows operating system.
+* Data Type: boolean
+* Default: `false`
+* Type: User/Site
+
+If set to `true` Bench is checking the operating system it is running on,
+and if it is a 64Bit Windows, it is using the 64Bit alternatives
+in the app properties to download and install 64Bit binaries.
+See [`Use64Bit`](#Use64Bit).
+
+**Warning:** This property should be left to `false`, if the Bench
+environment is used as a portable environment on different machines,
+and it is unclear if all machines support 64Bit code.
 
 ### ProjectRootDir {#ProjectRootDir}
 

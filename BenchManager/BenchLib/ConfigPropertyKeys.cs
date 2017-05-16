@@ -82,6 +82,8 @@ namespace Mastersign.Bench
         public const string UseRegistryIsolation = "UseRegistryIsolation";
         public const string CustomPath = "EnvironmentPath";
         public const string CustomEnvironment = "Environment";
+        public const string Allow64Bit = "Allow64Bit";
+        public const string Use64Bit = "Use64Bit";
 
         public const string ProjectRootDir = "ProjectRootDir";
         public const string ProjectArchiveDir = "ProjectArchiveDir";

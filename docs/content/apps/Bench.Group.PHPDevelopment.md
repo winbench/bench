@@ -1,6 +1,6 @@
 ﻿+++
 title = "PHP Development"
-weight = 21
+weight = 20
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,12 +22,12 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 21
+* Order Index: 20
 
 ## Properties
 
 * Namespace: Bench.Group
 * Name: PHPDevelopment
 * Typ: `meta`
-* Dependencies: [PHP 5](/apps/Bench.PHP5), [Apache](/apps/Bench.Apache), [MySQL](/apps/Bench.MySQL), [MySQL Workbench](/apps/Bench.MySQLWB), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Composer](/apps/Bench.Composer)
+* Dependencies: [PHP 7](/apps/Bench.PHP7), [Apache](/apps/Bench.Apache), [MySQL](/apps/Bench.MySQL), [MySQL Workbench](/apps/Bench.MySQLWB), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Composer](/apps/Bench.Composer)
 

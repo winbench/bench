@@ -34,6 +34,6 @@ that can be used to improve the JavaScript integration of existing editors.
 * Name: Tern
 * Typ: `node-package`
 * Website: <https://github.com/ternjs/tern>
-* Dependencies: [NPM](/apps/Bench.Npm)
+* Dependencies: [Node.js](/apps/Bench.Node)
 * Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment)
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "Resource Hacker™"
-weight = 65
+weight = 64
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -25,7 +25,7 @@ Resource Hacker™ has been designed to be the complete resource editing tool: c
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 65
+* Order Index: 64
 
 ## Properties
 

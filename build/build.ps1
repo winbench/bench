@@ -32,6 +32,7 @@ $buildArtifacts = @(
     "BenchLib\bin\$mode\DotNetZip.dll",
     "BenchLib\bin\$mode\Mastersign.Sequence.dll",
     "BenchCLI\bin\$mode\bench.exe",
+    "BenchCLI\bin\$mode\bench.exe.config",
     "BenchDashboard\bin\$mode\BenchDashboard.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe.config",
     "BenchDashboard\bin\$mode\ConEmu.WinForms.dll",

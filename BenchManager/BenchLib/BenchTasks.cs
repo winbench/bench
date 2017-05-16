@@ -458,6 +458,7 @@ namespace Mastersign.Bench
         {
             var app = config.Apps[appId];
             var exe = app.LauncherExecutable;
+            var cwd = app.LauncherWorkingDir;
             var isAdorned = app.IsExecutableAdorned(exe) && app.IsAdornmentRequired;
             if (isAdorned) exe = app.GetLauncherScriptFile();
 
@@ -467,13 +468,13 @@ namespace Mastersign.Bench
             }
             if (isAdorned)
             {
-                return StartProcessViaShell(env, config.GetStringValue(ConfigPropertyKeys.HomeDir),
+                return StartProcessViaShell(env, cwd,
                     exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
                     ProcessWindowStyle.Minimized);
             }
             else
             {
-                return StartProcess(env, config.GetStringValue(ConfigPropertyKeys.HomeDir),
+                return StartProcess(env, cwd,
                     exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args));
             }
         }
@@ -716,7 +717,9 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var dependencies = man.Config.Apps.GetApps(app.FindAllDependencies());
+            var dependencies = Seq(man.Config.Apps.GetApps(app.FindAllDependencies()))
+                .Filter(a => a.IsActive)
+                .ToList();
             return RunTasks(man,
                 dependencies,
                 notify, cancelation,
@@ -754,7 +757,9 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var responsibilities = man.Config.Apps.GetApps(app.FindAllResponsibilities());
+            var responsibilities = Seq(man.Config.Apps.GetApps(app.FindAllResponsibilities()))
+                .Filter(a => a.IsActive || a.CanCheckInstallation && a.IsInstalled)
+                .ToList();
             return RunTasks(man,
                 responsibilities,
                 notify, cancelation,
@@ -794,14 +799,23 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var dependencies = man.Config.Apps.GetApps(app.FindAllDependencies());
-            var responsibilities = man.Config.Apps.GetApps(app.FindAllResponsibilities());
+            var dependencies = Seq(man.Config.Apps.GetApps(app.FindAllDependencies()))
+                .Filter(a => a.IsActive)
+                .ToList();
+            var responsibilities = Seq(man.Config.Apps.GetApps(app.FindAllResponsibilities()))
+                .Filter(a => a.CanCheckInstallation && a.IsInstalled)
+                .ToList();
+            var dependenciesAndResponsibilities = new List<AppFacade>();
+            dependenciesAndResponsibilities.AddRange(dependencies);
+            dependenciesAndResponsibilities.AddRange(
+                Seq<AppFacade>(responsibilities).Filter(a => !dependencies.Contains(a)));
+
             return RunTasks(man,
                 new ICollection<AppFacade>[]
                 {
                     dependencies,
                     responsibilities,
-                    dependencies
+                    dependenciesAndResponsibilities
                 },
                 notify, cancelation,
                 DownloadAppResources,
@@ -820,9 +834,9 @@ namespace Mastersign.Bench
         public static ActionResult DoUpgradeApps(IBenchManager man,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            var upgradable = new List<AppFacade>();
-            foreach (var app in man.Config.Apps) if (app.CanUpgrade) upgradable.Add(app);
-
+            var upgradable = Seq<AppFacade>(man.Config.Apps)
+                .Filter(a => a.CanUpgrade)
+                .ToList();
             var activeApps = man.Config.Apps.ActiveApps;
             return RunTasks(man,
                 new ICollection<AppFacade>[]
@@ -853,8 +867,12 @@ namespace Mastersign.Bench
         {
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
-            var dependencies = man.Config.Apps.GetApps(app.FindAllDependencies());
-            var responsibilities = man.Config.Apps.GetApps(app.FindAllResponsibilities());
+            var dependencies = Seq(man.Config.Apps.GetApps(app.FindAllDependencies()))
+                .Filter(a => a.IsActive)
+                .ToList();
+            var responsibilities = Seq(man.Config.Apps.GetApps(app.FindAllResponsibilities()))
+                .Filter(a => a.IsActive || a.CanCheckInstallation && a.IsInstalled)
+                .ToList();
             return RunTasks(man,
                 new ICollection<AppFacade>[]
                 {
@@ -1415,9 +1433,31 @@ namespace Mastersign.Bench
             foreach (var app in apps)
             {
                 if (!app.HasResource) continue;
-                var resourceName = (app.ResourceFileName ?? app.ResourceArchiveName)
-                    .ToLowerInvariant();
-                preservedFileNames.Add(resourceName);
+                var resourceName32Bit = (
+                    man.Config.AppProperties.GetStringGroupValue(app.ID,
+                        AppPropertyKeys.ResourceName + AppPropertyKeys.ARCH_32BIT_POSTFIX)
+                    ?? man.Config.AppProperties.GetStringGroupValue(app.ID,
+                        AppPropertyKeys.ArchiveName + AppPropertyKeys.ARCH_32BIT_POSTFIX));
+                var resourceName64Bit = (
+                    man.Config.AppProperties.GetStringGroupValue(app.ID,
+                        AppPropertyKeys.ResourceName + AppPropertyKeys.ARCH_64BIT_POSTFIX)
+                    ?? man.Config.AppProperties.GetStringGroupValue(app.ID,
+                        AppPropertyKeys.ArchiveName + AppPropertyKeys.ARCH_64BIT_POSTFIX));
+
+                var resourceName = (app.ResourceFileName ?? app.ResourceArchiveName);
+
+                if (!string.IsNullOrEmpty(resourceName))
+                {
+                    preservedFileNames.Add(resourceName.ToLowerInvariant());
+                }
+                if (!string.IsNullOrEmpty(resourceName32Bit) && !string.Equals(resourceName, resourceName32Bit, StringComparison.InvariantCulture))
+                {
+                    preservedFileNames.Add(resourceName32Bit.ToLowerInvariant());
+                }
+                if (!string.IsNullOrEmpty(resourceName64Bit) && !string.Equals(resourceName, resourceName64Bit, StringComparison.InvariantCulture))
+                {
+                    preservedFileNames.Add(resourceName64Bit.ToLowerInvariant());
+                }
             }
 
             var fileNames = new List<string>();
@@ -1545,6 +1585,7 @@ namespace Mastersign.Bench
 
             var executable = app.LauncherExecutable;
             var args = CommandLine.FormatArgumentList(app.LauncherArguments);
+            var cwd = app.LauncherWorkingDir;
             var script = app.GetLauncherScriptFile();
             var autoDir = config.GetStringValue(ConfigPropertyKeys.BenchAuto);
             var rootDir = config.BenchRootDir;
@@ -1564,7 +1605,7 @@ namespace Mastersign.Bench
             File.WriteAllText(script, code.ToString());
 
             var shortcut = app.GetLauncherFile();
-            FileSystem.CreateShortcut(shortcut, script, null, config.BenchRootDir, app.LauncherIcon,
+            FileSystem.CreateShortcut(shortcut, script, null, cwd, app.LauncherIcon,
                 FileSystem.ShortcutWindowStyle.Minimized);
         }
 
@@ -2014,7 +2055,7 @@ namespace Mastersign.Bench
 
         private static void InstallNodePackage(BenchConfiguration config, IProcessExecutionHost execHost, AppFacade app)
         {
-            var npmExe = config.Apps[AppKeys.Npm].Exe;
+            var npmExe = Path.Combine(config.Apps[AppKeys.NodeJS].Dir, "npm.cmd");
             if (npmExe == null || !File.Exists(npmExe))
             {
                 throw new FileNotFoundException("The NodeJS package manager was not found.");
@@ -2068,10 +2109,16 @@ namespace Mastersign.Bench
             }
             var argList = new List<string>();
             argList.Add("install");
-            argList.Add(app.PackageName);
-            if (app.IsVersioned) argList.Add(app.Version);
+            if (app.IsVersioned)
+            {
+                argList.Add(app.PackageName + "==" + app.Version);
+            }
+            else
+            {
+                argList.Add(app.PackageName);
+            }
             if (app.IsInstalled) argList.Add("--upgrade");
-            argList.Add("--quiet");
+            //argList.Add("--quiet");
             var args = CommandLine.FormatArgumentList(argList.ToArray());
             var result = execHost.RunProcess(new BenchEnvironment(config), config.BenchRootDir, pipExe, args,
                     ProcessMonitoring.ExitCodeAndOutput);
@@ -2166,6 +2213,18 @@ namespace Mastersign.Bench
                         break;
                     case AppTyps.RubyPackage:
                         InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
+                        break;
+                    case AppTyps.PythonPackage:
+                        var python2App = man.Config.Apps[AppKeys.Python2];
+                        if (python2App != null && python2App.IsInstalled)
+                        {
+                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
+                        }
+                        var python3App = man.Config.Apps[AppKeys.Python3];
+                        if (python3App != null && python3App.IsInstalled)
+                        {
+                            InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                        }
                         break;
                     case AppTyps.Python2Package:
                         InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
@@ -2454,7 +2513,7 @@ namespace Mastersign.Bench
         private static void UninstallNodePackage(BenchConfiguration config, IProcessExecutionHost execHost,
             AppFacade app)
         {
-            var npmExe = config.Apps[AppKeys.Npm].Exe;
+            var npmExe = Path.Combine(config.Apps[AppKeys.NodeJS].Dir, "npm.cmd");
             if (npmExe == null || !File.Exists(npmExe))
             {
                 throw new FileNotFoundException("The NodeJS package manager was not found.");
@@ -2497,7 +2556,7 @@ namespace Mastersign.Bench
             {
                 throw new FileNotFoundException("The " + pyVer + " package manager PIP was not found.");
             }
-            var args = CommandLine.FormatArgumentList("uninstall", app.PackageName, "--yes", "--quiet");
+            var args = CommandLine.FormatArgumentList("uninstall", app.PackageName, "--yes"/*, "--quiet"*/);
             var result = execHost.RunProcess(new BenchEnvironment(config), config.BenchRootDir, pipExe, args,
                     ProcessMonitoring.ExitCode);
 
@@ -2517,12 +2576,12 @@ namespace Mastersign.Bench
                 case AppTyps.NodePackage:
                     parentAppId = AppKeys.NodeJS;
                     break;
-                case AppTyps.Python2Package:
-                    parentAppId = AppKeys.Python2;
-                    break;
-                case AppTyps.Python3Package:
-                    parentAppId = AppKeys.Python3;
-                    break;
+                //case AppTyps.Python2Package:
+                //    parentAppId = AppKeys.Python2;
+                //    break;
+                //case AppTyps.Python3Package:
+                //    parentAppId = AppKeys.Python3;
+                //    break;
                 case AppTyps.RubyPackage:
                     parentAppId = AppKeys.Ruby;
                     break;
@@ -2598,6 +2657,18 @@ namespace Mastersign.Bench
                                 break;
                             case AppTyps.RubyPackage:
                                 UninstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
+                                break;
+                            case AppTyps.PythonPackage:
+                                var python2App = man.Config.Apps[AppKeys.Python2];
+                                if (python2App != null && python2App.IsInstalled)
+                                {
+                                    UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
+                                }
+                                var python3App = man.Config.Apps[AppKeys.Python3];
+                                if (python3App != null && python3App.IsInstalled)
+                                {
+                                    UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
+                                }
                                 break;
                             case AppTyps.Python2Package:
                                 UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);

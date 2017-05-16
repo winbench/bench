@@ -1,6 +1,6 @@
 ﻿+++
 title = "R Studio"
-weight = 64
+weight = 63
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -28,7 +28,7 @@ debugging and workspace management.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 64
+* Order Index: 63
 
 ## Properties
 

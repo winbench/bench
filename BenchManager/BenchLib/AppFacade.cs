@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Mastersign.Bench.PropertyCollections;
 using IOPath = System.IO.Path;
+using System.Diagnostics;
 
 namespace Mastersign.Bench
 {
@@ -185,6 +186,7 @@ namespace Mastersign.Bench
                 var typ = Typ;
                 return typ == AppTyps.NodePackage
                     || typ == AppTyps.RubyPackage
+                    || typ == AppTyps.PythonPackage
                     || typ == AppTyps.Python2Package
                     || typ == AppTyps.Python3Package
                     || typ == AppTyps.NuGetPackage;
@@ -385,6 +387,11 @@ namespace Mastersign.Bench
         public string SetupTestFile => StringValue(AppPropertyKeys.SetupTestFile);
 
         /// <summary>
+        /// A flag to control whether this app can only be installed if 64Bit programs are supported.
+        /// </summary>
+        public bool Only64Bit => BoolValue(AppPropertyKeys.Only64Bit);
+
+        /// <summary>
         /// An array with relative or absolute paths,
         /// which will be added to the environment variable <c>PATH</c> when this app is activated.
         /// If a path is relative, it is relative to the target <see cref="Dir"/> of this app.
@@ -500,6 +507,11 @@ namespace Mastersign.Bench
         /// onto the launcher to work.
         /// </summary>
         public string[] LauncherArguments => ListValue(AppPropertyKeys.LauncherArguments);
+
+        /// <summary>
+        /// The path to a directory, to be the working directory, when starting the <see cref="LauncherExecutable"/>.
+        /// </summary>
+        public string LauncherWorkingDir => StringValue(AppPropertyKeys.LauncherWorkingDir);
 
         /// <summary>
         /// A path to an <c>*.ico</c> or <c>*.exe</c> file with the icon for the apps launcher,
@@ -632,35 +644,38 @@ namespace Mastersign.Bench
 
         /// <summary>
         /// <para>
-        /// Checks, whether is app is active.
+        /// Checks, whether this app is active.
         /// An app can be active, because it was marked by the user to be activated,
         /// or because it is required by Bench or it is a dependency for another app.
         /// </para>
         /// <para>
-        /// An app is <strong>not active</strong> if it was marked by the user as deactivated,
-        /// regardless whether it is required by Bench or another app or marked as activated.
+        /// An app is <strong>not active</strong> if it <see cref="IsSuppressed"/>.
         /// </para>
         /// </summary>
-        public bool IsActive
-        {
-            get
-            {
-                return !IsDeactivated
-                    && (IsRequired || IsDependency || IsActivated);
-            }
-        }
+        public bool IsActive => (IsRequired || IsDependency || IsActivated) && !IsSuppressed;
+
+        /// <summary>
+        /// Checks, whether this app is suppressed.
+        /// An app can be suppressed, because it was marked by the user as deactivated.
+        /// And it can be suppressed, because it does only support 64Bit architecture
+        /// but the configuration or the system does not allow 64Bit programs.
+        /// </summary>
+        public bool IsSuppressed => IsDeactivated || !IsSupported;
+
+        /// <summary>
+        /// Checks, whether this app is supported in the current configuration on the current system.
+        /// An app is not supported, if the app is marked as <see cref="Only64Bit"/> and
+        /// the Bench configuration does not <see cref="ConfigPropertyKeys.Allow64Bit"/>
+        /// or the current system does not support 64Bit programs.
+        /// </summary>
+        public bool IsSupported => !Only64Bit || Config.GetBooleanValue(ConfigPropertyKeys.Use64Bit);
 
         /// <summary>
         /// Checks, whether this app has a downloadable app resource, or not.
         /// </summary>
         public bool HasResource
-        {
-            get
-            {
-                return Typ == AppTyps.Default &&
-                    (ResourceFileName != null || ResourceArchiveName != null);
-            }
-        }
+            => Typ == AppTyps.Default &&
+               (ResourceFileName != null || ResourceArchiveName != null);
 
         /// <summary>
         /// Checks, whether the installation state of this app can be checked, or not.
@@ -672,6 +687,7 @@ namespace Mastersign.Bench
                 return SetupTestFile != null
                     || Typ == AppTyps.NodePackage
                     || Typ == AppTyps.RubyPackage
+                    || Typ == AppTyps.PythonPackage
                     || Typ == AppTyps.Python2Package
                     || Typ == AppTyps.Python3Package;
             }
@@ -681,12 +697,13 @@ namespace Mastersign.Bench
 
         private bool GetIsInstalled()
         {
+            if (File.Exists(SetupTestFile)) return true;
             switch (Typ)
             {
                 case AppTyps.NodePackage:
-                    var npmDir = AppIndex.GetStringGroupValue(AppKeys.Npm, AppPropertyKeys.Dir);
+                    var nodeJsDir = AppIndex.GetStringGroupValue(AppKeys.NodeJS, AppPropertyKeys.Dir);
                     var npmPackageDir = IOPath.Combine(
-                        IOPath.Combine(npmDir, "node_modules"),
+                        IOPath.Combine(nodeJsDir, "node_modules"),
                         PackageName);
                     return Directory.Exists(npmPackageDir);
                 case AppTyps.RubyPackage:
@@ -699,20 +716,44 @@ namespace Mastersign.Bench
                     if (!Directory.Exists(gemDirBase)) return false;
                     var folders = Directory.GetDirectories(gemDirBase, PackageName + "-*");
                     return folders.Length > 0;
+                case AppTyps.PythonPackage:
+                    if (File.Exists(SetupTestFile)) return true;
+                    var python2App = new AppFacade(Config, AppIndex, AppKeys.Python2);
+                    var pipPackageDir2 = IOPath.Combine(
+                        IOPath.Combine(python2App.Dir, "lib"),
+                        IOPath.Combine("site-packages", PackageName));
+                    var python3App = new AppFacade(Config, AppIndex, AppKeys.Python3);
+                    var pipPackageDir3 = IOPath.Combine(
+                        IOPath.Combine(python3App.Dir, "lib"),
+                        IOPath.Combine("site-packages", PackageName));
+                    if (python2App.IsInstalled && python3App.IsInstalled)
+                    {
+                        return Directory.Exists(pipPackageDir2)
+                            && Directory.Exists(pipPackageDir3);
+                    }
+                    else if (python2App.IsInstalled)
+                    {
+                        return Directory.Exists(pipPackageDir2);
+                    }
+                    else if (python3App.IsInstalled)
+                    {
+                        return Directory.Exists(pipPackageDir3);
+                    }
+                    return false;
                 case AppTyps.Python2Package:
                     var python2Dir = AppIndex.GetStringGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                     var pip2PackageDir = IOPath.Combine(
                         IOPath.Combine(python2Dir, "lib"),
                         IOPath.Combine("site-packages", PackageName));
-                    return Directory.Exists(pip2PackageDir) || File.Exists(SetupTestFile);
+                    return Directory.Exists(pip2PackageDir);
                 case AppTyps.Python3Package:
                     var python3Dir = AppIndex.GetStringGroupValue(AppKeys.Python3, AppPropertyKeys.Dir);
                     var pip3PackageDir = IOPath.Combine(
                         IOPath.Combine(python3Dir, "lib"),
                         IOPath.Combine("site-packages", PackageName));
-                    return Directory.Exists(pip3PackageDir) || File.Exists(SetupTestFile);
+                    return Directory.Exists(pip3PackageDir);
                 default:
-                    return File.Exists(SetupTestFile);
+                    return false;
             }
         }
 
@@ -861,7 +902,11 @@ namespace Mastersign.Bench
                 }
                 else
                 {
-                    if (IsDeactivated)
+                    if (!IsSupported)
+                    {
+                        return "not supported";
+                    }
+                    else if (IsDeactivated)
                     {
                         if (HasResource && IsResourceCached)
                             return "cached";
@@ -902,7 +947,14 @@ namespace Mastersign.Bench
                     case AppTyps.Default:
                         if (CanCheckInstallation && IsInstalled)
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
                             {
                                 if (HasResource && IsResourceCached)
                                     return "App is deactivated, but cached and installed.";
@@ -936,7 +988,14 @@ namespace Mastersign.Bench
                         }
                         else if (!CanCheckInstallation)
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
                             {
                                 if (HasResource && IsResourceCached)
                                     return "App is deactivated, but cached.";
@@ -970,7 +1029,14 @@ namespace Mastersign.Bench
                         }
                         else
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
                             {
                                 if (HasResource && IsResourceCached)
                                     return "App is deactivated, but cached.";
@@ -1004,13 +1070,16 @@ namespace Mastersign.Bench
                         }
                     case AppTyps.NodePackage:
                     case AppTyps.RubyPackage:
+                    case AppTyps.PythonPackage:
                     case AppTyps.Python2Package:
                     case AppTyps.Python3Package:
                     case AppTyps.NuGetPackage:
                         if (IsInstalled)
                         {
                             if (IsDeactivated)
+                            {
                                 return "Package is deactivated, but installed.";
+                            }
                             else
                             {
                                 if (IsActivated)
@@ -1023,8 +1092,17 @@ namespace Mastersign.Bench
                         }
                         else
                         {
-                            if (IsDeactivated)
+                            if (!IsSupported)
+                            {
+                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                                    return "App is not supported on this system.";
+                                else
+                                    return "App is not supported in this configuration.";
+                            }
+                            else if (IsDeactivated)
+                            {
                                 return "Package is deactivated.";
+                            }
                             else
                             {
                                 if (IsActivated)
@@ -1190,22 +1268,14 @@ namespace Mastersign.Bench
         internal void Activate()
         {
             AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsActivated, true);
-            ActivateDependencies();
         }
 
         internal void ActivateAsRequired()
         {
             AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsRequired, true);
-            ActivateDependencies();
         }
 
-        internal void ActivateAsDependency()
-        {
-            AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsDependency, true);
-            ActivateDependencies();
-        }
-
-        private void ActivateDependencies()
+        internal void ActivateDependencies()
         {
             foreach (var depName in Dependencies)
             {
@@ -1215,6 +1285,13 @@ namespace Mastersign.Bench
                     depApp.ActivateAsDependency();
                 }
             }
+        }
+
+        private void ActivateAsDependency()
+        {
+            Debug.WriteLine(string.Format("Activating app '{0}' as dependency", Name));
+            AppIndex.SetGroupValue(AppName, AppPropertyKeys.IsDependency, true);
+            ActivateDependencies();
         }
 
         /// <summary>
@@ -1240,15 +1317,38 @@ namespace Mastersign.Bench
             Dependencies = AddToSet(Dependencies, app);
         }
 
+        /// <summary>
+        /// Checks if this app is a Python package which will be installed under Python 2;
+        /// </summary>
+        public bool IsPython2Package
+            => Typ == AppTyps.Python2Package
+            || (Typ == AppTyps.PythonPackage && IsPython2Activated);
+
+        /// <summary>
+        /// Checks if this app is a Python package which will be installed under Python 3.
+        /// </summary>
+        public bool IsPython3Package
+            => Typ == AppTyps.Python3Package
+            || (Typ == AppTyps.PythonPackage && (IsPython3Activated || !IsPython2Activated));
+
+        private bool IsPython2Activated
+            => AppIndex.GetBooleanGroupValue(AppKeys.Python2, AppPropertyKeys.IsActivated);
+
+        private bool IsPython3Activated
+            => AppIndex.GetBooleanGroupValue(AppKeys.Python3, AppPropertyKeys.IsActivated);
+
         private void SetupAutoDependencies()
         {
             switch (Typ)
             {
                 case AppTyps.NodePackage:
-                    AddDependency(AppKeys.Npm);
+                    AddDependency(AppKeys.NodeJS);
                     break;
                 case AppTyps.RubyPackage:
                     AddDependency(AppKeys.RubyGems);
+                    break;
+                case AppTyps.PythonPackage:
+                    AddDependency(IsPython2Activated ? AppKeys.Python2 : AppKeys.Python3);
                     break;
                 case AppTyps.Python2Package:
                     AddDependency(AppKeys.Python2);
@@ -1301,6 +1401,36 @@ namespace Mastersign.Bench
             AppIndex.ResetGroupValue(AppName, AppPropertyKeys.IsDependency);
         }
 
+        internal void ResetAutoDependency()
+        {
+            var deps = AppIndex.GetStringListGroupValue(AppName, AppPropertyKeys.Dependencies);
+            switch (AppIndex.GetStringGroupValue(AppName, AppPropertyKeys.Typ))
+            {
+                case AppTyps.NodePackage:
+                    deps = RemoveFromSet(deps, AppKeys.NodeJS);
+                    break;
+                case AppTyps.RubyPackage:
+                    deps = RemoveFromSet(deps, AppKeys.RubyGems);
+                    break;
+                case AppTyps.PythonPackage:
+                    deps = RemoveFromSet(deps, AppKeys.Python2);
+                    deps = RemoveFromSet(deps, AppKeys.Python3);
+                    break;
+                case AppTyps.Python2Package:
+                    deps = RemoveFromSet(deps, AppKeys.Python2);
+                    break;
+                case AppTyps.Python3Package:
+                    deps = RemoveFromSet(deps, AppKeys.Python3);
+                    break;
+                case AppTyps.NuGetPackage:
+                    deps = RemoveFromSet(deps, AppKeys.NuGet);
+                    break;
+                default:
+                    return;
+            }
+            AppIndex.SetGroupValue(AppName, AppPropertyKeys.Dependencies, deps);
+        }
+
         private void SetupAdornmentForRegistryIsolation()
         {
             if (RegistryKeys.Length > 0 && AdornedExecutables.Length == 0)
@@ -1322,6 +1452,7 @@ namespace Mastersign.Bench
 
         private static string[] AppendToList(string[] list, string value)
         {
+            if (Array.Exists(list, v => string.Equals(v, value))) return list;
             var result = new string[list.Length + 1];
             Array.Copy(list, result, list.Length);
             result[list.Length] = value;
@@ -1440,6 +1571,7 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LicenseUrl, this.LicenseUrl?.AbsoluteUri));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActive, this.IsActive));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsRequired, this.IsRequired));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsSupported, this.IsSupported));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActivated, this.IsActivated));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsDeactivated, this.IsDeactivated));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.HasResource, this.HasResource));
@@ -1448,6 +1580,7 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Dependencies, this.Dependencies));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsDependency, this.IsDependency));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Force, this.Force));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Only64Bit, this.Only64Bit));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.SetupTestFile, this.SetupTestFile));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.PackageName, this.PackageName));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Url, this.Url));

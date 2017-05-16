@@ -6,14 +6,14 @@ app_category = "Software Development Utilities"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.CMake"
-app_version = "3.7.2"
+app_version = "3.8.0"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.CMake`  
-**Version:** 3.7.2  
+**Version:** 3.8.0  
 <!--more-->
 
 [Back to all apps](/apps/)

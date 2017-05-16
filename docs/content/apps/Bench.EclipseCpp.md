@@ -1,19 +1,19 @@
 ﻿+++
 title = "Eclipse for C++"
-weight = 63
+weight = 62
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.EclipseCpp"
-app_version = "4.6"
+app_version = "4.6.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.EclipseCpp`  
-**Version:** 4.6  
+**Version:** 4.6.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ An IDE for C/C++ developers with Mylyn integration.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 63
+* Order Index: 62
 
 ## Properties
 

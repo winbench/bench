@@ -1,43 +1,100 @@
 +++
-date = "2016-06-22T13:43:28+02:00"
+date = "2017-05-16T09:30:00+02:00"
 description = "The properties for the definition of an app"
 title = "App Properties"
 weight = 8
 +++
 
-| Property | App Types | Required |
-|----------|-----------|----------|
-| [ID](#ID) | all | `true` |
-| [Label](#Label) | all | `false` |
-| [Typ](#Typ) | all | `false` |
-| [Dependencies](#Dependencies) | all | `false` |
-| [Website](#Website) | all | `false` |
-| [License](#License) | all | `false` |
-| [LicenseUrl](#LicenseUrl) | all | `false` |
-| [Docs](#Docs) | all | `false` |
-| [Force](#Force) | all | `false` |
-| [Dir](#Dir) | all | `false` |
-| [Path](#Path) | `meta`, `default` | `false` |
-| [Register](#Register) | `meta`, `default` | `false` |
-| [Environment](#Environment) | all | `false` |
-| [Exe](#Exe) | all | `false` |
-| [ExeTestArguments](#ExeTestArguments) | all |  |
-| [ExeTest](#ExeTest) | all |  |
-| [AdornedExecutables](#AdornedExecutables) | all | `false` |
-| [RegistryKeys](#RegistryKeys) | all | `false` |
-| [Launcher](#Launcher) | all | `false` |
-| [LauncherExecutable](#LauncherExecutable) | all | `false` |
-| [LauncherArguments](#LauncherArguments) | all | `false` |
-| [LauncherIcon](#LauncherIcon) | all | `false` |
-| [Url](#Url) | `default` | `true` |
-| [DownloadCookies](#DownloadCookies) | `default` | `false` |
-| [ResourceName](#ResourceName) | `default` | `true`* |
-| [ArchiveName](#ArchiveName) | `default` | `true`* |
-| [ArchiveTyp](#ArchiveTyp) | `default` | `false` |
-| [ArchivePath](#ArchivePath) | `default` | `false` |
-| [SetupTestFile](#SetupTestFile) | `meta`, `default` | `false` |
-| [PackageName](#PackageName) | `*-package` | `false` |
-| [Version](#Version) | `*-package` | `false` |
+[app types]: /ref/app-types/
+[meta apps]: /ref/app-types/#meta-apps
+[default windows apps]: /ref/app-types/#default-windows-app
+[Node.js packages]: /ref/app-types/#node-js-package
+[Python packages]: /ref/app-types/#python-package
+[Ruby packages]: /ref/app-types/#ruby-package
+
+## System Architecture Property Postfix {#sapp}
+
+Bench supports 32 Bit and 64 Bit app binaries.
+Because some app properties differ, depending on the targeted system architecture,
+the name of these properties can be extended by the postfix `32Bit` and `64Bit` respectively.
+The basic property then automatically defaults to the appropriate extended property.
+This concept is called _system architecture property postfixes_ (SAPP).
+
+This means, Bench always reads the basic property, and if this is set,
+no adaption to the system architecture takes place.
+But if the extended property versions are set and the basic property is not
+set explicitly, it automatically defaults to the value of the 32 Bit
+or the 64 Bit property version, respectively.
+
+The preconditions for using the 64 Bit version of the property are:
+
+* Does the current operating system supports executing 64 Bit code,
+  or in other words: is it a 64 Bit Windows?
+* Is the config property [`Allow64Bit`](/ref/config/#Allow64Bit) set to `true`?
+  Which is not the case by default.
+
+The decision is made every time Bench starts or the configuration is reloaded,
+respectively. The decision is available at runtime in the config property
+[`Use64Bit`](/ref/config/#Use64Bit).
+
+In combination with variable expansion, SAPP allows defining apps for both
+architectures with a minimal number of explicitly set properties.
+
+**Example:**
+
+Consider the app property [`Url`](#Url), which supports the system architecture postfix.
+The basic property is `Url`
+the extended version for 32 Bit code or the X86 architecture is `Url32Bit`,
+and the extended version for 64 Bit code or the AMD64 architecture is `Url64Bit`.
+
+If an app is only released with a 32 Bit binary, then the `Url` property should be set directly.
+But if the app is released for both architectures, then the `Url` property must not be set,
+instead both properties `Url32Bit` and `Url64Bit` must be set.
+Bench always reads the basic property `Url` but if it is not set,
+it defaults to either `Url32Bit` or `Url64Bit`.
+If the preconditions mentioned above are met, `Url` defaults to `Url64Bit`;
+otherwise it defaults to `Url32Bit`.
+
+If an app is only released with a 64 Bit binary, then the `Url64Bit` property should be set,
+and the [`Only64Bit`](#Only64Bit) flag should be set to `true`.
+
+## Overview
+
+| Property | App Types | Required | SAPP |
+|----------|-----------|----------|------|
+| [ID](#ID) | all | `true` | `false` |
+| [Label](#Label) | all | `false` | `false` |
+| [Typ](#Typ) | all | `false` | `false` |
+| [Dependencies](#Dependencies) | all | `false` | `false` |
+| [Website](#Website) | all | `false` | `false` |
+| [License](#License) | all | `false` | `false` |
+| [LicenseUrl](#LicenseUrl) | all | `false` | `false` |
+| [Docs](#Docs) | all | `false` | `false` |
+| [Force](#Force) | all | `false` | `false` |
+| [Dir](#Dir) | all | `false` | `true` |
+| [Path](#Path) | `meta`, `default` | `false` | `true` |
+| [Register](#Register) | `meta`, `default` | `false` | `false` |
+| [Environment](#Environment) | all | `false` | `true` |
+| [Exe](#Exe) | all | `false` | `true` |
+| [Only64Bit](#Only64BIt) | all | `false` | `false` |
+| [ExeTestArguments](#ExeTestArguments) | all |  | `true` |
+| [ExeTest](#ExeTest) | all |  | `false` |
+| [AdornedExecutables](#AdornedExecutables) | all | `false` | `true` |
+| [RegistryKeys](#RegistryKeys) | all | `false` | `true` |
+| [Launcher](#Launcher) | all | `false` | `false` |
+| [LauncherExecutable](#LauncherExecutable) | all | `false` | `true` |
+| [LauncherArguments](#LauncherArguments) | all | `false` | `true` |
+| [LauncherWorkingDir](#LauncherWorkingDir) | all | `false` | `false` |
+| [LauncherIcon](#LauncherIcon) | all | `false` | `true` |
+| [Url](#Url) | `default` | `true` | `true` |
+| [DownloadCookies](#DownloadCookies) | `default` | `false` | `true` |
+| [ResourceName](#ResourceName) | `default` | `true`\* | `true` |
+| [ArchiveName](#ArchiveName) | `default` | `true`\* | `true` |
+| [ArchiveTyp](#ArchiveTyp) | `default` | `false` | `true` |
+| [ArchivePath](#ArchivePath) | `default` | `false` | `true` |
+| [SetupTestFile](#SetupTestFile) | `meta`, `default` | `false` | `true` |
+| [PackageName](#PackageName) | `*-package` | `false` | `false` |
+| [Version](#Version) | `*-package` | `false` | `true` |
 
 ## ID {#ID}
 
@@ -46,6 +103,7 @@ weight = 8
 * Possible Values: alphanumeric characters, no spaces
 * Required: `true`
 * App Types: all
+* SAPP: `false`
 
 ## Label {#Label}
 
@@ -54,6 +112,7 @@ weight = 8
 * Required: `false`
 * Default: the value of the `ID` property
 * App Types: all
+* SAPP: `false`
 
 ## Typ {#Typ}
 
@@ -63,6 +122,7 @@ weight = 8
     + `default`
     + `meta`
     + `node-package`
+    + `python-package`
     + `python2-package`
     + `python3-package`
     + `ruby-package`
@@ -70,6 +130,7 @@ weight = 8
 * Required: `false`
 * Default: `default`
 * App Types: all
+* SAPP: `false`
 
 The meaning of the different possible values is explained in [App Types](/ref/app-types).
 
@@ -81,6 +142,7 @@ The meaning of the different possible values is explained in [App Types](/ref/ap
 * Required: `false`
 * Default: empty
 * App Types: all
+* SAPP: `false`
 
 ## Website {#Website}
 
@@ -89,6 +151,7 @@ The meaning of the different possible values is explained in [App Types](/ref/ap
 * Required: `false`
 * Default: empty
 * App Types: all
+* SAPP: `false`
 
 This URL is used to create an entry in the documentation menu in the
 main window of the Bench Dashboard.
@@ -100,6 +163,7 @@ main window of the Bench Dashboard.
 * Required: `false`
 * Default: `unknown`
 * App Types: all
+* SAPP: `false`
 
 If this value is set to a SPDX identifier listed in the config property
 [`KnownLicenses`](/ref/config/#KnownLicenses),
@@ -112,6 +176,7 @@ the [`LicenseUrl`](/ref/app-properties/#LicenseUrl) defaults to the associated U
 * Required: `false`
 * Default: empty or SPDX license URL
 * App Types: all
+* SAPP: `false`
 
 ## Docs {#Docs}
 
@@ -120,6 +185,7 @@ the [`LicenseUrl`](/ref/app-properties/#LicenseUrl) defaults to the associated U
 * Required: `false`
 * Default: empty
 * App Types: all
+* SAPP: `false`
 
 This dictionary lists a number of documentation links for this program.
 Each entry is a key-value-pair of a label and a URL.
@@ -134,6 +200,7 @@ main window of the Bench Dashbaord.
 * Required: `false`
 * Default: `false`
 * App Types: all
+* SAPP: `false`
 
 ## Dir {#Dir}
 
@@ -142,6 +209,7 @@ main window of the Bench Dashbaord.
 * Required: `false`
 * Default: the value of the `ID` property in lowercase
 * App Types: all
+* SAPP: `true`
 
 For package apps like `node-package` or `python3-package`,
 the default value is the directory of the respective interpreter/compiler app.
@@ -153,6 +221,7 @@ the default value is the directory of the respective interpreter/compiler app.
 * Required: `false`
 * Default: `.`
 * App Types: `meta`, `default`
+* SAPP: `true`
 
 This property is only recognized, if `Register` is `true`.
 For package apps like `node-package` or `python3-package`,
@@ -167,6 +236,7 @@ of its interpreter/compiler app where the CLI wrapper scripts are stored.
 * Required: `false`
 * Default: `true`
 * App Types: `meta`, `default`
+* SAPP: `false`
 
 ## Environment {#Environment}
 
@@ -176,6 +246,7 @@ of its interpreter/compiler app where the CLI wrapper scripts are stored.
 * Default: empty
 * Example: `MY_APP_HOME: $:Dir$`, `MY_APP_LOG: D:\logs\myapp.log`
 * App Types: all
+* SAPP: `true`
 
 ## Exe {#Exe}
 
@@ -184,11 +255,21 @@ of its interpreter/compiler app where the CLI wrapper scripts are stored.
 * Required: `false`
 * Default: `<app ID>.exe`
 * App Types: all
+* SAPP: `true`
 
 The path can be absolute or relative to the target directory of the app.
-For package apps like `node-package` or `python3-package`,
+For package apps like `node-package` or `python*-package`,
 the path can be just the name of CLI wrapper script,
 given the package provides a CLI.
+
+## Only64Bit {#Only64BIt}
+
+* Description: A flag to declare that an app is only supported on 64Bit systems.
+* Data Type: boolean
+* Required: `false`
+* Default: `false`
+* App Types: all
+* SAPP: `false`
 
 ## ExeTestArguments {#ExeTestArguments}
 
@@ -196,6 +277,7 @@ given the package provides a CLI.
 * Data Type: string
 * Default: empty
 * App Types: all
+* SAPP: `true`
 
 To test if an app was installed successfully,
 the main executable is run with these arguments.
@@ -207,6 +289,7 @@ If the process exit code is `0` the test was successful.
 * Data Type: boolean
 * Default: `true`
 * App Types: all
+* SAPP: `false`
 
 If the main executable of an app can not be tested by executing it with the
 [`ExeTestArguments`](#ExeTestArguments), this property must be set to `false`.
@@ -218,6 +301,7 @@ If the main executable of an app can not be tested by executing it with the
 * Required: `false`
 * Default: empty
 * App Types: all
+* SAPP: `true`
 
 Every listed path must be relative to the target directory of the app.
 
@@ -231,6 +315,7 @@ Every listed path must be relative to the target directory of the app.
 * Default: empty
 * Example: `Software\Company Foo\Program Bar`
 * App Types: all
+* SAPP: `true`
 
 ## Launcher {#Launcher}
 
@@ -239,6 +324,7 @@ Every listed path must be relative to the target directory of the app.
 * Required: `false`
 * Default: empty
 * App Types: all
+* SAPP: `false`
 
 A launcher for the app is created only if this property is set to a non empty string.
 
@@ -249,6 +335,7 @@ A launcher for the app is created only if this property is set to a non empty st
 * Required: `false`
 * Default: the value of the `Exe` property
 * App Types: all
+* SAPP: `true`
 
 The path can be absolute, or relative to the target directory of the app.
 
@@ -259,11 +346,21 @@ The path can be absolute, or relative to the target directory of the app.
 * Required: `false`
 * Default: is `%*`
 * App Types: all
+* SAPP: `true`
 
 To allow arbitrary arguments to be passed from the launcher to the executable,
 the last element in the list must be `%*`.
 Passing arguments from the launcher to the executable allows drag-and-drop
 for files from the Explorer onto the launcher.
+
+## LauncherWorkingDir {#LauncherWorkingDir}
+
+* Description: A path to the working directory of the launcher shortcut.
+* Data Type: string
+* Required: `false`
+* Default: The value of the config property [`HomeDir`](/ref/config/#HomeDir)
+* App Types: all
+* SAPP: `false`
 
 ## LauncherIcon {#LauncherIcon}
 
@@ -273,6 +370,7 @@ for files from the Explorer onto the launcher.
 * Required: `false`
 * Default: the value of the `Exe` property
 * App Types: all
+* SAPP: `true`
 
 The path can be absolute or relative to the target directory of the app.
 
@@ -283,6 +381,7 @@ The path can be absolute or relative to the target directory of the app.
 * Possible Values: an absolute URL with the protocol `http` or `https`
 * Required: `true`
 * App Types: `default`
+* SAPP: `true`
 
 ## DownloadCookies {#DownloadCookies}
 
@@ -292,15 +391,17 @@ The path can be absolute or relative to the target directory of the app.
 * Default: empty
 * Example: `cookie-name: cookie-value`
 * App Types: `default`
+* SAPP: `true`
 
 ## ResourceName {#ResourceName}
 
 * Description: The name of the downloaded executable file
 * Data Type: string
-* Possible Values: the name of the executable refered to by `Url`,
+* Possible Values: the name of the executable refered to by `Url` &ndash;
   must have a file extension like `*.exe`, `*.bat`, or `*.cmd`
-* Required: `true`*
+* Required: `true`\*
 * App Types: `default`
+* SAPP: `true`
 
 \*) Only one of `ResourceName` or `ArchiveName` must be set.
 
@@ -308,17 +409,17 @@ The path can be absolute or relative to the target directory of the app.
 
 * Description: The name of the downloaded archive
 * Data Type: string
-* Possible Values: the name of the archive refered to by `Url`,
+* Possible Values: the name of the archive refered to by `Url` &ndash;
   must be a supported archive file like `*.zip`, `*.msi`, or a setup programs
-* Required: `true`*
+* Required: `true`\*
 * App Types: `default`
+* SAPP: `true`
 
 \*) Only one of `ResourceName` or `ArchiveName` must be set.
 
 ## ArchiveTyp {#ArchiveTyp}
 
 * Description: The archive typ, which controls the extractor selection
-* Required: `false`
 * Data Type: string
 * Possible Values
     + `auto` Try to determine the extractor by the filename extension or use the custom extractor script if it exists
@@ -327,10 +428,11 @@ The path can be absolute or relative to the target directory of the app.
     + `inno` Use Inno Setup Unpacker to extract
     + `custom` Use the custom script `auto\apps\<app ID>.extract.ps1`
 * Required: `false`
-* Default: `auto`
+* Default: `auto``
 * App Types: `default`
+* SAPP: `true`
 
-This property is only recognized, if the `ArchiveName` property is set.
+This property is only recognized, if [`ArchiveName`](#ArchiveName) is set.
 
 ## ArchivePath {#ArchivePath}
 
@@ -340,8 +442,9 @@ This property is only recognized, if the `ArchiveName` property is set.
 * Required: `false`
 * Default: empty &rarr; the archive root
 * App Types: `default`
+* SAPP: `true`
 
-This property is only recognized, if the property `ArchiveName` is set.
+This property is only recognized, if [`ArchiveName`](#ArchiveName) is set.
 
 ## SetupTestFile {#SetupTestFile}
 
@@ -350,9 +453,10 @@ This property is only recognized, if the property `ArchiveName` is set.
 * Required: `false`
 * Default: the value of the `Exe` property
 * App Types: `meta`, `default`
+* SAPP: `true`
 
 The path is relative to the target directory of the app.
-The existence of thdescribed file is used, to determine if the app is already installed.
+The existence of the described file is used, to determine if the app is already installed.
 
 ## PackageName {#PackageName}
 
@@ -361,6 +465,7 @@ The existence of thdescribed file is used, to determine if the app is already in
 * Required: `false`
 * Default: the value of the `ID` property in lowercase
 * App Types: `*-package`
+* SAPP: `false`
 
 ## Version {#Version}
 
@@ -368,16 +473,10 @@ The existence of thdescribed file is used, to determine if the app is already in
 * Required: `false`
 * Default: empty
 * App Types: `*-package`
+* SAPP: `true`
 
 Version Patterns:
 
 * Node.js: `2.5.0` or `>=1.2.0 <3.0.0`
 * Python: `2.5.0` or `>=1.2.0,<3.0.0`
 * Ruby: `2.5.0`
-
-[app types]: /ref/app-types/
-[meta apps]: /ref/app-types/#meta-apps
-[default windows apps]: /ref/app-types/#default-windows-app
-[Node.js packages]: /ref/app-types/#node-js-package
-[Python packages]: /ref/app-types/#python-package
-[Ruby packages]: /ref/app-types/#ruby-package

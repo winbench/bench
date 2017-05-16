@@ -1,6 +1,6 @@
 ﻿+++
 title = "Composer"
-weight = 69
+weight = 68
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "meta"
@@ -25,7 +25,7 @@ Dependency Manager for PHP
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 69
+* Order Index: 68
 
 ## Properties
 
@@ -33,6 +33,6 @@ Dependency Manager for PHP
 * Name: Composer
 * Typ: `meta`
 * Website: <https://getcomposer.org/>
-* Dependencies: [Wget](/apps/Bench.Wget), [PHP 5](/apps/Bench.PHP5)
+* Dependencies: [Wget](/apps/Bench.Wget), [PHP 7](/apps/Bench.PHP7)
 * Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment)
 

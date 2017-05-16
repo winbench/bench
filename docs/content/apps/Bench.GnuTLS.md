@@ -1,6 +1,6 @@
 ﻿+++
 title = "GNU TLS"
-weight = 29
+weight = 28
 app_library = "default"
 app_category = "Security"
 app_typ = "default"
@@ -25,7 +25,7 @@ The GnuTLS Transport Layer Security Library.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Security](/app_categories/security)
-* Order Index: 29
+* Order Index: 28
 
 ## Properties
 

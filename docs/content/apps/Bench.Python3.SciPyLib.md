@@ -1,13 +1,13 @@
 ﻿+++
 title = "SciPy library (Python 3)"
-weight = 94
+weight = 96
 app_library = "default"
-app_category = "User Apps"
+app_category = "Math and Science"
 app_typ = "default"
 app_ns = "Bench.Python3"
 app_id = "Bench.Python3.SciPyLib"
 app_version = "0.19.0"
-app_categories = ["User Apps"]
+app_categories = ["Math and Science"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
@@ -30,8 +30,8 @@ Thanks a lot to Christoph Golke for his service.
 ## Source
 
 * Library: [`default`](/app_libraries/default)
-* Category: [User Apps](/app_categories/user-apps)
-* Order Index: 94
+* Category: [Math and Science](/app_categories/math-and-science)
+* Order Index: 96
 
 ## Properties
 
@@ -40,5 +40,5 @@ Thanks a lot to Christoph Golke for his service.
 * Typ: `default`
 * Website: <https://www.scipy.org/scipylib/>
 * Dependencies: [NumPy (Python 3)](/apps/Bench.Python3.NumPy)
-* Responsibilities: [SciPy](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn)
+* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn), [TensorFlow](/apps/Bench.TensorFlow)
 

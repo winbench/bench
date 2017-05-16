@@ -106,6 +106,7 @@
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiConfigurationInfo = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -404,18 +405,22 @@
             this.colActivated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.colActivated.ThreeState = true;
             this.colActivated.ToolTipText = "States whether the app is activated by the user or not.";
-            this.colActivated.TrueValue = "active";
+            this.colActivated.TrueValue = "activated";
             this.colActivated.Width = 62;
             // 
             // colExcluded
             // 
             this.colExcluded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colExcluded.DataPropertyName = "IsDeactivated";
+            this.colExcluded.DataPropertyName = "IsSuppressed";
+            this.colExcluded.FalseValue = "supported";
             this.colExcluded.Frozen = true;
             this.colExcluded.HeaderText = "Deactivated";
+            this.colExcluded.IndeterminateValue = "implicit";
             this.colExcluded.Name = "colExcluded";
             this.colExcluded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colExcluded.ThreeState = true;
             this.colExcluded.ToolTipText = "States whether the app is deactivated by the user.";
+            this.colExcluded.TrueValue = "deactivated";
             this.colExcluded.Width = 92;
             // 
             // colStatus
@@ -813,6 +818,7 @@
             this.tsmiShowCustomAppIndex,
             toolStripSeparator1,
             this.tsmiAlwaysShowDownloads,
+            this.tsmiConfigurationInfo,
             this.tsmiRefreshView});
             this.tsmView.Name = "tsmView";
             this.tsmView.Size = new System.Drawing.Size(44, 20);
@@ -848,6 +854,14 @@
             this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
+            // 
+            // tsmiConfigurationInfo
+            // 
+            this.tsmiConfigurationInfo.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.info_16;
+            this.tsmiConfigurationInfo.Name = "tsmiConfigurationInfo";
+            this.tsmiConfigurationInfo.Size = new System.Drawing.Size(205, 22);
+            this.tsmiConfigurationInfo.Text = "&Configuration Info";
+            this.tsmiConfigurationInfo.Click += new System.EventHandler(this.ConfigurationInfoHandler);
             // 
             // SetupForm
             // 
@@ -938,6 +952,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdateAppLibs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem tsmiClose;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExportClone;
         private System.Windows.Forms.DataGridViewImageColumn colIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLibrary;
@@ -951,6 +966,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTyp;
         private System.Windows.Forms.DataGridViewLinkColumn colLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
-        private System.Windows.Forms.ToolStripMenuItem tsmiExportClone;
+        private System.Windows.Forms.ToolStripMenuItem tsmiConfigurationInfo;
     }
 }

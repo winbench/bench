@@ -1,19 +1,19 @@
 ﻿+++
 title = "Eclipse for Java"
-weight = 61
+weight = 60
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.EclipseJava"
-app_version = "4.6"
+app_version = "4.6.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.EclipseJava`  
-**Version:** 4.6  
+**Version:** 4.6.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,7 +26,7 @@ XML Editor, Mylyn, Maven and Gradle integration...
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 61
+* Order Index: 60
 
 ## Properties
 

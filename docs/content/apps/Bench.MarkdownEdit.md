@@ -1,6 +1,6 @@
 ﻿+++
 title = "Markdown Edit"
-weight = 15
+weight = 14
 app_library = "core"
 app_category = "Basics"
 app_typ = "default"
@@ -25,7 +25,7 @@ Markdown Edit (MDE) is low distraction editor for Windows. MDE focuses on produc
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Basics](/app_categories/basics)
-* Order Index: 15
+* Order Index: 14
 
 ## Properties
 

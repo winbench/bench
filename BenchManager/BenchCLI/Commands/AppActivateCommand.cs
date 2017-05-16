@@ -89,6 +89,10 @@ namespace Mastersign.Bench.Cli.Commands
             }
             WriteDetail("Adding the app to the activation file.");
             activationList.SignIn(appId);
+            if (!app.IsSupported)
+            {
+                WriteError("The app is activated now, but it is not supported on this system. That is why it will not be installed.");
+            }
             return true;
         }
     }

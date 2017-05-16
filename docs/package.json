@@ -6,9 +6,9 @@
   "license": "CC-BY-4.0",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.10",
-    "gulp-concat": "^2.6.0",
-    "gulp-less": "^3.1.0",
+    "gulp-clean-css": "^2.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^3.3.0",
     "gulp-text-simple": "^0.4.0",
     "mdquery": "^0.2.2"
   }

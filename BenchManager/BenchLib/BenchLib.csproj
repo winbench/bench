@@ -137,6 +137,12 @@
       <DependentUpon>ExistingConfigStepControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InitializeConfigTask.cs" />
+    <Compile Include="UI\MachineArchitectureStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MachineArchitectureStepControl.Designer.cs">
+      <DependentUpon>MachineArchitectureStepControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\WizzardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,7 @@
     <Compile Include="Vendor\MarkdownSharp\Markdown.cs" />
     <Compile Include="Vendor\MarkdownSharp\MarkdownOptions.cs" />
     <Compile Include="Windows\ClrInfo.cs" />
+    <Compile Include="Windows\MachineArchitecture.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
@@ -210,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ExistingConfigStepControl.resx">
       <DependentUpon>ExistingConfigStepControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MachineArchitectureStepControl.resx">
+      <DependentUpon>MachineArchitectureStepControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\WizzardForm.resx">
       <DependentUpon>WizzardForm.cs</DependentUpon>

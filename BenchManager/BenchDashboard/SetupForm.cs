@@ -865,6 +865,11 @@ namespace Mastersign.Bench.Dashboard
             viewer.Show();
         }
 
+        private void ConfigurationInfoHandler(object sender, EventArgs e)
+        {
+            new ConfigInfoDialog(core.Config).ShowDialog(this);
+        }
+
         private void SetupForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (core.Busy)
