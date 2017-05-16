@@ -11,6 +11,7 @@ namespace Mastersign.Bench.UI
     {
         private ProxyStepControl stepProxy;
         private UserIdentificationStepControl stepUserIdentification;
+        private MachineArchitectureStepControl stepMachineArchitecture;
         private ExistingConfigStepControl stepExistingConfig;
         private AppSelectionStepControl stepAppSeletion;
         private AdvancedStepControl stepAdvanced;
@@ -38,6 +39,10 @@ namespace Mastersign.Bench.UI
                 {
                     steps.Add(stepProxy);
                     steps.Add(stepUserIdentification);
+                    if (Windows.MachineArchitecture.Is64BitOperatingSystem)
+                    {
+                        steps.Add(stepMachineArchitecture);
+                    }
                 }
                 if (InitUserConfig)
                 {
@@ -65,6 +70,9 @@ namespace Mastersign.Bench.UI
                 stepUserIdentification = new UserIdentificationStepControl();
                 stepUserIdentification.UserName = config.GetStringValue(ConfigPropertyKeys.UserName);
                 stepUserIdentification.UserEmail = config.GetStringValue(ConfigPropertyKeys.UserEmail);
+
+                stepMachineArchitecture = new MachineArchitectureStepControl();
+                stepMachineArchitecture.Allow64Bit = config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit);
             }
             if (InitUserConfig)
             {
@@ -96,6 +104,7 @@ namespace Mastersign.Bench.UI
                         { ConfigPropertyKeys.HttpProxy, stepProxy.HttpProxy },
                         { ConfigPropertyKeys.HttpsProxy, stepProxy.HttpsProxy },
                         { ConfigPropertyKeys.ProxyBypass, string.Join(", ", bypassList.ToArray()) },
+                        { ConfigPropertyKeys.Allow64Bit, stepMachineArchitecture.Allow64Bit  ? "true" : "false" }
                     };
                 var siteConfigTemplateFile = config.GetStringValue(ConfigPropertyKeys.SiteConfigTemplateFile);
                 var defaultSiteConfigFile = Path.Combine(config.BenchRootDir,

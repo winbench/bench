@@ -36,9 +36,9 @@
             this.chkStartAutoSetup.AutoSize = true;
             this.chkStartAutoSetup.Location = new System.Drawing.Point(15, 15);
             this.chkStartAutoSetup.Name = "chkStartAutoSetup";
-            this.chkStartAutoSetup.Size = new System.Drawing.Size(128, 17);
+            this.chkStartAutoSetup.Size = new System.Drawing.Size(134, 17);
             this.chkStartAutoSetup.TabIndex = 1;
-            this.chkStartAutoSetup.Text = "&Start setup immediatly";
+            this.chkStartAutoSetup.Text = "&Start setup immediately";
             this.chkStartAutoSetup.UseVisualStyleBackColor = true;
             // 
             // AdvancedStepControl
@@ -53,6 +53,7 @@
         }
 
         #endregion
+
         private System.Windows.Forms.CheckBox chkStartAutoSetup;
     }
 }
