@@ -45,7 +45,7 @@ Add a link to the GitHub diff like
   when the target app is reinstalled or upgraded.
 
 ### Fixed
-- Respect deactivated apps when running tasks which target on specific app
+- Respect deactivated apps when running tasks which target on a specific app
   ([#104](https://github.com/mastersign/bench/issues/104))
 - Allow the `bench.exe` to run on the CLR 4.0 without additionally installing
   the CLR 2.0.
