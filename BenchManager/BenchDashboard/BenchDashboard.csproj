@@ -68,6 +68,12 @@
     </Compile>
     <Compile Include="ActionState.cs" />
     <Compile Include="AppEventArgs.cs" />
+    <Compile Include="ConfigInfoDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigInfoDialog.Designer.cs">
+      <DependentUpon>ConfigInfoDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppInfoDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     <Compile Include="WinFormsUserInterface.cs" />
     <EmbeddedResource Include="AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigInfoDialog.resx">
+      <DependentUpon>ConfigInfoDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AppInfoDialog.resx">
       <DependentUpon>AppInfoDialog.cs</DependentUpon>
