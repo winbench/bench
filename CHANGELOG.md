@@ -25,6 +25,14 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.16.1] - 2017-05-17
+
+[0.16.1]: https://github.com/mastersign/bench/compare/v0.16.0...v0.16.1
+
+### Fixed
+- Crash when downloading (race condition during notification processing)
+  ([#108](https://github.com/mastersign/bench/issues/108))
+
 ## [0.16.0] - 2017-05-16
 
 [0.16.0]: https://github.com/mastersign/bench/compare/v0.15.2...v0.16.0

@@ -948,6 +948,7 @@ namespace Mastersign.Bench
                 logger = new TaskInfoLogger(file, logLevel == LogLevels.Error);
             }
 
+            var notificationLock = new object();
             var infos = new List<TaskInfo>();
             var errorIds = new List<string>();
             var taskProgress = 0f;
@@ -959,14 +960,17 @@ namespace Mastersign.Bench
                 {
                     info = ((TaskProgress)info).ScaleProgress(taskProgress, 1f / tasks.Length);
                 }
-                if (info is TaskError && info.AppId != null && !errorIds.Contains(info.AppId))
+                lock (notificationLock)
                 {
-                    errorIds.Add(info.AppId);
-                }
-                infos.Add(info);
-                if (logger != null)
-                {
-                    logger.Log(info);
+                    if (info is TaskError && info.AppId != null && !errorIds.Contains(info.AppId))
+                    {
+                        errorIds.Add(info.AppId);
+                    }
+                    infos.Add(info);
+                    if (logger != null)
+                    {
+                        logger.Log(info);
+                    }
                 }
                 notify(info);
             };

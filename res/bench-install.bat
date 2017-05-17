@@ -6,7 +6,7 @@
 :: http://mastersign.github.io/bench/guide/setup/
 ::
 
-SET VERSION=0.16.0
+SET VERSION=0.16.1
 SET ROOT=%~dp0
 SET TAG=v%VERSION%
 SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
@@ -76,7 +76,7 @@ POPD
 ECHO.Deleting 'bench.zip' ...
 DEL "%BENCH_ZIPFILE%"
 
-ECHO.Deleting 'bench-install.bat' and exiting ...
+ECHO.Deleting '%BENCH_BOOTSTRAP_FILE%' and exiting ...
 ECHO.A copy can always be found in the 'res' folder.
 :: Trick to exit the script before deleting it
 (GOTO) 2>nul & DEL "%BENCH_BOOTSTRAP_FILE%"
