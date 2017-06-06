@@ -28,6 +28,7 @@ Add a link to the GitHub diff like
 ### Added
 - Hints in the transfer dialog of the Bench Dashboard,
   which warn that large SFX files do not work
+- Isolation selection in the initialization wizzard
 
 ## [0.16.1] - 2017-05-17
 

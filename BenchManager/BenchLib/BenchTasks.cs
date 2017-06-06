@@ -130,6 +130,16 @@ namespace Mastersign.Bench
 
                     var userConfigTemplateFile = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigTemplateFile);
                     File.Copy(userConfigTemplateFile, userConfigFile, false);
+
+                    if (man.Config.GetBooleanValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile)) {
+                        Markdown.MarkdownPropertyEditor.UpdateFile(userConfigFile, new Dictionary<string, string>
+                        {
+                            { ConfigPropertyKeys.IgnoreSystemPath, "false" },
+                            { ConfigPropertyKeys.OverrideHome, "false" },
+                            { ConfigPropertyKeys.UseRegistryIsolation, "false" },
+                            { ConfigPropertyKeys.RegisterInUserProfile, "true" },
+                        });
+                    }
                 }
             }
 

@@ -13,6 +13,7 @@ namespace Mastersign.Bench.UI
         private UserIdentificationStepControl stepUserIdentification;
         private MachineArchitectureStepControl stepMachineArchitecture;
         private ExistingConfigStepControl stepExistingConfig;
+        private IsolationStepControl stepIsolation;
         private AppSelectionStepControl stepAppSeletion;
         private AdvancedStepControl stepAdvanced;
 
@@ -39,6 +40,7 @@ namespace Mastersign.Bench.UI
                 steps.Add(stepUserIdentification);
                 steps.Add(stepMachineArchitecture);
                 steps.Add(stepExistingConfig);
+                steps.Add(stepIsolation);
                 steps.Add(stepAppSeletion);
                 steps.Add(stepAdvanced);
                 return steps.ToArray();
@@ -51,6 +53,7 @@ namespace Mastersign.Bench.UI
             if (wsc == stepUserIdentification) return InitSiteConfig;
             if (wsc == stepMachineArchitecture) return InitSiteConfig && Windows.MachineArchitecture.Is64BitOperatingSystem;
             if (wsc == stepExistingConfig) return InitUserConfig;
+            if (wsc == stepIsolation) return InitUserConfig && !stepExistingConfig.IsConfigGitRepoExisting;
             if (wsc == stepAppSeletion) return InitUserConfig && !stepExistingConfig.IsConfigGitRepoExisting;
             if (wsc == stepAdvanced) return true;
             return false;
@@ -76,6 +79,9 @@ namespace Mastersign.Bench.UI
 
             stepExistingConfig = new ExistingConfigStepControl();
             stepExistingConfig.IsConfigGitRepoExisting = false;
+
+            stepIsolation = new IsolationStepControl();
+            stepIsolation.IntegrateIntoUserProfile = false;
 
             stepAppSeletion = new AppSelectionStepControl();
             stepAppSeletion.InitializeStepControl(
@@ -127,8 +133,9 @@ namespace Mastersign.Bench.UI
                 else
                 {
                     config.SetValue(ConfigPropertyKeys.UserConfigRepository, (object)null);
+                    config.SetValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile, stepIsolation.IntegrateIntoUserProfile);
+                    config.SetValue(ConfigPropertyKeys.WizzardSelectedApps, stepAppSeletion.SelectedApps);
                 }
-                config.SetValue(ConfigPropertyKeys.WizzardSelectedApps, stepAppSeletion.SelectedApps);
             }
             config.SetValue(ConfigPropertyKeys.WizzardStartAutoSetup, stepAdvanced.StartAutoSetup);
 

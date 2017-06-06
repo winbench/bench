@@ -118,6 +118,12 @@
     <Compile Include="TaskInfoLogger.cs" />
     <Compile Include="TaskResult.cs" />
     <Compile Include="TransferPaths.cs" />
+    <Compile Include="UI\IsolationStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IsolationStepControl.Designer.cs">
+      <DependentUpon>IsolationStepControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AppSelectionStepControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -209,6 +215,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\IsolationStepControl.resx">
+      <DependentUpon>IsolationStepControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AppSelectionStepControl.resx">
       <DependentUpon>AppSelectionStepControl.cs</DependentUpon>
     </EmbeddedResource>
