@@ -11,6 +11,8 @@ namespace Mastersign.Bench.UI
     {
         public abstract WizzardStepControl[] StepControls { get; }
 
+        public abstract bool IsStepVisible(WizzardStepControl stepControl);
+
         public bool IsCanceled { get; private set; }
 
         public virtual void Before()

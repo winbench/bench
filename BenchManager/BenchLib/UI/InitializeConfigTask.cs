@@ -35,56 +35,54 @@ namespace Mastersign.Bench.UI
             get
             {
                 var steps = new List<WizzardStepControl>();
-                if (InitSiteConfig)
-                {
-                    steps.Add(stepProxy);
-                    steps.Add(stepUserIdentification);
-                    if (Windows.MachineArchitecture.Is64BitOperatingSystem)
-                    {
-                        steps.Add(stepMachineArchitecture);
-                    }
-                }
-                if (InitUserConfig)
-                {
-                    steps.Add(stepExistingConfig);
-                    steps.Add(stepAppSeletion);
-                }
+                steps.Add(stepProxy);
+                steps.Add(stepUserIdentification);
+                steps.Add(stepMachineArchitecture);
+                steps.Add(stepExistingConfig);
+                steps.Add(stepAppSeletion);
                 steps.Add(stepAdvanced);
                 return steps.ToArray();
             }
+        }
+
+        public override bool IsStepVisible(WizzardStepControl wsc)
+        {
+            if (wsc == stepProxy) return InitSiteConfig;
+            if (wsc == stepUserIdentification) return InitSiteConfig;
+            if (wsc == stepMachineArchitecture) return InitSiteConfig && Windows.MachineArchitecture.Is64BitOperatingSystem;
+            if (wsc == stepExistingConfig) return InitUserConfig;
+            if (wsc == stepAppSeletion) return InitUserConfig && !stepExistingConfig.IsConfigGitRepoExisting;
+            if (wsc == stepAdvanced) return true;
+            return false;
         }
 
         public override void Before()
         {
             base.Before();
 
-            if (InitSiteConfig)
-            {
-                stepProxy = new ProxyStepControl();
-                var proxyInfo = BenchProxyInfo.SystemDefault;
-                stepProxy.UseProxy = proxyInfo.UseProxy; // config.GetBooleanValue(PropertyKeys.UseProxy);
-                stepProxy.HttpProxy = proxyInfo.HttpProxyAddress; // config.GetStringValue(PropertyKeys.HttpProxy);
-                stepProxy.HttpsProxy = proxyInfo.HttpsProxyAddress; //  config.GetStringValue(PropertyKeys.HttpsProxy);
-                stepProxy.ProxyBypass = config.GetStringListValue(ConfigPropertyKeys.ProxyBypass);
+            stepProxy = new ProxyStepControl();
+            var proxyInfo = BenchProxyInfo.SystemDefault;
+            stepProxy.UseProxy = proxyInfo.UseProxy; // config.GetBooleanValue(PropertyKeys.UseProxy);
+            stepProxy.HttpProxy = proxyInfo.HttpProxyAddress; // config.GetStringValue(PropertyKeys.HttpProxy);
+            stepProxy.HttpsProxy = proxyInfo.HttpsProxyAddress; //  config.GetStringValue(PropertyKeys.HttpsProxy);
+            stepProxy.ProxyBypass = config.GetStringListValue(ConfigPropertyKeys.ProxyBypass);
 
-                stepUserIdentification = new UserIdentificationStepControl();
-                stepUserIdentification.UserName = config.GetStringValue(ConfigPropertyKeys.UserName);
-                stepUserIdentification.UserEmail = config.GetStringValue(ConfigPropertyKeys.UserEmail);
+            stepUserIdentification = new UserIdentificationStepControl();
+            stepUserIdentification.UserName = config.GetStringValue(ConfigPropertyKeys.UserName);
+            stepUserIdentification.UserEmail = config.GetStringValue(ConfigPropertyKeys.UserEmail);
 
-                stepMachineArchitecture = new MachineArchitectureStepControl();
-                stepMachineArchitecture.Allow64Bit = config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit);
-            }
-            if (InitUserConfig)
-            {
-                stepExistingConfig = new ExistingConfigStepControl();
-                stepExistingConfig.IsConfigGitRepoExisting = false;
+            stepMachineArchitecture = new MachineArchitectureStepControl();
+            stepMachineArchitecture.Allow64Bit = config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit);
 
-                stepAppSeletion = new AppSelectionStepControl();
-                stepAppSeletion.InitializeStepControl(
-                    Seq(config.GetStringListValue(ConfigPropertyKeys.WizzardApps))
-                    .Map(ValueParser.ParseKeyValuePair)
-                    .ToArray());
-            }
+            stepExistingConfig = new ExistingConfigStepControl();
+            stepExistingConfig.IsConfigGitRepoExisting = false;
+
+            stepAppSeletion = new AppSelectionStepControl();
+            stepAppSeletion.InitializeStepControl(
+                Seq(config.GetStringListValue(ConfigPropertyKeys.WizzardApps))
+                .Map(ValueParser.ParseKeyValuePair)
+                .ToArray());
+
             stepAdvanced = new AdvancedStepControl();
             stepAdvanced.StartAutoSetup = config.GetBooleanValue(
                 ConfigPropertyKeys.WizzardStartAutoSetup, true);
