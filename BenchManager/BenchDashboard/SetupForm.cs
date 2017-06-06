@@ -870,6 +870,14 @@ namespace Mastersign.Bench.Dashboard
             new ConfigInfoDialog(core.Config).ShowDialog(this);
         }
 
+        private void KeyDownDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape && e.Modifiers == Keys.None)
+            {
+                Close();
+            }
+        }
+
         private void SetupForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (core.Busy)

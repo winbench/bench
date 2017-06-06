@@ -105,8 +105,8 @@
             this.tsmiShowAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiConfigurationInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -758,6 +758,7 @@
             // tsmiClose
             // 
             this.tsmiClose.Name = "tsmiClose";
+            this.tsmiClose.ShortcutKeyDisplayString = "Esc";
             this.tsmiClose.Size = new System.Drawing.Size(237, 22);
             this.tsmiClose.Text = "Clo&se";
             this.tsmiClose.Click += new System.EventHandler(this.CloseHandler);
@@ -847,14 +848,6 @@
             this.tsmiAlwaysShowDownloads.Text = "Always Show &Downloads";
             this.tsmiAlwaysShowDownloads.CheckedChanged += new System.EventHandler(this.AlwaysShowDownloadsCheckedChanged);
             // 
-            // tsmiRefreshView
-            // 
-            this.tsmiRefreshView.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.refresh_16;
-            this.tsmiRefreshView.Name = "tsmiRefreshView";
-            this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
-            this.tsmiRefreshView.Text = "&Refresh";
-            this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
-            // 
             // tsmiConfigurationInfo
             // 
             this.tsmiConfigurationInfo.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.info_16;
@@ -862,6 +855,15 @@
             this.tsmiConfigurationInfo.Size = new System.Drawing.Size(205, 22);
             this.tsmiConfigurationInfo.Text = "&Configuration Info";
             this.tsmiConfigurationInfo.Click += new System.EventHandler(this.ConfigurationInfoHandler);
+            // 
+            // tsmiRefreshView
+            // 
+            this.tsmiRefreshView.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.refresh_16;
+            this.tsmiRefreshView.Name = "tsmiRefreshView";
+            this.tsmiRefreshView.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
+            this.tsmiRefreshView.Text = "&Refresh";
+            this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
             // 
             // SetupForm
             // 
@@ -876,12 +878,14 @@
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "SetupForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Bench - Setup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetupForm_FormClosing);
             this.Load += new System.EventHandler(this.SetupForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownDownHandler);
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picState)).EndInit();

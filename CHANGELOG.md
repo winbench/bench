@@ -29,6 +29,9 @@ Add a link to the GitHub diff like
 - Hints in the transfer dialog of the Bench Dashboard,
   which warn that large SFX files do not work
 - Isolation selection in the initialization wizzard
+- Shortcut key _F5_ for reloading the Bench configuration
+  in the Bench Dashboard
+  ([#110](https://github.com/mastersign/bench/issues/110))
 
 ## [0.16.1] - 2017-05-17
 

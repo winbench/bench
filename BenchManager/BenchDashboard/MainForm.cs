@@ -346,5 +346,13 @@ namespace Mastersign.Bench.Dashboard
             var url = (sender as ToolStripItem)?.Tag as string;
             Process.Start(url);
         }
+
+        private void KeyDownDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5 && e.Modifiers == Keys.None)
+            {
+                core.Reload(configChanged: true);
+            }
+        }
     }
 }
