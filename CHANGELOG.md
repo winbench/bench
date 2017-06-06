@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Added
+- Hints in the transfer dialog of the Bench Dashboard,
+  which warn that large SFX files do not work
+
 ## [0.16.1] - 2017-05-17
 
 [0.16.1]: https://github.com/mastersign/bench/compare/v0.16.0...v0.16.1

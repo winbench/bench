@@ -51,6 +51,8 @@
             this.panelFooter = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.lblCacheHint = new System.Windows.Forms.Label();
+            this.lblAppsHint = new System.Windows.Forms.Label();
             this.panelContent.SuspendLayout();
             this.grpContentSelection.SuspendLayout();
             this.panelHead.SuspendLayout();
@@ -108,6 +110,8 @@
             // 
             this.grpContentSelection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpContentSelection.Controls.Add(this.lblAppsHint);
+            this.grpContentSelection.Controls.Add(this.lblCacheHint);
             this.grpContentSelection.Controls.Add(this.chkApps);
             this.grpContentSelection.Controls.Add(this.chkCache);
             this.grpContentSelection.Controls.Add(this.chkRequiredApps);
@@ -300,6 +304,26 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.OkHandler);
             // 
+            // lblCacheHint
+            // 
+            this.lblCacheHint.AutoSize = true;
+            this.lblCacheHint.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblCacheHint.Location = new System.Drawing.Point(193, 141);
+            this.lblCacheHint.Name = "lblCacheHint";
+            this.lblCacheHint.Size = new System.Drawing.Size(363, 13);
+            this.lblCacheHint.TabIndex = 8;
+            this.lblCacheHint.Text = "Do not use this option for SFX archives. Large *.exe files do not work.";
+            // 
+            // lblAppsHint
+            // 
+            this.lblAppsHint.AutoSize = true;
+            this.lblAppsHint.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblAppsHint.Location = new System.Drawing.Point(148, 187);
+            this.lblAppsHint.Name = "lblAppsHint";
+            this.lblAppsHint.Size = new System.Drawing.Size(363, 13);
+            this.lblAppsHint.TabIndex = 8;
+            this.lblAppsHint.Text = "Do not use this option for SFX archives. Large *.exe files do not work.";
+            // 
             // ExportForm
             // 
             this.AcceptButton = this.btnOK;
@@ -353,5 +377,7 @@
         private System.Windows.Forms.TextBox txtTarget;
         private System.Windows.Forms.Label lblTarget;
         private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.Label lblCacheHint;
+        private System.Windows.Forms.Label lblAppsHint;
     }
 }
