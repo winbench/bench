@@ -2,6 +2,7 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 $ghpDir = "$rootDir.gh-pages"
 $branchName = "gh-pages"
+$remoteName = "origin"
 
 $scriptsDir = Resolve-Path "$rootDir\auto\lib"
 $docsDir = Resolve-Path "$rootDir\docs"
@@ -15,6 +16,14 @@ $cfg = New-Object Mastersign.Bench.BenchConfiguration ($rootDir, $true, $true, $
 $benchEnv = New-Object Mastersign.Bench.BenchEnvironment ($cfg)
 $benchEnv.Load()
 
+$branches = git branch --list | ? { $_ -match $branchName }
+$branchMissing = !$branches
+
+if ($branchMissing)
+{
+    git fetch $remoteName "${branchName}:${branchName}"
+    git branch "--set-upstream-to=${remoteName}/${branchName}" $branchName
+}
 $branches = git branch --list | ? { $_ -match $branchName }
 $branchMissing = !$branches
 
