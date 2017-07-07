@@ -1,6 +1,6 @@
 ﻿+++
 title = "PyReadline"
-weight = 80
+weight = 82
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python-package"
@@ -25,7 +25,7 @@ Required for colors in IPython.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 80
+* Order Index: 82
 
 ## Properties
 

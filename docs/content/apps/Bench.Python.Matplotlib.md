@@ -1,6 +1,6 @@
 ﻿+++
 title = "Matplotlib"
-weight = 97
+weight = 101
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python-package"
@@ -26,7 +26,7 @@ Matplotlib can be used in Python scripts, the Python and IPython shell, the jupy
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 97
+* Order Index: 101
 
 ## Properties
 

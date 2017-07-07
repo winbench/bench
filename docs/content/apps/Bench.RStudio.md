@@ -1,19 +1,19 @@
 ﻿+++
 title = "R Studio"
-weight = 63
+weight = 64
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.RStudio"
-app_version = "1.0.136"
+app_version = "1.0.143"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.RStudio`  
-**Version:** 1.0.136  
+**Version:** 1.0.143  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ debugging and workspace management.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 63
+* Order Index: 64
 
 ## Properties
 

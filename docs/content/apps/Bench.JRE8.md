@@ -1,19 +1,19 @@
 ﻿+++
 title = "Java Runtime Environment 8"
-weight = 35
+weight = 34
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JRE8"
-app_version = "121"
+app_version = "131"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.JRE8`  
-**Version:** 121  
+**Version:** 131  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -27,7 +27,7 @@ The runtime environment is required for a compiled Java program to get executed.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 35
+* Order Index: 34
 
 ## Properties
 
@@ -35,5 +35,5 @@ The runtime environment is required for a compiled Java program to get executed.
 * Name: JRE8
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Responsibilities: [Nightcode](/apps/Bench.Nightcode), [Eclipse for Java](/apps/Bench.EclipseJava), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Eclipse for C++](/apps/Bench.EclipseCpp), [Maven](/apps/Bench.Maven), [JabRef](/apps/Bench.JabRef), [Gephi](/apps/Bench.Gephi)
+* Responsibilities: [Nightcode](/apps/Bench.Nightcode), [Eclipse for Java](/apps/Bench.EclipseJava), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Eclipse for C++](/apps/Bench.EclipseCpp), [Maven](/apps/Bench.Maven), [Android SDK](/apps/Bench.AndroidSDK), [JabRef](/apps/Bench.JabRef), [Gephi](/apps/Bench.Gephi)
 

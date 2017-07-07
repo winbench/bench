@@ -1,6 +1,6 @@
 ﻿+++
 title = "Composer"
-weight = 68
+weight = 69
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "meta"
@@ -25,7 +25,7 @@ Dependency Manager for PHP
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 68
+* Order Index: 69
 
 ## Properties
 

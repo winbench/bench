@@ -1,19 +1,19 @@
 ﻿+++
 title = "Java Development Kit 8"
-weight = 37
+weight = 35
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JDK8"
-app_version = "121"
+app_version = "131"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.JDK8`  
-**Version:** 121  
+**Version:** 131  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -27,7 +27,7 @@ The development kit is required for Java source code to get compiled.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 37
+* Order Index: 35
 
 ## Properties
 

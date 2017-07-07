@@ -1,19 +1,19 @@
 ﻿+++
 title = "MiKTeX"
-weight = 118
+weight = 122
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MiKTeX"
-app_version = "2.9.6326"
+app_version = "2.9.6361"
 app_categories = ["Writing"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.MiKTeX`  
-**Version:** 2.9.6326  
+**Version:** 2.9.6361  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -30,7 +30,7 @@ are selected to suit the needs of the default LaTeX template of _Pandoc_.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Writing](/app_categories/writing)
-* Order Index: 118
+* Order Index: 122
 
 ## Properties
 

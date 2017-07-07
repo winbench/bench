@@ -1,19 +1,19 @@
 ﻿+++
 title = "NumPy (Python 3)"
-weight = 94
+weight = 98
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "default"
 app_ns = "Bench.Python3"
 app_id = "Bench.Python3.NumPy"
-app_version = "1.12.1"
+app_version = "1.13.0"
 app_categories = ["Math and Science"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Python3.NumPy`  
-**Version:** 1.12.1  
+**Version:** 1.13.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -39,7 +39,7 @@ Thanks a lot to Christoph Golke for his service.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 94
+* Order Index: 98
 
 ## Properties
 

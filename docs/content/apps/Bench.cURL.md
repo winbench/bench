@@ -1,19 +1,19 @@
 ﻿+++
 title = "cURL"
-weight = 107
+weight = 111
 app_library = "default"
 app_category = "Network"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.cURL"
-app_version = "7.53.1"
+app_version = "7.54.1"
 app_categories = ["Network"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.cURL`  
-**Version:** 7.53.1  
+**Version:** 7.54.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -30,7 +30,7 @@ file transfer resume, proxy tunneling and more.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Network](/app_categories/network)
-* Order Index: 107
+* Order Index: 111
 
 ## Properties
 

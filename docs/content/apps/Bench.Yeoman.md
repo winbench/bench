@@ -1,19 +1,19 @@
 ﻿+++
 title = "Yeoman"
-weight = 69
+weight = 70
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
 app_ns = "Bench"
 app_id = "Bench.Yeoman"
-app_version = ">=1.8.0 <2.0.0"
+app_version = ">=2.0.0 <3.0.0"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["node-package"]
 +++
 
 **ID:** `Bench.Yeoman`  
-**Version:** >=1.8.0 <2.0.0  
+**Version:** >=2.0.0 <3.0.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ to help you stay productive.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 69
+* Order Index: 70
 
 ## Properties
 

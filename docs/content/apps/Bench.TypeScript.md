@@ -1,39 +1,40 @@
 ﻿+++
-title = "CoffeeScript"
-weight = 46
+title = "TypeScript"
+weight = 47
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "node-package"
 app_ns = "Bench"
-app_id = "Bench.CoffeeScript"
-app_version = ">=1.10.0 <2.0.0"
+app_id = "Bench.TypeScript"
+app_version = "latest"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["node-package"]
 +++
 
-**ID:** `Bench.CoffeeScript`  
-**Version:** >=1.10.0 <2.0.0  
+**ID:** `Bench.TypeScript`  
+**Version:** latest  
 <!--more-->
 
 [Back to all apps](/apps/)
 
 ## Description
-CoffeeScript is a little language that compiles into JavaScript.
-Underneath that awkward Java-esque patina, JavaScript has always had a gorgeous heart.
-CoffeeScript is an attempt to expose the good parts of JavaScript in a simple way.
+TypeScript is a language for application-scale JavaScript.
+TypeScript adds optional types, classes, and modules to JavaScript.
+TypeScript supports tools for large-scale JavaScript applications for any browser, for any host, on any OS.
+TypeScript compiles to readable, standards-based JavaScript.
 
 ## Source
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 46
+* Order Index: 47
 
 ## Properties
 
 * Namespace: Bench
-* Name: CoffeeScript
+* Name: TypeScript
 * Typ: `node-package`
-* Website: <http://coffeescript.org/>
+* Website: <http://www.typescriptlang.org/>
 * Dependencies: [Node.js](/apps/Bench.Node)
 
