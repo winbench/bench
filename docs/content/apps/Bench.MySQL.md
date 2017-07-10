@@ -1,6 +1,6 @@
 ﻿+++
 title = "MySQL"
-weight = 111
+weight = 115
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -32,7 +32,7 @@ The initial password for _root_ is `bench`.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 111
+* Order Index: 115
 
 ## Properties
 

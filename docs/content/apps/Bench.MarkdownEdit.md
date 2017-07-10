@@ -6,14 +6,14 @@ app_category = "Basics"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MarkdownEdit"
-app_version = "1.32"
+app_version = "1.33"
 app_categories = ["Basics"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.MarkdownEdit`  
-**Version:** 1.32  
+**Version:** 1.33  
 <!--more-->
 
 [Back to all apps](/apps/)

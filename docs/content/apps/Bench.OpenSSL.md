@@ -6,14 +6,14 @@ app_category = "Security"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.OpenSSL"
-app_version = "1.1.0e"
+app_version = "1.1.0f"
 app_categories = ["Security"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.OpenSSL`  
-**Version:** 1.1.0e  
+**Version:** 1.1.0f  
 <!--more-->
 
 [Back to all apps](/apps/)

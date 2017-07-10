@@ -1,6 +1,6 @@
 ﻿+++
 title = "Boot Clojure"
-weight = 40
+weight = 38
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,7 +25,7 @@ Build tooling for Clojure.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 40
+* Order Index: 38
 
 ## Properties
 

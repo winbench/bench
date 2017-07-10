@@ -1,6 +1,6 @@
 ﻿+++
 title = "DiffMerge"
-weight = 104
+weight = 108
 app_library = "default"
 app_category = "Filesystem"
 app_typ = "default"
@@ -25,7 +25,7 @@ DiffMerge is an application to visually compare and merge files on Windows, OS X
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Filesystem](/app_categories/filesystem)
-* Order Index: 104
+* Order Index: 108
 
 ## Properties
 

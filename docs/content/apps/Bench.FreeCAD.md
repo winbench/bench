@@ -1,6 +1,6 @@
 ﻿+++
 title = "FreeCAD"
-weight = 142
+weight = 146
 app_library = "default"
 app_category = "3D Modeling"
 app_typ = "default"
@@ -22,7 +22,7 @@ app_types = ["default"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [3D Modeling](/app_categories/3d-modeling)
-* Order Index: 142
+* Order Index: 146
 
 ## Properties
 

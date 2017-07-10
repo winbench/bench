@@ -1,19 +1,19 @@
 ﻿+++
 title = "VLC Player"
-weight = 130
+weight = 134
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.VLC"
-app_version = "2.2.4"
+app_version = "2.2.6"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.VLC`  
-**Version:** 2.2.4  
+**Version:** 2.2.6  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,7 +26,7 @@ that plays most multimedia files, and various streaming protocols.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 130
+* Order Index: 134
 
 ## Properties
 

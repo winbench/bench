@@ -25,6 +25,25 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.16.2] - 2017-07-10
+
+[0.16.2]: https://github.com/mastersign/bench/compare/v0.16.1...v0.16.2
+
+### Added
+- Hints in the transfer dialog of the Bench Dashboard,
+  which warn that large SFX files do not work
+- Isolation selection in the initialization wizzard
+- Shortcut key _F5_ for reloading the Bench configuration
+  in the Bench Dashboard
+  ([#110](https://github.com/mastersign/bench/issues/110))
+
+### Changed
+- Switched from _MarkdownEdit_ to a pre-configured _Notepad++_
+  for editing Bench configuration and app activation files
+
+### Removed
+- Configuration property `MarkdownEditorApp`
+
 ## [0.16.1] - 2017-05-17
 
 [0.16.1]: https://github.com/mastersign/bench/compare/v0.16.0...v0.16.1

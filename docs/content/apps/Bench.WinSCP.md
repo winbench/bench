@@ -1,19 +1,19 @@
 ﻿+++
 title = "WinSCP"
-weight = 109
+weight = 113
 app_library = "default"
 app_category = "Network"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.WinSCP"
-app_version = "5.9.4"
+app_version = "5.9.6"
 app_categories = ["Network"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.WinSCP`  
-**Version:** 5.9.4  
+**Version:** 5.9.6  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -27,7 +27,7 @@ Beyond this, WinSCP offers scripting and basic file manager functionality.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Network](/app_categories/network)
-* Order Index: 109
+* Order Index: 113
 
 ## Properties
 

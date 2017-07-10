@@ -42,6 +42,7 @@ namespace Mastersign.Bench
         public const string AppDeactivationTemplateFile = "AppDeactivationTemplateFile";
         public const string AppsVersionIndexDir = "AppsVersionIndexDir";
 
+        public const string WizzardIntegrateIntoUserProfile = "WizzardIntegrateIntoUserProfile";
         public const string WizzardStartAutoSetup = "WizzardStartAutoSetup";
         public const string WizzardApps = "WizzardApps";
         public const string WizzardSelectedApps = "WizzardSelectedApps";

@@ -1,19 +1,19 @@
 ﻿+++
 title = "GIMP"
-weight = 135
+weight = 139
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Gimp"
-app_version = "2.8.20"
+app_version = "2.8.22"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Gimp`  
-**Version:** 2.8.20  
+**Version:** 2.8.22  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -29,7 +29,7 @@ GIMP provides you with sophisticated tools to get your job done.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 135
+* Order Index: 139
 
 ## Properties
 

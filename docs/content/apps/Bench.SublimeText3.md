@@ -1,6 +1,6 @@
 ﻿+++
 title = "Sublime Text 3"
-weight = 52
+weight = 51
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,7 +26,7 @@ You'll love the slick user interface, extraordinary features and amazing perform
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 52
+* Order Index: 51
 
 ## Properties
 

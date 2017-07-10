@@ -1,19 +1,19 @@
 ﻿+++
 title = "Tornado"
-weight = 116
+weight = 120
 app_library = "default"
 app_category = "Services"
 app_typ = "python-package"
 app_ns = "Bench.Python"
 app_id = "Bench.Python.Tornado"
-app_version = "4.4.3"
+app_version = "4.5.1"
 app_categories = ["Services"]
 app_libraries = ["default"]
 app_types = ["python-package"]
 +++
 
 **ID:** `Bench.Python.Tornado`  
-**Version:** 4.4.3  
+**Version:** 4.5.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Tornado is a Python web framework and asynchronous networking library, originall
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 116
+* Order Index: 120
 
 ## Properties
 

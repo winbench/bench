@@ -71,7 +71,7 @@ available in custom and hook scripts.
 ### `$BenchConfig` {#var-bench-config}
 
 This variable in the global scope a
-[`Mastersign.Bench.BenchConfiguration`](/ref/clr-api/class/Mastersign.Bench.BenchConfiguration)
+[`Mastersign.Bench.BenchConfiguration`](/clr-api/html/T_Mastersign_Bench_BenchConfiguration.htm)
 object.
 This object holds the merged Bench configuration from all configuration files.
 

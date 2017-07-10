@@ -440,7 +440,9 @@ namespace Mastersign.Bench.Dashboard
                 Environment.GetEnvironmentVariable("SystemRoot"),
                 "notepad.exe");
 
-        private void EditFile(string name, string path, string appId)
+        private enum ConfigFileLanguage { Markdown, ActivationList }
+
+        private void EditConfigFile(string name, string path, ConfigFileLanguage syntax)
         {
             if (!File.Exists(path))
             {
@@ -453,10 +455,18 @@ namespace Mastersign.Bench.Dashboard
                     MessageBoxIcon.Error);
                 return;
             }
-            var editorApp = core.Config.Apps[appId];
+            var editorAppId = core.Config.GetStringValue(ConfigPropertyKeys.TextEditorApp);
+            var editorApp = core.Config.Apps[editorAppId];
             if (editorApp.IsInstalled)
             {
-                core.LaunchApp(appId, path);
+                if (editorAppId == AppKeys.NotepadPlusPlus)
+                {
+                    core.LaunchApp(editorAppId, "-multiInst", "-nosession", "-notabbar", path);
+                }
+                else
+                {
+                    core.LaunchApp(editorAppId, path);
+                }
             }
             else
             {
@@ -464,36 +474,34 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
-        private void EditTextFile(string name, string path)
-            => EditFile(name, path, core.Config.GetStringValue(ConfigPropertyKeys.TextEditorApp));
-
-        private void EditMarkdownFile(string name, string path)
-            => EditFile(name, path, core.Config.GetStringValue(ConfigPropertyKeys.MarkdownEditorApp));
-
         private void EditUserConfigHandler(object sender, EventArgs e)
         {
-            EditMarkdownFile("User Configuration",
-                core.Config.GetStringValue(ConfigPropertyKeys.UserConfigFile));
+            EditConfigFile("User Configuration",
+                core.Config.GetStringValue(ConfigPropertyKeys.UserConfigFile),
+                ConfigFileLanguage.Markdown);
         }
 
         private void EditUserAppsHandler(object sender, EventArgs e)
         {
-            EditMarkdownFile("User App Library",
+            EditConfigFile("User App Library",
                 Path.Combine(
                     core.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir),
-                    core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)));
+                    core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)),
+                ConfigFileLanguage.Markdown);
         }
 
         private void ActivationListHandler(object sender, EventArgs e)
         {
-            EditTextFile("App Activation",
-                core.Config.GetStringValue(ConfigPropertyKeys.AppActivationFile));
+            EditConfigFile("App Activation",
+                core.Config.GetStringValue(ConfigPropertyKeys.AppActivationFile),
+                ConfigFileLanguage.ActivationList);
         }
 
         private void DeactivationListHandler(object sender, EventArgs e)
         {
-            EditTextFile("App Deactivation",
-                core.Config.GetStringValue(ConfigPropertyKeys.AppDeactivationFile));
+            EditConfigFile("App Deactivation",
+                core.Config.GetStringValue(ConfigPropertyKeys.AppDeactivationFile),
+                ConfigFileLanguage.ActivationList);
         }
 
         private void TaskInfoHandler(TaskInfo info)
@@ -868,6 +876,14 @@ namespace Mastersign.Bench.Dashboard
         private void ConfigurationInfoHandler(object sender, EventArgs e)
         {
             new ConfigInfoDialog(core.Config).ShowDialog(this);
+        }
+
+        private void KeyDownDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape && e.Modifiers == Keys.None)
+            {
+                Close();
+            }
         }
 
         private void SetupForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -1,6 +1,6 @@
 ﻿+++
 title = "jupyter (Python 3)"
-weight = 90
+weight = 94
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python3-package"
@@ -26,7 +26,7 @@ across over 40 programming languages.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 90
+* Order Index: 94
 
 ## Properties
 

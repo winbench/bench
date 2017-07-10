@@ -1,19 +1,19 @@
 ﻿+++
 title = "Inlein"
-weight = 39
+weight = 37
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Inlein"
-app_version = "0.1.0"
+app_version = "0.2.0"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Inlein`  
-**Version:** 0.1.0  
+**Version:** 0.2.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -27,7 +27,7 @@ _Warning: This program is leaking into the Windows user home folder under `C:\Us
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 39
+* Order Index: 37
 
 ## Properties
 
