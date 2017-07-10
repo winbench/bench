@@ -1,6 +1,6 @@
 ﻿+++
 title = "Git"
-weight = 5
+weight = 6
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -25,7 +25,7 @@ Git is a free and open source distributed version control system designed to han
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 5
+* Order Index: 6
 
 ## Properties
 

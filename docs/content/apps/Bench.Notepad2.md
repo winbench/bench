@@ -1,14 +1,14 @@
 ﻿+++
 title = "Notepad2"
-weight = 13
-app_library = "core"
-app_category = "Basics"
+weight = 48
+app_library = "default"
+app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Notepad2"
 app_version = "4.2.25"
-app_categories = ["Basics"]
-app_libraries = ["core"]
+app_categories = ["Editors"]
+app_libraries = ["default"]
 app_types = ["default"]
 +++
 
@@ -24,9 +24,9 @@ This program can be run out of the box without installation, and does not touch 
 
 ## Source
 
-* Library: [`core`](/app_libraries/core)
-* Category: [Basics](/app_categories/basics)
-* Order Index: 13
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 48
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "GitKraken"
-weight = 31
+weight = 30
 app_library = "default"
 app_category = "Version Control"
 app_typ = "default"
@@ -27,7 +27,7 @@ No proxy support yet (Version 1.3.0).
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Version Control](/app_categories/version-control)
-* Order Index: 31
+* Order Index: 30
 
 ## Properties
 

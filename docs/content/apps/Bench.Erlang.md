@@ -1,6 +1,6 @@
 ﻿+++
 title = "Erlang"
-weight = 45
+weight = 44
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,7 +25,7 @@ Erlang is a programming language used to build massively scalable soft real-time
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 45
+* Order Index: 44
 
 ## Properties
 

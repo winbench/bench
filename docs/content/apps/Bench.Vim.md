@@ -1,6 +1,6 @@
 ﻿+++
 title = "Vim"
-weight = 56
+weight = 58
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,7 +26,7 @@ It is an improved version of the vi editor distributed with most UNIX systems.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 56
+* Order Index: 58
 
 ## Properties
 

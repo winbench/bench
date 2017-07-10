@@ -1,6 +1,6 @@
 ﻿+++
 title = "PIP (Python 3)"
-weight = 11
+weight = 12
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -25,7 +25,7 @@ The PyPA recommended tool for installing Python packages.
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 11
+* Order Index: 12
 
 ## Properties
 

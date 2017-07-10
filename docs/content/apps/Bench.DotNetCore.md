@@ -1,6 +1,6 @@
 ﻿+++
 title = ".NET Core SDK"
-weight = 39
+weight = 38
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,7 +25,7 @@ The build tools and compilers for platform independent .NET Core applications.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 39
+* Order Index: 38
 
 ## Properties
 

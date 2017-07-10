@@ -1,6 +1,6 @@
 ﻿+++
 title = "Scribus"
-weight = 126
+weight = 128
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
@@ -27,7 +27,7 @@ one of the premier Open Source desktop applications.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Writing](/app_categories/writing)
-* Order Index: 126
+* Order Index: 128
 
 ## Properties
 

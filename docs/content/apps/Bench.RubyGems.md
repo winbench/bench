@@ -1,6 +1,6 @@
 ﻿+++
 title = "RubyGems"
-weight = 8
+weight = 9
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -25,7 +25,7 @@ RubyGems is a package management framework for Ruby.
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 8
+* Order Index: 9
 
 ## Properties
 

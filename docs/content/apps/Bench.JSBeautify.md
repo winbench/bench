@@ -1,6 +1,6 @@
 ﻿+++
 title = "JSBeautify"
-weight = 79
+weight = 81
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -30,7 +30,7 @@ Supported commands: `js-beautify`, `css-beautify`, `html-beautify`
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 79
+* Order Index: 81
 
 ## Properties
 

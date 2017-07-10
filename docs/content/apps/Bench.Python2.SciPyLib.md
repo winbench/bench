@@ -1,6 +1,6 @@
 ﻿+++
 title = "SciPy library (Python 2)"
-weight = 99
+weight = 101
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "default"
@@ -31,7 +31,7 @@ Thanks a lot to Christoph Golke for his service.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 99
+* Order Index: 101
 
 ## Properties
 

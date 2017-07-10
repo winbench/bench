@@ -1,6 +1,6 @@
 ﻿+++
 title = "Sift"
-weight = 106
+weight = 108
 app_library = "default"
 app_category = "Filesystem"
 app_typ = "default"
@@ -25,7 +25,7 @@ Sift - grep on steroids. A fast and powerful alternative to grep.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Filesystem](/app_categories/filesystem)
-* Order Index: 106
+* Order Index: 108
 
 ## Properties
 

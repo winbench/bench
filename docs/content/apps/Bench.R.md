@@ -1,6 +1,6 @@
 ﻿+++
 title = "R"
-weight = 48
+weight = 47
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,7 +25,7 @@ R is a free software for statistical computing and graphics.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 48
+* Order Index: 47
 
 ## Properties
 

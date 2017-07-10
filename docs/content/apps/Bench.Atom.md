@@ -1,6 +1,6 @@
 ﻿+++
 title = "Atom"
-weight = 49
+weight = 51
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -39,7 +39,7 @@ by putting something like this in your user app library in `config\apps.md`:
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 49
+* Order Index: 51
 
 ## Properties
 

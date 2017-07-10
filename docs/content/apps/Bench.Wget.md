@@ -1,6 +1,6 @@
 ﻿+++
 title = "Wget"
-weight = 15
+weight = 14
 app_library = "core"
 app_category = "Basics"
 app_typ = "default"
@@ -26,7 +26,7 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Basics](/app_categories/basics)
-* Order Index: 15
+* Order Index: 14
 
 ## Properties
 
