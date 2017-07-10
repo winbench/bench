@@ -1,6 +1,6 @@
 ﻿+++
 title = "SWare Iron"
-weight = 114
+weight = 116
 app_library = "default"
 app_category = "Network"
 app_typ = "default"
@@ -25,7 +25,7 @@ A free portable derivative of Chromium, optimized for privacy.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Network](/app_categories/network)
-* Order Index: 114
+* Order Index: 116
 
 ## Properties
 

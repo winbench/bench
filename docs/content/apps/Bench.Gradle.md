@@ -1,6 +1,6 @@
 ﻿+++
 title = "Gradle"
-weight = 74
+weight = 76
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -28,7 +28,7 @@ Gradle is writing to the `.gradle` folder in the Windows user profile directory 
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 74
+* Order Index: 76
 
 ## Properties
 

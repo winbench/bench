@@ -1,6 +1,6 @@
 ﻿+++
 title = "PyCharm Community"
-weight = 63
+weight = 65
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -25,7 +25,7 @@ Python IDE for Professional Developers.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 63
+* Order Index: 65
 
 ## Properties
 

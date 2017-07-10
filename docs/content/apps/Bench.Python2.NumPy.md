@@ -1,6 +1,6 @@
 ﻿+++
 title = "NumPy (Python 2)"
-weight = 97
+weight = 99
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "default"
@@ -39,7 +39,7 @@ Thanks a lot to Christoph Golke for his service.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 97
+* Order Index: 99
 
 ## Properties
 

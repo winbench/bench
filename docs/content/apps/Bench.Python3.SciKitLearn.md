@@ -1,6 +1,6 @@
 ﻿+++
 title = "scikit-learn"
-weight = 104
+weight = 106
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python3-package"
@@ -30,7 +30,7 @@ Machine Learning in Python
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 104
+* Order Index: 106
 
 ## Properties
 

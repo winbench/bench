@@ -1,6 +1,6 @@
 ﻿+++
 title = "LLVM Clang"
-weight = 43
+weight = 42
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -33,7 +33,7 @@ install the LLVM-Plugin for Eclipse CDT.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 43
+* Order Index: 42
 
 ## Properties
 

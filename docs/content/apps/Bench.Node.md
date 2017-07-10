@@ -1,6 +1,6 @@
 ﻿+++
 title = "Node.js"
-weight = 6
+weight = 7
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -27,7 +27,7 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 6
+* Order Index: 7
 
 ## Properties
 

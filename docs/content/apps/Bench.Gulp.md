@@ -1,6 +1,6 @@
 ﻿+++
 title = "Gulp"
-weight = 66
+weight = 68
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -25,7 +25,7 @@ The streaming build system.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 66
+* Order Index: 68
 
 ## Properties
 

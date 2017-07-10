@@ -1,6 +1,6 @@
 ﻿+++
 title = "LaTeX Writing"
-weight = 26
+weight = 25
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,7 +22,7 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 26
+* Order Index: 25
 
 ## Properties
 

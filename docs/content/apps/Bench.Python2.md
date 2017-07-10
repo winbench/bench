@@ -1,6 +1,6 @@
 ﻿+++
 title = "Python 2"
-weight = 9
+weight = 10
 app_library = "core"
 app_category = "Core"
 app_typ = "default"
@@ -25,7 +25,7 @@ Python is a programming language that lets you work quickly and integrate system
 
 * Library: [`core`](/app_libraries/core)
 * Category: [Core](/app_categories/core)
-* Order Index: 9
+* Order Index: 10
 
 ## Properties
 

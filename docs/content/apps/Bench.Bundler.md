@@ -1,6 +1,6 @@
 ﻿+++
 title = "Bundler"
-weight = 81
+weight = 83
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "ruby-package"
@@ -28,7 +28,7 @@ by tracking and installing the exact gems and versions that are needed.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 81
+* Order Index: 83
 
 ## Properties
 

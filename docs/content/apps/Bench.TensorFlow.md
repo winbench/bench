@@ -1,6 +1,6 @@
 ﻿+++
 title = "TensorFlow"
-weight = 105
+weight = 107
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python3-package"
@@ -27,7 +27,7 @@ TensorFlow was originally developed by researchers and engineers working on the 
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 105
+* Order Index: 107
 
 ## Properties
 

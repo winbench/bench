@@ -1,6 +1,6 @@
 ﻿+++
 title = "MiKTeX"
-weight = 122
+weight = 124
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
@@ -30,7 +30,7 @@ are selected to suit the needs of the default LaTeX template of _Pandoc_.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Writing](/app_categories/writing)
-* Order Index: 122
+* Order Index: 124
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "CMake"
-weight = 76
+weight = 78
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -35,7 +35,7 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 76
+* Order Index: 78
 
 ## Properties
 

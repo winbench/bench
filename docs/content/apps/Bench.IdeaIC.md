@@ -1,6 +1,6 @@
 ﻿+++
 title = "IntelliJ IDEA Community"
-weight = 62
+weight = 64
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -25,7 +25,7 @@ Capable and Ergonomic IDE for JVM.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 62
+* Order Index: 64
 
 ## Properties
 

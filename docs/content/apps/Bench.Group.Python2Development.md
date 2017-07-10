@@ -1,6 +1,6 @@
 ﻿+++
 title = "Python 2 Development"
-weight = 21
+weight = 20
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,7 +22,7 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 21
+* Order Index: 20
 
 ## Properties
 

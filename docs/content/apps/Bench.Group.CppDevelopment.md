@@ -1,6 +1,6 @@
 ﻿+++
 title = "C/C++ Development"
-weight = 24
+weight = 23
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,7 +22,7 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 24
+* Order Index: 23
 
 ## Properties
 

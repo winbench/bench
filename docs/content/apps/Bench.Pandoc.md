@@ -1,6 +1,6 @@
 ﻿+++
 title = "Pandoc"
-weight = 123
+weight = 125
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
@@ -25,7 +25,7 @@ Pandoc is a library and command-line tool for converting from one markup format 
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Writing](/app_categories/writing)
-* Order Index: 123
+* Order Index: 125
 
 ## Properties
 

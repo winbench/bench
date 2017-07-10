@@ -1,14 +1,14 @@
 ﻿+++
 title = "Markdown Edit"
-weight = 14
-app_library = "core"
-app_category = "Basics"
+weight = 50
+app_library = "default"
+app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MarkdownEdit"
 app_version = "1.33"
-app_categories = ["Basics"]
-app_libraries = ["core"]
+app_categories = ["Editors"]
+app_libraries = ["default"]
 app_types = ["default"]
 +++
 
@@ -23,9 +23,9 @@ Markdown Edit (MDE) is low distraction editor for Windows. MDE focuses on produc
 
 ## Source
 
-* Library: [`core`](/app_libraries/core)
-* Category: [Basics](/app_categories/basics)
-* Order Index: 14
+* Library: [`default`](/app_libraries/default)
+* Category: [Editors](/app_categories/editors)
+* Order Index: 50
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "Python 3 Development"
-weight = 22
+weight = 21
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,7 +22,7 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 22
+* Order Index: 21
 
 ## Properties
 

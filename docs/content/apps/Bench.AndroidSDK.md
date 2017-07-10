@@ -1,6 +1,6 @@
 ﻿+++
 title = "Android SDK"
-weight = 91
+weight = 93
 app_library = "default"
 app_category = "Mobile Development"
 app_typ = "default"
@@ -36,7 +36,7 @@ The setup script includes the installation of the Intel _Hardware Accelerated eX
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Mobile Development](/app_categories/mobile-development)
-* Order Index: 91
+* Order Index: 93
 
 ## Properties
 

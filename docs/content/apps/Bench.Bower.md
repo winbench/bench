@@ -1,6 +1,6 @@
 ﻿+++
 title = "Bower"
-weight = 68
+weight = 70
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -30,7 +30,7 @@ the right versions of the packages you need and their dependencies.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 68
+* Order Index: 70
 
 ## Properties
 

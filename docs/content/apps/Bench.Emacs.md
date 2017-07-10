@@ -1,6 +1,6 @@
 ﻿+++
 title = "Emacs"
-weight = 52
+weight = 54
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -28,7 +28,7 @@ with extensions to support text editing.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 52
+* Order Index: 54
 
 ## Properties
 
