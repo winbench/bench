@@ -33,6 +33,13 @@ Add a link to the GitHub diff like
   in the Bench Dashboard
   ([#110](https://github.com/mastersign/bench/issues/110))
 
+### Changed
+- Switched from _MarkdownEdit_ to a pre-configured _Notepad++_
+  for editing Bench configuration and app activation files
+
+### Removed
+- Configuration property `MarkdownEditorApp`
+
 ## [0.16.1] - 2017-05-17
 
 [0.16.1]: https://github.com/mastersign/bench/compare/v0.16.0...v0.16.1

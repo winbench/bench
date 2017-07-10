@@ -21,6 +21,9 @@ namespace Mastersign.Bench
         /// <summary>The app ID of ConEmu.</summary>
         public const string ConEmu = "Bench.ConEmu";
 
+        /// <summary>The app ID of a pre-configured Notepad++ for editing Bench configuration files.</summary>
+        public const string NotepadPlusPlus = "Bench.BenchNpp";
+
         /// <summary>The app ID of Git.</summary>
         public const string Git = "Bench.Git";
 

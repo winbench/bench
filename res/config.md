@@ -106,6 +106,5 @@
 * QuickAccessCmd: `true`
 * QuickAccessPowerShell: `false`
 * QuickAccessBash: `false`
-* TextEditorApp: `Bench.Notepad2`
-* MarkdownEditorApp: `Bench.MarkdownEdit`
+* TextEditorApp: `Bench.BenchNpp`
 * DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
