@@ -76,7 +76,7 @@ and the [`Only64Bit`](#Only64Bit) flag should be set to `true`.
 | [Register](#Register) | `meta`, `default` | `false` | `false` |
 | [Environment](#Environment) | all | `false` | `true` |
 | [Exe](#Exe) | all | `false` | `true` |
-| [Only64Bit](#Only64BIt) | all | `false` | `false` |
+| [Only64Bit](#Only64Bit) | all | `false` | `false` |
 | [ExeTestArguments](#ExeTestArguments) | all |  | `true` |
 | [ExeTest](#ExeTest) | all |  | `false` |
 | [AdornedExecutables](#AdornedExecutables) | all | `false` | `true` |
@@ -262,7 +262,7 @@ For package apps like `node-package` or `python*-package`,
 the path can be just the name of CLI wrapper script,
 given the package provides a CLI.
 
-## Only64Bit {#Only64BIt}
+## Only64Bit {#Only64Bit}
 
 * Description: A flag to declare that an app is only supported on 64Bit systems.
 * Data Type: boolean
