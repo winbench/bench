@@ -31,6 +31,10 @@ Add a link to the GitHub diff like
 - Context menu to the launcher icons on the dashboard
   ([#113](https://github.com/mastersign/bench/issues/113))
 
+### Fixed
+- Inconsistent warning in SFX transfer package
+  ([#115](https://github.com/mastersign/bench/issues/115))
+
 ## [0.16.2] - 2017-07-10
 
 [0.16.2]: https://github.com/mastersign/bench/compare/v0.16.1...v0.16.2

@@ -2821,16 +2821,16 @@ namespace Mastersign.Bench
             }
         }
 
-        private static TextWriter WriteSfxConfig(BenchConfiguration cfg, Stream trg)
+        private static TextWriter WriteSfxConfig(BenchConfiguration cfg, Stream trg, bool userProfileChangeWarning)
         {
             var enc = new UTF8Encoding(false);
             var w = new StreamWriter(trg, enc, 1024);
             w.WriteLine(";!@Install@!UTF-8!");
             w.WriteLine("Title=\"Bench Transfer Package\"");
             w.Write("BeginPrompt=\"This is a pre - configured Bench environment. If you proceed, you will be asked for a target directory to extract and setup the Bench environment.\n\n");
-            if (cfg.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile))
+            if (userProfileChangeWarning)
             {
-                w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables of your user profile will be modified during setup.\n\n");
+                w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables and possibly some registry keys of your user profile will be modified during setup.\n\n");
             }
             w.WriteLine("See http://mastersign.github.io/bench/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?\"");
             w.WriteLine(@"RunProgram="".\\auto\\bin\\bench.exe --verbose transfer install""");
@@ -2853,7 +2853,11 @@ namespace Mastersign.Bench
                 using (var s = File.Open(targetFile, FileMode.Create, FileAccess.Write))
                 {
                     CopyFileToStream(sfxPath, s);
-                    WriteSfxConfig(man.Config, s);
+                    var userConfigDir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir);
+                    WriteSfxConfig(man.Config, s, userProfileChangeWarning:
+                        man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile) && 
+                        Seq(paths).Any(p => string.Equals(userConfigDir,
+                            Path.Combine(man.Config.BenchRootDir, p), StringComparison.InvariantCultureIgnoreCase)));
                     CopyFileToStream(tmpArchive, s);
                 }
                 File.Delete(tmpArchive);
