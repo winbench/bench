@@ -34,6 +34,8 @@ Add a link to the GitHub diff like
   ([#113](https://github.com/mastersign/bench/issues/113))
 
 ### Fixed
+- Dialog size of initialization assistent
+  ([#114](https://github.com/mastersign/bench/issues/114))
 - Inconsistent warning in SFX transfer package
   ([#115](https://github.com/mastersign/bench/issues/115))
 

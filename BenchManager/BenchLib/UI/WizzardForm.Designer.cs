@@ -91,7 +91,7 @@
             this.panelFooter.Controls.Add(this.btnBack);
             this.panelFooter.Controls.Add(this.btnNext);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelFooter.Location = new System.Drawing.Point(0, 240);
+            this.panelFooter.Location = new System.Drawing.Point(0, 290);
             this.panelFooter.Name = "panelFooter";
             this.panelFooter.Size = new System.Drawing.Size(464, 48);
             this.panelFooter.TabIndex = 0;
@@ -135,7 +135,7 @@
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContent.Location = new System.Drawing.Point(0, 70);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(464, 170);
+            this.panelContent.Size = new System.Drawing.Size(464, 220);
             this.panelContent.TabIndex = 2;
             // 
             // btnCancel
@@ -150,13 +150,13 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // InitializeWizzardForm
+            // WizzardForm
             // 
             this.AcceptButton = this.btnFinish;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(464, 288);
+            this.ClientSize = new System.Drawing.Size(464, 338);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelFooter);
             this.Controls.Add(this.panelHead);
@@ -164,7 +164,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "InitializeWizzardForm";
+            this.Name = "WizzardForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bench - Initialization";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InitializeWizzardForm_FormClosing);
