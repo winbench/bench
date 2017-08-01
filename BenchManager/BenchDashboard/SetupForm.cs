@@ -674,26 +674,13 @@ namespace Mastersign.Bench.Dashboard
         private void AppInfoHandler(object sender, EventArgs e)
         {
             if (contextApp == null) return;
-            new AppInfoDialog(core.Config, contextApp).ShowDialog(this);
+            core.ShowAppInfo(contextApp.ID);
         }
 
         private void OpenWebsiteHandler(object sender, EventArgs e)
         {
-            try
-            {
-                var url = new Uri(contextApp.Website, UriKind.Absolute);
-                if (url.Scheme != "http" && url.Scheme != "https")
-                {
-                    throw new ArgumentException("The given URL does not use the HTTP(S) protocol: "
-                        + contextApp.Website);
-                }
-                System.Diagnostics.Process.Start(url.AbsoluteUri);
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(this, exc.Message, "Open Website",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            if (contextApp == null) return;
+            core.ShowAppWebsite(contextApp.ID);
         }
 
         private async void InstallAppHandler(object sender, EventArgs e)

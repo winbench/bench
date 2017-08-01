@@ -750,6 +750,31 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        public void ShowAppInfo(string id)
+        {
+            new AppInfoDialog(Config, Config.Apps[id]).ShowDialog(GuiContext);
+        }
+
+        public void ShowAppWebsite(string id)
+        {
+            var app = Config.Apps[id];
+            try
+            {
+                var url = new Uri(app.Website, UriKind.Absolute);
+                if (url.Scheme != "http" && url.Scheme != "https")
+                {
+                    throw new ArgumentException("The given URL does not use the HTTP(S) protocol: "
+                        + app.Website);
+                }
+                Process.Start(url.AbsoluteUri);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(GuiContext, exc.Message, "Open Website",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         public void ShowPathInExplorer(string path)
         {
             Process.Start(path);
