@@ -1629,7 +1629,7 @@ namespace Mastersign.Bench
         {
             try
             {
-                man.Env.WriteEnvironmentFile();
+                man.Env.WriteCmdEnvironmentScript();
             }
             catch (Exception e)
             {

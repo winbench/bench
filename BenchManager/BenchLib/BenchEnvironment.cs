@@ -128,13 +128,13 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
-        /// Writes the environment file of the Bench system.
+        /// Writes the CMD environment script of the Bench system.
         /// </summary>
         /// <remarks>
-        /// The environment file is stored in the root of the Bench directory structure
+        /// The environment script is stored in the root of the Bench directory structure
         /// and called <c>env.cmd</c>.
         /// </remarks>
-        public void WriteEnvironmentFile()
+        public void WriteCmdEnvironmentScript()
         {
             var envFilePath = Path.Combine(Config.BenchRootDir, "env.cmd");
             using (var w = new StreamWriter(envFilePath, false, Encoding.Default))
