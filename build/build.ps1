@@ -43,7 +43,6 @@ $buildArtifacts = @(
 )
 # Paths of release artifacts are relative to the root dir
 $releaseArtifacts = @(
-    "actions",
     "auto",
     "res",
     "CHANGELOG.md",
