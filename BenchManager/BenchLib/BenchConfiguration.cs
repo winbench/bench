@@ -34,9 +34,26 @@ namespace Mastersign.Bench
     /// </remarks>
     public class BenchConfiguration : ResolvingPropertyCollection
     {
+        /// <summary>
+        /// The relative path of the Bench automation directory,
+        /// containing binaries and scripts of the Bench system.
+        /// </summary>
         private const string AUTO_DIR = "auto";
+
+        /// <summary>
+        /// The relative path of the resource directory,
+        /// containing resource files and templates.
+        /// </summary>
         private const string RES_DIR = "res";
+
+        /// <summary>
+        /// The relative path of the directory with the Bench binaries.
+        /// </summary>
         private const string BIN_DIR = AUTO_DIR + @"\bin";
+
+        /// <summary>
+        /// The relative path of the directory with the PowerShell scripts for Bench.
+        /// </summary>
         private const string SCRIPTS_DIR = AUTO_DIR + @"\lib";
 
         /// <summary>
