@@ -25,6 +25,12 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Added
+- Drag-and-drop support for launcher icons on the dashboard
+  ([#112](https://github.com/mastersign/bench/issues/112))
+- Context menu to the launcher icons on the dashboard
+  ([#113](https://github.com/mastersign/bench/issues/113))
+
 ## [0.16.2] - 2017-07-10
 
 [0.16.2]: https://github.com/mastersign/bench/compare/v0.16.1...v0.16.2
