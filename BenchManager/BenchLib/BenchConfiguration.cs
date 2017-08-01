@@ -66,6 +66,12 @@ namespace Mastersign.Bench
         /// </summary>
         public const string MAIN_PS_LIB_FILE = SCRIPTS_DIR + @"\bench.lib.ps1";
 
+        /// <summary>
+        /// A search pattern to find all root scripts in the res directory.
+        /// </summary>
+        public const string ROOT_SCRIPTS_PATTERN = "bench-*.cmd";
+
+
         private static readonly string[] BENCH_CHECK_FILES = new[]
         {
             CONFIG_FILE,
@@ -97,6 +103,11 @@ namespace Mastersign.Bench
         /// The absolute path to the root directory of Bench.
         /// </summary>
         public string BenchRootDir { get; private set; }
+
+        /// <summary>
+        /// The absolute path to the Bench resource directory.
+        /// </summary>
+        public string BenchResourceDir => Path.Combine(BenchRootDir, RES_DIR);
 
         private string siteConfigFileName; // cached to prevent overriding by custom configuration
 
@@ -262,6 +273,7 @@ namespace Mastersign.Bench
             {
                 result.Add(changeLogFile);
             }
+            result.AddRange(Directory.GetFiles(BenchRootDir, ROOT_SCRIPTS_PATTERN));
             if ((selection & TransferPaths.UserConfiguration) == TransferPaths.UserConfiguration)
             {
                 result.Add(GetStringValue(ConfigPropertyKeys.UserConfigDir));

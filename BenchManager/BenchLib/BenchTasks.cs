@@ -1623,10 +1623,20 @@ namespace Mastersign.Bench
                 FileSystem.ShortcutWindowStyle.Minimized);
         }
 
+        private static void CopyRootScripts(BenchConfiguration config)
+        {
+            var scripts = Directory.GetFiles(config.BenchResourceDir, BenchConfiguration.ROOT_SCRIPTS_PATTERN);
+            foreach (var script in scripts)
+            {
+                File.Copy(script, Path.Combine(config.BenchRootDir, Path.GetFileName(script)), true);
+            }
+        }
+
         private static void UpdateEnvironment(IBenchManager man,
             ICollection<AppFacade> _,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
+            CopyRootScripts(man.Config);
             try
             {
                 man.Env.WriteCmdEnvironmentScript();
@@ -1638,6 +1648,7 @@ namespace Mastersign.Bench
                     exception: e));
                 return;
             }
+
             try
             {
                 if (man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile))

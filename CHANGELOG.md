@@ -26,6 +26,8 @@ Add a link to the GitHub diff like
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
 ### Added
+- Added root scripts to the Bench environment and transfer packages
+  ([#111](https://github.com/mastersign/bench/issues/111))
 - Drag-and-drop support for launcher icons on the dashboard
   ([#112](https://github.com/mastersign/bench/issues/112))
 - Context menu to the launcher icons on the dashboard

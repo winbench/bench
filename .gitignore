@@ -11,7 +11,8 @@
 /release
 /applibs
 
-/env.cmd
+/env.*
+/bench-*.cmd
 /*.zip
 /bench-site.md
 *.lnk

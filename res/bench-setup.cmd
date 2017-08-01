@@ -1,0 +1,1 @@
+@"%~dp0auto\bin\bench.exe" manage setup
