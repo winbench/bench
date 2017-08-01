@@ -36,6 +36,7 @@
             // 
             // listView
             // 
+            this.listView.AllowDrop = true;
             this.listView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.LargeImageList = this.icons32;
@@ -48,8 +49,11 @@
             this.listView.TileSize = new System.Drawing.Size(180, 36);
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Tile;
-            this.listView.DoubleClick += new System.EventHandler(this.listView_DoubleClick);
-            this.listView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseClick);
+            this.listView.DragDrop += new System.Windows.Forms.DragEventHandler(this.DragDropHandler);
+            this.listView.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnterHandler);
+            this.listView.DragOver += new System.Windows.Forms.DragEventHandler(this.DragOverHandler);
+            this.listView.DoubleClick += new System.EventHandler(this.DoubleClickHandler);
+            this.listView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickHandler);
             // 
             // icons32
             // 

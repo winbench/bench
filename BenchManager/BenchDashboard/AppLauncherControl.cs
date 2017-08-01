@@ -97,7 +97,7 @@ namespace Mastersign.Bench.Dashboard
             });
         }
 
-        private void listView_DoubleClick(object sender, EventArgs e)
+        private void DoubleClickHandler(object sender, EventArgs e)
         {
             if (Core == null) return;
             var item = listView.SelectedItems.Count > 0 ? listView.SelectedItems[0] : null;
@@ -107,7 +107,7 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
-        private void listView_MouseClick(object sender, MouseEventArgs e)
+        private void MouseClickHandler(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Right) return;
             if (Core == null) return;
@@ -115,6 +115,51 @@ namespace Mastersign.Bench.Dashboard
             if (item != null)
             {
                 // nothing yet
+            }
+        }
+
+        private void DragEnterHandler(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("FileDrop", true))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else if (e.Data.GetDataPresent("System.String", true))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void DragOverHandler(object sender, DragEventArgs e)
+        {
+            var p = listView.PointToClient(new Point(e.X, e.Y));
+            var item = listView.GetItemAt(p.X, p.Y);
+            e.Effect = item != null
+                ? e.Data.GetDataPresent("FileDrop", true)
+                    ? DragDropEffects.Move
+                    : DragDropEffects.Copy
+                : DragDropEffects.None;
+        }
+
+        private void DragDropHandler(object sender, DragEventArgs e)
+        {
+            var p = listView.PointToClient(new Point(e.X, e.Y));
+            var item = listView.GetItemAt(p.X, p.Y);
+            if (item == null) return;
+
+            if (e.Data.GetDataPresent("FileDrop", true))
+            {
+                var paths = e.Data.GetData("FileDrop", true) as string[];
+                Core.LaunchApp((string)item.Tag, paths);
+            }
+            else if (e.Data.GetDataPresent("System.String", true))
+            {
+                var text = e.Data.GetData("System.String", true) as string;
+                Core.LaunchApp((string)item.Tag, text);
             }
         }
     }
