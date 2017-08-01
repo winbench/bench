@@ -1,4 +1,5 @@
 @ECHO OFF
+SetLocal
 
 ::
 :: Bench Bootstrap file
