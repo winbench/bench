@@ -12,6 +12,7 @@ With the following properties, you can control the composition of the environmen
 * IgnoreSystemPath: `true`
 * UseRegistryIsolation: `true`
 * RegisterInUserProfile: `false`
+<!-- * LauncherDir: `$AppDataDir$\Microsoft\Windows\Start Menu\Bench` -->
 <!-- * EnvironmentPath: `$HomeDir$\bin` -->
 <!--
 * Environment:
