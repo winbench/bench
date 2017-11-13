@@ -129,10 +129,12 @@ foreach ($artifact in $buildArtifacts)
     Copy-Artifact "$rootDir\$solutionDir\$artifact" "$rootDir\$buildTargetDir"
 }
 
+$today = [DateTime]::Now.ToString("yyyy-MM-dd")
+
 if (!$NoRelease)
 {
     # Prepare release names
-    $taggedName = "$releaseDir\${releaseFileName}_$([DateTime]::Now.ToString("yyyy-MM-dd"))"
+    $taggedName = "$releaseDir\${releaseFileName}_$today"
     $suffix = 0
     $taggedZipFile = "${taggedName}.zip"
     while (Test-Path $taggedZipFile)
@@ -169,6 +171,7 @@ if (!$NoRelease)
 
     # Create SFX release
     cd "$rootDir"
+    $taggedName = "$releaseDir\${releaseFileName}Setup_$today"
     $taggedSfxFile = "${taggedName}.exe"
     if ($suffix -gt 0)
     {
@@ -177,7 +180,7 @@ if (!$NoRelease)
     .\auto\bin\bench.exe --verbose transfer export --include SystemOnly $taggedSfxFile
     if ($?)
     {
-        $sfxFile = "$releaseDir\${releaseFileName}.exe"
+        $sfxFile = "$releaseDir\${releaseFileName}Setup.exe"
         cp $taggedSfxFile $sfxFile -Force
     }
 
