@@ -27,7 +27,7 @@ Add a link to the GitHub diff like
 
 ## [0.17.0] - 2017-11-13
 
-[0.16.0]: https://github.com/mastersign/bench/compare/v0.16.2...v0.17.0
+[0.17.0]: https://github.com/mastersign/bench/compare/v0.16.2...v0.17.0
 
 ### Added
 - Added root scripts to the Bench environment and transfer packages
