@@ -1,19 +1,19 @@
 ﻿+++
 title = "RabbitMQ"
-weight = 123
+weight = 133
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.RabbitMQ"
-app_version = "3.6.10"
+app_version = "3.6.12"
 app_categories = ["Services"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.RabbitMQ`  
-**Version:** 3.6.10  
+**Version:** 3.6.12  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -36,7 +36,7 @@ At first start you can login with user `guest` and passwort `guest`.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 123
+* Order Index: 133
 
 ## Properties
 
@@ -45,4 +45,5 @@ At first start you can login with user `guest` and passwort `guest`.
 * Typ: `default`
 * Website: <http://www.rabbitmq.com>
 * Dependencies: [Erlang](/apps/Bench.Erlang)
+* Responsibilities: [Prometheus RabbitMQ Exporter](/apps/Bench.Prometheus.RabbitMqExporter)
 

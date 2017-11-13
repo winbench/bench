@@ -1,19 +1,19 @@
 ﻿+++
 title = "JSBeautify"
-weight = 81
+weight = 89
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
 app_ns = "Bench"
 app_id = "Bench.JSBeautify"
-app_version = ">=1.6.8 <2.0.0"
+app_version = ">=1.6.8 <1.7.0"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["node-package"]
 +++
 
 **ID:** `Bench.JSBeautify`  
-**Version:** >=1.6.8 <2.0.0  
+**Version:** >=1.6.8 <1.7.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -30,7 +30,7 @@ Supported commands: `js-beautify`, `css-beautify`, `html-beautify`
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 81
+* Order Index: 89
 
 ## Properties
 

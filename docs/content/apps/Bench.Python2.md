@@ -6,14 +6,14 @@ app_category = "Core"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Python2"
-app_version = "2.7.13"
+app_version = "2.7.14"
 app_categories = ["Core"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Python2`  
-**Version:** 2.7.13  
+**Version:** 2.7.14  
 <!--more-->
 
 [Back to all apps](/apps/)

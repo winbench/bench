@@ -234,7 +234,7 @@ For package apps like `node-package` or `python*-package`,
 the path can be just the name of CLI wrapper script,
 given the package provides a CLI.
 
-## Only64Bit {#Only64BIt}
+## Only64Bit {#Only64Bit}
 
 * Description: A flag to declare that an app is only supported on 64Bit systems.
 * Data Type: boolean

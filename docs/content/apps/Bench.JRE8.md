@@ -6,14 +6,14 @@ app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JRE8"
-app_version = "131"
+app_version = "152"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.JRE8`  
-**Version:** 131  
+**Version:** 152  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -35,5 +35,5 @@ The runtime environment is required for a compiled Java program to get executed.
 * Name: JRE8
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Responsibilities: [Nightcode](/apps/Bench.Nightcode), [Eclipse for Java](/apps/Bench.EclipseJava), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Eclipse for C++](/apps/Bench.EclipseCpp), [Maven](/apps/Bench.Maven), [Android SDK](/apps/Bench.AndroidSDK), [JabRef](/apps/Bench.JabRef), [Gephi](/apps/Bench.Gephi)
+* Responsibilities: [JRE 8 Midi Soundbank](/apps/Bench.JRE8.MidiSoundbank), [Nightcode](/apps/Bench.Nightcode), [Eclipse for Java](/apps/Bench.EclipseJava), [Eclipse for PHP](/apps/Bench.EclipsePHP), [Eclipse for C++](/apps/Bench.EclipseCpp), [Maven](/apps/Bench.Maven), [Android SDK](/apps/Bench.AndroidSDK), [JabRef](/apps/Bench.JabRef), [Gephi](/apps/Bench.Gephi)
 

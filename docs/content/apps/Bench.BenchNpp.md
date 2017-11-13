@@ -6,14 +6,14 @@ app_category = "Required"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.BenchNpp"
-app_version = "7.4.2"
+app_version = "7.5.1"
 app_categories = ["Required"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.BenchNpp`  
-**Version:** 7.4.2  
+**Version:** 7.5.1  
 <!--more-->
 
 [Back to all apps](/apps/)

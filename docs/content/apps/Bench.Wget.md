@@ -6,14 +6,14 @@ app_category = "Basics"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Wget"
-app_version = "latest"
+app_version = "1.16.1"
 app_categories = ["Basics"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Wget`  
-**Version:** latest  
+**Version:** 1.16.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -34,5 +34,5 @@ It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP pr
 * Name: Wget
 * Typ: `default`
 * Website: <https://www.gnu.org>
-* Responsibilities: [Leiningen](/apps/Bench.Leiningen), [MinGwGet](/apps/Bench.MinGwGet), [Composer](/apps/Bench.Composer)
+* Responsibilities: [MinGwGet](/apps/Bench.MinGwGet), [Composer](/apps/Bench.Composer)
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "CamStudio Screen Recorder"
-weight = 145
+weight = 167
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -34,7 +34,7 @@ and tap on the coordinates.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 145
+* Order Index: 167
 
 ## Properties
 

@@ -25,6 +25,30 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.17.0] - 2017-11-13
+
+[0.16.0]: https://github.com/mastersign/bench/compare/v0.16.2...v0.17.0
+
+### Added
+- Added root scripts to the Bench environment and transfer packages
+  ([#111](https://github.com/mastersign/bench/issues/111))
+- Drag-and-drop support for launcher icons on the dashboard
+  ([#112](https://github.com/mastersign/bench/issues/112))
+- Context menu to the launcher icons on the dashboard
+  ([#113](https://github.com/mastersign/bench/issues/113))
+
+### Fixed
+- Dialog size of initialization assistent
+  ([#114](https://github.com/mastersign/bench/issues/114))
+- Inconsistent warning in SFX transfer package
+  ([#115](https://github.com/mastersign/bench/issues/115))
+- Failing downloads with HTTPS
+  ([#119](https://github.com/mastersign/bench/issues/119))
+
+### Changed
+- Dropped Support for .NET Framework 2.0,
+  from now on the minimal .NET Framework version is 4.5
+
 ## [0.16.2] - 2017-07-10
 
 [0.16.2]: https://github.com/mastersign/bench/compare/v0.16.1...v0.16.2

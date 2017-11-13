@@ -131,7 +131,8 @@ namespace Mastersign.Bench
                     var userConfigTemplateFile = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigTemplateFile);
                     File.Copy(userConfigTemplateFile, userConfigFile, false);
 
-                    if (man.Config.GetBooleanValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile)) {
+                    if (man.Config.GetBooleanValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile))
+                    {
                         Markdown.MarkdownPropertyEditor.UpdateFile(userConfigFile, new Dictionary<string, string>
                         {
                             { ConfigPropertyKeys.IgnoreSystemPath, "false" },
@@ -210,7 +211,8 @@ namespace Mastersign.Bench
             var httpProxy = config.GetStringValue(ConfigPropertyKeys.HttpProxy);
             var httpsProxy = config.GetStringValue(ConfigPropertyKeys.HttpsProxy);
             var proxyBypass = config.GetStringListValue(ConfigPropertyKeys.ProxyBypass);
-            var downloader = new Downloader(parallelDownloads);
+            var securityProtocol = GetScurityProtocolType(config);
+            var downloader = new Downloader(parallelDownloads, securityProtocol);
             downloader.DownloadAttempts = downloadAttempts;
             if (useProxy)
             {
@@ -221,6 +223,30 @@ namespace Mastersign.Bench
             downloader.UrlResolver.Add(EclipseMirrorResolver);
             downloader.UrlResolver.Add(EclipseDownloadLinkResolver);
             return downloader;
+        }
+
+        private static SecurityProtocolType? GetScurityProtocolType(BenchConfiguration config)
+        {
+            var protocols = config.GetStringListValue(ConfigPropertyKeys.HttpsSecurityProtocols);
+            if (protocols == null || protocols.Length == 0) return null;
+
+            var protocolTypes = Seq(protocols)
+                .Map(p =>
+                {
+                    try
+                    {
+                        return (SecurityProtocolType?)Enum.Parse(typeof(SecurityProtocolType), p);
+                    }
+                    catch (ArgumentException)
+                    {
+                        return null;
+                    }
+                })
+                .Filter(p => p.HasValue).Map(p => p.Value)
+                .ToArray();
+            if (protocolTypes.Length == 0) return null;
+            if (protocolTypes.Length == 1) return protocolTypes[0];
+            else return Seq(protocolTypes).Reduce((a, b) => a | b);
         }
 
         private static IUrlResolver EclipseDownloadLinkResolver = new HtmlLinkUrlResolver(
@@ -1623,13 +1649,23 @@ namespace Mastersign.Bench
                 FileSystem.ShortcutWindowStyle.Minimized);
         }
 
+        private static void CopyRootScripts(BenchConfiguration config)
+        {
+            var scripts = Directory.GetFiles(config.BenchResourceDir, BenchConfiguration.ROOT_SCRIPTS_PATTERN);
+            foreach (var script in scripts)
+            {
+                File.Copy(script, Path.Combine(config.BenchRootDir, Path.GetFileName(script)), true);
+            }
+        }
+
         private static void UpdateEnvironment(IBenchManager man,
             ICollection<AppFacade> _,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
+            CopyRootScripts(man.Config);
             try
             {
-                man.Env.WriteEnvironmentFile();
+                man.Env.WriteCmdEnvironmentScript();
             }
             catch (Exception e)
             {
@@ -1638,6 +1674,7 @@ namespace Mastersign.Bench
                     exception: e));
                 return;
             }
+
             try
             {
                 if (man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile))
@@ -2821,16 +2858,16 @@ namespace Mastersign.Bench
             }
         }
 
-        private static TextWriter WriteSfxConfig(BenchConfiguration cfg, Stream trg)
+        private static TextWriter WriteSfxConfig(BenchConfiguration cfg, Stream trg, bool userProfileChangeWarning)
         {
             var enc = new UTF8Encoding(false);
             var w = new StreamWriter(trg, enc, 1024);
             w.WriteLine(";!@Install@!UTF-8!");
             w.WriteLine("Title=\"Bench Transfer Package\"");
             w.Write("BeginPrompt=\"This is a pre - configured Bench environment. If you proceed, you will be asked for a target directory to extract and setup the Bench environment.\n\n");
-            if (cfg.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile))
+            if (userProfileChangeWarning)
             {
-                w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables of your user profile will be modified during setup.\n\n");
+                w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables and possibly some registry keys of your user profile will be modified during setup.\n\n");
             }
             w.WriteLine("See http://mastersign.github.io/bench/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?\"");
             w.WriteLine(@"RunProgram="".\\auto\\bin\\bench.exe --verbose transfer install""");
@@ -2853,7 +2890,11 @@ namespace Mastersign.Bench
                 using (var s = File.Open(targetFile, FileMode.Create, FileAccess.Write))
                 {
                     CopyFileToStream(sfxPath, s);
-                    WriteSfxConfig(man.Config, s);
+                    var userConfigDir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir);
+                    WriteSfxConfig(man.Config, s, userProfileChangeWarning:
+                        man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile) &&
+                        Seq(paths).Any(p => string.Equals(userConfigDir,
+                            Path.Combine(man.Config.BenchRootDir, p), StringComparison.InvariantCultureIgnoreCase)));
                     CopyFileToStream(tmpArchive, s);
                 }
                 File.Delete(tmpArchive);

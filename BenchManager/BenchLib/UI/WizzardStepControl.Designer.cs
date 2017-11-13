@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // WizzardStepControlBase
+            // WizzardStepControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "WizzardStepControlBase";
+            this.Name = "WizzardStepControl";
             this.Padding = new System.Windows.Forms.Padding(12);
-            this.Size = new System.Drawing.Size(464, 170);
+            this.Size = new System.Drawing.Size(464, 220);
             this.ResumeLayout(false);
 
         }

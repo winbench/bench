@@ -1,6 +1,6 @@
 ﻿+++
 title = "ExifTool"
-weight = 143
+weight = 164
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -33,7 +33,7 @@ Pentax/Asahi, Phase One, Reconyx, Ricoh, Samsung, Sanyo, Sigma/Foveon and Sony.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 143
+* Order Index: 164
 
 ## Properties
 

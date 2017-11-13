@@ -1,6 +1,6 @@
 ﻿+++
 title = "PEP8"
-weight = 88
+weight = 97
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "python-package"
@@ -25,7 +25,7 @@ pep8 is a tool to check your Python code against some of the style conventions i
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 88
+* Order Index: 97
 
 ## Properties
 

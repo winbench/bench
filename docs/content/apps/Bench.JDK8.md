@@ -6,14 +6,14 @@ app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.JDK8"
-app_version = "131"
+app_version = "152"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.JDK8`  
-**Version:** 131  
+**Version:** 152  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -35,5 +35,5 @@ The development kit is required for Java source code to get compiled.
 * Name: JDK8
 * Typ: `default`
 * Website: <https://www.oracle.com/java/>
-* Responsibilities: [Java Development](/apps/Bench.Group.JavaDevelopment), [Leiningen](/apps/Bench.Leiningen), [Boot Clojure](/apps/Bench.BootClj)
+* Responsibilities: [Java Development](/apps/Bench.Group.JavaDevelopment), [JDK 8 Midi Soundbank](/apps/Bench.JDK8.MidiSoundbank), [Leiningen](/apps/Bench.Leiningen), [Boot Clojure](/apps/Bench.BootClj)
 

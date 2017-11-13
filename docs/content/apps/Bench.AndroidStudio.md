@@ -1,6 +1,6 @@
 ﻿+++
 title = "Android Studio"
-weight = 94
+weight = 103
 app_library = "default"
 app_category = "Mobile Development"
 app_typ = "default"
@@ -31,7 +31,7 @@ Otherwise it will download and set up an additional Android SDK in the Windows u
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Mobile Development](/app_categories/mobile-development)
-* Order Index: 94
+* Order Index: 103
 
 ## Properties
 

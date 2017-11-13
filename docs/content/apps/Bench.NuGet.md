@@ -35,5 +35,5 @@ The NuGet Gallery is the central package repository used by all package authors 
 * Name: NuGet
 * Typ: `default`
 * Website: <https://www.nuget.org>
-* Responsibilities: [NUnit 3 Runners](/apps/Bench.NUnitRunners)
+* Responsibilities: [ScriptCS](/apps/Bench.ScriptCS), [NUnit 3 Runners](/apps/Bench.NUnitRunners)
 

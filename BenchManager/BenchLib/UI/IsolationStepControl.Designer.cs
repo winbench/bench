@@ -89,7 +89,6 @@
             this.Controls.Add(this.radIntegrated);
             this.Controls.Add(this.radIsolated);
             this.Name = "IsolationStepControl";
-            this.Size = new System.Drawing.Size(464, 249);
             this.ResumeLayout(false);
             this.PerformLayout();
 

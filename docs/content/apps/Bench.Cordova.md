@@ -1,6 +1,6 @@
 ﻿+++
 title = "Cordova"
-weight = 91
+weight = 100
 app_library = "default"
 app_category = "Mobile Development"
 app_typ = "node-package"
@@ -27,7 +27,7 @@ Free and open source
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Mobile Development](/app_categories/mobile-development)
-* Order Index: 91
+* Order Index: 100
 
 ## Properties
 

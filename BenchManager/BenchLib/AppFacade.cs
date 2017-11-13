@@ -559,7 +559,11 @@ namespace Mastersign.Bench
 
         #region File Discovery
 
-        internal string GetLauncherFile()
+        /// <summary>
+        /// Gets a path to the launcher shortcut file.
+        /// </summary>
+        /// <returns>An absolute filesystem path.</returns>
+        public string GetLauncherFile()
         {
             var launcher = Launcher;
             return launcher != null
@@ -569,7 +573,11 @@ namespace Mastersign.Bench
                 : null;
         }
 
-        internal string GetLauncherScriptFile()
+        /// <summary>
+        /// Gets a path to the launcher script file.
+        /// </summary>
+        /// <returns>An absolute filesystem path.</returns>
+        public string GetLauncherScriptFile()
         {
             return IOPath.Combine(
                 Config.GetStringValue(ConfigPropertyKeys.LauncherScriptDir),

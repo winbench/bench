@@ -1,5 +1,5 @@
 +++
-date = "2016-11-18T17:15:00+02:00"
+date = "2017-07-25T16:00:00+02:00"
 description = "Import an existing project in the Bench environment"
 title = "Importing a Project"
 weight = 9
@@ -17,6 +17,12 @@ If you already have a Git versioned project, that you want to use
 in the Bench environment, you can use an action script to checkout the
 project directly into the Bench [project directory][].
 <!--more-->
+
+**WARNING:**  
+_This tutorial is obsolete for now, because the responsible scripts in the `actions` folder were removed from Bench during an earlier refactoring._  
+_The way Bench supports projects is planned to be reimplementated._
+
+----
 
 The support for projects in Bench is not very mature yet.
 But some support already exists.

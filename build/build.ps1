@@ -8,6 +8,9 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
+# To build this project without Visual Studio, the .NET Framework 4.5 SDK is required.
+# Use 'install-sdk45.ps1' to install it.
+
 $projectName = "Bench"
 $clrVersion = "4.0.30319"
 $toolsVersion = "4.0"
@@ -43,7 +46,6 @@ $buildArtifacts = @(
 )
 # Paths of release artifacts are relative to the root dir
 $releaseArtifacts = @(
-    "actions",
     "auto",
     "res",
     "CHANGELOG.md",
@@ -130,13 +132,13 @@ foreach ($artifact in $buildArtifacts)
 if (!$NoRelease)
 {
     # Prepare release names
-    $taggedzipName = "$releaseDir\${releaseFileName}_$([DateTime]::Now.ToString("yyyy-MM-dd"))"
+    $taggedName = "$releaseDir\${releaseFileName}_$([DateTime]::Now.ToString("yyyy-MM-dd"))"
     $suffix = 0
-    $taggedZipFile = "${taggedZipName}.zip"
+    $taggedZipFile = "${taggedName}.zip"
     while (Test-Path $taggedZipFile)
     {
         $suffix++
-        $taggedZipFile = "${taggedZipName}_${suffix}.zip"
+        $taggedZipFile = "${taggedName}_${suffix}.zip"
     }
 
     # Prepare release and staging folders
@@ -161,11 +163,27 @@ if (!$NoRelease)
     $_ = [Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
     [IO.Compression.ZipFile]::CreateFromDirectory($stageDir, $taggedZipFile, "Optimal", $False)
 
-    $zipFile = "$releaseDir\$releaseFileName.zip"
+    $zipFile = "$releaseDir\${releaseFileName}.zip"
     if (Test-Path $zipFile) { del $zipFile }
     cp $taggedZipFile $zipFile
+
+    # Create SFX release
+    cd "$rootDir"
+    $taggedSfxFile = "${taggedName}.exe"
+    if ($suffix -gt 0)
+    {
+        $taggedSfxFile = "${taggedName}_${suffix}.exe"
+    }
+    .\auto\bin\bench.exe --verbose transfer export --include SystemOnly $taggedSfxFile
+    if ($?)
+    {
+        $sfxFile = "$releaseDir\${releaseFileName}.exe"
+        cp $taggedSfxFile $sfxFile -Force
+    }
+
     echo ""
     echo "Latest release: `"$zipFile`" ($([IO.Path]::GetFileName($taggedZipFile)))"
+    echo "Latest release: `"$sfxFile`" ($([IO.Path]::GetFileName($taggedSfxFile)))"
 
     # Clean staging folder
     #del $stageDir -Recurse -Force

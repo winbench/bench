@@ -34,9 +34,26 @@ namespace Mastersign.Bench
     /// </remarks>
     public class BenchConfiguration : ResolvingPropertyCollection
     {
+        /// <summary>
+        /// The relative path of the Bench automation directory,
+        /// containing binaries and scripts of the Bench system.
+        /// </summary>
         private const string AUTO_DIR = "auto";
+
+        /// <summary>
+        /// The relative path of the resource directory,
+        /// containing resource files and templates.
+        /// </summary>
         private const string RES_DIR = "res";
+
+        /// <summary>
+        /// The relative path of the directory with the Bench binaries.
+        /// </summary>
         private const string BIN_DIR = AUTO_DIR + @"\bin";
+
+        /// <summary>
+        /// The relative path of the directory with the PowerShell scripts for Bench.
+        /// </summary>
         private const string SCRIPTS_DIR = AUTO_DIR + @"\lib";
 
         /// <summary>
@@ -48,6 +65,12 @@ namespace Mastersign.Bench
         /// The relative path of the PowerShell API library file.
         /// </summary>
         public const string MAIN_PS_LIB_FILE = SCRIPTS_DIR + @"\bench.lib.ps1";
+
+        /// <summary>
+        /// A search pattern to find all root scripts in the res directory.
+        /// </summary>
+        public const string ROOT_SCRIPTS_PATTERN = "bench-*.cmd";
+
 
         private static readonly string[] BENCH_CHECK_FILES = new[]
         {
@@ -80,6 +103,11 @@ namespace Mastersign.Bench
         /// The absolute path to the root directory of Bench.
         /// </summary>
         public string BenchRootDir { get; private set; }
+
+        /// <summary>
+        /// The absolute path to the Bench resource directory.
+        /// </summary>
+        public string BenchResourceDir => Path.Combine(BenchRootDir, RES_DIR);
 
         private string siteConfigFileName; // cached to prevent overriding by custom configuration
 
@@ -245,6 +273,7 @@ namespace Mastersign.Bench
             {
                 result.Add(changeLogFile);
             }
+            result.AddRange(Directory.GetFiles(BenchRootDir, ROOT_SCRIPTS_PATTERN));
             if ((selection & TransferPaths.UserConfiguration) == TransferPaths.UserConfiguration)
             {
                 result.Add(GetStringValue(ConfigPropertyKeys.UserConfigDir));

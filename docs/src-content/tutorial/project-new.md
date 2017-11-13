@@ -1,5 +1,5 @@
 +++
-date = "2016-11-18T17:17:00+02:00"
+date = "2017-07-25T16:00:00+02:00"
 description = "Create and initialize a new project in the Bench environment"
 title = "Creating a New Project"
 weight = 8
@@ -19,6 +19,12 @@ you intend to use, the file structure might differ.
 Because Bench does not know what kind of projects you want to create,
 it trys to assist you with scaffolding apps.
 <!--more-->
+
+**WARNING:**  
+_This tutorial is obsolete for now, because the responsible scripts in the `actions` folder were removed from Bench during an earlier refactoring._  
+_The way Bench supports projects is planned to be reimplementated._
+
+----
 
 Currently the project support in Bench is quite limited.
 To create a new project, Bench utilizes the scaffolding app [Yeoman][].
