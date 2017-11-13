@@ -1,19 +1,19 @@
 ﻿+++
 title = "IntelliJ IDEA Community"
-weight = 64
+weight = 71
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.IdeaIC"
-app_version = "2017.1.4"
+app_version = "2017.2.5"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.IdeaIC`  
-**Version:** 2017.1.4  
+**Version:** 2017.2.5  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Capable and Ergonomic IDE for JVM.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 64
+* Order Index: 71
 
 ## Properties
 

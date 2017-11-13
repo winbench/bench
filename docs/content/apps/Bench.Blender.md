@@ -1,19 +1,19 @@
 ﻿+++
 title = "Blender"
-weight = 147
+weight = 169
 app_library = "default"
 app_category = "3D Modeling"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Blender"
-app_version = "2.78"
+app_version = "2.79"
 app_categories = ["3D Modeling"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Blender`  
-**Version:** 2.78  
+**Version:** 2.79  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Blender is the open source, cross platform suite of tools for 3D creation.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [3D Modeling](/app_categories/3d-modeling)
-* Order Index: 147
+* Order Index: 169
 
 ## Properties
 

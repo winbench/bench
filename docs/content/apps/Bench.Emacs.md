@@ -1,19 +1,19 @@
 ﻿+++
 title = "Emacs"
-weight = 54
+weight = 61
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Emacs"
-app_version = "25.2"
+app_version = "25.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Emacs`  
-**Version:** 25.2  
+**Version:** 25.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ with extensions to support text editing.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 54
+* Order Index: 61
 
 ## Properties
 

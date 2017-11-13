@@ -1,6 +1,6 @@
 ﻿+++
 title = "XnView"
-weight = 142
+weight = 163
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -27,7 +27,7 @@ Support of more than 500 image formats.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 142
+* Order Index: 163
 
 ## Properties
 

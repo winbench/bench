@@ -1,6 +1,6 @@
 ﻿+++
 title = "LMMS"
-weight = 144
+weight = 165
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -25,7 +25,7 @@ Open source digital audio workstation with VST support.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 144
+* Order Index: 165
 
 ## Properties
 

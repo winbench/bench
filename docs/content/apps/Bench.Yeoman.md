@@ -1,6 +1,6 @@
 ﻿+++
 title = "Yeoman"
-weight = 72
+weight = 79
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -28,7 +28,7 @@ to help you stay productive.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 72
+* Order Index: 79
 
 ## Properties
 

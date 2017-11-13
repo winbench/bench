@@ -1,19 +1,19 @@
 ﻿+++
 title = "PyCharm Community"
-weight = 65
+weight = 72
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.PyCharmCE"
-app_version = "2017.1.4"
+app_version = "2017.2.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.PyCharmCE`  
-**Version:** 2017.1.4  
+**Version:** 2017.2.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Python IDE for Professional Developers.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 65
+* Order Index: 72
 
 ## Properties
 

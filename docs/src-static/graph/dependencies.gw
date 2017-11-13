@@ -4,8 +4,9 @@ digraph "Dependencies" {
   edge [shape=normal, color="#404040"];
   "BenchDashboard.exe" [fillcolor="#86AE1E", color="#86AE1E", style="filled", fontcolor="#FFFFFF"];
   "BenchLib.dll" [fillcolor="#86AE1E", color="#86AE1E", style="filled", fontcolor="#FFFFFF"];
-  "bench-manage-autosetup.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
-  "bench-manage-initialize.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
+  "bench-initialize.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
+  "bench-setup.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
+  "bench-update-env.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
   "env.cmd" [fillcolor="#339999", color="#339999", style="filled", fontcolor="#FFFFFF"];
   "bench.lib.ps1" [fillcolor="#0072C6", color="#0072C6", style="filled", fontcolor="#FFFFFF"];
   "common.lib.ps1" [fillcolor="#0072C6", color="#0072C6", style="filled", fontcolor="#FFFFFF"];

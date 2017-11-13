@@ -1,6 +1,6 @@
 ﻿+++
 title = "MinGW"
-weight = 41
+weight = 46
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "meta"
@@ -44,7 +44,7 @@ and install more MinGW packages.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 41
+* Order Index: 46
 
 ## Properties
 

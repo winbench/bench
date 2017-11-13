@@ -1,19 +1,19 @@
 ﻿+++
 title = "Notepad++"
-weight = 49
+weight = 56
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.NotepadPlusPlus"
-app_version = "7.4.2"
+app_version = "7.5.1"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.NotepadPlusPlus`  
-**Version:** 7.4.2  
+**Version:** 7.5.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Notepad++ is a free (as in "free speech" and also as in "free beer") source code
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 49
+* Order Index: 56
 
 ## Properties
 

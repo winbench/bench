@@ -1,6 +1,6 @@
 ﻿+++
 title = "Ant Renamer"
-weight = 111
+weight = 120
 app_library = "default"
 app_category = "Filesystem"
 app_typ = "default"
@@ -26,7 +26,7 @@ by using specified settings.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Filesystem](/app_categories/filesystem)
-* Order Index: 111
+* Order Index: 120
 
 ## Properties
 

@@ -21,8 +21,6 @@ app_types = ["default"]
 ## Description
 The downright luxurious Git client, for Windows, Mac & Linux.
 
-No proxy support yet (Version 1.3.0).
-
 ## Source
 
 * Library: [`default`](/app_libraries/default)

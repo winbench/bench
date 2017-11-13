@@ -1,19 +1,19 @@
 ﻿+++
 title = "CMake"
-weight = 78
+weight = 86
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.CMake"
-app_version = "3.8.2"
+app_version = "3.9.2"
 app_categories = ["Software Development Utilities"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.CMake`  
-**Version:** 3.8.2  
+**Version:** 3.9.2  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -35,7 +35,7 @@ Setup your project with a `CMakeLists.txt` file and run `cmake -G "MinGW Makefil
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 78
+* Order Index: 86
 
 ## Properties
 

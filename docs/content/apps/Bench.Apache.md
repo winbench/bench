@@ -1,19 +1,19 @@
 ﻿+++
 title = "Apache"
-weight = 121
+weight = 131
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Apache"
-app_version = "2.4.26"
+app_version = "2.4.27"
 app_categories = ["Services"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Apache`  
-**Version:** 2.4.26  
+**Version:** 2.4.27  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -23,13 +23,13 @@ The Apache HTTP Server is a secure, efficient and extensible server
 that provides HTTP services in sync with the current HTTP standards.
 The Apache HTTP Server is the most popular web server since over 20 years.
 
-This application needs the x86 version of the [Visual C++ 14 Redistributable](https://www.microsoft.com/download/details.aspx?id=48145) installed.
+This application needs the _Visual C++ 15 Redistributable_ [32 Bit Version](https://go.microsoft.com/fwlink/?LinkId=746571) or [64 Bit Version](https://go.microsoft.com/fwlink/?LinkId=746572) installed.
 
 ## Source
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 121
+* Order Index: 131
 
 ## Properties
 

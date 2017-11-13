@@ -1,19 +1,19 @@
 ﻿+++
 title = "MySQL"
-weight = 117
+weight = 126
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MySQL"
-app_version = "5.7.18"
+app_version = "5.7.19"
 app_categories = ["Services"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.MySQL`  
-**Version:** 5.7.18  
+**Version:** 5.7.19  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -32,7 +32,7 @@ The initial password for _root_ is `bench`.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 117
+* Order Index: 126
 
 ## Properties
 
@@ -40,5 +40,5 @@ The initial password for _root_ is `bench`.
 * Name: MySQL
 * Typ: `default`
 * Website: <http://www.mysql.com/>
-* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment)
+* Responsibilities: [PHP Development](/apps/Bench.Group.PHPDevelopment), [Prometheus MySQL Exporter](/apps/Bench.Prometheus.MySqlExporter)
 

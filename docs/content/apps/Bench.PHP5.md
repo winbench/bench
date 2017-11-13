@@ -6,14 +6,14 @@ app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.PHP5"
-app_version = "5.6.29"
+app_version = "5.6.30"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.PHP5`  
-**Version:** 5.6.29  
+**Version:** 5.6.30  
 <!--more-->
 
 [Back to all apps](/apps/)

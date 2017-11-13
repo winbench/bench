@@ -6,14 +6,14 @@ app_category = "Core"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.RubyGems"
-app_version = "2.6.12"
+app_version = "2.6.13"
 app_categories = ["Core"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.RubyGems`  
-**Version:** 2.6.12  
+**Version:** 2.6.13  
 <!--more-->
 
 [Back to all apps](/apps/)
