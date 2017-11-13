@@ -8,6 +8,9 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
+# To build this project without Visual Studio, the .NET Framework 4.5 SDK is required.
+# Use 'install-sdk45.ps1' to install it.
+
 $projectName = "Bench"
 $clrVersion = "4.0.30319"
 $toolsVersion = "4.0"
