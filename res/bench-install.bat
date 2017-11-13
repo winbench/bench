@@ -7,7 +7,7 @@ SetLocal
 :: http://mastersign.github.io/bench/guide/setup/
 ::
 
-SET VERSION=0.16.2
+SET VERSION=0.17.0
 SET ROOT=%~dp0
 SET TAG=v%VERSION%
 SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
