@@ -131,7 +131,8 @@ namespace Mastersign.Bench
                     var userConfigTemplateFile = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigTemplateFile);
                     File.Copy(userConfigTemplateFile, userConfigFile, false);
 
-                    if (man.Config.GetBooleanValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile)) {
+                    if (man.Config.GetBooleanValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile))
+                    {
                         Markdown.MarkdownPropertyEditor.UpdateFile(userConfigFile, new Dictionary<string, string>
                         {
                             { ConfigPropertyKeys.IgnoreSystemPath, "false" },
@@ -210,7 +211,8 @@ namespace Mastersign.Bench
             var httpProxy = config.GetStringValue(ConfigPropertyKeys.HttpProxy);
             var httpsProxy = config.GetStringValue(ConfigPropertyKeys.HttpsProxy);
             var proxyBypass = config.GetStringListValue(ConfigPropertyKeys.ProxyBypass);
-            var downloader = new Downloader(parallelDownloads);
+            var securityProtocol = GetScurityProtocolType(config);
+            var downloader = new Downloader(parallelDownloads, securityProtocol);
             downloader.DownloadAttempts = downloadAttempts;
             if (useProxy)
             {
@@ -221,6 +223,30 @@ namespace Mastersign.Bench
             downloader.UrlResolver.Add(EclipseMirrorResolver);
             downloader.UrlResolver.Add(EclipseDownloadLinkResolver);
             return downloader;
+        }
+
+        private static SecurityProtocolType? GetScurityProtocolType(BenchConfiguration config)
+        {
+            var protocols = config.GetStringListValue(ConfigPropertyKeys.HttpsSecurityProtocols);
+            if (protocols == null || protocols.Length == 0) return null;
+
+            var protocolTypes = Seq(protocols)
+                .Map(p =>
+                {
+                    try
+                    {
+                        return (SecurityProtocolType?)Enum.Parse(typeof(SecurityProtocolType), p);
+                    }
+                    catch (ArgumentException)
+                    {
+                        return null;
+                    }
+                })
+                .Filter(p => p.HasValue).Map(p => p.Value)
+                .ToArray();
+            if (protocolTypes.Length == 0) return null;
+            if (protocolTypes.Length == 1) return protocolTypes[0];
+            else return Seq(protocolTypes).Reduce((a, b) => a | b);
         }
 
         private static IUrlResolver EclipseDownloadLinkResolver = new HtmlLinkUrlResolver(
@@ -2866,7 +2892,7 @@ namespace Mastersign.Bench
                     CopyFileToStream(sfxPath, s);
                     var userConfigDir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir);
                     WriteSfxConfig(man.Config, s, userProfileChangeWarning:
-                        man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile) && 
+                        man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile) &&
                         Seq(paths).Any(p => string.Equals(userConfigDir,
                             Path.Combine(man.Config.BenchRootDir, p), StringComparison.InvariantCultureIgnoreCase)));
                     CopyFileToStream(tmpArchive, s);

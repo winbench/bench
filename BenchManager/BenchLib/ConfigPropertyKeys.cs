@@ -94,6 +94,7 @@ namespace Mastersign.Bench
         public const string ProxyBypass = "ProxyBypass";
         public const string HttpProxy = "HttpProxy";
         public const string HttpsProxy = "HttpsProxy";
+        public const string HttpsSecurityProtocols = "HttpsSecurityProtocols";
         public const string DownloadAttempts = "DownloadAttempts";
         public const string ParallelDownloads = "ParallelDownloads";
 

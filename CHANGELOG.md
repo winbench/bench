@@ -38,6 +38,8 @@ Add a link to the GitHub diff like
   ([#114](https://github.com/mastersign/bench/issues/114))
 - Inconsistent warning in SFX transfer package
   ([#115](https://github.com/mastersign/bench/issues/115))
+- Failing downloads with HTTPS
+  ([#119](https://github.com/mastersign/bench/issues/119))
 
 ### Changed
 - Dropped Support for .NET Framework 2.0,

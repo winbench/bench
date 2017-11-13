@@ -12,6 +12,9 @@
 * HttpsProxy: `http://127.0.0.1:443`
 * DownloadAttempts: 3
 * ParallelDownloads: 4
+* HttpsSecurityProtocols:
+    + `Tls11`
+    + `Tls12`
 * LogLevel: `Info`
 * UserName: user
 * UserEmail: user@localhost

@@ -81,7 +81,7 @@ namespace Mastersign.Bench
         /// allowing only sequential downloads.
         /// </summary>
         public Downloader()
-            : this(1)
+            : this(1, null)
         {
         }
 
@@ -91,13 +91,25 @@ namespace Mastersign.Bench
         /// </summary>
         /// <param name="parallelDownloads">The maximum number of parallel downloads.
         /// This value must be in the interval of <c>1</c> and <c>9999</c>.</param>
-        public Downloader(int parallelDownloads)
+        /// <param name="securityProtocol">The required protocols for HTTPS.</param>
+        public Downloader(int parallelDownloads, SecurityProtocolType? securityProtocol)
         {
             if (parallelDownloads < 1 || parallelDownloads > 9999)
             {
                 throw new ArgumentOutOfRangeException("parallelDownloads",
                     "The number of parallel downloads must be at least 1 and less than 10000.");
             }
+
+            if (securityProtocol.HasValue)
+            {
+                Debug.WriteLine("Setting security protocols for HTTPS: " + securityProtocol.Value);
+                ServicePointManager.SecurityProtocol = securityProtocol.Value;
+            }
+            else
+            {
+                Debug.WriteLine("Using default security protocols for HTTPS.");
+            }
+
             Debug.WriteLine("Initializing downloader for " + parallelDownloads + " parallel downloads.");
             UrlResolver = new List<IUrlResolver>();
             ParallelDownloads = parallelDownloads;
