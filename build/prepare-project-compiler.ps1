@@ -12,7 +12,7 @@ $rootDir = Resolve-Path "$myDir\..\BenchManager"
 $projects = @(
     @{
         "name" = "BenchLib"
-        "targetFramework" = "net20"
+        "targetFramework" = "net45"
     }
     @{
         "name" = "BenchLib.Test"
@@ -20,7 +20,7 @@ $projects = @(
     }
     @{
         "name" = "BenchCLI"
-        "targetFramework" = "net20"
+        "targetFramework" = "net45"
     }
     @{
         "name" = "BenchDashboard"

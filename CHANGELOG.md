@@ -39,6 +39,10 @@ Add a link to the GitHub diff like
 - Inconsistent warning in SFX transfer package
   ([#115](https://github.com/mastersign/bench/issues/115))
 
+### Changed
+- Dropped Support for .NET Framework 2.0,
+  from now on the minimal .NET Framework version is 4.5
+
 ## [0.16.2] - 2017-07-10
 
 [0.16.2]: https://github.com/mastersign/bench/compare/v0.16.1...v0.16.2
