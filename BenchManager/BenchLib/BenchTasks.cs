@@ -1101,7 +1101,7 @@ namespace Mastersign.Bench
             }
             else if (Directory.Exists(source))
             {
-                FileSystem.CopyDir(source, targetDir, true);
+                FileSystem.CopyDir(source, targetDir, true, excludeDirs: new[] { ".git" });
                 if (!IsAppLibrary(config, targetDir)) UnwrapSubDir(targetDir);
             }
             else
