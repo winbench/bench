@@ -102,10 +102,8 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [CustomEnvironment](#CustomEnvironment) | User/Site | dictionary | empty |
 | [Allow64Bit](#Allow64Bit) | User/Site | boolean | `false` |
 | [ProjectRootDir](#ProjectRootDir) | User/Site | path | `projects` |
-| [ProjectArchiveDir](#ProjectArchiveDir) | User/Site | path | `archive` |
-| [ProjectArchiveFormat](#ProjectArchiveFormat) | User/Site | string | `zip` |
 | [LauncherDir](#LauncherDir) | User | path | `launcher` |
-| [LauncherScriptDir](#LauncherScriptDir) | User | path | `$LibDir$\_launcher` |
+| [LauncherScriptDir](#LauncherScriptDir) | User | path | `$LibDir$\launcher` |
 | [QuickAccessCmd](#QuickAccessCmd) | User/Site | boolean | `true` |
 | [QuickAccessPowerShell](#QuickAccessPowerShell) | User/Site | boolean | `false` |
 | [QuickAccessBash](#QuickAccessBash) | User/Site | boolean | `false` |
@@ -637,6 +635,7 @@ and it is unclear if all machines support 64Bit code.
 * Default: `projects`
 * Type: User/Site
 
+<!--
 ### ProjectArchiveDir {#ProjectArchiveDir}
 
 * Description: The path to the directory where project backups are stored.
@@ -651,6 +650,7 @@ and it is unclear if all machines support 64Bit code.
 * Possible Values: `zip`, `7z`, `tar`, `wim`
 * Default: `zip`
 * Type: User/Site
+-->
 
 ### LauncherDir {#LauncherDir}
 
@@ -663,7 +663,7 @@ and it is unclear if all machines support 64Bit code.
 
 * Description: The path to the directory where launcher wrapper scripts are stored.
 * Data Type: path
-* Default: `$LibDir$\_launcher`
+* Default: `$LibDir$\launcher`
 * Type: User
 
 ### QuickAccessCmd {#QuickAccessCmd}
