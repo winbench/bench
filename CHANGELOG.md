@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.17.1] - 2018-02-03
+
+[0.17.1]: https://github.com/mastersign/bench/compare/v0.17.0...v0.17.1
+
 ### Added
 - Allow passing a target directory as commandline argument to `bench-install.bat`
 
