@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Added
+- Allow passing a target directory as commandline argument to `bench-install.bat`
+
 ### Fixed
 - Crash during concurrent reads of activation files
 - Crash when starting setup dialog without loaded app libraries

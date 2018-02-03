@@ -8,8 +8,9 @@ SetLocal
 ::
 
 SET VERSION=0.17.0
-SET ROOT=%~dp0
 SET TAG=v%VERSION%
+SET ROOT=%~dp0
+IF [%1] NEQ [] SET ROOT=%~dpnx1\
 SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
 SET BENCH_ZIPFILE=%ROOT%Bench.zip
 SET BENCH_BOOTSTRAP_FILE=%~f0
@@ -77,10 +78,12 @@ POPD
 ECHO.Deleting 'bench.zip' ...
 DEL "%BENCH_ZIPFILE%"
 
-ECHO.Deleting '%BENCH_BOOTSTRAP_FILE%' and exiting ...
-ECHO.A copy can always be found in the 'res' folder.
-:: Trick to exit the script before deleting it
-(GOTO) 2>nul & DEL "%BENCH_BOOTSTRAP_FILE%"
+IF /I "%~dp0"=="%ROOT%" (
+  ECHO.Deleting '%BENCH_BOOTSTRAP_FILE%' and exiting ...
+  ECHO.A copy can always be found in the 'res' folder.
+  :: Trick to exit the script before deleting it
+  (GOTO) 2>nul & DEL "%BENCH_BOOTSTRAP_FILE%"
+)
 GOTO:EOF
 
 :: Print a error message, wait for the user to press a key and then exit with error level 1
