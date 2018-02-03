@@ -387,7 +387,7 @@ namespace Mastersign.Bench.Dashboard
                     {
                         gridApps.Rows[selectedRow].Selected = true;
                     }
-                    if (firstVisibleRowIndex >= 0)
+                    if (firstVisibleRowIndex >= 0 && gridApps.Rows.Count > 0)
                     {
                         gridApps.FirstDisplayedScrollingRowIndex = firstVisibleRowIndex;
                     }
