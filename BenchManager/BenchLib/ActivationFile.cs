@@ -126,7 +126,10 @@ namespace Mastersign.Bench
                 if (m.Success && m.Groups["id"].Value == id)
                 {
                     if (found) continue;
-                    yield return "# " + line;
+                    if (!string.IsNullOrWhiteSpace(m.Groups["comment"].Value))
+                    {
+                        yield return "# " + line;
+                    }
                     found = true;
                     continue;
                 }
