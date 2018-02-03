@@ -2,6 +2,7 @@
 date = "2017-07-25T16:00:00+02:00"
 description = "Import an existing project in the Bench environment"
 title = "Importing a Project"
+draft = true
 weight = 9
 +++
 
