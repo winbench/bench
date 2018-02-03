@@ -178,7 +178,8 @@ namespace Mastersign.Bench
         public IEnumerator<string> GetEnumerator()
         {
             if (!File.Exists(FilePath)) yield break;
-            using (var r = File.OpenText(FilePath))
+            using (var s = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var r = new StreamReader(s))
             {
                 string line;
                 while ((line = r.ReadLine()) != null)
