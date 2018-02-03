@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using WshShell = IWshRuntimeLibrary.WshShell;
 using WshShortcut = IWshRuntimeLibrary.WshShortcut;
+using static Mastersign.Sequence.Sequence;
 
 namespace Mastersign.Bench
 {
@@ -146,7 +147,10 @@ namespace Mastersign.Bench
         /// <param name="sourceDir">A path to the source directory.</param>
         /// <param name="targetDir">A path to the target directory.</param>
         /// <param name="subDirs"><c>true</c> if subdirectories are copied recursively; otherwise <c>false</c>.</param>
-        public static void CopyDir(string sourceDir, string targetDir, bool subDirs)
+        /// <param name="excludeDirs">An array with directory names to exclude during copying.</param>
+        /// <param name="excludeFiles">An array with file names to exclude during the copying.</param>
+        public static void CopyDir(string sourceDir, string targetDir, bool subDirs,
+            string[] excludeDirs = null, string[] excludeFiles = null)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDir);
@@ -158,7 +162,6 @@ namespace Mastersign.Bench
                     + sourceDir);
             }
 
-            DirectoryInfo[] dirs = dir.GetDirectories();
             // If the destination directory doesn't exist, create it.
             if (!Directory.Exists(targetDir))
             {
@@ -169,6 +172,11 @@ namespace Mastersign.Bench
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
+                if (excludeFiles != null && 
+                    Seq(excludeFiles).Any(fileName => string.Equals(file.Name, fileName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    continue;
+                }
                 string temppath = Path.Combine(targetDir, file.Name);
                 file.CopyTo(temppath, false);
             }
@@ -176,10 +184,18 @@ namespace Mastersign.Bench
             // If copying subdirectories, copy them and their contents to new location.
             if (subDirs)
             {
+                DirectoryInfo[] dirs = dir.GetDirectories();
                 foreach (DirectoryInfo subdir in dirs)
                 {
+                    if (excludeDirs != null &&
+                        Seq(excludeDirs).Any(dirName => string.Equals(subdir.Name, dirName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        Debug.WriteLine("Skipping: " + subdir.FullName);
+                        continue;
+                    }
                     string temppath = Path.Combine(targetDir, subdir.Name);
-                    CopyDir(subdir.FullName, temppath, subDirs);
+                    CopyDir(subdir.FullName, temppath, subDirs,
+                        excludeDirs: excludeDirs, excludeFiles: excludeFiles);
                 }
             }
         }
