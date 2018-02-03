@@ -25,6 +25,16 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Fixed
+- Crash during concurrent reads of activation files
+- Crash when starting setup dialog without loaded app libraries
+
+### Changed
+- Remove disabled entries without comment from activation files
+- Show now info dialog when extracting SFX transfer package without user configuration
+  (Removes the info dialog from default `BenchSetup.exe`)
+- Exclude `.git` directories when loading app libraries from filesystem
+
 ## [0.17.0] - 2017-11-13
 
 [0.17.0]: https://github.com/mastersign/bench/compare/v0.16.2...v0.17.0
