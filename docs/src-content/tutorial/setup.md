@@ -13,8 +13,7 @@ weight = 1
 
 Setting up Bench means downloading and extracting the Bench system files,
 initializing the configuration, and setting up the required apps for Bench.
-The setup process is supported by the bootstrap file `bench-install.bat`
-and a graphical initialization wizzard.
+The setup process is supported by a graphical initialization wizzard.
 <!--more-->
 
 **Overview**
@@ -27,7 +26,8 @@ A shortened version of this tutorial can be found in the
 ## Prerequisites {#prerequisites}
 The following conditions must be fullfilled to use Bench.
 
-* Microsoft Windows 7 or higher ([Microsoft .NET 4.5][.NET45] for GUI)
+* Microsoft Windows 7 or higher
+* [Microsoft .NET 4.5][.NET45]
 * Internet access for HTTP/HTTPS (possibly via proxy, but without credentials)
 * A harddrive or a removable drive with at least 2 GB free memory  
   (How much space Bench requires, depends on the apps you select.)
@@ -41,6 +41,8 @@ There are two ways to bootstrap the Bench setup process:
 * Download and extract Bench manually,
   which is a bit more cumbersome, but can solve issues
   with the `bench-install.bat`
+
+<script type="application/javascript">GetLatestReleaseInfo();</script>
 
 ### Easy Download {#guided}
 The preferred way to bootstrap the Bench setup, is to use the
