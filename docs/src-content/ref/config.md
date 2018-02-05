@@ -578,6 +578,7 @@ and it is unclear if all machines support 64Bit code.
 * Default: `projects`
 * Type: User/Site
 
+<!--
 ### ProjectArchiveDir {#ProjectArchiveDir}
 
 * Description: The path to the directory where project backups are stored.
@@ -592,6 +593,7 @@ and it is unclear if all machines support 64Bit code.
 * Possible Values: `zip`, `7z`, `tar`, `wim`
 * Default: `zip`
 * Type: User/Site
+-->
 
 ### LauncherDir {#LauncherDir}
 
@@ -604,7 +606,7 @@ and it is unclear if all machines support 64Bit code.
 
 * Description: The path to the directory where launcher wrapper scripts are stored.
 * Data Type: path
-* Default: `$LibDir$\_launcher`
+* Default: `$LibDir$\launcher`
 * Type: User
 
 ### QuickAccessCmd {#QuickAccessCmd}

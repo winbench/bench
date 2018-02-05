@@ -2,6 +2,7 @@
 date = "2017-07-25T16:00:00+02:00"
 description = "Create and initialize a new project in the Bench environment"
 title = "Creating a New Project"
+draft = true
 weight = 8
 +++
 

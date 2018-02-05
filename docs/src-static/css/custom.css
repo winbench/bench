@@ -53,8 +53,6 @@ article.teaser h2 {
 .teaser-icon {
   clear: left;
   float: left;
-}
-.teaser-icon .fa {
   font-size: 128px;
   transition: font-size 0.2s ease-out;
   -webkit-transition: font-size 0.2s ease-out;
@@ -85,7 +83,7 @@ article.teaser h2 {
   article.teaser h2 {
     margin-left: 120px;
   }
-  .teaser-icon .fa {
+  .teaser-icon {
     font-size: 96px;
   }
   .teaser-text {
@@ -105,11 +103,16 @@ article.teaser h2 {
     float: none;
     text-align: center;
     margin: 1em 0;
-  }
-  .teaser-icon .fa {
     font-size: 64px;
   }
   .teaser-text {
     margin-left: inherit;
   }
+}
+.setup-download-button {
+  font-weight: bold;
+  float: right;
+}
+a.setup-download-button {
+  text-decoration: none;
 }

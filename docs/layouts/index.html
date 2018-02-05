@@ -1,11 +1,12 @@
 {{ partial "header.html" . }}
 
 <div class="header">
-  <h1>{{ .Title }}</h1>
+  <h1>{{ .Title }} <small class="version-info"></small></h1>
   <h2>{{ .Site.Params.subtitle }}</h2>
 </div>
 
 <div class="content">
+
   <div class="work-in-progress-warning">
     <h2>Warning</h2>
     <p>This documentation is currently work in progress, do not expect it to be complete.
@@ -19,5 +20,7 @@
   {{ partial "pagination.html" . }}
 
 </div>
+
+<script type="application/javascript">GetLatestReleaseInfo();</script>
 
 {{ partial "footer.html" . }}

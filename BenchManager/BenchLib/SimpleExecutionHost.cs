@@ -91,7 +91,18 @@ namespace Mastersign.Bench
             }
         }
 
-        private Process StartProcess(BenchEnvironment env, string cwd, string exe, string arguments, 
+        /// <summary>
+        /// Starts a Windows process in a synchronous fashion.
+        /// </summary>
+        /// <param name="env">The environment variables of Bench.</param>
+        /// <param name="cwd">The working directory, to start the process in.</param>
+        /// <param name="exe">The path to the executable.</param>
+        /// <param name="arguments">The string with the command line arguments.</param>
+        /// <param name="collectOutput">A flag to control, whether the output of the process must be collected.</param>
+        /// <param name="stdOut">The target for collected output from the standard output stream.</param>
+        /// <param name="errOut">The target for collected output from the error stream.</param>
+        /// <returns>The started process.</returns>
+        protected virtual Process StartProcess(BenchEnvironment env, string cwd, string exe, string arguments, 
             bool collectOutput, out StringBuilder stdOut, out StringBuilder errOut)
         {
             var p = new Process();
@@ -146,7 +157,13 @@ namespace Mastersign.Bench
             IsDisposed = true;
         }
 
-        private static void PreparePowerShellScriptExecution(ref string exe, ref string args)
+        /// <summary>
+        /// Checks whether a PowerShell script shall be executed.
+        /// And if that is the case, adjusts the executable and argument strings.
+        /// </summary>
+        /// <param name="exe">The program to execute.</param>
+        /// <param name="args">The argument string to pass.</param>
+        protected static void PreparePowerShellScriptExecution(ref string exe, ref string args)
         {
             if (Path.GetExtension(exe).Equals(".ps1", StringComparison.InvariantCultureIgnoreCase))
             {

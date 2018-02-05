@@ -1948,6 +1948,7 @@ namespace Mastersign.Bench
             var extractDir = app.ResourceArchivePath != null ? tmpDir : targetDir;
             FileSystem.AsureDir(extractDir);
             var customExtractScript = app.GetCustomScript("extract");
+            var headlessExecHost = new SimpleExecutionHost();
             switch (app.ResourceArchiveTyp)
             {
                 case AppArchiveTyps.Auto:
@@ -1957,25 +1958,25 @@ namespace Mastersign.Bench
                     }
                     else if (archiveFile.EndsWith(".msi", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        ExtractMsiPackage(config, execHost, app.ID, archiveFile, extractDir);
+                        ExtractMsiPackage(config, headlessExecHost, app.ID, archiveFile, extractDir);
                     }
                     else if (archiveFile.EndsWith(".0"))
                     {
-                        ExtractInnoSetup(config, execHost, app.ID, archiveFile, extractDir);
+                        ExtractInnoSetup(config, headlessExecHost, app.ID, archiveFile, extractDir);
                     }
                     else
                     {
-                        ExtractArchiveGeneric(config, execHost, app.ID, archiveFile, extractDir);
+                        ExtractArchiveGeneric(config, headlessExecHost, app.ID, archiveFile, extractDir);
                     }
                     break;
                 case AppArchiveTyps.Generic:
-                    ExtractArchiveGeneric(config, execHost, app.ID, archiveFile, extractDir);
+                    ExtractArchiveGeneric(config, headlessExecHost, app.ID, archiveFile, extractDir);
                     break;
                 case AppArchiveTyps.Msi:
-                    ExtractMsiPackage(config, execHost, app.ID, archiveFile, extractDir);
+                    ExtractMsiPackage(config, headlessExecHost, app.ID, archiveFile, extractDir);
                     break;
                 case AppArchiveTyps.InnoSetup:
-                    ExtractInnoSetup(config, execHost, app.ID, archiveFile, extractDir);
+                    ExtractInnoSetup(config, headlessExecHost, app.ID, archiveFile, extractDir);
                     break;
                 case AppArchiveTyps.Custom:
                     if (customExtractScript != null)
@@ -1984,6 +1985,7 @@ namespace Mastersign.Bench
                     }
                     break;
             }
+            headlessExecHost.Dispose();
 
             if (app.ResourceArchivePath != null)
             {

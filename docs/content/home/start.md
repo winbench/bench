@@ -7,8 +7,13 @@ follow_up_url = "/start/"
 weight = 3
 +++
 
+<a class="setup-download-button pure-button"
+      href="https://github.com/mastersign/bench/releases/latest">
+      <i class="fa fa-download"></i>&nbsp;&nbsp;BenchSetup.exe
+</a>
+
 1. Create a folder for Bench.
-2. Install Bench with the [bootstrap script][bootstrap-file].
+2. Download and run `BenchSetup.exe`
 3. Select some apps for your Bench environment.
 4. Spend your time working on the next project.
 

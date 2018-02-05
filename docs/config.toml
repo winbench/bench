@@ -26,7 +26,7 @@ preserveTaxonomyNames = true
   googleAnalytics = ""
   disqus = ""
   # CSS name for highlight.js
-  highlightjs = "androidstudio"
+  #highlightjs = "androidstudio"
   #dateFormat = "02 Jan 2006, 15:04"
   dateFormat = "2006-01-02"
 
@@ -34,61 +34,61 @@ preserveTaxonomyNames = true
   # Shown in the side menu.
   [[menu.main]]
     name = "Home"
-    pre = "<i class='fa fa-home fa-fw'></i>"
+    pre = "<i class='fa fa-home fa-fw'></i>&nbsp;"
     weight = 0
     identifier = "home"
     url = "/"
   [[menu.main]]
     name = "About"
-    pre = "<i class='fa fa-info-circle fa-fw'></i>"
+    pre = "<i class='fa fa-info-circle fa-fw'></i>&nbsp;"
     weight = 1
     identifier = "about"
     url = "/about/"
   [[menu.main]]
     name = "Scenarios"
-    pre = "<i class='fa fa-plus-circle fa-fw'></i>"
+    pre = "<i class='fa fa-plus-circle fa-fw'></i>&nbsp;"
     weight = 2
     identifier = "scenarios"
     url = "/scenarios/"
   [[menu.main]]
     name = "Quickstart"
-    pre = "<i class='fa fa-arrow-circle-right fa-fw'></i>"
+    pre = "<i class='fa fa-arrow-circle-right fa-fw'></i>&nbsp;"
     weight = 3
     identifier = "start"
     url = "/start/"
   [[menu.main]]
     name = "Apps"
-    pre = "<i class='fa fa-database fa-fw'></i>"
+    pre = "<i class='fa fa-database fa-fw'></i>&nbsp;"
     weight = 4
     indentifier = "apps"
     url = "/apps/"
   [[menu.main]]
     name = "Overview"
-    pre = "<i class='fa fa-sitemap fa-fw'></i>"
+    pre = "<i class='fa fa-sitemap fa-fw'></i>&nbsp;"
     weight = 5
     identifier = "overview"
     url = "/overview/"
   [[menu.main]]
     name = "Tutorials"
-    pre = "<i class='fa fa-graduation-cap fa-fw'></i>"
+    pre = "<i class='fa fa-graduation-cap fa-fw'></i>&nbsp;"
     weight = 6
     identifier = "tutorials"
     url = "/tutorial/"
   [[menu.main]]
     name = "Tech Guides"
-    pre = "<i class='fa fa-lightbulb-o fa-fw'></i>"
+    pre = "<i class='fa fa-lightbulb fa-fw'></i>&nbsp;"
     weight = 7
     identifier = "guides"
     url = "/guide/"
   [[menu.main]]
     name = "Reference Docs"
-    pre = "<i class='fa fa-book fa-fw'></i>"
+    pre = "<i class='fa fa-book fa-fw'></i>&nbsp;"
     weight = 8
     identifier = "reference"
     url = "/ref/"
   [[menu.main]]
     name = "Contact"
-    pre = "<i class='fa fa-phone fa-fw'></i>"
+    pre = "<i class='fa fa-phone fa-fw'></i>&nbsp;"
     weight = 100
     url = "/contact/"
 

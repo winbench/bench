@@ -73,6 +73,9 @@ during the Bench setup, and _can not_ be moved via custom or site configuration.
        ([AppsVersionIndexDir](/ref/config/#AppsVersionIndexDir))
      + [`apps`](#lib-apps-dir)
        ([AppsInstallDir](/ref/config/#AppsInstallDir))
+* [`bench-initialize.cmd`](#bench-initialize)
+* [`bench-setup.cmd`](#bench-setup)
+* [`bench-update-env.cmd`](#bench-update-env)
 * [`CHANGELOG.md`](#changelog)
 * [`env.cmd`](#env)
 * [`LICENSE.md`](#license)
@@ -258,7 +261,7 @@ Inside of the _setup hook script_ is the [PowerShell API](/ref/ps-api/) availabl
 ### Bootstrap Batch File {#res-bench-install}
 
 * Description: The installation batch script for setup and upgrade of Bench.
-* Path: `res\bench-install.batch`
+* Path: `res\bench-install.bat`
 * Type: file
 
 This file is the _installation program_ for Bench.
@@ -351,7 +354,7 @@ and placed in the _execution proxy directory_.
 ### Launcher Script Directory {#lib-launcher-dir}
 
 * Description: Launcher scripts are stored in this directory.
-* Path: `lib\_launcher`
+* Path: `lib\launcher`
 * Config Property: [LauncherScriptDir](/ref/config/#LauncherScriptDir)
 * Type: directory
 
@@ -369,6 +372,44 @@ When Bench installes an app, it stores the version number from the app property
 [Version](/ref/app-properties/#Version) in a text file, named with the apps ID.
 This stored version number is used determine, if the app definition was updated
 since the installation of the app.
+
+### Initialization Script {#bench-initialize}
+
+* Description: A convenience script for starting the initialization of the Bench environment.
+* Path: `bench-initialize.cmd`
+* Type: file
+
+This file is copied from `res` when the Bench setup starts running.
+When there ist no `bench-site.md` or there is no `config` directory,
+the Bench environment initialization can be started with this script.
+
+This script is merely a wrapper, which calls `bench.exe manage initialize`.
+
+### Setup Script {#bench-setup}
+
+* Description: A convenience script for starting the auto setup in the Bench environment.
+* Path: `bench-setup.cmd`
+* Type: file
+
+This file is copied from `res` when the Bench setup starts running.
+When Bench is not behaving right, because some core apps are not installed, this script can help.
+It starts the auto setup for the actived apps.
+
+This script is merely a wrapper, which calls `bench.exe manage setup`.
+
+### Update Environment Script {#bench-update-env}
+
+* Description: A convenience script for starting the environment update.
+* Path: `bench-update-env.cmd`
+* Type: file
+
+This file is copied from `res` when the Bench setup starts running.
+When bench was moved or it is used from a flash drive and the root path of bench changed,
+this script must be executed.
+It starts the update of the Bench environment.
+Which includes updating the `env.cmd` and running custom environment scripts for activated apps.
+
+This script is merely a wrapper, which calls `bench.exe manage update-env`.
 
 ### Changelog {#changelog}
 

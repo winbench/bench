@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
 var cleanCSS = require('gulp-clean-css');
+var uglify = require('gulp-uglify');
 var mdquery = require('mdquery').transform;
 var textTransformation = require('gulp-text-simple');
 
@@ -31,11 +32,6 @@ gulp.task('preprocess-markdown', function () {
         .pipe(gulp.dest('content'));
 });
 
-gulp.task('copy-fonts', function () {
-return     gulp.src(['bower_components/font-awesome/fonts/*'])
-        .pipe(gulp.dest('static/fonts'));
-});
-
 gulp.task('build-less', function () {
     return gulp.src('./src-static/css/*.less')
         .pipe(less())
@@ -44,22 +40,30 @@ gulp.task('build-less', function () {
 });
 
 gulp.task('build-css', ['build-less'], function () {
-    return gulp.src(['./bower_components/pure/base.css',
-                     './bower_components/pure/grids-responsive.css',
-                     './bower_components/pure/menus-core.css',
-                     './bower_components/font-awesome/css/font-awesome.css',
-                     './bower_components/highlight/src/styles/' + highlightTheme + '.css',
+    return gulp.src(['./node_modules/purecss/build/base.css',
+                     './node_modules/purecss/build/buttons.css',
+                     './node_modules/purecss/build/grids-responsive.css',
+                     './node_modules/purecss/build/menus-core.css',
+                     './node_modules/highlight.js/styles/' + highlightTheme + '.css',
                      './themes/blackburn/static/css/side-menu.css',
                      './themes/blackburn/static/css/blackburn.css',
-                     './src-static/css/custom.css'])
+                     './src-static/css/*.css'])
         .pipe(concat('style.min.css'))
         .pipe(cleanCSS())
         .pipe(gulp.dest('static/css/'));
 });
 
-gulp.task('watch', ['preprocess-markdown', 'build-css'], function () {
-    gulp.watch('./src-content/**/*.md', ['preprocess-markdown']);
-    gulp.watch('./src-static/css/*.less', ['build-css']);
+gulp.task('build-js', function () {
+    return gulp.src(['./src-static/js/*.js'])
+        .pipe(uglify())
+        .pipe(concat('app.min.js'))
+        .pipe(gulp.dest('static/js/'));
 });
 
-gulp.task('default', ['preprocess-markdown', 'copy-fonts', 'build-css']);
+gulp.task('watch', ['preprocess-markdown', 'build-css', 'build-js'], function () {
+    gulp.watch('./src-content/**/*.md', ['preprocess-markdown']);
+    gulp.watch('./src-static/css/*.less', ['build-css']);
+    gulp.watch('./src-static/js/*.js', ['build-js']);
+});
+
+gulp.task('default', ['preprocess-markdown', 'build-css', 'build-js']);
