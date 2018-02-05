@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Changed
+- Run archive extraction in the background, instead in the _PowerShell Execution Host_
+
 ## [0.17.1] - 2018-02-03
 
 [0.17.1]: https://github.com/mastersign/bench/compare/v0.17.0...v0.17.1
