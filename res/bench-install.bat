@@ -7,7 +7,7 @@ SetLocal
 :: http://mastersign.github.io/bench/guide/setup/
 ::
 
-SET VERSION=0.17.2
+SET VERSION=0.17.3
 SET TAG=v%VERSION%
 SET ROOT=%~dp0
 IF [%1] NEQ [] SET ROOT=%~dpnx1\
