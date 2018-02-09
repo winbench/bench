@@ -10,4 +10,4 @@ $env.Load()
 cd $docsDir
 Start-Process gulp watch
 Start-Process "http://localhost:1313/bench/"
-hugo server -D
+hugo server --disableFastRender
