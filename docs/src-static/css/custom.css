@@ -53,6 +53,8 @@ article.teaser h2 {
 .teaser-icon {
   clear: left;
   float: left;
+  width: 130px;
+  text-align: center;
   font-size: 128px;
   transition: font-size 0.2s ease-out;
   -webkit-transition: font-size 0.2s ease-out;
@@ -109,10 +111,20 @@ article.teaser h2 {
     margin-left: inherit;
   }
 }
+.button-ico {
+  font-size: 2em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.25em;
+}
 .setup-download-button {
   font-weight: bold;
   float: right;
 }
 a.setup-download-button {
   text-decoration: none;
+}
+.work-in-progress-warning {
+  font-style: italic;
 }
