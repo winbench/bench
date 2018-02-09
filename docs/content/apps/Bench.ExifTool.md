@@ -1,19 +1,19 @@
 ﻿+++
 title = "ExifTool"
-weight = 164
+weight = 176
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.ExifTool"
-app_version = "10.57"
+app_version = "10.67"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.ExifTool`  
-**Version:** 10.57  
+**Version:** 10.67  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -33,7 +33,7 @@ Pentax/Asahi, Phase One, Reconyx, Ricoh, Samsung, Sanyo, Sigma/Foveon and Sony.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 164
+* Order Index: 176
 
 ## Properties
 

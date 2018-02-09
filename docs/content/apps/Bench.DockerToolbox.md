@@ -1,19 +1,19 @@
 ﻿+++
 title = "Docker Toolbox"
-weight = 53
+weight = 55
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.DockerToolbox"
-app_version = "17.06.2"
+app_version = "17.10.0"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.DockerToolbox`  
-**Version:** 17.06.2  
+**Version:** 17.10.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -33,7 +33,7 @@ For usage with VmWare Workstation activate the app _Docker Machine VmWare Workst
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 53
+* Order Index: 55
 
 ## Properties
 

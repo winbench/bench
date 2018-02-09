@@ -33,5 +33,5 @@ Python is a programming language that lets you work quickly and integrate system
 * Name: Python2
 * Typ: `default`
 * Website: <https://www.python.org/>
-* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [Scandir (Python 2)](/apps/Bench.Python2.Scandir), [IPython (Python 2)](/apps/Bench.Python2.IPython), [jupyter (Python 2)](/apps/Bench.Python2.Jupyter), [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [NumPy (Python 2)](/apps/Bench.Python2.NumPy)
+* Responsibilities: [Python 2 Development](/apps/Bench.Group.Python2Development), [Scandir (Python 2)](/apps/Bench.Python2.Scandir), [IPython (Python 2)](/apps/Bench.Python2.IPython), [jupyter (Python 2)](/apps/Bench.Python2.Jupyter), [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [NumPy (Python 2)](/apps/Bench.Python2.NumPy), [PyProj (Python 2)](/apps/Bench.Python2.PyProj), [Basemap (Python 2)](/apps/Bench.Python2.Basemap)
 

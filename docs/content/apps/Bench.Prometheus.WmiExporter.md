@@ -1,6 +1,6 @@
 ﻿+++
 title = "Prometheus WMI Exporter"
-weight = 137
+weight = 148
 app_library = "default"
 app_category = "Monitoring"
 app_typ = "default"
@@ -25,7 +25,7 @@ Prometheus exporter for Windows machines using WMI
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Monitoring](/app_categories/monitoring)
-* Order Index: 137
+* Order Index: 148
 
 ## Properties
 

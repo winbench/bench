@@ -1,6 +1,6 @@
 ﻿+++
 title = "Inkscape"
-weight = 161
+weight = 173
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -26,7 +26,7 @@ It's free and open source.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 161
+* Order Index: 173
 
 ## Properties
 
@@ -34,4 +34,5 @@ It's free and open source.
 * Name: Inkscape
 * Typ: `default`
 * Website: <https://inkscape.org/>
+* Responsibilities: [Yeoman Generator for Markdown Projects](/apps/Mastersign.MdProc)
 

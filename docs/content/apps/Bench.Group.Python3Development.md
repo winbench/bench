@@ -1,6 +1,6 @@
 ﻿+++
 title = "Python 3 Development"
-weight = 21
+weight = 22
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,12 +22,12 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 21
+* Order Index: 22
 
 ## Properties
 
 * Namespace: Bench.Group
 * Name: Python3Development
 * Typ: `meta`
-* Dependencies: [Python 3](/apps/Bench.Python3), [IPython (Python 3)](/apps/Bench.Python3.IPython), [PEP8](/apps/Bench.Python.PEP8)
+* Dependencies: [Python 3](/apps/Bench.Python3), [IPython (Python 3)](/apps/Bench.Python3.IPython), [PyCodeStyle](/apps/Bench.Python.PyCodeStyle)
 

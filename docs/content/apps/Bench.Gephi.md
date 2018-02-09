@@ -1,19 +1,19 @@
 ﻿+++
 title = "Gephi"
-weight = 159
+weight = 171
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Gephi"
-app_version = "0.9.1"
+app_version = "0.9.2"
 app_categories = ["Multimedia"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Gephi`  
-**Version:** 0.9.1  
+**Version:** 0.9.2  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -26,7 +26,7 @@ Gephi is open-source and free.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 159
+* Order Index: 171
 
 ## Properties
 

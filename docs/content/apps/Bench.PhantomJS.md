@@ -1,6 +1,6 @@
 ﻿+++
 title = "PhantomJS"
-weight = 82
+weight = 86
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -29,7 +29,7 @@ DOM handling, CSS selector, JSON, Canvas, and SVG.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 82
+* Order Index: 86
 
 ## Properties
 

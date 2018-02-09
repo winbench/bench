@@ -1,19 +1,19 @@
 ﻿+++
 title = "Nightcode"
-weight = 67
+weight = 70
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Nightcode"
-app_version = "2.3.7"
+app_version = "2.5.3"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Nightcode`  
-**Version:** 2.3.7  
+**Version:** 2.5.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ An IDE for Clojure.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 67
+* Order Index: 70
 
 ## Properties
 

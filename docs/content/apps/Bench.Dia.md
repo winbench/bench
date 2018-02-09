@@ -1,6 +1,6 @@
 ﻿+++
 title = "Dia"
-weight = 160
+weight = 172
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -25,7 +25,7 @@ Dia is a program to draw structured diagrams.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 160
+* Order Index: 172
 
 ## Properties
 

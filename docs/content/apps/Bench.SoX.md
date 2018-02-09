@@ -1,6 +1,6 @@
 ﻿+++
 title = "SoX"
-weight = 153
+weight = 165
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -28,7 +28,7 @@ and, as an added bonus, SoX can play and record audio files on most platforms.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 153
+* Order Index: 165
 
 ## Properties
 

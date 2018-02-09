@@ -1,19 +1,19 @@
 ﻿+++
 title = "GnuPG"
-weight = 28
+weight = 29
 app_library = "default"
 app_category = "Security"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.GnuPG"
-app_version = "2.0.30"
+app_version = "2.2.3"
 app_categories = ["Security"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.GnuPG`  
-**Version:** 2.0.30  
+**Version:** 2.2.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ GnuPG, also known as GPG, is a command line tool with features for easy integrat
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Security](/app_categories/security)
-* Order Index: 28
+* Order Index: 29
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "SonicPI"
-weight = 166
+weight = 178
 app_library = "default"
 app_category = "Multimedia"
 app_typ = "default"
@@ -28,7 +28,7 @@ Powerful enough for professional musicians.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Multimedia](/app_categories/multimedia)
-* Order Index: 166
+* Order Index: 178
 
 ## Properties
 

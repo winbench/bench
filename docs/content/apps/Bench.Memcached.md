@@ -1,6 +1,6 @@
 ﻿+++
 title = "Memcached"
-weight = 134
+weight = 145
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -27,7 +27,7 @@ by alleviating database load.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 134
+* Order Index: 145
 
 ## Properties
 

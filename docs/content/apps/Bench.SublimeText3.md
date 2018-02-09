@@ -1,6 +1,6 @@
 ﻿+++
 title = "Sublime Text 3"
-weight = 60
+weight = 62
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,13 +26,13 @@ You'll love the slick user interface, extraordinary features and amazing perform
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 60
+* Order Index: 62
 
 ## Properties
 
 * Namespace: Bench
 * Name: SublimeText3
 * Typ: `default`
-* Website: <http://www.sublimetext.com/3>
-* Responsibilities: [Data Science](/apps/Bench.Group.DataScience)
+* Website: <http://www.sublimetext.com>
+* Responsibilities: [Data Science](/apps/Bench.Group.DataScience), [Sublime Text 3 Package Control](/apps/Bench.SublimeText3.PackageControl)
 

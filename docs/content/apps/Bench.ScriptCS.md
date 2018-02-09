@@ -1,6 +1,6 @@
 ﻿+++
 title = "ScriptCS"
-weight = 42
+weight = 43
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "nuget-package"
@@ -25,7 +25,7 @@ Write .Net apps with a text editor, NuGet, and the power of Roslyn!
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 42
+* Order Index: 43
 
 ## Properties
 

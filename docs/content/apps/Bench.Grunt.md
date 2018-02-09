@@ -1,6 +1,6 @@
 ﻿+++
 title = "Grunt"
-weight = 76
+weight = 80
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -25,7 +25,7 @@ The JavaScript Task Runner
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 76
+* Order Index: 80
 
 ## Properties
 

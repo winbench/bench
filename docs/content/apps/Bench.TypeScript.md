@@ -1,6 +1,6 @@
 ﻿+++
 title = "TypeScript"
-weight = 51
+weight = 52
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "node-package"
@@ -28,7 +28,7 @@ TypeScript compiles to readable, standards-based JavaScript.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 51
+* Order Index: 52
 
 ## Properties
 

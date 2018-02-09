@@ -1,6 +1,6 @@
 ﻿+++
 title = "Ruby Development"
-weight = 22
+weight = 23
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,12 +22,12 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 22
+* Order Index: 23
 
 ## Properties
 
 * Namespace: Bench.Group
 * Name: RubyDevelopment
 * Typ: `meta`
-* Dependencies: [Ruby](/apps/Bench.Ruby), [RubyGems](/apps/Bench.RubyGems), [Bundler](/apps/Bench.Bundler)
+* Dependencies: [Ruby](/apps/Bench.Ruby), [RubyGems](/apps/Bench.RubyGems)
 

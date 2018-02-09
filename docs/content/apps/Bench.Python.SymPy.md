@@ -1,6 +1,6 @@
 ﻿+++
 title = "SymPy"
-weight = 113
+weight = 118
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python-package"
@@ -26,7 +26,7 @@ It aims to become a full-featured computer algebra system (CAS) while keeping th
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 113
+* Order Index: 118
 
 ## Properties
 

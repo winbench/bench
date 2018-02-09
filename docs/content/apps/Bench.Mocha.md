@@ -1,6 +1,6 @@
 ﻿+++
 title = "Mocha"
-weight = 90
+weight = 94
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -28,7 +28,7 @@ while mapping uncaught exceptions to the correct test cases.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 90
+* Order Index: 94
 
 ## Properties
 

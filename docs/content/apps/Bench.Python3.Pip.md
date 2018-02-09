@@ -33,5 +33,5 @@ The PyPA recommended tool for installing Python packages.
 * Name: Pip
 * Typ: `default`
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [Python 3](/apps/Bench.Python3)
+* Responsibilities: [Python 3](/apps/Bench.Python3), [MarkupSafe (Python 3)](/apps/Bench.Python3.MarkupSafe), [PyProj (Python 3)](/apps/Bench.Python3.PyProj), [Basemap (Python 3)](/apps/Bench.Python3.Basemap)
 

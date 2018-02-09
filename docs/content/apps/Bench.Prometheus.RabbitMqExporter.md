@@ -1,19 +1,19 @@
 ﻿+++
 title = "Prometheus RabbitMQ Exporter"
-weight = 140
+weight = 151
 app_library = "default"
 app_category = "Monitoring"
 app_typ = "default"
 app_ns = "Bench.Prometheus"
 app_id = "Bench.Prometheus.RabbitMqExporter"
-app_version = "0.20.0"
+app_version = "0.25.1"
 app_categories = ["Monitoring"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Prometheus.RabbitMqExporter`  
-**Version:** 0.20.0  
+**Version:** 0.25.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ Prometheus exporter for RabbitMQ
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Monitoring](/app_categories/monitoring)
-* Order Index: 140
+* Order Index: 151
 
 ## Properties
 

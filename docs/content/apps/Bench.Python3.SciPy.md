@@ -1,6 +1,6 @@
 ﻿+++
 title = "SciPy (Python 3)"
-weight = 107
+weight = 112
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "meta"
@@ -25,7 +25,7 @@ SciPy (pronounced “Sigh Pie”) is a Python-based ecosystem of open-source sof
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 107
+* Order Index: 112
 
 ## Properties
 

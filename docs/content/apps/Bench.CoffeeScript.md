@@ -1,6 +1,6 @@
 ﻿+++
 title = "CoffeeScript"
-weight = 50
+weight = 51
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "node-package"
@@ -27,7 +27,7 @@ CoffeeScript is an attempt to expose the good parts of JavaScript in a simple wa
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 50
+* Order Index: 51
 
 ## Properties
 
