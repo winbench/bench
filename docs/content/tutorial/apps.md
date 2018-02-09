@@ -9,7 +9,6 @@ weight = 2
 [Auto Setup Button]: /ref/dashboard/#setup-taskcontrol
 [App List]: /ref/dashboard/#setup-applist
 [App Activation List]: /ref/file-structure/#config-apps-activated
-[Bench App Library]: /ref/file-structure/#res-apps
 [User App Library]: /ref/file-structure/#config-apps
 [Bench CLI]: /ref/bench-cli
 
