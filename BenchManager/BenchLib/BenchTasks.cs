@@ -2943,10 +2943,14 @@ namespace Mastersign.Bench
         /// </summary>
         /// <param name="benchRoot">The directory of the extracted transfer package.</param>
         /// <param name="targetDirectory">The directory to install the new Bench environment in.</param>
-        public static void InstallBenchEnvironment(string benchRoot, string targetDirectory)
+        /// <param name="startInitialization">A flag to indicate that the initialization should be started after the extraction.</param>
+        public static void InstallBenchEnvironment(string benchRoot, string targetDirectory, bool startInitialization = true)
         {
             FileSystem.CopyDir(benchRoot, targetDirectory, true);
-            LaunchRemoteSetup(targetDirectory);
+            if (startInitialization)
+            {
+                LaunchRemoteSetup(targetDirectory);
+            }
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 +++
-date = "2016-11-16T17:29:00+02:00"
+date = "2018-02-09T12:00:00+02:00"
 description = "Activate and install apps in different ways"
 title = "Selecting and Installing Apps"
 weight = 2
@@ -9,17 +9,16 @@ weight = 2
 [Auto Setup Button]: /ref/dashboard/#setup-taskcontrol
 [App List]: /ref/dashboard/#setup-applist
 [App Activation List]: /ref/file-structure/#config-apps-activated
-[Bench App Library]: /ref/file-structure/#res-apps
 [User App Library]: /ref/file-structure/#config-apps
 [Bench CLI]: /ref/bench-cli
 
-Apps are defined in the Bench app library or in your custom app library.
+Apps are defined in one of the loaded app libraries or in your custom app library.
 An app definition contains an ID, a download URL or the identifier
 of a managed package, and some additional information for Bench.
 If you want to use an app in the Bench environment, it must be activated
 and installed.
-You can activate and install an app via the Bench Dashboard
-or by editing a text file and running a command at the shell.
+You can activate and install an app via the Bench Dashboard,
+by editing a text file, or running a command at the shell.
 <!--more-->
 
 **Overview**
@@ -54,7 +53,13 @@ setup window.
 
 ## Activating Apps by Keyboard {#via-shell}
 If you want to automate the app activation process, or just want to know
-how things work behind the scenes, you can edit the configuration directly.
+how things work behind the scenes, you can use the [Bench CLI][]
+or edit the configuration directly.
+
+To activate an app on the command line type `bench app activate <ID>`.
+Replace `<ID>` with the ID of the app.
+If you do not know the IDs of the available apps, take a look at
+the [app list](/apps) or run `bench list -t apps -p ID,Label,Version`.
 
 Open the [App Activation List][] `config\apps-activated.txt`
 in you favorite text editor.
@@ -71,33 +76,21 @@ ActiveAppID
 # InactiveAppID
 ```
 
-If you do not know the IDs of the available apps, take a look at the
-[Bench App Library][] in `res\apps.md` and the
-[User App Library][] in `config\apps.md`.
-
-To kick-off the installation of the activated apps, run the [Bench CLI][]
-with the [setup action](/ref/bench-cli/#cmd_bench-manage-setup).
-E.g. if your Bench root folder is `C:\bench`, then run:
-
-```cmd
-cd C:\bench\auto\bin
-.\bench manage setup
-```
+To kick-off the installation of the activated apps, run
+`bench manage setup`.
 
 Do not be alarmed, if this process takes a while, because the activated
 apps must be downloaded and extracted.
-Depending on the bandwidth of your internet connection and your CPU speed,
-this can take a while.
-If you want more information during the setup process, add `--verbose`
-as flag to the command line: `.\bench --verbose manage setup`.
+Depending on the bandwidth of your internet connection, your CPU and harddisk
+speed, this take more or less time.
+If you want more information during the setup process, add the verbose flag:
+`bench -v manage setup`.
 
 ## Next {#next}
 Now you can [delete](/tutorial/apps-remove)
 or [upgrade](/tutorial/apps-upgrade) apps,
 [define your own](/tutorial/apps-custom) apps,
-[import](/tutorial/project-import)
-or [create](/tutorial/project-new) a project,
-and [start working](/tutorial/project-work).
+and [start working on a project](/tutorial/project-work).
 
 ## See Also
 

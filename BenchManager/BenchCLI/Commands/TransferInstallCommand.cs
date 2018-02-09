@@ -9,6 +9,7 @@ namespace Mastersign.Bench.Cli.Commands
     class TransferInstallCommand : BenchCommand
     {
         private const string OPTION_TARGET_DIR = "target-dir";
+        private const string FLAG_EXTRACT_ONLY = "extract-only";
 
         public override string Name => "install";
 
@@ -29,11 +30,19 @@ namespace Mastersign.Bench.Cli.Commands
             optionTargetDir.PossibleValueInfo
                 .Text("A path to a directory. The directory must not exist yet.");
 
+            var flagExtractOnly = new FlagArgument(FLAG_EXTRACT_ONLY, 'e',
+                "extract", "no-init");
+            flagExtractOnly.Description
+                .Text("Deactivates automatic initialization and setup after the transfer.");
+
             parser.RegisterArguments(
-                optionTargetDir);
+                optionTargetDir,
+                flagExtractOnly);
         }
 
         private string TargetDir => Arguments.GetOptionValue(OPTION_TARGET_DIR);
+
+        private bool ExtractOnly => Arguments.GetFlag(FLAG_EXTRACT_ONLY);
 
         protected override bool ExecuteCommand(string[] args)
         {
@@ -46,10 +55,11 @@ namespace Mastersign.Bench.Cli.Commands
             {
                 return false;
             }
+            var extractOnly = ExtractOnly;
             WriteDetail("Installing a new Bench environment to: " + targetDir);
             try
             {
-                BenchTasks.InstallBenchEnvironment(RootPath, targetDir);
+                BenchTasks.InstallBenchEnvironment(RootPath, targetDir, startInitialization: !extractOnly);
             }
             catch (Exception e)
             {

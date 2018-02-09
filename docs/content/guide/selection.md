@@ -1,11 +1,10 @@
 +++
-date = "2016-06-22T13:24:59+02:00"
+date = "2018-02-09T12:00:00+02:00"
 description = "The activation of apps, app groups and their dependencies"
 title = "App Activation"
 weight = 5
 +++
 
-[Bench App Library]: /ref/file-structure/#res-apps
 [User App Library]: /ref/file-structure/#config-apps
 [Activated Apps]: /ref/file-structure/#config-apps-activated
 [Deactivated Apps]: /ref/file-structure/#config-apps-deactivated
@@ -38,18 +37,17 @@ app removal, and others, it uses a list of active apps to know which apps
 to setup or remove.
 To compile this list, Bench reads the following files
 
-* [`res\apps.md`][Bench App Library]
+* `lib\applibs\<app lib name>\apps.md`
 * [`config\apps.md`][User App Library]
 * [`config\apps-activated.txt`][Activated Apps]
 * [`Config\apps-deactivated.txt`][Deactivated Apps]
 
 The compilation works in the following order:
 
-1. At first Bench reads the [Bench App Library][] `res\apps.md` to load the
-   app definitions included in Bench.
+1. At first Bench reads the loaded app libraries `lib\applibs\*\apps.md`
 2. Next it reads the [User App Library][] `config\app.md` to load overrides
    and user defined apps.
-3. Some apps in the [Bench App Library][] are listed in the app category
+3. Some apps in the bench core app library are listed in the app category
    _Required_ and are thereby activated implicitely.
 4. Bench than reads the [user activated apps][Activated Apps] in
    `config\apps-activated.txt` and activates the listed apps explicitely.

@@ -1,5 +1,5 @@
 +++
-date = "2018-02-03T14:00:00+02:00"
+date = "2018-02-08T12:00:00+02:00"
 description = "How do I get Bench up and running?"
 title = "Installing Bench"
 weight = 1
@@ -7,13 +7,15 @@ weight = 1
 
 [bootstrap-file]: https://github.com/mastersign/bench/raw/master/res/bench-install.bat
 
+<a class="setup-download-button pure-button"
+      href="https://github.com/mastersign/bench/releases/latest">
+      <i class="fa fa-download"></i>&nbsp;&nbsp;BenchSetup.exe
+</a>
+<script type="application/javascript">GetLatestReleaseInfo();</script>
+
 At first create a folder for Bench on your harddrive or a thumbdrive.
 
-The most comfortable way of installing Bench is with the setup program
-<a href="https://github.com/mastersign/bench/releases/latest"
-   class="setup-download-link">`BenchSetup.exe`</a>.
-
-<script type="application/javascript">GetLatestReleaseInfo();</script>
+Then download the setup program `BenchSetup.exe`.
 
 The current web browsers are quite protective if it comes to downloaded
 executable files.

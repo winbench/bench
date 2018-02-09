@@ -25,6 +25,17 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.17.3] - 2018-02-09
+
+[0.17.3]: https://github.com/mastersign/bench/compare/v0.17.2...v0.17.3
+
+### Added
+- New Bench CLI flag `bench transfer install --extract-only` to suppress
+  automatic initialization and setup during extraction of `BenchSetup.exe`.
+  This is possible because command line arguments to `BenchSetup.exe` are passed
+  to `bench.exe --verbose transfer install` during the bootstrap command.
+- `res\Invoke-BenchSetup.ps1` for automated Bench setups
+
 ## [0.17.2] - 2018-02-05
 
 [0.17.2]: https://github.com/mastersign/bench/compare/v0.17.1...v0.17.2

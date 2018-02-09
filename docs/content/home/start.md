@@ -9,7 +9,9 @@ weight = 3
 
 <a class="setup-download-button pure-button"
       href="https://github.com/mastersign/bench/releases/latest">
-      <i class="fa fa-download"></i>&nbsp;&nbsp;BenchSetup.exe
+      <i class="button-ico fa fa-download"></i>
+        BenchSetup.exe<br>
+          <small class="version-info">latest</small>
 </a>
 
 1. Create a folder for Bench.
