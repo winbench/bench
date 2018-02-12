@@ -4,14 +4,14 @@ SetLocal
 ::
 :: Bench Bootstrap file
 ::
-:: http://mastersign.github.io/bench/guide/setup/
+:: https://winbench.org/guide/setup/
 ::
 
 SET VERSION=0.18.0
 SET TAG=v%VERSION%
 SET ROOT=%~dp0
 IF [%1] NEQ [] SET ROOT=%~dpnx1\
-SET BENCH_ZIPURL=https://github.com/mastersign/bench/releases/download/%TAG%/Bench.zip
+SET BENCH_ZIPURL=https://github.com/winbench/bench/releases/download/%TAG%/Bench.zip
 SET BENCH_ZIPFILE=%ROOT%Bench.zip
 SET BENCH_BOOTSTRAP_FILE=%~f0
 SET BENCH_SUBFLDR=
