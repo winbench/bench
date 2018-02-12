@@ -25,6 +25,15 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Changed
+- Changed project home from `https://github.com/mastersign/bench...`
+  to `https://github.com/winbench/...`
+- Changed project website from `http://mastersign.github.io/bench`
+  to `https://winbench.org`
+- Renamed app library repositories:
+    * `github:mastersign/bench-apps-core` &rarr; `github:winbench/apps-core`
+    * `github:mastersign/bench-apps-default` &rarr; `github:winbench/apps-default`
+
 ## [0.17.3] - 2018-02-09
 
 [0.17.3]: https://github.com/mastersign/bench/compare/v0.17.2...v0.17.3

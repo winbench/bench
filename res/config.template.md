@@ -1,6 +1,6 @@
 ﻿# User Configuration
 
-Have a look at <http://mastersign.github.io/bench/ref/config/>
+Have a look at <https://winbench.org/ref/config/>
 for a detailed explanation of the configuration properties.
 
 ## Environment
@@ -24,8 +24,8 @@ With the following properties, you can control the composition of the environmen
 With the following dictionary property, you can add additional app libraries.
 
 * AppLibs:
-    + `core`: `github:mastersign/bench-apps-core`
-    + `default`: `github:mastersign/bench-apps-default`
+    + `core`: `github:winbench/apps-core`
+    + `default`: `github:winbench/apps-default`
 
 ## Quick Access
 
