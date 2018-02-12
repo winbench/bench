@@ -5,10 +5,10 @@ title = "Installing Bench"
 weight = 1
 +++
 
-[bootstrap-file]: https://github.com/mastersign/bench/raw/master/res/bench-install.bat
+[bootstrap-file]: https://github.com/winbench/bench/raw/master/res/bench-install.bat
 
 <a class="setup-download-button pure-button"
-      href="https://github.com/mastersign/bench/releases/latest">
+      href="https://github.com/winbench/bench/releases/latest">
       <i class="fa fa-download"></i>&nbsp;&nbsp;BenchSetup.exe
 </a>
 <script type="application/javascript">GetLatestReleaseInfo();</script>

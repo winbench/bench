@@ -5,7 +5,7 @@ title = "Setting-Up Bench"
 weight = 1
 +++
 
-[bench-install]: https://github.com/mastersign/bench/raw/master/res/bench-install.bat
+[bench-install]: https://github.com/winbench/bench/raw/master/res/bench-install.bat
 [bench-cli-transfer-install]: /ref/bench-cli/#cmd_bench-transfer-install
 [config]: /ref/config
 [select-apps]: /tutorial/apps
@@ -44,14 +44,14 @@ There are three ways to bootstrap the Bench setup process:
 
 * Using the
   <a class="setup-download-link"
-     href="https://github.com/mastersign/bench/releases/latest">
+     href="https://github.com/winbench/bench/releases/latest">
     `BenchSetup.exe`
   </a>
   program,
 * Using the [`bench-install.bat`][bench-install] script,
 * Download and extract
   <a class="archive-download-link"
-     href="https://github.com/mastersign/bench/releases/latest">
+     href="https://github.com/winbench/bench/releases/latest">
     `Bench.zip`
   </a>
   manually, and kick-off the setup on the command line.
@@ -61,14 +61,14 @@ If you are not sure which way to go, use `BenchSetup.exe`.
 ### Bench Setup Program {#setup-program}
 The preferred way to bootstrap the Bench setup, is to use the
 <a class="setup-download-link"
-   href="https://github.com/mastersign/bench/releases/latest">
+   href="https://github.com/winbench/bench/releases/latest">
   `BenchSetup.exe`
 </a>.
 
 * Create a folder for Bench
 * Download
   <a class="setup-download-link"
-     href="https://github.com/mastersign/bench/releases/latest">
+     href="https://github.com/winbench/bench/releases/latest">
     `BenchSetup.exe`
   </a>
   and save it anywhere you like
@@ -109,7 +109,7 @@ bootstrap the Bench setup process manually by downloading the `Bench.zip`
 and running the `initialize` action via the [Bench CLI][].
 
 * Download `Bench.zip` from
-  <https://github.com/mastersign/bench/releases/latest>
+  <https://github.com/winbench/bench/releases/latest>
 * Create a folder for Bench
 * Extract the content of `Bench.zip` into the created folder
 * Optionally prepare the Bench environment with some customized files like

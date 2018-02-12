@@ -16,7 +16,7 @@ at the same time to be easy to use via a graphical interface.
 
 ![Screenshot](/img/teaser.png)
 
-Bench is hosted on [GitHub](https://github.com/mastersign/bench/)
+Bench is hosted on [GitHub](https://github.com/winbench/bench/)
 and is primarily developed by [Tobias Kiertscher](http://www.mastersign.de/).
 
 ## Everything is an App

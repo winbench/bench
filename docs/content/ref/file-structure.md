@@ -266,7 +266,7 @@ Inside of the _setup hook script_ is the [PowerShell API](/ref/ps-api/) availabl
 
 This file is the _installation program_ for Bench.
 The latest version can be downloaded from:
-<https://github.com/mastersign/bench/raw/master/res/bench-install.bat>.
+<https://github.com/winbench/bench/raw/master/res/bench-install.bat>.
 
 ### Site Configuration Template {#res-site-config-template}
 

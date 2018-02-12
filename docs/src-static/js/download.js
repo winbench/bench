@@ -1,5 +1,5 @@
 function GetLatestReleaseInfo() {
-  $.getJSON("https://api.github.com/repos/mastersign/bench/releases/latest")
+  $.getJSON("https://api.github.com/repos/winbench/bench/releases/latest")
     .done(function(release) {
         var setupAsset = null;
         var archiveAsset = null;
