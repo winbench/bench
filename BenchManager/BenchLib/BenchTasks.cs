@@ -2873,7 +2873,7 @@ namespace Mastersign.Bench
                 {
                     w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables and possibly some registry keys of your user profile will be modified during setup.\n\n");
                 }
-                w.WriteLine("See http://mastersign.github.io/bench/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?\"");
+                w.WriteLine("See https://winbench.org/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?\"");
             }
             w.WriteLine(@"RunProgram="".\\auto\\bin\\bench.exe --verbose transfer install""");
             w.Write(";!@InstallEnd@!");

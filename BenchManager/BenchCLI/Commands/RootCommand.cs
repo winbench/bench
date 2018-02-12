@@ -49,7 +49,7 @@ namespace Mastersign.Bench.Cli.Commands
                 .End(BlockType.Paragraph)
                 .Begin(BlockType.Paragraph)
                 .Text("Take a look at ")
-                .Link("http://mastersign.github.io/bench", "the project website")
+                .Link("https://winbench.org", "the project website")
                 .Text(" for a description of the Bench system.")
                 .End(BlockType.Paragraph);
 
