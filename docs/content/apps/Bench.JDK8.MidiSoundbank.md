@@ -1,6 +1,6 @@
 ﻿+++
 title = "JDK 8 Midi Soundbank"
-weight = 36
+weight = 37
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -22,7 +22,7 @@ app_types = ["default"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 36
+* Order Index: 37
 
 ## Properties
 

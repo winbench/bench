@@ -5,7 +5,7 @@ title = "Isolation and Portability"
 weight = 4
 +++
 
-[Mastersign.Bench.BenchEnvironment]: http://mastersign.github.io/bench/clr-api/html/T_Mastersign_Bench_BenchEnvironment.htm
+[Mastersign.Bench.BenchEnvironment]: https://winbench.org/clr-api/html/T_Mastersign_Bench_BenchEnvironment.htm
 [OverrideHome]: /ref/config/#OverrideHome
 [OverrideTemp]: /ref/config/#OverrideTemp
 [IgnoreSystemPath]: /ref/config/#IgnoreSystemPath

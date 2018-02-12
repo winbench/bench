@@ -1,19 +1,19 @@
 ﻿+++
 title = "Atom"
-weight = 58
+weight = 60
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Atom"
-app_version = "1.20.0"
+app_version = "1.22.1"
 app_categories = ["Editors"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Atom`  
-**Version:** 1.20.0  
+**Version:** 1.22.1  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -39,7 +39,7 @@ by putting something like this in your user app library in `config\apps.md`:
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 58
+* Order Index: 60
 
 ## Properties
 

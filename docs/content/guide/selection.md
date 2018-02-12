@@ -10,7 +10,7 @@ weight = 5
 [Deactivated Apps]: /ref/file-structure/#config-apps-deactivated
 [Meta App]: /ref/app-types/#meta
 [Bench Dashboard]: /ref/dashbord/
-[Mastersign.Bench.ActivationFile]: http://mastersign.github.io/bench/clr-api/html/T_Mastersign_Bench_ActivationFile.htm
+[Mastersign.Bench.ActivationFile]: https://winbench.org/clr-api/html/T_Mastersign_Bench_ActivationFile.htm
 
 Seleting an app for installation by Bench is called activating the app.
 Apps can be activated explicitly by the user, or they can be activated

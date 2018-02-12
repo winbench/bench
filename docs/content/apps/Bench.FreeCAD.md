@@ -1,19 +1,19 @@
 ﻿+++
 title = "FreeCAD"
-weight = 170
+weight = 183
 app_library = "default"
 app_category = "3D Modeling"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.FreeCAD"
-app_version = "0.16"
+app_version = "0.16.6712"
 app_categories = ["3D Modeling"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.FreeCAD`  
-**Version:** 0.16  
+**Version:** 0.16.6712  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -22,7 +22,7 @@ app_types = ["default"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [3D Modeling](/app_categories/3d-modeling)
-* Order Index: 170
+* Order Index: 183
 
 ## Properties
 

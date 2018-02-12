@@ -1,6 +1,6 @@
 ﻿+++
 title = "Notepad++"
-weight = 56
+weight = 58
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -25,7 +25,7 @@ Notepad++ is a free (as in "free speech" and also as in "free beer") source code
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 56
+* Order Index: 58
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "Prometheus MySQL Exporter"
-weight = 139
+weight = 150
 app_library = "default"
 app_category = "Monitoring"
 app_typ = "default"
@@ -25,7 +25,7 @@ Prometheus exporter for MySQL Server
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Monitoring](/app_categories/monitoring)
-* Order Index: 139
+* Order Index: 150
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "GitKraken"
-weight = 30
+weight = 31
 app_library = "default"
 app_category = "Version Control"
 app_typ = "default"
@@ -25,7 +25,7 @@ The downright luxurious Git client, for Windows, Mac & Linux.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Version Control](/app_categories/version-control)
-* Order Index: 30
+* Order Index: 31
 
 ## Properties
 

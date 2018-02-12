@@ -1,6 +1,6 @@
 ﻿+++
 title = "Tftpd32"
-weight = 125
+weight = 136
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -37,7 +37,7 @@ The included DHCP server provides unlimited automatic or static IP address assig
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 125
+* Order Index: 136
 
 ## Properties
 

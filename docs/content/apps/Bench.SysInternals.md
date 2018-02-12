@@ -1,6 +1,6 @@
 ﻿+++
 title = "SysInternals"
-weight = 99
+weight = 103
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "default"
@@ -26,7 +26,7 @@ the Microsoft Windows operating systems and its processes.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 99
+* Order Index: 103
 
 ## Properties
 

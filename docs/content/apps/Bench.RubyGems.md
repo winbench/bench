@@ -6,14 +6,14 @@ app_category = "Core"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.RubyGems"
-app_version = "2.6.13"
+app_version = "2.7.4"
 app_categories = ["Core"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.RubyGems`  
-**Version:** 2.6.13  
+**Version:** 2.7.4  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -34,5 +34,5 @@ RubyGems is a package management framework for Ruby.
 * Typ: `default`
 * Website: <https://rubygems.org/>
 * Dependencies: [Ruby](/apps/Bench.Ruby)
-* Responsibilities: [Ruby Development](/apps/Bench.Group.RubyDevelopment), [Bundler](/apps/Bench.Bundler), [SASS](/apps/Bench.Sass)
+* Responsibilities: [Ruby Development](/apps/Bench.Group.RubyDevelopment), [SASS](/apps/Bench.Sass)
 

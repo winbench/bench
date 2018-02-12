@@ -1,6 +1,6 @@
 ﻿+++
 title = "Matplotlib"
-weight = 112
+weight = 117
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python-package"
@@ -26,7 +26,7 @@ Matplotlib can be used in Python scripts, the Python and IPython shell, the jupy
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 112
+* Order Index: 117
 
 ## Properties
 
@@ -35,5 +35,5 @@ Matplotlib can be used in Python scripts, the Python and IPython shell, the jupy
 * Typ: `python-package`
 * Website: <http://matplotlib.org/>
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [scikit-learn](/apps/Bench.Python3.SciKitLearn)
+* Responsibilities: [SciPy (Python 2)](/apps/Bench.Python2.SciPy), [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [Basemap (Python 2)](/apps/Bench.Python2.Basemap), [Basemap (Python 3)](/apps/Bench.Python3.Basemap), [scikit-learn](/apps/Bench.Python3.SciKitLearn)
 

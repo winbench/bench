@@ -1,19 +1,19 @@
 ﻿+++
 title = "NumPy (Python 3)"
-weight = 109
+weight = 114
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "default"
 app_ns = "Bench.Python3"
 app_id = "Bench.Python3.NumPy"
-app_version = "1.13.1"
+app_version = "1.14.0"
 app_categories = ["Math and Science"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Python3.NumPy`  
-**Version:** 1.13.1  
+**Version:** 1.14.0  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -39,7 +39,7 @@ Thanks a lot to Christoph Golke for his service.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 109
+* Order Index: 114
 
 ## Properties
 
@@ -48,5 +48,5 @@ Thanks a lot to Christoph Golke for his service.
 * Typ: `default`
 * Website: <http://www.numpy.org/>
 * Dependencies: [Python 3](/apps/Bench.Python3)
-* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [scikit-learn](/apps/Bench.Python3.SciKitLearn), [TensorFlow](/apps/Bench.TensorFlow)
+* Responsibilities: [SciPy (Python 3)](/apps/Bench.Python3.SciPy), [SciPy library (Python 3)](/apps/Bench.Python3.SciPyLib), [Basemap (Python 3)](/apps/Bench.Python3.Basemap), [scikit-learn](/apps/Bench.Python3.SciKitLearn), [TensorFlow](/apps/Bench.TensorFlow)
 

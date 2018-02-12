@@ -614,6 +614,21 @@ namespace Mastersign.Bench
             var m = GitHubUrlPattern.Match(url);
             if (m.Success)
             {
+                var ns = m.Groups["ns"].Value;
+                var repo = m.Groups["name"].Value;
+
+                // Magic for migration from github.com/mastersign/bench... to github.com/winbench/...
+                if (ns == "mastersign" && repo == "bench-apps-core")
+                {
+                    ns = "winbench";
+                    repo = "apps-core";
+                }
+                if (ns == "mastersign" && repo == "bench-apps-default")
+                {
+                    ns = "winbench";
+                    repo = "apps-default";
+                }
+
                 return string.Format(GitHubUrlTemplate,
                     m.Groups["ns"].Value, m.Groups["name"].Value);
             }

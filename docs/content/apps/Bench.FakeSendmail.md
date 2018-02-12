@@ -1,6 +1,6 @@
 ﻿+++
 title = "FakeSendmail"
-weight = 130
+weight = 141
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -33,7 +33,7 @@ This app automatically registers itself in PHP 5 and PHP 7.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 130
+* Order Index: 141
 
 ## Properties
 

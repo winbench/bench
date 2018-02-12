@@ -1,6 +1,6 @@
 ﻿+++
 title = "Docker Machine VmWare Workstation Driver"
-weight = 54
+weight = 56
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,7 +25,7 @@ This plugin for Docker Machine creates Docker hosts locally on a VMware Workstat
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 54
+* Order Index: 56
 
 ## Properties
 

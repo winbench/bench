@@ -1,6 +1,6 @@
 ﻿+++
 title = "MinGwGet"
-weight = 44
+weight = 45
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,7 +25,7 @@ The package manager for [MinGW](http://www.mingw.org/).
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 44
+* Order Index: 45
 
 ## Properties
 

@@ -1,6 +1,6 @@
 ﻿+++
 title = "Prometheus Push Gateway"
-weight = 136
+weight = 147
 app_library = "default"
 app_category = "Monitoring"
 app_typ = "default"
@@ -29,7 +29,7 @@ The Pushgateway then exposes these metrics to Prometheus.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Monitoring](/app_categories/monitoring)
-* Order Index: 136
+* Order Index: 147
 
 ## Properties
 

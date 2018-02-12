@@ -1,19 +1,19 @@
 ﻿+++
 title = "MiKTeX"
-weight = 143
+weight = 154
 app_library = "default"
 app_category = "Writing"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.MiKTeX"
-app_version = "2.9.6361"
+app_version = "2.9.6521"
 app_categories = ["Writing"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.MiKTeX`  
-**Version:** 2.9.6361  
+**Version:** 2.9.6521  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -30,7 +30,7 @@ are selected to suit the needs of the default LaTeX template of _Pandoc_.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Writing](/app_categories/writing)
-* Order Index: 143
+* Order Index: 154
 
 ## Properties
 
@@ -38,5 +38,5 @@ are selected to suit the needs of the default LaTeX template of _Pandoc_.
 * Name: MiKTeX
 * Typ: `default`
 * Website: <http://miktex.org/portable>
-* Responsibilities: [LaTeX Writing](/apps/Bench.Group.LaTeXWriting), [TeXnicCenter](/apps/Bench.TeXnicCenter)
+* Responsibilities: [LaTeX Writing](/apps/Bench.Group.LaTeXWriting), [TeXnicCenter](/apps/Bench.TeXnicCenter), [Yeoman Generator for Markdown Projects](/apps/Mastersign.MdProc)
 

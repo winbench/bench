@@ -28,11 +28,6 @@ if (!(Test-Path "$docsDir\node_modules"))
   npm install
   check-success
 }
-if (!(Test-Path "$docsDir\bower_components"))
-{
-  bower install
-  check-success
-}
 popd
 
 # Load Bench Assemblies

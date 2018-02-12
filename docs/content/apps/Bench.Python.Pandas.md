@@ -1,6 +1,6 @@
 ﻿+++
 title = "pandas"
-weight = 114
+weight = 119
 app_library = "default"
 app_category = "Math and Science"
 app_typ = "python-package"
@@ -25,7 +25,7 @@ pandas is an open source, BSD-licensed library providing high-performance, easy-
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Math and Science](/app_categories/math-and-science)
-* Order Index: 114
+* Order Index: 119
 
 ## Properties
 

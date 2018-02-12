@@ -1,6 +1,6 @@
 ﻿+++
 title = "Tern"
-weight = 91
+weight = 95
 app_library = "default"
 app_category = "Software Development Utilities"
 app_typ = "node-package"
@@ -26,7 +26,7 @@ that can be used to improve the JavaScript integration of existing editors.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Software Development Utilities](/app_categories/software-development-utilities)
-* Order Index: 91
+* Order Index: 95
 
 ## Properties
 

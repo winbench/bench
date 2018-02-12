@@ -1,19 +1,19 @@
 ﻿+++
 title = ".NET Core SDK"
-weight = 43
+weight = 44
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.DotNetCore"
-app_version = "2.0.0"
+app_version = "2.0.3"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.DotNetCore`  
-**Version:** 2.0.0  
+**Version:** 2.0.3  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -25,7 +25,7 @@ The build tools and compilers for platform independent .NET Core applications.
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 43
+* Order Index: 44
 
 ## Properties
 

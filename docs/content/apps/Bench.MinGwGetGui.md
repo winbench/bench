@@ -1,6 +1,6 @@
 ﻿+++
 title = "MinGwGetGui"
-weight = 45
+weight = 46
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -25,7 +25,7 @@ A graphical user interface for the package manager of [MinGW](http://www.mingw.o
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 45
+* Order Index: 46
 
 ## Properties
 

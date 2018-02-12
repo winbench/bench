@@ -1,6 +1,6 @@
 ﻿+++
 title = "JRE 8 Midi Soundbank"
-weight = 35
+weight = 36
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
@@ -22,7 +22,7 @@ app_types = ["default"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 35
+* Order Index: 36
 
 ## Properties
 

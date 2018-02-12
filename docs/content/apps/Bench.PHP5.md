@@ -1,19 +1,19 @@
 ﻿+++
 title = "PHP 5"
-weight = 31
+weight = 32
 app_library = "default"
 app_category = "Languages and Platforms"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.PHP5"
-app_version = "5.6.30"
+app_version = "5.6.31"
 app_categories = ["Languages and Platforms"]
 app_libraries = ["default"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.PHP5`  
-**Version:** 5.6.30  
+**Version:** 5.6.31  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -28,7 +28,7 @@ This application needs the x86 version of the [Visual C++ 11 Redistributable](ht
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Languages and Platforms](/app_categories/languages-and-platforms)
-* Order Index: 31
+* Order Index: 32
 
 ## Properties
 

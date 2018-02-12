@@ -1,10 +1,10 @@
 # Default Configuration
 
 * VersionFile: `res\version.txt`
-* Website: <http://mastersign.github.io/bench>
-* VersionUrl: <https://github.com/mastersign/bench/raw/master/res/version.txt>
-* UpdateUrlTemplate: `https://github.com/mastersign/bench/releases/download/v#VERSION#/Bench.zip`
-* BootstrapUrlTemplate: `https://github.com/mastersign/bench/raw/v#VERSION#/res/bench-install.bat`
+* Website: <https://winbench.org>
+* VersionUrl: <https://github.com/winbench/bench/raw/master/res/version.txt>
+* UpdateUrlTemplate: `https://github.com/winbench/bench/releases/download/v#VERSION#/Bench.zip`
+* BootstrapUrlTemplate: `https://github.com/winbench/bench/raw/v#VERSION#/res/bench-install.bat`
 * AutoUpdateCheck: `true`
 * UseProxy: `false`
 * ProxyBypass: `localhost`
@@ -40,8 +40,8 @@
 * AppLibsCacheDir: `$CacheDir$\applibs`
 * TempDir: `tmp`
 * AppLibs:
-    + `core`: `github:mastersign/bench-apps-core`
-    + `default`: `github:mastersign/bench-apps-default`
+    + `core`: `github:winbench/apps-core`
+    + `default`: `github:winbench/apps-default`
 * SiteConfigFileName: `bench-site.md`
 * AppLibIndexFileName: `apps.md`
 * AppLibCustomScriptDirName: `scripts`

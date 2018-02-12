@@ -1,6 +1,6 @@
 ﻿+++
 title = "MySQL Workbench"
-weight = 128
+weight = 139
 app_library = "default"
 app_category = "Services"
 app_typ = "default"
@@ -30,7 +30,7 @@ and the [Microsoft.NET Framework 4.0 Client Profile](http://www.microsoft.com/do
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Services](/app_categories/services)
-* Order Index: 128
+* Order Index: 139
 
 ## Properties
 

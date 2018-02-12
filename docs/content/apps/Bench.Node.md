@@ -6,14 +6,14 @@ app_category = "Core"
 app_typ = "default"
 app_ns = "Bench"
 app_id = "Bench.Node"
-app_version = "6.11.3"
+app_version = "8.9.4"
 app_categories = ["Core"]
 app_libraries = ["core"]
 app_types = ["default"]
 +++
 
 **ID:** `Bench.Node`  
-**Version:** 6.11.3  
+**Version:** 8.9.4  
 <!--more-->
 
 [Back to all apps](/apps/)
@@ -35,5 +35,5 @@ Node.js' package ecosystem, npm, is the largest ecosystem of open source librari
 * Name: Node
 * Typ: `default`
 * Website: <https://nodejs.org>
-* Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment), [CoffeeScript](/apps/Bench.CoffeeScript), [TypeScript](/apps/Bench.TypeScript), [Gulp](/apps/Bench.Gulp), [Grunt](/apps/Bench.Grunt), [Bower](/apps/Bench.Bower), [Yeoman](/apps/Bench.Yeoman), [Plop](/apps/Bench.Plop), [Angular CLI](/apps/Bench.AngularCli), [JSLint](/apps/Bench.JSLint), [JSHint](/apps/Bench.JSHint), [JSBeautify](/apps/Bench.JSBeautify), [Mocha](/apps/Bench.Mocha), [Tern](/apps/Bench.Tern), [Cordova](/apps/Bench.Cordova), [Ionic](/apps/Bench.Ionic), [Less](/apps/Bench.Less)
+* Responsibilities: [JavaScript Development](/apps/Bench.Group.JavaScriptDevelopment), [CoffeeScript](/apps/Bench.CoffeeScript), [TypeScript](/apps/Bench.TypeScript), [Yarn](/apps/Bench.Yarn), [Gulp](/apps/Bench.Gulp), [Grunt](/apps/Bench.Grunt), [Bower](/apps/Bench.Bower), [Yeoman](/apps/Bench.Yeoman), [Plop](/apps/Bench.Plop), [Angular CLI](/apps/Bench.AngularCli), [JSLint](/apps/Bench.JSLint), [JSHint](/apps/Bench.JSHint), [JSBeautify](/apps/Bench.JSBeautify), [Mocha](/apps/Bench.Mocha), [Tern](/apps/Bench.Tern), [Cordova](/apps/Bench.Cordova), [Ionic](/apps/Bench.Ionic), [Less](/apps/Bench.Less), [Yeoman Generator for Markdown Projects](/apps/Mastersign.MdProc)
 

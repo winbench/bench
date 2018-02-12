@@ -1,6 +1,6 @@
 ﻿+++
 title = "Prometheus Memcached Exporter"
-weight = 141
+weight = 152
 app_library = "default"
 app_category = "Monitoring"
 app_typ = "default"
@@ -25,7 +25,7 @@ Prometheus exporter for Memcached Server
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Monitoring](/app_categories/monitoring)
-* Order Index: 141
+* Order Index: 152
 
 ## Properties
 

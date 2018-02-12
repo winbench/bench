@@ -1,6 +1,6 @@
 ﻿+++
 title = "JavaScript Development"
-weight = 16
+weight = 17
 app_library = "default"
 app_category = "Groups"
 app_typ = "meta"
@@ -22,7 +22,7 @@ app_types = ["meta"]
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Groups](/app_categories/groups)
-* Order Index: 16
+* Order Index: 17
 
 ## Properties
 

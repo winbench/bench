@@ -1,6 +1,6 @@
 ﻿+++
 title = "Notepad2"
-weight = 55
+weight = 57
 app_library = "default"
 app_category = "Editors"
 app_typ = "default"
@@ -26,7 +26,7 @@ This program can be run out of the box without installation, and does not touch 
 
 * Library: [`default`](/app_libraries/default)
 * Category: [Editors](/app_categories/editors)
-* Order Index: 55
+* Order Index: 57
 
 ## Properties
 

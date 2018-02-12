@@ -1,4 +1,4 @@
-baseurl = "http://mastersign.github.io/bench/"
+baseurl = "https://winbench.org/"
 languageCode = "en-us"
 title = "Bench"
 author = "Tobias Kiertscher"
@@ -120,6 +120,6 @@ preserveTaxonomyNames = true
   #hackernews = "*"
 
   # Techie
-  github = "mastersign"
+  github = "winbench"
   #bitbucket = "*"
   #stackoverflow = "*"
