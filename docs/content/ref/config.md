@@ -62,7 +62,7 @@ configuration, but _can_ be overridden in the user or site configuration.
 | [ConEmuConfigTemplateFile](#ConEmuConfigTemplateFile) | path | `res\ConEmu.template.xml` |
 | [LibDir](#LibDir) | path | `lib` |
 | [AppsInstallDir](#AppsInstallDir) | path | `$LibDir$\apps` |
-| [Website](#Website) | URL | <http://mastersign.github.io/bench> |
+| [Website](#Website) | URL | <https://winbench.org> |
 | [Use64Bit](#Use64Bit) | boolean | automatically determined |
 | [WizzardApps](#WizzardApps) | dictionary | groups from the default app library |
 | [WizzardSelectedApps](#WizzardSelectedApps) | list | empty |
@@ -347,7 +347,7 @@ Only non-space characters, up to the first space or the end of a line, are consi
 
 * Description: The URL for the Bench documentation.
 * Data Type: URL
-* Default: <http://mastersign.github.io/bench>
+* Default: <https://winbench.org>
 * Type: System
 
 ### Use64Bit {#Use64Bit}

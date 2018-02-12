@@ -1,11 +1,11 @@
 +++
-date = "2018-02-09T15:30:38+01:00"
+date = "2018-02-12T18:00:11+01:00"
 description = "The command-line interface: bench.exe"
 title = "Bench CLI"
 weight = 2
 +++
 
-Version: 0.17.3
+Version: 0.18.0
 
 The  _Bench CLI_ allows to interact with a Bench environment on the command line.
 
@@ -13,7 +13,7 @@ It supports a hierarchy of sub-commands with flags and options, which can be spe
 Additionally it supports an  _interactive mode_ when called without a sub-command specified.
 Help texts can be displayed for each sub-command with the  `-?` argument. The help texts can be printed in  _different formats_.
 
-Take a look at [the project website](http://mastersign.github.io/bench) for a description of the Bench system.
+Take a look at [the project website](https://winbench.org) for a description of the Bench system.
 
 ### Commands {#index}
 

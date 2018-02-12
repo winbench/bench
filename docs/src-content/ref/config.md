@@ -290,7 +290,7 @@ Only non-space characters, up to the first space or the end of a line, are consi
 
 * Description: The URL for the Bench documentation.
 * Data Type: URL
-* Default: <http://mastersign.github.io/bench>
+* Default: <https://winbench.org>
 * Type: System
 
 ### Use64Bit {#Use64Bit}
