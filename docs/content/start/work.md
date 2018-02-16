@@ -12,7 +12,7 @@ weight = 4
 
 The only important thing, when working on a project in the Bench environment,
 is to start the IDE or text editor through its [Launcher][],
-and to call the command line tools from a [Bench Shell][].
+and to call command line tools from a [Bench Shell][].
 
 When working with an IDE or a full-featured text editor, start it via
 its [Launcher][] in the Bench Dashboard or its shortcut in the `launchers`

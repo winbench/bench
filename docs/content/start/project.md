@@ -17,30 +17,17 @@ If you want to **create a new project with an IDE** like Eclipse,
 open the IDE via its [Launcher][] and initialize the project
 from within the IDE.
 
-If you want to **scaffold a project with [Yeoman][]**,
-first install the [generator][] of your choice in a [Bench Shell][] via `npm`.
-Then you can run the action script `actions\new-project.cmd`:
-
-* It will create the project directory
-* Run Yeoman to scaffold the file structure
-* Initialize your project as a Git working copy
-* Commit the initial state to the `master` branch
-* Open a [Bench Shell][] in your projects directory
-* Open the appropriate IDE or the default text editor, when supported
-
-If you want to **scaffold a project with another command line tool**
-like NPM, Leiningen, or CMake,
-you have to create the project folder in the Bench [project directory][]
-and call the scaffolding tool from a [Bench Shell][].
+If you want to **create a new project manually or with a command line tool**,
+first open a shell from the Bench Dashboard.
+Your current working path should be the `projects` directory in the Bench root directory.
+If that is not the case use `cd` to switch to it.
+Then create your project folder via `mkdir yourproject`, change your location
+into it via `cd yourproject` and optionally call a scaffolding tool, e.g. `yo` for Yeoman.
 
 If you want to **clone an existing Git project**,
-run the action script `actions\clone-git-project.cmd`:
+first open a shell from the Bench Dashboard.
+Your current working path should be the `projects` directory in the Bench root directory.
+If that is not the case use `cd` to switch to it.
+Then just use the `git clone` command to clone your project into a new project folder.
 
-* It will ask you for the remote URL
-* Propose a name for the project directory
-* Clone the project by calling Git
-* Open a [Bench Shell][] in the project directory
-* Open the appropriate IDE or the default text editor, when supported
-
-You can find a more detailed description of setting-up a project in the tutorials
-[Creating a New Project][] and [Importing an Existing Project][].
+E.g. `git clone https://github.com/yourname/yourproject.git yourproject`

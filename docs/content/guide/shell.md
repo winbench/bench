@@ -1,5 +1,5 @@
 +++
-date = "2016-11-07T10:53:00+02:00"
+date = "2018-02-16T12:00:00+02:00"
 description = "The interaction between a shell and the Bench environment"
 title = "Shells"
 weight = 6
@@ -14,7 +14,7 @@ The [isolated environment][isolation] of Bench is available either via
 starting an app or starting a Bench shell respectively.
 Like apps, shells can be started with a [launcher][].
 Additionally, shells can be started from the [toolbar][dashboard shell buttons]
-in the main window of the Bench Dashboard, and with their action scripts.
+in the main window of the Bench Dashboard.
 Bench supports three shells: Windows Command Prompt (CMD), PowerShell, and Bash.
 <!-- more -->
 
@@ -23,7 +23,7 @@ Bench supports three shells: Windows Command Prompt (CMD), PowerShell, and Bash.
 * [Environment](#env)
 * [Quick Access](#quick-access)
 * [Drag & Drop Launching](#drag-and-drop)
-* [Action Scripts](#actions)
+* [Shell Entry Points](#entry-points)
 * [Loading the Bench Environment with Hindsight](#env-script)
 
 ## Environment {#env}
@@ -61,13 +61,14 @@ Because the script interpreter or the program is run as a child of the Bench
 shell now, the script or program inherits the environment variables of the
 Bench shell. And therefore, is executed inside of the Bench environment.
 
-## Action Scripts {#actions}
-For every Bench shell, there exists an action script to start the shell
+## Shell Entry Points {#entry-points}
+For every Bench shell, there exists a batch script to start the shell
 inside the Bench environment.
 
-* [`actions\bench-cmd.cmd`](/ref/file-structure/#action-bench-cmd)
-* [`actions\bench-ps.cmd`](/ref/file-structure/#action-bench-ps)
-* [`actions\bench-bash.cmd`](/ref/file-structure/#action-bench-bash)
+* [`auto\bin\bench-cmd.cmd`](/ref/file-structure/#auto-bin-bench-cmd)
+* [`auto\bin\bench-ps.cmd`](/ref/file-structure/#auto-bin-bench-ps)
+* [`auto\bin\bench-bash.cmd`](/ref/file-structure/#auto-bin-bench-bash)
+  (is only working if the Git app is activated in the Bench environment)
 
 These scripts are always availabe, regardless of the [quick access](#quick-access) properties.
 
