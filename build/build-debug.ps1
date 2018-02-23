@@ -1,3 +1,6 @@
-$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+param (
+    $MsBuildVerbosity = "normal"
+)
+$Script:thisDir = Split-Path $MyInvocation.MyCommand.Path -Parent
 
-& "$myDir\build.ps1" -Mode Debug -MsBuildVerbosity normal -NoRelease
+& "$thisDir\build.ps1" -Mode Debug -MsBuildVerbosity $MsBuildVerbosity -NoRelease

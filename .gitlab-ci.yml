@@ -9,13 +9,12 @@ build-debug:
   - msbuild
   script:
   - cd build
-  - .\\build-debug.ps1
+  - .\\build-debug.ps1 -MsBuildVerbosity normal
   - cd ..
   - auto/bin/bench.exe --help
-  artifacts:
+  cache:
     paths:
-    - auto/bin/
-    expire_in: 1h
+    - BenchManager/packages
 
 build-api-docs:
   stage: docs
@@ -24,6 +23,7 @@ build-api-docs:
   - msbuild
   script:
   - cd build
+  - .\\build-debug.ps1 -MsBuildVerbosity minimal
   - .\\build-clr-docs.ps1
   artifacts:
     paths:
