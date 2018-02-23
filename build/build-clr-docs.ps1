@@ -17,7 +17,7 @@ $solutionDir = "BenchManager" # relative to root dir
 $solutionFile = "BenchManager.sln" # relative to solution dir
 $helpProject = "BenchLibDocs\BenchLibDocs.shfbproj" # relative to solution dir
 $helpOutputDir = "BenchLibDocs\Help\" # relative to solution dir
-$helpTargetDir = "docs\public\clr-api\" # relative to root dir
+$helpTargetDir = "docs\clr-api\" # relative to root dir
 
 # Build the Sand Castle Help File Builder project
 echo ""

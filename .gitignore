@@ -11,6 +11,8 @@
 /release
 /applibs
 
+/docs
+
 /env.*
 /bench-*.cmd
 /*.zip
