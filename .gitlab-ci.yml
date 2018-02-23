@@ -14,7 +14,7 @@ build-debug:
   - msbuild
   script:
   - cd build
-  - .\\build-debug.ps1 -MsBuildVerbosity normal
+  - .\build-debug.ps1 -MsBuildVerbosity minimal
   - cd ..
   - auto/bin/bench.exe --help
 
@@ -25,8 +25,8 @@ build-api-docs:
   - msbuild
   script:
   - cd build
-  - .\\build-debug.ps1 -MsBuildVerbosity minimal
-  - .\\build-clr-docs.ps1
+  - .\build-debug.ps1 -MsBuildVerbosity minimal
+  - .\build-clr-docs.ps1
   artifacts:
     paths:
     - docs/clr-api/
