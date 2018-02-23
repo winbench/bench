@@ -10,6 +10,8 @@ build-debug:
   script:
   - cd build
   - .\\build-debug.ps1
+  - cd ..
+  - auto/bin/bench.exe --help
   artifacts:
     paths:
     - auto/bin/
