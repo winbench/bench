@@ -2,6 +2,11 @@ stages:
   - build
   - docs
 
+cache:
+  paths:
+  - BenchManager/packages/
+  - BenchManager/nuget.exe
+
 build-debug:
   stage: build
   tags:
@@ -12,9 +17,6 @@ build-debug:
   - .\\build-debug.ps1 -MsBuildVerbosity normal
   - cd ..
   - auto/bin/bench.exe --help
-  cache:
-    paths:
-    - BenchManager/packages
 
 build-api-docs:
   stage: docs
