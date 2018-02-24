@@ -1,0 +1,2 @@
+docs=https://github.com/winbench/docs.git
+app-portal=https://github.com/winbench/app-portal.git
