@@ -39,7 +39,7 @@ Copyright © by Tobias Kiertscher <dev@mastersign.de>.
 [license-img]: https://img.shields.io/github/license/winbench/bench.svg?style=flat-square
 [issues-url]: https://github.com/winbench/bench/issues
 [issues-img]: https://img.shields.io/github/issues/winbench/bench.svg?style=flat-square
-[website-img]: https://img.shields.io/website-up-down/http/winbench.github.io.svg?style=flat-square
+[website-img]: https://img.shields.io/website-up-down/https/winbench.org.svg?style=flat-square
 
 [bench-website]: https://winbench.org "Bench Website"
 [About]: https://winbench.org/about/
