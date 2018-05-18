@@ -1,6 +1,6 @@
 $MyDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
-$sdkSetupUrl = "https://go.microsoft.com/fwlink/p/?LinkId=226658"
+$sdkSetupUrl = "https://go.microsoft.com/fwlink/p/?LinkId=838916" # win 10 1607 14393  .NET 4.6.2
 $sdkFeature = "OptionId.NetFxSoftwareDevelopmentKit"
 
 $tmpDir = "$MyDir\..\tmp"
