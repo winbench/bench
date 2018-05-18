@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.19.0] - 2018-05-18
+
+[0.19.0]: https://github.com/mastersign/bench/compare/v0.18.0...v0.19.0
+
 ### Changed
 - Minimum requirement for Bench is .NET 4.6.2
 
