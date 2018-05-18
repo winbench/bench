@@ -29,6 +29,7 @@ Add a link to the GitHub diff like
 - Minimum requirement for Bench is .NET 4.6.2
 
 ### Fixed
+- Links in template for user apps `res\apps.template.md`
 - Handling long paths during app setup
   ([#122](https://github.com/mastersign/bench/issues/122))
 
