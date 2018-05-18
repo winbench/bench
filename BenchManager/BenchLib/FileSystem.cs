@@ -28,6 +28,18 @@ namespace Mastersign.Bench
             }
         }
 
+        private static string NormalizePath(string path)
+        {
+            if (path.StartsWith(@"\\?\")) return path;
+            var uri = new Uri(path);
+            path = uri.LocalPath;
+            path = Path.GetFullPath(path);
+            path = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            return path.Length >= 240
+                ? @"\\?\" + path
+                : path;
+        }
+
         /// <summary>
         /// Makes sure, the given path references an empty directory.
         /// If the directory does not exist, it is created, including missing parent folders.
@@ -37,6 +49,7 @@ namespace Mastersign.Bench
         /// <returns>A path to the directory.</returns>
         public static string EmptyDir(string path)
         {
+            path = NormalizePath(path);
             if (Directory.Exists(path))
             {
                 Debug.WriteLine("Cleaning directory: " + path);
@@ -47,8 +60,7 @@ namespace Mastersign.Bench
                 }
                 foreach (var file in Directory.GetFiles(path))
                 {
-                    File.SetAttributes(file, FileAttributes.Normal);
-                    File.Delete(file);
+                    ForceDeleteFile(file);
                 }
             }
             else
@@ -66,6 +78,7 @@ namespace Mastersign.Bench
         /// <returns>A path to the directory.</returns>
         public static string AsureDir(string path)
         {
+            path = NormalizePath(path);
             if (!Directory.Exists(path))
             {
                 Debug.WriteLine("Creating directory: " + path);
@@ -80,6 +93,7 @@ namespace Mastersign.Bench
         /// <param name="path">A path to the directory.</param>
         public static void PurgeDir(string path)
         {
+            path = NormalizePath(path);
             if (!Directory.Exists(path)) return;
             Debug.WriteLine("Purging directory: " + path);
             ForceDeleteDirectory(path);
@@ -87,6 +101,7 @@ namespace Mastersign.Bench
 
         private static void ForceDeleteDirectory(string targetDir)
         {
+            targetDir = NormalizePath(targetDir);
             File.SetAttributes(targetDir, FileAttributes.Normal);
 
             string[] files = Directory.GetFiles(targetDir);
@@ -107,6 +122,7 @@ namespace Mastersign.Bench
 
         private static void ForceDeleteFile(string targetFile)
         {
+            targetFile = NormalizePath(targetFile);
             File.SetAttributes(targetFile, FileAttributes.Normal);
             File.Delete(targetFile);
         }
@@ -118,26 +134,32 @@ namespace Mastersign.Bench
         /// <param name="targetDir">A path to the target directory.</param>
         public static void MoveContent(string sourceDir, string targetDir)
         {
+            sourceDir = NormalizePath(sourceDir);
+            targetDir = NormalizePath(targetDir);
+
             Debug.WriteLine("Moving content from: " + sourceDir + " to: " + targetDir);
             AsureDir(targetDir);
+
             foreach (var dir in Directory.GetDirectories(sourceDir))
             {
-                var tp = Path.Combine(targetDir, Path.GetFileName(dir));
+                var currentDir = NormalizePath(dir);
+                var tp = NormalizePath(Path.Combine(targetDir, Path.GetFileName(currentDir)));
                 if (Directory.Exists(tp))
                 {
-                    MoveContent(dir, tp);
-                    ForceDeleteDirectory(dir);
+                    MoveContent(currentDir, tp);
+                    ForceDeleteDirectory(currentDir);
                 }
                 else
                 {
-                    Directory.Move(dir, tp);
+                    Directory.Move(currentDir, tp);
                 }
             }
             foreach (var file in Directory.GetFiles(sourceDir))
             {
-                var tp = Path.Combine(targetDir, Path.GetFileName(file));
+                var currentFile = NormalizePath(file);
+                var tp = NormalizePath(Path.Combine(targetDir, Path.GetFileName(currentFile)));
                 if (File.Exists(tp)) ForceDeleteFile(tp);
-                File.Move(file, tp);
+                File.Move(currentFile, tp);
             }
         }
 
@@ -152,6 +174,9 @@ namespace Mastersign.Bench
         public static void CopyDir(string sourceDir, string targetDir, bool subDirs,
             string[] excludeDirs = null, string[] excludeFiles = null)
         {
+            sourceDir = NormalizePath(sourceDir);
+            targetDir = NormalizePath(targetDir);
+
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDir);
 
@@ -177,7 +202,7 @@ namespace Mastersign.Bench
                 {
                     continue;
                 }
-                string temppath = Path.Combine(targetDir, file.Name);
+                string temppath = NormalizePath(Path.Combine(targetDir, file.Name));
                 file.CopyTo(temppath, false);
             }
 

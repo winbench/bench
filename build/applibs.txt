@@ -1,4 +1,4 @@
-core=https://github.com/mastersign/bench-apps-core.git
-default=https://github.com/mastersign/bench-apps-default.git
+core=https://github.com/winbench/apps-core.git
+default=https://github.com/winbench/apps-default.git
 mastersign=https://github.com/mastersign/bench-apps-mastersign.git
 jetbrains=https://github.com/mastersign/bench-apps-jetbrains.git

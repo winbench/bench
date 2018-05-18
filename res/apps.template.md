@@ -2,9 +2,9 @@
 
 This document is the registry for user defined applications in _Bench_.
 
-[markup syntax]: http://mastersign.github.io/bench/ref/markup-syntax/
-[app properties]: http://mastersign.github.io/bench/ref/app-properties/
-[app types]: http://mastersign.github.io/bench/ref/app-types/
+[markup syntax]: https://winbench.org/ref/markup-syntax/
+[app properties]: https://winbench.org/ref/app-properties/
+[app types]: https://winbench.org/ref/app-types/
 
 For the syntax of app definitions, take a look at the
 documentation for the [markup syntax][] and the supported [app properties][].

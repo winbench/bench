@@ -8,17 +8,21 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
-# To build this project without Visual Studio, the .NET Framework 4.5 SDK is required.
-# Use 'install-sdk45.ps1' to install it.
+# To build this project without Visual Studio, the .NET Framework 4.6.2 SDK is required.
+# Use 'install-sdk462.ps1' to install it.
 
 $projectName = "Bench"
 $clrVersion = "4.0.30319"
-$toolsVersion = "4.0"
+$toolsVersion = $null
+$projectToolsVersion = "14.0"
+$compilerPackageVersion = "2.3.2"
+$compilerPackageFramework = "net46"
+$langVersion = "7"
 $mode = $Mode
 $target = "Clean;Build"
 $verbosity = $MsBuildVerbosity
 $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
-$compilerPackageVersion = "1.3.2"
+# $msbuild = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe"
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $nuget4Url = "https://dist.nuget.org/win-x86-commandline/v4.0.0/nuget.exe"
 $solutionDir = "BenchManager" # relative to root dir
@@ -27,6 +31,8 @@ $buildTargetDir = "auto\bin" # relative to root dir
 $releaseDir = "$rootDir\release" # absolute
 $releaseFileName = "$projectName"
 $stageDir = "$releaseDir\staging" # absolute
+
+$projects = @("BenchLib", "BenchCLI", "BenchDashboard")
 
 # Paths of build artifacts are relative to the solution dir
 $buildArtifacts = @(
@@ -68,7 +74,13 @@ function Copy-Artifact($src, $trgDir)
 echo "Building Bench ($mode)"
 
 # Add Roslyn compiler to projects
-& "$myDir\prepare-project-compiler.ps1" -CompilerPackageVersion $compilerPackageVersion
+& "$myDir\prepare-project-compiler.ps1" `
+    -SourceDir "..\BenchManager" `
+    -Projects $projects `
+    -ToolsVersion $projectToolsVersion `
+    -CompilerPackageVersion $compilerPackageVersion `
+    -CompilerPackageFramework $compilerPackageFramework `
+    -LangVersion $langVersion
 
 # Download NuGet
 $nugetPath = "$rootDir\$solutionDir\nuget.exe"
@@ -104,11 +116,18 @@ if ($LastExitCode -ne 0)
 echo ""
 echo "Building Visual Studio solution $solutionFile ..."
 cd "$rootDir\$solutionDir"
-& $msbuild $solutionFile /v:$verbosity /tv:$toolsVersion /t:$target /p:Configuration=$mode /m /nodereuse:false
+if ($toolsVersion)
+{
+    & $msbuild $solutionFile /v:$verbosity /tv:$toolsVersion /t:$target /p:Configuration=$mode /m /nodereuse:false
+}
+else
+{
+    & $msbuild $solutionFile /v:$verbosity /t:$target /p:Configuration=$mode /m /nodereuse:false
+}
 $buildError = $LastExitCode
 
 # Remove Roslyn compiler from projects
-& "$myDir\prepare-project-compiler.ps1" -Remove
+& "$myDir\prepare-project-compiler.ps1" -SourceDir "..\BenchManager" -Projects $projects -Remove
 
 # Canceling after failed build
 if ($buildError -ne 0)

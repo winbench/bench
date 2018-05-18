@@ -1,0 +1,33 @@
+stages:
+  - build
+  - docs
+
+cache:
+  paths:
+  - BenchManager/packages/
+  - BenchManager/nuget.exe
+
+build-debug:
+  stage: build
+  tags:
+  - windows
+  - msbuild
+  script:
+  - cd build
+  - .\build-debug.ps1 -MsBuildVerbosity minimal
+  - cd ..
+  - auto/bin/bench.exe --help
+
+build-api-docs:
+  stage: docs
+  tags:
+  - windows
+  - msbuild
+  script:
+  - cd build
+  - .\build-debug.ps1 -MsBuildVerbosity minimal
+  - .\build-clr-docs.ps1
+  artifacts:
+    paths:
+    - docs/clr-api/
+    expire_in: 1h

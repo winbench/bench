@@ -2,7 +2,9 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 
 $docsDir = "$rootDir\docs"
-$targetFile = "$docsDir\src-content\ref\bench-cli.md"
+$targetFile = "$docsDir\bench-cli.md"
+
+if (!(Test-Path $docsDir)) { mkdir $docsDir | Out-Null }
 
 @"
 +++

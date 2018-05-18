@@ -28,8 +28,6 @@ namespace Mastersign.CliTools
 
         public abstract string Name { get; }
 
-        private CommandBase parent;
-
         public CommandBase Parent { get; protected set; }
 
         public IDictionary<string, CommandBase> SubCommands { get; private set; }
