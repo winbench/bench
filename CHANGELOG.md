@@ -28,6 +28,10 @@ Add a link to the GitHub diff like
 ### Changed
 - Minimum requirement for Bench is .NET 4.6.2
 
+### Fixed
+- Handling long paths during app setup
+  ([#122](https://github.com/mastersign/bench/issues/122))
+
 ## [0.18.0] - 2018-02-12
 
 [0.18.0]: https://github.com/mastersign/bench/compare/v0.17.3...v0.18.0
