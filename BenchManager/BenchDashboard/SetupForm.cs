@@ -415,7 +415,20 @@ namespace Mastersign.Bench.Dashboard
 
         private void UpdateDownloadListVisibility()
         {
-            IsDownloadListVisible = core.Downloader.IsWorking || tsmiAlwaysShowDownloads.Checked;
+            var newVisibility = core.Downloader.IsWorking || tsmiAlwaysShowDownloads.Checked;
+            if (IsDownloadListVisible != newVisibility)
+            {
+                if (newVisibility) UpdateDownloadListHeight();
+                IsDownloadListVisible = newVisibility;
+            }
+        }
+
+        private void UpdateDownloadListHeight()
+        {
+            var heightDiff = downloadList.Height - downloadList.ClientSize.Height;
+            const int itemHeight = 40;
+            var maxItems = Math.Min(10, Math.Max(1, core.Config.GetInt32Value(ConfigPropertyKeys.ParallelDownloads)));
+            downloadList.Height = itemHeight * maxItems + heightDiff;
         }
 
         protected bool IsDownloadListVisible
