@@ -33,7 +33,12 @@ namespace Mastersign.Bench
         /// A flag which indicates if the user configuration was loaded during initialization of the <see cref="BenchConfiguration"/>.
         /// </summary>
         public bool WithUserConfiguration { get; private set; }
-        
+
+        /// <summary>
+        /// The merged definition of the Bench apps as a <see cref="AppIndexFacade"/>.
+        /// </summary>
+        public AppIndexFacade Facade { get; }
+
         /// <summary>
         /// Initializes a new instance of <see cref="AppIndex"/>.
         /// </summary>
@@ -89,7 +94,7 @@ namespace Mastersign.Bench
 
             GroupedDefaultValueSource = new AppIndexDefaultValueSource(config, this);
 
-            appIndexFacade = new AppIndexFacade(Config, this);
+            Facade = new AppIndexFacade(Config, this);
 
             LoadAppActivation();
             AutomaticConfiguration();
@@ -99,7 +104,7 @@ namespace Mastersign.Bench
 
         private void AutomaticConfiguration()
         {
-            foreach (var app in appIndexFacade)
+            foreach (var app in Facade)
             {
                 app.SetupAutoConfiguration();
             }
@@ -109,14 +114,6 @@ namespace Mastersign.Bench
         /// The property group category, which contains app definitions of required apps.
         /// </summary>
         public const string DefaultAppCategory = "Required";
-
-        private readonly AppIndexFacade appIndexFacade;
-
-        /// <summary>
-        /// The merged definition of the Bench apps as a <see cref="AppIndexFacade"/>.
-        /// </summary>
-        public AppIndexFacade Facade { get { return appIndexFacade; } }
-
         private void RecordAppResponsibilities()
         {
             var apps = new List<AppFacade>(Facade);
