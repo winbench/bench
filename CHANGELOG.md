@@ -31,6 +31,11 @@ Add a link to the GitHub diff like
 - Support for app property `Tags` as a list of strings
   ([#123](https://github.com/mastersign/bench/issues/123))
 
+### Changed
+- The height of the download list in the setup dialog is automatically
+  adjusted to the number of parallel downloads from the configuration
+  ([#126](https://github.com/mastersign/bench/issues/126))
+
 ## [0.19.0] - 2018-05-18
 
 [0.19.0]: https://github.com/mastersign/bench/compare/v0.18.0...v0.19.0
