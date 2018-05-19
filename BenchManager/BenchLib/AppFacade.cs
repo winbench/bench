@@ -170,6 +170,11 @@ namespace Mastersign.Bench
         public string Category => AppIndex.GetGroupCategory(AppName);
 
         /// <summary>
+        /// Gets the tags of the app.
+        /// </summary>
+        public string[] Tags => ListValue(AppPropertyKeys.Tags);
+
+        /// <summary>
         /// <para>The typ of this app.</para>
         /// <para>See for <see cref="AppTyps"/> to compare and list the app typs.</para>
         /// </summary>
@@ -1513,6 +1518,7 @@ namespace Mastersign.Bench
                 AppPropertyKeys.Version,
                 AppPropertyKeys.License,
                 AppPropertyKeys.LicenseUrl,
+                AppPropertyKeys.Tags,
                 AppPropertyKeys.IsActive,
                 AppPropertyKeys.IsRequired,
                 AppPropertyKeys.IsActivated,
@@ -1578,6 +1584,7 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Version, this.Version));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.License, this.License));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LicenseUrl, this.LicenseUrl?.AbsoluteUri));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Tags, this.Tags));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActive, this.IsActive));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsRequired, this.IsRequired));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsSupported, this.IsSupported));
