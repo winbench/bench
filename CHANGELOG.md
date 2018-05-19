@@ -28,6 +28,8 @@ Add a link to the GitHub diff like
 ### Added
 - App typ `group` with the same behavior as `meta`
   ([#117](https://github.com/mastersign/bench/issues/117))
+- Support for app property `Tags` as a list of strings
+  ([#123](https://github.com/mastersign/bench/issues/123))
 
 ## [0.19.0] - 2018-05-18
 
