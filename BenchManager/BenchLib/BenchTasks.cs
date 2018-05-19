@@ -2214,7 +2214,7 @@ namespace Mastersign.Bench
             if (result.ExitCode != 0)
             {
                 throw new ProcessExecutionFailedException(
-                    string.Format("Installing the NuGet package {1} failed.", app.PackageName),
+                    string.Format("Installing the NuGet package {0} failed.", app.PackageName),
                     nugetExe + " " + args, result.ExitCode, result.Output);
             }
         }
