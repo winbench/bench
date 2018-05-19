@@ -103,6 +103,8 @@ namespace Mastersign.Bench
                             return AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir);
                         case AppTyps.Meta:
                             return null;
+                        case AppTyps.Group:
+                            return null;
                         default:
                             return AppFacade.PathSegmentFromId(appId);
                     }

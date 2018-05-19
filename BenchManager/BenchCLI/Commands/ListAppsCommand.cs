@@ -24,6 +24,7 @@ namespace Mastersign.Bench.Cli.Commands
             Cached,
             NotCached,
             DefaultApps,
+            Groups,
             MetaApps,
             ManagedPackages,
         }
@@ -196,6 +197,7 @@ namespace Mastersign.Bench.Cli.Commands
                 case AppSet.Cached: return app.IsResourceCached;
                 case AppSet.NotCached: return app.HasResource && !app.IsResourceCached;
                 case AppSet.DefaultApps: return app.Typ == AppTyps.Default;
+                case AppSet.Groups: return app.Typ == AppTyps.Group;
                 case AppSet.MetaApps: return app.Typ == AppTyps.Meta;
                 case AppSet.ManagedPackages: return app.IsManagedPackage;
                 default: throw new NotSupportedException();

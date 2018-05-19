@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Added
+- App typ `group` with the same behavior as `meta`
+  ([#117](https://github.com/mastersign/bench/issues/117))
+
 ## [0.19.0] - 2018-05-18
 
 [0.19.0]: https://github.com/mastersign/bench/compare/v0.18.0...v0.19.0

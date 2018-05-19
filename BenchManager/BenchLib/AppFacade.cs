@@ -952,6 +952,7 @@ namespace Mastersign.Bench
                 switch (Typ)
                 {
                     case AppTyps.Meta:
+                    case AppTyps.Group:
                     case AppTyps.Default:
                         if (CanCheckInstallation && IsInstalled)
                         {

@@ -2251,6 +2251,9 @@ namespace Mastersign.Bench
                     case AppTyps.Meta:
                         // no resource extraction
                         break;
+                    case AppTyps.Group:
+                        // no resource extraction
+                        break;
                     case AppTyps.Default:
                         if (app.ResourceFileName != null)
                         {
@@ -2519,6 +2522,8 @@ namespace Mastersign.Bench
                 //    {
                 //        case AppTyps.Meta:
                 //            break;
+                //        case AppTyps.Group:
+                //            break;
                 //        case AppTyps.Default:
                 //            break;
                 //        case AppTyps.NodePackage:
@@ -2700,6 +2705,9 @@ namespace Mastersign.Bench
                         switch (app.Typ)
                         {
                             case AppTyps.Meta:
+                                UninstallGeneric(man.Config, app);
+                                break;
+                            case AppTyps.Group:
                                 UninstallGeneric(man.Config, app);
                                 break;
                             case AppTyps.Default:

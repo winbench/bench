@@ -54,8 +54,10 @@ namespace Mastersign.Bench.Dashboard
                 {
                     case AppTyps.Default:
                         return "Default";
+                    case AppTyps.Group:
+                        return "Group";
                     case AppTyps.Meta:
-                        return "Group/Custom";
+                        return "Custom";
                     case AppTyps.NodePackage:
                         return "NodeJS";
                     case AppTyps.RubyPackage:
