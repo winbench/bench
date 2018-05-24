@@ -30,11 +30,15 @@ Add a link to the GitHub diff like
   ([#117](https://github.com/mastersign/bench/issues/117))
 - Support for app property `Tags` as a list of strings
   ([#123](https://github.com/mastersign/bench/issues/123))
+- Save window positions if config property `DashboardSavePositions` is set to `true`
+  ([#127](https://github.com/mastersign/bench/issues/127))
 
 ### Changed
 - The height of the download list in the setup dialog is automatically
   adjusted to the number of parallel downloads from the configuration
   ([#126](https://github.com/mastersign/bench/issues/126))
+- The step order for auto setup -- first download then uninstall
+  ([#128](https://github.com/mastersign/bench/issues/128))
 
 ## [0.19.0] - 2018-05-18
 
