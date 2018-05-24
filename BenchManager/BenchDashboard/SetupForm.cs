@@ -57,12 +57,14 @@ namespace Mastersign.Bench.Dashboard
                 appListColumnLabels.Add(col.HeaderText);
                 appListColumns.Add(col.HeaderText, col);
             }
+            core.WindowPositionManager.RegisterForm(
+                this, ConfigPropertyKeys.DashboardSetupPosition,
+                DefaultBounds(), FormWindowState.Normal);
         }
 
         private void SetupForm_Load(object sender, EventArgs e)
         {
             InitializeDownloadList();
-            InitializeBounds();
             InitializeAppIndexMenu();
             InitializeAppListColumnsMenu();
             InitializeAppListColumns();
@@ -84,14 +86,14 @@ namespace Mastersign.Bench.Dashboard
             AutoHandler(this, EventArgs.Empty);
         }
 
-        private void InitializeBounds()
+        private Rectangle DefaultBounds()
         {
             var region = Screen.PrimaryScreen.WorkingArea;
             var w = Math.Max(MinimumSize.Width, region.Width / 2);
             var h = Math.Max(MinimumSize.Height, region.Height);
             var x = region.Right - w;
             var y = region.Top;
-            SetBounds(x, y, w, h);
+            return new Rectangle(x, y, w, h);
         }
 
         private void InitializeAppIndexMenu()

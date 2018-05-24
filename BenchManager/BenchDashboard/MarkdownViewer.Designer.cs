@@ -72,8 +72,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MarkdownViewer";
             this.Text = "Bench Markdown Viewer";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MarkdownViewer_FormClosed);
-            this.Load += new System.EventHandler(this.MarkdownViewer_Load);
             this.ResumeLayout(false);
 
         }

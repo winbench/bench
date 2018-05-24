@@ -41,6 +41,10 @@ With the following properties, you can control certain behavior of the Bench Das
 
 * AutoUpdateCheck: `true`
 * DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
+* DashboardSavePositions: `true`
+* DashboardMainPosition: `default`
+* DashboardSetupPosition: `default`
+* DashboardMarkdownViewerPosition: `default`
 
 ## Project Archive
 

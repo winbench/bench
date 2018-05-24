@@ -24,6 +24,8 @@ namespace Mastersign.Bench.Dashboard
 
         public Form GuiContext { get; set; }
 
+        public WindowPositionManager WindowPositionManager { get; private set; }
+
         public bool SetupOnStartup { get; set; }
 
         private bool busy;
@@ -75,6 +77,7 @@ namespace Mastersign.Bench.Dashboard
             Env = new BenchEnvironment(Config);
             Downloader = BenchTasks.InitializeDownloader(Config);
             ProcessExecutionHost = new SimpleExecutionHost();
+            WindowPositionManager = new WindowPositionManager(this);
             SetupFileWatchers();
         }
 

@@ -51,6 +51,10 @@ namespace Mastersign.Bench
         public const string QuickAccessBash = "QuickAccessBash";
 
         public const string DashboardSetupAppListColumns = "DashboardSetupAppListColumns";
+        public const string DashboardSavePositions = "DashboardSavePositions";
+        public const string DashboardMainPosition = "DashboardMainPosition";
+        public const string DashboardSetupPosition = "DashboardSetupPosition";
+        public const string DashboardMarkdownViewerPosition = "DashboardMarkdownViewerPosition";
 
         public const string ConEmuConfigFile = "ConEmuConfigFile";
         public const string ConEmuConfigTemplateFile = "ConEmuConfigTemplateFile";
