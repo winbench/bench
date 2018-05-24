@@ -605,16 +605,16 @@ namespace Mastersign.Bench
         public static ActionResult DoAutoSetup(IBenchManager man,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-
             return RunTasks(man,
                 new ICollection<AppFacade>[]
                 {
+                    man.Config.Apps.ActiveApps,
                     AutoUninstallApps(man.Config.Apps),
                     man.Config.Apps.ActiveApps
                 },
                 notify, cancelation,
-                UninstallApps,
                 DownloadAppResources,
+                UninstallApps,
                 InstallApps,
                 UpdateEnvironment);
         }
