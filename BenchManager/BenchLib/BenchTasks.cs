@@ -1012,7 +1012,7 @@ namespace Mastersign.Bench
             if (logLevel != LogLevels.None)
             {
                 logFile = man.Config.GetStringValue(ConfigPropertyKeys.LogFile,
-                    DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.txt");
+                    DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.log");
                 if (!Path.IsPathRooted(logFile))
                 {
                     var logDir = man.Config.GetStringValue(ConfigPropertyKeys.LogDir);

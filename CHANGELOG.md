@@ -39,6 +39,7 @@ Add a link to the GitHub diff like
   ([#126](https://github.com/mastersign/bench/issues/126))
 - The step order for auto setup -- first download then uninstall
   ([#128](https://github.com/mastersign/bench/issues/128))
+- Log files are saved with the file name extension `.log` instead of `.txt` from now on
 
 ## [0.19.0] - 2018-05-18
 
