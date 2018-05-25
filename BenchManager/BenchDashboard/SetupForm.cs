@@ -455,9 +455,9 @@ namespace Mastersign.Bench.Dashboard
                 Environment.GetEnvironmentVariable("SystemRoot"),
                 "notepad.exe");
 
-        private enum ConfigFileLanguage { Markdown, ActivationList }
+        private enum TextFileLanguage { Markdown, ActivationList, Log }
 
-        private void EditConfigFile(string name, string path, ConfigFileLanguage syntax)
+        private void OpenTextFile(string name, string path, TextFileLanguage syntax, bool readOnly)
         {
             if (!File.Exists(path))
             {
@@ -465,7 +465,7 @@ namespace Mastersign.Bench.Dashboard
                     "File of " + name + " not found."
                     + Environment.NewLine + Environment.NewLine
                     + path,
-                    "Edit " + name + " ...",
+                    "Open " + name + " ...",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -476,7 +476,23 @@ namespace Mastersign.Bench.Dashboard
             {
                 if (editorAppId == AppKeys.NotepadPlusPlus)
                 {
-                    core.LaunchApp(editorAppId, "-multiInst", "-nosession", "-notabbar", path);
+                    var args = new List<string> { "-multiInst", "-nosession", "-notabbar" };
+                    // Notepad++ does currently not recognize user languages with the -l switch
+                    //switch (syntax)
+                    //{
+                    //    case TextFileLanguage.Markdown:
+                    //        args.Add("-lBenchConfig");
+                    //        break;
+                    //    case TextFileLanguage.ActivationList:
+                    //        args.Add("-lBenchActivationList");
+                    //        break;
+                    //    case TextFileLanguage.Log:
+                    //        args.Add("-lBenchLog");
+                    //        break;
+                    //}
+                    if (readOnly) args.Add("-ro");
+                    args.Add(path);
+                    core.LaunchApp(editorAppId, args.ToArray());
                 }
                 else
                 {
@@ -491,32 +507,36 @@ namespace Mastersign.Bench.Dashboard
 
         private void EditUserConfigHandler(object sender, EventArgs e)
         {
-            EditConfigFile("User Configuration",
+            OpenTextFile("User Configuration",
                 core.Config.GetStringValue(ConfigPropertyKeys.UserConfigFile),
-                ConfigFileLanguage.Markdown);
+                TextFileLanguage.Markdown,
+                readOnly: false);
         }
 
         private void EditUserAppsHandler(object sender, EventArgs e)
         {
-            EditConfigFile("User App Library",
+            OpenTextFile("User App Library",
                 Path.Combine(
                     core.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir),
                     core.Config.GetStringValue(ConfigPropertyKeys.AppLibIndexFileName)),
-                ConfigFileLanguage.Markdown);
+                TextFileLanguage.Markdown,
+                readOnly: false);
         }
 
         private void ActivationListHandler(object sender, EventArgs e)
         {
-            EditConfigFile("App Activation",
+            OpenTextFile("App Activation",
                 core.Config.GetStringValue(ConfigPropertyKeys.AppActivationFile),
-                ConfigFileLanguage.ActivationList);
+                TextFileLanguage.ActivationList,
+                readOnly: false);
         }
 
         private void DeactivationListHandler(object sender, EventArgs e)
         {
-            EditConfigFile("App Deactivation",
+            OpenTextFile("App Deactivation",
                 core.Config.GetStringValue(ConfigPropertyKeys.AppDeactivationFile),
-                ConfigFileLanguage.ActivationList);
+                TextFileLanguage.ActivationList,
+                readOnly: false);
         }
 
         private void TaskInfoHandler(TaskInfo info)
@@ -913,6 +933,23 @@ namespace Mastersign.Bench.Dashboard
         private void CloseHandler(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ShowLastLogHandler(object sender, EventArgs e)
+        {
+            var logFile = core?.LastActionResult?.LogFile;
+            if (string.IsNullOrWhiteSpace(logFile)) return;
+            if (File.Exists(logFile))
+            {
+                OpenTextFile("Last Log File", logFile, TextFileLanguage.Log, readOnly: true);
+            }
+            else
+            {
+                MessageBox.Show(this,
+                    "Could not find log file:" + Environment.NewLine + Environment.NewLine + logFile,
+                    "Open Last Log File",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

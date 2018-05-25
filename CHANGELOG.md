@@ -32,6 +32,8 @@ Add a link to the GitHub diff like
   ([#123](https://github.com/mastersign/bench/issues/123))
 - Save window positions if config property `DashboardSavePositions` is set to `true`
   ([#127](https://github.com/mastersign/bench/issues/127))
+- Click on the status icon opens the last log file
+  ([#125](https://github.com/mastersign/bench/issues/125))
 
 ### Changed
 - The height of the download list in the setup dialog is automatically

@@ -180,6 +180,7 @@
             this.picState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picState.TabIndex = 9;
             this.picState.TabStop = false;
+            this.picState.Click += new System.EventHandler(this.ShowLastLogHandler);
             // 
             // btnAuto
             // 
