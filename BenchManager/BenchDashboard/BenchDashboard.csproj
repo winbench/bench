@@ -293,6 +293,10 @@
     <Error Condition="!Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets'))" />
   </Target>
   <Import Project="..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets" Condition="Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\auto\bin\$(TargetFileName)"
+copy "$(TargetPath).config" "$(SolutionDir)..\auto\bin\$(TargetFileName).config"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
