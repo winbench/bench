@@ -42,8 +42,6 @@ namespace Mastersign.Bench.Dashboard
 
         private ActionState actionState;
 
-        private Cancelation cancelation;
-
         public event EventHandler ConfigReloaded;
 
         public event EventHandler AppActivationChanged;
@@ -126,10 +124,12 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        public ActionResult LastActionResult { get; private set; }
+
         private void OnActionStateChanged()
             => SyncWithGui(() => ActionStateChanged?.Invoke(this, EventArgs.Empty));
 
-        public Cancelation Cancelation { get { return cancelation; } }
+        public Cancelation Cancelation { get; private set; }
 
         private void SetupFileWatchers()
         {
@@ -266,8 +266,8 @@ namespace Mastersign.Bench.Dashboard
         private void BeginAction()
         {
             if (Busy) throw new InvalidOperationException("The core is already busy.");
-            cancelation = new Cancelation();
-            cancelation.Canceled += CancelationCanceledHandler;
+            Cancelation = new Cancelation();
+            Cancelation.Canceled += CancelationCanceledHandler;
             Busy = true;
             ActionState = ActionState.BusyWithoutErrors;
         }
@@ -277,23 +277,24 @@ namespace Mastersign.Bench.Dashboard
             ActionState = ActionState.BusyCanceled;
         }
 
-        private void EndAction(bool success)
+        private void EndAction(ActionResult result)
         {
+            LastActionResult = result;
             Busy = false;
-            cancelation.Canceled -= CancelationCanceledHandler;
-            ActionState = cancelation.IsCanceled
+            Cancelation.Canceled -= CancelationCanceledHandler;
+            ActionState = Cancelation.IsCanceled
                 ? ActionState.Canceled
-                : success
+                : result.Success
                     ? ActionState.FinishedWithoutErrors
                     : ActionState.FinishedWithErrors;
-            cancelation = null;
+            Cancelation = null;
         }
 
         public async Task<ActionResult> AutoSetupAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoAutoSetup, notify, cancelation).ConfigureAwait(false);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoAutoSetup, notify, Cancelation).ConfigureAwait(false);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Installing Apps", "Canceled.");
@@ -313,8 +314,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> DownloadAppResourcesAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoDownloadAppResources, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoDownloadAppResources, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Downloading App Resources", "Canceled.");
@@ -334,8 +335,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> DownloadAppResourcesAsync(string appId, Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoDownloadAppResources, appId, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoDownloadAppResources, appId, notify, Cancelation);
+            EndAction(result);
             if (!result.Success)
             {
                 UI.ShowWarning("Downloading App Resource",
@@ -351,8 +352,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> DownloadAllAppResourcesAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoDownloadAllAppResources, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoDownloadAllAppResources, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Downloading All App Resources", "Canceled.");
@@ -372,8 +373,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> DeleteAppResourcesAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoDeleteAppResources, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoDeleteAppResources, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Deleting App Resources", "Canceled.");
@@ -393,8 +394,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> DeleteAppResourcesAsync(Action<TaskInfo> notify, string appId)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoDeleteAppResources, appId, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoDeleteAppResources, appId, notify, Cancelation);
+            EndAction(result);
             if (!result.Success)
             {
                 UI.ShowWarning("Deleting App Resource",
@@ -410,8 +411,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> CleanUpResourcesAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoCleanUpAppResources, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoCleanUpAppResources, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Clening Up App Resources", "Canceled.");
@@ -431,8 +432,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> InstallAppsAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoInstallApps, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoInstallApps, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Installing Apps", "Canceled.");
@@ -452,8 +453,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> InstallAppsAsync(Action<TaskInfo> notify, string appId)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoInstallApps, appId, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoInstallApps, appId, notify, Cancelation);
+            EndAction(result);
             if (!result.Success)
             {
                 UI.ShowWarning("Installing App",
@@ -469,8 +470,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> UninstallAppsAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoUninstallApps, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoUninstallApps, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Uninstalling Apps", "Canceled.");
@@ -490,8 +491,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> UninstallAppsAsync(Action<TaskInfo> notify, string appId)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoUninstallApps, appId, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoUninstallApps, appId, notify, Cancelation);
+            EndAction(result);
             if (!result.Success)
             {
                 UI.ShowWarning("Uninstalling App",
@@ -507,8 +508,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> ReinstallAppsAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoReinstallApps, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoReinstallApps, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Reinstalling Apps", "Canceled.");
@@ -528,8 +529,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> ReinstallAppsAsync(Action<TaskInfo> notify, string appId)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoReinstallApps, appId, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoReinstallApps, appId, notify, Cancelation);
+            EndAction(result);
             if (!result.Success)
             {
                 UI.ShowWarning("Reinstall App",
@@ -545,8 +546,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> UpgradeAppsAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoUpgradeApps, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoUpgradeApps, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Upgrading Apps", "Canceled.");
@@ -566,8 +567,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> UpgradeAppsAsync(Action<TaskInfo> notify, string appId)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoUpgradeApps, appId, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoUpgradeApps, appId, notify, Cancelation);
+            EndAction(result);
             if (!result.Success)
             {
                 UI.ShowWarning("Upgrade App",
@@ -583,8 +584,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> UpdateEnvironmentAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoUpdateEnvironment, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoUpdateEnvironment, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Updating Environment", "Canceled.");
@@ -604,12 +605,12 @@ namespace Mastersign.Bench.Dashboard
         {
             BeginAction();
             BenchTasks.DeleteAppLibraries(Config);
-            var result = await RunTaskAsync(BenchTasks.DoLoadAppLibraries, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoLoadAppLibraries, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Loading App Libraries", "Canceled");
-                EndAction(result.Success);
+                EndAction(result);
                 return result;
             }
             else if (result.Success)
@@ -673,8 +674,8 @@ namespace Mastersign.Bench.Dashboard
         public async Task<ActionResult> DownloadBenchUpdateAsync(Action<TaskInfo> notify)
         {
             BeginAction();
-            var result = await RunTaskAsync(BenchTasks.DoDownloadBenchUpdate, notify, cancelation);
-            EndAction(result.Success);
+            var result = await RunTaskAsync(BenchTasks.DoDownloadBenchUpdate, notify, Cancelation);
+            EndAction(result);
             if (result.Canceled)
             {
                 UI.ShowWarning("Downloading Bench update", "Canceled");

@@ -971,17 +971,18 @@ namespace Mastersign.Bench
 
             var logLevel = LogLevels.GuessLevel(man.Config.GetStringValue(ConfigPropertyKeys.LogLevel));
             TaskInfoLogger logger = null;
+            string logFile = null;
             if (logLevel != LogLevels.None)
             {
-                var file = man.Config.GetStringValue(ConfigPropertyKeys.LogFile,
+                logFile = man.Config.GetStringValue(ConfigPropertyKeys.LogFile,
                     DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_setup.txt");
-                if (!Path.IsPathRooted(file))
+                if (!Path.IsPathRooted(logFile))
                 {
                     var logDir = man.Config.GetStringValue(ConfigPropertyKeys.LogDir);
                     FileSystem.AsureDir(logDir);
-                    file = Path.Combine(logDir, file);
+                    logFile = Path.Combine(logDir, logFile);
                 }
-                logger = new TaskInfoLogger(file, logLevel == LogLevels.Error);
+                logger = new TaskInfoLogger(logFile, logLevel == LogLevels.Error);
             }
 
             var notificationLock = new object();
@@ -1026,7 +1027,7 @@ namespace Mastersign.Bench
 
             if (logger != null) logger.Dispose();
 
-            return new ActionResult(infos, cancelation.IsCanceled);
+            return new ActionResult(infos, cancelation.IsCanceled, logFile);
         }
 
         private static ActionResult RunTasks(IBenchManager man,
