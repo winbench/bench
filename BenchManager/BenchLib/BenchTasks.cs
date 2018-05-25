@@ -958,6 +958,43 @@ namespace Mastersign.Bench
                 DownloadBenchUpdate);
         }
 
+        /// <summary>
+        /// Creates a transfer package of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="man">The Bench manager.</param>
+        /// <param name="notify">The notification handler.</param>
+        /// <param name="cancelation">A cancelation token.</param>
+        /// <param name="targetFile">The target file for the transfer package. If the ending is <c>.exe</c>, an SFX archive will be created.</param>
+        /// <param name="selection">A selection of directories and files to include in the package.</param>
+        /// <returns>The result of running the task, in shape of an <see cref="ActionResult"/> object.</returns>
+        public static ActionResult DoExportBenchEnvironment(IBenchManager man,
+            Action<TaskInfo> notify, Cancelation cancelation,
+            string targetFile, TransferPaths selection)
+        {
+            return RunTasks(man,
+                new AppFacade[0],
+                notify, cancelation,
+                (m, a, n, c) => ExportBenchEnvironment(m, n, targetFile, selection));
+        }
+
+        /// <summary>
+        /// Creates a clone of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="man">The Bench manager.</param>
+        /// <param name="notify">The notification handler.</param>
+        /// <param name="cancelation">A cancelation token.</param>
+        /// <param name="targetDirectory">A directory to install the clone into.</param>
+        /// <param name="selection">A selection of directories and files to copy.</param>
+        public static ActionResult DoCloneBenchEnvironment(IBenchManager man,
+            Action<TaskInfo> notify, Cancelation cancelation,
+            string targetDirectory, TransferPaths selection)
+        {
+            return RunTasks(man,
+                new AppFacade[0],
+                notify, cancelation,
+                (m, a, n, c) => CloneBenchEnvironment(m, n, targetDirectory, selection));
+        }
+
         #endregion
 
         #region Task Composition
@@ -2829,26 +2866,22 @@ namespace Mastersign.Bench
             return path;
         }
 
-        /// <summary>
-        /// Creates a transfer package of a given Bench environment, including a specific selection of directories and files.
-        /// </summary>
-        /// <param name="man">The manager for the source Bench environment.</param>
-        /// <param name="targetFile">The target file for the transfer package. If the ending is <c>.exe</c>, an SFX archive will be created.</param>
-        /// <param name="selection">A selection of directories and files to include in the package.</param>
-        public static bool ExportBenchEnvironment(IBenchManager man, string targetFile, TransferPaths selection)
+        private static void ExportBenchEnvironment(IBenchManager man,
+            Action<TaskInfo> notify,
+            string targetFile, TransferPaths selection)
         {
             var paths = man.Config.GetTransferPaths(selection);
             var extension = Path.GetExtension(targetFile).ToLowerInvariant();
             if (!Seq(".exe", ".zip", ".7z").Contains(extension))
             {
-                man.UI.ShowError("export", "The filename extension of the target file is invalid.");
-                return false;
+                notify(new TaskError($"The filename extension '{extension}' of the target file is invalid."));
+                man.UI.ShowError("export", "The filename extension '{extension}' of the target file is invalid.");
             }
             var sfxArchive = extension == ".exe";
             if (sfxArchive)
-                return ExportBenchEnvironmentSfx(man, targetFile, paths);
+                ExportBenchEnvironmentSfx(man, notify, targetFile, paths);
             else
-                return ExportBenchEnvironmentArchive(man, targetFile, paths);
+                ExportBenchEnvironmentArchive(man, notify, targetFile, paths);
         }
 
         private static void CopyStream(Stream src, Stream trg, int bufferSize = 64 * 1024)
@@ -2890,13 +2923,13 @@ namespace Mastersign.Bench
             return w;
         }
 
-        private static bool ExportBenchEnvironmentSfx(IBenchManager man, string targetFile, string[] paths)
+        private static bool ExportBenchEnvironmentSfx(IBenchManager man, Action<TaskInfo> notify, string targetFile, string[] paths)
         {
             var tmpArchive = Path.Combine(
                 man.Config.GetStringValue(ConfigPropertyKeys.TempDir),
                 "bench_export_" + Path.ChangeExtension(Path.GetRandomFileName(), ".7z"));
 
-            if (!ExportBenchEnvironmentArchive(man, tmpArchive, paths)) return false;
+            if (!ExportBenchEnvironmentArchive(man, notify, tmpArchive, paths)) return false;
 
             var sfxPath = Path.Combine(Path.Combine(man.Config.BenchRootDir, "res"), "bench.sfx");
             try
@@ -2916,14 +2949,15 @@ namespace Mastersign.Bench
             }
             catch (Exception e)
             {
-                man.UI.ShowError("export", "Failed to export the Bench environment.",
-                    exception: e);
+                notify(new TaskError(
+                    "Failed to export the Bench environment.",
+                    exception: e));
                 return false;
             }
             return true;
         }
 
-        private static bool ExportBenchEnvironmentArchive(IBenchManager man, string targetFile, string[] paths)
+        private static bool ExportBenchEnvironmentArchive(IBenchManager man, Action<TaskInfo> notify, string targetFile, string[] paths)
         {
             FileSystem.AsureDir(Path.GetDirectoryName(targetFile));
             if (File.Exists(targetFile)) File.Delete(targetFile);
@@ -2944,7 +2978,13 @@ namespace Mastersign.Bench
                 man.Config.Apps[AppKeys.SevenZip].Exe,
                 CommandLine.FormatArgumentList(args.ToArray()),
                 ProcessMonitoring.ExitCode);
-            return result.ExitCode == 0;
+            if (result.ExitCode != 0)
+            {
+
+                notify(new TaskError($"Creating export archive with 7zip failed with exit code {result.ExitCode}."));
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -2962,13 +3002,9 @@ namespace Mastersign.Bench
             }
         }
 
-        /// <summary>
-        /// Creates a clone of a given Bench environment, including a specific selection of directories and files.
-        /// </summary>
-        /// <param name="man">The manager for the source Bench environment.</param>
-        /// <param name="targetDirectory">A directory to install the clone into.</param>
-        /// <param name="selection">A selection of directories and files to copy.</param>
-        public static bool CloneBenchEnvironment(IBenchManager man, string targetDirectory, TransferPaths selection)
+        private static void CloneBenchEnvironment(IBenchManager man,
+            Action<TaskInfo> notify,
+            string targetDirectory, TransferPaths selection)
         {
             var paths = man.Config.GetTransferPaths(selection);
             try
@@ -2990,9 +3026,10 @@ namespace Mastersign.Bench
             }
             catch (Exception e)
             {
-                man.UI.ShowError("clone", "Failed to clone the Bench environmnent files.",
-                    exception: e);
-                return false;
+                notify(new TaskError(
+                    "Failed to clone the Bench environment files.", 
+                    exception: e));
+                return;
             }
             try
             {
@@ -3000,11 +3037,11 @@ namespace Mastersign.Bench
             }
             catch (Exception e)
             {
-                man.UI.ShowError("clone", "Failed to start the initialization of the new Bench environment.",
-                    exception: e);
-                return false;
+                notify(new TaskError(
+                    "Failed to start the initialization of the new Bench environment.", 
+                    exception: e));
+                return;
             }
-            return true;
         }
 
         private static void LaunchRemoteSetup(string benchRoot)

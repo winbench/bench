@@ -691,28 +691,58 @@ namespace Mastersign.Bench.Dashboard
             return result;
         }
 
-        public async Task<bool> ExportBenchEnvironmentAsync(Action<TaskInfo> notify, string targetFile, TransferPaths contentSelection)
+        public async Task<ActionResult> ExportBenchEnvironmentAsync(Action<TaskInfo> notify, string targetFile, TransferPaths contentSelection)
         {
             BeginAction();
-            notify(new TaskInfo("Creating transfer package..."));
-            var t = new Task<bool>(() => BenchTasks.ExportBenchEnvironment(this, targetFile, contentSelection));
-            t.Start();
-            var success = await t;
-            notify(new TaskInfo("Finished exporting the Bench environment."));
-            EndAction(success);
-            return success;
+            var result = await RunTaskAsync(
+                (m, n, c) => BenchTasks.DoExportBenchEnvironment(m, n, c, targetFile, contentSelection),
+                notify, Cancelation);
+            EndAction(result);
+            if (result.Canceled)
+            {
+                UI.ShowWarning("Exporting Bench Environment", "Canceled");
+            }
+            else if (!result.Success)
+            {
+                UI.ShowWarning("Exporting Bench Environment",
+                    BuildCombinedErrorMessage(
+                        "Exporting the Bench environment failed.",
+                        "Exporting the Bench environment failed.",
+                        result.Errors, 10));
+            }
+            else
+            {
+                UI.ShowInfo("Exporting Bench Environment", "Exporting the Bench environment finished.");
+            }
+            return result;
         }
 
-        public async Task<bool> CloneBenchEnvironmentAsync(Action<TaskInfo> notify, string targetFile, TransferPaths contentSelection)
+        public async Task<ActionResult> CloneBenchEnvironmentAsync(Action<TaskInfo> notify, string targetDirectory, TransferPaths contentSelection)
         {
             BeginAction();
-            notify(new TaskInfo("Copying Bench environment files..."));
-            var t = new Task<bool>(() => BenchTasks.CloneBenchEnvironment(this, targetFile, contentSelection));
-            t.Start();
-            var success = await t;
-            notify(new TaskInfo("Started initialization of the new Bench environment."));
-            EndAction(success);
-            return success;
+            var result = await RunTaskAsync(
+                (m, n, c) => BenchTasks.DoCloneBenchEnvironment(m, n, c, targetDirectory, contentSelection),
+                notify, Cancelation);
+            EndAction(result);
+            if (result.Canceled)
+            {
+                UI.ShowWarning("Cloning Bench Environment", "Canceled");
+            }
+            else if (!result.Success)
+            {
+                UI.ShowWarning("Cloning Bench Environment",
+                    BuildCombinedErrorMessage(
+                        "Copying the Bench environment failed.",
+                        "Copying the Bench environment failed.",
+                        result.Errors, 10));
+            }
+            else
+            {
+                UI.ShowInfo(
+                    "Cloning Bench Environment",
+                    "Copying the Bench environment finished. Started initialization of the cloned environment.");
+            }
+            return result;
         }
 
         private static string BuildCombinedErrorMessage(string infoWithErrors, string infoWithoutErrors,
