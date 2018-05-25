@@ -39,7 +39,7 @@ Add a link to the GitHub diff like
 - The height of the download list in the setup dialog is automatically
   adjusted to the number of parallel downloads from the configuration
   ([#126](https://github.com/mastersign/bench/issues/126))
-- The step order for auto setup -- first download then uninstall
+- The step order for auto setup changed: first download then uninstall...
   ([#128](https://github.com/mastersign/bench/issues/128))
 - Log files are saved with the file name extension `.log` instead of `.txt` from now on
 
