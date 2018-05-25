@@ -99,6 +99,10 @@ namespace Mastersign.Bench.Dashboard
             {
                 if (value == busy) return;
                 busy = value;
+                if (busy)
+                {
+                    LastActionResult = null;
+                }
                 OnBusyChanged();
                 if (!busy)
                 {
