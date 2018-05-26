@@ -20,6 +20,10 @@ namespace Mastersign.Bench.Cli.Commands
                 .Text("The ").Keyword(Name).Text(" command starts the main executable of the specified app.")
                 .End(BlockType.Paragraph);
 
+            parser.AcceptsAdditionalArguments = true;
+            parser.AdditionalArgumentsDescription
+                .Text("All additonal arguments are passed as command line arguments to the executable.");
+
             var flagDetached = new FlagArgument(FLAG_DETACHED, 'd', "async");
             flagDetached.Description
                 .Text("Do not wait for the end of the process.");
