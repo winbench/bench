@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Mastersign.Bench.PropertyCollections;
@@ -1192,6 +1193,62 @@ namespace Mastersign.Bench
                     }
                 }
             }
+        }
+
+        #endregion
+
+        #region Search
+
+        /// <summary>
+        /// Matches a number of search words against this app.
+        /// </summary>
+        /// <param name="searchTokens">A number of already normalized search words.</param>
+        /// <see cref="NormalizeForSearch(string)"/>
+        /// <returns>
+        /// A number decribing the match. 
+        /// If it is 0, the search did not match.
+        /// Otherwise it can be used to sort the matches for relevance.
+        /// </returns>
+        public int MatchSearchString(string[] searchTokens)
+        {
+            var label = NormalizeForSearch(Label);
+            var id = NormalizeForSearch(ID);
+            var tags = Tags;
+            for (int i = 0; i < tags.Length; i++) tags[i] = NormalizeForSearch(tags[i]);
+            var category = NormalizeForSearch(Category);
+            var typ = NormalizeForSearch(Typ);
+            var version = NormalizeForSearch(Version);
+
+            var score = 0;
+            foreach (var token in searchTokens)
+            {
+                score += Match(token, label) * 5;
+                score += Match(token, id) * 4;
+                foreach (var tag in tags)
+                {
+                    score += Match(token, tag) * 3;
+                }
+                score += Match(token, category) * 2;
+                typ += Match(token, typ) * 1;
+                version += Match(token, version) * 1;
+            }
+            return score;
+        }
+
+        /// <summary>
+        /// Normalizes a string in a way it can be compared easily during a search.
+        /// </summary>
+        /// <param name="value">The string to normlize.</param>
+        /// <returns>A normalized version of the string.</returns>
+        public static string NormalizeForSearch(string value)
+            => value?.Trim().ToLowerInvariant();
+
+        private static int Match(string needle, string haystack)
+        {
+            if (string.IsNullOrWhiteSpace(haystack)) return 0;
+            if (needle == haystack) return 2;
+            if (haystack.Contains(needle)) return 1;
+            return 0;
         }
 
         #endregion
