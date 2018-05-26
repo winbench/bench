@@ -21,6 +21,10 @@ namespace Mastersign.CliTools
 
         public Document Description { get; private set; }
 
+        public bool AcceptsAdditionalArguments { get; set; }
+
+        public Document AdditionalArgumentsDescription { get; private set; }
+
         public ArgumentParser(string name, IEnumerable<Argument> arguments)
         {
             Name = name;
@@ -30,6 +34,8 @@ namespace Mastersign.CliTools
             {
                 RegisterArgument(arg);
             }
+            AcceptsAdditionalArguments = false;
+            AdditionalArgumentsDescription = new Document();
         }
 
         public ArgumentParser(string name, params Argument[] arguments)
