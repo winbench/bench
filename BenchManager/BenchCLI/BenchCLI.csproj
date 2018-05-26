@@ -80,6 +80,7 @@
     <Compile Include="Commands\AppPropertyCommand.cs" />
     <Compile Include="Commands\ConfigEditCommand.cs" />
     <Compile Include="Commands\ConfigSetCommand.cs" />
+    <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\TransferCloneCommand.cs" />
     <Compile Include="Commands\TransferCommandBase.cs" />
     <Compile Include="Commands\TransferExportCommand.cs" />

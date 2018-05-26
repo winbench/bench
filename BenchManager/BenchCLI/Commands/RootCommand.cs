@@ -17,6 +17,7 @@ namespace Mastersign.Bench.Cli.Commands
 
         private readonly BenchCommand helpCommand = new HelpCommand();
         private readonly BenchCommand listCommand = new ListCommand();
+        private readonly BenchCommand searchCommand = new SearchCommand();
         private readonly BenchCommand dashboardCommand = new DashboardCommand();
         private readonly BenchCommand manageCommand = new ManageCommand();
         private readonly BenchCommand transferCommand = new TransferCommand();
@@ -55,6 +56,7 @@ namespace Mastersign.Bench.Cli.Commands
 
             RegisterSubCommand(helpCommand);
             RegisterSubCommand(listCommand);
+            RegisterSubCommand(searchCommand);
             RegisterSubCommand(dashboardCommand);
             RegisterSubCommand(manageCommand);
             RegisterSubCommand(transferCommand);
@@ -116,6 +118,10 @@ namespace Mastersign.Bench.Cli.Commands
             commandList.Description
                 .Text("List different kinds of objects in the Bench environment.");
 
+            var commandSearch = new CommandArgument(searchCommand.Name, 's');
+            commandSearch.Description
+                .Text("Searches for apps.");
+
             var commandDashboard = new CommandArgument(dashboardCommand.Name, 'b', "gui");
             commandDashboard.Description
                 .Text("Start the ").Emph("Bench Dashboard").Text(".");
@@ -150,6 +156,7 @@ namespace Mastersign.Bench.Cli.Commands
 
                 commandHelp,
                 commandList,
+                commandSearch,
                 commandManage,
                 commandTransfer,
                 commandDashboard,
