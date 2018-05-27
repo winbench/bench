@@ -906,6 +906,11 @@ namespace Mastersign.Bench.Dashboard
             {
                 Close();
             }
+            if (e.KeyCode == Keys.F && e.Modifiers == Keys.Control)
+            {
+                txtSearch.SelectAll();
+                txtSearch.Focus();
+            }
         }
 
         private void SetupForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -950,6 +955,28 @@ namespace Mastersign.Bench.Dashboard
                     "Open Last Log File",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                var searchWords = AppSearch.TokenizeSearchString(txtSearch.Text);
+                var sortedList = new SortedBindingList<AppWrapper>(apps
+                    .Where(w => w.Match(searchWords))
+                    .OrderBy(w => w.App.Label)
+                    .OrderByDescending(w => w.SearchScore));
+                gridApps.DataSource = sortedList;
+            }
+            else
+            {
+                gridApps.DataSource = new SortedBindingList<AppWrapper>(apps);
+            }
+        }
+
+        private void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = string.Empty;
         }
     }
 }

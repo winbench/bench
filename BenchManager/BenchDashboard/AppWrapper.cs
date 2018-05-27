@@ -114,6 +114,14 @@ namespace Mastersign.Bench.Dashboard
 
         public bool IsInstalled => app.IsInstalled;
 
+        public int SearchScore { private set; get; }
+
+        public bool Match(string[] searchTokens)
+        {
+            SearchScore = App.MatchSearchString(searchTokens);
+            return SearchScore > 0;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyChanges()

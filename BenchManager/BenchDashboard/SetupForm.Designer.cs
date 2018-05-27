@@ -29,16 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupForm));
             this.tsSeparatorDownloads = new System.Windows.Forms.ToolStripSeparator();
             this.splitterBottom = new System.Windows.Forms.Splitter();
             this.panelStatus = new System.Windows.Forms.Panel();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.picState = new System.Windows.Forms.PictureBox();
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblPending = new System.Windows.Forms.Label();
@@ -76,6 +77,8 @@
             this.miDeleteResource = new System.Windows.Forms.ToolStripMenuItem();
             this.splitterConsole = new System.Windows.Forms.Splitter();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.btnClearSearch = new System.Windows.Forms.Button();
             this.downloadList = new Mastersign.Bench.Dashboard.DownloadList();
             this.menuStrip = new Mastersign.Bench.Dashboard.ImmediateMenuStrip();
             this.tsmSetup = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,26 +121,6 @@
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
-            // 
             // tsSeparatorDownloads
             // 
             this.tsSeparatorDownloads.Name = "tsSeparatorDownloads";
@@ -155,6 +138,9 @@
             // panelStatus
             // 
             this.panelStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.panelStatus.Controls.Add(this.btnClearSearch);
+            this.panelStatus.Controls.Add(this.lblSearch);
+            this.panelStatus.Controls.Add(this.txtSearch);
             this.panelStatus.Controls.Add(this.picState);
             this.panelStatus.Controls.Add(this.btnAuto);
             this.panelStatus.Controls.Add(this.lblPending);
@@ -168,8 +154,19 @@
             this.panelStatus.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelStatus.Location = new System.Drawing.Point(0, 24);
             this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(684, 109);
+            this.panelStatus.Size = new System.Drawing.Size(684, 138);
             this.panelStatus.TabIndex = 7;
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearch.Location = new System.Drawing.Point(72, 107);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(520, 22);
+            this.txtSearch.TabIndex = 10;
+            this.toolTip.SetToolTip(this.txtSearch, "Type one or more keywords to search for apps. (Ctrl+F)");
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // picState
             // 
@@ -298,13 +295,13 @@
             this.colLicense,
             this.colComment});
             this.gridApps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridApps.Location = new System.Drawing.Point(0, 133);
+            this.gridApps.Location = new System.Drawing.Point(0, 162);
             this.gridApps.MultiSelect = false;
             this.gridApps.Name = "gridApps";
             this.gridApps.RowHeadersVisible = false;
             this.gridApps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridApps.ShowEditingIcon = false;
-            this.gridApps.Size = new System.Drawing.Size(684, 165);
+            this.gridApps.Size = new System.Drawing.Size(684, 136);
             this.gridApps.TabIndex = 8;
             this.gridApps.VirtualMode = true;
             this.gridApps.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridApps_CellContentClick);
@@ -458,8 +455,9 @@
             // 
             // colComment
             // 
-            this.colComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.colComment.DataPropertyName = "LongStatus";
+            this.colComment.Frozen = true;
             this.colComment.HeaderText = "Comment";
             this.colComment.MinimumWidth = 100;
             this.colComment.Name = "colComment";
@@ -571,6 +569,28 @@
             this.splitterConsole.TabIndex = 9;
             this.splitterConsole.TabStop = false;
             // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lblSearch.Location = new System.Drawing.Point(12, 110);
+            this.lblSearch.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(44, 13);
+            this.lblSearch.TabIndex = 11;
+            this.lblSearch.Text = "Search:";
+            // 
+            // btnClearSearch
+            // 
+            this.btnClearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearSearch.Location = new System.Drawing.Point(592, 106);
+            this.btnClearSearch.Name = "btnClearSearch";
+            this.btnClearSearch.Size = new System.Drawing.Size(23, 24);
+            this.btnClearSearch.TabIndex = 12;
+            this.btnClearSearch.Text = "X";
+            this.btnClearSearch.UseVisualStyleBackColor = true;
+            this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
+            // 
             // downloadList
             // 
             this.downloadList.AutoScroll = true;
@@ -642,6 +662,11 @@
             this.tsmiUpdateEnvironment.ToolTipText = "Updates the Bench environment file(s) and launchers.";
             this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironmentHandler);
             // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
+            // 
             // tsmiUpdateAppLibs
             // 
             this.tsmiUpdateAppLibs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
@@ -679,6 +704,11 @@
     "location.";
             this.tsmiExportClone.Click += new System.EventHandler(this.ExportCloneHandler);
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
+            // 
             // tsmiInstallAll
             // 
             this.tsmiInstallAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.install_16;
@@ -714,6 +744,11 @@
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
             this.tsmiUninstallAll.ToolTipText = "Uninstalls all apps.";
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
             // 
             // tsmiCleanUpObsoleteResources
             // 
@@ -841,6 +876,11 @@
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
+            // 
             // tsmiAlwaysShowDownloads
             // 
             this.tsmiAlwaysShowDownloads.CheckOnClick = true;
@@ -958,6 +998,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem tsmiClose;
         private System.Windows.Forms.ToolStripMenuItem tsmiExportClone;
+        private System.Windows.Forms.ToolStripMenuItem tsmiConfigurationInfo;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DataGridViewImageColumn colIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLibrary;
@@ -971,6 +1013,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTyp;
         private System.Windows.Forms.DataGridViewLinkColumn colLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
-        private System.Windows.Forms.ToolStripMenuItem tsmiConfigurationInfo;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.Button btnClearSearch;
     }
 }
