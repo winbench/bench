@@ -64,6 +64,7 @@
     <Compile Include="AppIndexFacade.cs" />
     <Compile Include="AppLibrary.cs" />
     <Compile Include="AppPropertyKeys.cs" />
+    <Compile Include="AppSearch.cs" />
     <Compile Include="ConfigurationFile.cs" />
     <Compile Include="ConfigurationFileType.cs" />
     <Compile Include="DictionaryValueResolver.cs" />

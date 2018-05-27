@@ -196,7 +196,7 @@ namespace Mastersign.Bench
         /// <param name="searchString">The search string.</param>
         /// <returns>An array of matches with a matching score &gt; 0.</returns>
         public AppSearchMatch[] Search(string searchString)
-            => Search(TokenizeSearchString(searchString));
+            => Search(AppSearch.TokenizeSearchString(searchString));
 
         /// <summary>
         /// Searches for apps with multiple search strings.
@@ -206,24 +206,11 @@ namespace Mastersign.Bench
         /// <returns>An array of matches with a matching score &gt; 0.</returns>
         public AppSearchMatch[] Search(string[] searchStrings)
         {
-            var searchWords = searchStrings.Select(AppFacade.NormalizeForSearch).ToArray();
+            var searchWords = searchStrings.Select(AppSearch.NormalizeForSearch).ToArray();
             return this
                 .Select(app => new AppSearchMatch(app, app.MatchSearchString(searchWords)))
                 .Where(m => m.Score > 0f)
                 .ToArray();
-        }
-
-        private static readonly Regex tokenPattern = new Regex("\"[^\"]+\"|[^\"\\s]+");
-
-        private static string[] TokenizeSearchString(string searchString)
-        {
-            var matches = tokenPattern.Matches(searchString);
-            var result = new string[matches.Count];
-            for (int i = 0; i < matches.Count; i++)
-            {
-                result[i] = matches[i].Value;
-            }
-            return result;
         }
 
         /// <summary>

@@ -1203,7 +1203,7 @@ namespace Mastersign.Bench
         /// Matches a number of search words against this app.
         /// </summary>
         /// <param name="searchTokens">A number of already normalized search words.</param>
-        /// <see cref="NormalizeForSearch(string)"/>
+        /// <see cref="AppSearch.NormalizeForSearch(string)"/>
         /// <returns>
         /// A number decribing the match. 
         /// If it is 0, the search did not match.
@@ -1211,13 +1211,13 @@ namespace Mastersign.Bench
         /// </returns>
         public int MatchSearchString(string[] searchTokens)
         {
-            var label = NormalizeForSearch(Label);
-            var id = NormalizeForSearch(ID);
+            var label = AppSearch.NormalizeForSearch(Label);
+            var id = AppSearch.NormalizeForSearch(ID);
             var tags = Tags;
-            for (int i = 0; i < tags.Length; i++) tags[i] = NormalizeForSearch(tags[i]);
-            var category = NormalizeForSearch(Category);
-            var typ = NormalizeForSearch(Typ);
-            var version = NormalizeForSearch(Version);
+            for (int i = 0; i < tags.Length; i++) tags[i] = AppSearch.NormalizeForSearch(tags[i]);
+            var category = AppSearch.NormalizeForSearch(Category);
+            var typ = AppSearch.NormalizeForSearch(Typ);
+            var version = AppSearch.NormalizeForSearch(Version);
 
             var score = 0;
             foreach (var token in searchTokens)
@@ -1234,14 +1234,6 @@ namespace Mastersign.Bench
             }
             return score;
         }
-
-        /// <summary>
-        /// Normalizes a string in a way it can be compared easily during a search.
-        /// </summary>
-        /// <param name="value">The string to normlize.</param>
-        /// <returns>A normalized version of the string.</returns>
-        public static string NormalizeForSearch(string value)
-            => value?.Trim().ToLowerInvariant();
 
         private static int Match(string needle, string haystack)
         {
