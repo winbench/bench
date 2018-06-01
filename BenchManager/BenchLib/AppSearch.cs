@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Mastersign.Bench
 {
+    /// <summary>
+    /// Static helper functions for App searching.
+    /// </summary>
     public static class AppSearch
     {
         private static readonly Regex tokenPattern = new Regex("\"[^\"]+\"|[^\"\\s]+");
