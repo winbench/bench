@@ -25,6 +25,12 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Added
+- Minor performance improvements
+
+### Fixed
+- Main window crashes when closing setup dialog
+
 ## [0.20.0] - 2018-06-01
 
 [0.20.0]: https://github.com/mastersign/bench/compare/v0.19.0...v0.20.0
