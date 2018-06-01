@@ -44,11 +44,11 @@
             this.btnShellCmd = new System.Windows.Forms.Button();
             this.btnSetup = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.appLauncherList = new Mastersign.Bench.Dashboard.AppLauncherControl();
             this.tsslSpacer = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslVersionLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslVersionStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.appLauncherList = new Mastersign.Bench.Dashboard.AppLauncherControl();
             tsslRootPathLabel = new System.Windows.Forms.ToolStripStatusLabel();
             tsslAppCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
@@ -125,7 +125,7 @@
             this.btnAutoSetup.Name = "btnAutoSetup";
             this.btnAutoSetup.Size = new System.Drawing.Size(29, 25);
             this.btnAutoSetup.TabIndex = 6;
-            this.toolTip.SetToolTip(this.btnAutoSetup, "Bench Auto Setup");
+            this.toolTip.SetToolTip(this.btnAutoSetup, "Bench Auto Setup (Ctrl + F5)");
             this.btnAutoSetup.Click += new System.EventHandler(this.AutoSetupHandler);
             // 
             // btnDocs
@@ -137,7 +137,7 @@
             this.btnDocs.Name = "btnDocs";
             this.btnDocs.Size = new System.Drawing.Size(29, 25);
             this.btnDocs.TabIndex = 3;
-            this.toolTip.SetToolTip(this.btnDocs, "Documentation and Online Resources");
+            this.toolTip.SetToolTip(this.btnDocs, "Documentation and Online Resources (F1)");
             this.btnDocs.Click += new System.EventHandler(this.DocsHandler);
             // 
             // btnAbout
@@ -149,7 +149,7 @@
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(29, 25);
             this.btnAbout.TabIndex = 5;
-            this.toolTip.SetToolTip(this.btnAbout, "Bench Info");
+            this.toolTip.SetToolTip(this.btnAbout, "Bench Info (Alt + Enter)");
             this.btnAbout.Click += new System.EventHandler(this.AboutHandler);
             // 
             // btnShellBash
@@ -160,7 +160,7 @@
             this.btnShellBash.Name = "btnShellBash";
             this.btnShellBash.Size = new System.Drawing.Size(29, 25);
             this.btnShellBash.TabIndex = 2;
-            this.toolTip.SetToolTip(this.btnShellBash, "Git Bash");
+            this.toolTip.SetToolTip(this.btnShellBash, "Git Bash (Alt + B)");
             this.btnShellBash.Click += new System.EventHandler(this.ShellBashHandler);
             // 
             // btnShellPowerShell
@@ -171,7 +171,7 @@
             this.btnShellPowerShell.Name = "btnShellPowerShell";
             this.btnShellPowerShell.Size = new System.Drawing.Size(29, 25);
             this.btnShellPowerShell.TabIndex = 1;
-            this.toolTip.SetToolTip(this.btnShellPowerShell, "Windows PowerShell");
+            this.toolTip.SetToolTip(this.btnShellPowerShell, "Windows PowerShell (Alt + P)");
             this.btnShellPowerShell.Click += new System.EventHandler(this.ShellPowerShellHandler);
             // 
             // btnShellCmd
@@ -182,7 +182,7 @@
             this.btnShellCmd.Name = "btnShellCmd";
             this.btnShellCmd.Size = new System.Drawing.Size(29, 25);
             this.btnShellCmd.TabIndex = 0;
-            this.toolTip.SetToolTip(this.btnShellCmd, "Windows Command Prompt");
+            this.toolTip.SetToolTip(this.btnShellCmd, "Windows Command Prompt (Alt + C)");
             this.btnShellCmd.Click += new System.EventHandler(this.ShellCmdHandler);
             // 
             // btnSetup
@@ -194,23 +194,13 @@
             this.btnSetup.Name = "btnSetup";
             this.btnSetup.Size = new System.Drawing.Size(29, 25);
             this.btnSetup.TabIndex = 4;
-            this.toolTip.SetToolTip(this.btnSetup, "Bench Setup and Configuration");
+            this.toolTip.SetToolTip(this.btnSetup, "Bench Setup and Configuration (F6)");
             this.btnSetup.Click += new System.EventHandler(this.SetupHandler);
-            // 
-            // appLauncherList
-            // 
-            this.appLauncherList.AppIndex = null;
-            this.appLauncherList.Core = null;
-            this.appLauncherList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.appLauncherList.Location = new System.Drawing.Point(0, 29);
-            this.appLauncherList.Name = "appLauncherList";
-            this.appLauncherList.Size = new System.Drawing.Size(564, 310);
-            this.appLauncherList.TabIndex = 1;
             // 
             // tsslSpacer
             // 
             this.tsslSpacer.Name = "tsslSpacer";
-            this.tsslSpacer.Size = new System.Drawing.Size(160, 19);
+            this.tsslSpacer.Size = new System.Drawing.Size(191, 19);
             this.tsslSpacer.Spring = true;
             // 
             // tsslVersionLabel
@@ -234,6 +224,16 @@
             this.tsslVersionStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
             this.tsslVersionStatus.Name = "tsslVersionStatus";
             this.tsslVersionStatus.Size = new System.Drawing.Size(16, 19);
+            // 
+            // appLauncherList
+            // 
+            this.appLauncherList.AppIndex = null;
+            this.appLauncherList.Core = null;
+            this.appLauncherList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.appLauncherList.Location = new System.Drawing.Point(0, 29);
+            this.appLauncherList.Name = "appLauncherList";
+            this.appLauncherList.Size = new System.Drawing.Size(564, 308);
+            this.appLauncherList.TabIndex = 1;
             // 
             // MainForm
             // 

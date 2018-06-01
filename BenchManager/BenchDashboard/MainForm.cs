@@ -394,9 +394,21 @@ namespace Mastersign.Bench.Dashboard
         private void KeyDownDownHandler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F5 && e.Modifiers == Keys.None)
-            {
                 core.Reload(configChanged: true);
-            }
+            else if (e.KeyCode == Keys.F1 && e.Modifiers == Keys.None)
+                DocsHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.Enter && e.Modifiers == Keys.Alt)
+                AboutHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.F6 && e.Modifiers == Keys.None)
+                SetupHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.F5 && e.Modifiers == Keys.Control)
+                AutoSetupHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Alt)
+                ShellCmdHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.P && e.Modifiers == Keys.Alt)
+                ShellPowerShellHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.B && e.Modifiers == Keys.Alt)
+                ShellBashHandler(this, EventArgs.Empty);
         }
     }
 }
