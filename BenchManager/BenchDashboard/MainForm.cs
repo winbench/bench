@@ -344,11 +344,14 @@ namespace Mastersign.Bench.Dashboard
             }
             if (!setupForm.Visible)
             {
-                setupForm.Show();
+                setupForm.Show(this);
+                // workaround for the focus jumping back to the main form
+                Application.DoEvents();
+                setupForm.Activate();
             }
             else
             {
-                setupForm.Focus();
+                setupForm.Activate();
             }
         }
 
