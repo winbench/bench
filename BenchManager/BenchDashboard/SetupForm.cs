@@ -450,6 +450,7 @@ namespace Mastersign.Bench.Dashboard
         private void ProcessTaskInfo(TaskInfo info)
         {
             lblInfo.Text = info.Message;
+            lblInfo.Refresh();
             if (info is TaskProgress progressInfo) UpdateProgressBar(progressInfo.Progress);
             if (info is TaskError taskError) toolTip.SetToolTip(picState, taskError.Message);
             taskInfoList.AddTaskInfo(info);
