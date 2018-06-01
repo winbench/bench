@@ -154,8 +154,14 @@ namespace Mastersign.Bench.Dashboard
             UpdatePendingCounts();
         }
 
+        private DateTime lastPendingCount = DateTime.Now;
+        private TimeSpan pendingCountInterval = new TimeSpan(0, 0, 2);
+
         private void UpdatePendingCounts()
         {
+            var now = DateTime.Now;
+            if (core.Busy && now < lastPendingCount + pendingCountInterval) return;
+            lastPendingCount = now;
             var downloadIDs = new List<string>();
             var uninstallIDs = new List<string>();
             var installIDs = new List<string>();
@@ -440,6 +446,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void TaskInfoHandler(TaskInfo info)
         {
+            if (Disposing || IsDisposed) return;
             if (InvokeRequired)
                 BeginInvoke((Action<TaskInfo>)ProcessTaskInfo, info);
             else
@@ -449,6 +456,7 @@ namespace Mastersign.Bench.Dashboard
         private void ProcessTaskInfo(TaskInfo info)
         {
             lblInfo.Text = info.Message;
+            lblInfo.Refresh();
             if (info is TaskProgress progressInfo) UpdateProgressBar(progressInfo.Progress);
             if (info is TaskError taskError) toolTip.SetToolTip(picState, taskError.Message);
             taskInfoList.AddTaskInfo(info);

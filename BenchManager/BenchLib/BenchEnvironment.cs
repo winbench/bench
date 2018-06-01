@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace Mastersign.Bench
@@ -459,7 +460,7 @@ namespace Mastersign.Bench
             {
                 key.SetValue(name, value, expand ? RegistryValueKind.ExpandString : RegistryValueKind.String);
             }
-            NotifyWindowsAboutSettingChange();
+            Task.Run((Action)NotifyWindowsAboutSettingChange);
         }
 
         private static void DeleteEnvironmentVar(string name)
