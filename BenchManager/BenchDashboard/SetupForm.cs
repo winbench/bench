@@ -440,6 +440,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void TaskInfoHandler(TaskInfo info)
         {
+            if (Disposing || IsDisposed) return;
             if (InvokeRequired)
                 BeginInvoke((Action<TaskInfo>)ProcessTaskInfo, info);
             else

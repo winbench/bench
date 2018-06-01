@@ -111,6 +111,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void InitializeAppList()
         {
+            if (IsDisposed) return;
             AsyncManager.StartTask(() =>
             {
                 appLookup.Clear();
@@ -207,6 +208,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void TaskInfoHandler(TaskInfo info)
         {
+            if (Disposing || IsDisposed) return;
             if (InvokeRequired)
             {
                 BeginInvoke((Action<TaskInfo>)TaskInfoHandler, info);
