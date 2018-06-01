@@ -260,11 +260,51 @@ namespace Mastersign.Bench.Dashboard.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon error {
+            get {
+                object obj = ResourceManager.GetObject("error", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error_16 {
+            get {
+                object obj = ResourceManager.GetObject("error_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap error_48 {
             get {
                 object obj = ResourceManager.GetObject("error_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error_grey_16 {
+            get {
+                object obj = ResourceManager.GetObject("error_grey_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error_outline_16 {
+            get {
+                object obj = ResourceManager.GetObject("error_outline_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -430,6 +470,16 @@ namespace Mastersign.Bench.Dashboard.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon ok {
+            get {
+                object obj = ResourceManager.GetObject("ok", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ok_16 {
@@ -445,6 +495,16 @@ namespace Mastersign.Bench.Dashboard.Properties {
         internal static System.Drawing.Bitmap ok_48 {
             get {
                 object obj = ResourceManager.GetObject("ok_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ok_outline_16 {
+            get {
+                object obj = ResourceManager.GetObject("ok_outline_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -495,6 +555,16 @@ namespace Mastersign.Bench.Dashboard.Properties {
         internal static System.Drawing.Bitmap reinstall_16 {
             get {
                 object obj = ResourceManager.GetObject("reinstall_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap remove_16 {
+            get {
+                object obj = ResourceManager.GetObject("remove_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

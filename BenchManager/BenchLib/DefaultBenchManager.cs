@@ -229,5 +229,22 @@ namespace Mastersign.Bench
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
         public bool DownloadBenchUpdate() => RunAction(BenchTasks.DoDownloadBenchUpdate);
+
+        /// <summary>
+        /// Creates a transfer package of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="targetFile">The target file for the transfer package. If the ending is <c>.exe</c>, an SFX archive will be created.</param>
+        /// <param name="selection">A selection of directories and files to include in the package.</param>
+        /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
+        public bool ExportBenchEnvironment(string targetFile, TransferPaths selection)
+            => RunAction((m, n, c) => BenchTasks.DoExportBenchEnvironment(m, n, c, targetFile, selection));
+
+        /// <summary>
+        /// Creates a clone of a given Bench environment, including a specific selection of directories and files.
+        /// </summary>
+        /// <param name="targetDir">A directory to install the clone into.</param>
+        /// <param name="selection">A selection of directories and files to copy.</param>
+        public bool CloneBenchEnvironment(string targetDir, TransferPaths selection)
+            => RunAction((m, n, c) => BenchTasks.DoCloneBenchEnvironment(m, n, c,targetDir, selection));
     }
 }

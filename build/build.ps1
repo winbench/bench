@@ -8,21 +8,21 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
-# To build this project without Visual Studio, the .NET Framework 4.6.2 SDK is required.
-# Use 'install-sdk462.ps1' to install it.
+# To build this project without Visual Studio, install the Visual Studio 2017 Build Tools
+# with the .NET Framework 4.6.2 SDK and the .NET 4.6.2 Target Pack.
 
 $projectName = "Bench"
 $clrVersion = "4.0.30319"
 $toolsVersion = $null
-$projectToolsVersion = "14.0"
-$compilerPackageVersion = "2.3.2"
+$projectToolsVersion = "15.0"
+$compilerPackageVersion = "2.8.2"
 $compilerPackageFramework = "net46"
-$langVersion = "7"
+$langVersion = "7.2"
 $mode = $Mode
 $target = "Clean;Build"
 $verbosity = $MsBuildVerbosity
-$msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
-# $msbuild = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe"
+# $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
+$msbuild = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe"
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $nuget4Url = "https://dist.nuget.org/win-x86-commandline/v4.0.0/nuget.exe"
 $solutionDir = "BenchManager" # relative to root dir
@@ -110,6 +110,12 @@ if ($LastExitCode -ne 0)
     Write-Error "Restoring NuGet packages failed."
     popd
     return
+}
+
+# Create output directory if necessary
+if (!(Test-Path "$rootDir\$buildTargetDir"))
+{
+    mkdir "$rootDir\$buildTargetDir" | Out-Null
 }
 
 # Build the Visual Studio solution

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Mastersign.Bench.PropertyCollections;
@@ -168,6 +169,11 @@ namespace Mastersign.Bench
         /// </summary>
         /// <see cref="AppIndex.DefaultAppCategory"/>
         public string Category => AppIndex.GetGroupCategory(AppName);
+
+        /// <summary>
+        /// Gets the tags of the app.
+        /// </summary>
+        public string[] Tags => ListValue(AppPropertyKeys.Tags);
 
         /// <summary>
         /// <para>The typ of this app.</para>
@@ -952,6 +958,7 @@ namespace Mastersign.Bench
                 switch (Typ)
                 {
                     case AppTyps.Meta:
+                    case AppTyps.Group:
                     case AppTyps.Default:
                         if (CanCheckInstallation && IsInstalled)
                         {
@@ -1186,6 +1193,54 @@ namespace Mastersign.Bench
                     }
                 }
             }
+        }
+
+        #endregion
+
+        #region Search
+
+        /// <summary>
+        /// Matches a number of search words against this app.
+        /// </summary>
+        /// <param name="searchTokens">A number of already normalized search words.</param>
+        /// <see cref="AppSearch.NormalizeForSearch(string)"/>
+        /// <returns>
+        /// A number decribing the match. 
+        /// If it is 0, the search did not match.
+        /// Otherwise it can be used to sort the matches for relevance.
+        /// </returns>
+        public int MatchSearchString(string[] searchTokens)
+        {
+            var label = AppSearch.NormalizeForSearch(Label);
+            var id = AppSearch.NormalizeForSearch(ID);
+            var tags = Tags;
+            for (int i = 0; i < tags.Length; i++) tags[i] = AppSearch.NormalizeForSearch(tags[i]);
+            var category = AppSearch.NormalizeForSearch(Category);
+            var typ = AppSearch.NormalizeForSearch(Typ);
+            var version = AppSearch.NormalizeForSearch(Version);
+
+            var score = 0;
+            foreach (var token in searchTokens)
+            {
+                score += Match(token, label) * 5;
+                score += Match(token, id) * 4;
+                foreach (var tag in tags)
+                {
+                    score += Match(token, tag) * 3;
+                }
+                score += Match(token, category) * 2;
+                typ += Match(token, typ) * 1;
+                version += Match(token, version) * 1;
+            }
+            return score;
+        }
+
+        private static int Match(string needle, string haystack)
+        {
+            if (string.IsNullOrWhiteSpace(haystack)) return 0;
+            if (needle == haystack) return 2;
+            if (haystack.Contains(needle)) return 1;
+            return 0;
         }
 
         #endregion
@@ -1512,6 +1567,7 @@ namespace Mastersign.Bench
                 AppPropertyKeys.Version,
                 AppPropertyKeys.License,
                 AppPropertyKeys.LicenseUrl,
+                AppPropertyKeys.Tags,
                 AppPropertyKeys.IsActive,
                 AppPropertyKeys.IsRequired,
                 AppPropertyKeys.IsActivated,
@@ -1577,6 +1633,7 @@ namespace Mastersign.Bench
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Version, this.Version));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.License, this.License));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.LicenseUrl, this.LicenseUrl?.AbsoluteUri));
+                result.Add(new KeyValuePair<string, object>(AppPropertyKeys.Tags, this.Tags));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsActive, this.IsActive));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsRequired, this.IsRequired));
                 result.Add(new KeyValuePair<string, object>(AppPropertyKeys.IsSupported, this.IsSupported));

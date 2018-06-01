@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Mastersign.Bench.PropertyCollections;
 
 namespace Mastersign.Bench
@@ -40,6 +42,7 @@ namespace Mastersign.Bench
             }
             return app;
         }
+
         /// <summary>
         /// Gets an instance of <see cref="AppFacade"/> for the specified app.
         /// </summary>
@@ -186,6 +189,31 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
+        /// Searches for apps with a search string.
+        /// The search string is split into words by space.
+        /// Words in double quotes are kept whole.
+        /// </summary>
+        /// <param name="searchString">The search string.</param>
+        /// <returns>An array of matches with a matching score &gt; 0.</returns>
+        public AppSearchMatch[] Search(string searchString)
+            => Search(AppSearch.TokenizeSearchString(searchString));
+
+        /// <summary>
+        /// Searches for apps with multiple search strings.
+        /// Every search string is normalized but matched as a whole.
+        /// </summary>
+        /// <param name="searchStrings">A number of search strings.</param>
+        /// <returns>An array of matches with a matching score &gt; 0.</returns>
+        public AppSearchMatch[] Search(string[] searchStrings)
+        {
+            var searchWords = searchStrings.Select(AppSearch.NormalizeForSearch).ToArray();
+            return this
+                .Select(app => new AppSearchMatch(app, app.MatchSearchString(searchWords)))
+                .Where(m => m.Score > 0f)
+                .ToArray();
+        }
+
+        /// <summary>
         /// Gets an array with the paths for environment registration of all activated apps.
         /// </summary>
         public string[] EnvironmentPath
@@ -232,6 +260,33 @@ namespace Mastersign.Bench
                 }
                 return result;
             }
+        }
+    }
+
+    /// <summary>
+    /// This class represents a matched app during a search.
+    /// </summary>
+    public struct AppSearchMatch
+    {
+        /// <summary>
+        /// The matched app.
+        /// </summary>
+        public readonly AppFacade App;
+
+        /// <summary>
+        /// The score of the found app in the context of the search.
+        /// </summary>
+        public readonly int Score;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="AppSearchMatch"/>.
+        /// </summary>
+        /// <param name="app">The matched app.</param>
+        /// <param name="score">The score of the found app.</param>
+        public AppSearchMatch(AppFacade app, int score)
+        {
+            App = app;
+            Score = score;
         }
     }
 }

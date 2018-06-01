@@ -25,6 +25,34 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.20.0] - 2018-06-01
+
+[0.20.0]: https://github.com/mastersign/bench/compare/v0.19.0...v0.20.0
+
+### Added
+- App typ `group` with the same behavior as `meta`
+  ([#117](https://github.com/mastersign/bench/issues/117))
+- Support for app property `Tags` as a list of strings
+  ([#123](https://github.com/mastersign/bench/issues/123))
+- App search in setup dialog
+  ([#124](https://github.com/mastersign/bench/issues/124))
+- Click on the status icon opens the last log file
+  ([#125](https://github.com/mastersign/bench/issues/125))
+- Save window positions if config property `DashboardSavePositions` is set to `true`
+  ([#127](https://github.com/mastersign/bench/issues/127))
+- Keybindings for buttons in the Dashboard main window and the setup dialog
+- Version check in the status bar of the Dashboard main window
+
+### Changed
+- Changed the setup dialog, display event list during setup process
+  ([#125](https://github.com/mastersign/bench/issues/125))
+- The height of the download list in the setup dialog is automatically
+  adjusted to the number of parallel downloads from the configuration
+  ([#126](https://github.com/mastersign/bench/issues/126))
+- The step order for auto setup changed: first download then uninstall...
+  ([#128](https://github.com/mastersign/bench/issues/128))
+- Log files are saved with the file name extension `.log` instead of `.txt` from now on
+
 ## [0.19.0] - 2018-05-18
 
 [0.19.0]: https://github.com/mastersign/bench/compare/v0.18.0...v0.19.0

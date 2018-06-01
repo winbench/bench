@@ -16,33 +16,27 @@ namespace Mastersign.Bench.Dashboard
 {
     public partial class MarkdownViewer : Form
     {
-        private readonly IBenchManager core;
+        private readonly Core core;
         private readonly string windowTitle;
 
-        public MarkdownViewer(IBenchManager core)
+        public MarkdownViewer(Core core)
         {
             this.core = core;
             InitializeComponent();
             this.windowTitle = Text;
+            core.WindowPositionManager.RegisterForm(
+                this, ConfigPropertyKeys.DashboardMarkdownViewerPosition,
+                DefaultBounds(), FormWindowState.Normal);
         }
 
-        private void MarkdownViewer_Load(object sender, EventArgs e)
-        {
-            InitializeBounds();
-        }
-
-        private void MarkdownViewer_FormClosed(object sender, FormClosedEventArgs e)
-        {
-        }
-
-        private void InitializeBounds()
+        private Rectangle DefaultBounds()
         {
             var region = Screen.PrimaryScreen.WorkingArea;
             var w = Math.Max(MinimumSize.Width, region.Width / 2);
             var h = Math.Max(MinimumSize.Height, region.Height);
             var x = 0;
             var y = region.Top;
-            SetBounds(x, y, w, h);
+            return new Rectangle(x, y, w, h);
         }
 
         public void LoadMarkdown(string file, string title = null)

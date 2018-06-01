@@ -54,8 +54,10 @@ namespace Mastersign.Bench.Dashboard
                 {
                     case AppTyps.Default:
                         return "Default";
+                    case AppTyps.Group:
+                        return "Group";
                     case AppTyps.Meta:
-                        return "Group/Custom";
+                        return "Custom";
                     case AppTyps.NodePackage:
                         return "NodeJS";
                     case AppTyps.RubyPackage:
@@ -111,6 +113,14 @@ namespace Mastersign.Bench.Dashboard
         public bool IsDependency => app.IsDependency;
 
         public bool IsInstalled => app.IsInstalled;
+
+        public int SearchScore { private set; get; }
+
+        public bool Match(string[] searchTokens)
+        {
+            SearchScore = App.MatchSearchString(searchTokens);
+            return SearchScore > 0;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -87,6 +87,10 @@ namespace Mastersign.CliTools
             {
                 w.Text(" ").Append(FormatPositional, a);
             }
+            if (p.AcceptsAdditionalArguments)
+            {
+                w.Text(" ...");
+            }
         }
 
         public static void FullCommandChain(DocumentWriter w, CommandBase cmd)
@@ -172,6 +176,7 @@ namespace Mastersign.CliTools
             WriteOptions(w, cmd);
             WritePositionals(w, cmd);
             WriteCommands(w, cmd, withCommandLinks);
+            WriteAdditionalArguments(w, cmd);
         }
 
         private static void WriteUsage(DocumentWriter w, CommandBase cmd,
@@ -361,6 +366,14 @@ namespace Mastersign.CliTools
                 }
                 w.End(BlockType.DefinitionList);
             }
+        }
+
+        private static void WriteAdditionalArguments(DocumentWriter w, CommandBase cmd)
+        {
+            if (!cmd.ArgumentParser.AcceptsAdditionalArguments ||
+                cmd.ArgumentParser.AdditionalArgumentsDescription.IsEmpty) return;
+            w.Headline2(CommandAnchor(cmd) + "_additional_args", "Additional Arguments");
+            w.Paragraph(cmd.ArgumentParser.AdditionalArgumentsDescription);
         }
     }
 }

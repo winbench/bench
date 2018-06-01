@@ -30,7 +30,7 @@ namespace Mastersign.Bench.Cli.Commands
             => (DataOutputFormat)Enum.Parse(
                     typeof(DataOutputFormat),
                     Arguments.GetOptionValue(OPTION_FORMAT, DEF_FORMAT.ToString()),
-                    true);
+                    ignoreCase: true);
 
         public bool OutputAsTable => Arguments.GetFlag(FLAG_TABLE);
 

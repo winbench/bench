@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props')" />
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -27,7 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,7 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -73,6 +74,12 @@
     </Compile>
     <Compile Include="ActionState.cs" />
     <Compile Include="AppEventArgs.cs" />
+    <Compile Include="AppList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AppList.Designer.cs">
+      <DependentUpon>AppList.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigInfoDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,13 +152,29 @@
       <DependentUpon>SetupForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SortedBindingList.cs" />
+    <Compile Include="TaskInfoList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskInfoList.Designer.cs">
+      <DependentUpon>TaskInfoList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskInfoForm.Designer.cs">
+      <DependentUpon>TaskInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UiExtensions.cs" />
     <Compile Include="Vendor\IconExtractor\IconExtractor.cs" />
     <Compile Include="Vendor\IconExtractor\IconUtil.cs" />
     <Compile Include="Vendor\IconExtractor\NativeMethods.cs" />
+    <Compile Include="WindowPositionManager.cs" />
     <Compile Include="WinFormsUserInterface.cs" />
     <EmbeddedResource Include="AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppList.resx">
+      <DependentUpon>AppList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigInfoDialog.resx">
       <DependentUpon>ConfigInfoDialog.cs</DependentUpon>
@@ -193,6 +216,12 @@
     <EmbeddedResource Include="SetupForm.resx">
       <DependentUpon>SetupForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TaskInfoList.resx">
+      <DependentUpon>TaskInfoList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskInfoForm.resx">
+      <DependentUpon>TaskInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
@@ -220,6 +249,8 @@
     <None Include="Resources\missing_app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ok.ico" />
+    <None Include="Resources\ok_outline_16.png" />
     <None Include="Resources\update_apps_16.png" />
     <None Include="Resources\update_bench_16.png" />
     <None Include="Resources\progress_16_animation.gif" />
@@ -254,6 +285,12 @@
     <None Include="Resources\browse_file_16.png" />
     <None Include="Resources\export_clone_16.png" />
     <Content Include="Resources\copy_16.png" />
+    <None Include="Resources\error.ico" />
+    <Content Include="Resources\error_16.png" />
+    <Content Include="Resources\error_grey_16.png" />
+    <None Include="Resources\remove_16.png" />
+    <None Include="Resources\error_outline_16.png" />
+    <Content Include="Resources\library_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />
     <None Include="Resources\docs_16.png" />
@@ -292,6 +329,10 @@
     <Error Condition="!Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets'))" />
   </Target>
   <Import Project="..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets" Condition="Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\auto\bin\$(TargetFileName)"
+copy "$(TargetPath).config" "$(SolutionDir)..\auto\bin\$(TargetFileName).config"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

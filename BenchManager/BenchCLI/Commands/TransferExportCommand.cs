@@ -55,18 +55,7 @@ namespace Mastersign.Bench.Cli.Commands
         protected override bool ExecuteCommand(string[] args)
         {
             WriteDetail("Exporting the Bench environment...");
-            try
-            {
-                RunManagerTask(man => BenchTasks.ExportBenchEnvironment(man, TargetFile, SelectedPaths));
-            }
-            catch(Exception ex)
-            {
-                WriteError(ex.Message);
-                WriteDetail(ex.ToString());
-                return false;
-            }
-            WriteDetail("Finished exporting the Bench environmment.");
-            return true;
+            return RunManagerTask(mgr => mgr.ExportBenchEnvironment(TargetFile, SelectedPaths));
         }
     }
 }

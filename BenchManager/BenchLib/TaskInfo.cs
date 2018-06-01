@@ -71,7 +71,7 @@ namespace Mastersign.Bench
     public class TaskProgress : TaskInfo
     {
         /// <summary>
-        /// The new progress value int the interval between <c>0.0</c> and <c>1.0</c>.
+        /// The new progress value in the interval between <c>0.0</c> and <c>1.0</c>.
         /// </summary>
         public float Progress { get; private set; }
 

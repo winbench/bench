@@ -40,6 +40,7 @@
             this.lblSubtitle = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelFooter = new System.Windows.Forms.Panel();
+            this.linkWebsite = new System.Windows.Forms.LinkLabel();
             this.linkAuthor = new System.Windows.Forms.LinkLabel();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblAcks = new System.Windows.Forms.Label();
@@ -161,9 +162,9 @@
             this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubtitle.Location = new System.Drawing.Point(30, 52);
             this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(427, 21);
+            this.lblSubtitle.Size = new System.Drawing.Size(310, 21);
             this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "Portable Environment for Software Development on Windows";
+            this.lblSubtitle.Text = "Portable Software Environment for Windows";
             // 
             // lblTitle
             // 
@@ -179,6 +180,7 @@
             // 
             this.panelFooter.BackColor = System.Drawing.SystemColors.Control;
             this.table.SetColumnSpan(this.panelFooter, 2);
+            this.panelFooter.Controls.Add(this.linkWebsite);
             this.panelFooter.Controls.Add(this.linkAuthor);
             this.panelFooter.Controls.Add(this.btnClose);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -187,6 +189,18 @@
             this.panelFooter.Name = "panelFooter";
             this.panelFooter.Size = new System.Drawing.Size(624, 60);
             this.panelFooter.TabIndex = 2;
+            // 
+            // linkWebsite
+            // 
+            this.linkWebsite.AutoSize = true;
+            this.linkWebsite.LinkColor = System.Drawing.SystemColors.HotTrack;
+            this.linkWebsite.Location = new System.Drawing.Point(122, 24);
+            this.linkWebsite.Name = "linkWebsite";
+            this.linkWebsite.Size = new System.Drawing.Size(102, 13);
+            this.linkWebsite.TabIndex = 5;
+            this.linkWebsite.TabStop = true;
+            this.linkWebsite.Text = "https://bench.org/";
+            this.linkWebsite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkWebsite_LinkClicked);
             // 
             // linkAuthor
             // 
@@ -282,5 +296,6 @@
         private System.Windows.Forms.LinkLabel linkAuthor;
         private System.Windows.Forms.Label lblUpdate;
         private System.Windows.Forms.PictureBox picVersionState;
+        private System.Windows.Forms.LinkLabel linkWebsite;
     }
 }

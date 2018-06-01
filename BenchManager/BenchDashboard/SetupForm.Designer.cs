@@ -33,49 +33,26 @@
             System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupForm));
-            this.tsSeparatorDownloads = new System.Windows.Forms.ToolStripSeparator();
             this.splitterBottom = new System.Windows.Forms.Splitter();
-            this.panelStatus = new System.Windows.Forms.Panel();
-            this.picState = new System.Windows.Forms.PictureBox();
+            this.panelTop = new System.Windows.Forms.Panel();
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblPending = new System.Windows.Forms.Label();
             this.lblPendlingLabel = new System.Windows.Forms.Label();
+            this.picState = new System.Windows.Forms.PictureBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblProgressLabel = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblInfoLabel = new System.Windows.Forms.Label();
             this.lblTask = new System.Windows.Forms.Label();
             this.lblTaskLabel = new System.Windows.Forms.Label();
-            this.gridApps = new System.Windows.Forms.DataGridView();
-            this.colIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.colIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLibrary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActivated = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colExcluded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTyp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLicense = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.colComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ctxmAppActions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.miAppInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.miWebsite = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSeparatorWebsite = new System.Windows.Forms.ToolStripSeparator();
-            this.miInstall = new System.Windows.Forms.ToolStripMenuItem();
-            this.miReinstall = new System.Windows.Forms.ToolStripMenuItem();
-            this.miPackageUpgrade = new System.Windows.Forms.ToolStripMenuItem();
-            this.miUpgrade = new System.Windows.Forms.ToolStripMenuItem();
-            this.miUninstall = new System.Windows.Forms.ToolStripMenuItem();
-            this.miDownloadResource = new System.Windows.Forms.ToolStripMenuItem();
-            this.miDeleteResource = new System.Windows.Forms.ToolStripMenuItem();
             this.splitterConsole = new System.Windows.Forms.Splitter();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.panelBusy = new System.Windows.Forms.Panel();
+            this.btnCloseBusyPanel = new System.Windows.Forms.Button();
+            this.btnOpenLogFile = new System.Windows.Forms.Button();
+            this.taskInfoList = new Mastersign.Bench.Dashboard.TaskInfoList();
+            this.appList = new Mastersign.Bench.Dashboard.AppList();
             this.downloadList = new Mastersign.Bench.Dashboard.DownloadList();
             this.menuStrip = new Mastersign.Bench.Dashboard.ImmediateMenuStrip();
             this.tsmSetup = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,84 +88,42 @@
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.panelStatus.SuspendLayout();
+            this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picState)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridApps)).BeginInit();
-            this.ctxmAppActions.SuspendLayout();
+            this.panelBusy.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
-            // 
-            // tsSeparatorDownloads
-            // 
-            this.tsSeparatorDownloads.Name = "tsSeparatorDownloads";
-            this.tsSeparatorDownloads.Size = new System.Drawing.Size(176, 6);
             // 
             // splitterBottom
             // 
             this.splitterBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitterBottom.Location = new System.Drawing.Point(0, 298);
+            this.splitterBottom.Location = new System.Drawing.Point(0, 358);
             this.splitterBottom.Name = "splitterBottom";
             this.splitterBottom.Size = new System.Drawing.Size(684, 5);
             this.splitterBottom.TabIndex = 0;
             this.splitterBottom.TabStop = false;
             // 
-            // panelStatus
+            // panelTop
             // 
-            this.panelStatus.BackColor = System.Drawing.SystemColors.Control;
-            this.panelStatus.Controls.Add(this.picState);
-            this.panelStatus.Controls.Add(this.btnAuto);
-            this.panelStatus.Controls.Add(this.lblPending);
-            this.panelStatus.Controls.Add(this.lblPendlingLabel);
-            this.panelStatus.Controls.Add(this.progressBar);
-            this.panelStatus.Controls.Add(this.lblProgressLabel);
-            this.panelStatus.Controls.Add(this.lblInfo);
-            this.panelStatus.Controls.Add(this.lblInfoLabel);
-            this.panelStatus.Controls.Add(this.lblTask);
-            this.panelStatus.Controls.Add(this.lblTaskLabel);
-            this.panelStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelStatus.Location = new System.Drawing.Point(0, 24);
-            this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(684, 109);
-            this.panelStatus.TabIndex = 7;
-            // 
-            // picState
-            // 
-            this.picState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picState.Location = new System.Drawing.Point(623, 12);
-            this.picState.Name = "picState";
-            this.picState.Size = new System.Drawing.Size(48, 48);
-            this.picState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.picState.TabIndex = 9;
-            this.picState.TabStop = false;
+            this.panelTop.BackColor = System.Drawing.SystemColors.Control;
+            this.panelTop.Controls.Add(this.btnAuto);
+            this.panelTop.Controls.Add(this.lblPending);
+            this.panelTop.Controls.Add(this.lblPendlingLabel);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 24);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(684, 38);
+            this.panelTop.TabIndex = 7;
             // 
             // btnAuto
             // 
             this.btnAuto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAuto.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.do_32;
-            this.btnAuto.Location = new System.Drawing.Point(623, 69);
+            this.btnAuto.Location = new System.Drawing.Point(623, 6);
             this.btnAuto.Name = "btnAuto";
             this.btnAuto.Size = new System.Drawing.Size(49, 32);
             this.btnAuto.TabIndex = 8;
+            this.toolTip.SetToolTip(this.btnAuto, "Start or cancel auto setup (Ctrl + F5, ESC)");
             this.btnAuto.UseVisualStyleBackColor = true;
             this.btnAuto.Click += new System.EventHandler(this.AutoHandler);
             // 
@@ -196,7 +131,7 @@
             // 
             this.lblPending.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPending.Location = new System.Drawing.Point(69, 79);
+            this.lblPending.Location = new System.Drawing.Point(69, 16);
             this.lblPending.Name = "lblPending";
             this.lblPending.Size = new System.Drawing.Size(546, 15);
             this.lblPending.TabIndex = 7;
@@ -206,18 +141,29 @@
             // 
             this.lblPendlingLabel.AutoSize = true;
             this.lblPendlingLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblPendlingLabel.Location = new System.Drawing.Point(12, 79);
+            this.lblPendlingLabel.Location = new System.Drawing.Point(12, 16);
             this.lblPendlingLabel.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.lblPendlingLabel.Name = "lblPendlingLabel";
             this.lblPendlingLabel.Size = new System.Drawing.Size(53, 13);
             this.lblPendlingLabel.TabIndex = 6;
             this.lblPendlingLabel.Text = "Pending:";
             // 
+            // picState
+            // 
+            this.picState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picState.Location = new System.Drawing.Point(623, 9);
+            this.picState.Name = "picState";
+            this.picState.Size = new System.Drawing.Size(48, 48);
+            this.picState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picState.TabIndex = 9;
+            this.picState.TabStop = false;
+            this.picState.Click += new System.EventHandler(this.ShowLastLogHandler);
+            // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(72, 50);
+            this.progressBar.Location = new System.Drawing.Point(72, 47);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(541, 13);
             this.progressBar.TabIndex = 5;
@@ -226,7 +172,7 @@
             // 
             this.lblProgressLabel.AutoSize = true;
             this.lblProgressLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblProgressLabel.Location = new System.Drawing.Point(12, 50);
+            this.lblProgressLabel.Location = new System.Drawing.Point(12, 47);
             this.lblProgressLabel.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
             this.lblProgressLabel.Name = "lblProgressLabel";
             this.lblProgressLabel.Size = new System.Drawing.Size(54, 13);
@@ -237,7 +183,7 @@
             // 
             this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInfo.Location = new System.Drawing.Point(69, 29);
+            this.lblInfo.Location = new System.Drawing.Point(69, 26);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(546, 13);
             this.lblInfo.TabIndex = 3;
@@ -246,7 +192,7 @@
             // 
             this.lblInfoLabel.AutoSize = true;
             this.lblInfoLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblInfoLabel.Location = new System.Drawing.Point(12, 29);
+            this.lblInfoLabel.Location = new System.Drawing.Point(12, 26);
             this.lblInfoLabel.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
             this.lblInfoLabel.Name = "lblInfoLabel";
             this.lblInfoLabel.Size = new System.Drawing.Size(31, 13);
@@ -257,7 +203,7 @@
             // 
             this.lblTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTask.Location = new System.Drawing.Point(69, 8);
+            this.lblTask.Location = new System.Drawing.Point(69, 5);
             this.lblTask.Name = "lblTask";
             this.lblTask.Size = new System.Drawing.Size(546, 13);
             this.lblTask.TabIndex = 1;
@@ -267,308 +213,85 @@
             // 
             this.lblTaskLabel.AutoSize = true;
             this.lblTaskLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblTaskLabel.Location = new System.Drawing.Point(12, 8);
+            this.lblTaskLabel.Location = new System.Drawing.Point(12, 5);
             this.lblTaskLabel.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
             this.lblTaskLabel.Name = "lblTaskLabel";
             this.lblTaskLabel.Size = new System.Drawing.Size(31, 13);
             this.lblTaskLabel.TabIndex = 0;
             this.lblTaskLabel.Text = "Task:";
             // 
-            // gridApps
-            // 
-            this.gridApps.AllowUserToAddRows = false;
-            this.gridApps.AllowUserToDeleteRows = false;
-            this.gridApps.AllowUserToResizeRows = false;
-            this.gridApps.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.gridApps.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.gridApps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridApps.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colIcon,
-            this.colIndex,
-            this.colLibrary,
-            this.colID,
-            this.colCategory,
-            this.colLabel,
-            this.colVersion,
-            this.colActivated,
-            this.colExcluded,
-            this.colStatus,
-            this.colTyp,
-            this.colLicense,
-            this.colComment});
-            this.gridApps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridApps.Location = new System.Drawing.Point(0, 133);
-            this.gridApps.MultiSelect = false;
-            this.gridApps.Name = "gridApps";
-            this.gridApps.RowHeadersVisible = false;
-            this.gridApps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridApps.ShowEditingIcon = false;
-            this.gridApps.Size = new System.Drawing.Size(684, 165);
-            this.gridApps.TabIndex = 8;
-            this.gridApps.VirtualMode = true;
-            this.gridApps.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridApps_CellContentClick);
-            this.gridApps.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridApps_CellDoubleClick);
-            this.gridApps.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridApps_ColumnHeaderMouseClick);
-            this.gridApps.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.gridApps_RowContextMenuStripNeeded);
-            // 
-            // colIcon
-            // 
-            this.colIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colIcon.DataPropertyName = "StatusIcon";
-            this.colIcon.Frozen = true;
-            this.colIcon.HeaderText = "";
-            this.colIcon.Name = "colIcon";
-            this.colIcon.ReadOnly = true;
-            this.colIcon.Width = 32;
-            // 
-            // colIndex
-            // 
-            this.colIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colIndex.DataPropertyName = "Index";
-            this.colIndex.Frozen = true;
-            this.colIndex.HeaderText = "Order";
-            this.colIndex.Name = "colIndex";
-            this.colIndex.ReadOnly = true;
-            this.colIndex.ToolTipText = "The index number from the app registry.";
-            this.colIndex.Width = 62;
-            // 
-            // colLibrary
-            // 
-            this.colLibrary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colLibrary.DataPropertyName = "AppLibrary";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colLibrary.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colLibrary.Frozen = true;
-            this.colLibrary.HeaderText = "Library";
-            this.colLibrary.Name = "colLibrary";
-            this.colLibrary.ReadOnly = true;
-            this.colLibrary.ToolTipText = "The ID of the library, this app is defined in.";
-            this.colLibrary.Width = 66;
-            // 
-            // colID
-            // 
-            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colID.DataPropertyName = "ID";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colID.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colID.Frozen = true;
-            this.colID.HeaderText = "ID";
-            this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
-            this.colID.ToolTipText = "The full ID of the app including the namespace.";
-            this.colID.Width = 43;
-            // 
-            // colCategory
-            // 
-            this.colCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colCategory.DataPropertyName = "Category";
-            this.colCategory.Frozen = true;
-            this.colCategory.HeaderText = "Category";
-            this.colCategory.Name = "colCategory";
-            this.colCategory.ReadOnly = true;
-            this.colCategory.ToolTipText = "The category of the app.";
-            this.colCategory.Width = 78;
-            // 
-            // colLabel
-            // 
-            this.colLabel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colLabel.DataPropertyName = "Label";
-            this.colLabel.Frozen = true;
-            this.colLabel.HeaderText = "Label";
-            this.colLabel.Name = "colLabel";
-            this.colLabel.ReadOnly = true;
-            this.colLabel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colLabel.ToolTipText = "The user friendly name of the app.";
-            this.colLabel.Width = 59;
-            // 
-            // colVersion
-            // 
-            this.colVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colVersion.DataPropertyName = "Version";
-            this.colVersion.Frozen = true;
-            this.colVersion.HeaderText = "Version";
-            this.colVersion.Name = "colVersion";
-            this.colVersion.ReadOnly = true;
-            this.colVersion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colVersion.ToolTipText = "The version number of the app.";
-            this.colVersion.Width = 70;
-            // 
-            // colActivated
-            // 
-            this.colActivated.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colActivated.DataPropertyName = "IsActive";
-            this.colActivated.FalseValue = "inactive";
-            this.colActivated.Frozen = true;
-            this.colActivated.HeaderText = "Active";
-            this.colActivated.IndeterminateValue = "implicit";
-            this.colActivated.Name = "colActivated";
-            this.colActivated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colActivated.ThreeState = true;
-            this.colActivated.ToolTipText = "States whether the app is activated by the user or not.";
-            this.colActivated.TrueValue = "activated";
-            this.colActivated.Width = 62;
-            // 
-            // colExcluded
-            // 
-            this.colExcluded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colExcluded.DataPropertyName = "IsSuppressed";
-            this.colExcluded.FalseValue = "supported";
-            this.colExcluded.Frozen = true;
-            this.colExcluded.HeaderText = "Deactivated";
-            this.colExcluded.IndeterminateValue = "implicit";
-            this.colExcluded.Name = "colExcluded";
-            this.colExcluded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colExcluded.ThreeState = true;
-            this.colExcluded.ToolTipText = "States whether the app is deactivated by the user.";
-            this.colExcluded.TrueValue = "deactivated";
-            this.colExcluded.Width = 92;
-            // 
-            // colStatus
-            // 
-            this.colStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colStatus.DataPropertyName = "ShortStatus";
-            this.colStatus.Frozen = true;
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.ToolTipText = "A brief description of the apps status.";
-            this.colStatus.Width = 64;
-            // 
-            // colTyp
-            // 
-            this.colTyp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colTyp.DataPropertyName = "Typ";
-            this.colTyp.Frozen = true;
-            this.colTyp.HeaderText = "Typ";
-            this.colTyp.Name = "colTyp";
-            this.colTyp.ReadOnly = true;
-            this.colTyp.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colTyp.ToolTipText = "The typ of the app.";
-            this.colTyp.Width = 48;
-            // 
-            // colLicense
-            // 
-            this.colLicense.DataPropertyName = "License";
-            this.colLicense.Frozen = true;
-            this.colLicense.HeaderText = "License";
-            this.colLicense.Name = "colLicense";
-            this.colLicense.ReadOnly = true;
-            this.colLicense.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colComment
-            // 
-            this.colComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colComment.DataPropertyName = "LongStatus";
-            this.colComment.HeaderText = "Comment";
-            this.colComment.MinimumWidth = 100;
-            this.colComment.Name = "colComment";
-            this.colComment.ReadOnly = true;
-            this.colComment.ToolTipText = "A more detailed description of the apps status.";
-            // 
-            // ctxmAppActions
-            // 
-            this.ctxmAppActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miAppInfo,
-            this.miWebsite,
-            this.tsSeparatorWebsite,
-            this.miInstall,
-            this.miReinstall,
-            this.miPackageUpgrade,
-            this.miUpgrade,
-            this.miUninstall,
-            this.tsSeparatorDownloads,
-            this.miDownloadResource,
-            this.miDeleteResource});
-            this.ctxmAppActions.Name = "ctxMenuAppActions";
-            this.ctxmAppActions.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ctxmAppActions.Size = new System.Drawing.Size(180, 214);
-            // 
-            // miAppInfo
-            // 
-            this.miAppInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.miAppInfo.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.properties_16;
-            this.miAppInfo.Name = "miAppInfo";
-            this.miAppInfo.Size = new System.Drawing.Size(179, 22);
-            this.miAppInfo.Text = "&Property Details";
-            this.miAppInfo.Click += new System.EventHandler(this.AppInfoHandler);
-            // 
-            // miWebsite
-            // 
-            this.miWebsite.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.website_16;
-            this.miWebsite.Name = "miWebsite";
-            this.miWebsite.Size = new System.Drawing.Size(179, 22);
-            this.miWebsite.Text = "Open &Website";
-            this.miWebsite.Click += new System.EventHandler(this.OpenWebsiteHandler);
-            // 
-            // tsSeparatorWebsite
-            // 
-            this.tsSeparatorWebsite.Name = "tsSeparatorWebsite";
-            this.tsSeparatorWebsite.Size = new System.Drawing.Size(176, 6);
-            // 
-            // miInstall
-            // 
-            this.miInstall.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.install_16;
-            this.miInstall.Name = "miInstall";
-            this.miInstall.Size = new System.Drawing.Size(179, 22);
-            this.miInstall.Text = "&Install";
-            this.miInstall.Click += new System.EventHandler(this.InstallAppHandler);
-            // 
-            // miReinstall
-            // 
-            this.miReinstall.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.reinstall_16;
-            this.miReinstall.Name = "miReinstall";
-            this.miReinstall.Size = new System.Drawing.Size(179, 22);
-            this.miReinstall.Text = "R&einstall";
-            this.miReinstall.Click += new System.EventHandler(this.ReinstallAppHandler);
-            // 
-            // miPackageUpgrade
-            // 
-            this.miPackageUpgrade.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.upgrade_16;
-            this.miPackageUpgrade.Name = "miPackageUpgrade";
-            this.miPackageUpgrade.Size = new System.Drawing.Size(179, 22);
-            this.miPackageUpgrade.Text = "&Upgrade Package";
-            this.miPackageUpgrade.Click += new System.EventHandler(this.UpgradePackageHandler);
-            // 
-            // miUpgrade
-            // 
-            this.miUpgrade.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.upgrade_16;
-            this.miUpgrade.Name = "miUpgrade";
-            this.miUpgrade.Size = new System.Drawing.Size(179, 22);
-            this.miUpgrade.Text = "&Upgrade";
-            this.miUpgrade.Click += new System.EventHandler(this.UpgradeAppHandler);
-            // 
-            // miUninstall
-            // 
-            this.miUninstall.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.uninstall_16;
-            this.miUninstall.Name = "miUninstall";
-            this.miUninstall.Size = new System.Drawing.Size(179, 22);
-            this.miUninstall.Text = "U&ninstall";
-            this.miUninstall.Click += new System.EventHandler(this.UninstallAppHandler);
-            // 
-            // miDownloadResource
-            // 
-            this.miDownloadResource.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.download_16;
-            this.miDownloadResource.Name = "miDownloadResource";
-            this.miDownloadResource.Size = new System.Drawing.Size(179, 22);
-            this.miDownloadResource.Text = "D&ownload Resource";
-            this.miDownloadResource.Click += new System.EventHandler(this.DownloadAppResourceHandler);
-            // 
-            // miDeleteResource
-            // 
-            this.miDeleteResource.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.deletedownload_16;
-            this.miDeleteResource.Name = "miDeleteResource";
-            this.miDeleteResource.Size = new System.Drawing.Size(179, 22);
-            this.miDeleteResource.Text = "&Delete Resource";
-            this.miDeleteResource.Click += new System.EventHandler(this.DeleteAppResourceHandler);
-            // 
             // splitterConsole
             // 
             this.splitterConsole.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitterConsole.Location = new System.Drawing.Point(0, 456);
+            this.splitterConsole.Location = new System.Drawing.Point(0, 516);
             this.splitterConsole.Name = "splitterConsole";
             this.splitterConsole.Size = new System.Drawing.Size(684, 5);
             this.splitterConsole.TabIndex = 9;
             this.splitterConsole.TabStop = false;
+            // 
+            // panelBusy
+            // 
+            this.panelBusy.Controls.Add(this.btnOpenLogFile);
+            this.panelBusy.Controls.Add(this.taskInfoList);
+            this.panelBusy.Controls.Add(this.btnCloseBusyPanel);
+            this.panelBusy.Controls.Add(this.picState);
+            this.panelBusy.Controls.Add(this.lblTask);
+            this.panelBusy.Controls.Add(this.lblTaskLabel);
+            this.panelBusy.Controls.Add(this.lblInfoLabel);
+            this.panelBusy.Controls.Add(this.lblInfo);
+            this.panelBusy.Controls.Add(this.progressBar);
+            this.panelBusy.Controls.Add(this.lblProgressLabel);
+            this.panelBusy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBusy.Location = new System.Drawing.Point(0, 62);
+            this.panelBusy.Name = "panelBusy";
+            this.panelBusy.Size = new System.Drawing.Size(684, 296);
+            this.panelBusy.TabIndex = 11;
+            this.panelBusy.Visible = false;
+            // 
+            // btnCloseBusyPanel
+            // 
+            this.btnCloseBusyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCloseBusyPanel.Location = new System.Drawing.Point(604, 267);
+            this.btnCloseBusyPanel.Name = "btnCloseBusyPanel";
+            this.btnCloseBusyPanel.Size = new System.Drawing.Size(68, 23);
+            this.btnCloseBusyPanel.TabIndex = 11;
+            this.btnCloseBusyPanel.Text = "Cl&ose";
+            this.toolTip.SetToolTip(this.btnCloseBusyPanel, "Close the event list. (F4)");
+            this.btnCloseBusyPanel.UseVisualStyleBackColor = true;
+            this.btnCloseBusyPanel.Click += new System.EventHandler(this.btnCloseBusyPanel_Click);
+            // 
+            // btnOpenLogFile
+            // 
+            this.btnOpenLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenLogFile.Location = new System.Drawing.Point(530, 267);
+            this.btnOpenLogFile.Name = "btnOpenLogFile";
+            this.btnOpenLogFile.Size = new System.Drawing.Size(68, 23);
+            this.btnOpenLogFile.TabIndex = 13;
+            this.btnOpenLogFile.Text = "&Log File";
+            this.toolTip.SetToolTip(this.btnOpenLogFile, "Open the last log file. (F12)");
+            this.btnOpenLogFile.UseVisualStyleBackColor = true;
+            this.btnOpenLogFile.Click += new System.EventHandler(this.ShowLastLogHandler);
+            // 
+            // taskInfoList
+            // 
+            this.taskInfoList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.taskInfoList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.taskInfoList.Location = new System.Drawing.Point(0, 76);
+            this.taskInfoList.Margin = new System.Windows.Forms.Padding(0);
+            this.taskInfoList.Name = "taskInfoList";
+            this.taskInfoList.Size = new System.Drawing.Size(684, 186);
+            this.taskInfoList.TabIndex = 12;
+            // 
+            // appList
+            // 
+            this.appList.Core = null;
+            this.appList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.appList.Location = new System.Drawing.Point(0, 62);
+            this.appList.Name = "appList";
+            this.appList.Size = new System.Drawing.Size(684, 296);
+            this.appList.TabIndex = 10;
             // 
             // downloadList
             // 
@@ -577,7 +300,7 @@
             this.downloadList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.downloadList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.downloadList.Downloader = null;
-            this.downloadList.Location = new System.Drawing.Point(0, 303);
+            this.downloadList.Location = new System.Drawing.Point(0, 363);
             this.downloadList.Name = "downloadList";
             this.downloadList.Size = new System.Drawing.Size(684, 153);
             this.downloadList.TabIndex = 6;
@@ -641,6 +364,11 @@
             this.tsmiUpdateEnvironment.ToolTipText = "Updates the Bench environment file(s) and launchers.";
             this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironmentHandler);
             // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
+            // 
             // tsmiUpdateAppLibs
             // 
             this.tsmiUpdateAppLibs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
@@ -678,6 +406,11 @@
     "location.";
             this.tsmiExportClone.Click += new System.EventHandler(this.ExportCloneHandler);
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
+            // 
             // tsmiInstallAll
             // 
             this.tsmiInstallAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.install_16;
@@ -713,6 +446,11 @@
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
             this.tsmiUninstallAll.ToolTipText = "Uninstalls all apps.";
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
             // 
             // tsmiCleanUpObsoleteResources
             // 
@@ -840,6 +578,11 @@
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
+            // 
             // tsmiAlwaysShowDownloads
             // 
             this.tsmiAlwaysShowDownloads.CheckOnClick = true;
@@ -869,9 +612,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 461);
-            this.Controls.Add(this.gridApps);
-            this.Controls.Add(this.panelStatus);
+            this.ClientSize = new System.Drawing.Size(684, 521);
+            this.Controls.Add(this.panelBusy);
+            this.Controls.Add(this.appList);
+            this.Controls.Add(this.panelTop);
             this.Controls.Add(this.splitterBottom);
             this.Controls.Add(this.downloadList);
             this.Controls.Add(this.splitterConsole);
@@ -879,18 +623,20 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(640, 480);
+            this.MinimumSize = new System.Drawing.Size(640, 560);
             this.Name = "SetupForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Bench - Setup";
+            this.Activated += new System.EventHandler(this.SetupForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetupForm_FormClosing);
             this.Load += new System.EventHandler(this.SetupForm_Load);
+            this.Shown += new System.EventHandler(this.SetupForm_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownDownHandler);
-            this.panelStatus.ResumeLayout(false);
-            this.panelStatus.PerformLayout();
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picState)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridApps)).EndInit();
-            this.ctxmAppActions.ResumeLayout(false);
+            this.panelBusy.ResumeLayout(false);
+            this.panelBusy.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -913,7 +659,7 @@
         private DownloadList downloadList;
         private System.Windows.Forms.ToolStripMenuItem tsmView;
         private System.Windows.Forms.ToolStripMenuItem tsmiAlwaysShowDownloads;
-        private System.Windows.Forms.Panel panelStatus;
+        private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblTaskLabel;
         private System.Windows.Forms.Label lblInfo;
@@ -921,25 +667,15 @@
         private System.Windows.Forms.Label lblProgressLabel;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAllResources;
-        private System.Windows.Forms.DataGridView gridApps;
-        private System.Windows.Forms.ContextMenuStrip ctxmAppActions;
-        private System.Windows.Forms.ToolStripMenuItem miInstall;
-        private System.Windows.Forms.ToolStripMenuItem miReinstall;
-        private System.Windows.Forms.ToolStripMenuItem miUpgrade;
-        private System.Windows.Forms.ToolStripMenuItem miDownloadResource;
-        private System.Windows.Forms.ToolStripMenuItem miDeleteResource;
-        private System.Windows.Forms.ToolStripMenuItem miUninstall;
         private System.Windows.Forms.ToolStripMenuItem tsmiReinstallAll;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpgradeAll;
         private System.Windows.Forms.ToolStripMenuItem tsmiUninstallAll;
         private System.Windows.Forms.ToolStripMenuItem tsmiRefreshView;
-        private System.Windows.Forms.ToolStripMenuItem miPackageUpgrade;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdateEnvironment;
         private System.Windows.Forms.Label lblPending;
         private System.Windows.Forms.Label lblPendlingLabel;
         private System.Windows.Forms.Button btnAuto;
         private System.Windows.Forms.ToolStripMenuItem tsmiAuto;
-        private System.Windows.Forms.ToolStripSeparator tsSeparatorDownloads;
         private System.Windows.Forms.Splitter splitterConsole;
         private System.Windows.Forms.PictureBox picState;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowAppIndex;
@@ -947,9 +683,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDownloadAllAppResources;
         private System.Windows.Forms.ToolStripMenuItem tsmiCleanUpObsoleteResources;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.ToolStripMenuItem miWebsite;
-        private System.Windows.Forms.ToolStripSeparator tsSeparatorWebsite;
-        private System.Windows.Forms.ToolStripMenuItem miAppInfo;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpgradeBench;
         private System.Windows.Forms.ToolStripMenuItem tsmiColumns;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdateBench;
@@ -957,19 +690,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem tsmiClose;
         private System.Windows.Forms.ToolStripMenuItem tsmiExportClone;
-        private System.Windows.Forms.DataGridViewImageColumn colIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLibrary;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLabel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colVersion;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colActivated;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colExcluded;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTyp;
-        private System.Windows.Forms.DataGridViewLinkColumn colLicense;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colComment;
         private System.Windows.Forms.ToolStripMenuItem tsmiConfigurationInfo;
+        private AppList appList;
+        private System.Windows.Forms.Panel panelBusy;
+        private System.Windows.Forms.Button btnCloseBusyPanel;
+        private TaskInfoList taskInfoList;
+        private System.Windows.Forms.Button btnOpenLogFile;
     }
 }

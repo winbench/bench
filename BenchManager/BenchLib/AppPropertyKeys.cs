@@ -30,6 +30,7 @@ namespace Mastersign.Bench
         public const string IsRequired = "IsRequired";
         public const string IsDependency = "IsDependency";
         public const string Label = "Label";
+        public const string Tags = "Tags";
         public const string Typ = "Typ";
         public const string Version = "Version"; // supports architecture alternatives
         public const string InstalledVersion = "InstalledVersion";

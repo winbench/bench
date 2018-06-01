@@ -31,11 +31,17 @@ namespace Mastersign.Bench
         public TaskInfo[] Infos { get; private set; }
 
         /// <summary>
+        /// The absolute path to the log file documenting the action or <c>null</c>.
+        /// </summary>
+        public string LogFile { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="ActionResult"/>.
         /// </summary>
         /// <param name="infos">An enumeration of <see cref="TaskInfo"/> objects or <c>null</c>.</param>
         /// <param name="canceled">A flag, indicating if the task execution was canceled.</param>
-        public ActionResult(IEnumerable<TaskInfo> infos = null, bool canceled = false)
+        /// <param name="logFile">An absolute path to the log file documenting the action, or <c>null</c>.</param>
+        public ActionResult(IEnumerable<TaskInfo> infos = null, bool canceled = false, string logFile = null)
         {
             if (infos == null) throw new ArgumentNullException("infos");
 
@@ -54,6 +60,7 @@ namespace Mastersign.Bench
             }
             Infos = infoList.ToArray();
             AffectedApps = appList.ToArray();
+            LogFile = logFile;
         }
 
         /// <summary>

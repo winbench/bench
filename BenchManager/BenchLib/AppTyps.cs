@@ -12,8 +12,11 @@ namespace Mastersign.Bench
         /// <summary>The name of the default app typ.</summary>
         public const string Default = "default";
 
-        /// <summary>The name of the meta app typ for custom apps and groups.</summary>
+        /// <summary>The name of the meta app typ for custom apps.</summary>
         public const string Meta = "meta";
+
+        /// <summary>The name of the group app typ.</summary>
+        public const string Group = "group";
 
         /// <summary>The name of the app typ for Node.js packages, managed by npm.</summary>
         public const string NodePackage = "node-package";

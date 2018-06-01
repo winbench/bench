@@ -30,6 +30,7 @@ namespace Mastersign.Bench.Dashboard
             core.AppStateChanged += AppStateChangedHandler;
             core.BusyChanged += CoreBusyChangedHandler;
             InitializeComponent();
+            InitializePositionManagement();
             InitializeAppLauncherList();
             InitializeDocsMenu();
             InitializeTopPanel();
@@ -38,6 +39,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            UpdateVersion();
             if (core.SetupOnStartup)
             {
                 SetupHandler(this, EventArgs.Empty);
@@ -55,6 +57,7 @@ namespace Mastersign.Bench.Dashboard
                     "Closing Setup Window",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            if (setupForm != null) setupForm.Close();
         }
 
         private void CoreBusyChangedHandler(object sender, EventArgs e)
@@ -75,6 +78,12 @@ namespace Mastersign.Bench.Dashboard
             InitializeAppLauncherList();
             InitializeDocsMenu();
             InitializeStatusStrip();
+        }
+
+        private void InitializePositionManagement()
+        {
+            core.WindowPositionManager.RegisterForm(
+                this, ConfigPropertyKeys.DashboardMainPosition);
         }
 
         private void InitializeAppLauncherList()
@@ -256,6 +265,38 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        private async void UpdateVersion()
+        {
+            var config = core.Config;
+            var currentVersion = config.GetStringValue(ConfigPropertyKeys.Version);
+            tsslVersion.Text = currentVersion;
+            if (config.GetBooleanValue(ConfigPropertyKeys.AutoUpdateCheck))
+            {
+                tsslVersionStatus.Image = Resources.progress_16_animation;
+                var version = await core.GetLatestVersionNumber();
+                if (IsDisposed) return;
+                if (version != null)
+                {
+                    if (!string.Equals(currentVersion, version))
+                    {
+                        tsslVersionStatus.Image = Resources.warning_16;
+                    }
+                    else
+                    {
+                        tsslVersionStatus.Image = Resources.ok_16;
+                    }
+                }
+                else
+                {
+                    tsslVersionStatus.Image = Resources.error_grey_16;
+                }
+            }
+            else
+            {
+                tsslVersionStatus.Visible = false;
+            }
+        }
+
         private void RootPathClickHandler(object sender, EventArgs e)
         {
             core.ShowPathInExplorer(core.Config.BenchRootDir);
@@ -303,11 +344,14 @@ namespace Mastersign.Bench.Dashboard
             }
             if (!setupForm.Visible)
             {
-                setupForm.Show();
+                setupForm.Show(this);
+                // workaround for the focus jumping back to the main form
+                Application.DoEvents();
+                setupForm.Activate();
             }
             else
             {
-                setupForm.Focus();
+                setupForm.Activate();
             }
         }
 
@@ -350,9 +394,21 @@ namespace Mastersign.Bench.Dashboard
         private void KeyDownDownHandler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F5 && e.Modifiers == Keys.None)
-            {
                 core.Reload(configChanged: true);
-            }
+            else if (e.KeyCode == Keys.F1 && e.Modifiers == Keys.None)
+                DocsHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.Enter && e.Modifiers == Keys.Alt)
+                AboutHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.F6 && e.Modifiers == Keys.None)
+                SetupHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.F5 && e.Modifiers == Keys.Control)
+                AutoSetupHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Alt)
+                ShellCmdHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.P && e.Modifiers == Keys.Alt)
+                ShellPowerShellHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.B && e.Modifiers == Keys.Alt)
+                ShellBashHandler(this, EventArgs.Empty);
         }
     }
 }

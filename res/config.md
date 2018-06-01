@@ -111,3 +111,4 @@
 * QuickAccessBash: `false`
 * TextEditorApp: `Bench.BenchNpp`
 * DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`
+* DashboardSavePositions: `true`
