@@ -30,6 +30,7 @@ namespace Mastersign.Bench.Dashboard
             }
             lblAcks.Text = string.Join(" / ", acks);
             lblUpdate.Text = string.Empty;
+            linkWebsite.Text = core.Config.GetStringValue(ConfigPropertyKeys.Website);
             if (core.Config.GetBooleanValue(ConfigPropertyKeys.AutoUpdateCheck))
             {
                 CheckForUpdate();
@@ -39,6 +40,11 @@ namespace Mastersign.Bench.Dashboard
         private void linkAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("http://www.mastersign.de/");
+        }
+
+        private void linkWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(linkWebsite.Text);
         }
 
         private void VersionDoubleClickHandler(object sender, EventArgs e)
