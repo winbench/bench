@@ -163,7 +163,7 @@
             this.lblSubtitle.Name = "lblSubtitle";
             this.lblSubtitle.Size = new System.Drawing.Size(427, 21);
             this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "Portable Environment for Software Development on Windows";
+            this.lblSubtitle.Text = "Portable Software Environment for Windows";
             // 
             // lblTitle
             // 
