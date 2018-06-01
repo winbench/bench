@@ -635,16 +635,34 @@ namespace Mastersign.Bench.Dashboard
             new ConfigInfoDialog(core.Config).ShowDialog(this);
         }
 
-        private void KeyDownDownHandler(object sender, KeyEventArgs e)
+        private async void KeyDownDownHandler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape && e.Modifiers == Keys.None)
             {
-                Close();
+                if (core.Busy)
+                {
+                    var cancelation = core.Cancelation;
+                    if (cancelation != null) cancelation.Cancel();
+                }
+                else
+                {
+                    Close();
+                }
             }
-            if (e.KeyCode == Keys.F && e.Modifiers == Keys.Control)
-            {
+            else if (e.KeyCode == Keys.F && e.Modifiers == Keys.Control)
                 appList.FocusSearchBox();
+            else if (e.KeyCode == Keys.F5 && e.Modifiers == Keys.Control)
+            {
+                if (!core.Busy)
+                {
+                    AnnounceTask("Automatic Setup");
+                    await core.AutoSetupAsync(TaskInfoHandler);
+                }
             }
+            else if (e.KeyCode == Keys.F4 && e.Modifiers == Keys.None)
+                BusyPanelVisible = false;
+            else if (e.KeyCode == Keys.F12 && e.Modifiers == Keys.None)
+                ShowLastLogHandler(this, EventArgs.Empty);
         }
 
         private void SetupForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -716,7 +734,7 @@ namespace Mastersign.Bench.Dashboard
                     btnOpenLogFile.Enabled = false;
                     panelBusy.Visible = true;
                 }
-                else
+                else if (!core.Busy)
                 {
                     panelBusy.Visible = false;
                     appList.Visible = true;

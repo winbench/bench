@@ -49,8 +49,9 @@
             this.splitterConsole = new System.Windows.Forms.Splitter();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelBusy = new System.Windows.Forms.Panel();
-            this.taskInfoList = new Mastersign.Bench.Dashboard.TaskInfoList();
             this.btnCloseBusyPanel = new System.Windows.Forms.Button();
+            this.btnOpenLogFile = new System.Windows.Forms.Button();
+            this.taskInfoList = new Mastersign.Bench.Dashboard.TaskInfoList();
             this.appList = new Mastersign.Bench.Dashboard.AppList();
             this.downloadList = new Mastersign.Bench.Dashboard.DownloadList();
             this.menuStrip = new Mastersign.Bench.Dashboard.ImmediateMenuStrip();
@@ -83,7 +84,6 @@
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiConfigurationInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnOpenLogFile = new System.Windows.Forms.Button();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,26 +93,6 @@
             this.panelBusy.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
             // 
             // splitterBottom
             // 
@@ -143,6 +123,7 @@
             this.btnAuto.Name = "btnAuto";
             this.btnAuto.Size = new System.Drawing.Size(49, 32);
             this.btnAuto.TabIndex = 8;
+            this.toolTip.SetToolTip(this.btnAuto, "Start or cancel auto setup (Ctrl + F5, ESC)");
             this.btnAuto.UseVisualStyleBackColor = true;
             this.btnAuto.Click += new System.EventHandler(this.AutoHandler);
             // 
@@ -267,6 +248,30 @@
             this.panelBusy.TabIndex = 11;
             this.panelBusy.Visible = false;
             // 
+            // btnCloseBusyPanel
+            // 
+            this.btnCloseBusyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCloseBusyPanel.Location = new System.Drawing.Point(604, 267);
+            this.btnCloseBusyPanel.Name = "btnCloseBusyPanel";
+            this.btnCloseBusyPanel.Size = new System.Drawing.Size(68, 23);
+            this.btnCloseBusyPanel.TabIndex = 11;
+            this.btnCloseBusyPanel.Text = "Cl&ose";
+            this.toolTip.SetToolTip(this.btnCloseBusyPanel, "Close the event list. (F4)");
+            this.btnCloseBusyPanel.UseVisualStyleBackColor = true;
+            this.btnCloseBusyPanel.Click += new System.EventHandler(this.btnCloseBusyPanel_Click);
+            // 
+            // btnOpenLogFile
+            // 
+            this.btnOpenLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenLogFile.Location = new System.Drawing.Point(530, 267);
+            this.btnOpenLogFile.Name = "btnOpenLogFile";
+            this.btnOpenLogFile.Size = new System.Drawing.Size(68, 23);
+            this.btnOpenLogFile.TabIndex = 13;
+            this.btnOpenLogFile.Text = "&Log File";
+            this.toolTip.SetToolTip(this.btnOpenLogFile, "Open the last log file. (F12)");
+            this.btnOpenLogFile.UseVisualStyleBackColor = true;
+            this.btnOpenLogFile.Click += new System.EventHandler(this.ShowLastLogHandler);
+            // 
             // taskInfoList
             // 
             this.taskInfoList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -278,17 +283,6 @@
             this.taskInfoList.Name = "taskInfoList";
             this.taskInfoList.Size = new System.Drawing.Size(684, 186);
             this.taskInfoList.TabIndex = 12;
-            // 
-            // btnCloseBusyPanel
-            // 
-            this.btnCloseBusyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCloseBusyPanel.Location = new System.Drawing.Point(604, 267);
-            this.btnCloseBusyPanel.Name = "btnCloseBusyPanel";
-            this.btnCloseBusyPanel.Size = new System.Drawing.Size(68, 23);
-            this.btnCloseBusyPanel.TabIndex = 11;
-            this.btnCloseBusyPanel.Text = "Close";
-            this.btnCloseBusyPanel.UseVisualStyleBackColor = true;
-            this.btnCloseBusyPanel.Click += new System.EventHandler(this.btnCloseBusyPanel_Click);
             // 
             // appList
             // 
@@ -370,6 +364,11 @@
             this.tsmiUpdateEnvironment.ToolTipText = "Updates the Bench environment file(s) and launchers.";
             this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironmentHandler);
             // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
+            // 
             // tsmiUpdateAppLibs
             // 
             this.tsmiUpdateAppLibs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
@@ -407,6 +406,11 @@
     "location.";
             this.tsmiExportClone.Click += new System.EventHandler(this.ExportCloneHandler);
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
+            // 
             // tsmiInstallAll
             // 
             this.tsmiInstallAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.install_16;
@@ -442,6 +446,11 @@
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
             this.tsmiUninstallAll.ToolTipText = "Uninstalls all apps.";
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
             // 
             // tsmiCleanUpObsoleteResources
             // 
@@ -569,6 +578,11 @@
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
+            // 
             // tsmiAlwaysShowDownloads
             // 
             this.tsmiAlwaysShowDownloads.CheckOnClick = true;
@@ -593,17 +607,6 @@
             this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
-            // 
-            // btnOpenLogFile
-            // 
-            this.btnOpenLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenLogFile.Location = new System.Drawing.Point(530, 267);
-            this.btnOpenLogFile.Name = "btnOpenLogFile";
-            this.btnOpenLogFile.Size = new System.Drawing.Size(68, 23);
-            this.btnOpenLogFile.TabIndex = 13;
-            this.btnOpenLogFile.Text = "Log File";
-            this.btnOpenLogFile.UseVisualStyleBackColor = true;
-            this.btnOpenLogFile.Click += new System.EventHandler(this.ShowLastLogHandler);
             // 
             // SetupForm
             // 
