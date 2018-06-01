@@ -41,18 +41,7 @@ namespace Mastersign.Bench.Dashboard
                 lblDetails.Text = info.DetailedMessage;
             }
             txtOutput.Text = info.ConsoleOutput;
-            if (info is TaskError error)
-            {
-                txtException.Text = error.ToString();
-                Icon = Resources.error;
-            }
-            else
-            {
-                lblExceptionLabel.Visible = false;
-                txtException.Visible = false;
-                tableLayout.RowStyles[tableLayout.GetRow(txtOutput)].Height = 1f;
-                Icon = Resources.ok;
-            }
+            Icon = info is TaskError ? Resources.error : Resources.ok;
         }
     }
 }

@@ -34,13 +34,11 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.lblContext = new System.Windows.Forms.Label();
             this.lblOutputLabel = new System.Windows.Forms.Label();
-            this.lblExceptionLabel = new System.Windows.Forms.Label();
             this.lblDetailsLabel = new System.Windows.Forms.Label();
             this.lblMessageLabel = new System.Windows.Forms.Label();
             this.lblContextLabel = new System.Windows.Forms.Label();
             this.lblTimestampLabel = new System.Windows.Forms.Label();
             this.lblTimestamp = new System.Windows.Forms.Label();
-            this.txtException = new System.Windows.Forms.TextBox();
             this.tableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,29 +47,27 @@
             this.tableLayout.ColumnCount = 2;
             this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Controls.Add(this.txtOutput, 1, 5);
+            this.tableLayout.Controls.Add(this.txtOutput, 1, 4);
             this.tableLayout.Controls.Add(this.lblDetails, 1, 3);
             this.tableLayout.Controls.Add(this.lblMessage, 1, 2);
             this.tableLayout.Controls.Add(this.lblContext, 1, 1);
-            this.tableLayout.Controls.Add(this.lblOutputLabel, 0, 5);
-            this.tableLayout.Controls.Add(this.lblExceptionLabel, 0, 4);
+            this.tableLayout.Controls.Add(this.lblOutputLabel, 0, 4);
             this.tableLayout.Controls.Add(this.lblDetailsLabel, 0, 3);
             this.tableLayout.Controls.Add(this.lblMessageLabel, 0, 2);
             this.tableLayout.Controls.Add(this.lblContextLabel, 0, 1);
             this.tableLayout.Controls.Add(this.lblTimestampLabel, 0, 0);
             this.tableLayout.Controls.Add(this.lblTimestamp, 1, 0);
-            this.tableLayout.Controls.Add(this.txtException, 1, 4);
             this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayout.Location = new System.Drawing.Point(0, 0);
             this.tableLayout.Name = "tableLayout";
-            this.tableLayout.RowCount = 6;
+            this.tableLayout.RowCount = 5;
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 67F));
-            this.tableLayout.Size = new System.Drawing.Size(628, 495);
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayout.Size = new System.Drawing.Size(628, 304);
             this.tableLayout.TabIndex = 0;
             // 
             // txtOutput
@@ -79,13 +75,13 @@
             this.txtOutput.BackColor = System.Drawing.SystemColors.Window;
             this.txtOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOutput.Location = new System.Drawing.Point(80, 243);
+            this.txtOutput.Location = new System.Drawing.Point(80, 116);
             this.txtOutput.Margin = new System.Windows.Forms.Padding(3, 6, 10, 10);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtOutput.Size = new System.Drawing.Size(538, 242);
+            this.txtOutput.Size = new System.Drawing.Size(538, 178);
             this.txtOutput.TabIndex = 11;
             this.txtOutput.Text = "Console Output";
             // 
@@ -126,26 +122,14 @@
             // 
             this.lblOutputLabel.AutoSize = true;
             this.lblOutputLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOutputLabel.Location = new System.Drawing.Point(3, 237);
+            this.lblOutputLabel.Location = new System.Drawing.Point(3, 110);
             this.lblOutputLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
             this.lblOutputLabel.Name = "lblOutputLabel";
             this.lblOutputLabel.Padding = new System.Windows.Forms.Padding(10, 6, 0, 6);
-            this.lblOutputLabel.Size = new System.Drawing.Size(71, 248);
+            this.lblOutputLabel.Size = new System.Drawing.Size(71, 184);
             this.lblOutputLabel.TabIndex = 5;
             this.lblOutputLabel.Text = "Output:";
             this.lblOutputLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblExceptionLabel
-            // 
-            this.lblExceptionLabel.AutoSize = true;
-            this.lblExceptionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblExceptionLabel.Location = new System.Drawing.Point(3, 110);
-            this.lblExceptionLabel.Name = "lblExceptionLabel";
-            this.lblExceptionLabel.Padding = new System.Windows.Forms.Padding(10, 6, 0, 6);
-            this.lblExceptionLabel.Size = new System.Drawing.Size(71, 127);
-            this.lblExceptionLabel.TabIndex = 4;
-            this.lblExceptionLabel.Text = "Exception:";
-            this.lblExceptionLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblDetailsLabel
             // 
@@ -208,26 +192,11 @@
             this.lblTimestamp.TabIndex = 6;
             this.lblTimestamp.Text = "0000-00-00 00:00:00";
             // 
-            // txtException
-            // 
-            this.txtException.BackColor = System.Drawing.SystemColors.Window;
-            this.txtException.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtException.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtException.Location = new System.Drawing.Point(80, 116);
-            this.txtException.Margin = new System.Windows.Forms.Padding(3, 6, 10, 3);
-            this.txtException.Multiline = true;
-            this.txtException.Name = "txtException";
-            this.txtException.ReadOnly = true;
-            this.txtException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtException.Size = new System.Drawing.Size(538, 118);
-            this.txtException.TabIndex = 10;
-            this.txtException.Text = "Exception with Stack Trace";
-            // 
             // TaskInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(628, 495);
+            this.ClientSize = new System.Drawing.Size(628, 304);
             this.Controls.Add(this.tableLayout);
             this.MaximizeBox = false;
             this.Name = "TaskInfoForm";
@@ -252,8 +221,6 @@
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Label lblContext;
         private System.Windows.Forms.Label lblOutputLabel;
-        private System.Windows.Forms.Label lblExceptionLabel;
         private System.Windows.Forms.Label lblTimestamp;
-        private System.Windows.Forms.TextBox txtException;
     }
 }
