@@ -255,6 +255,9 @@
     <None Include="Resources\browse_file_16.png" />
     <None Include="Resources\export_clone_16.png" />
     <Content Include="Resources\copy_16.png" />
+    <Content Include="Resources\error_16.png" />
+    <Content Include="Resources\error_grey_16.png" />
+    <Content Include="Resources\library_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />
     <None Include="Resources\docs_16.png" />

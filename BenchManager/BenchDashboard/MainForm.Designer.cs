@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ToolStripStatusLabel tsslRootPathLabel;
+            System.Windows.Forms.ToolStripStatusLabel tsslAppCountLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.tsslRootPathLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslRootPath = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsslAppCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslAppCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelTop = new System.Windows.Forms.Panel();
             this.btnAutoSetup = new System.Windows.Forms.Button();
@@ -45,6 +45,12 @@
             this.btnSetup = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.appLauncherList = new Mastersign.Bench.Dashboard.AppLauncherControl();
+            this.tsslSpacer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslVersionLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslVersionStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            tsslRootPathLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            tsslAppCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.SuspendLayout();
@@ -52,40 +58,47 @@
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsslRootPathLabel,
+            tsslRootPathLabel,
             this.tsslRootPath,
-            this.tsslAppCountLabel,
-            this.tsslAppCount});
-            this.statusStrip.Location = new System.Drawing.Point(0, 339);
+            tsslAppCountLabel,
+            this.tsslAppCount,
+            this.tsslSpacer,
+            this.tsslVersionLabel,
+            this.tsslVersion,
+            this.tsslVersionStatus});
+            this.statusStrip.Location = new System.Drawing.Point(0, 337);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(564, 22);
+            this.statusStrip.Size = new System.Drawing.Size(564, 24);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // tsslRootPathLabel
             // 
-            this.tsslRootPathLabel.Name = "tsslRootPathLabel";
-            this.tsslRootPathLabel.Size = new System.Drawing.Size(62, 17);
-            this.tsslRootPathLabel.Text = "Root Path:";
+            tsslRootPathLabel.Name = "tsslRootPathLabel";
+            tsslRootPathLabel.Size = new System.Drawing.Size(62, 19);
+            tsslRootPathLabel.Text = "Root Path:";
             // 
             // tsslRootPath
             // 
             this.tsslRootPath.IsLink = true;
             this.tsslRootPath.Name = "tsslRootPath";
-            this.tsslRootPath.Size = new System.Drawing.Size(47, 17);
+            this.tsslRootPath.Size = new System.Drawing.Size(47, 19);
             this.tsslRootPath.Text = "<Path>";
             this.tsslRootPath.Click += new System.EventHandler(this.RootPathClickHandler);
             // 
             // tsslAppCountLabel
             // 
-            this.tsslAppCountLabel.Name = "tsslAppCountLabel";
-            this.tsslAppCountLabel.Size = new System.Drawing.Size(73, 17);
-            this.tsslAppCountLabel.Text = "Active Apps:";
+            tsslAppCountLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            tsslAppCountLabel.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            tsslAppCountLabel.Name = "tsslAppCountLabel";
+            tsslAppCountLabel.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            tsslAppCountLabel.Size = new System.Drawing.Size(81, 19);
+            tsslAppCountLabel.Text = "Active Apps:";
             // 
             // tsslAppCount
             // 
             this.tsslAppCount.Name = "tsslAppCount";
-            this.tsslAppCount.Size = new System.Drawing.Size(56, 17);
+            this.tsslAppCount.Size = new System.Drawing.Size(56, 19);
             this.tsslAppCount.Text = "<Count>";
             // 
             // panelTop
@@ -194,6 +207,34 @@
             this.appLauncherList.Size = new System.Drawing.Size(564, 310);
             this.appLauncherList.TabIndex = 1;
             // 
+            // tsslSpacer
+            // 
+            this.tsslSpacer.Name = "tsslSpacer";
+            this.tsslSpacer.Size = new System.Drawing.Size(160, 19);
+            this.tsslSpacer.Spring = true;
+            // 
+            // tsslVersionLabel
+            // 
+            this.tsslVersionLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.tsslVersionLabel.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.tsslVersionLabel.Name = "tsslVersionLabel";
+            this.tsslVersionLabel.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.tsslVersionLabel.Size = new System.Drawing.Size(56, 19);
+            this.tsslVersionLabel.Text = "Version:";
+            // 
+            // tsslVersion
+            // 
+            this.tsslVersion.Name = "tsslVersion";
+            this.tsslVersion.Size = new System.Drawing.Size(31, 19);
+            this.tsslVersion.Text = "0.0.0";
+            // 
+            // tsslVersionStatus
+            // 
+            this.tsslVersionStatus.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.ok_16;
+            this.tsslVersionStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
+            this.tsslVersionStatus.Name = "tsslVersionStatus";
+            this.tsslVersionStatus.Size = new System.Drawing.Size(16, 19);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -223,9 +264,7 @@
 
         private AppLauncherControl appLauncherList;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel tsslRootPathLabel;
         private System.Windows.Forms.ToolStripStatusLabel tsslRootPath;
-        private System.Windows.Forms.ToolStripStatusLabel tsslAppCountLabel;
         private System.Windows.Forms.ToolStripStatusLabel tsslAppCount;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Button btnSetup;
@@ -236,6 +275,10 @@
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button btnDocs;
         private System.Windows.Forms.Button btnAutoSetup;
+        private System.Windows.Forms.ToolStripStatusLabel tsslSpacer;
+        private System.Windows.Forms.ToolStripStatusLabel tsslVersionLabel;
+        private System.Windows.Forms.ToolStripStatusLabel tsslVersion;
+        private System.Windows.Forms.ToolStripStatusLabel tsslVersionStatus;
     }
 }
 

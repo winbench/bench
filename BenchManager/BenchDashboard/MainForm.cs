@@ -39,6 +39,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            UpdateVersion();
             if (core.SetupOnStartup)
             {
                 SetupHandler(this, EventArgs.Empty);
@@ -261,6 +262,38 @@ namespace Mastersign.Bench.Dashboard
                     x = x + b.Width + d;
                     Debug.WriteLine("Next Stop: " + x);
                 }
+            }
+        }
+
+        private async void UpdateVersion()
+        {
+            var config = core.Config;
+            var currentVersion = config.GetStringValue(ConfigPropertyKeys.Version);
+            tsslVersion.Text = currentVersion;
+            if (config.GetBooleanValue(ConfigPropertyKeys.AutoUpdateCheck))
+            {
+                tsslVersionStatus.Image = Resources.progress_16_animation;
+                var version = await core.GetLatestVersionNumber();
+                if (IsDisposed) return;
+                if (version != null)
+                {
+                    if (!string.Equals(currentVersion, version))
+                    {
+                        tsslVersionStatus.Image = Resources.warning_16;
+                    }
+                    else
+                    {
+                        tsslVersionStatus.Image = Resources.ok_16;
+                    }
+                }
+                else
+                {
+                    tsslVersionStatus.Image = Resources.error_grey_16;
+                }
+            }
+            else
+            {
+                tsslVersionStatus.Visible = false;
             }
         }
 
