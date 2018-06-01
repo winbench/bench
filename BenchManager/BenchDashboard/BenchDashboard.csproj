@@ -151,6 +151,18 @@
       <DependentUpon>SetupForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SortedBindingList.cs" />
+    <Compile Include="TaskInfoList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskInfoList.Designer.cs">
+      <DependentUpon>TaskInfoList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskInfoForm.Designer.cs">
+      <DependentUpon>TaskInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UiExtensions.cs" />
     <Compile Include="Vendor\IconExtractor\IconExtractor.cs" />
     <Compile Include="Vendor\IconExtractor\IconUtil.cs" />
@@ -203,6 +215,12 @@
     <EmbeddedResource Include="SetupForm.resx">
       <DependentUpon>SetupForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TaskInfoList.resx">
+      <DependentUpon>TaskInfoList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskInfoForm.resx">
+      <DependentUpon>TaskInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
@@ -230,6 +248,8 @@
     <None Include="Resources\missing_app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ok.ico" />
+    <None Include="Resources\ok_outline_16.png" />
     <None Include="Resources\update_apps_16.png" />
     <None Include="Resources\update_bench_16.png" />
     <None Include="Resources\progress_16_animation.gif" />
@@ -264,9 +284,11 @@
     <None Include="Resources\browse_file_16.png" />
     <None Include="Resources\export_clone_16.png" />
     <Content Include="Resources\copy_16.png" />
+    <None Include="Resources\error.ico" />
     <Content Include="Resources\error_16.png" />
     <Content Include="Resources\error_grey_16.png" />
     <None Include="Resources\remove_16.png" />
+    <None Include="Resources\error_outline_16.png" />
     <Content Include="Resources\library_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />

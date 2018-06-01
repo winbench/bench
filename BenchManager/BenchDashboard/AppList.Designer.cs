@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gridApps = new System.Windows.Forms.DataGridView();
             this.colIcon = new System.Windows.Forms.DataGridViewImageColumn();
             this.colIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,13 +88,13 @@
             this.colLicense,
             this.colComment});
             this.gridApps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridApps.Location = new System.Drawing.Point(0, 32);
+            this.gridApps.Location = new System.Drawing.Point(0, 40);
             this.gridApps.MultiSelect = false;
             this.gridApps.Name = "gridApps";
             this.gridApps.RowHeadersVisible = false;
             this.gridApps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridApps.ShowEditingIcon = false;
-            this.gridApps.Size = new System.Drawing.Size(1044, 313);
+            this.gridApps.Size = new System.Drawing.Size(1044, 305);
             this.gridApps.TabIndex = 1;
             this.gridApps.VirtualMode = true;
             this.gridApps.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridApps_CellContentClick);
@@ -127,8 +127,8 @@
             // 
             this.colLibrary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colLibrary.DataPropertyName = "AppLibrary";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colLibrary.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colLibrary.DefaultCellStyle = dataGridViewCellStyle5;
             this.colLibrary.Frozen = true;
             this.colLibrary.HeaderText = "Library";
             this.colLibrary.Name = "colLibrary";
@@ -140,8 +140,8 @@
             // 
             this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colID.DataPropertyName = "ID";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colID.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colID.DefaultCellStyle = dataGridViewCellStyle6;
             this.colID.Frozen = true;
             this.colID.HeaderText = "ID";
             this.colID.Name = "colID";
@@ -364,14 +364,14 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1044, 32);
+            this.panelTop.Size = new System.Drawing.Size(1044, 40);
             this.panelTop.TabIndex = 0;
             // 
             // btnClearSearch
             // 
             this.btnClearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearSearch.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.remove_16;
-            this.btnClearSearch.Location = new System.Drawing.Point(1015, 4);
+            this.btnClearSearch.Location = new System.Drawing.Point(1008, 8);
             this.btnClearSearch.Name = "btnClearSearch";
             this.btnClearSearch.Size = new System.Drawing.Size(24, 24);
             this.btnClearSearch.TabIndex = 1;
@@ -382,9 +382,9 @@
             // 
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearch.Location = new System.Drawing.Point(5, 5);
+            this.txtSearch.Location = new System.Drawing.Point(13, 9);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(1010, 20);
+            this.txtSearch.Size = new System.Drawing.Size(995, 20);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);

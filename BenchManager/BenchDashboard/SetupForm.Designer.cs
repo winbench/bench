@@ -35,11 +35,11 @@
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupForm));
             this.splitterBottom = new System.Windows.Forms.Splitter();
-            this.panelStatus = new System.Windows.Forms.Panel();
-            this.picState = new System.Windows.Forms.PictureBox();
+            this.panelTop = new System.Windows.Forms.Panel();
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblPending = new System.Windows.Forms.Label();
             this.lblPendlingLabel = new System.Windows.Forms.Label();
+            this.picState = new System.Windows.Forms.PictureBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblProgressLabel = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
@@ -48,6 +48,9 @@
             this.lblTaskLabel = new System.Windows.Forms.Label();
             this.splitterConsole = new System.Windows.Forms.Splitter();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.panelBusy = new System.Windows.Forms.Panel();
+            this.taskInfoList = new Mastersign.Bench.Dashboard.TaskInfoList();
+            this.btnCloseBusyPanel = new System.Windows.Forms.Button();
             this.appList = new Mastersign.Bench.Dashboard.AppList();
             this.downloadList = new Mastersign.Bench.Dashboard.DownloadList();
             this.menuStrip = new Mastersign.Bench.Dashboard.ImmediateMenuStrip();
@@ -80,14 +83,36 @@
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiConfigurationInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenLogFile = new System.Windows.Forms.Button();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.panelStatus.SuspendLayout();
+            this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picState)).BeginInit();
+            this.panelBusy.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
             // 
             // splitterBottom
             // 
@@ -98,41 +123,23 @@
             this.splitterBottom.TabIndex = 0;
             this.splitterBottom.TabStop = false;
             // 
-            // panelStatus
+            // panelTop
             // 
-            this.panelStatus.BackColor = System.Drawing.SystemColors.Control;
-            this.panelStatus.Controls.Add(this.picState);
-            this.panelStatus.Controls.Add(this.btnAuto);
-            this.panelStatus.Controls.Add(this.lblPending);
-            this.panelStatus.Controls.Add(this.lblPendlingLabel);
-            this.panelStatus.Controls.Add(this.progressBar);
-            this.panelStatus.Controls.Add(this.lblProgressLabel);
-            this.panelStatus.Controls.Add(this.lblInfo);
-            this.panelStatus.Controls.Add(this.lblInfoLabel);
-            this.panelStatus.Controls.Add(this.lblTask);
-            this.panelStatus.Controls.Add(this.lblTaskLabel);
-            this.panelStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelStatus.Location = new System.Drawing.Point(0, 24);
-            this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(684, 111);
-            this.panelStatus.TabIndex = 7;
-            // 
-            // picState
-            // 
-            this.picState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picState.Location = new System.Drawing.Point(623, 12);
-            this.picState.Name = "picState";
-            this.picState.Size = new System.Drawing.Size(48, 48);
-            this.picState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.picState.TabIndex = 9;
-            this.picState.TabStop = false;
-            this.picState.Click += new System.EventHandler(this.ShowLastLogHandler);
+            this.panelTop.BackColor = System.Drawing.SystemColors.Control;
+            this.panelTop.Controls.Add(this.btnAuto);
+            this.panelTop.Controls.Add(this.lblPending);
+            this.panelTop.Controls.Add(this.lblPendlingLabel);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 24);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(684, 38);
+            this.panelTop.TabIndex = 7;
             // 
             // btnAuto
             // 
             this.btnAuto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAuto.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.do_32;
-            this.btnAuto.Location = new System.Drawing.Point(623, 69);
+            this.btnAuto.Location = new System.Drawing.Point(623, 6);
             this.btnAuto.Name = "btnAuto";
             this.btnAuto.Size = new System.Drawing.Size(49, 32);
             this.btnAuto.TabIndex = 8;
@@ -143,7 +150,7 @@
             // 
             this.lblPending.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPending.Location = new System.Drawing.Point(69, 79);
+            this.lblPending.Location = new System.Drawing.Point(69, 16);
             this.lblPending.Name = "lblPending";
             this.lblPending.Size = new System.Drawing.Size(546, 15);
             this.lblPending.TabIndex = 7;
@@ -153,18 +160,29 @@
             // 
             this.lblPendlingLabel.AutoSize = true;
             this.lblPendlingLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblPendlingLabel.Location = new System.Drawing.Point(12, 79);
+            this.lblPendlingLabel.Location = new System.Drawing.Point(12, 16);
             this.lblPendlingLabel.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.lblPendlingLabel.Name = "lblPendlingLabel";
             this.lblPendlingLabel.Size = new System.Drawing.Size(53, 13);
             this.lblPendlingLabel.TabIndex = 6;
             this.lblPendlingLabel.Text = "Pending:";
             // 
+            // picState
+            // 
+            this.picState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picState.Location = new System.Drawing.Point(623, 9);
+            this.picState.Name = "picState";
+            this.picState.Size = new System.Drawing.Size(48, 48);
+            this.picState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picState.TabIndex = 9;
+            this.picState.TabStop = false;
+            this.picState.Click += new System.EventHandler(this.ShowLastLogHandler);
+            // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(72, 50);
+            this.progressBar.Location = new System.Drawing.Point(72, 47);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(541, 13);
             this.progressBar.TabIndex = 5;
@@ -173,7 +191,7 @@
             // 
             this.lblProgressLabel.AutoSize = true;
             this.lblProgressLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblProgressLabel.Location = new System.Drawing.Point(12, 50);
+            this.lblProgressLabel.Location = new System.Drawing.Point(12, 47);
             this.lblProgressLabel.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
             this.lblProgressLabel.Name = "lblProgressLabel";
             this.lblProgressLabel.Size = new System.Drawing.Size(54, 13);
@@ -184,7 +202,7 @@
             // 
             this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInfo.Location = new System.Drawing.Point(69, 29);
+            this.lblInfo.Location = new System.Drawing.Point(69, 26);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(546, 13);
             this.lblInfo.TabIndex = 3;
@@ -193,7 +211,7 @@
             // 
             this.lblInfoLabel.AutoSize = true;
             this.lblInfoLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblInfoLabel.Location = new System.Drawing.Point(12, 29);
+            this.lblInfoLabel.Location = new System.Drawing.Point(12, 26);
             this.lblInfoLabel.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
             this.lblInfoLabel.Name = "lblInfoLabel";
             this.lblInfoLabel.Size = new System.Drawing.Size(31, 13);
@@ -204,7 +222,7 @@
             // 
             this.lblTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTask.Location = new System.Drawing.Point(69, 8);
+            this.lblTask.Location = new System.Drawing.Point(69, 5);
             this.lblTask.Name = "lblTask";
             this.lblTask.Size = new System.Drawing.Size(546, 13);
             this.lblTask.TabIndex = 1;
@@ -214,7 +232,7 @@
             // 
             this.lblTaskLabel.AutoSize = true;
             this.lblTaskLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblTaskLabel.Location = new System.Drawing.Point(12, 8);
+            this.lblTaskLabel.Location = new System.Drawing.Point(12, 5);
             this.lblTaskLabel.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
             this.lblTaskLabel.Name = "lblTaskLabel";
             this.lblTaskLabel.Size = new System.Drawing.Size(31, 13);
@@ -230,13 +248,55 @@
             this.splitterConsole.TabIndex = 9;
             this.splitterConsole.TabStop = false;
             // 
+            // panelBusy
+            // 
+            this.panelBusy.Controls.Add(this.btnOpenLogFile);
+            this.panelBusy.Controls.Add(this.taskInfoList);
+            this.panelBusy.Controls.Add(this.btnCloseBusyPanel);
+            this.panelBusy.Controls.Add(this.picState);
+            this.panelBusy.Controls.Add(this.lblTask);
+            this.panelBusy.Controls.Add(this.lblTaskLabel);
+            this.panelBusy.Controls.Add(this.lblInfoLabel);
+            this.panelBusy.Controls.Add(this.lblInfo);
+            this.panelBusy.Controls.Add(this.progressBar);
+            this.panelBusy.Controls.Add(this.lblProgressLabel);
+            this.panelBusy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBusy.Location = new System.Drawing.Point(0, 62);
+            this.panelBusy.Name = "panelBusy";
+            this.panelBusy.Size = new System.Drawing.Size(684, 296);
+            this.panelBusy.TabIndex = 11;
+            this.panelBusy.Visible = false;
+            // 
+            // taskInfoList
+            // 
+            this.taskInfoList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.taskInfoList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.taskInfoList.Location = new System.Drawing.Point(0, 76);
+            this.taskInfoList.Margin = new System.Windows.Forms.Padding(0);
+            this.taskInfoList.Name = "taskInfoList";
+            this.taskInfoList.Size = new System.Drawing.Size(684, 186);
+            this.taskInfoList.TabIndex = 12;
+            // 
+            // btnCloseBusyPanel
+            // 
+            this.btnCloseBusyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCloseBusyPanel.Location = new System.Drawing.Point(604, 267);
+            this.btnCloseBusyPanel.Name = "btnCloseBusyPanel";
+            this.btnCloseBusyPanel.Size = new System.Drawing.Size(68, 23);
+            this.btnCloseBusyPanel.TabIndex = 11;
+            this.btnCloseBusyPanel.Text = "Close";
+            this.btnCloseBusyPanel.UseVisualStyleBackColor = true;
+            this.btnCloseBusyPanel.Click += new System.EventHandler(this.btnCloseBusyPanel_Click);
+            // 
             // appList
             // 
             this.appList.Core = null;
             this.appList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.appList.Location = new System.Drawing.Point(0, 135);
+            this.appList.Location = new System.Drawing.Point(0, 62);
             this.appList.Name = "appList";
-            this.appList.Size = new System.Drawing.Size(684, 223);
+            this.appList.Size = new System.Drawing.Size(684, 296);
             this.appList.TabIndex = 10;
             // 
             // downloadList
@@ -310,11 +370,6 @@
             this.tsmiUpdateEnvironment.ToolTipText = "Updates the Bench environment file(s) and launchers.";
             this.tsmiUpdateEnvironment.Click += new System.EventHandler(this.UpdateEnvironmentHandler);
             // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(234, 6);
-            // 
             // tsmiUpdateAppLibs
             // 
             this.tsmiUpdateAppLibs.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.update_apps_16;
@@ -352,11 +407,6 @@
     "location.";
             this.tsmiExportClone.Click += new System.EventHandler(this.ExportCloneHandler);
             // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
-            // 
             // tsmiInstallAll
             // 
             this.tsmiInstallAll.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.install_16;
@@ -392,11 +442,6 @@
             this.tsmiUninstallAll.Text = "U&ninstall Apps";
             this.tsmiUninstallAll.ToolTipText = "Uninstalls all apps.";
             this.tsmiUninstallAll.Click += new System.EventHandler(this.UninstallAllHandler);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
             // 
             // tsmiCleanUpObsoleteResources
             // 
@@ -524,11 +569,6 @@
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
             // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
-            // 
             // tsmiAlwaysShowDownloads
             // 
             this.tsmiAlwaysShowDownloads.CheckOnClick = true;
@@ -554,13 +594,25 @@
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
             // 
+            // btnOpenLogFile
+            // 
+            this.btnOpenLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenLogFile.Location = new System.Drawing.Point(530, 267);
+            this.btnOpenLogFile.Name = "btnOpenLogFile";
+            this.btnOpenLogFile.Size = new System.Drawing.Size(68, 23);
+            this.btnOpenLogFile.TabIndex = 13;
+            this.btnOpenLogFile.Text = "Log File";
+            this.btnOpenLogFile.UseVisualStyleBackColor = true;
+            this.btnOpenLogFile.Click += new System.EventHandler(this.ShowLastLogHandler);
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 521);
+            this.Controls.Add(this.panelBusy);
             this.Controls.Add(this.appList);
-            this.Controls.Add(this.panelStatus);
+            this.Controls.Add(this.panelTop);
             this.Controls.Add(this.splitterBottom);
             this.Controls.Add(this.downloadList);
             this.Controls.Add(this.splitterConsole);
@@ -577,9 +629,11 @@
             this.Load += new System.EventHandler(this.SetupForm_Load);
             this.Shown += new System.EventHandler(this.SetupForm_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownDownHandler);
-            this.panelStatus.ResumeLayout(false);
-            this.panelStatus.PerformLayout();
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picState)).EndInit();
+            this.panelBusy.ResumeLayout(false);
+            this.panelBusy.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -602,7 +656,7 @@
         private DownloadList downloadList;
         private System.Windows.Forms.ToolStripMenuItem tsmView;
         private System.Windows.Forms.ToolStripMenuItem tsmiAlwaysShowDownloads;
-        private System.Windows.Forms.Panel panelStatus;
+        private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblTaskLabel;
         private System.Windows.Forms.Label lblInfo;
@@ -635,5 +689,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiExportClone;
         private System.Windows.Forms.ToolStripMenuItem tsmiConfigurationInfo;
         private AppList appList;
+        private System.Windows.Forms.Panel panelBusy;
+        private System.Windows.Forms.Button btnCloseBusyPanel;
+        private TaskInfoList taskInfoList;
+        private System.Windows.Forms.Button btnOpenLogFile;
     }
 }

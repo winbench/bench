@@ -21,7 +21,7 @@ namespace Mastersign.Bench.Dashboard
 
         private ConEmuExecutionHost conHost;
         private ConEmuControl conControl;
-        
+
         public SetupForm(Core core)
         {
             this.core = core;
@@ -193,18 +193,19 @@ namespace Mastersign.Bench.Dashboard
 
         private void CoreBusyChangedHandler(object sender, EventArgs e)
         {
-            var notBusy = !core.Busy;
+            var busy = core.Busy;
             foreach (ToolStripItem tsmi in tsmSetup.DropDownItems)
             {
-                tsmi.Enabled = notBusy;
+                tsmi.Enabled = !busy;
             }
             foreach (ToolStripItem tsmi in tsmEdit.DropDownItems)
             {
-                tsmi.Enabled = notBusy;
+                tsmi.Enabled = !busy;
             }
-            btnAuto.Image = notBusy
+            btnAuto.Image = !busy
                             ? Resources.do_32
                             : Resources.stop_32;
+            if (busy) BusyPanelVisible = true;
         }
 
         private void CoreActionStateChangedHandler(object sender, EventArgs e)
@@ -224,19 +225,28 @@ namespace Mastersign.Bench.Dashboard
                 case ActionState.FinishedWithoutErrors:
                     picState.Image = Resources.ok_48;
                     NotifyBusyStateChanged(false);
+                    BusyPanelVisible = false;
                     break;
                 case ActionState.FinishedWithErrors:
                     picState.Image = Resources.warning_48;
                     NotifyBusyStateChanged(false);
+                    EnableBusyPanelButtons();
                     break;
                 case ActionState.Canceled:
                     picState.Image = Resources.cancelled_48;
                     NotifyBusyStateChanged(false);
+                    EnableBusyPanelButtons();
                     break;
                 default:
                     picState.Image = null;
                     break;
             }
+        }
+
+        private void EnableBusyPanelButtons()
+        {
+            btnCloseBusyPanel.Enabled = true;
+            btnOpenLogFile.Enabled = true;
         }
 
         private void NotifyBusyStateChanged(bool busy)
@@ -441,6 +451,7 @@ namespace Mastersign.Bench.Dashboard
             lblInfo.Text = info.Message;
             if (info is TaskProgress progressInfo) UpdateProgressBar(progressInfo.Progress);
             if (info is TaskError taskError) toolTip.SetToolTip(picState, taskError.Message);
+            taskInfoList.AddTaskInfo(info);
         }
 
         private void AppListTaskStartedHandler(object sender, TaskStartedEventArgs ea)
@@ -598,8 +609,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void ShowAppIndexHandler(object sender, EventArgs e)
         {
-            var lib = (sender as ToolStripItem)?.Tag as AppLibrary;
-            if (lib != null)
+            if ((sender as ToolStripItem)?.Tag is AppLibrary lib)
             {
                 var viewer = new MarkdownViewer(core);
                 viewer.LoadMarkdown(Path.Combine(lib.BaseDir,
@@ -691,6 +701,33 @@ namespace Mastersign.Bench.Dashboard
         {
             appList.Focus();
             appList.FocusSearchBox();
+        }
+
+        private bool BusyPanelVisible
+        {
+            get => panelBusy.Visible;
+            set
+            {
+                if (panelBusy.Visible == value) return;
+                if (value)
+                {
+                    appList.Visible = false;
+                    btnCloseBusyPanel.Enabled = false;
+                    btnOpenLogFile.Enabled = false;
+                    panelBusy.Visible = true;
+                }
+                else
+                {
+                    panelBusy.Visible = false;
+                    appList.Visible = true;
+                    taskInfoList.Clear();
+                }
+            }
+        }
+
+        private void btnCloseBusyPanel_Click(object sender, EventArgs e)
+        {
+            BusyPanelVisible = false;
         }
     }
 }
