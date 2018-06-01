@@ -208,7 +208,13 @@ namespace Mastersign.Bench.Dashboard
             => SyncWithGui(() => ConfigReloaded?.Invoke(this, EventArgs.Empty));
 
         private void OnAllAppStateChanged()
-            => SyncWithGui(() => AllAppStateChanged?.Invoke(this, EventArgs.Empty));
+        {
+            foreach (var app in Config.Apps)
+            {
+                app.DiscardCachedValues();
+            }
+            SyncWithGui(() => AllAppStateChanged?.Invoke(this, EventArgs.Empty));
+        }
 
         private void OnAppActivationChanged()
             => SyncWithGui(() => AppActivationChanged?.Invoke(this, EventArgs.Empty));

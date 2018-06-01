@@ -73,6 +73,12 @@
     </Compile>
     <Compile Include="ActionState.cs" />
     <Compile Include="AppEventArgs.cs" />
+    <Compile Include="AppList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AppList.Designer.cs">
+      <DependentUpon>AppList.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigInfoDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     <Compile Include="WinFormsUserInterface.cs" />
     <EmbeddedResource Include="AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppList.resx">
+      <DependentUpon>AppList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigInfoDialog.resx">
       <DependentUpon>ConfigInfoDialog.cs</DependentUpon>
@@ -257,6 +266,7 @@
     <Content Include="Resources\copy_16.png" />
     <Content Include="Resources\error_16.png" />
     <Content Include="Resources\error_grey_16.png" />
+    <None Include="Resources\remove_16.png" />
     <Content Include="Resources\library_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />

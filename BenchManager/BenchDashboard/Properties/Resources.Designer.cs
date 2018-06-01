@@ -522,6 +522,16 @@ namespace Mastersign.Bench.Dashboard.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap remove_16 {
+            get {
+                object obj = ResourceManager.GetObject("remove_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap setup_16 {
             get {
                 object obj = ResourceManager.GetObject("setup_16", resourceCulture);
