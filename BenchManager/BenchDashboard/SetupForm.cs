@@ -154,8 +154,14 @@ namespace Mastersign.Bench.Dashboard
             UpdatePendingCounts();
         }
 
+        private DateTime lastPendingCount = DateTime.Now;
+        private TimeSpan pendingCountInterval = new TimeSpan(0, 0, 2);
+
         private void UpdatePendingCounts()
         {
+            var now = DateTime.Now;
+            if (core.Busy && now < lastPendingCount + pendingCountInterval) return;
+            lastPendingCount = now;
             var downloadIDs = new List<string>();
             var uninstallIDs = new List<string>();
             var installIDs = new List<string>();
