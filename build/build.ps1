@@ -112,6 +112,12 @@ if ($LastExitCode -ne 0)
     return
 }
 
+# Create output directory if necessary
+if (!(Test-Path "$rootDir\$buildTargetDir"))
+{
+    mkdir "$rootDir\$buildTargetDir" | Out-Null
+}
+
 # Build the Visual Studio solution
 echo ""
 echo "Building Visual Studio solution $solutionFile ..."
