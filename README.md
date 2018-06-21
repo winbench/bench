@@ -45,4 +45,4 @@ Copyright © by Tobias Kiertscher <dev@mastersign.de>.
 [About]: https://winbench.org/about/
 [Scenarios]: https://winbench.org/scenarios/
 [Quickstart]: https://winbench.org/start/
-[Apps]: https://winbench.org/apps/
+[Apps]: https://apps.winbench.org/
