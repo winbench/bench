@@ -8,7 +8,7 @@
 
 [![Bench](docs/static/img/bench-logo.png)][bench-website]
 
-_Portable Environment for Software Development on Windows_
+_Portable Software Environment for Windows_
 
 [**Bench Website**][bench-website]
 
