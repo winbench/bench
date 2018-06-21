@@ -270,26 +270,34 @@ namespace Mastersign.Bench.Dashboard
             var config = core.Config;
             var currentVersion = config.GetStringValue(ConfigPropertyKeys.Version);
             tsslVersion.Text = currentVersion;
+            tsslVersion.ToolTipText = null;
             if (config.GetBooleanValue(ConfigPropertyKeys.AutoUpdateCheck))
             {
                 tsslVersionStatus.Image = Resources.progress_16_animation;
+                tsslVersionStatus.ToolTipText = "Determining the latest Bench version...";
+                tsslVersion.ToolTipText = tsslVersionStatus.ToolTipText;
                 var version = await core.GetLatestVersionNumber();
                 if (IsDisposed) return;
                 if (version != null)
                 {
-                    if (!string.Equals(currentVersion, version))
+                    if (string.Equals(currentVersion, version))
                     {
-                        tsslVersionStatus.Image = Resources.warning_16;
+                        tsslVersionStatus.Image = Resources.ok_16;
+                        tsslVersionStatus.ToolTipText = "The Bench program is up to date.";
                     }
                     else
                     {
-                        tsslVersionStatus.Image = Resources.ok_16;
+                        tsslVersionStatus.Image = Resources.warning_16;
+                        tsslVersionStatus.ToolTipText = "There is a newer version of Bench available: " + version;
                     }
                 }
                 else
                 {
                     tsslVersionStatus.Image = Resources.error_grey_16;
+                    tsslVersionStatus.ToolTipText =
+                        "Determining the latest Bench version failed due to network issues.";
                 }
+                tsslVersion.ToolTipText = tsslVersionStatus.ToolTipText;
             }
             else
             {
