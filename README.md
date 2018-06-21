@@ -8,7 +8,7 @@
 
 [![Bench](docs/static/img/bench-logo.png)][bench-website]
 
-_Portable Environment for Software Development on Windows_
+_Portable Software Environment for Windows_
 
 [**Bench Website**][bench-website]
 
@@ -45,4 +45,4 @@ Copyright © by Tobias Kiertscher <dev@mastersign.de>.
 [About]: https://winbench.org/about/
 [Scenarios]: https://winbench.org/scenarios/
 [Quickstart]: https://winbench.org/start/
-[Apps]: https://winbench.org/apps/
+[Apps]: https://apps.winbench.org/

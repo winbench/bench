@@ -25,6 +25,17 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+## [0.20.2] - 2018-06-21
+
+[0.20.2]: https://github.com/mastersign/bench/compare/v0.20.1...v0.20.2
+
+### Added
+- Tool Tips to the version check symbol in the dashboard
+
+### Fixed
+- Error handling when downloading version string
+  ([#132](https://github.com/mastersign/bench/issues/132))
+
 ## [0.20.1] - 2018-06-01
 
 [0.20.1]: https://github.com/mastersign/bench/compare/v0.20.0...v0.20.1

@@ -301,12 +301,15 @@ namespace Mastersign.Bench
             var wc = InitializeWebClient(config);
             wc.DownloadStringCompleted += (sender, eventArgs) =>
             {
-                resultHandler(eventArgs.Error == null && !eventArgs.Cancelled, eventArgs.Result);
-                wc.Dispose();
+                if (eventArgs.Error == null) resultHandler(!eventArgs.Cancelled, eventArgs.Result);
             };
-            wc.DownloadStringAsync(url);
+            wc.DownloadStringTaskAsync(url)
+                .ContinueWith(t =>
+                {
+                    if (t.Exception != null) resultHandler(false, null);
+                    wc.Dispose();
+                });
         }
-
 
         /// <summary>
         /// Downloads a string via HTTP(S).
@@ -342,10 +345,14 @@ namespace Mastersign.Bench
             var wc = InitializeWebClient(config);
             wc.DownloadFileCompleted += (sender, eventArgs) =>
             {
-                resultHandler(eventArgs.Error == null && !eventArgs.Cancelled);
-                wc.Dispose();
+                if (eventArgs.Error == null) resultHandler(!eventArgs.Cancelled);
             };
-            wc.DownloadStringAsync(url);
+            wc.DownloadFileTaskAsync(url, targetFile)
+                .ContinueWith(t =>
+                {
+                    if (t.Exception != null) resultHandler(false);
+                    wc.Dispose();
+                });
         }
 
         /// <summary>
@@ -380,7 +387,7 @@ namespace Mastersign.Bench
         {
             var uri = new Uri(config.GetStringValue(ConfigPropertyKeys.VersionUrl));
             DownloadStringAsync(config, uri,
-                (success, content) => resultHandler(success, content != null ? content.Trim() : null));
+                (success, content) => resultHandler(success, content?.Trim()));
         }
 
         /// <summary>
@@ -392,7 +399,7 @@ namespace Mastersign.Bench
         {
             var uri = new Uri(config.GetStringValue(ConfigPropertyKeys.VersionUrl));
             var result = DownloadString(config, uri);
-            return result != null ? result.Trim() : null;
+            return result?.Trim();
         }
 
         private static string RunCustomScript(BenchConfiguration config, IProcessExecutionHost execHost,
