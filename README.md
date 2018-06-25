@@ -6,7 +6,7 @@
 [![GitHub Issues][issues-img]][issues-url]
 [![Website][website-img]][bench-website]
 
-[![Bench](docs/static/img/bench-logo.png)][bench-website]
+[![Bench](res/logo.png)][bench-website]
 
 _Portable Software Environment for Windows_
 
@@ -17,7 +17,7 @@ Browse through the [_Usage Scenarios_][Scenarios] to learn what Bench can do for
 Dive right in, by reading the [_Quickstart_][Quickstart].  
 And take a look at the [_App Libraries_][Apps] if you wonder if your favorite tool is already supported by Bench.
 
-![Bench Dashboard](docs/static/img/teaser.png)
+![Bench Dashboard](res/teaser.png)
 
 ## Related Repositories
 
