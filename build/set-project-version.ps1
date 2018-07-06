@@ -41,7 +41,7 @@ $installCode = $versionRegex.Replace($installCode, "SET VERSION=${newVersion}")
 
 echo "- CHANGELOG.md"
 $changelogFile = "$RootDir\CHANGELOG.md"
-$repoUrl = "https://github.com/mastersign/bench"
+$repoUrl = "https://github.com/winbench/bench"
 $changeLogText = [IO.File]::ReadAllText($changelogFile, $utf8)
 $versionPattern = "^\[(?<version>[\d\.]+)\]: \S*\s*$"
 $versionRegex = New-Object System.Text.RegularExpressions.Regex($versionPattern, [System.Text.RegularExpressions.RegexOptions]::Multiline)

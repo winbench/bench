@@ -18,12 +18,12 @@ This document follows the guidelines in http://keepachangelog.md.
 
 Use the following change groups: Added, Changed, Deprecated, Removed, Fixed, Security
 Add a link to the GitHub diff like
-[<this-version>]: https://github.com/mastersign/bench/compare/v<last-version>...v<this-version>
+[<this-version>]: https://github.com/winbench/bench/compare/v<last-version>...v<this-version>
 -->
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/mastersign/bench/compare/master...dev
+[Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
 ### Added
 * Menu item _View_ &rarr; _Last Logfile_
@@ -37,22 +37,22 @@ Add a link to the GitHub diff like
 
 ### Fixed
 * Apply search filter after reloading the Bench configuration
-  ([#134](https://github.com/mastersign/bench/issues/134))
+  ([#134](https://github.com/winbench/bench/issues/134))
 
 ## [0.20.2] - 2018-06-21
 
-[0.20.2]: https://github.com/mastersign/bench/compare/v0.20.1...v0.20.2
+[0.20.2]: https://github.com/winbench/bench/compare/v0.20.1...v0.20.2
 
 ### Added
 - Tool Tips to the version check symbol in the dashboard
 
 ### Fixed
 - Error handling when downloading version string
-  ([#132](https://github.com/mastersign/bench/issues/132))
+  ([#132](https://github.com/winbench/bench/issues/132))
 
 ## [0.20.1] - 2018-06-01
 
-[0.20.1]: https://github.com/mastersign/bench/compare/v0.20.0...v0.20.1
+[0.20.1]: https://github.com/winbench/bench/compare/v0.20.0...v0.20.1
 
 ### Added
 - Minor performance improvements
@@ -62,35 +62,35 @@ Add a link to the GitHub diff like
 
 ## [0.20.0] - 2018-06-01
 
-[0.20.0]: https://github.com/mastersign/bench/compare/v0.19.0...v0.20.0
+[0.20.0]: https://github.com/winbench/bench/compare/v0.19.0...v0.20.0
 
 ### Added
 - App typ `group` with the same behavior as `meta`
-  ([#117](https://github.com/mastersign/bench/issues/117))
+  ([#117](https://github.com/winbench/bench/issues/117))
 - Support for app property `Tags` as a list of strings
-  ([#123](https://github.com/mastersign/bench/issues/123))
+  ([#123](https://github.com/winbench/bench/issues/123))
 - App search in setup dialog
-  ([#124](https://github.com/mastersign/bench/issues/124))
+  ([#124](https://github.com/winbench/bench/issues/124))
 - Click on the status icon opens the last log file
-  ([#125](https://github.com/mastersign/bench/issues/125))
+  ([#125](https://github.com/winbench/bench/issues/125))
 - Save window positions if config property `DashboardSavePositions` is set to `true`
-  ([#127](https://github.com/mastersign/bench/issues/127))
+  ([#127](https://github.com/winbench/bench/issues/127))
 - Keybindings for buttons in the Dashboard main window and the setup dialog
 - Version check in the status bar of the Dashboard main window
 
 ### Changed
 - Changed the setup dialog, display event list during setup process
-  ([#125](https://github.com/mastersign/bench/issues/125))
+  ([#125](https://github.com/winbench/bench/issues/125))
 - The height of the download list in the setup dialog is automatically
   adjusted to the number of parallel downloads from the configuration
-  ([#126](https://github.com/mastersign/bench/issues/126))
+  ([#126](https://github.com/winbench/bench/issues/126))
 - The step order for auto setup changed: first download then uninstall...
-  ([#128](https://github.com/mastersign/bench/issues/128))
+  ([#128](https://github.com/winbench/bench/issues/128))
 - Log files are saved with the file name extension `.log` instead of `.txt` from now on
 
 ## [0.19.0] - 2018-05-18
 
-[0.19.0]: https://github.com/mastersign/bench/compare/v0.18.0...v0.19.0
+[0.19.0]: https://github.com/winbench/bench/compare/v0.18.0...v0.19.0
 
 ### Changed
 - Minimum requirement for Bench is .NET 4.6.2
@@ -98,17 +98,17 @@ Add a link to the GitHub diff like
 ### Fixed
 - Links in template for user apps `res\apps.template.md`
 - Handling long paths during app setup
-  ([#122](https://github.com/mastersign/bench/issues/122))
+  ([#122](https://github.com/winbench/bench/issues/122))
 
 ## [0.18.0] - 2018-02-12
 
-[0.18.0]: https://github.com/mastersign/bench/compare/v0.17.3...v0.18.0
+[0.18.0]: https://github.com/winbench/bench/compare/v0.17.3...v0.18.0
 
 ### Added
 - Migration magic to adjust app library paths from old to new repository location
 
 ### Changed
-- Changed project home from `https://github.com/mastersign/bench...`
+- Changed project home from `https://github.com/winbench/bench...`
   to <https://github.com/winbench/>
 - Changed project website from `http://mastersign.github.io/bench`
   to <https://winbench.org/>
@@ -118,7 +118,7 @@ Add a link to the GitHub diff like
 
 ## [0.17.3] - 2018-02-09
 
-[0.17.3]: https://github.com/mastersign/bench/compare/v0.17.2...v0.17.3
+[0.17.3]: https://github.com/winbench/bench/compare/v0.17.2...v0.17.3
 
 ### Added
 - New Bench CLI flag `bench transfer install --extract-only` to suppress
@@ -129,14 +129,14 @@ Add a link to the GitHub diff like
 
 ## [0.17.2] - 2018-02-05
 
-[0.17.2]: https://github.com/mastersign/bench/compare/v0.17.1...v0.17.2
+[0.17.2]: https://github.com/winbench/bench/compare/v0.17.1...v0.17.2
 
 ### Changed
 - Run archive extraction in the background, instead in the _PowerShell Execution Host_
 
 ## [0.17.1] - 2018-02-03
 
-[0.17.1]: https://github.com/mastersign/bench/compare/v0.17.0...v0.17.1
+[0.17.1]: https://github.com/winbench/bench/compare/v0.17.0...v0.17.1
 
 ### Added
 - Allow passing a target directory as commandline argument to `bench-install.bat`
@@ -153,23 +153,23 @@ Add a link to the GitHub diff like
 
 ## [0.17.0] - 2017-11-13
 
-[0.17.0]: https://github.com/mastersign/bench/compare/v0.16.2...v0.17.0
+[0.17.0]: https://github.com/winbench/bench/compare/v0.16.2...v0.17.0
 
 ### Added
 - Added root scripts to the Bench environment and transfer packages
-  ([#111](https://github.com/mastersign/bench/issues/111))
+  ([#111](https://github.com/winbench/bench/issues/111))
 - Drag-and-drop support for launcher icons on the dashboard
-  ([#112](https://github.com/mastersign/bench/issues/112))
+  ([#112](https://github.com/winbench/bench/issues/112))
 - Context menu to the launcher icons on the dashboard
-  ([#113](https://github.com/mastersign/bench/issues/113))
+  ([#113](https://github.com/winbench/bench/issues/113))
 
 ### Fixed
 - Dialog size of initialization assistent
-  ([#114](https://github.com/mastersign/bench/issues/114))
+  ([#114](https://github.com/winbench/bench/issues/114))
 - Inconsistent warning in SFX transfer package
-  ([#115](https://github.com/mastersign/bench/issues/115))
+  ([#115](https://github.com/winbench/bench/issues/115))
 - Failing downloads with HTTPS
-  ([#119](https://github.com/mastersign/bench/issues/119))
+  ([#119](https://github.com/winbench/bench/issues/119))
 
 ### Changed
 - Dropped Support for .NET Framework 2.0,
@@ -177,7 +177,7 @@ Add a link to the GitHub diff like
 
 ## [0.16.2] - 2017-07-10
 
-[0.16.2]: https://github.com/mastersign/bench/compare/v0.16.1...v0.16.2
+[0.16.2]: https://github.com/winbench/bench/compare/v0.16.1...v0.16.2
 
 ### Added
 - Hints in the transfer dialog of the Bench Dashboard,
@@ -185,7 +185,7 @@ Add a link to the GitHub diff like
 - Isolation selection in the initialization wizzard
 - Shortcut key _F5_ for reloading the Bench configuration
   in the Bench Dashboard
-  ([#110](https://github.com/mastersign/bench/issues/110))
+  ([#110](https://github.com/winbench/bench/issues/110))
 
 ### Changed
 - Switched from _MarkdownEdit_ to a pre-configured _Notepad++_
@@ -196,22 +196,22 @@ Add a link to the GitHub diff like
 
 ## [0.16.1] - 2017-05-17
 
-[0.16.1]: https://github.com/mastersign/bench/compare/v0.16.0...v0.16.1
+[0.16.1]: https://github.com/winbench/bench/compare/v0.16.0...v0.16.1
 
 ### Fixed
 - Crash when downloading (race condition during notification processing)
-  ([#108](https://github.com/mastersign/bench/issues/108))
+  ([#108](https://github.com/winbench/bench/issues/108))
 
 ## [0.16.0] - 2017-05-16
 
-[0.16.0]: https://github.com/mastersign/bench/compare/v0.15.2...v0.16.0
+[0.16.0]: https://github.com/winbench/bench/compare/v0.15.2...v0.16.0
 
 ### Added
 - New app typ `python-package` to generalize Python packages
   which are compatible with Python 2.7 and 3.x
-  ([#103](https://github.com/mastersign/bench/issues/103))
+  ([#103](https://github.com/winbench/bench/issues/103))
 - Support for x64 apps
-  ([#100](https://github.com/mastersign/bench/issues/100))
+  ([#100](https://github.com/winbench/bench/issues/100))
     + SAPP &ndash; _system architecture property postfix_
       like `Url64Bit` and `Url32Bit` for app property `Url`
     + config property `Allow64Bit`
@@ -219,11 +219,11 @@ Add a link to the GitHub diff like
     + app property `Only64Bit`
     + additional page in initialization wizzard
 - App property `LauncherWorkingDir`
-  ([#98](https://github.com/mastersign/bench/issues/98))
+  ([#98](https://github.com/winbench/bench/issues/98))
 - Support for copying values from app info dialog
-  ([#106](https://github.com/mastersign/bench/issues/106))
+  ([#106](https://github.com/winbench/bench/issues/106))
 - Configuration info dialog
-  ([#105](https://github.com/mastersign/bench/issues/105))
+  ([#105](https://github.com/winbench/bench/issues/105))
 
 ### Changed
 - Improved the semantics of tasks which target one specific app.
@@ -232,32 +232,32 @@ Add a link to the GitHub diff like
 
 ### Fixed
 - Respect deactivated apps when running tasks which target on a specific app
-  ([#104](https://github.com/mastersign/bench/issues/104))
+  ([#104](https://github.com/winbench/bench/issues/104))
 - Allow the `bench.exe` to run on the CLR 4.0 without additionally installing
   the CLR 2.0.
-  ([#107](https://github.com/mastersign/bench/issues/107))
+  ([#107](https://github.com/winbench/bench/issues/107))
 
 ## [0.15.2] - 2017-03-29
 
-[0.15.2]: https://github.com/mastersign/bench/compare/v0.15.1...v0.15.2
+[0.15.2]: https://github.com/winbench/bench/compare/v0.15.1...v0.15.2
 
 ### Fixed
 - Pre-selected apps and flag for immediate setup start
-  ([#101](https://github.com/mastersign/bench/issues/101))
+  ([#101](https://github.com/winbench/bench/issues/101))
 - Problems with downloads behind a HTTP(S) proxy
-  ([#102](https://github.com/mastersign/bench/issues/102))
+  ([#102](https://github.com/winbench/bench/issues/102))
 
 ## [0.15.1] - 2017-02-17
 
-[0.15.1]: https://github.com/mastersign/bench/compare/v0.15.0...v0.15.1
+[0.15.1]: https://github.com/winbench/bench/compare/v0.15.0...v0.15.1
 
 ### Fixed
 - Broken upgrade mechanism
-  ([#97](https://github.com/mastersign/bench/issues/97))
+  ([#97](https://github.com/winbench/bench/issues/97))
 
 ## [0.15.0] - 2017-02-17
 
-[0.15.0]: https://github.com/mastersign/bench/compare/v0.14.1...v0.15.0
+[0.15.0]: https://github.com/winbench/bench/compare/v0.14.1...v0.15.0
 
 In this release the directories for cached and installed files where changed.
 To prevent downloading all app resources and installing all apps again,
@@ -274,7 +274,7 @@ Otherwise, a fresh Bench installation and copying the user configuration manuall
 
 ### Added
 - Bench CLI commands
-  ([#87](https://github.com/mastersign/bench/issues/87))
+  ([#87](https://github.com/winbench/bench/issues/87))
     + `bench manage config set <Property Name> <Property Value>`
     + `bench manage config edit [--async]`
 - Export and cloning of Bench environment with SFX archive support
@@ -308,11 +308,11 @@ Otherwise, a fresh Bench installation and copying the user configuration manuall
 
 ### Fixed
 - Recognition of HTML comments in config files
-  ([#96](https://github.com/mastersign/bench/issues/96))
+  ([#96](https://github.com/winbench/bench/issues/96))
 
 ## [0.14.1] - 2017-01-30
 
-[0.14.1]: https://github.com/mastersign/bench/compare/v0.14.0...v0.14.1
+[0.14.1]: https://github.com/winbench/bench/compare/v0.14.0...v0.14.1
 
 ### Added
 - Ruby and LaTeX groups to initialization wizzard
@@ -329,7 +329,7 @@ Otherwise, a fresh Bench installation and copying the user configuration manuall
 
 ## [0.14.0] - 2017-01-27
 
-[0.14.0]: https://github.com/mastersign/bench/compare/v0.13.3...v0.14.0
+[0.14.0]: https://github.com/winbench/bench/compare/v0.13.3...v0.14.0
 
 With this release all app definitions where moved into external app libraries.
 In that process and app ID namespaces where introduced and all app IDs
@@ -339,7 +339,7 @@ and migrate an existing user configuration manually.
 
 ### Added
 - Bench CLI
-  ([#87](https://github.com/mastersign/bench/issues/87))
+  ([#87](https://github.com/winbench/bench/issues/87))
 - Update check in the About dialog of _BenchDashboard_
 - _Upgrade Bench_ entry in the _Setup_ menu of the setup dialog of _BenchDashboard_
 - Configurable columns to the Setup dialog of _BenchDashboard_
@@ -350,9 +350,9 @@ and migrate an existing user configuration manually.
     + `AutoUpdateCheck`
     + `KnownLicenses`
 - Support for multiple app libraries
-  ([#90](https://github.com/mastersign/bench/issues/90))
+  ([#90](https://github.com/winbench/bench/issues/90))
   Support for license infos
-  ([#91](https://github.com/mastersign/bench/issues/91))
+  ([#91](https://github.com/winbench/bench/issues/91))
 - Namespaces for app IDs
 - Config properties:
     + `AppLibs`  
@@ -374,20 +374,20 @@ and migrate an existing user configuration manually.
 
 ### Changed
 - Upgrade process is using the _Bench CLI_ now
-  ([#84](https://github.com/mastersign/bench/issues/84))
+  ([#84](https://github.com/winbench/bench/issues/84))
 - Directory for custom scripts in the user app library
   was moved from `config\apps` to `config\scripts`
 - Moved app definitions into their own Git repositories
-    + <https://github.com/mastersign/bench-apps-core>
-    + <https://github.com/mastersign/bench-apps-default>
+    + <https://github.com/winbench/bench-apps-core>
+    + <https://github.com/winbench/bench-apps-default>
 - In the future, all app related issues are attended at the app library repositories on GitHub
 - Improved performance for app selection in the Setup Dialog of BenchDashboard
 
 ### Fixed
 - Proxy setup for Maven
-  ([#89](https://github.com/mastersign/bench/issues/89))
+  ([#89](https://github.com/winbench/bench/issues/89))
 - Download view in the Setup Dialog of the BenchDashboard
-  ([#81](https://github.com/mastersign/bench/issues/81))
+  ([#81](https://github.com/winbench/bench/issues/81))
 
 ### Removed
 - Script based actions
@@ -401,7 +401,7 @@ and migrate an existing user configuration manually.
 
 ## [0.13.3] - 2016-11-19
 
-[0.13.3]: https://github.com/mastersign/bench/compare/v0.13.2...v0.13.3
+[0.13.3]: https://github.com/winbench/bench/compare/v0.13.2...v0.13.3
 
 ### Added
 - Support for second argument `verbose` in `bench-ctl`
@@ -413,28 +413,28 @@ and migrate an existing user configuration manually.
 ### Fixed
 - `bench-ctl update-env` was not working
 - Broken RubyGems installer, because of changed certificate
-  ([#86](https://github.com/mastersign/bench/issues/86))
+  ([#86](https://github.com/winbench/bench/issues/86))
 
 ## [0.13.2] - 2016-10-22
 
-[0.13.2]: https://github.com/mastersign/bench/compare/v0.13.1...v0.13.2
+[0.13.2]: https://github.com/winbench/bench/compare/v0.13.1...v0.13.2
 
 ### Fixed
 - Switched from expanded strings to simple strings when setting
   environment variables in registry.
-  ([#82](https://github.com/mastersign/bench/issues/82))
+  ([#82](https://github.com/winbench/bench/issues/82))
 
 ## [0.13.1] - 2016-10-19
 
-[0.13.1]: https://github.com/mastersign/bench/compare/v0.13.0...v0.13.1
+[0.13.1]: https://github.com/winbench/bench/compare/v0.13.0...v0.13.1
 
 ### Added
 - Added Scribus
-  ([#80](https://github.com/mastersign/bench/issues/80))
+  ([#80](https://github.com/winbench/bench/issues/80))
 - Added .NET Core SDK
-  ([#79](https://github.com/mastersign/bench/issues/79))
+  ([#79](https://github.com/winbench/bench/issues/79))
 - Added CoffeeScript
-  ([#78](https://github.com/mastersign/bench/issues/78))
+  ([#78](https://github.com/winbench/bench/issues/78))
 - Added FreeCAD
 
 ### Changed
@@ -449,18 +449,18 @@ and migrate an existing user configuration manually.
 
 ## [0.13.0] - 2016-08-16
 
-[0.13.0]: https://github.com/mastersign/bench/compare/v0.12.1...v0.13.0
+[0.13.0]: https://github.com/winbench/bench/compare/v0.12.1...v0.13.0
 
 ### Added
 - Configuration property `UseRegistryIsolation` to provide a way
   of suppressing the registry isolation when using Bench integrated
   in the user profile with `RegisterInUserProfile`
 - Support for NuGet packages
-  ([#75](https://github.com/mastersign/bench/issues/75))
+  ([#75](https://github.com/winbench/bench/issues/75))
 - Erlang 19.0
-  ([#41](https://github.com/mastersign/bench/issues/41))
+  ([#41](https://github.com/winbench/bench/issues/41))
 - RabbitMQ 3.6.5
-  ([#41](https://github.com/mastersign/bench/issues/41))
+  ([#41](https://github.com/winbench/bench/issues/41))
 - NUnit 3 Test Runner (latest)
 - Auto Setup button in BenchDashboard
 
@@ -487,7 +487,7 @@ and migrate an existing user configuration manually.
 - Introduced file system watcher to automatically update
   the configuration of Bench Dashboard in case a configuration
   file was changed.
-  ([#66](https://github.com/mastersign/bench/issues/66))
+  ([#66](https://github.com/winbench/bench/issues/66))
 - Improved _Auto Setup_ by adding upgrade capability
 - Improved Bench upgrading by _not_ deleting all apps,
   but instead only deleting ConEmu and using the _Auto Setup_ to upgrade apps
@@ -500,25 +500,25 @@ and migrate an existing user configuration manually.
 
 ### Removed
 - Removed option for editing the config file during the initialization
-  ([#67](https://github.com/mastersign/bench/issues/67))
+  ([#67](https://github.com/winbench/bench/issues/67))
 
 ## [0.12.1] - 2016-07-29
 
-[0.12.1]: https://github.com/mastersign/bench/compare/v0.12.0...v0.12.1
+[0.12.1]: https://github.com/winbench/bench/compare/v0.12.0...v0.12.1
 
 ### Fixed
 - Environment setup fails if the user has no `PATH` environment variable
-  ([#76](https://github.com/mastersign/bench/issues/76))
+  ([#76](https://github.com/winbench/bench/issues/76))
 
 ## [0.12.0] - 2016-07-27
 
-[0.12.0]: https://github.com/mastersign/bench/compare/v0.11.4...v0.12.0
+[0.12.0]: https://github.com/winbench/bench/compare/v0.11.4...v0.12.0
 
 ### Added
 - Support for custom scripts in `config\apps`
-  ([#72](https://github.com/mastersign/bench/issues/72))
+  ([#72](https://github.com/winbench/bench/issues/72))
 - Support for setting environment variables in Windows user profile
-  ([#74](https://github.com/mastersign/bench/issues/74))
+  ([#74](https://github.com/winbench/bench/issues/74))
 
 ### Changed
 - Changed app ID of 7-Zip from `SvZ` to `7z`
@@ -528,13 +528,13 @@ and migrate an existing user configuration manually.
 
 ### Fixed
 - Typo in `HTTP_PROXY` and `HTTPS_PROXY` in `env.cmd`
-  ([#71](https://github.com/mastersign/bench/issues/71))
+  ([#71](https://github.com/winbench/bench/issues/71))
 - Atom using the Windows user profile folder
-  ([#73](https://github.com/mastersign/bench/issues/73))
+  ([#73](https://github.com/winbench/bench/issues/73))
 
 ## [0.11.4] - 2016-07-04
 
-[0.11.4]: https://github.com/mastersign/bench/compare/v0.11.3...v0.11.4
+[0.11.4]: https://github.com/winbench/bench/compare/v0.11.3...v0.11.4
 
 ### Changed
 - Update: Node.js from 4.4.6 to 6.2.2
@@ -544,14 +544,14 @@ and migrate an existing user configuration manually.
 
 ## [0.11.3] - 2016-07-02
 
-[0.11.3]: https://github.com/mastersign/bench/compare/v0.11.2...v0.11.3
+[0.11.3]: https://github.com/winbench/bench/compare/v0.11.2...v0.11.3
 
 ### Fixed
 - Fixed execution policy for running `PsExecHost.ps1`
 
 ## [0.11.2] - 2016-06-30
 
-[0.11.2]: https://github.com/mastersign/bench/compare/v0.11.1...v0.11.2
+[0.11.2]: https://github.com/winbench/bench/compare/v0.11.1...v0.11.2
 
 ### Changed
 - Update: ConEmu from 16.03.13 to 16.06.19
@@ -563,15 +563,15 @@ and migrate an existing user configuration manually.
 
 ## [0.11.1] - 2016-06-25
 
-[0.11.1]: https://github.com/mastersign/bench/compare/v0.11.0...v0.11.1
+[0.11.1]: https://github.com/winbench/bench/compare/v0.11.0...v0.11.1
 
 ### Added
 - Bench configuration property `Website`
 - Link to the Bench Website
 - Added Vim (graphical and console)
-  ([#69](https://github.com/mastersign/bench/issues/69))
+  ([#69](https://github.com/winbench/bench/issues/69))
 - Added Atom
-  ([#65](https://github.com/mastersign/bench/issues/65))
+  ([#65](https://github.com/winbench/bench/issues/65))
 
 ### Changed
 - The environment variables are not configured with the Bench environment
@@ -579,26 +579,26 @@ and migrate an existing user configuration manually.
 
 ### Fixed
 - Installing multiple apps into the same dir
-  ([#70](https://github.com/mastersign/bench/issues/70))
+  ([#70](https://github.com/winbench/bench/issues/70))
 - Custom setup script of Leiningen
 
 ## [0.11.0] - 2016-06-18
 
-[0.11.0]: https://github.com/mastersign/bench/compare/v0.10.8...v0.11.0
+[0.11.0]: https://github.com/winbench/bench/compare/v0.10.8...v0.11.0
 
 ### Added
 - Custom config dictionary property `Environment` to add environment variables
   in `config.md`
-  ([#56](https://github.com/mastersign/bench/issues/56))
+  ([#56](https://github.com/winbench/bench/issues/56))
 - Custom config list property `EnvironmentPath` to add paths
   to the `PATH` environment variable in `config.md`
-  ([#56](https://github.com/mastersign/bench/issues/56))
+  ([#56](https://github.com/winbench/bench/issues/56))
 - Entry for opening the apps website in the context menu of the setup dialogs app list
-  ([#62](https://github.com/mastersign/bench/issues/62))
+  ([#62](https://github.com/winbench/bench/issues/62))
 - App property label
-  ([#63](https://github.com/mastersign/bench/issues/63))
+  ([#63](https://github.com/winbench/bench/issues/63))
 - Support for documentation URLs
-  ([#57](https://github.com/mastersign/bench/issues/57))
+  ([#57](https://github.com/winbench/bench/issues/57))
 - Added VLC Player
 - Added MeshLab
 - Added Blender
@@ -610,7 +610,7 @@ and migrate an existing user configuration manually.
 
 ### Changed
 - Moved `auto\env.cmd` to the Bench root folder
-  ([#59](https://github.com/mastersign/bench/issues/59))
+  ([#59](https://github.com/winbench/bench/issues/59))
 - Simplified install process by mergin Bench Dashboard into main repo
 - Update: Git from 2.8.3 to 2.9.0
 - Update: FileZilla from 3.17.0.1 to 3.18.0
@@ -623,52 +623,52 @@ and migrate an existing user configuration manually.
 
 ### Fixed
 - Visible console window when starting adorned executables from main window
-  ([#60](https://github.com/mastersign/bench/issues/60))
+  ([#60](https://github.com/winbench/bench/issues/60))
 - Prevent setup dialog from getting minimized while it is busy
-  ([#61](https://github.com/mastersign/bench/issues/61))
+  ([#61](https://github.com/winbench/bench/issues/61))
 
 ## [0.10.8] - 2016-05-27
 
-[0.10.8]: https://github.com/mastersign/bench/compare/v0.10.7...v0.10.8
+[0.10.8]: https://github.com/winbench/bench/compare/v0.10.7...v0.10.8
 
 ### Fixed
 - Mark Git as required, if an existing custom config needs to be cloned
-  ([#55](https://github.com/mastersign/bench/issues/55))
+  ([#55](https://github.com/winbench/bench/issues/55))
 
 ## [0.10.7] - 2016-05-27
 
-[0.10.7]: https://github.com/mastersign/bench/compare/v0.10.6...v0.10.7
+[0.10.7]: https://github.com/winbench/bench/compare/v0.10.6...v0.10.7
 
 ### Added
 - Setup action for downloading all app resources
-  ([#50](https://github.com/mastersign/bench/issues/50))
+  ([#50](https://github.com/winbench/bench/issues/50))
 - Setup action for deleting obsolete app resources
-  ([#51](https://github.com/mastersign/bench/issues/51))
+  ([#51](https://github.com/winbench/bench/issues/51))
 - Added AntRenamer
-  ([#47](https://github.com/mastersign/bench/issues/47))
+  ([#47](https://github.com/winbench/bench/issues/47))
 
 ### Changed
 - Made Git an optional app
-  ([#54](https://github.com/mastersign/bench/issues/54))
+  ([#54](https://github.com/winbench/bench/issues/54))
 - Update: Git from 2.8.2 to 2.8.3
 - Update: MikTeX from 2.9.5857 to 2.9.5987
-  ([#52](https://github.com/mastersign/bench/issues/52))
+  ([#52](https://github.com/winbench/bench/issues/52))
 - Update: NodeJS from 4.4.4 to 4.4.5
 
 ### Fixed
 - Description of upgrade action in `bench-ctl.cmd`
-  ([#49](https://github.com/mastersign/bench/issues/49))
+  ([#49](https://github.com/winbench/bench/issues/49))
 - App IDs without quotes
-  ([#53](https://github.com/mastersign/bench/issues/53))
+  ([#53](https://github.com/winbench/bench/issues/53))
 
 ## [0.10.6] - 2016-05-24
 
-[0.10.6]: https://github.com/mastersign/bench/compare/v0.10.5...v0.10.6
+[0.10.6]: https://github.com/winbench/bench/compare/v0.10.5...v0.10.6
 
 ### Added
 - Launcher for 7-Zip file manager
 - Added Zeal Docs
-  ([#46](https://github.com/mastersign/bench/issues/46))
+  ([#46](https://github.com/winbench/bench/issues/46))
 
 ### Changed
 - Update: 7.Zip from 15.18 to 16.00
@@ -680,11 +680,11 @@ and migrate an existing user configuration manually.
 
 ## [0.10.5] - 2016-05-17
 
-[0.10.5]: https://github.com/mastersign/bench/compare/v0.10.4...v0.10.5
+[0.10.5]: https://github.com/winbench/bench/compare/v0.10.4...v0.10.5
 
 ### Added
 - Configuration properties to control the appearance of shell launchers
-  ([#39](https://github.com/mastersign/bench/issues/39))
+  ([#39](https://github.com/winbench/bench/issues/39))
   + `QuickAccessCmd` defaults to `true`
   + `QuickAccessPowerShell` defaults to `false`
   + `QuickAccessBash` defaults to `false`
@@ -692,11 +692,11 @@ and migrate an existing user configuration manually.
 
 ### Changed
 - Do not convert the Bench root into a Git working copy during setup
-  ([#44](https://github.com/mastersign/bench/issues/44))
+  ([#44](https://github.com/winbench/bench/issues/44))
 
 ## [0.10.4] - 2016-05-14
 
-[0.10.4]: https://github.com/mastersign/bench/compare/v0.10.3...v0.10.4
+[0.10.4]: https://github.com/winbench/bench/compare/v0.10.3...v0.10.4
 
 ### Added
 - Content tree in Markdown viewer
@@ -721,29 +721,29 @@ and migrate an existing user configuration manually.
 
 ## [0.10.3] - 2016-05-13
 
-[0.10.3]: https://github.com/mastersign/bench/compare/v0.10.2...v0.10.3
+[0.10.3]: https://github.com/winbench/bench/compare/v0.10.2...v0.10.3
 
 ### Added
 - Added GitKraken (latest)
 
 ### Fixed
 - Path resolution of list properties
-  ([#43](https://github.com/mastersign/bench/issues/43))
+  ([#43](https://github.com/winbench/bench/issues/43))
 - MinGW MSYS path was not included in the environment
-  ([#42](https://github.com/mastersign/bench/issues/42))
+  ([#42](https://github.com/winbench/bench/issues/42))
 
 ## [0.10.2] - 2016-05-09
 
-[0.10.2]: https://github.com/mastersign/bench/compare/v0.10.1...v0.10.2
+[0.10.2]: https://github.com/winbench/bench/compare/v0.10.1...v0.10.2
 
 ### Added
 - Support for Ruby Gems (app typ `ruby-package`)
-  ([#36](https://github.com/mastersign/bench/issues/36))
+  ([#36](https://github.com/winbench/bench/issues/36))
 - Added SASS (latest)
 
 ## [0.10.1] - 2016-05-08
 
-[0.10.1]: https://github.com/mastersign/bench/compare/v0.10.0...v0.10.1
+[0.10.1]: https://github.com/winbench/bench/compare/v0.10.0...v0.10.1
 
 ### Fixed
 - Installing NodeJS and Python packages via _Bench Dashboard_
@@ -756,7 +756,7 @@ and migrate an existing user configuration manually.
 
 ## [0.10.0] - 2016-05-07
 
-[0.10.0]: https://github.com/mastersign/bench/compare/v0.9.3...v0.10.0
+[0.10.0]: https://github.com/winbench/bench/compare/v0.9.3...v0.10.0
 
 For this release a clean install is required and the configuration
 must be migrated to the new format.
@@ -796,7 +796,7 @@ must be migrated to the new format.
 
 ## [0.9.3] - 2016-04-13
 
-[0.9.3]: https://github.com/mastersign/bench/compare/v0.9.2...v0.9.3
+[0.9.3]: https://github.com/winbench/bench/compare/v0.9.2...v0.9.3
 
 ### Added
 - App: Maven
@@ -815,11 +815,11 @@ must be migrated to the new format.
 
 ### Fixed
 - Leiningen stores local repo in Windows user profile
-  ([#34](https://github.com/mastersign/bench/issues/34))
+  ([#34](https://github.com/winbench/bench/issues/34))
 
 ## [0.9.2] 2016-03-07
 
-[0.9.2]: https://github.com/mastersign/bench/compare/v0.9.1...v0.9.2
+[0.9.2]: https://github.com/winbench/bench/compare/v0.9.1...v0.9.2
 
 ### Added
 - App: JRE 7
@@ -832,33 +832,33 @@ must be migrated to the new format.
 
 ## [0.9.1] - 2016-03-03
 
-[0.9.1]: https://github.com/mastersign/bench/compare/v0.9.0...v0.9.1
+[0.9.1]: https://github.com/winbench/bench/compare/v0.9.0...v0.9.1
 
 ### Added
 - support for Windows 7 with PowerShell 2
-  ([#29](https://github.com/mastersign/bench/issues/29))
+  ([#29](https://github.com/winbench/bench/issues/29))
 - App: JRE 8
-  ([#30](https://github.com/mastersign/bench/issues/30))
+  ([#30](https://github.com/winbench/bench/issues/30))
 
 ### Changed
 - deal with cyclic dependencies between apps
 - renamed bootstrap file `bench.bat` into `bench-install.bat`
 - allways run Eclipse with JRE 8
-  ([#30](https://github.com/mastersign/bench/issues/30))
+  ([#30](https://github.com/winbench/bench/issues/30))
 
 ### Removed
 - progress during downloads, replaced download  with `Invoke-WebRequest`
   by silent download via `System.Net.WebClient` because of compatibility with PowerShell 2
-  ([#29](https://github.com/mastersign/bench/issues/29))
+  ([#29](https://github.com/winbench/bench/issues/29))
 - config property `DownloadProgress`
 
 ### Fixed
 - broken bootstrap file `bench.bat`
-  ([#31](https://github.com/mastersign/bench/issues/31))
+  ([#31](https://github.com/winbench/bench/issues/31))
 
 ## [0.9.0] - 2016-03-02
 
-[0.9.0]: https://github.com/mastersign/bench/compare/v0.8.0...v0.9.0
+[0.9.0]: https://github.com/winbench/bench/compare/v0.8.0...v0.9.0
 
 ### Added
 - support for unpacking `*.tar.*` archives with two steps
@@ -867,21 +867,21 @@ must be migrated to the new format.
   which is used to determine if an app is installed or not
 - App: Dia
 - App: Gimp
-  ([#26](https://github.com/mastersign/bench/issues/26))
+  ([#26](https://github.com/winbench/bench/issues/26))
 - App: FileZilla
-  ([#27](https://github.com/mastersign/bench/issues/28))
+  ([#27](https://github.com/winbench/bench/issues/28))
 - App: WinMerge
 - App: Wget
 - App: MinGW
-  ([#28](https://github.com/mastersign/bench/issues/28))
+  ([#28](https://github.com/winbench/bench/issues/28))
 - App: CMake
 - App: LLVM Clang
 - App: Go
 - App: Eclipse PHP
 - App: Eclipse C/C++
-  ([#28](https://github.com/mastersign/bench/issues/28))
+  ([#28](https://github.com/winbench/bench/issues/28))
 - App: SysInternals Suite
-  ([#25](https://github.com/mastersign/bench/issues/25))
+  ([#25](https://github.com/winbench/bench/issues/25))
 - App Group: `Multimedia`
 - App Group: `DevCpp`
 
@@ -897,7 +897,7 @@ must be migrated to the new format.
 
 ## [0.8.0] - 2016-02-15
 
-[0.8.0]: https://github.com/mastersign/bench/compare/v0.7.2...v0.8.0
+[0.8.0]: https://github.com/winbench/bench/compare/v0.7.2...v0.8.0
 
 ### Added
 - `auto\lib\profile.ps1` for customization of the PowerShell environment
@@ -926,7 +926,7 @@ must be migrated to the new format.
 
 ## [0.7.2] - 2016-02-12
 
-[0.7.2]: https://github.com/mastersign/bench/compare/v0.7.1...v0.7.2
+[0.7.2]: https://github.com/winbench/bench/compare/v0.7.1...v0.7.2
 
 ### Added
 - Passing arguments to _Command Line_ launcher with `/C`, to allow
@@ -939,37 +939,37 @@ must be migrated to the new format.
 
 ## [0.7.1] - 2016-02-12
 
-[0.7.1]: https://github.com/mastersign/bench/compare/v0.7.0...v0.7.1
+[0.7.1]: https://github.com/winbench/bench/compare/v0.7.0...v0.7.1
 
 ### Fixed
 - FFmpeg exe path
 
 ## [0.7.0] - 2016-02-12
 
-[0.7.0]: https://github.com/mastersign/bench/compare/v0.6.1...v0.7.0
+[0.7.0]: https://github.com/winbench/bench/compare/v0.6.1...v0.7.0
 
 ### Added
 - `CHANGELOG.md`
 - Action script `bench-ctl.cmd` for management of the _Bench_ installation
 - Launcher shortcut for `bench-ctl.cmd`
 - Support for execution adornment
-  ([#17](https://github.com/mastersign/bench/issues/17))
+  ([#17](https://github.com/winbench/bench/issues/17))
 - Support for registry isolation
-  ([#18](https://github.com/mastersign/bench/issues/18))
+  ([#18](https://github.com/winbench/bench/issues/18))
 - Support for automatic dependencies
-  ([#20](https://github.com/mastersign/bench/issues/20))
+  ([#20](https://github.com/winbench/bench/issues/20))
     + `node-package` apps automatically depend on `Npm`
     + `python2-package` apps automatically depend on `Python2`
     + `python3-package` apps automatically depend on `Python3`
 - App: Putty
-  ([#21](https://github.com/mastersign/bench/issues/21))
+  ([#21](https://github.com/winbench/bench/issues/21))
 - App: PostgreSQL and pgAdminIII
 
 ### Changes
 - changed behavior for `App-Dir`, `App-Path`, and `App-Paths` for `meta` apps
-  ([#22](https://github.com/mastersign/bench/issues/22))
+  ([#22](https://github.com/winbench/bench/issues/22))
 - migrated app type `python-package` to `python2-package` and `python3-package`
-  ([#19](https://github.com/mastersign/bench/issues/19))
+  ([#19](https://github.com/winbench/bench/issues/19))
 - Update: Sublime Text 3 from rev. 3083 to rev. 3103
 
 ### Removed
@@ -982,20 +982,20 @@ must be migrated to the new format.
 
 ## [0.6.1] - 2016-02-07
 
-[0.6.1]: https://github.com/mastersign/bench/compare/v0.6.0...v0.6.1
+[0.6.1]: https://github.com/winbench/bench/compare/v0.6.0...v0.6.1
 
 ### Added
 - Automatic update of PIP to most recent version after installing Python 2 and Python 3
-  ([#16](https://github.com/mastersign/bench/issues/16))
+  ([#16](https://github.com/winbench/bench/issues/16))
 
 ### Fixed
 - Launcher icon for `bench-cmd.cmd`
 - Silently failing NPM update after installing `NpmBootstrap`
-  ([#15](https://github.com/mastersign/bench/issues/15))
+  ([#15](https://github.com/winbench/bench/issues/15))
 
 ## [0.6.0] - 2016-01-27
 
-[0.6.0]: https://github.com/mastersign/bench/compare/v0.5.4...v0.6.0
+[0.6.0]: https://github.com/winbench/bench/compare/v0.5.4...v0.6.0
 
 ### Added
 - actions scripts for _CMD_, _PowerShell_, and _Bash_
@@ -1007,7 +1007,7 @@ must be migrated to the new format.
 
 ## [0.5.4] - 2016-01-27
 
-[0.5.4]: https://github.com/mastersign/bench/compare/v0.5.3...v0.5.4
+[0.5.4]: https://github.com/winbench/bench/compare/v0.5.3...v0.5.4
 
 ### Change
 - Removed home directory from Git version control to prevent data loss
@@ -1017,21 +1017,21 @@ must be migrated to the new format.
 
 ## [0.5.3] - 2016-01-27
 
-[0.5.3]: https://github.com/mastersign/bench/compare/v0.5.2...v0.5.3
+[0.5.3]: https://github.com/winbench/bench/compare/v0.5.2...v0.5.3
 
 ### Fixed
 - Building relative paths in `env.cmd`
 
 ## [0.5.2] - 2016-01-27
 
-[0.5.2]: https://github.com/mastersign/bench/compare/v0.5.2...v0.5.2
+[0.5.2]: https://github.com/winbench/bench/compare/v0.5.2...v0.5.2
 
 ### Fixed
 - Incorrect quotes for path strings in `config.template.ps1`
 
 ## [0.5.1] - 2016-01-27
 
-[0.5.1]: https://github.com/mastersign/bench/compare/v0.5.0...v0.5.1
+[0.5.1]: https://github.com/winbench/bench/compare/v0.5.0...v0.5.1
 
 ### Changed
 - Moved Spacemacs config file from `%HOME%\.spacemacs` to `%HOME%\.spacemacs.d\init.el`
@@ -1048,11 +1048,11 @@ must be migrated to the new format.
 
 ## [0.5.0] - 2016-01-22
 
-[0.5.0]: https://github.com/mastersign/bench/compare/v0.4.0...v0.5.0
+[0.5.0]: https://github.com/winbench/bench/compare/v0.4.0...v0.5.0
 
 ### Added
 - Support for launcher shortcuts
-  ([#8](https://github.com/mastersign/bench/issues/8))
+  ([#8](https://github.com/winbench/bench/issues/8))
 - Config Value: `BenchDrive`
 - Config Value: `BenchAuto`
 - Config Value: `BenchScripts`
@@ -1069,13 +1069,13 @@ must be migrated to the new format.
 
 ## [0.4.0] - 2016-01-20
 
-[0.4.0]: https://github.com/mastersign/bench/compare/v0.3.4...v0.4.0
+[0.4.0]: https://github.com/winbench/bench/compare/v0.3.4...v0.4.0
 
 ### Added
 - App: IPython (in app group `DevPython2` and `DevPython3`)
-  ([#3](https://github.com/mastersign/bench/issues/3))
+  ([#3](https://github.com/winbench/bench/issues/3))
 - Support for app type `python-package`
-  ([#10](https://github.com/mastersign/bench/issues/10))
+  ([#10](https://github.com/winbench/bench/issues/10))
 - Wrapper `python2.cmd` for `python.exe` version 2
 
 ### Changed
@@ -1083,20 +1083,20 @@ must be migrated to the new format.
 
 ## [0.3.4] - 2016-01-20
 
-[0.3.4]: https://github.com/mastersign/bench/compare/v0.3.3...v0.3.4
+[0.3.4]: https://github.com/winbench/bench/compare/v0.3.3...v0.3.4
 
 ### Added
 - App: GnuTLS
 - App: Emacs
 - App: Spacemacs
-  ([#4](https://github.com/mastersign/bench/issues/4))
+  ([#4](https://github.com/winbench/bench/issues/4))
 
 ### Fixed
 - Custom environment variables and setup scripts for meta apps
 
 ## [0.3.3] - 2016-01-18
 
-[0.3.3]: https://github.com/mastersign/bench/compare/v0.3.2...v0.3.3
+[0.3.3]: https://github.com/winbench/bench/compare/v0.3.2...v0.3.3
 
 ### Added
 - Support for NPM version ranges
@@ -1110,12 +1110,12 @@ must be migrated to the new format.
 
 ## [0.3.2] - 2016-01-11
 
-[0.3.2]: https://github.com/mastersign/bench/compare/v0.3.1...v0.3.2
+[0.3.2]: https://github.com/winbench/bench/compare/v0.3.1...v0.3.2
 
 ### Added
 - Override `HOME` in addition to `USERPROFILE`
 - Config value `OverrideHome` to make overriding environment variables optional
-  ([#5](https://github.com/mastersign/bench/issues/5))
+  ([#5](https://github.com/winbench/bench/issues/5))
     + `HOME`
     + `HOMEDRIVE`
     + `HOMEPATH`
@@ -1123,13 +1123,13 @@ must be migrated to the new format.
     + `APPDATA`
     + `LOCALAPPDATA`
 - Config value `OverrideTemp` to make overriding environment variables optional
-  ([#1](https://github.com/mastersign/bench/issues/1))
+  ([#1](https://github.com/winbench/bench/issues/1))
     + `TEMP`
     + `TMP`
 - Config value `IgnoreSystemPath` to make clean-up of `PATH` optional
 - More debug messages
 - App: LightTable
-  ([#2](https://github.com/mastersign/bench/issues/2))
+  ([#2](https://github.com/winbench/bench/issues/2))
 
 ### Fixed
 - Interpretation of boolean app properties
@@ -1137,14 +1137,14 @@ must be migrated to the new format.
 
 ## [0.3.1] - 2016-01-08
 
-[0.3.1]: https://github.com/mastersign/bench/compare/v0.3.3...v0.3.1
+[0.3.1]: https://github.com/winbench/bench/compare/v0.3.3...v0.3.1
 
 ### Added
 - Documentation for groups in `apps.md`
 
 ## [0.3.0] - 2016-01-08
 
-[0.3.0]: https://github.com/mastersign/bench/compare/v0.2.2...v0.3.0
+[0.3.0]: https://github.com/winbench/bench/compare/v0.2.2...v0.3.0
 
 ### Added
 - Support for app typ `meta` for custom apps and app groups
@@ -1164,7 +1164,7 @@ must be migrated to the new format.
 
 ## [0.2.2] - 2016-01-07
 
-[0.2.2]: https://github.com/mastersign/bench/compare/v0.2.1...v0.2.2
+[0.2.2]: https://github.com/winbench/bench/compare/v0.2.1...v0.2.2
 
 ### Added
 - App: Apache Web Server
@@ -1183,7 +1183,7 @@ must be migrated to the new format.
 
 ## [0.2.1] - 2016-01-06
 
-[0.2.1]: https://github.com/mastersign/bench/compare/v0.2.0...v0.2.1
+[0.2.1]: https://github.com/winbench/bench/compare/v0.2.0...v0.2.1
 
 ### Added
 - App: Sift
@@ -1202,7 +1202,7 @@ must be migrated to the new format.
 
 ## [0.2.0] - 2016-01-06
 
-[0.2.0]: https://github.com/mastersign/bench/compare/v0.1.0...v0.2.0
+[0.2.0]: https://github.com/winbench/bench/compare/v0.1.0...v0.2.0
 
 ### Added
 - App: Oracel JDK 7 and 8
