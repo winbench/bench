@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
+### Added
+
+* Menu item _View_ &rarr; _Last Logfile_
+
 ## [0.20.2] - 2018-06-21
 
 [0.20.2]: https://github.com/mastersign/bench/compare/v0.20.1...v0.20.2
