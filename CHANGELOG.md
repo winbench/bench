@@ -26,8 +26,11 @@ Add a link to the GitHub diff like
 [Unreleased]: https://github.com/mastersign/bench/compare/master...dev
 
 ### Added
-
 * Menu item _View_ &rarr; _Last Logfile_
+
+### Fixed
+* Apply search filter after reloading the Bench configuration
+  ([#134](https://github.com/mastersign/bench/issues/134))
 
 ## [0.20.2] - 2018-06-21
 
