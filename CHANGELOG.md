@@ -28,6 +28,13 @@ Add a link to the GitHub diff like
 ### Added
 * Menu item _View_ &rarr; _Last Logfile_
 
+### Changed
+* Behavior of ESC key in setup dialog:
+    1. Cancel running task
+    2. Close task progress view
+    3. Clear search
+    4. Close setup dialog
+
 ### Fixed
 * Apply search filter after reloading the Bench configuration
   ([#134](https://github.com/mastersign/bench/issues/134))

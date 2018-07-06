@@ -653,11 +653,19 @@ namespace Mastersign.Bench.Dashboard
                 {
                     var cancelation = core.Cancelation;
                     if (cancelation != null) cancelation.Cancel();
+                    return;
                 }
-                else
+                if (BusyPanelVisible)
                 {
-                    Close();
+                    BusyPanelVisible = false;
+                    return;
                 }
+                if (appList.HasSearchFilter)
+                {
+                    appList.ResetSearchFilter();
+                    return;
+                }
+                Close();
             }
             else if (e.KeyCode == Keys.F && e.Modifiers == Keys.Control)
                 appList.FocusSearchBox();
