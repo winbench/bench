@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.20.3] - 2018-07-06
+
+[0.20.3]: https://github.com/winbench/bench/compare/v0.20.2...v0.20.3
+
 ### Added
 * Menu item _View_ &rarr; _Last Logfile_
 
