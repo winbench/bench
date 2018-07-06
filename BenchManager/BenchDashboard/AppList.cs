@@ -115,24 +115,20 @@ namespace Mastersign.Bench.Dashboard
             AsyncManager.StartTask(() =>
             {
                 appLookup.Clear();
-                var list = new List<AppWrapper>();
                 var cnt = 0;
                 foreach (var app in core.Config.Apps)
                 {
                     cnt++;
                     app.LoadCachedValues();
                     var wrapper = new AppWrapper(app, cnt);
-                    list.Add(wrapper);
                     appLookup[app.ID] = wrapper;
                 }
-
-                var bindingList = new SortedBindingList<AppWrapper>(list);
 
                 BeginInvoke((ThreadStart)(() =>
                 {
                     var selectedRow = gridApps.SelectedRows.Count > 0 ? gridApps.SelectedRows[0].Index : -10;
                     gridApps.SuspendLayout();
-                    gridApps.DataSource = bindingList;
+                    UpdateAppGridView();
                     if (sortedColumn != null)
                     {
                         gridApps.Sort(sortedColumn, sortDirection);
@@ -387,10 +383,12 @@ namespace Mastersign.Bench.Dashboard
 
         #region Search
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        public bool HasSearchFilter => !string.IsNullOrWhiteSpace(txtSearch.Text);
+
+        private void UpdateAppGridView()
         {
             var apps = appLookup.Values;
-            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            if (HasSearchFilter)
             {
                 var searchWords = AppSearch.TokenizeSearchString(txtSearch.Text).Select(AppSearch.NormalizeForSearch).ToArray();
                 var sortedList = new SortedBindingList<AppWrapper>(apps
@@ -405,9 +403,19 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
-        private void btnClearSearch_Click(object sender, EventArgs e)
+        public void ResetSearchFilter()
         {
             txtSearch.Text = string.Empty;
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            UpdateAppGridView();
+        }
+
+        private void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            ResetSearchFilter();
         }
 
         #endregion

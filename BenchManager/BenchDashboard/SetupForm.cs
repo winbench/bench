@@ -45,6 +45,7 @@ namespace Mastersign.Bench.Dashboard
             InitializeAppListColumnsMenu();
             InitializeAppList();
             UpdatePendingCounts();
+            CoreBusyChangedHandler(core, EventArgs.Empty);
 
             if (core.SetupOnStartup)
             {
@@ -208,6 +209,7 @@ namespace Mastersign.Bench.Dashboard
             {
                 tsmi.Enabled = !busy;
             }
+            tsmiShowLastLogfile.Enabled = !busy && core.LastActionResult?.LogFile != null;
             btnAuto.Image = !busy
                             ? Resources.do_32
                             : Resources.stop_32;
@@ -651,11 +653,19 @@ namespace Mastersign.Bench.Dashboard
                 {
                     var cancelation = core.Cancelation;
                     if (cancelation != null) cancelation.Cancel();
+                    return;
                 }
-                else
+                if (BusyPanelVisible)
                 {
-                    Close();
+                    BusyPanelVisible = false;
+                    return;
                 }
+                if (appList.HasSearchFilter)
+                {
+                    appList.ResetSearchFilter();
+                    return;
+                }
+                Close();
             }
             else if (e.KeyCode == Keys.F && e.Modifiers == Keys.Control)
                 appList.FocusSearchBox();
@@ -702,7 +712,7 @@ namespace Mastersign.Bench.Dashboard
 
         private void ShowLastLogHandler(object sender, EventArgs e)
         {
-            var logFile = core?.LastActionResult?.LogFile;
+            var logFile = core.LastActionResult?.LogFile;
             if (string.IsNullOrWhiteSpace(logFile)) return;
             if (File.Exists(logFile))
             {
