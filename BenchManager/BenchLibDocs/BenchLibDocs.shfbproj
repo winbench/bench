@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>64100396-695d-4424-8a39-9ba1849c49c7</ProjectGuid>
-    <SHFBSchemaVersion>2015.6.5.0</SHFBSchemaVersion>
+    <SHFBSchemaVersion>2017.9.26.0</SHFBSchemaVersion>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
     <AssemblyName>BenchLibDocs</AssemblyName>
     <RootNamespace>BenchLibDocs</RootNamespace>
@@ -49,7 +49,7 @@
       <DocumentationSource sourceFile="..\BenchLib\bin\Debug\BenchLib.dll" xmlns="" />
       <DocumentationSource sourceFile="..\BenchLib\bin\Debug\BenchLib.xml" xmlns="" />
     </DocumentationSources>
-    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected</VisibleItems>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, EditorBrowsableNever, NonBrowsable</VisibleItems>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <ComponentPath>..\packages\EWSoftware.SHFB.NETFramework.4.6.2\tools\</ComponentPath>
     <SHFBROOT Condition=" '$(SHFBROOT)' == '' ">$(MSBuildThisFileDirectory)..\packages\EWSoftware.SHFB.2017.1.28.0\tools\</SHFBROOT>
