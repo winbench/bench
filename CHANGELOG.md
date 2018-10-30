@@ -29,6 +29,9 @@ Add a link to the GitHub diff like
 * Unintentionally decoding URL encoded filenames
   ([#135](https://github.com/winbench/bench/issues/135))
 
+### Security
+* Updated `DotNetZip` from 1.10.1 to 1.11.0
+
 ## [0.20.3] - 2018-07-06
 
 [0.20.3]: https://github.com/winbench/bench/compare/v0.20.2...v0.20.3
