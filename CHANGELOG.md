@@ -25,6 +25,19 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.20.4] - 2018-10-30
+
+[0.20.4]: https://github.com/winbench/bench/compare/v0.20.3...v0.20.4
+
+### Fixed
+* Task messages
+  ([#131](https://github.com/winbench/bench/issues/131))
+* Unintentionally decoding URL encoded filenames
+  ([#135](https://github.com/winbench/bench/issues/135))
+
+### Security
+* Updated `DotNetZip` from 1.10.1 to 1.11.0
+
 ## [0.20.3] - 2018-07-06
 
 [0.20.3]: https://github.com/winbench/bench/compare/v0.20.2...v0.20.3

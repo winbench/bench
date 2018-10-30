@@ -1212,7 +1212,7 @@ namespace Mastersign.Bench
             EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
             {
                 notify(new TaskProgress(
-                    string.Format("Started download for app library '{0}' ...", e.Task.Id),
+                    string.Format("Started download for app library '{0}'...", e.Task.Id),
                     progress: (float)finished / taskCnt,
                     detailedMessage: e.Task.Url.ToString()));
             };
@@ -1376,7 +1376,7 @@ namespace Mastersign.Bench
             EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
             {
                 notify(new TaskProgress(
-                    string.Format("Started download for {0} ...", e.Task.Id),
+                    string.Format("Started download for {0}...", e.Task.Id),
                     (float)finished / tasks.Count, e.Task.Id, e.Task.Url.ToString()));
             };
 
@@ -1467,7 +1467,7 @@ namespace Mastersign.Bench
         {
             var downloadDir = man.Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir);
 
-            notify(new TaskProgress("Deleting app resources", 0));
+            notify(new TaskProgress("Deleting app resources...", 0));
 
             var selectedApps = new List<AppFacade>();
             foreach (var app in apps)
@@ -1502,7 +1502,7 @@ namespace Mastersign.Bench
 
             if (!cancelation.IsCanceled)
             {
-                notify(new TaskProgress("Finished deleting app resources.", 1f));
+                notify(new TaskProgress("Deleting app resources finished.", 1f));
             }
         }
 
@@ -1512,7 +1512,7 @@ namespace Mastersign.Bench
         {
             var downloadDir = man.Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir);
 
-            notify(new TaskProgress("Deleting obsolete app resources", 0));
+            notify(new TaskProgress("Deleting obsolete app resources...", 0));
 
             var preservedFileNames = new List<string>();
             foreach (var app in apps)
@@ -1578,7 +1578,7 @@ namespace Mastersign.Bench
 
             if (!cancelation.IsCanceled)
             {
-                notify(new TaskProgress("Finished deleting app resources.", 1f));
+                notify(new TaskProgress("Deleting app resources finished.", 1f));
             }
         }
 
@@ -1707,6 +1707,7 @@ namespace Mastersign.Bench
             ICollection<AppFacade> _,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
+            notify(new TaskProgress("Updating environment...", 0f));
             CopyRootScripts(man.Config);
             try
             {
@@ -1779,7 +1780,7 @@ namespace Mastersign.Bench
 
                 cnt++;
                 var progress = 0.9f * cnt / selectedApps.Length;
-
+                notify(new TaskInfo($"Setting up environment for {app.ID}...", app.ID));
                 try
                 {
                     CreateExecutionProxies(man.Config, app);
@@ -1806,7 +1807,7 @@ namespace Mastersign.Bench
                 if (envScript != null)
                 {
                     notify(new TaskProgress(
-                       string.Format("Running custom environment script for {0}.", app.ID), progress,
+                       string.Format("Running custom environment script for {0}...", app.ID), progress,
                        appId: app.ID));
                     string scriptOutput = null;
                     try
@@ -1827,15 +1828,13 @@ namespace Mastersign.Bench
                             appId: app.ID, consoleOutput: scriptOutput));
                     }
                 }
-                notify(new TaskProgress(
-                    string.Format("Set up environment for {0}.", app.ID),
-                    progress, app.ID));
+                notify(new TaskProgress($"Setting up environment for {app.ID} finished.", progress, app.ID));
             }
 
             var globalEnvScript = GetGlobalCustomScriptFile(man.Config, "env");
             if (globalEnvScript != null)
             {
-                notify(new TaskProgress("Running global environment script.", 0.9f));
+                notify(new TaskProgress("Running global environment script...", 0.9f));
                 string scriptOutput = null;
                 try
                 {
@@ -1886,7 +1885,7 @@ namespace Mastersign.Bench
             EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
             {
                 notify(new TaskProgress(
-                    string.Format("Started download for {0} ...", e.Task.Id),
+                    string.Format("Started download for {0}...", e.Task.Id),
                     (float)finished / taskCount, e.Task.Id, e.Task.Url.ToString()));
             };
 
@@ -1949,7 +1948,7 @@ namespace Mastersign.Bench
 
             if (!cancelation.IsCanceled)
             {
-                notify(new TaskProgress("Finished downloading the Bench update.", 1f));
+                notify(new TaskProgress("Finished downloading Bench update.", 1f));
             }
         }
 
@@ -1981,7 +1980,7 @@ namespace Mastersign.Bench
             File.Copy(resourceFile, Path.Combine(targetDir, app.ResourceFileName), true);
         }
 
-        private static void ExtractAppArchive(BenchConfiguration config, IProcessExecutionHost execHost, AppFacade app)
+        private static void ExtractAppArchive(BenchConfiguration config, IProcessExecutionHost execHost, AppFacade app, Action<TaskInfo> notify)
         {
             var tmpDir = Path.Combine(config.GetStringValue(ConfigPropertyKeys.TempDir), app.ID + "_extract");
             var archiveFile = Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), app.ResourceArchiveName);
@@ -1999,34 +1998,50 @@ namespace Mastersign.Bench
                 case AppArchiveTyps.Auto:
                     if (customExtractScript != null)
                     {
+                        notify(new TaskInfo($"Running custom extraction script for {app.ID}...", app.ID));
                         RunCustomScript(config, execHost, app.ID, customExtractScript, archiveFile, extractDir);
+                        notify(new TaskInfo($"Running custom extraction script for {app.ID} finished.", app.ID));
                     }
                     else if (archiveFile.EndsWith(".msi", StringComparison.InvariantCultureIgnoreCase))
                     {
+                        notify(new TaskInfo($"Extracting MSI archive for {app.ID}...", app.ID));
                         ExtractMsiPackage(config, headlessExecHost, app.ID, archiveFile, extractDir);
+                        notify(new TaskInfo($"Extracting MSI archive for {app.ID} finished.", app.ID));
                     }
                     else if (archiveFile.EndsWith(".0"))
                     {
+                        notify(new TaskInfo($"Extracting InnoSetup archive for {app.ID}...", app.ID));
                         ExtractInnoSetup(config, headlessExecHost, app.ID, archiveFile, extractDir);
+                        notify(new TaskInfo($"Extracting InnoSetup archive for {app.ID} finished.", app.ID));
                     }
                     else
                     {
+                        notify(new TaskInfo($"Extracting archive for {app.ID}...", app.ID));
                         ExtractArchiveGeneric(config, headlessExecHost, app.ID, archiveFile, extractDir);
+                        notify(new TaskInfo($"Extracting archive for {app.ID} finished.", app.ID));
                     }
                     break;
                 case AppArchiveTyps.Generic:
+                    notify(new TaskInfo($"Extracting archive for {app.ID}...", app.ID));
                     ExtractArchiveGeneric(config, headlessExecHost, app.ID, archiveFile, extractDir);
+                    notify(new TaskInfo($"Extracting archive for {app.ID} finished.", app.ID));
                     break;
                 case AppArchiveTyps.Msi:
+                    notify(new TaskInfo($"Extracting MSI archive for {app.ID}...", app.ID));
                     ExtractMsiPackage(config, headlessExecHost, app.ID, archiveFile, extractDir);
+                    notify(new TaskInfo($"Extracting MSI archive for {app.ID} finished.", app.ID));
                     break;
                 case AppArchiveTyps.InnoSetup:
+                    notify(new TaskInfo($"Extracting InnoSetup archive for {app.ID}...", app.ID));
                     ExtractInnoSetup(config, headlessExecHost, app.ID, archiveFile, extractDir);
+                    notify(new TaskInfo($"Extracting InnoSetup archive for {app.ID} finished.", app.ID));
                     break;
                 case AppArchiveTyps.Custom:
                     if (customExtractScript != null)
                     {
+                        notify(new TaskInfo($"Running custom extraction script for {app.ID}...", app.ID));
                         RunCustomScript(config, execHost, app.ID, customExtractScript, archiveFile, extractDir);
+                        notify(new TaskInfo($"Running custom extraction script for {app.ID} finished.", app.ID));
                     }
                     break;
             }
@@ -2034,8 +2049,10 @@ namespace Mastersign.Bench
 
             if (app.ResourceArchivePath != null)
             {
+                notify(new TaskInfo($"Moving resources for {app.ID} to target location...", app.ID));
                 FileSystem.MoveContent(Path.Combine(extractDir, app.ResourceArchivePath), targetDir);
                 FileSystem.PurgeDir(extractDir);
+                notify(new TaskInfo($"Moving resources for {app.ID} to target location finished.", app.ID));
             }
         }
 
@@ -2302,11 +2319,12 @@ namespace Mastersign.Bench
                     case AppTyps.Default:
                         if (app.ResourceFileName != null)
                         {
+                            notify(new TaskInfo(string.Format("Copy resource file for app {0}.", app.ID), app.ID, app.ResourceFileName));
                             CopyAppResourceFile(man.Config, app);
                         }
                         else if (app.ResourceArchiveName != null)
                         {
-                            ExtractAppArchive(man.Config, man.ProcessExecutionHost, app);
+                            ExtractAppArchive(man.Config, man.ProcessExecutionHost, app, notify);
                         }
                         break;
                     case AppTyps.NodePackage:
@@ -2360,7 +2378,7 @@ namespace Mastersign.Bench
             if (customSetupScript != null)
             {
                 notify(new TaskInfo(
-                    string.Format("Executing custom setup script for {0}.", app.ID),
+                    string.Format("Executing custom setup script for {0}...", app.ID),
                     appId: app.ID));
                 string scriptOutput = null;
                 try
@@ -2413,7 +2431,7 @@ namespace Mastersign.Bench
             if (envScript != null)
             {
                 notify(new TaskInfo(
-                   string.Format("Running custom environment script for {0}.", app.ID),
+                   string.Format("Running custom environment script for {0}...", app.ID),
                    appId: app.ID));
                 string scriptOutput = null;
                 try
@@ -2461,11 +2479,11 @@ namespace Mastersign.Bench
                 if (cancelation.IsCanceled) break;
                 cnt++;
                 var progress = 0.9f * cnt / selectedApps.Count;
-                notify(new TaskProgress(string.Format("Installing app {0}.", app.ID), progress, app.ID));
+                notify(new TaskProgress(string.Format("Installing app {0}...", app.ID), progress, app.ID));
 
                 if (InstallApp(man, app, notify))
                 {
-                    notify(new TaskProgress(string.Format("Finished installing app {0}.", app.ID), progress,
+                    notify(new TaskProgress(string.Format("Installing app {0} finished.", app.ID), progress,
                         appId: app.ID));
                 }
             }
@@ -2473,7 +2491,7 @@ namespace Mastersign.Bench
             var globalCustomSetupScript = GetGlobalCustomScriptFile(man.Config, "setup");
             if (globalCustomSetupScript != null)
             {
-                notify(new TaskProgress("Executing global custom setup script.", 0.95f));
+                notify(new TaskProgress("Executing global custom setup script...", 0.95f));
                 string scriptOutput = null;
                 try
                 {
@@ -2494,7 +2512,7 @@ namespace Mastersign.Bench
 
             if (!cancelation.IsCanceled)
             {
-                notify(new TaskProgress("Finished installing apps.", 1f));
+                notify(new TaskProgress("Installing apps finished.", 1f));
             }
         }
 
@@ -2540,7 +2558,7 @@ namespace Mastersign.Bench
 
                 // Installing dependencies
                 notify(new TaskInfo(
-                    string.Format("Installing dependencies for app {0}", app.ID),
+                    string.Format("Installing dependencies for app {0}...", app.ID),
                     appId: app.ID));
                 if (!InstallAppsDependencies(man, app, notify, cancelation))
                 {
@@ -2560,7 +2578,7 @@ namespace Mastersign.Bench
 
                 // TOTO Custom test script check
 
-                //notify(new TaskProgress(string.Format("Testing app {0}.", app.ID), progress, app.ID));
+                //notify(new TaskProgress(string.Format("Testing app {0}...", app.ID), progress, app.ID));
                 //try
                 //{
                 //    switch (app.Typ)
@@ -2597,6 +2615,7 @@ namespace Mastersign.Bench
                 //        appId: app.ID, exception: e));
                 //    continue;
                 //}
+                //notify(new TaskProgress(string.Format("Testing app {0} finished.", app.ID), progress, app.ID));
             }
         }
 
@@ -2706,6 +2725,8 @@ namespace Mastersign.Bench
             ICollection<AppFacade> apps,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
+            notify(new TaskProgress("Uninstalling apps...", 0f));
+
             var selectedApps = new List<AppFacade>();
             foreach (var app in apps)
             {
@@ -2726,7 +2747,7 @@ namespace Mastersign.Bench
                 if (UninstallBlacklist.Contains(app.ID)) continue;
 
                 notify(new TaskProgress(
-                    string.Format("Uninstalling app {0}.", app.ID),
+                    string.Format("Uninstalling app {0}...", app.ID),
                     progress, app.ID));
 
                 var customScript = app.GetCustomScript("remove");
@@ -2735,7 +2756,7 @@ namespace Mastersign.Bench
                     if (customScript != null)
                     {
                         notify(new TaskProgress(
-                            string.Format("Running custom uninstall script for {0}.", app.ID), progress,
+                            string.Format("Running custom uninstall script for {0}...", app.ID), progress,
                             appId: app.ID));
                         var scriptOutput = RunCustomScript(man.Config, man.ProcessExecutionHost, app.ID, customScript).Trim();
                         if (!string.IsNullOrEmpty(scriptOutput))
@@ -2800,20 +2821,20 @@ namespace Mastersign.Bench
                     continue;
                 }
 
-                notify(new TaskProgress(string.Format("Finished uninstalling app {0}.", app.ID), progress, app.ID));
+                notify(new TaskProgress(string.Format("Uninstalling app {0} finished.", app.ID), progress, app.ID));
                 app.DiscardCachedValues();
             }
 
             if (!cancelation.IsCanceled)
             {
-                notify(new TaskProgress("Finished uninstalling the apps.", 1f));
+                notify(new TaskProgress("Uninstalling apps finished.", 1f));
             }
         }
 
         private static void UninstallApps(IBenchManager man,
             Action<TaskInfo> notify, Cancelation cancelation)
         {
-            notify(new TaskProgress("Uninstalling alls apps.", 0f));
+            notify(new TaskProgress("Uninstalling all apps...", 0f));
             var success = false;
             var libDir = man.Config.GetStringValue(ConfigPropertyKeys.AppsInstallDir);
             if (libDir != null && Directory.Exists(libDir))
@@ -2829,7 +2850,7 @@ namespace Mastersign.Bench
                 }
                 if (success)
                 {
-                    notify(new TaskProgress("Finished uninstalling alls apps.", 1f));
+                    notify(new TaskProgress("Uninstalling all apps finished.", 1f));
                 }
             }
         }
