@@ -26,6 +26,8 @@ Add a link to the GitHub diff like
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
 ### Fixed
+* Task messages
+  ([#131](https://github.com/winbench/bench/issues/131))
 * Unintentionally decoding URL encoded filenames
   ([#135](https://github.com/winbench/bench/issues/135))
 
