@@ -36,9 +36,17 @@ namespace Mastersign.Bench
                 info.Message);
             if (!string.IsNullOrEmpty(info.DetailedMessage))
             {
-                writer.WriteLine("[{0}] DETAIL:",
-                    info.Timestamp.ToString("yyyy-MM-dd HH-mm-ss"));
-                writer.WriteLine(info.DetailedMessage);
+                if (info.DetailedMessage.Contains("\n"))
+                {
+                    writer.WriteLine("[{0}] DETAIL:",
+                        info.Timestamp.ToString("yyyy-MM-dd HH-mm-ss"));
+                    writer.WriteLine(info.DetailedMessage);
+                } else
+                {
+                    writer.WriteLine("[{0}] DETAIL: {1}",
+                        info.Timestamp.ToString("yyyy-MM-dd HH-mm-ss"),
+                        info.DetailedMessage);
+                }
             }
             if (!string.IsNullOrEmpty(info.ConsoleOutput))
             {
