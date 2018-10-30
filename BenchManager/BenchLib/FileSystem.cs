@@ -31,8 +31,6 @@ namespace Mastersign.Bench
         private static string NormalizePath(string path)
         {
             if (path.StartsWith(@"\\?\")) return path;
-            var uri = new Uri(path);
-            path = uri.LocalPath;
             path = Path.GetFullPath(path);
             path = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             return path.Length >= 240
