@@ -28,6 +28,9 @@ Add a link to the GitHub diff like
 ### Fixed
 * Performance issues in setup dialog
 
+### Added
+* Menu item for showing event log after successful setup
+
 ## [0.20.4] - 2018-10-30
 
 [0.20.4]: https://github.com/winbench/bench/compare/v0.20.3...v0.20.4

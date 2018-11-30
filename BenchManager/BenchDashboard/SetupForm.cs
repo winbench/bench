@@ -213,7 +213,11 @@ namespace Mastersign.Bench.Dashboard
             btnAuto.Image = !busy
                             ? Resources.do_32
                             : Resources.stop_32;
-            if (busy) BusyPanelVisible = true;
+            if (busy)
+            {
+                taskInfoList.Clear();
+                BusyPanelVisible = true;
+            }
         }
 
         private void CoreActionStateChangedHandler(object sender, EventArgs e)
@@ -761,14 +765,20 @@ namespace Mastersign.Bench.Dashboard
                 {
                     panelBusy.Visible = false;
                     appList.Visible = true;
-                    taskInfoList.Clear();
                 }
+                tsmiShowTaskInfoList.Enabled = !value;
             }
         }
 
         private void btnCloseBusyPanel_Click(object sender, EventArgs e)
         {
             BusyPanelVisible = false;
+        }
+
+        private void tsmiShowTaskInfoList_Click(object sender, EventArgs e)
+        {
+            BusyPanelVisible = true;
+            EnableBusyPanelButtons();
         }
     }
 }

@@ -290,7 +290,9 @@
     <Content Include="Resources\error_grey_16.png" />
     <None Include="Resources\remove_16.png" />
     <None Include="Resources\error_outline_16.png" />
+    <None Include="Resources\interactive_log_16.png" />
     <Content Include="Resources\library_16.png" />
+    <Content Include="Resources\log_16.png" />
     <Content Include="Resources\MarkdownViewerTemplate.html" />
     <None Include="Resources\doc_16.png" />
     <None Include="Resources\docs_16.png" />
