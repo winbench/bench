@@ -184,7 +184,7 @@ namespace Mastersign.Bench.Dashboard
             ForAppWrapper(appId, w =>
             {
                 w.App.DiscardCachedValues();
-                w.NotifyChanges();
+                // w.NotifyChanges(); // huge performance impact!
             });
         }
 
