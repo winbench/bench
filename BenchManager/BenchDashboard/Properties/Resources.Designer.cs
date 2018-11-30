@@ -362,6 +362,16 @@ namespace Mastersign.Bench.Dashboard.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap interactive_log_16 {
+            get {
+                object obj = ResourceManager.GetObject("interactive_log_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap library_16 {
             get {
                 object obj = ResourceManager.GetObject("library_16", resourceCulture);
@@ -384,6 +394,16 @@ namespace Mastersign.Bench.Dashboard.Properties {
         internal static string licenses {
             get {
                 return ResourceManager.GetString("licenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap log_16 {
+            get {
+                object obj = ResourceManager.GetObject("log_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

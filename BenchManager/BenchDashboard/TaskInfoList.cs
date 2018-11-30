@@ -8,30 +8,52 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Mastersign.Bench.Dashboard.Properties;
+using System.Collections.Concurrent;
 
 namespace Mastersign.Bench.Dashboard
 {
     public partial class TaskInfoList : UserControl
     {
-        private BindingList<TaskInfoWrapper> infos = new BindingList<TaskInfoWrapper>();
+        private ConcurrentQueue<TaskInfoWrapper> infoQueue = new ConcurrentQueue<TaskInfoWrapper>();
+        private Timer timer;
 
         public TaskInfoList()
         {
             InitializeComponent();
             dataGrid.AutoGenerateColumns = false;
-            dataGrid.DataSource = infos;
+            InitializeTimer();
+            Disposed += DisposedHandler;
         }
 
-        public void AddTaskInfo(TaskInfo info)
+        private void InitializeTimer()
         {
-            infos.Insert(0, new TaskInfoWrapper(info));
-            dataGrid.Rows[0].Selected = true;
+            timer = new Timer { Interval = 250 };
+            timer.Tick += Timer_Tick;
+            timer.Enabled = true;
         }
 
-        public void Clear()
+        private void DisposedHandler(object sender, EventArgs e)
         {
-            infos.Clear();
+            timer.Enabled = false;
+            timer.Tick -= Timer_Tick;
+            timer.Dispose();
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            var added = false;
+            while (infoQueue.TryDequeue(out var wrapper))
+            {
+                dataGrid.Rows.Insert(0, wrapper.Icon, wrapper.Timestamp, wrapper.Context, wrapper.Message);
+                dataGrid.Rows[0].Tag = wrapper.TaskInfo;
+                added = true;
+            }
+            if (added) dataGrid.Rows[0].Selected = true;
+        }
+
+        public void AddTaskInfo(TaskInfo info) => infoQueue.Enqueue(new TaskInfoWrapper(info));
+
+        public void Clear() => dataGrid.Rows.Clear();
 
         class TaskInfoWrapper
         {
@@ -42,14 +64,7 @@ namespace Mastersign.Bench.Dashboard
 
             public TaskInfo TaskInfo { get; }
 
-            public Bitmap Icon
-            {
-                get
-                {
-                    if (TaskInfo is TaskError) return Resources.error_outline_16;
-                    return Resources.ok_outline_16;
-                }
-            }
+            public Bitmap Icon => TaskInfo is TaskError ? Resources.error_outline_16 : Resources.ok_outline_16;
 
             public string Timestamp => TaskInfo.Timestamp.ToString("HH:mm:ss");
 
@@ -58,12 +73,11 @@ namespace Mastersign.Bench.Dashboard
             public string Message => TaskInfo.Message;
         }
 
-        private void dataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void CellDoubleClickHandler(object sender, DataGridViewCellEventArgs e)
         {
-            var infoWrapper = dataGrid.Rows[e.RowIndex].DataBoundItem as TaskInfoWrapper;
-            if (infoWrapper != null)
+            if (dataGrid.Rows[e.RowIndex].Tag is TaskInfo info)
             {
-                ShowTaskInfoForm(infoWrapper.TaskInfo);
+                ShowTaskInfoForm(info);
             }
         }
 

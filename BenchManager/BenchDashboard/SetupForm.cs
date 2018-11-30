@@ -213,7 +213,11 @@ namespace Mastersign.Bench.Dashboard
             btnAuto.Image = !busy
                             ? Resources.do_32
                             : Resources.stop_32;
-            if (busy) BusyPanelVisible = true;
+            if (busy)
+            {
+                taskInfoList.Clear();
+                BusyPanelVisible = true;
+            }
         }
 
         private void CoreActionStateChangedHandler(object sender, EventArgs e)
@@ -444,24 +448,29 @@ namespace Mastersign.Bench.Dashboard
         }
 
         private void AppListTaskInfoHandler(object sender, TaskInfoEventArgs ea)
-            => ProcessTaskInfo(ea.TaskInfo);
+            => TaskInfoHandler(ea.TaskInfo);
 
         private void TaskInfoHandler(TaskInfo info)
         {
             if (Disposing || IsDisposed) return;
             if (InvokeRequired)
-                BeginInvoke((Action<TaskInfo>)ProcessTaskInfo, info);
-            else
-                ProcessTaskInfo(info);
+            {
+                BeginInvoke((Action<TaskInfo>)TaskInfoHandler, info);
+                return;
+            }
+            ProcessTaskInfo(info);
+            taskInfoList.AddTaskInfo(info);
         }
 
         private void ProcessTaskInfo(TaskInfo info)
         {
-            lblInfo.Text = info.Message;
-            lblInfo.Refresh();
             if (info is TaskProgress progressInfo) UpdateProgressBar(progressInfo.Progress);
             if (info is TaskError taskError) toolTip.SetToolTip(picState, taskError.Message);
-            taskInfoList.AddTaskInfo(info);
+            if (info.Message != null)
+            {
+                lblInfo.Text = info.Message;
+                lblInfo.Refresh();
+            }
         }
 
         private void AppListTaskStartedHandler(object sender, TaskStartedEventArgs ea)
@@ -756,14 +765,20 @@ namespace Mastersign.Bench.Dashboard
                 {
                     panelBusy.Visible = false;
                     appList.Visible = true;
-                    taskInfoList.Clear();
                 }
+                tsmiShowTaskInfoList.Enabled = !value;
             }
         }
 
         private void btnCloseBusyPanel_Click(object sender, EventArgs e)
         {
             BusyPanelVisible = false;
+        }
+
+        private void tsmiShowTaskInfoList_Click(object sender, EventArgs e)
+        {
+            BusyPanelVisible = true;
+            EnableBusyPanelButtons();
         }
     }
 }

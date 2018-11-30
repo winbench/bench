@@ -81,10 +81,11 @@
             this.tsmView = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowAppIndex = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowCustomAppIndex = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowTaskInfoList = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowLastLogfile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlwaysShowDownloads = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiConfigurationInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRefreshView = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShowLastLogfile = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -265,11 +266,13 @@
             // btnOpenLogFile
             // 
             this.btnOpenLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenLogFile.Location = new System.Drawing.Point(530, 267);
+            this.btnOpenLogFile.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.log_16;
+            this.btnOpenLogFile.Location = new System.Drawing.Point(512, 267);
             this.btnOpenLogFile.Name = "btnOpenLogFile";
-            this.btnOpenLogFile.Size = new System.Drawing.Size(68, 23);
+            this.btnOpenLogFile.Size = new System.Drawing.Size(86, 23);
             this.btnOpenLogFile.TabIndex = 13;
             this.btnOpenLogFile.Text = "&Log File";
+            this.btnOpenLogFile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip.SetToolTip(this.btnOpenLogFile, "Open the last log file. (F12)");
             this.btnOpenLogFile.UseVisualStyleBackColor = true;
             this.btnOpenLogFile.Click += new System.EventHandler(this.ShowLastLogHandler);
@@ -370,6 +373,7 @@
             // 
             this.tsmiAuto.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.do_16;
             this.tsmiAuto.Name = "tsmiAuto";
+            this.tsmiAuto.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
             this.tsmiAuto.Size = new System.Drawing.Size(237, 22);
             this.tsmiAuto.Text = "&Automatic Setup";
             this.tsmiAuto.ToolTipText = "Uninstalls incactive apps, downloades missing resources, installs active but not " +
@@ -562,6 +566,7 @@
             this.tsmiShowAppIndex,
             this.tsmiShowCustomAppIndex,
             toolStripSeparator1,
+            this.tsmiShowTaskInfoList,
             this.tsmiShowLastLogfile,
             this.tsmiAlwaysShowDownloads,
             this.tsmiConfigurationInfo,
@@ -584,6 +589,22 @@
             this.tsmiShowCustomAppIndex.Size = new System.Drawing.Size(205, 22);
             this.tsmiShowCustomAppIndex.Text = "&User App Library";
             this.tsmiShowCustomAppIndex.Click += new System.EventHandler(this.ShowCustomAppIndexHandler);
+            // 
+            // tsmiShowTaskInfoList
+            // 
+            this.tsmiShowTaskInfoList.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.interactive_log_16;
+            this.tsmiShowTaskInfoList.Name = "tsmiShowTaskInfoList";
+            this.tsmiShowTaskInfoList.Size = new System.Drawing.Size(205, 22);
+            this.tsmiShowTaskInfoList.Text = "Last &Event Log";
+            this.tsmiShowTaskInfoList.Click += new System.EventHandler(this.tsmiShowTaskInfoList_Click);
+            // 
+            // tsmiShowLastLogfile
+            // 
+            this.tsmiShowLastLogfile.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.log_16;
+            this.tsmiShowLastLogfile.Name = "tsmiShowLastLogfile";
+            this.tsmiShowLastLogfile.Size = new System.Drawing.Size(205, 22);
+            this.tsmiShowLastLogfile.Text = "Last L&ogfile";
+            this.tsmiShowLastLogfile.Click += new System.EventHandler(this.ShowLastLogHandler);
             // 
             // tsmiAlwaysShowDownloads
             // 
@@ -609,13 +630,6 @@
             this.tsmiRefreshView.Size = new System.Drawing.Size(205, 22);
             this.tsmiRefreshView.Text = "&Refresh";
             this.tsmiRefreshView.Click += new System.EventHandler(this.RefreshViewHandler);
-            // 
-            // tsmiShowLastLogfile
-            // 
-            this.tsmiShowLastLogfile.Name = "tsmiShowLastLogfile";
-            this.tsmiShowLastLogfile.Size = new System.Drawing.Size(205, 22);
-            this.tsmiShowLastLogfile.Text = "Last L&ogfile";
-            this.tsmiShowLastLogfile.Click += new System.EventHandler(this.ShowLastLogHandler);
             // 
             // SetupForm
             // 
@@ -706,5 +720,6 @@
         private TaskInfoList taskInfoList;
         private System.Windows.Forms.Button btnOpenLogFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowLastLogfile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowTaskInfoList;
     }
 }

@@ -62,8 +62,7 @@
             this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGrid.Size = new System.Drawing.Size(683, 274);
             this.dataGrid.TabIndex = 0;
-            this.dataGrid.VirtualMode = true;
-            this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellDoubleClick);
+            this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellDoubleClickHandler);
             // 
             // colIcon
             // 
