@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+### Fixed
+* Performance issues in setup dialog
+
 ## [0.20.4] - 2018-10-30
 
 [0.20.4]: https://github.com/winbench/bench/compare/v0.20.3...v0.20.4

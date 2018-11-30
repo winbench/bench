@@ -444,24 +444,29 @@ namespace Mastersign.Bench.Dashboard
         }
 
         private void AppListTaskInfoHandler(object sender, TaskInfoEventArgs ea)
-            => ProcessTaskInfo(ea.TaskInfo);
+            => TaskInfoHandler(ea.TaskInfo);
 
         private void TaskInfoHandler(TaskInfo info)
         {
             if (Disposing || IsDisposed) return;
             if (InvokeRequired)
-                BeginInvoke((Action<TaskInfo>)ProcessTaskInfo, info);
-            else
-                ProcessTaskInfo(info);
+            {
+                BeginInvoke((Action<TaskInfo>)TaskInfoHandler, info);
+                return;
+            }
+            ProcessTaskInfo(info);
+            taskInfoList.AddTaskInfo(info);
         }
 
         private void ProcessTaskInfo(TaskInfo info)
         {
-            lblInfo.Text = info.Message;
-            lblInfo.Refresh();
             if (info is TaskProgress progressInfo) UpdateProgressBar(progressInfo.Progress);
             if (info is TaskError taskError) toolTip.SetToolTip(picState, taskError.Message);
-            taskInfoList.AddTaskInfo(info);
+            if (info.Message != null)
+            {
+                lblInfo.Text = info.Message;
+                lblInfo.Refresh();
+            }
         }
 
         private void AppListTaskStartedHandler(object sender, TaskStartedEventArgs ea)
