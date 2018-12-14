@@ -2139,7 +2139,8 @@ namespace Mastersign.Bench
                 throw new FileNotFoundException("Could not find the executable of LessMSI.");
             }
             var env = new BenchEnvironment(config);
-            var args = CommandLine.FormatArgumentList("x", archiveFile, @".\");
+            
+            var args = CommandLine.FormatArgumentList("x", archiveFile, targetDir + "\\");
             var result = execHost.RunProcess(env, targetDir, lessMsiExe, args,
                 ProcessMonitoring.ExitCodeAndOutput);
             if (result.ExitCode != 0)

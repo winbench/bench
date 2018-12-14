@@ -45,6 +45,7 @@ $buildArtifacts = @(
     "BenchDashboard\bin\$mode\BenchDashboard.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe.config",
     "BenchDashboard\bin\$mode\ConEmu.WinForms.dll",
+    "packages\HtmlAgilityPack.1.8.11\lib\Net45\HtmlAgilityPack.dll",
     "scripts\bench-cmd.cmd",
     "scripts\bench-ps.cmd",
     "scripts\bench-bash.cmd",

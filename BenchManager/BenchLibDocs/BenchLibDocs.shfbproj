@@ -42,13 +42,13 @@
     <Preliminary>False</Preliminary>
     <NamingMethod>MemberName</NamingMethod>
     <HelpTitle>BenchLib .NET API</HelpTitle>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="..\BenchLib\bin\$(Configuration)\BenchLib.dll" xmlns="" />
+      <DocumentationSource sourceFile="..\BenchLib\bin\$(Configuration)\BenchLib.xml" xmlns="" />
+    </DocumentationSources>
     <FeedbackEMailLinkText>Tobias Kiertscher</FeedbackEMailLinkText>
     <FeedbackEMailAddress>dev%40mastersign.de</FeedbackEMailAddress>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
-    <DocumentationSources>
-      <DocumentationSource sourceFile="..\BenchLib\bin\Debug\BenchLib.dll" xmlns="" />
-      <DocumentationSource sourceFile="..\BenchLib\bin\Debug\BenchLib.xml" xmlns="" />
-    </DocumentationSources>
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, EditorBrowsableNever, NonBrowsable</VisibleItems>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <ComponentPath>..\packages\EWSoftware.SHFB.NETFramework.4.6.2\tools\</ComponentPath>

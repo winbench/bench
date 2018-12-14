@@ -328,13 +328,13 @@
       <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets'))" />
+    <Error Condition="!Exists('..\packages\ConEmu.Core.18.6.26\build\ConEmu.Core.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ConEmu.Core.18.6.26\build\ConEmu.Core.Targets'))" />
   </Target>
-  <Import Project="..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets" Condition="Exists('..\packages\ConEmu.Core.16.7.24.0\build\ConEmu.Core.Targets')" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\auto\bin\$(TargetFileName)"
 copy "$(TargetPath).config" "$(SolutionDir)..\auto\bin\$(TargetFileName).config"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\ConEmu.Core.18.6.26\build\ConEmu.Core.Targets" Condition="Exists('..\packages\ConEmu.Core.18.6.26\build\ConEmu.Core.Targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
