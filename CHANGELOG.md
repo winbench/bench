@@ -25,11 +25,11 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
-### Fixed
-* Support for LessMSI 1.6
-
 ### Added
 * First draft of script for version check
+
+### Changed
+* LessMSI 1.6 required
 
 ## [0.20.5] - 2018-11-30
 
