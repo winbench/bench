@@ -1,5 +1,6 @@
 param (
-    [switch]$CheckVersion,
+    [string]$GitHubUserName = $null,
+    [switch]$CheckVersion = $true,
     [string[]]$Libraries = @("core", "default"),
     [string[]]$Apps = @(),
     [string]$ReportFile = "app-report.txt"
@@ -8,11 +9,9 @@ param (
 $Script:scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 . "$Script:scriptsDir\config.lib.ps1"
 
-$DebugPreference = "SilentlyContinue"
-$VerbosePreference = "SilentlyContinue"
-$InformationPreference = "Continue"
+# $DebugPreference = "Continue"
+# $InformationPreference = "Continue"
 
-$GitHubUserName = Read-Host "GitHub Username"
 if ($GitHubUserName) {
   $GitHubPassword = Read-Host "GitHub Password" -AsSecureString
   $GitHubPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($GitHubPassword))
@@ -39,8 +38,12 @@ function findVersionsInNode($app, $node, $attr, $re) {
     } else {
         $text = $node.InnerText
     }
-    foreach ($m in $re.Matches($text)) {
-        $m.Groups["Version"].Value
+    if ($text) {
+        foreach ($m in $re.Matches($text)) {
+            $m.Groups["Version"].Value
+        }
+    } else {
+        Write-Debug "Empty text in node"
     }
 }
 
@@ -52,10 +55,16 @@ function findVersionsInDoc($app, $doc, $xpath, $re) {
     }
     if ($xpath) {
         $nodes = $doc.DocumentNode.SelectNodes($xpath)
-        foreach ($n in $nodes) {
-            findVersionsInNode $app $n $attr $re
+        if ($nodes.Count -gt 0) {
+            Write-Debug "Found $($nodes.Count) nodes with XPath"
+            foreach ($n in $nodes) {
+                findVersionsInNode $app $n $attr $re
+            }
+        } else {
+            Write-Warning "No nodes found with XPath"
         }
     } else {
+        Write-Debug "Searching without XPath in whole document"
         findVersionsInNode $app $doc.DocumentNode $re
     }
 }
@@ -75,6 +84,7 @@ function findHighestAppVersion($app) {
     Write-Host ""
     Write-Host "Checking $($app.AppLibrary.ID):$($app.ID) ..."
     [regex]$checkRe = $checkPattern
+    Write-Debug "Version Check Pattern: $checkRe"
     $doc = $Script:web.Load($checkUrl)
     $versions = findVersionsInDoc $app $doc $checkXPath $checkRe `
         | sort -Descending -Property { normalizeVersion $_ }
