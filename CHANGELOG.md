@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.21.0] - 2018-12-14
+
+[0.21.0]: https://github.com/winbench/bench/compare/v0.20.5...v0.21.0
+
 ### Added
 * First draft of script for version check
 
