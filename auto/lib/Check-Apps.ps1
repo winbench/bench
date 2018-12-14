@@ -1,6 +1,7 @@
 param (
     [switch]$CheckVersion,
     [string[]]$Libraries = @("core", "default"),
+    [string[]]$Apps = @(),
     [string]$ReportFile = "app-report.txt"
 )
 
@@ -129,7 +130,8 @@ report "[$([DateTime]::Now.ToString("yyyy-MM-dd HH:mm:ss"))]"
 report "Check Version: $CheckVersion"
 
 foreach ($app in $global:BenchConfig.Apps) {
-    if ($app.AppLibrary.ID -notin $Libraries) { continue }
+    if ($Libraries -and ($app.AppLibrary.ID -notin $Libraries)) { continue }
+    if ($Apps -and ($app.ID -notin $Apps)) { continue }
 
     if ($CheckVersion -and $app.IsVersioned) {
         $currentVersion = findHighestAppVersion $app
