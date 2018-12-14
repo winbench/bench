@@ -134,19 +134,23 @@ foreach ($app in $global:BenchConfig.Apps) {
     if ($Apps -and ($app.ID -notin $Apps)) { continue }
 
     if ($CheckVersion -and $app.IsVersioned) {
-        $currentVersion = findHighestAppVersion $app
-        if ($currentVersion -eq $false) {
-            $currentVersion = findLatestGitHubRelease $app
+        $currentVersion = Get-AppConfigValue $app.ID "VersionCheckString"
+        if (!$currentVersion) {
+            $currentVersion = $app.Version
         }
-        if ($currentVersion -eq $null) {
-            Write-Warning "Version: $($app.Version) -> ???"
-            report "Version: $($app.AppLibrary.ID) $($app.ID) $($app.Version) -> ???"
-        } elseif ($currentVersion) {
-            if ($app.Version -ne $currentVersion) {
-                Write-Warning "$($app.Version) -> $currentVersion"
-                report "Version: $($app.AppLibrary.ID) $($app.ID) $($app.Version) -> $currentVersion"
+        $latestVersion = findHighestAppVersion $app
+        if ($latestVersion -eq $false) {
+            $latestVersion = findLatestGitHubRelease $app
+        }
+        if ($latestVersion -eq $null) {
+            Write-Warning "Version: $currentVersion -> ???"
+            report "Version: $($app.AppLibrary.ID) $($app.ID) $currentVersion -> ???"
+        } elseif ($latestVersion) {
+            if ($currentVersion -ne $latestVersion) {
+                Write-Warning "$currentVersion -> $latestVersion"
+                report "Version: $($app.AppLibrary.ID) $($app.ID) $currentVersion -> $latestVersion"
             } else {
-                Write-Host "$currentVersion (unchanged)"
+                Write-Host "$latestVersion (unchanged)"
             }
         }
     }
