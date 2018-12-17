@@ -18,11 +18,98 @@ if ($GitHubUserName) {
 }
 
 $_ = [Reflection.Assembly]::LoadFrom("$Script:scriptsDir\..\bin\HtmlAgilityPack.dll")
+$_ = Add-Type -AssemblyName System.Web
 
-$Script:web = New-Object HtmlAgilityPack.HtmlWeb
+$webClientClassCode = @"
+using System;
+using System.Net;
+public class DecompressingWebClient : WebClient
+{
+    protected override WebRequest GetWebRequest(Uri address)
+    {
+        HttpWebRequest request = base.GetWebRequest(address) as HttpWebRequest;
+        request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+        return request;
+    }
+    public void AdditionalMethodToSuppressWarning() { }
+}
+"@
+$_ = Add-Type -TypeDefinition $webClientClassCode
+$Script:webClient = New-Object DecompressingWebClient
+
 [Net.ServicePointManager]::SecurityProtocol = 'Tls11,Tls12'
 
-function AuthHeaders($user, $pass) {
+$Script:cacheDir = "${env:TEMP}\bench-app-check-$([DateTime]::Now.ToString("yyyyMMddHH"))"
+if (!(Test-Path $Script:cacheDir)) {
+    mkdir $cacheDir | Out-Null
+}
+
+#
+# ---- CACHING ----
+#
+
+function hash($s) {
+    $algo = [System.Security.Cryptography.MD5]::Create()
+    $data = $algo.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($s))
+    return [BitConverter]::ToString($data).Replace("-", "")
+}
+
+function cacheFile($name) {
+    return [IO.Path]::Combine($Script:cacheDir, (hash $name))
+}
+
+function loadDataFromCache($url) {
+    $cacheFile = cacheFile $url
+    if (Test-Path $cacheFile) {
+        Write-Debug "Read from cache: $cacheFile"
+        return [IO.File]::ReadAllBytes($cacheFile)
+    } else {
+        Write-Debug "Cache miss: $cacheFile"
+        return $null
+    }
+}
+
+function storeDataToCache($url, $data) {
+    $cacheFile = cacheFile $url
+    Write-Debug "Write to cache: $cacheFile"
+    [IO.File]::WriteAllBytes($cacheFile, $data)
+}
+
+#
+# ---- LOADING WEB RESOURCES ----
+#
+
+function downloadData($url) {
+    Write-Information "Download of $url"
+    $Script:webClient.Headers.Add("User-Agent", "Bench App Version Check")
+    return $Script:webClient.DownloadData($url)
+}
+
+function loadData($url) {
+    [byte[]]$content = loadDataFromCache $url
+    if (!$content) {
+        $content = downloadData $url
+        storeDataToCache $url $content
+    }
+    return $content
+}
+
+function loadHtmlDoc($url) {
+    $content = loadData $url
+    $ms = New-Object System.IO.MemoryStream -ArgumentList @(,$content)
+    $doc = New-Object HtmlAgilityPack.HtmlDocument
+    $doc.Load($ms)
+    $ms.Dispose()
+    return $doc
+}
+
+function loadJsonDoc($url) {
+    $content = loadData $url
+    $json = [System.Text.Encoding]::UTF8.GetString($content, 0, $content.Length)
+    return $json | ConvertFrom-Json
+}
+
+function authHeaders($user, $pass) {
     if ($user) {
         $pair = "${user}:${pass}"
         $encodedCreds = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
@@ -32,6 +119,10 @@ function AuthHeaders($user, $pass) {
     }
 }
 
+#
+# ---- PARSING HTML DOCS ----
+#
+
 function findVersionsInNode($app, $node, $attr, $re) {
     if ($attr) {
         $text = $node.Attributes[$attr].Value
@@ -39,6 +130,9 @@ function findVersionsInNode($app, $node, $attr, $re) {
         $text = $node.InnerText
     }
     if ($text) {
+        $text = $text.Trim()
+        $text = [System.Web.HttpUtility]::HtmlDecode($text)
+        Write-Debug "TEST: $($text.Substring(0, [Math]::Min(128, $text.Length)))"
         foreach ($m in $re.Matches($text)) {
             $m.Groups["Version"].Value
         }
@@ -69,6 +163,36 @@ function findVersionsInDoc($app, $doc, $xpath, $re) {
     }
 }
 
+#
+# ---- PARSING JSON ----
+#
+
+function findVersionsInData($app, $data, $path, $re) {
+    $pathParts = $path.Split("/")
+    Write-Debug "Data Selection Path: $([string]::Join(" -> ", $pathParts))"
+    $pivot = $data
+    foreach ($part in $pathParts) {
+        if ($pivot -eq $null) { break }
+        if ($pivot -is [PSCustomObject]) {
+            $pivot = $pivot.$part
+        } else {
+            $pivot = $pivot[$part]
+        }
+    }
+    if ($pivot) {
+        Write-Debug "String: $pivot"
+        foreach ($m in $re.Matches($pivot)) {
+            $m.Groups["Version"].Value
+        }
+    } else {
+        Write-Debug "Path not found in data."
+    }
+}
+
+#
+# ---- FIND LATEST VERSION ----
+#
+
 function normalizeVersion($version) {
     $parts = $version.Split('.')
     $norms = $parts | % { $_.PadLeft(6, '0') }
@@ -81,19 +205,25 @@ function findHighestAppVersion($app) {
     $checkPattern = Get-AppConfigValue $app.ID "VersionCheckPattern"
     if (!$checkPattern) { return $false }
     $checkXPath = Get-AppConfigValue $app.ID "VersionCheckXPath"
+    $checkJsonPath = Get-AppConfigValue $app.ID "VersionCheckJsonPath"
     Write-Host ""
     Write-Host "Checking $($app.AppLibrary.ID):$($app.ID) ..."
     [regex]$checkRe = $checkPattern
     Write-Debug "Version Check Pattern: $checkRe"
-    $doc = $Script:web.Load($checkUrl)
-    $versions = findVersionsInDoc $app $doc $checkXPath $checkRe `
-        | sort -Descending -Property { normalizeVersion $_ }
+    if ($checkJsonPath) {
+        $data = loadJsonDoc $checkUrl
+        $versions = findVersionsInData $app $data $checkJsonPath $checkRe
+    } else {
+        $doc = loadHtmlDoc $checkUrl
+        $versions = findVersionsInDoc $app $doc $checkXPath $checkRe
+    }
     if ($versions -is [string]) {
         $version = $versions
         Write-Information "Found one version: $version"
         return $version
     }
     if ($versions) {
+        $versions = $versions | sort -Descending -Property { normalizeVersion $_ }
         Write-Information "Found versions: $([string]::Join(", ", $versions))"
         return $versions[0]
     }
@@ -111,7 +241,7 @@ function findLatestGitHubRelease($app) {
     Write-Host ""
     Write-Host "Checking $($app.AppLibrary.ID):$($app.ID) on GitHub $owner/$project ..."
     $apiUrl = "https://api.github.com/repos/$owner/$project/releases"
-    $authHeaders = AuthHeaders $Script:GitHubUserName $Script:GitHubPassword
+    $authHeaders = authHeaders $Script:GitHubUserName $Script:GitHubPassword
     $releases = Invoke-WebRequest $apiUrl -Headers $authHeaders | ConvertFrom-Json
     $tags = $releases `
         | ? { !$_.draft -and !$_.prerelease } `
