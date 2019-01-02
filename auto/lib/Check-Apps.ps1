@@ -10,11 +10,11 @@ $Script:scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definit
 . "$Script:scriptsDir\config.lib.ps1"
 
 # $DebugPreference = "Continue"
-# $InformationPreference = "Continue"
+$InformationPreference = "Continue"
 
 if ($GitHubUserName) {
   $GitHubPassword = Read-Host "GitHub Password" -AsSecureString
-  $GitHubPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($GitHubPassword))
+  $Script:GitHubCredential = New-Object System.Management.Automation.PSCredential @($GitHubUserName, $GitHubPassword)
 }
 
 $_ = [Reflection.Assembly]::LoadFrom("$Script:scriptsDir\..\bin\HtmlAgilityPack.dll")
@@ -36,8 +36,9 @@ public class DecompressingWebClient : WebClient
 "@
 $_ = Add-Type -TypeDefinition $webClientClassCode
 $Script:webClient = New-Object DecompressingWebClient
+$Script:webClient.Credentials = $CredentialCache
 
-[Net.ServicePointManager]::SecurityProtocol = 'Tls11,Tls12'
+[Net.ServicePointManager]::SecurityProtocol = 'Tls,Tls11,Tls12'
 
 $Script:cacheDir = "${env:TEMP}\bench-app-check-$([DateTime]::Now.ToString("yyyyMMddHH"))"
 if (!(Test-Path $Script:cacheDir)) {
@@ -79,23 +80,40 @@ function storeDataToCache($url, $data) {
 # ---- LOADING WEB RESOURCES ----
 #
 
-function downloadData($url) {
+function encodeCredential($Credential = $null) {
+
+    if ($Credential) {
+        $user = $Credential.UserName
+        $pass = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Credential.Password))
+        $pair = "${user}:${pass}"
+        $encodedCreds = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+        return "Basic $encodedCreds"
+    } else {
+        return $null
+    }
+}
+
+function downloadData($url, $Credential = $null) {
     Write-Information "Download of $url"
     $Script:webClient.Headers.Add("User-Agent", "Bench App Version Check")
+    if ($Credential) {
+        $Script:webClient.Headers.Add("Authorization", (encodeCredential $Credential))
+    }
+    $Script:webClient.UseDefaultCredentials = $false
     return $Script:webClient.DownloadData($url)
 }
 
-function loadData($url) {
+function loadData($url, $Credential = $null) {
     [byte[]]$content = loadDataFromCache $url
     if (!$content) {
-        $content = downloadData $url
+        $content = downloadData $url -Credential $Credential
         storeDataToCache $url $content
     }
     return $content
 }
 
-function loadHtmlDoc($url) {
-    $content = loadData $url
+function loadHtmlDoc($url, $Credential = $null) {
+    $content = loadData $url -Credential $Credential
     $ms = New-Object System.IO.MemoryStream -ArgumentList @(,$content)
     $doc = New-Object HtmlAgilityPack.HtmlDocument
     $doc.Load($ms)
@@ -103,20 +121,10 @@ function loadHtmlDoc($url) {
     return $doc
 }
 
-function loadJsonDoc($url) {
-    $content = loadData $url
+function loadJsonDoc($url, $Credential = $null) {
+    $content = loadData $url -Credential $Credential
     $json = [System.Text.Encoding]::UTF8.GetString($content, 0, $content.Length)
     return $json | ConvertFrom-Json
-}
-
-function authHeaders($user, $pass) {
-    if ($user) {
-        $pair = "${user}:${pass}"
-        $encodedCreds = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
-        return @{ Authorization = "Basic $encodedCreds" }
-    } else {
-        return @{}
-    }
 }
 
 #
@@ -217,6 +225,10 @@ function findHighestAppVersion($app) {
         $doc = loadHtmlDoc $checkUrl
         $versions = findVersionsInDoc $app $doc $checkXPath $checkRe
     }
+    $ignoredVersions = Get-AppConfigListValue $app.ID "VersionCheckIgnore"
+    if ($ignoredVersions) {
+        $versions = $versions | ? { $_ -notin $ignoredVersions }
+    }
     if ($versions -is [string]) {
         $version = $versions
         Write-Information "Found one version: $version"
@@ -225,6 +237,8 @@ function findHighestAppVersion($app) {
     if ($versions) {
         $versions = $versions | sort -Descending -Property { normalizeVersion $_ }
         Write-Information "Found versions: $([string]::Join(", ", $versions))"
+        $normVersions = $versions | % { normalizeVersion $_ }
+        Write-Debug "Normalized versions: $([string]::Join(", ", $normVersions))"
         return $versions[0]
     }
     return $null
@@ -238,15 +252,21 @@ function findLatestGitHubRelease($app) {
     if (!$m.Success) { return $false }
     $owner = $m.Groups["Owner"].Value
     $project = $m.Groups["Project"].Value
+    $ignoredVersions = Get-AppConfigListValue $app.ID "VersionCheckIgnore"
     Write-Host ""
     Write-Host "Checking $($app.AppLibrary.ID):$($app.ID) on GitHub $owner/$project ..."
     $apiUrl = "https://api.github.com/repos/$owner/$project/releases"
-    $authHeaders = authHeaders $Script:GitHubUserName $Script:GitHubPassword
-    $releases = Invoke-WebRequest $apiUrl -Headers $authHeaders | ConvertFrom-Json
+    $releases = loadJsonDoc $apiUrl -Credential $Script:GitHubCredential
+    if (Get-AppConfigBooleanValue $app.ID "VersionCheckAllowPreRelease") {
+        Write-Information "Allow Pre-Release"
+        $releases = $releases | ? { !$_.draft }
+    } else {
+        $releases = $releases | ? { !$_.draft -and !$_.prerelease }
+    }
     $tags = $releases `
-        | ? { !$_.draft -and !$_.prerelease } `
         | % { $_.tag_name } `
         | % { if ($_.StartsWith("v")) { $_.Substring(1) } else { $_ } } `
+        | ? { if (!$ignoredVersions) { return $true } else { return $_ -notin $ignoredVersions } } `
         | sort -Descending -Property { normalizeVersion $_ }
     if ($tags -is [string]) {
         $tag = $tags
@@ -255,6 +275,8 @@ function findLatestGitHubRelease($app) {
     }
     if ($tags) {
         Write-Information "Found releases: $([string]::Join(", ", $tags))"
+        $normTags = $tags | % { normalizeVersion $_ }
+        Write-Debug "Normalized releases: $([string]::Join(", ", $normTags))"
         return $tags[0]
     }
     return $null
