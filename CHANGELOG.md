@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+### Changed
+* Reactivated old TLS 1.0 to support some ill configured web servers
+
 ## [0.21.0] - 2018-12-14
 
 [0.21.0]: https://github.com/winbench/bench/compare/v0.20.5...v0.21.0
