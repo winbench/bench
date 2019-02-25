@@ -13,6 +13,7 @@
 * DownloadAttempts: 3
 * ParallelDownloads: 4
 * HttpsSecurityProtocols:
+    + `Tls`
     + `Tls11`
     + `Tls12`
 * LogLevel: `Info`
