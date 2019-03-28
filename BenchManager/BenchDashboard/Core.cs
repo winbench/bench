@@ -792,6 +792,14 @@ namespace Mastersign.Bench.Dashboard
                      + e.FileName);
                 return null;
             }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                UI.ShowWarning("Launching App",
+                    "Failed to execute the apps main executable."
+                    + Environment.NewLine + Environment.NewLine
+                    + e.Message);
+                return null;
+            }
         }
 
         public void ShowAppInfo(string id)
