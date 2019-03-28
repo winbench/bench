@@ -99,19 +99,81 @@ namespace Mastersign.Bench
 
             if (!File.Exists(userConfigFile))
             {
+                var dir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigInitDirectory);
+                var zip = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigInitZipFile);
                 var repo = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigRepository);
-                if (repo != null)
+                if (dir != null)
                 {
-                    // asure no config directory exist for git clone
-                    if (Directory.Exists(userConfigDir))
+                    // check if template directory exists
+                    if (!Directory.Exists(dir))
                     {
-                        FileSystem.PurgeDir(userConfigDir);
+                        man.UI.ShowError("Copying User Configuration",
+                            "Template directory for user configuration does not exists: " + dir);
+                        return null;
+                    }
+                    // check if a config.md exists
+                    if (!File.Exists(Path.Combine(dir, "config.md")))
+                    {
+                        // try to find the config.md in a config sub-directory, e.g. if the given directory is a Bench environment
+                        if (File.Exists(Path.Combine(dir, "config", "config.md")))
+                        {
+                            dir = Path.Combine(dir, "config");
+                        }
+                        else
+                        {
+                            man.UI.ShowError("Copying User Configuration",
+                                "No configuration found in template directory for user configuration: " + dir);
+                            return null;
+                        }
                     }
                     // asure the parent directory exists
                     if (!Directory.Exists(Path.GetDirectoryName(userConfigDir)))
                     {
                         Directory.CreateDirectory(Path.GetDirectoryName(userConfigDir));
                     }
+                    // copy files from template directory
+                    FileSystem.CopyDir(dir, userConfigDir, true);
+                }
+                else if (zip != null)
+                {
+                    // check if template ZIP file exists
+                    if (!File.Exists(zip))
+                    {
+                        man.UI.ShowError("Extracting User Configuration",
+                            "Template ZIP archive with user configuration does not exists: " + zip);
+                        return null;
+                    }
+                    // asure the target directory exists
+                    FileSystem.AsureDir(userConfigDir);
+                    // open the ZIP file
+                    using (var zipFile = ZipFile.Read(zip))
+                    {
+                        zipFile.FlattenFoldersOnExtract = false;
+                        // check if a config.md exists
+                        if (zipFile.ContainsEntry("config.md"))
+                        {
+                            // extract everything
+                            zipFile.ExtractAll(userConfigDir, ExtractExistingFileAction.OverwriteSilently);
+                        }
+                        // check if the config.md resides in a config sub-directory
+                        else if (zipFile.ContainsEntry("config\\config.md"))
+                        {
+                            // extract everything beneath config
+                            zipFile.ExtractSelectedEntries("config\\*", null, Path.GetDirectoryName(userConfigDir),
+                                ExtractExistingFileAction.OverwriteSilently);
+                        }
+                        else
+                        {
+                            man.UI.ShowError("Extracting User Configuration",
+                                "No configuration found in template ZIP file for user configuration: " + zip);
+                            return null;
+                        }
+                    }
+                }
+                else if (repo != null)
+                {
+                    // asure the target directory exists and is empty
+                    FileSystem.EmptyDir(userConfigDir);
                     // clone the existing config
                     var result = man.ProcessExecutionHost.RunProcess(man.Env, man.Config.BenchRootDir,
                         man.Config.Apps[AppKeys.Git].Exe,
@@ -119,7 +181,7 @@ namespace Mastersign.Bench
                         ProcessMonitoring.ExitCodeAndOutput);
                     if (result.ExitCode != 0)
                     {
-                        man.UI.ShowError("Cloning Custom Configuration",
+                        man.UI.ShowError("Cloning User Configuration",
                             "Executing Git failed: "
                             + Environment.NewLine + Environment.NewLine
                             + result.Output);
@@ -128,14 +190,14 @@ namespace Mastersign.Bench
                 }
                 else
                 {
-                    if (!Directory.Exists(userConfigDir))
-                    {
-                        Directory.CreateDirectory(userConfigDir);
-                    }
+                    // asure the target directory exists
+                    FileSystem.AsureDir(userConfigDir);
 
+                    // copy the bundled user config template
                     var userConfigTemplateFile = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigTemplateFile);
                     File.Copy(userConfigTemplateFile, userConfigFile, false);
 
+                    // set some config values in the user configuration according to the wizzard results
                     if (man.Config.GetBooleanValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile))
                     {
                         Markdown.MarkdownPropertyEditor.UpdateFile(userConfigFile, new Dictionary<string, string>

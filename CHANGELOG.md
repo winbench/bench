@@ -28,6 +28,9 @@ Add a link to the GitHub diff like
 ### Added
 * Find apps by searching for the executable filename
   ([#130](https://github.com/winbench/bench/issues/130))
+* Initialize new Bench environment from user config template in:
+  directory, existing Bench environment, ZIP file, additionally to Git repo
+  ([#137](https://github.com/winbench/bench/issues/137))
 
 ### Changed
 * Make 64Bit support the default

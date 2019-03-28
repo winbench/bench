@@ -533,6 +533,8 @@ namespace Mastersign.Bench
             foreach (var key in new[]
                 {
                     ConfigPropertyKeys.UserConfigRepository,
+                    ConfigPropertyKeys.UserConfigInitDirectory,
+                    ConfigPropertyKeys.UserConfigInitZipFile,
                     ConfigPropertyKeys.WizzardIntegrateIntoUserProfile,
                     ConfigPropertyKeys.WizzardStartAutoSetup,
                     ConfigPropertyKeys.WizzardSelectedApps,
