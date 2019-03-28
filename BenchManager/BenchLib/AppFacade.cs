@@ -1213,6 +1213,7 @@ namespace Mastersign.Bench
         {
             var label = AppSearch.NormalizeForSearch(Label);
             var id = AppSearch.NormalizeForSearch(ID);
+            var exe = AppSearch.NormalizeForSearch(IOPath.GetFileNameWithoutExtension(Exe));
             var tags = Tags;
             for (int i = 0; i < tags.Length; i++) tags[i] = AppSearch.NormalizeForSearch(tags[i]);
             var category = AppSearch.NormalizeForSearch(Category);
@@ -1224,6 +1225,7 @@ namespace Mastersign.Bench
             {
                 score += Match(token, label) * 5;
                 score += Match(token, id) * 4;
+                score += Match(token, exe) * 4;
                 foreach (var tag in tags)
                 {
                     score += Match(token, tag) * 3;
