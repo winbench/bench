@@ -19,4 +19,4 @@ With the following property, you allow the usage of 64Bit binaries.
 Set this property to `true` if you intend to use the Bench environment
 only on systems which support 64Bit code.
 
-* Allow64Bit: `false`
+* Allow64Bit: `true`

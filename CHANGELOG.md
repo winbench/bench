@@ -29,6 +29,10 @@ Add a link to the GitHub diff like
 * Find apps by searching for the executable filename
   ([#130](https://github.com/winbench/bench/issues/130))
 
+### Changed
+* Make 64Bit support the default
+  ([#136](https://github.com/winbench/bench/issues/136))
+
 ## [0.21.1] - 2019-02-25
 
 [0.21.1]: https://github.com/winbench/bench/compare/v0.21.0...v0.21.1

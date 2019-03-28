@@ -54,6 +54,11 @@ namespace Mastersign.Bench
             var initSiteConfig = siteConfigFiles.Length == 0;
             var initUserConfig = !File.Exists(userConfigFile);
 
+            if (initSiteConfig)
+            {
+                cfg.SetValue(ConfigPropertyKeys.Allow64Bit, Windows.MachineArchitecture.Is64BitOperatingSystem);
+            }
+
             if (initSiteConfig || initUserConfig)
             {
                 var wizzardTask = new InitializeConfigTask(cfg,

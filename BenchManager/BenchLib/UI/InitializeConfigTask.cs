@@ -75,7 +75,8 @@ namespace Mastersign.Bench.UI
             stepUserIdentification.UserEmail = config.GetStringValue(ConfigPropertyKeys.UserEmail);
 
             stepMachineArchitecture = new MachineArchitectureStepControl();
-            stepMachineArchitecture.Allow64Bit = config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit);
+            stepMachineArchitecture.Allow64Bit = config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit) 
+                && Windows.MachineArchitecture.Is64BitOperatingSystem;
 
             stepExistingConfig = new ExistingConfigStepControl();
             stepExistingConfig.IsConfigGitRepoExisting = false;
