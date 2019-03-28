@@ -576,17 +576,9 @@ namespace Mastersign.Bench
             {
                 throw new ArgumentException("The launcher executable is not set.");
             }
-            if (isAdorned)
-            {
-                return StartProcessViaShell(env, cwd,
-                    exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
-                    ProcessWindowStyle.Minimized);
-            }
-            else
-            {
-                return StartProcess(env, cwd,
-                    exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args));
-            }
+            return StartProcessViaShell(env, cwd,
+                exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
+                isAdorned ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal);
         }
 
         private static string GemExe(BenchConfiguration config)

@@ -40,7 +40,9 @@ Add a link to the GitHub diff like
 * If multiple apps use the same archive or resource name for download,
   use the URL of the first app, and download the resource only once
   ([#138](https://github.com/winbench/bench/issues/138))
-
+* Correct the launch behavior for apps from _Bench Dashboard_
+  according to the launcher scripts: always use shell to start process
+  ([#139](https://github.com/winbench/bench/issues/139))
 
 ## [0.21.1] - 2019-02-25
 
