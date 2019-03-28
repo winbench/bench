@@ -316,7 +316,7 @@ namespace Mastersign.Bench
             else return Seq(protocolTypes).Reduce((a, b) => a | b);
         }
 
-        private static IUrlResolver EclipseDownloadLinkResolver = new HtmlLinkUrlResolver(
+        private static readonly IUrlResolver EclipseDownloadLinkResolver = new HtmlLinkUrlResolver(
             new UrlPattern(
                 new Regex(@"^www\.eclipse\.org$"),
                 new Regex(@"^/downloads/download\.php"),
@@ -329,7 +329,7 @@ namespace Mastersign.Bench
                     { "mirror_id", new Regex(@"^\d+$") }
                 }));
 
-        private static IUrlResolver EclipseMirrorResolver = new SurroundedHtmlLinkUrlResolver(
+        private static readonly IUrlResolver EclipseMirrorResolver = new SurroundedHtmlLinkUrlResolver(
             new UrlPattern(
                 new Regex(@"^www\.eclipse\.org$"),
                 new Regex(@"^/downloads/download\.php"),
@@ -1101,7 +1101,7 @@ namespace Mastersign.Bench
             var errorIds = new List<string>();
             var taskProgress = 0f;
 
-            Action<TaskInfo> myNotify = info =>
+            void myNotify(TaskInfo info)
             {
                 if (info == null) return;
                 if (info is TaskProgress)
@@ -1121,7 +1121,7 @@ namespace Mastersign.Bench
                     }
                 }
                 notify(info);
-            };
+            }
 
             for (int i = 0; i < tasks.Length; i++)
             {
@@ -1276,15 +1276,15 @@ namespace Mastersign.Bench
             var tasks = new List<DownloadTask>();
             var endEvent = new ManualResetEvent(false);
 
-            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            void downloadStartedHandler(object o, DownloadEventArgs e)
             {
                 notify(new TaskProgress(
                     string.Format("Started download for app library '{0}'...", e.Task.Id),
                     progress: (float)finished / taskCnt,
                     detailedMessage: e.Task.Url.ToString()));
-            };
+            }
 
-            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            void downloadEndedHandler(object o, DownloadEventArgs e)
             {
                 finished++;
                 if (!e.Task.Success)
@@ -1309,15 +1309,15 @@ namespace Mastersign.Bench
                             exception: exc));
                     }
                 }
-            };
+            }
 
-            EventHandler workFinishedHandler = null;
-            workFinishedHandler = (o, e) =>
+            void workFinishedHandler(object o, EventArgs e)
             {
                 man.Downloader.DownloadEnded -= downloadEndedHandler;
                 man.Downloader.WorkFinished -= workFinishedHandler;
                 endEvent.Set();
-            };
+            }
+
             man.Downloader.DownloadStarted += downloadStartedHandler;
             man.Downloader.DownloadEnded += downloadEndedHandler;
             man.Downloader.WorkFinished += workFinishedHandler;
@@ -1440,14 +1440,14 @@ namespace Mastersign.Bench
             var errorCnt = 0;
             var endEvent = new ManualResetEvent(false);
 
-            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            void downloadStartedHandler(object o, DownloadEventArgs e)
             {
                 notify(new TaskProgress(
                     string.Format("Started download for {0}...", e.Task.Id),
                     (float)finished / tasks.Count, e.Task.Id, e.Task.Url.ToString()));
-            };
+            }
 
-            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            void downloadEndedHandler(object o, DownloadEventArgs e)
             {
                 finished++;
                 if (!e.Task.Success)
@@ -1461,10 +1461,9 @@ namespace Mastersign.Bench
                         string.Format("Finished download for {0}.", e.Task.Id),
                         (float)finished / tasks.Count, e.Task.Id));
                 }
-            };
+            }
 
-            EventHandler workFinishedHandler = null;
-            workFinishedHandler = (EventHandler)((o, e) =>
+            void workFinishedHandler(object o, EventArgs e)
             {
                 man.Downloader.DownloadEnded -= downloadEndedHandler;
                 man.Downloader.WorkFinished -= workFinishedHandler;
@@ -1473,7 +1472,8 @@ namespace Mastersign.Bench
                     app.DiscardCachedValues();
                 }
                 endEvent.Set();
-            });
+            }
+
             man.Downloader.DownloadStarted += downloadStartedHandler;
             man.Downloader.DownloadEnded += downloadEndedHandler;
             man.Downloader.WorkFinished += workFinishedHandler;
@@ -1949,14 +1949,14 @@ namespace Mastersign.Bench
             var errorCnt = 0;
             var endEvent = new ManualResetEvent(false);
 
-            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            void downloadStartedHandler(object o, DownloadEventArgs e)
             {
                 notify(new TaskProgress(
                     string.Format("Started download for {0}...", e.Task.Id),
                     (float)finished / taskCount, e.Task.Id, e.Task.Url.ToString()));
-            };
+            }
 
-            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            void downloadEndedHandler(object o, DownloadEventArgs e)
             {
                 finished++;
                 if (!e.Task.Success)
@@ -1970,15 +1970,14 @@ namespace Mastersign.Bench
                         string.Format("Finished download for {0}.", e.Task.Id),
                         (float)finished / taskCount, e.Task.Id));
                 }
-            };
+            }
 
-            EventHandler workFinishedHandler = null;
-            workFinishedHandler = (EventHandler)((o, e) =>
+            void workFinishedHandler(object o, EventArgs e)
             {
                 man.Downloader.DownloadEnded -= downloadEndedHandler;
                 man.Downloader.WorkFinished -= workFinishedHandler;
                 endEvent.Set();
-            });
+            };
             man.Downloader.DownloadStarted += downloadStartedHandler;
             man.Downloader.DownloadEnded += downloadEndedHandler;
             man.Downloader.WorkFinished += workFinishedHandler;
@@ -2206,7 +2205,7 @@ namespace Mastersign.Bench
                 throw new FileNotFoundException("Could not find the executable of LessMSI.");
             }
             var env = new BenchEnvironment(config);
-            
+
             var args = CommandLine.FormatArgumentList("x", archiveFile, targetDir + "\\");
             var result = execHost.RunProcess(env, targetDir, lessMsiExe, args,
                 ProcessMonitoring.ExitCodeAndOutput);
@@ -3123,7 +3122,7 @@ namespace Mastersign.Bench
             catch (Exception e)
             {
                 notify(new TaskError(
-                    "Failed to clone the Bench environment files.", 
+                    "Failed to clone the Bench environment files.",
                     exception: e));
                 return;
             }
@@ -3134,7 +3133,7 @@ namespace Mastersign.Bench
             catch (Exception e)
             {
                 notify(new TaskError(
-                    "Failed to start the initialization of the new Bench environment.", 
+                    "Failed to start the initialization of the new Bench environment.",
                     exception: e));
                 return;
             }
