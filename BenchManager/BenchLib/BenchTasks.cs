@@ -1496,12 +1496,19 @@ namespace Mastersign.Bench
                 var targetFile = app.ResourceFileName ?? app.ResourceArchiveName;
                 var targetPath = Path.Combine(targetDir, targetFile);
 
-                var task = new DownloadTask(app.ID, new Uri(app.Url), targetPath);
-                task.Headers = app.DownloadHeaders;
-                task.Cookies = app.DownloadCookies;
-                tasks.Add(task);
+                var targetIsAlreadyQueued = Seq((IEnumerable<DownloadTask>)tasks)
+                    .Any(t => string.Equals(t.TargetFile, targetPath, StringComparison.InvariantCultureIgnoreCase));
+                if (!targetIsAlreadyQueued)
+                {
+                    var task = new DownloadTask(app.ID, new Uri(app.Url), targetPath)
+                    {
+                        Headers = app.DownloadHeaders,
+                        Cookies = app.DownloadCookies
+                    };
+                    tasks.Add(task);
 
-                man.Downloader.Enqueue(task);
+                    man.Downloader.Enqueue(task);
+                }
             }
 
             if (tasks.Count == 0)

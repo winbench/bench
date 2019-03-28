@@ -36,6 +36,12 @@ Add a link to the GitHub diff like
 * Make 64Bit support the default
   ([#136](https://github.com/winbench/bench/issues/136))
 
+### Fixed
+* If multiple apps use the same archive or resource name for download,
+  use the URL of the first app, and download the resource only once
+  ([#138](https://github.com/winbench/bench/issues/138))
+
+
 ## [0.21.1] - 2019-02-25
 
 [0.21.1]: https://github.com/winbench/bench/compare/v0.21.0...v0.21.1
