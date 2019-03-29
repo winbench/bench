@@ -318,7 +318,7 @@ namespace Mastersign.Bench.Dashboard
             miInstall.Visible = contextApp.CanInstall;
             miReinstall.Visible = contextApp.CanReinstall;
             miUpgrade.Visible = contextApp.CanUpgrade;
-            miPackageUpgrade.Visible = contextApp.IsInstalled && contextApp.IsManagedPackage;
+            miPackageUpgrade.Visible = contextApp.IsInstalled && contextApp.IsManagedPackageFromRemoteRepo;
             miUninstall.Visible = contextApp.CanUninstall;
 
             miDownloadResource.Visible = contextApp.CanDownloadResource;
@@ -327,7 +327,7 @@ namespace Mastersign.Bench.Dashboard
             var g1 = contextApp.CanInstall
                   || contextApp.CanReinstall
                   || contextApp.CanUpgrade
-                  || contextApp.IsInstalled && contextApp.IsManagedPackage
+                  || contextApp.IsInstalled && contextApp.IsManagedPackageFromRemoteRepo
                   || contextApp.CanUninstall;
             var g2 = contextApp.CanDownloadResource
                   || contextApp.CanDeleteResource;

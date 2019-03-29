@@ -200,6 +200,27 @@ namespace Mastersign.Bench
         }
 
         /// <summary>
+        /// Checks, if this app is a package, downloaded from a remote repositry by some kind of package manager.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this app is managed by a package manager and downloaded
+        ///     from a remote repository by this package manager; otherwise <c>false</c>.
+        /// </value>
+        public bool IsManagedPackageFromRemoteRepo
+        {
+            get
+            {
+                var typ = Typ;
+                return typ == AppTyps.NodePackage
+                    || typ == AppTyps.RubyPackage
+                    || typ == AppTyps.PythonPackage
+                    || typ == AppTyps.Python2Package
+                    || typ == AppTyps.Python3Package
+                    || typ == AppTyps.NuGetPackage;
+            }
+        }
+
+        /// <summary>
         /// Gets the version string of the app, or <c>null</c> if the app has no specified version.
         /// </summary>
         /// <remarks>
@@ -1279,7 +1300,7 @@ namespace Mastersign.Bench
         public bool CanReinstall
             => CanCheckInstallation && IsInstalled
                     && (!HasResource || IsResourceCached)
-                    && !IsManagedPackage
+                    && !IsManagedPackageFromRemoteRepo
                 || !CanCheckInstallation
                     && GetCustomScript("remove") != null
                     && GetCustomScript("setup") != null;
@@ -1293,11 +1314,11 @@ namespace Mastersign.Bench
         public bool CanUpgrade =>
             // App with no version or version difference
             CanCheckInstallation && IsInstalled
-                && !IsManagedPackage
+                && !IsManagedPackageFromRemoteRepo
                 && (!IsVersioned || !IsVersionUpToDate)
             // App with custom setup and remove
             || !CanCheckInstallation
-                && !IsManagedPackage
+                && !IsManagedPackageFromRemoteRepo
                 && GetCustomScript("remove") != null
                 && GetCustomScript("setup") != null;
 
