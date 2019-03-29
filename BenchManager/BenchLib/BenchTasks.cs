@@ -534,24 +534,29 @@ namespace Mastersign.Bench
                 throw new FileNotFoundException("The executable could not be found.", exe);
             }
             var si = new ProcessStartInfo(exe, arguments);
-            si.UseShellExecute = false;
             si.WorkingDirectory = cwd;
             env.Load(si.EnvironmentVariables);
+            si.UseShellExecute = false;
             return Process.Start(si);
         }
 
         private static Process StartProcessViaShell(BenchEnvironment env,
-            string cwd, string exe, string arguments,
+            string cwd, string exe, string arguments, string label = null,
             ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
         {
             if (!File.Exists(exe))
             {
                 throw new FileNotFoundException("The executable could not be found.", exe);
             }
-            var si = new ProcessStartInfo(exe, arguments);
-            si.UseShellExecute = true;
-            si.WindowStyle = windowStyle;
+            var args = $"/C START \"{label}\" /D \"{cwd}\"";
+            if (windowStyle == ProcessWindowStyle.Minimized) args += " /MIN";
+            args += $" \"{exe}\" {arguments}";
+            var si = new ProcessStartInfo("cmd.exe", args);
+            si.WindowStyle = ProcessWindowStyle.Hidden;
+            si.CreateNoWindow = true;
             si.WorkingDirectory = cwd;
+            env.Load(si.EnvironmentVariables);
+            si.UseShellExecute = false;
             return Process.Start(si);
         }
 
@@ -577,7 +582,7 @@ namespace Mastersign.Bench
                 throw new ArgumentException("The launcher executable is not set.");
             }
             return StartProcessViaShell(env, cwd,
-                exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
+                exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args), app.Label,
                 isAdorned ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal);
         }
 
