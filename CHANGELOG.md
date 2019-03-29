@@ -25,6 +25,31 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.22.0] - 2019-03-29
+
+[0.22.0]: https://github.com/winbench/bench/compare/v0.21.1...v0.22.0
+
+### Added
+* Find apps by searching for the executable filename
+  ([#130](https://github.com/winbench/bench/issues/130))
+* Initialize new Bench environment from user config template in:
+  directory, existing Bench environment, ZIP file, additionally to Git repo
+  ([#137](https://github.com/winbench/bench/issues/137))
+* Support for Python Wheels
+  ([#120](https://github.com/winbench/bench/issues/120))
+
+### Changed
+* Make 64Bit support the default
+  ([#136](https://github.com/winbench/bench/issues/136))
+
+### Fixed
+* If multiple apps use the same archive or resource name for download,
+  use the URL of the first app, and download the resource only once
+  ([#138](https://github.com/winbench/bench/issues/138))
+* Correct the launch behavior for apps from _Bench Dashboard_
+  according to the launcher scripts: always use shell to start process
+  ([#139](https://github.com/winbench/bench/issues/139))
+
 ## [0.21.1] - 2019-02-25
 
 [0.21.1]: https://github.com/winbench/bench/compare/v0.21.0...v0.21.1

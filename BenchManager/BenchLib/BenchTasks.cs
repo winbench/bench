@@ -54,6 +54,11 @@ namespace Mastersign.Bench
             var initSiteConfig = siteConfigFiles.Length == 0;
             var initUserConfig = !File.Exists(userConfigFile);
 
+            if (initSiteConfig)
+            {
+                cfg.SetValue(ConfigPropertyKeys.Allow64Bit, Windows.MachineArchitecture.Is64BitOperatingSystem);
+            }
+
             if (initSiteConfig || initUserConfig)
             {
                 var wizzardTask = new InitializeConfigTask(cfg,
@@ -94,19 +99,81 @@ namespace Mastersign.Bench
 
             if (!File.Exists(userConfigFile))
             {
+                var dir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigInitDirectory);
+                var zip = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigInitZipFile);
                 var repo = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigRepository);
-                if (repo != null)
+                if (dir != null)
                 {
-                    // asure no config directory exist for git clone
-                    if (Directory.Exists(userConfigDir))
+                    // check if template directory exists
+                    if (!Directory.Exists(dir))
                     {
-                        FileSystem.PurgeDir(userConfigDir);
+                        man.UI.ShowError("Copying User Configuration",
+                            "Template directory for user configuration does not exists: " + dir);
+                        return null;
+                    }
+                    // check if a config.md exists
+                    if (!File.Exists(Path.Combine(dir, "config.md")))
+                    {
+                        // try to find the config.md in a config sub-directory, e.g. if the given directory is a Bench environment
+                        if (File.Exists(Path.Combine(dir, "config", "config.md")))
+                        {
+                            dir = Path.Combine(dir, "config");
+                        }
+                        else
+                        {
+                            man.UI.ShowError("Copying User Configuration",
+                                "No configuration found in template directory for user configuration: " + dir);
+                            return null;
+                        }
                     }
                     // asure the parent directory exists
                     if (!Directory.Exists(Path.GetDirectoryName(userConfigDir)))
                     {
                         Directory.CreateDirectory(Path.GetDirectoryName(userConfigDir));
                     }
+                    // copy files from template directory
+                    FileSystem.CopyDir(dir, userConfigDir, true);
+                }
+                else if (zip != null)
+                {
+                    // check if template ZIP file exists
+                    if (!File.Exists(zip))
+                    {
+                        man.UI.ShowError("Extracting User Configuration",
+                            "Template ZIP archive with user configuration does not exists: " + zip);
+                        return null;
+                    }
+                    // asure the target directory exists
+                    FileSystem.AsureDir(userConfigDir);
+                    // open the ZIP file
+                    using (var zipFile = ZipFile.Read(zip))
+                    {
+                        zipFile.FlattenFoldersOnExtract = false;
+                        // check if a config.md exists
+                        if (zipFile.ContainsEntry("config.md"))
+                        {
+                            // extract everything
+                            zipFile.ExtractAll(userConfigDir, ExtractExistingFileAction.OverwriteSilently);
+                        }
+                        // check if the config.md resides in a config sub-directory
+                        else if (zipFile.ContainsEntry("config\\config.md"))
+                        {
+                            // extract everything beneath config
+                            zipFile.ExtractSelectedEntries("config\\*", null, Path.GetDirectoryName(userConfigDir),
+                                ExtractExistingFileAction.OverwriteSilently);
+                        }
+                        else
+                        {
+                            man.UI.ShowError("Extracting User Configuration",
+                                "No configuration found in template ZIP file for user configuration: " + zip);
+                            return null;
+                        }
+                    }
+                }
+                else if (repo != null)
+                {
+                    // asure the target directory exists and is empty
+                    FileSystem.EmptyDir(userConfigDir);
                     // clone the existing config
                     var result = man.ProcessExecutionHost.RunProcess(man.Env, man.Config.BenchRootDir,
                         man.Config.Apps[AppKeys.Git].Exe,
@@ -114,7 +181,7 @@ namespace Mastersign.Bench
                         ProcessMonitoring.ExitCodeAndOutput);
                     if (result.ExitCode != 0)
                     {
-                        man.UI.ShowError("Cloning Custom Configuration",
+                        man.UI.ShowError("Cloning User Configuration",
                             "Executing Git failed: "
                             + Environment.NewLine + Environment.NewLine
                             + result.Output);
@@ -123,14 +190,14 @@ namespace Mastersign.Bench
                 }
                 else
                 {
-                    if (!Directory.Exists(userConfigDir))
-                    {
-                        Directory.CreateDirectory(userConfigDir);
-                    }
+                    // asure the target directory exists
+                    FileSystem.AsureDir(userConfigDir);
 
+                    // copy the bundled user config template
                     var userConfigTemplateFile = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigTemplateFile);
                     File.Copy(userConfigTemplateFile, userConfigFile, false);
 
+                    // set some config values in the user configuration according to the wizzard results
                     if (man.Config.GetBooleanValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile))
                     {
                         Markdown.MarkdownPropertyEditor.UpdateFile(userConfigFile, new Dictionary<string, string>
@@ -249,7 +316,7 @@ namespace Mastersign.Bench
             else return Seq(protocolTypes).Reduce((a, b) => a | b);
         }
 
-        private static IUrlResolver EclipseDownloadLinkResolver = new HtmlLinkUrlResolver(
+        private static readonly IUrlResolver EclipseDownloadLinkResolver = new HtmlLinkUrlResolver(
             new UrlPattern(
                 new Regex(@"^www\.eclipse\.org$"),
                 new Regex(@"^/downloads/download\.php"),
@@ -262,7 +329,7 @@ namespace Mastersign.Bench
                     { "mirror_id", new Regex(@"^\d+$") }
                 }));
 
-        private static IUrlResolver EclipseMirrorResolver = new SurroundedHtmlLinkUrlResolver(
+        private static readonly IUrlResolver EclipseMirrorResolver = new SurroundedHtmlLinkUrlResolver(
             new UrlPattern(
                 new Regex(@"^www\.eclipse\.org$"),
                 new Regex(@"^/downloads/download\.php"),
@@ -509,17 +576,9 @@ namespace Mastersign.Bench
             {
                 throw new ArgumentException("The launcher executable is not set.");
             }
-            if (isAdorned)
-            {
-                return StartProcessViaShell(env, cwd,
-                    exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
-                    ProcessWindowStyle.Minimized);
-            }
-            else
-            {
-                return StartProcess(env, cwd,
-                    exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args));
-            }
+            return StartProcessViaShell(env, cwd,
+                exe, CommandLine.SubstituteArgumentList(app.LauncherArguments, args),
+                isAdorned ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal);
         }
 
         private static string GemExe(BenchConfiguration config)
@@ -1034,7 +1093,7 @@ namespace Mastersign.Bench
             var errorIds = new List<string>();
             var taskProgress = 0f;
 
-            Action<TaskInfo> myNotify = info =>
+            void myNotify(TaskInfo info)
             {
                 if (info == null) return;
                 if (info is TaskProgress)
@@ -1054,7 +1113,7 @@ namespace Mastersign.Bench
                     }
                 }
                 notify(info);
-            };
+            }
 
             for (int i = 0; i < tasks.Length; i++)
             {
@@ -1209,15 +1268,15 @@ namespace Mastersign.Bench
             var tasks = new List<DownloadTask>();
             var endEvent = new ManualResetEvent(false);
 
-            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            void downloadStartedHandler(object o, DownloadEventArgs e)
             {
                 notify(new TaskProgress(
                     string.Format("Started download for app library '{0}'...", e.Task.Id),
                     progress: (float)finished / taskCnt,
                     detailedMessage: e.Task.Url.ToString()));
-            };
+            }
 
-            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            void downloadEndedHandler(object o, DownloadEventArgs e)
             {
                 finished++;
                 if (!e.Task.Success)
@@ -1242,15 +1301,15 @@ namespace Mastersign.Bench
                             exception: exc));
                     }
                 }
-            };
+            }
 
-            EventHandler workFinishedHandler = null;
-            workFinishedHandler = (o, e) =>
+            void workFinishedHandler(object o, EventArgs e)
             {
                 man.Downloader.DownloadEnded -= downloadEndedHandler;
                 man.Downloader.WorkFinished -= workFinishedHandler;
                 endEvent.Set();
-            };
+            }
+
             man.Downloader.DownloadStarted += downloadStartedHandler;
             man.Downloader.DownloadEnded += downloadEndedHandler;
             man.Downloader.WorkFinished += workFinishedHandler;
@@ -1373,14 +1432,14 @@ namespace Mastersign.Bench
             var errorCnt = 0;
             var endEvent = new ManualResetEvent(false);
 
-            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            void downloadStartedHandler(object o, DownloadEventArgs e)
             {
                 notify(new TaskProgress(
                     string.Format("Started download for {0}...", e.Task.Id),
                     (float)finished / tasks.Count, e.Task.Id, e.Task.Url.ToString()));
-            };
+            }
 
-            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            void downloadEndedHandler(object o, DownloadEventArgs e)
             {
                 finished++;
                 if (!e.Task.Success)
@@ -1394,10 +1453,9 @@ namespace Mastersign.Bench
                         string.Format("Finished download for {0}.", e.Task.Id),
                         (float)finished / tasks.Count, e.Task.Id));
                 }
-            };
+            }
 
-            EventHandler workFinishedHandler = null;
-            workFinishedHandler = (EventHandler)((o, e) =>
+            void workFinishedHandler(object o, EventArgs e)
             {
                 man.Downloader.DownloadEnded -= downloadEndedHandler;
                 man.Downloader.WorkFinished -= workFinishedHandler;
@@ -1406,7 +1464,8 @@ namespace Mastersign.Bench
                     app.DiscardCachedValues();
                 }
                 endEvent.Set();
-            });
+            }
+
             man.Downloader.DownloadStarted += downloadStartedHandler;
             man.Downloader.DownloadEnded += downloadEndedHandler;
             man.Downloader.WorkFinished += workFinishedHandler;
@@ -1429,12 +1488,19 @@ namespace Mastersign.Bench
                 var targetFile = app.ResourceFileName ?? app.ResourceArchiveName;
                 var targetPath = Path.Combine(targetDir, targetFile);
 
-                var task = new DownloadTask(app.ID, new Uri(app.Url), targetPath);
-                task.Headers = app.DownloadHeaders;
-                task.Cookies = app.DownloadCookies;
-                tasks.Add(task);
+                var targetIsAlreadyQueued = Seq((IEnumerable<DownloadTask>)tasks)
+                    .Any(t => string.Equals(t.TargetFile, targetPath, StringComparison.InvariantCultureIgnoreCase));
+                if (!targetIsAlreadyQueued)
+                {
+                    var task = new DownloadTask(app.ID, new Uri(app.Url), targetPath)
+                    {
+                        Headers = app.DownloadHeaders,
+                        Cookies = app.DownloadCookies
+                    };
+                    tasks.Add(task);
 
-                man.Downloader.Enqueue(task);
+                    man.Downloader.Enqueue(task);
+                }
             }
 
             if (tasks.Count == 0)
@@ -1882,14 +1948,14 @@ namespace Mastersign.Bench
             var errorCnt = 0;
             var endEvent = new ManualResetEvent(false);
 
-            EventHandler<DownloadEventArgs> downloadStartedHandler = (o, e) =>
+            void downloadStartedHandler(object o, DownloadEventArgs e)
             {
                 notify(new TaskProgress(
                     string.Format("Started download for {0}...", e.Task.Id),
                     (float)finished / taskCount, e.Task.Id, e.Task.Url.ToString()));
-            };
+            }
 
-            EventHandler<DownloadEventArgs> downloadEndedHandler = (o, e) =>
+            void downloadEndedHandler(object o, DownloadEventArgs e)
             {
                 finished++;
                 if (!e.Task.Success)
@@ -1903,15 +1969,14 @@ namespace Mastersign.Bench
                         string.Format("Finished download for {0}.", e.Task.Id),
                         (float)finished / taskCount, e.Task.Id));
                 }
-            };
+            }
 
-            EventHandler workFinishedHandler = null;
-            workFinishedHandler = (EventHandler)((o, e) =>
+            void workFinishedHandler(object o, EventArgs e)
             {
                 man.Downloader.DownloadEnded -= downloadEndedHandler;
                 man.Downloader.WorkFinished -= workFinishedHandler;
                 endEvent.Set();
-            });
+            };
             man.Downloader.DownloadStarted += downloadStartedHandler;
             man.Downloader.DownloadEnded += downloadEndedHandler;
             man.Downloader.WorkFinished += workFinishedHandler;
@@ -2139,7 +2204,7 @@ namespace Mastersign.Bench
                 throw new FileNotFoundException("Could not find the executable of LessMSI.");
             }
             var env = new BenchEnvironment(config);
-            
+
             var args = CommandLine.FormatArgumentList("x", archiveFile, targetDir + "\\");
             var result = execHost.RunProcess(env, targetDir, lessMsiExe, args,
                 ProcessMonitoring.ExitCodeAndOutput);
@@ -2225,7 +2290,13 @@ namespace Mastersign.Bench
             }
             var argList = new List<string>();
             argList.Add("install");
-            if (app.IsVersioned)
+            if (app.IsInstalled) argList.Add("--upgrade");
+            //argList.Add("--quiet");
+            if (!app.IsManagedPackageFromRemoteRepo) // python wheel file
+            {
+                argList.Add(Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), app.ResourceFileName));
+            }
+            else if (app.IsVersioned)
             {
                 argList.Add(app.PackageName + "==" + app.Version);
             }
@@ -2233,8 +2304,6 @@ namespace Mastersign.Bench
             {
                 argList.Add(app.PackageName);
             }
-            if (app.IsInstalled) argList.Add("--upgrade");
-            //argList.Add("--quiet");
             var args = CommandLine.FormatArgumentList(argList.ToArray());
             var result = execHost.RunProcess(new BenchEnvironment(config), config.BenchRootDir, pipExe, args,
                     ProcessMonitoring.ExitCodeAndOutput);
@@ -2335,6 +2404,7 @@ namespace Mastersign.Bench
                         InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
                         break;
                     case AppTyps.PythonPackage:
+                    case AppTyps.PythonWheel:
                         var python2App = man.Config.Apps[AppKeys.Python2];
                         if (python2App != null && python2App.IsInstalled)
                         {
@@ -2347,9 +2417,11 @@ namespace Mastersign.Bench
                         }
                         break;
                     case AppTyps.Python2Package:
+                    case AppTyps.Python2Wheel:
                         InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
                         break;
                     case AppTyps.Python3Package:
+                    case AppTyps.Python3Wheel:
                         InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
                         break;
                     case AppTyps.NuGetPackage:
@@ -2787,6 +2859,7 @@ namespace Mastersign.Bench
                                 UninstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
                                 break;
                             case AppTyps.PythonPackage:
+                            case AppTyps.PythonWheel:
                                 var python2App = man.Config.Apps[AppKeys.Python2];
                                 if (python2App != null && python2App.IsInstalled)
                                 {
@@ -2799,9 +2872,11 @@ namespace Mastersign.Bench
                                 }
                                 break;
                             case AppTyps.Python2Package:
+                            case AppTyps.Python2Wheel:
                                 UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
                                 break;
                             case AppTyps.Python3Package:
+                            case AppTyps.Python3Wheel:
                                 UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
                                 break;
                             case AppTyps.NuGetPackage:
@@ -3056,7 +3131,7 @@ namespace Mastersign.Bench
             catch (Exception e)
             {
                 notify(new TaskError(
-                    "Failed to clone the Bench environment files.", 
+                    "Failed to clone the Bench environment files.",
                     exception: e));
                 return;
             }
@@ -3067,7 +3142,7 @@ namespace Mastersign.Bench
             catch (Exception e)
             {
                 notify(new TaskError(
-                    "Failed to start the initialization of the new Bench environment.", 
+                    "Failed to start the initialization of the new Bench environment.",
                     exception: e));
                 return;
             }

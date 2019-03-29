@@ -94,12 +94,15 @@ namespace Mastersign.Bench
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Dir);
                         case AppTyps.PythonPackage:
+                        case AppTyps.PythonWheel:
                             return File.Exists(AppIndex.GetStringGroupValue(AppKeys.Python3, AppPropertyKeys.Exe))
                                 ? AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir)
                                 : AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                         case AppTyps.Python2Package:
+                        case AppTyps.Python2Wheel:
                             return AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                         case AppTyps.Python3Package:
+                        case AppTyps.Python3Wheel:
                             return AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir);
                         case AppTyps.Meta:
                             return null;
@@ -118,6 +121,7 @@ namespace Mastersign.Bench
                         case AppTyps.RubyPackage:
                             return AppIndex.GetGroupValue(AppKeys.Ruby, AppPropertyKeys.Path);
                         case AppTyps.PythonPackage:
+                        case AppTyps.PythonWheel:
                             return File.Exists(AppIndex.GetStringGroupValue(AppKeys.Python3, AppPropertyKeys.Exe))
                                 ? Path.Combine(
                                     AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir) as string,
@@ -126,10 +130,12 @@ namespace Mastersign.Bench
                                     AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir) as string,
                                     "Scripts");
                         case AppTyps.Python2Package:
+                        case AppTyps.Python2Wheel:
                             return Path.Combine(
                                 AppIndex.GetGroupValue(AppKeys.Python2, AppPropertyKeys.Dir) as string,
                                 "Scripts");
                         case AppTyps.Python3Package:
+                        case AppTyps.Python3Wheel:
                             return Path.Combine(
                                 AppIndex.GetGroupValue(AppKeys.Python3, AppPropertyKeys.Dir) as string,
                                 "Scripts");

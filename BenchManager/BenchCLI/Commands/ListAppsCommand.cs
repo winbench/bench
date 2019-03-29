@@ -27,6 +27,7 @@ namespace Mastersign.Bench.Cli.Commands
             Groups,
             MetaApps,
             ManagedPackages,
+            ManagedPackagesFromRemote,
         }
 
         private const string OPTION_SET = "set";
@@ -200,6 +201,7 @@ namespace Mastersign.Bench.Cli.Commands
                 case AppSet.Groups: return app.Typ == AppTyps.Group;
                 case AppSet.MetaApps: return app.Typ == AppTyps.Meta;
                 case AppSet.ManagedPackages: return app.IsManagedPackage;
+                case AppSet.ManagedPackagesFromRemote: return app.IsManagedPackageFromRemoteRepo;
                 default: throw new NotSupportedException();
             }
         }

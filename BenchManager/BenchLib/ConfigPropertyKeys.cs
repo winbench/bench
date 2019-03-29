@@ -32,6 +32,8 @@ namespace Mastersign.Bench
         public const string UserConfigFile = "UserConfigFile";
         public const string UserConfigTemplateFile = "UserConfigTemplateFile";
         public const string UserConfigRepository = "UserConfigRepository";
+        public const string UserConfigInitDirectory = "UserConfigInitDirectory";
+        public const string UserConfigInitZipFile = "UserConfigInitZipFile";
         public const string SiteConfigFileName = "SiteConfigFileName";
         public const string SiteConfigTemplateFile = "SiteConfigTemplateFile";
 

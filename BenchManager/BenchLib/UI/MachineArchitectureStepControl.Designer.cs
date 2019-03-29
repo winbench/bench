@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label lblAllow64BitHint;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MachineArchitectureStepControl));
             this.chkAllow64Bit = new System.Windows.Forms.CheckBox();
             lblAllow64BitHint = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -40,10 +41,9 @@
             lblAllow64BitHint.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             lblAllow64BitHint.Location = new System.Drawing.Point(31, 35);
             lblAllow64BitHint.Name = "lblAllow64BitHint";
-            lblAllow64BitHint.Size = new System.Drawing.Size(418, 36);
+            lblAllow64BitHint.Size = new System.Drawing.Size(418, 58);
             lblAllow64BitHint.TabIndex = 6;
-            lblAllow64BitHint.Text = "Do not activate this option, if you intend to use this Bench environment also on " +
-    "a 32 Bit Windows machine.";
+            lblAllow64BitHint.Text = resources.GetString("lblAllow64BitHint.Text");
             // 
             // chkAllow64Bit
             // 

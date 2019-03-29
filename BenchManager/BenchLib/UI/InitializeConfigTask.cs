@@ -53,8 +53,8 @@ namespace Mastersign.Bench.UI
             if (wsc == stepUserIdentification) return InitSiteConfig;
             if (wsc == stepMachineArchitecture) return InitSiteConfig && Windows.MachineArchitecture.Is64BitOperatingSystem;
             if (wsc == stepExistingConfig) return InitUserConfig;
-            if (wsc == stepIsolation) return InitUserConfig && !stepExistingConfig.IsConfigGitRepoExisting;
-            if (wsc == stepAppSeletion) return InitUserConfig && !stepExistingConfig.IsConfigGitRepoExisting;
+            if (wsc == stepIsolation) return InitUserConfig && stepExistingConfig.ConfigSource == ExistingConfigStepControl.ConfigSourceType.None;
+            if (wsc == stepAppSeletion) return InitUserConfig && stepExistingConfig.ConfigSource == ExistingConfigStepControl.ConfigSourceType.None;
             if (wsc == stepAdvanced) return true;
             return false;
         }
@@ -75,10 +75,11 @@ namespace Mastersign.Bench.UI
             stepUserIdentification.UserEmail = config.GetStringValue(ConfigPropertyKeys.UserEmail);
 
             stepMachineArchitecture = new MachineArchitectureStepControl();
-            stepMachineArchitecture.Allow64Bit = config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit);
+            stepMachineArchitecture.Allow64Bit = config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit) 
+                && Windows.MachineArchitecture.Is64BitOperatingSystem;
 
             stepExistingConfig = new ExistingConfigStepControl();
-            stepExistingConfig.IsConfigGitRepoExisting = false;
+            stepExistingConfig.ConfigSource = ExistingConfigStepControl.ConfigSourceType.None;
 
             stepIsolation = new IsolationStepControl();
             stepIsolation.IntegrateIntoUserProfile = false;
@@ -126,15 +127,22 @@ namespace Mastersign.Bench.UI
             }
             if (InitUserConfig)
             {
-                if (stepExistingConfig.IsConfigGitRepoExisting)
+                switch (stepExistingConfig.ConfigSource)
                 {
-                    config.SetValue(ConfigPropertyKeys.UserConfigRepository, stepExistingConfig.ConfigGitRepo);
-                }
-                else
-                {
-                    config.SetValue(ConfigPropertyKeys.UserConfigRepository, (object)null);
-                    config.SetValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile, stepIsolation.IntegrateIntoUserProfile);
-                    config.SetValue(ConfigPropertyKeys.WizzardSelectedApps, stepAppSeletion.SelectedApps);
+                    case ExistingConfigStepControl.ConfigSourceType.Directory:
+                        config.SetValue(ConfigPropertyKeys.UserConfigInitDirectory, stepExistingConfig.ConfigDirectory);
+                        break;
+                    case ExistingConfigStepControl.ConfigSourceType.ZipFile:
+                        config.SetValue(ConfigPropertyKeys.UserConfigInitZipFile, stepExistingConfig.ConfigZipFile);
+                        break;
+                    case ExistingConfigStepControl.ConfigSourceType.GitRepo:
+                        config.SetValue(ConfigPropertyKeys.UserConfigRepository, stepExistingConfig.ConfigGitRepo);
+                        break;
+                    default:
+                        config.SetValue(ConfigPropertyKeys.UserConfigRepository, (object)null);
+                        config.SetValue(ConfigPropertyKeys.WizzardIntegrateIntoUserProfile, stepIsolation.IntegrateIntoUserProfile);
+                        config.SetValue(ConfigPropertyKeys.WizzardSelectedApps, stepAppSeletion.SelectedApps);
+                        break;
                 }
             }
             config.SetValue(ConfigPropertyKeys.WizzardStartAutoSetup, stepAdvanced.StartAutoSetup);
