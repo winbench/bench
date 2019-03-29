@@ -31,6 +31,8 @@ Add a link to the GitHub diff like
 * Initialize new Bench environment from user config template in:
   directory, existing Bench environment, ZIP file, additionally to Git repo
   ([#137](https://github.com/winbench/bench/issues/137))
+* Support for Python Wheels
+  ([#120](https://github.com/winbench/bench/issues/120))
 
 ### Changed
 * Make 64Bit support the default

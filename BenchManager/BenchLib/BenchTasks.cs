@@ -2290,7 +2290,13 @@ namespace Mastersign.Bench
             }
             var argList = new List<string>();
             argList.Add("install");
-            if (app.IsVersioned)
+            if (app.IsInstalled) argList.Add("--upgrade");
+            //argList.Add("--quiet");
+            if (!app.IsManagedPackageFromRemoteRepo) // python wheel file
+            {
+                argList.Add(Path.Combine(config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), app.ResourceFileName));
+            }
+            else if (app.IsVersioned)
             {
                 argList.Add(app.PackageName + "==" + app.Version);
             }
@@ -2298,8 +2304,6 @@ namespace Mastersign.Bench
             {
                 argList.Add(app.PackageName);
             }
-            if (app.IsInstalled) argList.Add("--upgrade");
-            //argList.Add("--quiet");
             var args = CommandLine.FormatArgumentList(argList.ToArray());
             var result = execHost.RunProcess(new BenchEnvironment(config), config.BenchRootDir, pipExe, args,
                     ProcessMonitoring.ExitCodeAndOutput);
@@ -2400,6 +2404,7 @@ namespace Mastersign.Bench
                         InstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
                         break;
                     case AppTyps.PythonPackage:
+                    case AppTyps.PythonWheel:
                         var python2App = man.Config.Apps[AppKeys.Python2];
                         if (python2App != null && python2App.IsInstalled)
                         {
@@ -2412,9 +2417,11 @@ namespace Mastersign.Bench
                         }
                         break;
                     case AppTyps.Python2Package:
+                    case AppTyps.Python2Wheel:
                         InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
                         break;
                     case AppTyps.Python3Package:
+                    case AppTyps.Python3Wheel:
                         InstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
                         break;
                     case AppTyps.NuGetPackage:
@@ -2852,6 +2859,7 @@ namespace Mastersign.Bench
                                 UninstallRubyPackage(man.Config, man.ProcessExecutionHost, app);
                                 break;
                             case AppTyps.PythonPackage:
+                            case AppTyps.PythonWheel:
                                 var python2App = man.Config.Apps[AppKeys.Python2];
                                 if (python2App != null && python2App.IsInstalled)
                                 {
@@ -2864,9 +2872,11 @@ namespace Mastersign.Bench
                                 }
                                 break;
                             case AppTyps.Python2Package:
+                            case AppTyps.Python2Wheel:
                                 UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python2, app);
                                 break;
                             case AppTyps.Python3Package:
+                            case AppTyps.Python3Wheel:
                                 UninstallPythonPackage(man.Config, man.ProcessExecutionHost, PythonVersion.Python3, app);
                                 break;
                             case AppTyps.NuGetPackage:

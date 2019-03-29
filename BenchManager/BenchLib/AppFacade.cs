@@ -195,6 +195,9 @@ namespace Mastersign.Bench
                     || typ == AppTyps.PythonPackage
                     || typ == AppTyps.Python2Package
                     || typ == AppTyps.Python3Package
+                    || typ == AppTyps.PythonWheel
+                    || typ == AppTyps.Python2Wheel
+                    || typ == AppTyps.Python3Wheel
                     || typ == AppTyps.NuGetPackage;
             }
         }
@@ -709,8 +712,8 @@ namespace Mastersign.Bench
         /// Checks, whether this app has a downloadable app resource, or not.
         /// </summary>
         public bool HasResource
-            => Typ == AppTyps.Default &&
-               (ResourceFileName != null || ResourceArchiveName != null);
+            => (Typ == AppTyps.Default && (ResourceFileName != null || ResourceArchiveName != null))
+            || ((Typ == AppTyps.PythonWheel || Typ == AppTyps.Python2Wheel || Typ == AppTyps.Python3Wheel) && ResourceFileName != null);
 
         /// <summary>
         /// Checks, whether the installation state of this app can be checked, or not.
@@ -724,7 +727,10 @@ namespace Mastersign.Bench
                     || Typ == AppTyps.RubyPackage
                     || Typ == AppTyps.PythonPackage
                     || Typ == AppTyps.Python2Package
-                    || Typ == AppTyps.Python3Package;
+                    || Typ == AppTyps.Python3Package
+                    || Typ == AppTyps.PythonWheel
+                    || Typ == AppTyps.Python2Wheel
+                    || Typ == AppTyps.Python3Wheel;
             }
         }
 
@@ -752,6 +758,7 @@ namespace Mastersign.Bench
                     var folders = Directory.GetDirectories(gemDirBase, PackageName + "-*");
                     return folders.Length > 0;
                 case AppTyps.PythonPackage:
+                case AppTyps.PythonWheel:
                     if (File.Exists(SetupTestFile)) return true;
                     var python2App = new AppFacade(Config, AppIndex, AppKeys.Python2);
                     var pipPackageDir2 = IOPath.Combine(
@@ -776,12 +783,14 @@ namespace Mastersign.Bench
                     }
                     return false;
                 case AppTyps.Python2Package:
+                case AppTyps.Python2Wheel:
                     var python2Dir = AppIndex.GetStringGroupValue(AppKeys.Python2, AppPropertyKeys.Dir);
                     var pip2PackageDir = IOPath.Combine(
                         IOPath.Combine(python2Dir, "lib"),
                         IOPath.Combine("site-packages", PackageName));
                     return Directory.Exists(pip2PackageDir);
                 case AppTyps.Python3Package:
+                case AppTyps.Python3Wheel:
                     var python3Dir = AppIndex.GetStringGroupValue(AppKeys.Python3, AppPropertyKeys.Dir);
                     var pip3PackageDir = IOPath.Combine(
                         IOPath.Combine(python3Dir, "lib"),
@@ -823,6 +832,10 @@ namespace Mastersign.Bench
                         : ResourceArchiveName != null
                             ? File.Exists(IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceArchiveName))
                             : true;
+                case AppTyps.PythonWheel:
+                case AppTyps.Python2Wheel:
+                case AppTyps.Python3Wheel:
+                    return File.Exists(IOPath.Combine(Config.GetStringValue(ConfigPropertyKeys.AppsCacheDir), ResourceFileName));
                 default:
                     return false;
             }
@@ -929,44 +942,151 @@ namespace Mastersign.Bench
             get
             {
                 if (CanCheckInstallation && IsInstalled)
-                {
                     if (HasResource && !IsResourceCached)
                         return "not cached";
                     else
                         return "installed";
-                }
                 else
-                {
                     if (!IsSupported)
-                    {
                         return "not supported";
-                    }
                     else if (IsDeactivated)
-                    {
                         if (HasResource && IsResourceCached)
                             return "cached";
                         else
                             return "deactivated";
-                    }
                     else
-                    {
                         if (IsActive)
-                        {
                             if (CanCheckInstallation)
                                 return "pending";
                             else
                                 return "active";
-                        }
                         else
-                        {
                             if (HasResource && IsResourceCached)
                                 return "cached";
                             else
                                 return "inactive";
-                        }
-                    }
-                }
             }
+        }
+
+        private string LongStatusInstalledWithResource()
+        {
+            if (!IsSupported)
+                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                    return "is not supported on this system.";
+                else
+                    return "is not supported in this configuration.";
+            else if (IsDeactivated)
+                if (HasResource && IsResourceCached)
+                    return "is deactivated, but cached and installed.";
+                else
+                    return "is deactivated, but installed.";
+            else
+                if (IsActivated)
+                    if (HasResource && !IsResourceCached)
+                        return "is active and installed, but its resource is not cached.";
+                    else
+                        return "is active and installed.";
+                else if (IsActive)
+                    if (HasResource && !IsResourceCached)
+                        return "is required and installed, but its resource is not cached.";
+                    else
+                        return "is required and installed.";
+                else
+                    if (HasResource && !IsResourceCached)
+                        return "is not active, but installed.";
+                    else
+                        return "is not active, but cached and installed.";
+        }
+
+        private string LongStatusCanNotCheckInstallationWithResource()
+        {
+            if (!IsSupported)
+                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                    return "is not supported on this system.";
+                else
+                    return "is not supported in this configuration.";
+            else if (IsDeactivated)
+                if (HasResource && IsResourceCached)
+                    return "is deactivated, but cached.";
+                else
+                    return "is deactivated.";
+            else
+                if (IsActivated)
+                    if (HasResource && !IsResourceCached)
+                        return "is active, but not cached.";
+                    else
+                        return "is active.";
+                else if (IsActive)
+                    if (HasResource && !IsResourceCached)
+                        return "is required, but not cached.";
+                    else
+                        return "is required.";
+                else
+                    if (HasResource && IsResourceCached)
+                        return "is not active, but cached.";
+                    else
+                        return "is not active.";
+        }
+
+        private string LongStatusNotInstalledWithResource()
+        {
+            if (!IsSupported)
+                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                    return "is not supported on this system.";
+                else
+                    return "is not supported in this configuration.";
+            else if (IsDeactivated)
+                if (HasResource && IsResourceCached)
+                    return "is deactivated, but cached.";
+                else
+                    return "is deactivated.";
+            else
+                if (IsActivated)
+                    if (HasResource && !IsResourceCached)
+                        return "is active, but not cached or installed.";
+                    else
+                        return "is active, but not installed.";
+                else if (IsActive)
+                    if (HasResource && !IsResourceCached)
+                        return "is required, but not cached or installed.";
+                    else
+                        return "is required, but not installed.";
+                else
+                    if (HasResource && IsResourceCached)
+                        return "is not active, but cached.";
+                    else
+                        return "is not active.";
+        }
+
+        private string LongStatusInstalled()
+        {
+            if (IsDeactivated)
+                return "is deactivated, but installed.";
+            else
+                if (IsActivated)
+                    return "is active and installed.";
+                else if (IsActive)
+                    return "is required and installed.";
+                else
+                    return "is not active, but installed.";
+        }
+
+        private string LongStatusNotInstalled()
+        {
+            if (!IsSupported)
+                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
+                    return "is not supported on this system.";
+                else
+                    return "is not supported in this configuration.";
+            else if (IsDeactivated)
+                return "is deactivated.";
+            else
+                if (IsActivated)
+                    return "is activated, but not installed.";
+                else if (IsActive)
+                    return "is required, but not installed.";
+                else
+                    return "is not active.";
         }
 
         /// <summary>
@@ -981,129 +1101,15 @@ namespace Mastersign.Bench
                     case AppTyps.Meta:
                     case AppTyps.Group:
                     case AppTyps.Default:
-                        if (CanCheckInstallation && IsInstalled)
-                        {
-                            if (!IsSupported)
-                            {
-                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
-                                    return "App is not supported on this system.";
-                                else
-                                    return "App is not supported in this configuration.";
-                            }
-                            else if (IsDeactivated)
-                            {
-                                if (HasResource && IsResourceCached)
-                                    return "App is deactivated, but cached and installed.";
-                                else
-                                    return "App is deactivated, but installed.";
-                            }
-                            else
-                            {
-                                if (IsActivated)
-                                {
-                                    if (HasResource && !IsResourceCached)
-                                        return "App is active and installed, but its resource is not cached.";
-                                    else
-                                        return "App is active and installed.";
-                                }
-                                else if (IsActive)
-                                {
-                                    if (HasResource && !IsResourceCached)
-                                        return "App is required and installed, but its resource is not cached.";
-                                    else
-                                        return "App is required and installed.";
-                                }
-                                else
-                                {
-                                    if (HasResource && !IsResourceCached)
-                                        return "App is not active, but installed.";
-                                    else
-                                        return "App is not active, but cached and installed.";
-                                }
-                            }
-                        }
-                        else if (!CanCheckInstallation)
-                        {
-                            if (!IsSupported)
-                            {
-                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
-                                    return "App is not supported on this system.";
-                                else
-                                    return "App is not supported in this configuration.";
-                            }
-                            else if (IsDeactivated)
-                            {
-                                if (HasResource && IsResourceCached)
-                                    return "App is deactivated, but cached.";
-                                else
-                                    return "App is deactivated.";
-                            }
-                            else
-                            {
-                                if (IsActivated)
-                                {
-                                    if (HasResource && !IsResourceCached)
-                                        return "App is active, but not cached.";
-                                    else
-                                        return "App is active.";
-                                }
-                                else if (IsActive)
-                                {
-                                    if (HasResource && !IsResourceCached)
-                                        return "App is required, but not cached.";
-                                    else
-                                        return "App is required.";
-                                }
-                                else
-                                {
-                                    if (HasResource && IsResourceCached)
-                                        return "App is not active, but cached.";
-                                    else
-                                        return "App is not active.";
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (!IsSupported)
-                            {
-                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
-                                    return "App is not supported on this system.";
-                                else
-                                    return "App is not supported in this configuration.";
-                            }
-                            else if (IsDeactivated)
-                            {
-                                if (HasResource && IsResourceCached)
-                                    return "App is deactivated, but cached.";
-                                else
-                                    return "App is deactivated.";
-                            }
-                            else
-                            {
-                                if (IsActivated)
-                                {
-                                    if (HasResource && !IsResourceCached)
-                                        return "App is active, but not cached or installed.";
-                                    else
-                                        return "App is active, but not installed.";
-                                }
-                                else if (IsActive)
-                                {
-                                    if (HasResource && !IsResourceCached)
-                                        return "App is required, but not cached or installed.";
-                                    else
-                                        return "App is required, but not installed.";
-                                }
-                                else
-                                {
-                                    if (HasResource && IsResourceCached)
-                                        return "App is not active, but cached.";
-                                    else
-                                        return "App is not active.";
-                                }
-                            }
-                        }
+                    case AppTyps.PythonWheel:
+                    case AppTyps.Python2Wheel:
+                    case AppTyps.Python3Wheel:
+                        if (!CanCheckInstallation)
+                            return "App " + LongStatusCanNotCheckInstallationWithResource();
+                        else if (IsInstalled)
+                            return "App " + LongStatusInstalledWithResource();
+                        else 
+                            return "App " + LongStatusNotInstalledWithResource();
                     case AppTyps.NodePackage:
                     case AppTyps.RubyPackage:
                     case AppTyps.PythonPackage:
@@ -1111,44 +1117,9 @@ namespace Mastersign.Bench
                     case AppTyps.Python3Package:
                     case AppTyps.NuGetPackage:
                         if (IsInstalled)
-                        {
-                            if (IsDeactivated)
-                            {
-                                return "Package is deactivated, but installed.";
-                            }
-                            else
-                            {
-                                if (IsActivated)
-                                    return "Package is active and installed.";
-                                else if (IsActive)
-                                    return "Package is required and installed.";
-                                else
-                                    return "Package is not active, but installed.";
-                            }
-                        }
+                            return "Package " + LongStatusInstalled();
                         else
-                        {
-                            if (!IsSupported)
-                            {
-                                if (Config.GetBooleanValue(ConfigPropertyKeys.Allow64Bit))
-                                    return "App is not supported on this system.";
-                                else
-                                    return "App is not supported in this configuration.";
-                            }
-                            else if (IsDeactivated)
-                            {
-                                return "Package is deactivated.";
-                            }
-                            else
-                            {
-                                if (IsActivated)
-                                    return "Package is activated, but not installed.";
-                                else if (IsActive)
-                                    return "Package is required, but not installed.";
-                                else
-                                    return "Package is not active.";
-                            }
-                        }
+                            return "Package " + LongStatusNotInstalled();
                     default:
                         return "Unkown app typ.";
                 }
@@ -1273,7 +1244,7 @@ namespace Mastersign.Bench
         /// <summary>
         /// Checks, whether the app has a resource and the resource is not cached.
         /// </summary>
-        public bool CanDownloadResource => HasResource && !IsResourceCached;
+        public bool CanDownloadResource => HasResource && !IsResourceCached && !string.IsNullOrWhiteSpace(Url);
 
         /// <summary>
         /// Checks, whether the app has cached resource.
@@ -1408,14 +1379,16 @@ namespace Mastersign.Bench
         /// </summary>
         public bool IsPython2Package
             => Typ == AppTyps.Python2Package
-            || (Typ == AppTyps.PythonPackage && IsPython2Activated);
+            || Typ == AppTyps.Python2Wheel
+            || ((Typ == AppTyps.PythonPackage || Typ == AppTyps.PythonWheel) && IsPython2Activated);
 
         /// <summary>
         /// Checks if this app is a Python package which will be installed under Python 3.
         /// </summary>
         public bool IsPython3Package
             => Typ == AppTyps.Python3Package
-            || (Typ == AppTyps.PythonPackage && (IsPython3Activated || !IsPython2Activated));
+            || Typ == AppTyps.Python3Wheel
+            || ((Typ == AppTyps.PythonPackage || Typ == AppTyps.PythonWheel) && (IsPython3Activated || !IsPython2Activated));
 
         private bool IsPython2Activated
             => AppIndex.GetBooleanGroupValue(AppKeys.Python2, AppPropertyKeys.IsActivated);
@@ -1434,12 +1407,15 @@ namespace Mastersign.Bench
                     AddDependency(AppKeys.RubyGems);
                     break;
                 case AppTyps.PythonPackage:
+                case AppTyps.PythonWheel:
                     AddDependency(IsPython2Activated ? AppKeys.Python2 : AppKeys.Python3);
                     break;
                 case AppTyps.Python2Package:
+                case AppTyps.Python2Wheel:
                     AddDependency(AppKeys.Python2);
                     break;
                 case AppTyps.Python3Package:
+                case AppTyps.Python3Wheel:
                     AddDependency(AppKeys.Python3);
                     break;
                 case AppTyps.NuGetPackage:
@@ -1499,13 +1475,16 @@ namespace Mastersign.Bench
                     deps = RemoveFromSet(deps, AppKeys.RubyGems);
                     break;
                 case AppTyps.PythonPackage:
+                case AppTyps.PythonWheel:
                     deps = RemoveFromSet(deps, AppKeys.Python2);
                     deps = RemoveFromSet(deps, AppKeys.Python3);
                     break;
                 case AppTyps.Python2Package:
+                case AppTyps.Python2Wheel:
                     deps = RemoveFromSet(deps, AppKeys.Python2);
                     break;
                 case AppTyps.Python3Package:
+                case AppTyps.Python3Wheel:
                     deps = RemoveFromSet(deps, AppKeys.Python3);
                     break;
                 case AppTyps.NuGetPackage:
