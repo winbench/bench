@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.22.1] - 2019-03-29
+
+[0.22.1]: https://github.com/winbench/bench/compare/v0.22.0...v0.22.1
+
 ### Fixed
 * App Launch from Bench Dashboard partially broken
   ([#139](https://github.com/winbench/bench/issues/139))
