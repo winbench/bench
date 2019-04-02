@@ -2303,7 +2303,14 @@ namespace Mastersign.Bench
             }
             else if (app.IsVersioned)
             {
-                argList.Add(app.PackageName + "==" + app.Version);
+                var version = app.Version;
+                if (!version.Contains("<") &&
+                    !version.Contains(">") &&
+                    !version.Contains("="))
+                {
+                    version = "==" + version;
+                }
+                argList.Add(app.PackageName + version);
             }
             else
             {

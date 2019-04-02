@@ -25,6 +25,14 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.22.2] - 2019-04-02
+
+[0.22.2]: https://github.com/winbench/bench/compare/v0.22.1...v0.22.2
+
+### Fixed
+* Fixed version ranges for Python packages
+  ([#140](https://github.com/winbench/bench/issues/140))
+
 ## [0.22.1] - 2019-03-29
 
 [0.22.1]: https://github.com/winbench/bench/compare/v0.22.0...v0.22.1
