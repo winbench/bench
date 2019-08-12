@@ -155,6 +155,10 @@ foreach ($artifact in $buildArtifacts)
     Copy-Artifact "$rootDir\$solutionDir\$artifact" "$rootDir\$buildTargetDir"
 }
 
+if ($Mode -eq "Debug") {
+    cp "$rootDir\res\Invoke-AppVersionCheck.ps1" "$rootDir\$buildTargetDir\cav.ps1"
+}
+
 $today = [DateTime]::Now.ToString("yyyy-MM-dd")
 
 if (!$NoRelease)

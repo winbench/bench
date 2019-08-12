@@ -1,12 +1,31 @@
+[CmdletBinding()]
 param (
-    [string]$GitHubUserName = $null,
-    [switch]$CheckVersion = $true,
-    [string[]]$Libraries = @("core", "default"),
+    [Parameter(Position=0, Mandatory=$false)]
+    [AllowEmptyCollection()]
     [string[]]$Apps = @(),
-    [string]$ReportFile = "app-report.txt"
+    
+    [Parameter(Mandatory=$false)]
+    [string[]]$Libraries = @("core", "default"),
+    
+    [Parameter(Mandatory=$false)]
+    [AllowNull()]
+    [AllowEmptyString()]
+    [string]$GitHubUserName = "",
+    
+    [Parameter(Mandatory=$false)]
+    [AllowNull()]
+    [AllowEmptyString()]
+    [string]$ReportFile = "app-report.txt",
+    
+    [Parameter(Mandatory=$false)]
+    [switch]$NoReport
 )
 
-$Script:scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+#
+# Is supposed to be copied to <Bench Root>\auto\bin to work properly
+#
+
+$Script:scriptsDir = "$([IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition))\..\lib"
 . "$Script:scriptsDir\config.lib.ps1"
 
 # $DebugPreference = "Continue"
@@ -309,19 +328,20 @@ function findLatestGitHubRelease($app) {
 }
 
 function report($msg) {
-    $msg | Out-File $Script:ReportFile -Append
+    if (!$Script:NoReport -and $Script:ReportFile) {
+        $msg | Out-File $Script:ReportFile -Append
+    }
 }
 
 # ---------------------------------------------------------------------------------------
 
 report "[$([DateTime]::Now.ToString("yyyy-MM-dd HH:mm:ss"))]"
-report "Check Version: $CheckVersion"
 
 foreach ($app in $global:BenchConfig.Apps) {
     if ($Libraries -and ($app.AppLibrary.ID -notin $Libraries)) { continue }
     if ($Apps -and ($app.ID -notin $Apps)) { continue }
 
-    if ($CheckVersion -and $app.IsVersioned) {
+    if ($app.IsVersioned) {
         $currentVersion = Get-AppConfigValue $app.ID "VersionCheckString"
         if (!$currentVersion) {
             $currentVersion = $app.Version
