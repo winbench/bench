@@ -100,29 +100,45 @@ function downloadData($url, $Credential = $null) {
         $Script:webClient.Headers.Add("Authorization", (encodeCredential $Credential))
     }
     $Script:webClient.UseDefaultCredentials = $false
-    return $Script:webClient.DownloadData($url)
+    try {
+        return $Script:webClient.DownloadData($url)
+    } catch {
+        Write-Warning "Download failed: $($_.Message)"
+        throw
+    }
 }
 
 function loadData($url, $Credential = $null) {
     [byte[]]$content = loadDataFromCache $url
     if (!$content) {
         $content = downloadData $url -Credential $Credential
-        storeDataToCache $url $content
+        if ($content) {
+            storeDataToCache $url $content
+        }
     }
     return $content
 }
 
 function loadHtmlDoc($url, $Credential = $null) {
     $content = loadData $url -Credential $Credential
+    if (!$content) {
+        return $null
+    }
     $ms = New-Object System.IO.MemoryStream -ArgumentList @(,$content)
-    $doc = New-Object HtmlAgilityPack.HtmlDocument
-    $doc.Load($ms)
-    $ms.Dispose()
+    try {
+        $doc = New-Object HtmlAgilityPack.HtmlDocument
+        $doc.Load($ms)
+    } finally {
+        $ms.Dispose()
+    }
     return $doc
 }
 
 function loadJsonDoc($url, $Credential = $null) {
     $content = loadData $url -Credential $Credential
+    if (!$content) {
+        return $null
+    }
     $json = [System.Text.Encoding]::UTF8.GetString($content, 0, $content.Length)
     return $json | ConvertFrom-Json
 }
@@ -219,11 +235,21 @@ function findHighestAppVersion($app) {
     [regex]$checkRe = $checkPattern
     Write-Debug "Version Check Pattern: $checkRe"
     if ($checkJsonPath) {
-        $data = loadJsonDoc $checkUrl
-        $versions = findVersionsInData $app $data $checkJsonPath $checkRe
+        try {
+            $data = loadJsonDoc $checkUrl
+            $versions = findVersionsInData $app $data $checkJsonPath $checkRe
+        } catch {
+            Write-Warning "No data to extract versions."
+            $versions = @()
+        }
     } else {
-        $doc = loadHtmlDoc $checkUrl
-        $versions = findVersionsInDoc $app $doc $checkXPath $checkRe
+        try {
+            $doc = loadHtmlDoc $checkUrl
+            $versions = findVersionsInDoc $app $doc $checkXPath $checkRe
+        } catch {
+            Write-Warning "No document to extract versions from."
+            $versions = @()
+        }
     }
     $ignoredVersions = Get-AppConfigListValue $app.ID "VersionCheckIgnore"
     if ($ignoredVersions) {
