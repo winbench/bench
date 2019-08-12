@@ -28,6 +28,9 @@ Add a link to the GitHub diff like
 ### Fixed
 * Fixed installing single non activated app
   ([#141](https://github.com/winbench/bench/issues/141))
+* `Mastersign.Bench.PurgeDir()` implemented retries
+  to wait incase antivirus check locks files or folders
+  (max 2 sec).
 
 ## [0.22.2] - 2019-04-02
 

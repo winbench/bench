@@ -6,6 +6,7 @@ using System.Text;
 using WshShell = IWshRuntimeLibrary.WshShell;
 using WshShortcut = IWshRuntimeLibrary.WshShortcut;
 using static Mastersign.Sequence.Sequence;
+using System.Threading;
 
 namespace Mastersign.Bench
 {
@@ -15,6 +16,9 @@ namespace Mastersign.Bench
     public static class FileSystem
     {
         private static WshShell wshShell;
+
+        private const int UNAUTHORIZED_RETRY_LIMIT = 20;
+        private const int UNAUTHORIZED_RETRY_INTERVAL_MS = 100;
 
         /// <summary>
         /// Returns an instance of the COM object <c>WshShell</c>.
@@ -115,14 +119,50 @@ namespace Mastersign.Bench
                 ForceDeleteDirectory(dir);
             }
 
-            Directory.Delete(targetDir, false);
+            // poll to work around short time locks from anti virus software
+            for (int i = 0; i < UNAUTHORIZED_RETRY_LIMIT; i++)
+            {
+                try
+                {
+                    Directory.Delete(targetDir, true);
+                    return;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    if (i >= UNAUTHORIZED_RETRY_LIMIT - 1) throw;
+                    Thread.Sleep(UNAUTHORIZED_RETRY_INTERVAL_MS);
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    // directory was already deleted
+                    return;
+                }
+            }
         }
 
         private static void ForceDeleteFile(string targetFile)
         {
             targetFile = NormalizePath(targetFile);
             File.SetAttributes(targetFile, FileAttributes.Normal);
-            File.Delete(targetFile);
+            // poll to work around short time locks from anti virus software
+            for (int i = 0; i < UNAUTHORIZED_RETRY_LIMIT; i++)
+            {
+                try
+                {
+                    File.Delete(targetFile);
+                    return;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    if (i >= UNAUTHORIZED_RETRY_LIMIT - 1) throw;
+                    Thread.Sleep(UNAUTHORIZED_RETRY_INTERVAL_MS);
+                }
+                catch (FileNotFoundException)
+                {
+                    // file was already deleted
+                    return;
+                }
+            }
         }
 
         /// <summary>
@@ -195,7 +235,7 @@ namespace Mastersign.Bench
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
-                if (excludeFiles != null && 
+                if (excludeFiles != null &&
                     Seq(excludeFiles).Any(fileName => string.Equals(file.Name, fileName, StringComparison.OrdinalIgnoreCase)))
                 {
                     continue;
