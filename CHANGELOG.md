@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+### Fixed
+* Fixed installing single non activated app
+  ([#141](https://github.com/winbench/bench/issues/141))
+
 ## [0.22.2] - 2019-04-02
 
 [0.22.2]: https://github.com/winbench/bench/compare/v0.22.1...v0.22.2
