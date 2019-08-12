@@ -32,6 +32,9 @@ Add a link to the GitHub diff like
   to wait incase antivirus check locks files or folders
   (max 2 sec).
 
+### Changed
+* Removed notification messages of PowerShell remoting host
+
 ## [0.22.2] - 2019-04-02
 
 [0.22.2]: https://github.com/winbench/bench/compare/v0.22.1...v0.22.2
