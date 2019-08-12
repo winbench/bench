@@ -11,12 +11,12 @@ $ErrorActionPreference = "Stop"
 $thisDir = Split-Path $MyInvocation.MyCommand.Path -Parent
 
 bench manage load-app-libs
-if (!$?) { exit }
+if (!$?) { exit $LastExitCode }
 bench --verbose app download $appId
-if (!$?) { exit }
+if (!$?) { exit $LastExitCode }
 bench --verbose app uninstall $appId
-if (!$?) { exit }
+if (!$?) { exit $LastExitCode }
 bench --verbose app install $appId
-if (!$?) { exit }
+if (!$?) { exit $LastExitCode }
 
 explorer "-e,`"$(bench app property $appId Dir)`""
