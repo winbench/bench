@@ -156,6 +156,7 @@ foreach ($artifact in $buildArtifacts)
 }
 
 if ($Mode -eq "Debug") {
+    cp "$rootDir\res\Invoke-AppSetupTest.ps1" "$rootDir\$buildTargetDir\tas.ps1"
     cp "$rootDir\res\Invoke-AppVersionCheck.ps1" "$rootDir\$buildTargetDir\cav.ps1"
 }
 
