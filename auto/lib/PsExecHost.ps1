@@ -13,7 +13,7 @@ $Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchCo
 
 function _PrintWaitingMessage()
 {
-	if ($WaitMessage) 
+	if ($WaitMessage)
 	{
 		Write-Host $WaitMessage
 	}
@@ -120,7 +120,7 @@ function _ReloadHandler()
 $server = New-Object Mastersign.Bench.RemoteExecHost.RemoteExecHostServer @($token)
 _PrintNotification "PowerShell execution host started."
 
-while($server) 
+while($server)
 {
 	_PrintWaitingMessage
 	$rcmd = [Mastersign.Bench.RemoteExecHost.RemoteExecutionFacade]::WaitForCommand()
@@ -139,9 +139,9 @@ while($server)
 			_ExecutionHandler $cwd $exe $exeArgs
 			$rcmd.NotifyResult($Script:executionResult)
 		}
-		"Reload" 
-		{ 
-			_ReloadHandler 
+		"Reload"
+		{
+			_ReloadHandler
 		}
 		"Shutdown"
 		{
