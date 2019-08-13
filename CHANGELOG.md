@@ -28,9 +28,8 @@ Add a link to the GitHub diff like
 ### Fixed
 * Fixed installing single non activated app
   ([#141](https://github.com/winbench/bench/issues/141))
-* `Mastersign.Bench.PurgeDir()` implemented retries
-  to wait incase antivirus check locks files or folders
-  (max 2 sec).
+* Added polling in `Mastersign.Bench.PurgeDir()`
+  to wait max 2 seconds incase antivirus check locks files or folders
 
 ### Changed
 * Removed notification messages of PowerShell remoting host
