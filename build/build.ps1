@@ -22,7 +22,7 @@ $mode = $Mode
 $target = "Clean;Build"
 $verbosity = $MsBuildVerbosity
 # $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
-$msbuild = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe"
+$msbuild = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe"
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $nuget4Url = "https://dist.nuget.org/win-x86-commandline/v4.0.0/nuget.exe"
 $solutionDir = "BenchManager" # relative to root dir
@@ -153,6 +153,11 @@ foreach ($artifact in $buildArtifacts)
 {
     echo "  $artifact"
     Copy-Artifact "$rootDir\$solutionDir\$artifact" "$rootDir\$buildTargetDir"
+}
+
+if ($Mode -eq "Debug") {
+    cp "$rootDir\res\Invoke-AppSetupTest.ps1" "$rootDir\$buildTargetDir\tas.ps1"
+    cp "$rootDir\res\Invoke-AppVersionCheck.ps1" "$rootDir\$buildTargetDir\cav.ps1"
 }
 
 $today = [DateTime]::Now.ToString("yyyy-MM-dd")

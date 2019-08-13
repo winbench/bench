@@ -812,6 +812,7 @@ namespace Mastersign.Bench
 
         /// <summary>
         /// Runs the Bench task of installing a specific app, including all of its dependencies.
+        /// Only not deactivated dependencies are installed.
         /// </summary>
         /// <param name="man">The Bench manager.</param>
         /// <param name="appId">The ID of the targeted app.</param>
@@ -825,7 +826,7 @@ namespace Mastersign.Bench
             var app = man.Config.Apps[appId];
             if (app == null) throw new ArgumentException("App not found: " + appId, "appId");
             var dependencies = Seq(man.Config.Apps.GetApps(app.FindAllDependencies()))
-                .Filter(a => a.IsActive)
+                .Filter(a => !a.IsDeactivated || a == app) // remove deactivated dependencies
                 .ToList();
             return RunTasks(man,
                 dependencies,

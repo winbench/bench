@@ -16,9 +16,9 @@ namespace Mastersign.Bench.Cli.Commands
         {
             parser.Description
                 .Begin(BlockType.Paragraph)
-                .Text("The ").Keyword(Name).Text(" command installes the specified app, regardless of its activation state.")
+                .Text("The ").Keyword(Name).Text(" command installs the specified app, regardless of its activation state.")
                 .End(BlockType.Paragraph)
-                .Paragraph("Missing app resources are downloaded automatically.");
+                .Paragraph("Missing app resources are downloaded automatically. Deactivated dependencies are not installed.");
 
             var positionalAppId = new PositionalArgument(POSITIONAL_APP_ID,
                 ArgumentValidation.IsIdString,

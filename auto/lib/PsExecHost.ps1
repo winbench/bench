@@ -1,4 +1,8 @@
-param ($Token = "Bench.Default", $WaitMessage = ">>>>")
+param (
+	[string]$Token = "Bench.Default",
+	[string]$WaitMessage = ">>>>",
+	[switch]$WithNotification
+)
 
 $scriptsDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = Resolve-Path "$scriptsDir\..\.."
@@ -9,9 +13,15 @@ $Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchCo
 
 function _PrintWaitingMessage()
 {
-	if ($WaitMessage) 
+	if ($WaitMessage)
 	{
 		Write-Host $WaitMessage
+	}
+}
+
+function _PrintNotification($msg) {
+	if ($WithNotification) {
+		Write-Host $msg
 	}
 }
 
@@ -101,16 +111,16 @@ function _ExecutionHandler([string]$cwd, [string]$cmd, [string]$cmdArgs)
 
 function _ReloadHandler()
 {
-	Write-Host "Reloading Bench configuration..."
+	_PrintNotification "Reloading Bench configuration..."
 	$rootDir = $global:BenchConfig.BenchRootDir
 	$global:BenchConfig = New-Object Mastersign.Bench.BenchConfiguration ($rootDir)
 	$Script:BenchEnv = New-Object Mastersign.Bench.BenchEnvironment ($global:BenchConfig)
 }
 
 $server = New-Object Mastersign.Bench.RemoteExecHost.RemoteExecHostServer @($token)
-Write-Host "PowerShell execution host started."
+_PrintNotification "PowerShell execution host started."
 
-while($server) 
+while($server)
 {
 	_PrintWaitingMessage
 	$rcmd = [Mastersign.Bench.RemoteExecHost.RemoteExecutionFacade]::WaitForCommand()
@@ -118,7 +128,7 @@ while($server)
 	{
 		"Ping"
 		{
-			Write-Host "Remoting interface available."
+			_PrintNotification "Remoting interface available."
 			$rcmd.NotifyResult("OK")
 		}
 	    "Execution"
@@ -129,15 +139,15 @@ while($server)
 			_ExecutionHandler $cwd $exe $exeArgs
 			$rcmd.NotifyResult($Script:executionResult)
 		}
-		"Reload" 
-		{ 
-			_ReloadHandler 
+		"Reload"
+		{
+			_ReloadHandler
 		}
 		"Shutdown"
 		{
 			$server.Dispose()
 			$server = $null
-			Write-Host "PowerShell execution host shut down."
+			_PrintNotification "PowerShell execution host shut down."
 			exit
 		}
 	}

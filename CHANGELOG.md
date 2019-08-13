@@ -25,6 +25,19 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.22.3] - 2019-08-13
+
+[0.22.3]: https://github.com/winbench/bench/compare/v0.22.2...v0.22.3
+
+### Fixed
+* Fixed installing single non activated app
+  ([#141](https://github.com/winbench/bench/issues/141))
+* Added polling in `Mastersign.Bench.PurgeDir()`
+  to wait max 2 seconds incase antivirus check locks files or folders
+
+### Changed
+* Removed notification messages of PowerShell remoting host
+
 ## [0.22.2] - 2019-04-02
 
 [0.22.2]: https://github.com/winbench/bench/compare/v0.22.1...v0.22.2

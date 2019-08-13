@@ -184,6 +184,7 @@ namespace Mastersign.Bench
         /// <summary>
         /// Installs the specified app, in case it is not already installed.
         /// This also downloads missing app resources.
+        /// Deactivated dependencies are not installed.
         /// </summary>
         /// <returns><c>true</c> if the execution of the task was successful; otherwise <c>false</c>.</returns>
         public bool InstallApp(string appId) => RunAction(BenchTasks.DoInstallApps, appId);
