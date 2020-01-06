@@ -25,6 +25,10 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+### Fixed
+* Prevent recursive deletion of junctions
+  ([#142](https://github.com/winbench/bench/issues/142))
+
 ## [0.22.3] - 2019-08-13
 
 [0.22.3]: https://github.com/winbench/bench/compare/v0.22.2...v0.22.3
