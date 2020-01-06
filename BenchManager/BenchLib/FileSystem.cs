@@ -55,15 +55,7 @@ namespace Mastersign.Bench
             if (Directory.Exists(path))
             {
                 Debug.WriteLine("Cleaning directory: " + path);
-                File.SetAttributes(path, FileAttributes.Normal);
-                foreach (var dir in Directory.GetDirectories(path))
-                {
-                    ForceDeleteDirectory(dir);
-                }
-                foreach (var file in Directory.GetFiles(path))
-                {
-                    ForceDeleteFile(file);
-                }
+                ForceEmptyDirectory(path);
             }
             else
             {
@@ -98,10 +90,11 @@ namespace Mastersign.Bench
             path = NormalizePath(path);
             if (!Directory.Exists(path)) return;
             Debug.WriteLine("Purging directory: " + path);
+            ForceEmptyDirectory(path);
             ForceDeleteDirectory(path);
         }
 
-        private static void ForceDeleteDirectory(string targetDir)
+        private static void ForceEmptyDirectory(string targetDir)
         {
             targetDir = NormalizePath(targetDir);
             File.SetAttributes(targetDir, FileAttributes.Normal);
@@ -116,15 +109,24 @@ namespace Mastersign.Bench
 
             foreach (string dir in dirs)
             {
+                if (!File.GetAttributes(dir).HasFlag(FileAttributes.ReparsePoint))
+                {
+                    // empty folder if it is not a junction (directory symlink)
+                    ForceEmptyDirectory(dir);
+                }
                 ForceDeleteDirectory(dir);
             }
+        }
 
+        private static void ForceDeleteDirectory(string targetDir)
+        {
             // poll to work around short time locks from anti virus software
             for (int i = 0; i < UNAUTHORIZED_RETRY_LIMIT; i++)
             {
                 try
                 {
-                    Directory.Delete(targetDir, true);
+                    // expect the directory to be empty
+                    Directory.Delete(targetDir, false);
                     return;
                 }
                 catch (UnauthorizedAccessException)
@@ -185,6 +187,7 @@ namespace Mastersign.Bench
                 if (Directory.Exists(tp))
                 {
                     MoveContent(currentDir, tp);
+                    ForceEmptyDirectory(currentDir);
                     ForceDeleteDirectory(currentDir);
                 }
                 else
