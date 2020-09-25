@@ -8,7 +8,7 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
-# To build this project without Visual Studio, install the Visual Studio 2017 Build Tools
+# To build this project without Visual Studio, install the Visual Studio 2019 Build Tools
 # with the .NET Framework 4.6.2 SDK and the .NET 4.6.2 Target Pack.
 
 $projectName = "Bench"
@@ -24,7 +24,7 @@ $verbosity = $MsBuildVerbosity
 $msbuildPaths = @(
     "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe"
     "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
-    # "${env:SystemRoot}\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
+    "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe"
 )
 $msbuild = $msbuildPaths | Where-Object { Test-Path $_ } | Select-Object -First 1
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
