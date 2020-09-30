@@ -8,7 +8,7 @@ $myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
-# To build this project without Visual Studio, install the Visual Studio 2017 Build Tools
+# To build this project without Visual Studio, install the Visual Studio 2019 Build Tools
 # with the .NET Framework 4.6.2 SDK and the .NET 4.6.2 Target Pack.
 
 $projectName = "Bench"
@@ -21,8 +21,12 @@ $langVersion = "7.2"
 $mode = $Mode
 $target = "Clean;Build"
 $verbosity = $MsBuildVerbosity
-# $msbuild = "$env:SystemRoot\Microsoft.NET\Framework\v$clrVersion\MSBuild.exe"
-$msbuild = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe"
+$msbuildPaths = @(
+    "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe"
+    "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
+    "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe"
+)
+$msbuild = $msbuildPaths | Where-Object { Test-Path $_ } | Select-Object -First 1
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $nuget4Url = "https://dist.nuget.org/win-x86-commandline/v4.0.0/nuget.exe"
 $solutionDir = "BenchManager" # relative to root dir
@@ -31,6 +35,17 @@ $buildTargetDir = "auto\bin" # relative to root dir
 $releaseDir = "$rootDir\release" # absolute
 $releaseFileName = "$projectName"
 $stageDir = "$releaseDir\staging" # absolute
+
+if (!$msbuild) {
+    Write-Warning "Could not find MSBuild"
+    Write-Host "Searched for MSBuild at"
+    foreach ($path in $msbuildPaths) {
+        Write-Host "  - $path"
+    }
+    exit 1
+} else {
+    Write-Host "Using MSBuild at: $msbuild"
+}
 
 $projects = @("BenchLib", "BenchCLI", "BenchDashboard")
 
