@@ -249,6 +249,9 @@
     <None Include="Resources\missing_app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\bash_16.png" />
+    <None Include="Resources\pwsh.ico" />
+    <None Include="Resources\pwsh_16.png" />
     <None Include="Resources\ok.ico" />
     <None Include="Resources\ok_outline_16.png" />
     <None Include="Resources\update_apps_16.png" />

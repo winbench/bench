@@ -25,6 +25,19 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.22.5] - 2023-03-30
+
+[0.22.5]: https://github.com/winbench/bench/compare/v0.22.4...v0.22.5
+
+### Added
+* Config property `QuickAccessPowerShellCore`
+* PowerShell Core button in quick access toolbar
+* `bootstrap` folder with Windows PowerShell scripts for bootstrapping a Bench environment
+
+### Changed
+* New bash icon in quick access toolbar
+* Hotkey for Windows PowerShell changed from Alt+P to Alt+W
+
 ## [0.22.4] - 2020-01-06
 
 [0.22.4]: https://github.com/winbench/bench/compare/v0.22.3...v0.22.4

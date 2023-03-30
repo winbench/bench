@@ -50,6 +50,7 @@ namespace Mastersign.Bench
         public const string WizzardSelectedApps = "WizzardSelectedApps";
         public const string QuickAccessCmd = "QuickAccessCmd";
         public const string QuickAccessPowerShell = "QuickAccessPowerShell";
+        public const string QuickAccessPowerShellCore = "QuickAccessPowerShellCore";
         public const string QuickAccessBash = "QuickAccessBash";
 
         public const string DashboardSetupAppListColumns = "DashboardSetupAppListColumns";

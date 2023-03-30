@@ -852,6 +852,16 @@ namespace Mastersign.Bench.Dashboard
             }
         }
 
+        public string PowerShellCorePath
+        {
+            get
+            {
+                return Path.Combine(
+                    Config.Apps[AppKeys.PowerShellCore].Dir,
+                    @"pwsh.exe");
+            }
+        }
+
         public string BashPath
         {
             get

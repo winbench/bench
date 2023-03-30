@@ -22,6 +22,9 @@ $mode = $Mode
 $target = "Clean;Build"
 $verbosity = $MsBuildVerbosity
 $msbuildPaths = @(
+    "${env:ProgramFiles}\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe"
+    "${env:ProgramFiles}\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe"
+    "${env:ProgramFiles}\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe"
     "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe"
     "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
     "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe"
@@ -60,9 +63,11 @@ $buildArtifacts = @(
     "BenchDashboard\bin\$mode\BenchDashboard.exe",
     "BenchDashboard\bin\$mode\BenchDashboard.exe.config",
     "BenchDashboard\bin\$mode\ConEmu.WinForms.dll",
+    "BenchDashboard\Resources\bash.ico",
     "packages\HtmlAgilityPack.1.8.11\lib\Net45\HtmlAgilityPack.dll",
     "scripts\bench-cmd.cmd",
     "scripts\bench-ps.cmd",
+    "scripts\bench-pwsh.cmd",
     "scripts\bench-bash.cmd",
     "scripts\runps.cmd"
 )

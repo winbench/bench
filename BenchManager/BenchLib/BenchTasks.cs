@@ -1703,13 +1703,13 @@ namespace Mastersign.Bench
         }
 
         private static void CreateActionLauncher(BenchConfiguration config, string label, string binFile, string icon = null,
-            string targetDir = null)
+            string targetDir = null, string arguments = null)
         {
             var launcherDir = targetDir ?? config.GetStringValue(ConfigPropertyKeys.LauncherDir);
             var binDir = config.GetStringValue(ConfigPropertyKeys.BenchBin);
             var shortcut = Path.Combine(launcherDir, label + ".lnk");
             var target = Path.Combine(binDir, binFile);
-            FileSystem.CreateShortcut(shortcut, target, null, config.BenchRootDir, icon ?? target);
+            FileSystem.CreateShortcut(shortcut, target, arguments, config.BenchRootDir, icon ?? target);
         }
 
         private static void CreateActionLaunchers(BenchConfiguration config)
@@ -1719,19 +1719,31 @@ namespace Mastersign.Bench
             if (!IsDashboardSupported)
             {
                 CreateActionLauncher(config, "Bench CLI", "bench.exe");
-                CreateActionLauncher(config, "Bench CLI", "bench.exe", null, config.BenchRootDir);
+                CreateActionLauncher(config, "Bench CLI", "bench.exe",
+                    targetDir: config.BenchRootDir);
             }
             if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessCmd, true))
             {
-                CreateActionLauncher(config, "Command Line", "bench-cmd.cmd", @"%SystemRoot%\System32\cmd.exe");
+                CreateActionLauncher(config, "Bench Command Line", "bench-cmd.cmd",
+                    icon: @"%SystemRoot%\System32\cmd.exe");
             }
             if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShell, false))
             {
-                CreateActionLauncher(config, "PowerShell", "bench-ps.cmd", @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe");
+                CreateActionLauncher(config, "Bench Windows PowerShell", "bench-ps.cmd",
+                    icon: @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe");
+            }
+            var pwshApp = config.Apps[AppKeys.PowerShellCore];
+            if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShellCore, true)
+                && pwshApp != null && pwshApp.IsActive)
+            {
+                CreateActionLauncher(config, "Bench PowerShell", "bench-pwsh.cmd",
+                    icon: Path.Combine(
+                        config.GetStringValue(ConfigPropertyKeys.AppsInstallDir), pwshApp.Dir, pwshApp.Exe));
             }
             if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessBash, false))
             {
-                CreateActionLauncher(config, "Bash", "bench-bash.cmd", @"%SystemRoot%\System32\imageres.dll,95");
+                CreateActionLauncher(config, "Bench Bash", "bench-bash.cmd",
+                    icon: Path.Combine(config.GetStringValue(ConfigPropertyKeys.BenchBin), "bash.ico"));
             }
         }
 

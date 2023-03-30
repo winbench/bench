@@ -40,6 +40,7 @@
             this.tsslVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslVersionStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.btnShellPowerShellCore = new System.Windows.Forms.Button();
             this.btnAutoSetup = new System.Windows.Forms.Button();
             this.btnDocs = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
@@ -105,7 +106,7 @@
             // tsslSpacer
             // 
             this.tsslSpacer.Name = "tsslSpacer";
-            this.tsslSpacer.Size = new System.Drawing.Size(160, 19);
+            this.tsslSpacer.Size = new System.Drawing.Size(191, 19);
             this.tsslSpacer.Spring = true;
             // 
             // tsslVersionLabel
@@ -132,6 +133,7 @@
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.btnShellPowerShellCore);
             this.panelTop.Controls.Add(this.btnAutoSetup);
             this.panelTop.Controls.Add(this.btnDocs);
             this.panelTop.Controls.Add(this.btnAbout);
@@ -144,6 +146,17 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(564, 29);
             this.panelTop.TabIndex = 0;
+            // 
+            // btnShellPowerShellCore
+            // 
+            this.btnShellPowerShellCore.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.missing_app_16;
+            this.btnShellPowerShellCore.Location = new System.Drawing.Point(64, 2);
+            this.btnShellPowerShellCore.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.btnShellPowerShellCore.Name = "btnShellPowerShellCore";
+            this.btnShellPowerShellCore.Size = new System.Drawing.Size(29, 25);
+            this.btnShellPowerShellCore.TabIndex = 7;
+            this.toolTip.SetToolTip(this.btnShellPowerShellCore, "PowerShell (Alt + P)");
+            this.btnShellPowerShellCore.Click += new System.EventHandler(this.ShellPowerShellCoreHandler);
             // 
             // btnAutoSetup
             // 
@@ -184,7 +197,7 @@
             // btnShellBash
             // 
             this.btnShellBash.Image = global::Mastersign.Bench.Dashboard.Properties.Resources.missing_app_16;
-            this.btnShellBash.Location = new System.Drawing.Point(64, 2);
+            this.btnShellBash.Location = new System.Drawing.Point(95, 2);
             this.btnShellBash.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.btnShellBash.Name = "btnShellBash";
             this.btnShellBash.Size = new System.Drawing.Size(29, 25);
@@ -200,7 +213,7 @@
             this.btnShellPowerShell.Name = "btnShellPowerShell";
             this.btnShellPowerShell.Size = new System.Drawing.Size(29, 25);
             this.btnShellPowerShell.TabIndex = 1;
-            this.toolTip.SetToolTip(this.btnShellPowerShell, "Windows PowerShell (Alt + P)");
+            this.toolTip.SetToolTip(this.btnShellPowerShell, "Windows PowerShell (Alt + W)");
             this.btnShellPowerShell.Click += new System.EventHandler(this.ShellPowerShellHandler);
             // 
             // btnShellCmd
@@ -280,6 +293,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tsslVersionLabel;
         private System.Windows.Forms.ToolStripStatusLabel tsslVersion;
         private System.Windows.Forms.ToolStripStatusLabel tsslVersionStatus;
+        private System.Windows.Forms.Button btnShellPowerShellCore;
     }
 }
 
