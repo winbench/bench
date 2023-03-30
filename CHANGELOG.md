@@ -28,6 +28,7 @@ Add a link to the GitHub diff like
 ### Added
 * Config property `QuickAccessPowerShellCore`
 * PowerShell Core button in quick access toolbar
+* `bootstrap` folder with Windows PowerShell scripts for bootstrapping a Bench environment
 
 ### Changed
 * New bash icon in quick access toolbar
