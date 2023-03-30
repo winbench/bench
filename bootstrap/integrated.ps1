@@ -39,8 +39,8 @@ switch ($Mode) {
         $AutoUpdateCheck = $true
     }
     Default {
-        $OverrideHome = $false
-        $OverrideTemp = $false
+        $OverrideHome = $true
+        $OverrideTemp = $true
         $IgnoreSystemPath = $false
         $UseRegistryIsolation = $false
         $RegisterInUserProfile = $false
