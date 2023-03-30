@@ -4,7 +4,7 @@ param (
     [switch]$NoRelease
 )
 
-$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$myDir = $PSScriptRoot
 $rootDir = [IO.Path]::GetDirectoryName($myDir)
 pushd
 
@@ -39,6 +39,9 @@ $releaseDir = "$rootDir\release" # absolute
 $releaseFileName = "$projectName"
 $stageDir = "$releaseDir\staging" # absolute
 
+# Allow TLS 1.1 and 1.2 in downloads
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Tls11,Tls12'
+
 if (!$msbuild) {
     Write-Warning "Could not find MSBuild"
     Write-Host "Searched for MSBuild at"
@@ -50,7 +53,7 @@ if (!$msbuild) {
     Write-Host "Using MSBuild at: $msbuild"
 }
 
-$projects = @("BenchLib", "BenchCLI", "BenchDashboard")
+$projects = @("BenchLib", "BenchLib.Test", "BenchCLI", "BenchDashboard")
 
 # Paths of build artifacts are relative to the solution dir
 $buildArtifacts = @(
