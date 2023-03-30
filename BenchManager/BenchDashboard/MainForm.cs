@@ -208,11 +208,9 @@ namespace Mastersign.Bench.Dashboard
             UpdateShellButtons();
             var cmdImg = await ExtractIcon(core.CmdPath, "CMD");
             var psImg = await ExtractIcon(core.PowerShellPath, "PowerShell");
-            var imageResDllPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\imageres.dll");
-            var bashImg = await ExtractIcon(imageResDllPath, "Bash", 95);
             btnShellCmd.Image = cmdImg ?? Resources.missing_app_16;
             btnShellPowerShell.Image = psImg ?? Resources.missing_app_16;
-            btnShellBash.Image = bashImg ?? Resources.missing_app_16;
+            btnShellBash.Image = Resources.bash_16;
         }
 
         private static Task<Bitmap> ExtractIcon(string path, string name, int index = 0)

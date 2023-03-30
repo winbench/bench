@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+### Changed
+* New bash icon in quick access toolbar
+
 ## [0.22.4] - 2020-01-06
 
 [0.22.4]: https://github.com/winbench/bench/compare/v0.22.3...v0.22.4
