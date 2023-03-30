@@ -109,6 +109,7 @@
     + LaTeX: `Bench.Group.LaTeXWriting`
 * QuickAccessCmd: `true`
 * QuickAccessPowerShell: `false`
+* QuickAccessPowerShellCore: `true`
 * QuickAccessBash: `false`
 * TextEditorApp: `Bench.BenchNpp`
 * DashboardSetupAppListColumns: `Order`, `Label`, `Version`, `Active`, `Deactivated`, `Status`, `Typ`, `Comment`

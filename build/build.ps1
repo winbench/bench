@@ -66,6 +66,7 @@ $buildArtifacts = @(
     "packages\HtmlAgilityPack.1.8.11\lib\Net45\HtmlAgilityPack.dll",
     "scripts\bench-cmd.cmd",
     "scripts\bench-ps.cmd",
+    "scripts\bench-pwsh.cmd",
     "scripts\bench-bash.cmd",
     "scripts\runps.cmd"
 )

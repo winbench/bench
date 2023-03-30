@@ -33,6 +33,7 @@ With the following properties, you can control the appearance of the launchers f
 
 * QuickAccessCmd: `false`
 * QuickAccessPowerShell: `true`
+* QuickAccessPowerShellCore: `true`
 * QuickAccessBash: `false`
 
 ## Dashboard

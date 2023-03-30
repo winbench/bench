@@ -44,5 +44,8 @@ namespace Mastersign.Bench
 
         /// <summary>The app ID of NuGet.</summary>
         public const string NuGet = "Bench.NuGet";
+
+        /// <summary>The app ID of PowerShell</summary>
+        public const string PowerShellCore = "Bench.PowerShellCore";
     }
 }

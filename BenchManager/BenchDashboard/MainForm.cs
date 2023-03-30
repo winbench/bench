@@ -68,6 +68,7 @@ namespace Mastersign.Bench.Dashboard
         private void AppStateChangedHandler(object sender, EventArgs e)
         {
             if (core.Busy) return;
+            UpdateShellButtons();
             InitializeAppLauncherList();
             InitializeStatusStrip();
         }
@@ -210,6 +211,7 @@ namespace Mastersign.Bench.Dashboard
             var psImg = await ExtractIcon(core.PowerShellPath, "PowerShell");
             btnShellCmd.Image = cmdImg ?? Resources.missing_app_16;
             btnShellPowerShell.Image = psImg ?? Resources.missing_app_16;
+            btnShellPowerShellCore.Image = Resources.pwsh_16;
             btnShellBash.Image = Resources.bash_16;
         }
 
@@ -238,12 +240,15 @@ namespace Mastersign.Bench.Dashboard
             {
                 btnShellCmd,
                 btnShellPowerShell,
+                btnShellPowerShellCore,
                 btnShellBash,
             };
             var buttonEnabled = new[]
             {
                 core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessCmd, true),
                 core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShell, false),
+                core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShellCore, false)
+                    && core.Config.Apps.ActiveApps.Any(app => app.ID == "Bench.PowerShellCore"),
                 core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessBash, false),
             };
             var x = buttons[0].Left;
@@ -319,7 +324,27 @@ namespace Mastersign.Bench.Dashboard
         {
             new SimpleExecutionHost().StartProcess(core.Env,
                 core.Config.GetStringValue(ConfigPropertyKeys.ProjectRootDir),
-                core.PowerShellPath, "", result => { }, ProcessMonitoring.ExitCode);
+                core.PowerShellPath, "-ExecutionPolicy RemoteSigned", result => { }, ProcessMonitoring.ExitCode);
+        }
+
+        private void ShellPowerShellCoreHandler(object sender, EventArgs e)
+        {
+            var pwshPath = core.PowerShellCorePath;
+            if (File.Exists(pwshPath))
+            {
+                new SimpleExecutionHost().StartProcess(core.Env,
+                    core.Config.GetStringValue(ConfigPropertyKeys.ProjectRootDir),
+                    pwshPath, "-ExecutionPolicy RemoteSigned", result => { }, ProcessMonitoring.ExitCode);
+            }
+            else
+            {
+                MessageBox.Show(
+                    "The executable of PowerShell was not found."
+                    + Environment.NewLine + Environment.NewLine
+                    + pwshPath,
+                    "Running PowerShell...",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void ShellBashHandler(object sender, EventArgs e)
@@ -411,8 +436,10 @@ namespace Mastersign.Bench.Dashboard
                 AutoSetupHandler(this, EventArgs.Empty);
             else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Alt)
                 ShellCmdHandler(this, EventArgs.Empty);
-            else if (e.KeyCode == Keys.P && e.Modifiers == Keys.Alt)
+            else if (e.KeyCode == Keys.W && e.Modifiers == Keys.Alt)
                 ShellPowerShellHandler(this, EventArgs.Empty);
+            else if (e.KeyCode == Keys.P && e.Modifiers == Keys.Alt)
+                ShellPowerShellCoreHandler(this, EventArgs.Empty);
             else if (e.KeyCode == Keys.B && e.Modifiers == Keys.Alt)
                 ShellBashHandler(this, EventArgs.Empty);
         }
