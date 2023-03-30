@@ -1742,7 +1742,8 @@ namespace Mastersign.Bench
             }
             if (config.GetBooleanValue(ConfigPropertyKeys.QuickAccessBash, false))
             {
-                CreateActionLauncher(config, "Bash", "bench-bash.cmd", @"%SystemRoot%\System32\imageres.dll,95");
+                CreateActionLauncher(config, "Bench Bash", "bench-bash.cmd",
+                    icon: Path.Combine(config.GetStringValue(ConfigPropertyKeys.BenchBin), "bash.ico"));
             }
         }
 

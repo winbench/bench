@@ -248,7 +248,7 @@ namespace Mastersign.Bench.Dashboard
                 core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessCmd, true),
                 core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShell, false),
                 core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessPowerShellCore, false)
-                    && core.Config.Apps.ActiveApps.Any(app => app.ID == "Bench.PowerShellCore"),
+                    && core.Config.Apps[AppKeys.PowerShellCore]?.IsActive == true,
                 core.Config.GetBooleanValue(ConfigPropertyKeys.QuickAccessBash, false),
             };
             var x = buttons[0].Left;
