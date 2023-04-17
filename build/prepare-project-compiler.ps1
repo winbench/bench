@@ -9,7 +9,7 @@ param (
   $SourceDir = "..\src"
 )
 
-$thisDir = Split-Path $MyInvocation.MyCommand.Path -Parent
+$thisDir = $PSScriptRoot
 $sourceDir = Resolve-Path "$thisDir\$SourceDir"
 
 [string[]]$projects = $Projects
@@ -104,6 +104,27 @@ function prepareProject($name, $toolsVersion, $langVersion)
     $packagePath = "..\packages\Microsoft.Net.Compilers.${CompilerPackageVersion}\build\Microsoft.Net.Compilers.props"
     $import.SetAttribute("Project", $packagePath)
     $import.SetAttribute("Condition", "Exists('${packagePath}')")
+
+    [Xml.XmlElement]$ensureTarget = $null
+    foreach ($i in $p.SelectNodes("msb:Target", $nsMgr))
+    {
+        if ($i.GetAttribute("Name") -eq "EnsureNuGetPackageBuildImports") {
+            $ensureTarget = $i
+            break
+        }
+    }
+    if ($ensureTarget) {
+        [Xml.XmlElement]$targetError
+        foreach ($e in $ensureTarget.SelectNodes("msb:Error", $nsMgr)) {
+            if ($e.GetAttribute("Condition") -like "*Microsoft.Net.Compilers*") {
+                $targetError = $e
+                $targetError.SetAttribute("Condition", $($targetError.GetAttribute("Condition") `
+                    -replace '\\Microsoft\.Net\.Compilers\.[.\d]+\\',"\Microsoft.Net.Compilers.${CompilerPackageVersion}\"))
+                $targetError.SetAttribute("Text", $($targetError.GetAttribute("Text") `
+                    -replace '\\Microsoft\.Net\.Compilers\.[.\d]+\\',"\Microsoft.Net.Compilers.${CompilerPackageVersion}\"))
+            }
+        }
+    }
 
     echo "Setting language version in $name to $langVersion"
     foreach ($pt in $p.SelectNodes("msb:PropertyGroup/msb:PlatformTarget", $nsMgr))

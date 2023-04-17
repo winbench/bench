@@ -7,7 +7,7 @@ SetLocal
 :: https://winbench.org/guide/setup/
 ::
 
-SET VERSION=0.22.5
+SET VERSION=0.22.6
 SET TAG=v%VERSION%
 SET ROOT=%~dp0
 IF [%1] NEQ [] SET ROOT=%~dpnx1\
