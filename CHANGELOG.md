@@ -25,6 +25,9 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+### Changed
+* Hide or suppress launcher if `Launcher` app property is empty
+
 ## [0.22.5] - 2023-03-30
 
 [0.22.5]: https://github.com/winbench/bench/compare/v0.22.4...v0.22.5

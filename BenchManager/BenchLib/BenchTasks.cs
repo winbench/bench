@@ -1750,7 +1750,7 @@ namespace Mastersign.Bench
         private static void CreateLauncher(BenchConfiguration config, AppFacade app)
         {
             var label = app.Launcher;
-            if (label == null) return;
+            if (string.IsNullOrWhiteSpace(label)) return;
 
             var executable = app.LauncherExecutable;
             var args = CommandLine.FormatArgumentList(app.LauncherArguments);

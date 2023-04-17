@@ -52,7 +52,7 @@ namespace Mastersign.Bench.Dashboard
             icons32.Images.Clear();
             listView.Items.Clear();
             var items = from app in appIndex.ActiveApps
-                        where app.Launcher != null
+                        where !string.IsNullOrWhiteSpace(app.Launcher)
                         select AppItem(app);
             listView.Items.AddRange(items.ToArray());
             if (Visible) LoadIconImages();
