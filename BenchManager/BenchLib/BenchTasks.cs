@@ -3060,7 +3060,7 @@ namespace Mastersign.Bench
                 "bench_export_" + Path.ChangeExtension(Path.GetRandomFileName(), ".7z"));
 
             if (!ExportBenchEnvironmentArchive(man, notify, tmpArchive, paths)) return false;
-
+            // TODO make use of BenchSetup project
             var sfxPath = Path.Combine(Path.Combine(man.Config.BenchRootDir, "res"), "bench.sfx");
             try
             {
