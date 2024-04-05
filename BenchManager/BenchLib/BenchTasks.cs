@@ -2308,6 +2308,7 @@ namespace Mastersign.Bench
             }
             var argList = new List<string>();
             argList.Add("install");
+            argList.Add("--no-warn-script-location");
             if (app.IsInstalled) argList.Add("--upgrade");
             //argList.Add("--quiet");
             if (!app.IsManagedPackageFromRemoteRepo) // python wheel file
