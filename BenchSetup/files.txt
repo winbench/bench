@@ -3,4 +3,7 @@ App.config
 app.manifest
 AssemblyInfo.cs
 BenchSetup.ico
+Header.png
+Title.txt
+Info.txt
 Program.cs
