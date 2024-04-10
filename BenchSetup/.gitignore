@@ -4,5 +4,6 @@ bin
 *.suo
 *.user
 *.cache
+*.exe
 
 /packages

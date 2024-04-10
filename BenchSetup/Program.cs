@@ -1,22 +1,35 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Mastersign.Bench.Setup
 {
     internal static class Program
     {
-        static string targetDir = null;
-
         [STAThread]
         static void Main(string[] args)
         {
+            var section = ConfigurationManager.GetSection("System.Windows.Forms.ApplicationConfigurationSection") as NameValueCollection;
+            if (section != null)
+            {
+                section["DpiAwareness"] = "system";
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var form = CreateForm();
             Application.Run(form);
+        }
+
+        static string DefaultTargetDir
+        {
+            get { return Environment.GetEnvironmentVariable("SystemDrive") + @"\Bench"; }
         }
 
         static Stream GetResourceStream(string path)
@@ -29,7 +42,7 @@ namespace Mastersign.Bench.Setup
         static string GetResourceText(string path)
         {
             using (var s = GetResourceStream(path))
-            using (var r = new StreamReader(s, System.Text.Encoding.UTF8))
+            using (var r = new StreamReader(s, Encoding.UTF8))
             {
                 return r.ReadToEnd();
             }
@@ -40,6 +53,8 @@ namespace Mastersign.Bench.Setup
             var defaultFont = new Font("Segoe UI", 9f, FontStyle.Regular);
             var form = new Form
             {
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoScaleDimensions = new SizeF(6F, 13F),
                 Text = "Bench Setup",
                 Icon = new Icon(GetResourceStream("BenchSetup.ico")),
                 Width = 484,
@@ -52,20 +67,25 @@ namespace Mastersign.Bench.Setup
                 Padding = Padding.Empty,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
             };
+            form.SuspendLayout();
+
             var layout = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 Margin = Padding.Empty,
             };
+            layout.SuspendLayout();
+            layout.RowCount = 5;
             layout.RowStyles.Add(new RowStyle { SizeType = SizeType.AutoSize });
             layout.RowStyles.Add(new RowStyle { SizeType = SizeType.Percent, Height = 100 });
             layout.RowStyles.Add(new RowStyle { SizeType = SizeType.AutoSize });
             layout.RowStyles.Add(new RowStyle { SizeType = SizeType.AutoSize });
             layout.RowStyles.Add(new RowStyle { SizeType = SizeType.AutoSize });
+            layout.ColumnCount = 3;
             layout.ColumnStyles.Add(new ColumnStyle { SizeType = SizeType.AutoSize });
             layout.ColumnStyles.Add(new ColumnStyle { SizeType = SizeType.Percent, Width = 100 });
             layout.ColumnStyles.Add(new ColumnStyle { SizeType = SizeType.AutoSize });
-            
+
             var header = new TableLayoutPanel
             {
                 Height = 96,
@@ -94,12 +114,18 @@ namespace Mastersign.Bench.Setup
             var infoTextContainer = new TableLayoutPanel
             {
                 AutoScroll = true,
-                AutoScrollMargin = new Size(8, 8),
+                AutoScrollMargin = new Size(0, 0),
                 Dock = DockStyle.Fill,
                 Margin = Padding.Empty,
-                Padding = new Padding(8, 16, 8, 16),
+                Padding = new Padding(0),
                 Font = defaultFont,
+                BackColor = SystemColors.Window,
             };
+            infoTextContainer.SuspendLayout();
+            infoTextContainer.RowCount = 1;
+            infoTextContainer.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            infoTextContainer.ColumnCount = 1;
+            infoTextContainer.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             layout.Controls.Add(infoTextContainer);
             layout.SetRow(infoTextContainer, 1);
             layout.SetColumn(infoTextContainer, 0);
@@ -108,15 +134,20 @@ namespace Mastersign.Bench.Setup
             var infoText = new Label
             {
                 Text = GetResourceText("Info.txt"),
-                MaximumSize = new Size(form.ClientSize.Width - 32, int.MaxValue),
+                Dock = DockStyle.Left,
                 AutoSize = true,
+                Margin = new Padding(8, 8, 8, 0),
+                MaximumSize = new Size(form.ClientSize.Width - 32, int.MaxValue),
             };
             infoTextContainer.Controls.Add(infoText);
+            infoTextContainer.SetRow(infoText, 0);
+            infoTextContainer.SetColumn(infoText, 0);
 
+            var targetTopMargin = 8;
             var targetLabel = new Label
             {
                 Text = "Target Directory:",
-                Margin = new Padding(8, 6, 0, 0),
+                Margin = new Padding(8, 6 + targetTopMargin, 0, 0),
                 Padding = Padding.Empty,
                 AutoSize = true,
                 Font = defaultFont,
@@ -127,24 +158,19 @@ namespace Mastersign.Bench.Setup
 
             var targetTextBox = new TextBox
             {
-                Text = targetDir,
+                Text = DefaultTargetDir,
                 Font = defaultFont,
                 Dock = DockStyle.Fill,
-                Margin = new Padding(0, 1, 0, 0),
+                Margin = new Padding(0, 1 + targetTopMargin, 0, 0),
             };
             layout.Controls.Add(targetTextBox);
             layout.SetRow(targetTextBox, 2);
             layout.SetColumn(targetTextBox, 1);
 
-            targetTextBox.TextChanged += delegate
-            {
-                targetDir = targetTextBox.Text;
-            };
-
             var browseButton = new Button
             {
                 Text = "...",
-                Margin = new Padding(1, 0, 16, 0),
+                Margin = new Padding(1, 0 + targetTopMargin, 16, 0),
                 Padding = Padding.Empty,
                 Size = new Size(30, 25),
                 Font = defaultFont,
@@ -157,7 +183,7 @@ namespace Mastersign.Bench.Setup
             var startButton = new Button
             {
                 Text = "Extract",
-                Margin = new Padding(16),
+                Margin = new Padding(16, 8, 16, 16),
                 Padding = new Padding(6, 4, 6, 4),
                 Size = new Size(64, 32),
                 Font = defaultFont,
@@ -167,7 +193,8 @@ namespace Mastersign.Bench.Setup
             layout.SetRow(startButton, 3);
             layout.SetColumnSpan(startButton, 3);
 
-            form.SuspendLayout();
+            infoTextContainer.ResumeLayout();
+            layout.ResumeLayout();
             form.Controls.Add(layout);
             form.AcceptButton = startButton;
             form.ResumeLayout();
@@ -178,30 +205,48 @@ namespace Mastersign.Bench.Setup
                 infoText.MaximumSize = new Size(form.ClientSize.Width - 32, int.MaxValue);
             };
 
+            form.KeyPreview = true;
             form.KeyDown += (sender, ea) =>
             {
-                // TODO not working
                 if (ea.KeyCode == Keys.Escape) { form.Close(); }
+            };
+
+            browseButton.Click += delegate
+            {
+                var sysRootPath = Environment.GetEnvironmentVariable("SystemDrive") + "\\";
+                var dlg = new FolderBrowserDialog
+                {
+                    Description =
+                        "Choose the target directory for the Bench environment. " +
+                        "You probably have to create a new directory for that." + Environment.NewLine +
+                        "A good default location is: " + sysRootPath + "Bench",
+                    ShowNewFolderButton = true,
+                    RootFolder = Environment.SpecialFolder.MyComputer,
+                    SelectedPath = targetTextBox.Text,
+                };
+                if (dlg.ShowDialog(form) != DialogResult.OK) return;
+                targetTextBox.Text = dlg.SelectedPath;
+            };
+
+            startButton.Click += delegate
+            {
+                layout.Enabled = false;
+                try
+                {
+                    Setup(form, targetTextBox.Text);
+                }
+                finally
+                {
+                    layout.Enabled = true;
+                }
+                form.Close();
             };
 
             return form;
         }
 
-        static void Setup(Form mainForm, bool interactive, bool force)
+        static void Setup(Form mainForm, string targetDir, bool interactive = true, bool force = false)
         {
-            var sysRootPath = Environment.GetEnvironmentVariable("SystemDrive") + "\\";
-            var dlg = new FolderBrowserDialog
-            {
-                Description =
-                    "Choose the target directory for the Bench environment. " +
-                    "You probably have to create a new directory for that." + Environment.NewLine +
-                    "A good default location is: " + sysRootPath + "Bench",
-                ShowNewFolderButton = true,
-                RootFolder = Environment.SpecialFolder.MyComputer,
-                SelectedPath = sysRootPath,
-            };
-            if (dlg.ShowDialog(mainForm) != DialogResult.OK) return;
-            var targetDir = dlg.SelectedPath;
             var a = new ZipArchive(GetResourceStream("Bench.zip"));
             var collision = false;
             if (Directory.Exists(targetDir))
@@ -243,6 +288,7 @@ namespace Mastersign.Bench.Setup
                     foreach (var entry in a.Entries)
                     {
                         var filePath = Path.Combine(targetDir, entry.FullName);
+                        if (!File.Exists(filePath)) continue;
                         try
                         {
                             File.Delete(filePath);
@@ -289,7 +335,52 @@ namespace Mastersign.Bench.Setup
                 Environment.Exit(3);
             }
 
-            // TODO call environment setup auto\bin\bench.exe --verbose transfer install
+            var benchExe = Path.Combine(targetDir, "auto", "bin", "bench.exe");
+            if (!File.Exists(benchExe))
+            {
+                MessageBox.Show(mainForm,
+                    "Can not find Bench CLI in the extracted environment." + Environment.NewLine +
+                    Environment.NewLine +
+                    benchExe + Environment.NewLine +
+                    Environment.NewLine +
+                    "The transfer package is probably incomplete. Setup cancelled.",
+                    "Bench Setup",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Environment.Exit(4);
+            }
+
+            var commandline = GetResourceText("Commandline.txt").Trim();
+            var parts = commandline.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+            var exe = parts[0];
+            if (!Path.IsPathRooted(exe))
+            {
+                exe = Path.Combine(targetDir, exe);
+            }
+            var args = parts.Length > 1 ? parts[1] : string.Empty;
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    WorkingDirectory = targetDir,
+                    FileName = exe,
+                    Arguments = args,
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(mainForm,
+                    "Starting setup of the Bench environment failed." + Environment.NewLine +
+                    Environment.NewLine +
+                    ex.GetType().FullName + ":" + Environment.NewLine +
+                    ex.Message + Environment.NewLine +
+                    Environment.NewLine +
+                    "Setup cancelled.",
+                    "Bench Setup",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Environment.Exit(5);
+            }
         }
     }
 }

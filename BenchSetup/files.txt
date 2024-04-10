@@ -1,9 +1,9 @@
+files.txt
+
 BenchSetup.csproj
-App.config
 app.manifest
-AssemblyInfo.cs
 BenchSetup.ico
 Header.png
-Title.txt
-Info.txt
+Commandline.txt
+AssemblyInfo.cs
 Program.cs
