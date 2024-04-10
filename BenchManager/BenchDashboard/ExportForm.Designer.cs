@@ -34,6 +34,8 @@
             this.txtTarget = new System.Windows.Forms.TextBox();
             this.lblTarget = new System.Windows.Forms.Label();
             this.grpContentSelection = new System.Windows.Forms.GroupBox();
+            this.lblAppsHint = new System.Windows.Forms.Label();
+            this.lblCacheHint = new System.Windows.Forms.Label();
             this.chkApps = new System.Windows.Forms.CheckBox();
             this.chkCache = new System.Windows.Forms.CheckBox();
             this.chkRequiredApps = new System.Windows.Forms.CheckBox();
@@ -51,8 +53,6 @@
             this.panelFooter = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.lblCacheHint = new System.Windows.Forms.Label();
-            this.lblAppsHint = new System.Windows.Forms.Label();
             this.panelContent.SuspendLayout();
             this.grpContentSelection.SuspendLayout();
             this.panelHead.SuspendLayout();
@@ -102,7 +102,7 @@
             this.lblTarget.AutoSize = true;
             this.lblTarget.Location = new System.Drawing.Point(19, 67);
             this.lblTarget.Name = "lblTarget";
-            this.lblTarget.Size = new System.Drawing.Size(67, 13);
+            this.lblTarget.Size = new System.Drawing.Size(68, 13);
             this.lblTarget.TabIndex = 2;
             this.lblTarget.Text = "Target Path:";
             // 
@@ -126,6 +126,26 @@
             this.grpContentSelection.TabIndex = 5;
             this.grpContentSelection.TabStop = false;
             this.grpContentSelection.Text = "Include";
+            // 
+            // lblAppsHint
+            // 
+            this.lblAppsHint.AutoSize = true;
+            this.lblAppsHint.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblAppsHint.Location = new System.Drawing.Point(148, 187);
+            this.lblAppsHint.Name = "lblAppsHint";
+            this.lblAppsHint.Size = new System.Drawing.Size(376, 13);
+            this.lblAppsHint.TabIndex = 8;
+            this.lblAppsHint.Text = "Do not use this option for the *.exe format. It must be smaller then 2GB.";
+            // 
+            // lblCacheHint
+            // 
+            this.lblCacheHint.AutoSize = true;
+            this.lblCacheHint.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblCacheHint.Location = new System.Drawing.Point(193, 141);
+            this.lblCacheHint.Name = "lblCacheHint";
+            this.lblCacheHint.Size = new System.Drawing.Size(376, 13);
+            this.lblCacheHint.TabIndex = 8;
+            this.lblCacheHint.Text = "Do not use this option for the *.exe format. It must be smaller then 2GB.";
             // 
             // chkApps
             // 
@@ -212,7 +232,7 @@
             this.radClone.AutoSize = true;
             this.radClone.Location = new System.Drawing.Point(26, 34);
             this.radClone.Name = "radClone";
-            this.radClone.Size = new System.Drawing.Size(383, 17);
+            this.radClone.Size = new System.Drawing.Size(382, 17);
             this.radClone.TabIndex = 1;
             this.radClone.Text = "Clone the Bench environment to a different location in the file system\r\n";
             this.radClone.UseVisualStyleBackColor = true;
@@ -224,7 +244,7 @@
             this.radExport.Checked = true;
             this.radExport.Location = new System.Drawing.Point(26, 11);
             this.radExport.Name = "radExport";
-            this.radExport.Size = new System.Drawing.Size(386, 17);
+            this.radExport.Size = new System.Drawing.Size(385, 17);
             this.radExport.TabIndex = 0;
             this.radExport.TabStop = true;
             this.radExport.Text = "Export the Bench environment as compressed archive (*.zip, *.7z, *.exe)";
@@ -303,26 +323,6 @@
             this.btnOK.Text = "&OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.OkHandler);
-            // 
-            // lblCacheHint
-            // 
-            this.lblCacheHint.AutoSize = true;
-            this.lblCacheHint.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblCacheHint.Location = new System.Drawing.Point(193, 141);
-            this.lblCacheHint.Name = "lblCacheHint";
-            this.lblCacheHint.Size = new System.Drawing.Size(363, 13);
-            this.lblCacheHint.TabIndex = 8;
-            this.lblCacheHint.Text = "Do not use this option for SFX archives. Large *.exe files do not work.";
-            // 
-            // lblAppsHint
-            // 
-            this.lblAppsHint.AutoSize = true;
-            this.lblAppsHint.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblAppsHint.Location = new System.Drawing.Point(148, 187);
-            this.lblAppsHint.Name = "lblAppsHint";
-            this.lblAppsHint.Size = new System.Drawing.Size(363, 13);
-            this.lblAppsHint.TabIndex = 8;
-            this.lblAppsHint.Text = "Do not use this option for SFX archives. Large *.exe files do not work.";
             // 
             // ExportForm
             // 

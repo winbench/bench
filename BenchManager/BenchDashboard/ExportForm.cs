@@ -183,7 +183,7 @@ namespace Mastersign.Bench.Dashboard
                 OverwritePrompt = true,
                 CheckPathExists = true,
                 AddExtension = true,
-                Filter = "SFX Archive (*.exe)|*.exe|7-Zip Archive (*.7z)|*.7z|ZIP Archive (*.zip)|*.zip",
+                Filter = "Setup Program (*.exe)|*.exe|7-Zip Archive (*.7z)|*.7z|ZIP Archive (*.zip)|*.zip",
                 FilterIndex = 0,
                 ValidateNames = true,
                 FileName = txtTarget.Text,

@@ -3009,7 +3009,7 @@ namespace Mastersign.Bench
             }
             var sfxArchive = extension == ".exe";
             if (sfxArchive)
-                ExportBenchEnvironmentSfx(man, notify, targetFile, paths);
+                ExportBenchEnvironmentSetupProgram(man, notify, targetFile, paths);
             else
                 ExportBenchEnvironmentArchive(man, notify, targetFile, paths);
         }
@@ -3032,58 +3032,113 @@ namespace Mastersign.Bench
             }
         }
 
-        private static TextWriter WriteSfxConfig(BenchConfiguration cfg, Stream trg, bool withInfoText, bool userProfileChangeWarning)
+        private static void WriteSetupText(string targetDir, string title, bool preConfigured, bool userProfileChangeWarning)
         {
             var enc = new UTF8Encoding(false);
-            var w = new StreamWriter(trg, enc, 1024);
-            w.WriteLine(";!@Install@!UTF-8!");
-            if (withInfoText)
+            File.WriteAllText(Path.Combine(targetDir, "Title.txt"), title, enc);
+            using (var w = new StreamWriter(Path.Combine(targetDir, "Info.txt"), append: false, encoding: enc))
             {
-                w.WriteLine("Title=\"Bench Transfer Package\"");
-                w.Write("BeginPrompt=\"This is a pre - configured Bench environment. If you proceed, you will be asked for a target directory to extract and setup the Bench environment.\n\n");
-                if (userProfileChangeWarning)
+                if (preConfigured)
                 {
-                    w.Write("Warning: Because this bench environment is configured to register in the user profile, the environment variables and possibly some registry keys of your user profile will be modified during setup.\n\n");
+                    w.WriteLine("This is a pre-configured Bench environment.");
+                    w.WriteLine();
+                    if (userProfileChangeWarning)
+                    {
+                        w.WriteLine("Warning: Because this bench environment is configured to register in the user profile, the environment variables and possibly some registry keys of your user profile will be modified during setup.");
+                        w.WriteLine();
+                    }
+                    w.WriteLine("See https://winbench.org/ for more info.");
                 }
-                w.WriteLine("See https://winbench.org/ for more info.\n\nAre you sure you want to extract and setup this Bench environment?\"");
+                else
+                {
+                    w.WriteLine("This is the standard Bench setup package with the default environment.");
+                }
             }
-            w.WriteLine(@"RunProgram="".\\auto\\bin\\bench.exe --verbose transfer install""");
-            w.Write(";!@InstallEnd@!");
-            w.Flush();
-            return w;
         }
 
-        private static bool ExportBenchEnvironmentSfx(IBenchManager man, Action<TaskInfo> notify, string targetFile, string[] paths)
+        private static bool ExportBenchEnvironmentSetupProgram(IBenchManager man, Action<TaskInfo> notify, string targetFile, string[] paths)
         {
-            var tmpArchive = Path.Combine(
-                man.Config.GetStringValue(ConfigPropertyKeys.TempDir),
-                "bench_export_" + Path.ChangeExtension(Path.GetRandomFileName(), ".7z"));
+            var msbuild = Environment.ExpandEnvironmentVariables("%SystemRoot%\\Microsoft.NET\\Framework64\\v4.0.30319\\msbuild.exe");
+            if (!File.Exists(msbuild))
+            {
+                msbuild = Environment.ExpandEnvironmentVariables("%SystemRoot%\\Microsoft.NET\\Framework\\v4.0.30319\\msbuild.exe");
+            }
+            if (!File.Exists(msbuild))
+            {
+                notify(new TaskError("Can not find the MSBuild CLI as part of the .NET Framework 4"));
+                return false;
+            }
 
-            if (!ExportBenchEnvironmentArchive(man, notify, tmpArchive, paths)) return false;
-            // TODO make use of BenchSetup project
-            var sfxPath = Path.Combine(Path.Combine(man.Config.BenchRootDir, "res"), "bench.sfx");
+            var tmpDir = Path.Combine(
+                man.Config.GetStringValue(ConfigPropertyKeys.TempDir),
+                "bench_setup_" + Path.GetRandomFileName().Replace(".", ""));
+
+            Directory.CreateDirectory(tmpDir);
+            var cleanup = true;
+
             try
             {
-                using (var s = File.Open(targetFile, FileMode.Create, FileAccess.Write))
+                var setupProjectDir = Path.Combine(Path.Combine(man.Config.BenchRootDir, "res"), "setup");
+                var fileList = File.ReadAllLines(Path.Combine(setupProjectDir, "files.txt"));
+                foreach (var file in fileList)
                 {
-                    CopyFileToStream(sfxPath, s);
-                    var userConfigDir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir);
-                    var includeUserConfig = Seq(paths).Any(p => string.Equals(userConfigDir,
-                            Path.Combine(man.Config.BenchRootDir, p), StringComparison.InvariantCultureIgnoreCase));
-                    WriteSfxConfig(man.Config, s,
-                        withInfoText: includeUserConfig,
-                        userProfileChangeWarning: man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile));
-                    CopyFileToStream(tmpArchive, s);
+                    if (string.IsNullOrWhiteSpace(file)) continue;
+                    File.Copy(Path.Combine(setupProjectDir, file), Path.Combine(tmpDir, file));
                 }
-                File.Delete(tmpArchive);
+
+                var userConfigDir = man.Config.GetStringValue(ConfigPropertyKeys.UserConfigDir);
+                var includeUserConfig = Seq(paths).Any(p => string.Equals(userConfigDir,
+                        Path.Combine(man.Config.BenchRootDir, p), StringComparison.InvariantCultureIgnoreCase));
+
+                WriteSetupText(tmpDir, "Bench Setup",
+                    preConfigured: includeUserConfig,
+                    userProfileChangeWarning: man.Config.GetBooleanValue(ConfigPropertyKeys.RegisterInUserProfile));
+                var tmpArchive = Path.Combine(tmpDir, "Bench.zip");
+
+                if (!ExportBenchEnvironmentArchive(man, notify, tmpArchive, paths)) return false;
+
+                if (File.Exists(targetFile)) File.Delete(targetFile);
+
+                var execHost = man.ProcessExecutionHost;
+                var result = execHost.RunProcess(man.Env, tmpDir, msbuild,
+                    string.Join(" ",
+                        "-nologo",
+                        "-verbosity:normal",
+                        "-t:Clean;PrepareResources;Compile",
+                        "-p:Configuration=Release",
+                        "-fileLogger",
+                        "-fileLoggerParameters:logfile=build.log;verbosity=detailed",
+                        "BenchSetup.csproj"),
+                    ProcessMonitoring.ExitCode);
+                if (result.ExitCode != 0)
+                {
+                    notify(new TaskError("MSBuild exited with error. Exit status: " + result.ExitCode));
+                    return false;
+                }
+
+                var setupExe = Path.Combine(tmpDir, "obj", "Release", "BenchSetup.exe");
+                if (!File.Exists(setupExe))
+                {
+                    cleanup = false;
+                    notify(new TaskError("Compiling the transfer package failed."));
+                    return false;
+                }
+                File.Move(setupExe, targetFile);
             }
             catch (Exception e)
             {
-                notify(new TaskError(
-                    "Failed to export the Bench environment.",
+                notify(new TaskError("Failed to export the Bench environment.",
                     exception: e));
                 return false;
             }
+            finally
+            {
+                if (cleanup)
+                {
+                    Directory.Delete(tmpDir, true);
+                }
+            }
+
             return true;
         }
 
@@ -3110,7 +3165,6 @@ namespace Mastersign.Bench
                 ProcessMonitoring.ExitCode);
             if (result.ExitCode != 0)
             {
-
                 notify(new TaskError($"Creating export archive with 7zip failed with exit code {result.ExitCode}."));
                 return false;
             }
