@@ -25,6 +25,14 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.23.0] - 2024-04-12
+
+[0.23.0]: https://github.com/winbench/bench/compare/v0.22.6...v0.23.0
+
+### Changed
+* Replaced 7Zip SFX setup / transfer package with custom setup program
+* Setup program is now signed
+
 ## [0.22.6] - 2023-04-17
 
 [0.22.6]: https://github.com/winbench/bench/compare/v0.22.5...v0.22.6

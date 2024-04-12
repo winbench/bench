@@ -1,0 +1,1 @@
+auto\bin\bench.exe --verbose manage initialize

@@ -1,0 +1,3 @@
+This is the template info text with a reasonable length.
+
+It contains some sentences to represent a real info text, that has enough space to contain some important information for the user of the Bench environment.

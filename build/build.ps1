@@ -1,6 +1,7 @@
 param (
     $Mode = "Release",
     $MsBuildVerbosity = "minimal",
+    [switch]$NoSign,
     [switch]$NoRelease
 )
 
@@ -171,7 +172,7 @@ if ($buildError -ne 0)
 echo ""
 echo "Copying build artifacts to $rootDir\$buildTargetDir ..."
 if (Test-Path "$rootDir\$buildTargetDir") { del "$rootDir\$buildTargetDir" -Recurse -Force }
-$_ = mkdir "$rootDir\$buildTargetDir"
+mkdir "$rootDir\$buildTargetDir" | Out-Null
 foreach ($artifact in $buildArtifacts)
 {
     echo "  $artifact"
@@ -182,6 +183,11 @@ if ($Mode -eq "Debug") {
     cp "$rootDir\res\Invoke-AppSetupTest.ps1" "$rootDir\$buildTargetDir\tas.ps1"
     cp "$rootDir\res\Invoke-AppVersionCheck.ps1" "$rootDir\$buildTargetDir\cav.ps1"
 }
+
+# Update setup project
+echo ""
+echo "Updating setup project sources ..."
+& "$myDir\update-setup-sources.ps1"
 
 $today = [DateTime]::Now.ToString("yyyy-MM-dd")
 
@@ -223,24 +229,29 @@ if (!$NoRelease)
     if (Test-Path $zipFile) { del $zipFile }
     cp $taggedZipFile $zipFile
 
-    # Create SFX release
+    # Create Setup EXE release
     cd "$rootDir"
     $taggedName = "$releaseDir\${releaseFileName}Setup_$today"
-    $taggedSfxFile = "${taggedName}.exe"
+    $taggedSetupExeFile = "${taggedName}.exe"
     if ($suffix -gt 0)
     {
-        $taggedSfxFile = "${taggedName}_${suffix}.exe"
+        $taggedSetupExeFile = "${taggedName}_${suffix}.exe"
     }
-    .\auto\bin\bench.exe --verbose transfer export --include SystemOnly $taggedSfxFile
+    .\auto\bin\bench.exe --verbose transfer export --include SystemOnly $taggedSetupExeFile
     if ($?)
     {
-        $sfxFile = "$releaseDir\${releaseFileName}Setup.exe"
-        cp $taggedSfxFile $sfxFile -Force
+        if (!$NoSign) {
+            echo ""
+            echo "Signing setup program..."
+            & "$PSScriptRoot\sign.ps1" $taggedSetupExeFile
+        }
+        $setupExeFile = "$releaseDir\${releaseFileName}Setup.exe"
+        cp $taggedSetupExeFile $setupExeFile -Force
     }
 
     echo ""
     echo "Latest release: `"$zipFile`" ($([IO.Path]::GetFileName($taggedZipFile)))"
-    echo "Latest release: `"$sfxFile`" ($([IO.Path]::GetFileName($taggedSfxFile)))"
+    echo "Latest release: `"$setupExeFile`" ($([IO.Path]::GetFileName($taggedSetupExeFile)))"
 
     # Clean staging folder
     #del $stageDir -Recurse -Force
