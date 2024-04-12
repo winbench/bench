@@ -1,6 +1,7 @@
 param (
     $Mode = "Release",
     $MsBuildVerbosity = "minimal",
+    [switch]$NoSign,
     [switch]$NoRelease
 )
 
@@ -171,7 +172,7 @@ if ($buildError -ne 0)
 echo ""
 echo "Copying build artifacts to $rootDir\$buildTargetDir ..."
 if (Test-Path "$rootDir\$buildTargetDir") { del "$rootDir\$buildTargetDir" -Recurse -Force }
-$_ = mkdir "$rootDir\$buildTargetDir"
+mkdir "$rootDir\$buildTargetDir" | Out-Null
 foreach ($artifact in $buildArtifacts)
 {
     echo "  $artifact"
@@ -239,6 +240,11 @@ if (!$NoRelease)
     .\auto\bin\bench.exe --verbose transfer export --include SystemOnly $taggedSetupExeFile
     if ($?)
     {
+        if (!$NoSign) {
+            echo ""
+            echo "Signing setup program..."
+            & "$PSScriptRoot\sign.ps1" $taggedSetupExeFile
+        }
         $setupExeFile = "$releaseDir\${releaseFileName}Setup.exe"
         cp $taggedSetupExeFile $setupExeFile -Force
     }
