@@ -25,6 +25,13 @@ Add a link to the GitHub diff like
 
 [Unreleased]: https://github.com/winbench/bench/compare/master...dev
 
+## [0.23.1] - 2024-04-17
+
+[0.23.1]: https://github.com/winbench/bench/compare/v0.23.0...v0.23.1
+
+### Fixed
+* Failing property value resolution in some edge cases
+
 ## [0.23.0] - 2024-04-12
 
 [0.23.0]: https://github.com/winbench/bench/compare/v0.22.6...v0.23.0

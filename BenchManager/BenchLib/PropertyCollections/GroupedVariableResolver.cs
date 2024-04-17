@@ -22,7 +22,7 @@ namespace Mastersign.Bench.PropertyCollections
     /// </summary>
     public class GroupedVariableResolver : IValueResolver, IGroupedValueResolver
     {
-        private static readonly Regex DefaultGroupVariablePattern = new Regex("\\$(?<group>.*?):(?<name>.+?)\\$");
+        private static readonly Regex DefaultGroupVariablePattern = new Regex("\\$(?<group>[^:$]*?):(?<name>[^:$]+?)\\$");
 
         /// <summary>
         /// A regular expression, that detects variable references.
